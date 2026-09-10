@@ -15,7 +15,7 @@ export default function TestTypeSelector({
 }) {
   return (
     <div className="space-y-2">
-      <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
+      <div className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
         Выберите раздел экзамена
       </div>
 
@@ -30,20 +30,20 @@ export default function TestTypeSelector({
               <div
                 key={type.id}
                 aria-disabled="true"
-                className="p-3 rounded-2xl border border-slate-200/70 bg-slate-50/70 text-slate-400 select-none flex flex-col justify-between min-h-[44px] cursor-not-allowed opacity-75"
+                className="p-3 rounded-2xl border border-border-subtle bg-surface-inset text-content-muted select-none flex flex-col justify-between min-h-[44px] cursor-not-allowed opacity-75"
               >
                 <div className="flex items-center justify-between w-full">
-                  <div className="p-2 rounded-xl bg-slate-100 text-slate-400">
+                  <div className="p-2 rounded-xl bg-surface-card text-content-muted">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-500">
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-card text-content-tertiary">
                     Скоро
                   </span>
                 </div>
 
                 <div className="mt-2">
-                  <div className="text-sm font-bold text-slate-500">{type.title}</div>
-                  <div className="text-xs text-slate-400">{type.titleRu}</div>
+                  <div className="text-sm font-bold text-content-tertiary">{type.title}</div>
+                  <div className="text-xs text-content-muted">{type.titleRu}</div>
                 </div>
               </div>
             );
@@ -56,16 +56,16 @@ export default function TestTypeSelector({
               onClick={() => onSelectType(type.id)}
               className={`p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
                 isActive
-                  ? 'border-telc-600 bg-telc-50/70 text-slate-900 shadow-sm ring-2 ring-telc-500/20'
-                  : 'border-slate-200 bg-white hover:border-slate-300 text-slate-700 hover:bg-slate-50'
+                  ? 'border-telc-600 bg-telc-50/70 dark:bg-telc-950/60 text-content-primary shadow-sm ring-2 ring-telc-500/20'
+                  : 'border-border-default bg-surface-card hover:border-slate-300 text-content-secondary hover:bg-slate-50 dark:hover:bg-slate-700/60'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <div className={`p-2 rounded-xl ${isActive ? 'bg-telc-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                <div className={`p-2 rounded-xl ${isActive ? 'bg-telc-600 text-white' : 'bg-surface-inset text-content-secondary'}`}>
                   <Icon className="w-4 h-4" />
                 </div>
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                  isActive ? 'bg-telc-100 text-telc-800' : 'bg-slate-100 text-slate-600'
+                  isActive ? 'bg-telc-100 dark:bg-telc-950 text-telc-800 dark:text-telc-200' : 'bg-surface-inset text-content-tertiary'
                 }`}>
                   10 вариантов
                 </span>
@@ -73,7 +73,7 @@ export default function TestTypeSelector({
 
               <div className="mt-2">
                 <div className="text-sm font-extrabold">{type.title}</div>
-                <div className="text-xs text-slate-500">{type.titleRu}</div>
+                <div className="text-xs text-content-tertiary">{type.titleRu}</div>
               </div>
             </button>
           );

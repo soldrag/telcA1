@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,34 +8,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        /* ── Semantic Palette (role-based, not hue-based) ── */
+        /* ── Semantic Palette (CSS Variable backed for Theme support) ── */
 
         // Backgrounds
-        canvas:             '#f1f5f9',   // slate-100 — full page bg
-        'bg-canvas':        '#f1f5f9',   // slate-100 — full page bg (alias)
-        'surface-card':     '#ffffff',   // white — card/panel bg
-        'surface-raised':   '#f8fafc',   // slate-50 — subtle raised bg
-        'surface-inset':    '#f1f5f9',   // slate-100 — inset/muted bg
+        canvas:             'var(--bg-canvas, #f1f5f9)',
+        'bg-canvas':        'var(--bg-canvas, #f1f5f9)',
+        'surface-card':     'var(--surface-card, #ffffff)',
+        'surface-raised':   'var(--surface-raised, #f8fafc)',
+        'surface-inset':    'var(--surface-inset, #f1f5f9)',
 
         // Primary action (telc blue)
         'action-primary':        '#0369a1',  // telc-600
         'action-primary-hover':  '#075985',  // telc-700
         'action-primary-active': '#0c4a6e',  // telc-800
-        'action-primary-subtle': '#f0f5fa',  // telc-50
-        'action-primary-muted':  '#e1ebf5',  // telc-100
-        'action-primary-border': '#c3d7eb',  // telc-200
+        'action-primary-subtle': 'var(--action-primary-subtle, #f0f5fa)',
+        'action-primary-muted':  'var(--action-primary-muted, #e1ebf5)',
+        'action-primary-border': 'var(--action-primary-border, #c3d7eb)',
 
         // Content / text
-        'content-primary':    '#020617',  // slate-950
-        'content-secondary':  '#334155',  // slate-700
-        'content-tertiary':   '#64748b',  // slate-500
-        'content-muted':      '#94a3b8',  // slate-400
-        'content-on-primary': '#ffffff',  // white on primary bg
+        'content-primary':    'var(--content-primary, #020617)',
+        'content-secondary':  'var(--content-secondary, #334155)',
+        'content-tertiary':   'var(--content-tertiary, #64748b)',
+        'content-muted':      'var(--content-muted, #94a3b8)',
+        'content-on-primary': '#ffffff',
 
         // Borders
-        'border-default':  '#cbd5e1',  // slate-300
-        'border-subtle':   '#e2e8f0',  // slate-200
-        'border-strong':   '#0f172a',  // slate-900
+        'border-default':  'var(--border-default, #cbd5e1)',
+        'border-subtle':   'var(--border-subtle, #e2e8f0)',
+        'border-strong':   'var(--border-strong, #0f172a)',
 
         // State: success
         'state-success':         '#059669',  // emerald-600

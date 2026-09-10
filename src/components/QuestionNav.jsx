@@ -18,7 +18,7 @@ export default function QuestionNav({
   ];
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-slate-300 p-3 sm:p-4 shadow-sm space-y-4">
+    <div className="bg-surface-card rounded-2xl border-2 border-border-default p-3 sm:p-4 shadow-sm space-y-4">
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {teilGroups.map((group) => {
           const Icon = group.icon;
@@ -34,16 +34,16 @@ export default function QuestionNav({
               aria-current={isSelected ? 'step' : undefined}
               className={`flex flex-col items-center justify-center p-3 rounded-xl text-center transition-all border-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-w-[44px] min-h-[44px] ${
                 isSelected
-                  ? 'bg-telc-50 border-telc-600 text-telc-950 shadow-sm'
-                  : 'bg-white hover:bg-slate-50 border-slate-300 hover:border-slate-400 text-slate-800'
+                  ? 'bg-telc-50 dark:bg-telc-950/80 border-telc-600 text-telc-950 dark:text-telc-100 shadow-sm'
+                  : 'bg-surface-card hover:bg-slate-50 dark:hover:bg-slate-700/60 border-border-default text-content-primary'
               }`}
             >
               <div className="flex items-center space-x-2 mb-0.5">
-                <Icon className={`w-4 h-4 ${isSelected ? 'text-telc-700 stroke-[2.5]' : 'text-slate-600'}`} />
+                <Icon className={`w-4 h-4 ${isSelected ? 'text-telc-700 dark:text-telc-400 stroke-[2.5]' : 'text-content-tertiary'}`} />
                 <span className="text-xs sm:text-sm font-extrabold leading-tight">{group.label}</span>
               </div>
-              <span className="text-xs text-slate-600 font-semibold">{group.sublabel}</span>
-              <span className="text-xs text-slate-500 font-medium mt-1">
+              <span className="text-xs text-content-tertiary font-semibold">{group.sublabel}</span>
+              <span className="text-xs text-content-muted font-medium mt-1">
                 {answeredInTeil} из {totalInTeil}
               </span>
             </button>
@@ -56,7 +56,7 @@ export default function QuestionNav({
           const isAnswered = Boolean(answers[question.id]);
           const isCurrent = activeQuestionIndex === questionIndex;
 
-          let badgeClass = 'bg-white text-slate-900 border-2 border-slate-300 hover:border-slate-500 font-bold';
+          let badgeClass = 'bg-surface-card text-content-primary border-2 border-border-default hover:border-slate-500 font-bold';
           if (results) {
             const item = results.reviewItems?.find(reviewItem => reviewItem.id === question.id);
             if (item?.is_correct) {

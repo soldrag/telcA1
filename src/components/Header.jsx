@@ -4,11 +4,13 @@ import { Badge } from './ui/Badge.jsx';
 import ExamHeaderActions from './header/ExamHeaderActions.jsx';
 import ResultsHeaderActions from './header/ResultsHeaderActions.jsx';
 import DefaultHeaderActions from './header/DefaultHeaderActions.jsx';
+import ThemeToggle from './header/ThemeToggle.jsx';
 
 export default function Header({
   navigation = {},
   stats = {},
   user = {},
+  themeControl = {},
 }) {
   const { screen, onNavigateHome, onOpenHistory, onResetExam, onSubmitExam } = navigation;
   const {
@@ -18,6 +20,7 @@ export default function Header({
     activeModulePoints = 15,
   } = stats;
   const userShortId = user.userShortId;
+  const { theme, toggleTheme, isDark } = themeControl;
 
   const handleKeyDown = (keyboardEvent) => {
     if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
@@ -27,10 +30,7 @@ export default function Header({
   };
 
   return (
-    <header
-      className="app-header bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-50 shadow-xs"
-      style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}
-    >
+    <header className="app-header border-b border-slate-200/90 dark:border-slate-800 sticky top-0 z-50 shadow-xs transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         <div 
           className="flex items-center space-x-3 cursor-pointer group select-none flex-shrink-0" 
@@ -47,17 +47,25 @@ export default function Header({
               <Badge variant="default" className="text-[11px] py-0 px-2 uppercase tracking-wide">
                 telc A1 / Start Deutsch 1
               </Badge>
-              <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 hidden sm:inline">
                 {activeModuleTitle} ({activeModulePoints} Punkte)
               </span>
             </div>
-            <h1 className="text-base sm:text-lg font-extrabold text-slate-900 leading-tight">
+            <h1 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100 leading-tight">
               Prüfungssimulator
             </h1>
           </div>
         </div>
 
         <div className="flex items-center space-x-2 sm:space-x-2.5">
+          {themeControl && (
+            <ThemeToggle
+              theme={theme}
+              toggleTheme={toggleTheme}
+              isDark={isDark}
+            />
+          )}
+
           {screen === 'exam' && (
             <ExamHeaderActions
               onNavigateHome={onNavigateHome}
@@ -83,8 +91,8 @@ export default function Header({
           )}
 
           {userShortId && (
-            <div className="hidden lg:flex items-center space-x-1 px-3 py-1 text-xs font-mono text-slate-600 bg-slate-50 border border-slate-200 rounded-lg">
-              <User className="w-3.5 h-3.5 text-slate-400" />
+            <div className="hidden lg:flex items-center space-x-1 px-3 py-1 text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+              <User className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
               <span>{userShortId}</span>
             </div>
           )}
@@ -93,3 +101,4 @@ export default function Header({
     </header>
   );
 }
+

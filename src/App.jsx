@@ -4,16 +4,18 @@ import AppScreens from './components/AppScreens.jsx';
 import AppModals from './components/modals/AppModals.jsx';
 import AppErrorBanner from './components/AppErrorBanner.jsx';
 import { useAppController } from './hooks/useAppController.js';
+import { useTheme } from './hooks/useTheme.js';
 import { buildHeaderConfig, buildScreenProps } from './utils/appPropsBuilder.js';
 
 export default function App() {
   const controller = useAppController();
+  const themeControl = useTheme();
   const headerConfig = buildHeaderConfig(controller);
   const screenProps = buildScreenProps(controller);
 
   return (
-    <div className="min-h-screen flex flex-col bg-bg-canvas font-sans">
-      <Header {...headerConfig} />
+    <div className="min-h-screen flex flex-col bg-bg-canvas font-sans transition-colors duration-200">
+      <Header {...headerConfig} themeControl={themeControl} />
 
       <AppErrorBanner
         message={controller.errorMessage}

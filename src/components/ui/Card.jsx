@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils.js';
 export function Card({ className = '', children, ...props }) {
   return (
     <div
-      className={cn('bg-white rounded-2xl border border-slate-200/90 shadow-xs transition-shadow', className)}
+      className={cn('bg-surface-card rounded-2xl border border-border-subtle shadow-xs transition-shadow', className)}
       {...props}
     >
       {children}
@@ -22,7 +22,7 @@ export function CardHeader({ className = '', children, ...props }) {
 
 export function CardTitle({ className = '', children, ...props }) {
   return (
-    <h3 className={cn('text-lg font-extrabold text-slate-900 leading-tight', className)} {...props}>
+    <h3 className={cn('text-lg font-extrabold text-content-primary leading-tight', className)} {...props}>
       {children}
     </h3>
   );
@@ -30,7 +30,7 @@ export function CardTitle({ className = '', children, ...props }) {
 
 export function CardDescription({ className = '', children, ...props }) {
   return (
-    <p className={cn('text-xs sm:text-sm text-slate-500 leading-relaxed', className)} {...props}>
+    <p className={cn('text-xs sm:text-sm text-content-tertiary leading-relaxed', className)} {...props}>
       {children}
     </p>
   );

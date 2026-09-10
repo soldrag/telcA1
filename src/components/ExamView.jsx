@@ -59,19 +59,19 @@ export default function ExamView({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white px-4 py-3 rounded-2xl border-2 border-slate-300 shadow-sm text-sm">
-        <div className="flex items-center space-x-2 text-slate-850">
-          <span className="font-extrabold text-slate-900">Прогресс теста:</span>
-          <span className="font-mono font-black text-telc-900 bg-telc-100 px-3 py-1 rounded-lg border border-telc-300">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card px-4 py-3 rounded-2xl border-2 border-border-default shadow-sm text-sm">
+        <div className="flex items-center space-x-2 text-content-secondary">
+          <span className="font-extrabold text-content-primary">Прогресс теста:</span>
+          <span className="font-mono font-black text-telc-900 dark:text-telc-200 bg-telc-100 dark:bg-telc-950/80 px-3 py-1 rounded-lg border border-telc-300 dark:border-telc-800">
             {answeredCount} из {totalQuestions} отвечено
           </span>
         </div>
         <button
           type="button"
           onClick={() => setShowAntwortbogen(!showAntwortbogen)}
-          className="flex items-center space-x-2 font-bold text-telc-800 hover:text-telc-900 bg-white hover:bg-slate-50 px-4 py-2 rounded-xl border-2 border-slate-300 hover:border-slate-400 shadow-xs transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+          className="flex items-center space-x-2 font-bold text-telc-800 dark:text-telc-300 hover:text-telc-900 dark:hover:text-telc-100 bg-surface-card hover:bg-slate-50 dark:hover:bg-slate-700/60 px-4 py-2 rounded-xl border-2 border-border-default hover:border-slate-400 shadow-xs transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
         >
-          <FileSpreadsheet className="w-4 h-4 text-telc-700 stroke-[2.5]" />
+          <FileSpreadsheet className="w-4 h-4 text-telc-700 dark:text-telc-400 stroke-[2.5]" />
           <span>{showAntwortbogen ? 'Скрыть бланк' : 'Показать бланк (Antwortbogen)'}</span>
         </button>
       </div>

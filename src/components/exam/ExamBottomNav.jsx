@@ -10,17 +10,17 @@ export default function ExamBottomNav({
   onSubmit = actions.onSubmit,
 }) {
   return (
-    <div className="bg-white rounded-2xl border-2 border-slate-300 p-4 sm:p-5 flex items-center justify-between shadow-sm">
+    <div className="bg-surface-card rounded-2xl border-2 border-border-default p-4 sm:p-5 flex items-center justify-between shadow-sm">
       <button
         type="button"
         disabled={activeTeil === 1}
         onClick={onPreviousTeil}
-        className="px-6 py-3 text-sm font-black text-slate-800 bg-white hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed rounded-xl border-2 border-slate-300 transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+        className="px-6 py-3 text-sm font-black text-content-primary bg-surface-card hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-30 disabled:cursor-not-allowed rounded-xl border-2 border-border-default transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
       >
         ← Предыдущая часть
       </button>
 
-      <div className="text-sm font-black text-slate-800 bg-slate-100 px-4 py-2 rounded-lg border border-slate-200 hidden sm:block">
+      <div className="text-sm font-black text-content-primary bg-surface-inset px-4 py-2 rounded-lg border border-border-subtle hidden sm:block">
         Часть {activeTeil} из {maxTeile}
       </div>
 

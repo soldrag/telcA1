@@ -2,10 +2,10 @@ import React from 'react';
 
 function getChoicePillClass(isSelected, review) {
   if (!isSelected) {
-    return 'bg-white text-slate-400 border-slate-300';
+    return 'bg-surface-card text-content-muted border-border-default';
   }
   if (!review) {
-    return 'bg-slate-900 text-white border-slate-900 shadow-xs';
+    return 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 border-slate-900 dark:border-slate-100 shadow-xs';
   }
   if (review.is_correct) {
     return 'bg-emerald-600 text-white border-emerald-700 shadow-xs';
@@ -28,10 +28,10 @@ export default function AntwortbogenColumn({
   labels = config.labels || ['+', '-'],
 }) {
   return (
-    <div className="border border-slate-200 rounded-xl p-3 bg-slate-50">
-      <div className="text-xs font-bold text-slate-800 border-b border-slate-200 pb-1.5 mb-2 flex justify-between">
+    <div className="border border-border-subtle rounded-xl p-3 bg-surface-inset">
+      <div className="text-xs font-bold text-content-primary border-b border-border-subtle pb-1.5 mb-2 flex justify-between">
         <span>{title}</span>
-        <span className="text-xs text-slate-500 font-mono">{subtitle}</span>
+        <span className="text-xs text-content-tertiary font-mono">{subtitle}</span>
       </div>
 
       <div className="space-y-1.5">
@@ -44,9 +44,9 @@ export default function AntwortbogenColumn({
               key={question.id}
               type="button"
               onClick={() => onSelectQuestion?.(question.question_number - 1, question.id)}
-              className="flex items-center justify-between w-full py-1 px-2 rounded hover:bg-white transition-colors cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-w-[44px] min-h-[44px]"
+              className="flex items-center justify-between w-full py-1 px-2 rounded hover:bg-surface-card transition-colors cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-w-[44px] min-h-[44px]"
             >
-              <span className="font-mono font-bold text-slate-700 w-5 text-left">
+              <span className="font-mono font-bold text-content-secondary w-5 text-left">
                 {question.question_number}.
               </span>
               <div className="flex space-x-2">
