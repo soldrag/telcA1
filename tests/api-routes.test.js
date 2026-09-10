@@ -64,7 +64,7 @@ describe('Server Route Handlers (Offline Unit Test)', () => {
     assert.equal(res.statusCode, 200);
     assert.ok(res.body.testTypes.length >= 4);
     assert.equal(res.body.testTypes.find(t => t.id === 'lesen').status, 'active');
-    assert.equal(res.body.testTypes.find(t => t.id === 'schreiben').status, 'active');
+    assert.equal(res.body.testTypes.find(t => t.id === 'schreiben').status, 'upcoming');
   });
 
   it('GET /api/exams/next-random handler picks least attempted exam', () => {
