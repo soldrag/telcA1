@@ -23,6 +23,31 @@ export default function TestTypeSelector({
         {testTypes.map((type) => {
           const Icon = TYPE_ICONS[type.id] || BookOpen;
           const isActive = activeTypeId === type.id;
+          const isAvailable = (type.status === 'active' || type.id === 'lesen') && type.status !== 'upcoming';
+
+          if (!isAvailable) {
+            return (
+              <div
+                key={type.id}
+                aria-disabled="true"
+                className="p-3 rounded-2xl border border-slate-200/70 bg-slate-50/70 text-slate-400 select-none flex flex-col justify-between min-h-[44px] cursor-not-allowed opacity-75"
+              >
+                <div className="flex items-center justify-between w-full">
+                  <div className="p-2 rounded-xl bg-slate-100 text-slate-400">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-500">
+                    Скоро
+                  </span>
+                </div>
+
+                <div className="mt-2">
+                  <div className="text-sm font-bold text-slate-500">{type.title}</div>
+                  <div className="text-xs text-slate-400">{type.titleRu}</div>
+                </div>
+              </div>
+            );
+          }
 
           return (
             <button
@@ -42,7 +67,7 @@ export default function TestTypeSelector({
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                   isActive ? 'bg-telc-100 text-telc-800' : 'bg-slate-100 text-slate-600'
                 }`}>
-                  {type.id === 'lesen' ? '10 вариантов' : 'Доступно'}
+                  10 вариантов
                 </span>
               </div>
 
