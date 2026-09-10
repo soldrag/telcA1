@@ -1,0 +1,17 @@
+services:
+  telc-a1-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: telc-a1-app
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+    volumes:
+      - telc_data:/app/data
+
+volumes:
+  telc_data:
