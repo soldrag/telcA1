@@ -21,21 +21,21 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
     <Card className="p-4 shadow-xs">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className={`p-2.5 rounded-xl ${isCritical ? 'bg-amber-100 text-amber-700 animate-pulse' : 'bg-slate-100 text-slate-700'}`}>
+          <div className={`p-2.5 rounded-xl ${isCritical ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 animate-pulse' : 'bg-surface-inset text-content-secondary'}`}>
             <Timer className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-semibold">
+            <div className="text-xs text-content-tertiary font-semibold">
               Время на чтение (25:00)
             </div>
             <div className="flex items-baseline space-x-2">
               <span className={`text-2xl sm:text-3xl font-black tracking-tight font-mono-num ${
-                isCritical ? 'text-rose-600' : 'text-slate-900'
+                isCritical ? 'text-rose-600 dark:text-rose-400' : 'text-content-primary'
               }`}>
                 {formattedTime}
               </span>
               {isCritical && secondsLeft > 0 && !isSubmitted && (
-                <span className="text-xs font-bold text-rose-600 animate-pulse">
+                <span className="text-xs font-bold text-rose-600 dark:text-rose-400 animate-pulse">
                   Осталось мало времени!
                 </span>
               )}
@@ -66,7 +66,7 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
       </div>
 
       {isPaused && !isSubmitted && (
-        <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 font-medium">
+        <div className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 rounded-xl text-xs text-amber-800 dark:text-amber-200 font-medium">
           Экзамен на паузе. Нажмите «Продолжить», чтобы вернуть отсчёт времени.
         </div>
       )}
@@ -81,20 +81,20 @@ function UntimedPracticeCard({ secondsElapsed }) {
     <Card className="p-4 shadow-xs">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="p-2.5 rounded-xl bg-sky-100 text-sky-700">
+          <div className="p-2.5 rounded-xl bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300">
             <Compass className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-semibold">
+            <div className="text-xs text-content-tertiary font-semibold">
               Режим тренировки (без ограничения)
             </div>
-            <div className="text-xl sm:text-2xl font-black text-slate-800 font-mono-num">
+            <div className="text-xl sm:text-2xl font-black text-content-primary font-mono-num">
               {formattedElapsed}
             </div>
           </div>
         </div>
 
-        <Badge variant="outline" className="text-sky-700 bg-sky-50 border-sky-200">
+        <Badge variant="outline" className="text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border-sky-200 dark:border-sky-800">
           Без таймера
         </Badge>
       </div>

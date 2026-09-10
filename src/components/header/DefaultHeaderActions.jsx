@@ -23,9 +23,9 @@ export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHis
       size="sm"
       onClick={onOpenHistory}
       title="История ваших прохождений"
-      className="text-xs sm:text-sm font-bold border border-slate-200/80"
+      className="text-xs sm:text-sm font-bold border border-border-default"
     >
-      <History className="w-4 h-4 mr-1.5 text-telc-700" />
+      <History className="w-4 h-4 mr-1.5 text-telc-600 dark:text-telc-400" />
       <span>История</span>
     </Button>
   );

@@ -5,9 +5,9 @@ const buttonVariants = {
   variant: {
     default: 'bg-telc-600 text-white hover:bg-telc-700 shadow-sm shadow-telc-600/30',
     primary: 'bg-telc-700 text-white hover:bg-telc-800 shadow-sm',
-    secondary: 'bg-surface-inset text-content-secondary hover:bg-slate-200 hover:text-content-primary',
-    outline: 'border border-border-default bg-white text-content-secondary hover:bg-slate-50 hover:border-slate-400',
-    ghost: 'hover:bg-slate-100 text-content-secondary hover:text-content-primary',
+    secondary: 'bg-surface-inset text-content-secondary hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-content-primary',
+    outline: 'border border-border-default bg-surface-card text-content-secondary hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400',
+    ghost: 'hover:bg-slate-100 dark:hover:bg-slate-800 text-content-secondary hover:text-content-primary',
     destructive: 'bg-state-error text-white hover:bg-state-error-hover shadow-sm',
     success: 'bg-state-success text-white hover:bg-state-success-hover shadow-sm shadow-state-success/30',
   },

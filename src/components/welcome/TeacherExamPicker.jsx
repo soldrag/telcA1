@@ -34,10 +34,10 @@ export default function TeacherExamPicker({
   };
 
   return (
-    <div className="bg-slate-50/80 rounded-2xl border border-slate-200/80 p-4 sm:p-5 space-y-3">
-      <div className="flex items-center space-x-2 text-slate-700">
-        <GraduationCap className="w-4 h-4 text-telc-600" />
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-600">
+    <div className="bg-surface-inset rounded-2xl border border-border-default p-4 sm:p-5 space-y-3">
+      <div className="flex items-center space-x-2 text-content-secondary">
+        <GraduationCap className="w-4 h-4 text-telc-600 dark:text-telc-400" />
+        <span className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
           Режим преподавателя: быстрый выбор варианта
         </span>
       </div>
@@ -47,15 +47,15 @@ export default function TeacherExamPicker({
           <select
             value={selectedId}
             onChange={handleVariantChange}
-            className="w-full appearance-none bg-white border border-slate-300 hover:border-slate-400 focus:border-telc-500 focus:ring-2 focus:ring-telc-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-slate-800 pr-9 transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="w-full appearance-none bg-surface-card border border-border-default hover:border-slate-400 focus:border-telc-500 focus:ring-2 focus:ring-telc-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-content-primary pr-9 transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
             {sortedExams.map((exam) => (
-              <option key={exam.id} value={exam.id}>
+              <option key={exam.id} value={exam.id} className="bg-surface-card text-content-primary">
                 {formatExamName(exam.id)}
               </option>
             ))}
           </select>
-          <ChevronDown aria-hidden="true" className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <ChevronDown aria-hidden="true" className="w-4 h-4 text-content-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
 
         <button

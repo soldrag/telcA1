@@ -14,23 +14,23 @@ export default function Antwortbogen({
   const teil3Questions = questions.filter((question) => question.teil === 3);
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-slate-300 p-4 sm:p-6 shadow-md">
-      <div className="flex items-center justify-between border-b-2 border-slate-900 pb-3 mb-4">
+    <div className="bg-surface-card rounded-2xl border-2 border-border-default p-4 sm:p-6 shadow-md">
+      <div className="flex items-center justify-between border-b-2 border-slate-900 dark:border-slate-200 pb-3 mb-4">
         <div>
-          <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
+          <div className="text-xs font-bold uppercase tracking-widest text-content-tertiary">
             Offizieller Prüfungsvordruck
           </div>
-          <h3 className="text-sm sm:text-base font-extrabold text-slate-900 uppercase tracking-tight">
+          <h3 className="text-sm sm:text-base font-extrabold text-content-primary uppercase tracking-tight">
             Antwortbogen S10 — Teil Lesen
           </h3>
         </div>
-        <div className="flex items-center space-x-2 text-xs font-mono font-bold bg-slate-100 px-3 py-1 rounded border border-slate-300">
-          <FileSpreadsheet className="w-4 h-4 text-slate-700" />
-          <span>S10-LESEN</span>
+        <div className="flex items-center space-x-2 text-xs font-mono font-bold bg-surface-inset px-3 py-1 rounded border border-border-default">
+          <FileSpreadsheet className="w-4 h-4 text-content-secondary" />
+          <span className="text-content-primary">S10-LESEN</span>
         </div>
       </div>
 
-      <p className="text-xs text-slate-600 mb-4">
+      <p className="text-xs text-content-secondary mb-4">
         Здесь отображаются ваши заполненные ответы в формате официального экзаменационного бланка:
       </p>
 
