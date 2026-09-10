@@ -1,43 +1,39 @@
 import { Router } from 'express';
 import { extractUserId } from '../services/user-context.js';
+import { AttemptRepository } from '../repositories/attempt.repository.js';
 
-export function createAttemptsRouter(db) {
+export function createAttemptsRouter(databaseOrRepository) {
   const router = Router();
+  const attemptRepository = databaseOrRepository instanceof AttemptRepository
+    ? databaseOrRepository
+    : new AttemptRepository(databaseOrRepository);
 
   router.get('/', (req, res) => {
     try {
       const userId = extractUserId(req);
-      const attempts = db.prepare(`
-        SELECT a.id, a.exam_id, a.user_id, a.score, a.total_questions, a.percentage, 
-               a.passed, a.time_spent_seconds, a.created_at, e.title as exam_title
-        FROM attempts a
-        JOIN exams e ON a.exam_id = e.id
-        WHERE a.user_id = ?
-        ORDER BY a.created_at DESC
-        LIMIT 50
-      `).all(userId);
-
+      const attempts = attemptRepository.findUserAttempts(userId, 50);
       res.json({ attempts, userId });
-    } catch (err) {
-      console.error('Error fetching attempts:', err);
+    } catch (error) {
+      console.error('[AttemptsRouter Error] Failed to fetch attempts:', error);
       res.status(500).json({ error: 'Failed to fetch attempts' });
     }
   });
 
   router.get('/:id', (req, res) => {
     try {
-      const attempt = db.prepare('SELECT * FROM attempts WHERE id = ?').get(req.params.id);
+      const attemptId = req.params.id;
+      if (!attemptId || typeof attemptId !== 'string' || attemptId.trim().length === 0) {
+        return res.status(400).json({ error: 'Valid attempt ID is required' });
+      }
+
+      const attempt = attemptRepository.findAttemptById(attemptId);
       if (!attempt) {
         return res.status(404).json({ error: 'Attempt not found' });
       }
 
-      res.json({
-        ...attempt,
-        results: JSON.parse(attempt.results_json),
-        answers: JSON.parse(attempt.answers_json)
-      });
-    } catch (err) {
-      console.error('Error fetching attempt detail:', err);
+      res.json(attempt);
+    } catch (error) {
+      console.error('[AttemptsRouter Error] Failed to fetch attempt detail:', error);
       res.status(500).json({ error: 'Failed to fetch attempt detail' });
     }
   });

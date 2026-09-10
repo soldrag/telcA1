@@ -1,14 +1,31 @@
 import React from 'react';
 
+function getChoicePillClass(isSelected, review) {
+  if (!isSelected) {
+    return 'bg-white text-slate-400 border-slate-300';
+  }
+  if (!review) {
+    return 'bg-slate-900 text-white border-slate-900 shadow-xs';
+  }
+  if (review.is_correct) {
+    return 'bg-emerald-600 text-white border-emerald-700 shadow-xs';
+  }
+  return 'bg-rose-600 text-white border-rose-700 shadow-xs';
+}
+
 export default function AntwortbogenColumn({
-  title,
-  subtitle,
-  questions = [],
-  answers = {},
-  results = null,
-  options = ['richtig', 'falsch'],
-  labels = ['+', '-'],
+  headerInfo = {},
+  data = {},
+  config = {},
   onSelectQuestion,
+  // Backwards compatibility fallbacks
+  title = headerInfo.title,
+  subtitle = headerInfo.subtitle,
+  questions = data.questions || [],
+  answers = data.answers || {},
+  results = data.results || null,
+  options = config.options || ['richtig', 'falsch'],
+  labels = config.labels || ['+', '-'],
 }) {
   return (
     <div className="border border-slate-200 rounded-xl p-3 bg-slate-50">
@@ -18,31 +35,31 @@ export default function AntwortbogenColumn({
       </div>
 
       <div className="space-y-1.5">
-        {questions.map((q) => {
-          const ans = answers[q.id];
-          const review = results?.reviewItems?.find((r) => r.id === q.id);
+        {questions.map((question) => {
+          const userAnswer = answers[question.id];
+          const review = results?.reviewItems?.find((reviewItem) => reviewItem.id === question.id);
 
           return (
             <button
-              key={q.id}
+              key={question.id}
               type="button"
-              onClick={() => onSelectQuestion(q.question_number - 1, q.id)}
+              onClick={() => onSelectQuestion?.(question.question_number - 1, question.id)}
               className="flex items-center justify-between w-full py-1 px-2 rounded hover:bg-white transition-colors cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-w-[44px] min-h-[44px]"
             >
               <span className="font-mono font-bold text-slate-700 w-5 text-left">
-                {q.question_number}.
+                {question.question_number}.
               </span>
               <div className="flex space-x-2">
-                {options.map((optVal, optIdx) => {
-                  const isSelected = ans === optVal;
+                {options.map((optionValue, optionIndex) => {
+                  const isSelected = userAnswer === optionValue;
                   const pillClass = getChoicePillClass(isSelected, review);
 
                   return (
                     <span
-                      key={optVal}
+                      key={optionValue}
                       className={`w-6 h-5 rounded flex items-center justify-center font-bold border transition-all ${pillClass}`}
                     >
-                      {labels[optIdx]}
+                      {labels[optionIndex]}
                     </span>
                   );
                 })}
@@ -53,16 +70,4 @@ export default function AntwortbogenColumn({
       </div>
     </div>
   );
-}
-
-function getChoicePillClass(isSelected, review) {
-  if (!isSelected) {
-    return 'bg-white text-slate-400 border-slate-300';
-  }
-  if (!review) {
-    return 'bg-telc-700 text-white border-telc-800 shadow-sm';
-  }
-  return review.is_correct
-    ? 'bg-emerald-600 text-white border-emerald-700'
-    : 'bg-rose-600 text-white border-rose-700';
 }

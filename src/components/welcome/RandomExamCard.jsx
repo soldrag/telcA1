@@ -4,11 +4,15 @@ import { Play, Shuffle } from 'lucide-react';
 export default function RandomExamCard({
   onStartRandomExam,
   attemptsCount = 0,
-  moduleTitle = 'Lesen',
-  timeLimitMinutes = 25,
-  passScore = 9,
-  totalQuestions = 15,
+  moduleInfo = {},
 }) {
+  const {
+    title: moduleTitle = 'Lesen',
+    timeLimitMinutes = 25,
+    passScore = 9,
+    totalQuestions = 15,
+  } = moduleInfo;
+
   return (
     <div className="bg-white rounded-3xl border-2 border-telc-500/30 p-6 sm:p-8 shadow-sm space-y-6 relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

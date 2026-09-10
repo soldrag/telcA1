@@ -26,7 +26,7 @@ export class MemoryAttemptStorage extends AttemptStorageInterface {
       created_at: attempt.created_at || new Date().toISOString(),
     };
 
-    this.attempts = [record, ...this.attempts.filter(a => a.id !== record.id)];
+    this.attempts = [record, ...this.attempts.filter(attemptRecord => attemptRecord.id !== record.id)];
     return record;
   }
 
@@ -42,7 +42,7 @@ export class MemoryAttemptStorage extends AttemptStorageInterface {
   }
 
   async getAttemptById(id) {
-    const found = this.attempts.find(a => a.id === id);
+    const found = this.attempts.find(attemptRecord => attemptRecord.id === id);
     return found ? JSON.parse(JSON.stringify(found)) : null;
   }
 
@@ -64,7 +64,7 @@ export class MemoryAttemptStorage extends AttemptStorageInterface {
 
   async deleteAttempt(id) {
     const before = this.attempts.length;
-    this.attempts = this.attempts.filter(a => a.id !== id);
+    this.attempts = this.attempts.filter(attemptRecord => attemptRecord.id !== id);
     return this.attempts.length !== before;
   }
 

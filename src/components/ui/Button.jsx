@@ -23,8 +23,8 @@ export const Button = React.forwardRef(function Button(
   { className = '', variant = 'default', size = 'default', disabled, children, ...props },
   ref
 ) {
-  const vClass = buttonVariants.variant[variant] || buttonVariants.variant.default;
-  const sClass = buttonVariants.size[size] || buttonVariants.size.default;
+  const variantClasses = buttonVariants.variant[variant] || buttonVariants.variant.default;
+  const sizeClasses = buttonVariants.size[size] || buttonVariants.size.default;
 
   return (
     <button
@@ -34,8 +34,8 @@ export const Button = React.forwardRef(function Button(
         'inline-flex items-center justify-center rounded-xl font-bold transition-all select-none',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2',
         'disabled:pointer-events-none disabled:opacity-40 cursor-pointer active:scale-[0.98]',
-        vClass,
-        sClass,
+        variantClasses,
+        sizeClasses,
         className
       )}
       {...props}

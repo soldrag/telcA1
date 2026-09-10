@@ -32,13 +32,19 @@ export function calculateHistoryStats(attempts = []) {
   }
 
   const count = attempts.length;
-  const passedCount = attempts.filter((a) => a.passed).length;
+  const passedCount = attempts.filter((attempt) => attempt.passed).length;
   const passRate = Math.round((passedCount / count) * 100);
 
-  const totalPercentage = attempts.reduce((acc, a) => acc + (a.percentage || 0), 0);
+  const totalPercentage = attempts.reduce(
+    (totalScore, attemptRecord) => totalScore + (attemptRecord.percentage || 0),
+    0
+  );
   const avgScore = Math.round(totalPercentage / count);
 
-  const totalTimeSeconds = attempts.reduce((acc, a) => acc + (a.time_spent_seconds || 0), 0);
+  const totalTimeSeconds = attempts.reduce(
+    (accumulatedSeconds, attemptRecord) => accumulatedSeconds + (attemptRecord.time_spent_seconds || 0),
+    0
+  );
   const avgMinutes = Math.round(totalTimeSeconds / count / 60);
 
   return { count, passRate, avgScore, avgMinutes };

@@ -19,10 +19,10 @@ export default function TeacherExamPicker({
     }
   }, [currentExamId, sortedExams, selectedId]);
 
-  const handleVariantChange = (e) => {
-    const id = e.target.value;
-    setSelectedId(id);
-    onSelectExam(id);
+  const handleVariantChange = (changeEvent) => {
+    const selectedValue = changeEvent.target.value;
+    setSelectedId(selectedValue);
+    onSelectExam(selectedValue);
   };
 
   const handleLaunch = () => {
@@ -70,4 +70,3 @@ export default function TeacherExamPicker({
     </div>
   );
 }
-

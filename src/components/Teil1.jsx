@@ -3,98 +3,6 @@ import { Mail, HelpCircle } from 'lucide-react';
 import Teil1TextCard from './teil1/Teil1TextCard.jsx';
 import Teil1QuestionItem from './teil1/Teil1QuestionItem.jsx';
 
-export default function Teil1({
-  questions = [],
-  answers = {},
-  onSelectAnswer,
-  isSubmitted,
-}) {
-  const [fontSizeLevel, setFontSizeLevel] = useState('normal');
-  const groupedByText = groupQuestionsByText(questions);
-
-  return (
-    <div className="space-y-8">
-      <Teil1Banner />
-
-      {Object.values(groupedByText).map((group, groupIdx) => {
-        const answeredCount = group.items.filter((i) => Boolean(answers[i.id])).length;
-        const totalCount = group.items.length;
-        const questionNumbers = group.items.map((i) => i.question_number).join(', ');
-
-        return (
-          <div
-            key={groupIdx}
-            className="bg-white rounded-3xl border-2 border-slate-300 overflow-hidden shadow-md"
-          >
-            {/* Header bar */}
-            <div className="bg-slate-100/90 border-b-2 border-slate-200 px-5 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center space-x-3">
-                <span className="text-xs font-black uppercase tracking-wider text-white bg-telc-800 px-3 py-1 rounded-lg shadow-xs">
-                  Text {groupIdx + 1}
-                </span>
-                <h3 className="text-base sm:text-lg font-black text-slate-950">
-                  {group.title}
-                </h3>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <span className="text-xs font-bold text-slate-700 bg-white px-3 py-1 rounded-full border border-slate-300 shadow-xs">
-                  К заданиям: <strong className="text-slate-950 font-black">{questionNumbers}</strong>
-                </span>
-                <span className={`text-xs font-bold px-3 py-1 rounded-full border shadow-xs ${
-                  answeredCount === totalCount
-                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                    : 'bg-slate-200/80 text-slate-800 border-slate-300'
-                }`}>
-                  {answeredCount}/{totalCount} готово
-                </span>
-              </div>
-            </div>
-
-            {/* Content: 2-column layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:divide-x-2 lg:divide-slate-200 items-start">
-              <Teil1TextCard
-                headerText={group.header}
-                bodyText={group.body}
-                fontSizeLevel={fontSizeLevel}
-                onSelectFontSizeLevel={setFontSizeLevel}
-              />
-
-              <div className="lg:col-span-5 p-5 sm:p-6 bg-white flex flex-col justify-between space-y-5">
-                <div className="space-y-5">
-                  <div className="text-xs font-black uppercase tracking-wider text-slate-800 pb-2 border-b-2 border-slate-200 flex items-center justify-between">
-                    <span className="text-sm font-black text-slate-950">
-                      Задания к тексту {groupIdx + 1}
-                    </span>
-                    <span className="text-xs font-bold text-telc-800 bg-telc-50 px-3 py-1 rounded border border-telc-200">
-                      Выберите + или -
-                    </span>
-                  </div>
-
-                  {group.items.map((q) => (
-                    <Teil1QuestionItem
-                      key={q.id}
-                      question={q}
-                      currentAnswer={answers[q.id]}
-                      isSubmitted={isSubmitted}
-                      onSelectAnswer={onSelectAnswer}
-                    />
-                  ))}
-                </div>
-
-                <div className="bg-blue-50/80 border border-blue-200 text-blue-950 text-xs sm:text-sm font-medium rounded-xl p-3 flex items-center justify-center space-x-2 shadow-xs">
-                  <HelpCircle className="w-4 h-4 text-blue-700 flex-shrink-0" />
-                  <span>Перечитайте текст слева при сомнениях перед выбором ответа</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 function Teil1Banner() {
   return (
     <div className="bg-white border-l-4 border-telc-600 rounded-r-2xl p-5 shadow-sm border-y border-r border-slate-200">
@@ -124,17 +32,107 @@ function Teil1Banner() {
 }
 
 function groupQuestionsByText(questions) {
-  return questions.reduce((acc, q) => {
-    const key = q.title || 'Text';
-    if (!acc[key]) {
-      acc[key] = {
-        title: q.title,
-        header: q.context_header,
-        body: q.context_body,
+  return questions.reduce((groups, question) => {
+    const groupKey = question.title || 'Text';
+    if (!groups[groupKey]) {
+      groups[groupKey] = {
+        title: question.title,
+        header: question.context_header,
+        body: question.context_body,
         items: [],
       };
     }
-    acc[key].items.push(q);
-    return acc;
+    groups[groupKey].items.push(question);
+    return groups;
   }, {});
+}
+
+export default function Teil1({
+  questions = [],
+  answers = {},
+  onSelectAnswer,
+  isSubmitted,
+}) {
+  const [fontSizeLevel, setFontSizeLevel] = useState('normal');
+  const groupedByText = groupQuestionsByText(questions);
+
+  return (
+    <div className="space-y-8">
+      <Teil1Banner />
+
+      {Object.values(groupedByText).map((group, groupIndex) => {
+        const answeredCount = group.items.filter((item) => Boolean(answers[item.id])).length;
+        const totalCount = group.items.length;
+        const questionNumbers = group.items.map((item) => item.question_number).join(', ');
+
+        return (
+          <div
+            key={groupIndex}
+            className="bg-white rounded-3xl border-2 border-slate-300 overflow-hidden shadow-md"
+          >
+            <div className="bg-slate-100/90 border-b-2 border-slate-200 px-5 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center space-x-3">
+                <span className="text-xs font-black uppercase tracking-wider text-white bg-telc-800 px-3 py-1 rounded-lg shadow-xs">
+                  Text {groupIndex + 1}
+                </span>
+                <h3 className="text-base sm:text-lg font-black text-slate-950">
+                  {group.title}
+                </h3>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-bold text-slate-700 bg-white px-3 py-1 rounded-full border border-slate-300 shadow-xs">
+                  К заданиям: <strong className="text-slate-950 font-black">{questionNumbers}</strong>
+                </span>
+                <span className={`text-xs font-bold px-3 py-1 rounded-full border shadow-xs ${
+                  answeredCount === totalCount
+                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                    : 'bg-slate-200/80 text-slate-800 border-slate-300'
+                }`}>
+                  {answeredCount}/{totalCount} готово
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:divide-x-2 lg:divide-slate-200 items-start">
+              <Teil1TextCard
+                headerText={group.header}
+                bodyText={group.body}
+                fontSizeLevel={fontSizeLevel}
+                onSelectFontSizeLevel={setFontSizeLevel}
+              />
+
+              <div className="lg:col-span-5 p-5 sm:p-6 bg-white flex flex-col justify-between space-y-5">
+                <div className="space-y-5">
+                  <div className="text-xs font-black uppercase tracking-wider text-slate-800 pb-2 border-b-2 border-slate-200 flex items-center justify-between">
+                    <span className="text-sm font-black text-slate-950">
+                      Задания к тексту {groupIndex + 1}
+                    </span>
+                    <span className="text-xs font-bold text-telc-800 bg-telc-50 px-3 py-1 rounded border border-telc-200">
+                      Выберите + или -
+                    </span>
+                  </div>
+
+                  {group.items.map((question) => (
+                    <Teil1QuestionItem
+                      key={question.id}
+                      question={question}
+                      currentAnswer={answers[question.id]}
+                      isSubmitted={isSubmitted}
+                      onSelectAnswer={onSelectAnswer}
+                    />
+                  ))}
+                </div>
+
+                <div className="bg-blue-50/80 border border-blue-200 text-blue-950 text-xs sm:text-sm font-medium rounded-xl p-3 flex items-center justify-center space-x-2 shadow-xs">
+                  <HelpCircle className="w-4 h-4 text-blue-700 flex-shrink-0" />
+                  <span>Перечитайте текст слева при сомнениях перед выбором ответа</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }

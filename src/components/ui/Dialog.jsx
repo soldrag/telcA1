@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { cn } from '../../lib/utils.js';
 import { X } from 'lucide-react';
+import { lockBodyScroll, unlockBodyScroll } from '../../utils/scrollService.js';
 
 export function Dialog({ isOpen, onClose, title, description, children, maxWidth = 'max-w-md' }) {
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+    const handleKeyDown = (keyboardEvent) => {
+      if (keyboardEvent.key === 'Escape' && isOpen) {
         onClose?.();
       }
     };
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      lockBodyScroll();
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
-      document.body.style.overflow = '';
+      unlockBodyScroll();
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -23,14 +24,12 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Dialog */}
       <div
         role="dialog"
         aria-modal="true"

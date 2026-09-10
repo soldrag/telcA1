@@ -3,21 +3,56 @@ import crypto from 'node:crypto';
 import { extractUserId } from '../services/user-context.js';
 import { selectBalancedRandomExam } from '../services/exam-balancer.js';
 import { evaluateExamSubmission } from '../services/exam-evaluator.js';
+import { ExamRepository } from '../repositories/exam.repository.js';
+import { AttemptRepository } from '../repositories/attempt.repository.js';
 
-export function createExamsRouter(db) {
+function buildSubmissionPayload({ exam, questions, answers, timeSpentSeconds }) {
+  const { score, reviewItems, teilBreakdown } = evaluateExamSubmission(questions, answers);
+  const totalQuestions = questions.length;
+  const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 1000) / 10 : 0;
+  const passed = score >= exam.pass_score;
+
+  return {
+    attemptId: crypto.randomUUID(),
+    exam,
+    score,
+    totalQuestions,
+    percentage,
+    passed,
+    teilBreakdown,
+    reviewItems,
+    timeSpentSeconds,
+    passScore: exam.pass_score,
+  };
+}
+
+function validateSubmissionBody(body) {
+  if (!body || typeof body !== 'object') {
+    return 'Invalid request payload';
+  }
+  if (body.answers && (typeof body.answers !== 'object' || Array.isArray(body.answers))) {
+    return 'Answers must be a valid key-value object';
+  }
+  if (body.timeSpentSeconds !== undefined && (typeof body.timeSpentSeconds !== 'number' || body.timeSpentSeconds < 0)) {
+    return 'timeSpentSeconds must be a non-negative number';
+  }
+  return null;
+}
+
+export function createExamsRouter(databaseOrRepository) {
   const router = Router();
+  const examRepository = databaseOrRepository instanceof ExamRepository
+    ? databaseOrRepository
+    : new ExamRepository(databaseOrRepository);
+  const attemptRepository = new AttemptRepository(databaseOrRepository?.database || databaseOrRepository);
 
   router.get('/', (req, res) => {
     try {
       const testType = req.query.type || 'lesen';
-      const exams = db.prepare(`
-        SELECT * FROM exams 
-        WHERE test_type = ?
-        ORDER BY sort_order ASC, id ASC
-      `).all(testType);
+      const exams = examRepository.findExamsByTestType(testType);
       res.json({ exams });
-    } catch (err) {
-      console.error('Error fetching exams:', err);
+    } catch (error) {
+      console.error('[ExamsRouter Error] Failed to fetch exams:', error);
       res.status(500).json({ error: 'Failed to fetch exams' });
     }
   });
@@ -26,77 +61,50 @@ export function createExamsRouter(db) {
     try {
       const userId = extractUserId(req);
       const testType = req.query.type || 'lesen';
-      const selection = selectBalancedRandomExam({ db, userId, testType });
+      const selection = selectBalancedRandomExam({ examRepository, attemptRepository, userId, testType });
       if (!selection || !selection.exam) {
         return res.status(404).json({ error: 'No exams available for this test type' });
       }
       res.json(selection);
-    } catch (err) {
-      console.error('Error selecting random exam:', err);
+    } catch (error) {
+      console.error('[ExamsRouter Error] Failed to select random exam:', error);
       res.status(500).json({ error: 'Failed to select random exam' });
     }
   });
 
   router.get('/:id', (req, res) => {
     try {
-      const exam = db.prepare('SELECT * FROM exams WHERE id = ?').get(req.params.id);
+      const exam = examRepository.findExamById(req.params.id);
       if (!exam) return res.status(404).json({ error: 'Exam not found' });
 
-      const questions = db.prepare(`
-        SELECT id, exam_id, teil, question_number, title, situation, 
-               context_header, context_body, options_json, statement
-        FROM questions 
-        WHERE exam_id = ? 
-        ORDER BY question_number ASC
-      `).all(req.params.id).map(parseQuestionOptions);
-
+      const questions = examRepository.findQuestionsByExamId(req.params.id, true);
       res.json({ exam, questions });
-    } catch (err) {
-      console.error('Error fetching exam details:', err);
+    } catch (error) {
+      console.error('[ExamsRouter Error] Failed to fetch exam details:', error);
       res.status(500).json({ error: 'Failed to fetch exam details' });
     }
   });
 
   router.post('/:id/submit', (req, res) => {
     try {
-      const exam = db.prepare('SELECT * FROM exams WHERE id = ?').get(req.params.id);
+      const validationError = validateSubmissionBody(req.body);
+      if (validationError) {
+        return res.status(400).json({ error: validationError });
+      }
+
+      const exam = examRepository.findExamById(req.params.id);
       if (!exam) return res.status(404).json({ error: 'Exam not found' });
 
       const { answers = {}, timeSpentSeconds = 0 } = req.body;
-      const questions = db.prepare('SELECT * FROM questions WHERE exam_id = ? ORDER BY question_number ASC').all(req.params.id);
-      const { score, reviewItems, teilBreakdown } = evaluateExamSubmission(questions, answers);
+      const questions = examRepository.findQuestionsByExamId(req.params.id, false);
+      const payload = buildSubmissionPayload({ exam, questions, answers, timeSpentSeconds });
 
-      const totalQuestions = questions.length;
-      const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 1000) / 10 : 0;
-      const passed = score >= exam.pass_score;
-      const attemptId = crypto.randomUUID();
-
-      const resultsPayload = {
-        attemptId,
-        exam,
-        score,
-        totalQuestions,
-        percentage,
-        passed,
-        teilBreakdown,
-        reviewItems,
-        timeSpentSeconds,
-        passScore: exam.pass_score,
-      };
-
-      res.json(resultsPayload);
-    } catch (err) {
-      console.error('Error submitting exam:', err);
+      res.json(payload);
+    } catch (error) {
+      console.error('[ExamsRouter Error] Failed to process exam submission:', error);
       res.status(500).json({ error: 'Failed to process exam submission' });
     }
   });
 
   return router;
-}
-
-function parseQuestionOptions(question) {
-  return {
-    ...question,
-    options_json: question.options_json ? JSON.parse(question.options_json) : null,
-  };
 }

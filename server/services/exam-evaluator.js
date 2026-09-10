@@ -1,6 +1,19 @@
-/**
- * Exam submission evaluation and grading business logic.
- */
+function parseJsonSafely(jsonString, fallbackValue) {
+  if (!jsonString) return fallbackValue;
+  try {
+    return JSON.parse(jsonString);
+  } catch (parseError) {
+    return fallbackValue;
+  }
+}
+
+function createEmptyBreakdown() {
+  return {
+    1: { score: 0, total: 0 },
+    2: { score: 0, total: 0 },
+    3: { score: 0, total: 0 },
+  };
+}
 
 export function gradeQuestion(question, answers = {}) {
   const userAnswer = (answers[question.id] || '').trim().toLowerCase();
@@ -27,34 +40,17 @@ export function gradeQuestion(question, answers = {}) {
   };
 }
 
-function parseJsonSafely(value, fallback) {
-  if (!value) return fallback;
-  try {
-    return JSON.parse(value);
-  } catch {
-    return fallback;
-  }
-}
-
-function createEmptyBreakdown() {
-  return {
-    1: { score: 0, total: 0 },
-    2: { score: 0, total: 0 },
-    3: { score: 0, total: 0 },
-  };
-}
-
 export function evaluateExamSubmission(questions = [], answers = {}) {
   let score = 0;
   const teilBreakdown = createEmptyBreakdown();
 
-  const reviewItems = questions.map((q) => {
-    const item = gradeQuestion(q, answers);
+  const reviewItems = questions.map((question) => {
+    const item = gradeQuestion(question, answers);
     if (item.is_correct) score++;
 
-    if (teilBreakdown[q.teil]) {
-      teilBreakdown[q.teil].total++;
-      if (item.is_correct) teilBreakdown[q.teil].score++;
+    if (teilBreakdown[question.teil]) {
+      teilBreakdown[question.teil].total++;
+      if (item.is_correct) teilBreakdown[question.teil].score++;
     }
     return item;
   });

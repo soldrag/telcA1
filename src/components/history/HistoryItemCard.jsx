@@ -4,7 +4,7 @@ import { cleanExamTitle, formatAttemptDate, formatAttemptDuration } from '../../
 
 export default function HistoryItemCard({ attempt, onSelect, compact = false }) {
   const { minutes, seconds } = formatAttemptDuration(attempt.time_spent_seconds);
-  const dateStr = formatAttemptDate(attempt.created_at);
+  const formattedDate = formatAttemptDate(attempt.created_at);
   const examTitle = cleanExamTitle(attempt.exam_title);
 
   const statusBadgeClass = attempt.passed
@@ -45,7 +45,7 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
             <span className="flex items-center space-x-1">
               <Calendar className="w-3.5 h-3.5 text-slate-400" />
-              <span>{dateStr}</span>
+              <span>{formattedDate}</span>
             </span>
             <span className="flex items-center space-x-1">
               <Clock className="w-3.5 h-3.5 text-slate-400" />

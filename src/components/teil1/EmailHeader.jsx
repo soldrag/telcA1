@@ -22,14 +22,14 @@ export default function EmailHeader({ headerText }) {
       </div>
 
       <div className="p-4 space-y-2 text-xs sm:text-sm divide-y divide-slate-100">
-        {parsed.map((item, idx) => {
+        {parsed.map((item, lineIndex) => {
           const isSubject = item.key.toLowerCase() === 'betreff';
 
           return (
             <div
-              key={idx}
+              key={lineIndex}
               className={`flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2 ${
-                idx > 0 ? 'pt-2' : ''
+                lineIndex > 0 ? 'pt-2' : ''
               }`}
             >
               {item.key && (

@@ -1,8 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 
-export function useExamTimer(options = 25 * 60) {
-  const config = typeof options === 'number' ? { initialSeconds: options } : (options || {});
-  const { initialSeconds = 25 * 60, onTimeUp = null, isSubmitted = false } = config;
+const DEFAULT_TIME_LIMIT_SECONDS = 25 * 60;
+
+export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
+  const configuration = typeof options === 'number' ? { initialSeconds: options } : (options || {});
+  const { initialSeconds = DEFAULT_TIME_LIMIT_SECONDS, onTimeUp = null, isSubmitted = false } = configuration;
 
   const [isTimed, setIsTimed] = useState(true);
   const [totalSeconds, setTotalSeconds] = useState(initialSeconds);
@@ -11,17 +13,17 @@ export function useExamTimer(options = 25 * 60) {
   const [isPaused, setIsPaused] = useState(false);
   const [timeUpHandler, setTimeUpHandler] = useState(() => onTimeUp);
 
-  const resetTimer = useCallback((timed = true, newSeconds) => {
-    const sec = newSeconds || totalSeconds;
-    if (newSeconds) setTotalSeconds(newSeconds);
+  const resetTimer = useCallback((timed = true, newDurationSeconds) => {
+    const targetSeconds = newDurationSeconds || totalSeconds;
+    if (newDurationSeconds) setTotalSeconds(newDurationSeconds);
     setIsTimed(timed);
-    setSecondsLeft(sec);
+    setSecondsLeft(targetSeconds);
     setSecondsElapsed(0);
     setIsPaused(false);
   }, [totalSeconds]);
 
   const togglePause = useCallback(() => {
-    setIsPaused((prev) => !prev);
+    setIsPaused((previousState) => !previousState);
   }, []);
 
   const registerTimeUpHandler = useCallback((handler) => {
@@ -32,10 +34,10 @@ export function useExamTimer(options = 25 * 60) {
     if (isSubmitted || isPaused) return;
 
     if (!isTimed) {
-      const interval = setInterval(() => {
-        setSecondsElapsed((prev) => prev + 1);
+      const intervalId = setInterval(() => {
+        setSecondsElapsed((previousSeconds) => previousSeconds + 1);
       }, 1000);
-      return () => clearInterval(interval);
+      return () => clearInterval(intervalId);
     }
 
     if (secondsLeft <= 0) {
@@ -43,30 +45,26 @@ export function useExamTimer(options = 25 * 60) {
       return;
     }
 
-    const interval = setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
+    const intervalId = setInterval(() => {
+      setSecondsLeft((previousSeconds) => {
+        if (previousSeconds <= 1) {
+          clearInterval(intervalId);
           if (timeUpHandler) timeUpHandler();
           return 0;
         }
-        return prev - 1;
+        return previousSeconds - 1;
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalId);
   }, [isTimed, isPaused, isSubmitted, secondsLeft, timeUpHandler]);
 
   return {
     isTimed,
-    setIsTimed,
     totalSeconds,
     secondsLeft,
-    setSecondsLeft,
     secondsElapsed,
-    setSecondsElapsed,
     isPaused,
-    setIsPaused,
     togglePause,
     resetTimer,
     registerTimeUpHandler,

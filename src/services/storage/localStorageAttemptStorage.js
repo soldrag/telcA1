@@ -3,10 +3,27 @@ import { AttemptStorageInterface } from './attemptStorage.interface.js';
 const DEFAULT_STORAGE_KEY = 'telc_exam_attempts_v1';
 const MAX_STORED_ATTEMPTS = 150;
 
-/**
- * Browser LocalStorage implementation of AttemptStorageInterface.
- * Stores all exam attempt history entirely on the client side.
- */
+function extractAttemptTitle(attempt) {
+  if (attempt?.exam_title) return attempt.exam_title;
+  const nestedTitle = attempt?.results?.exam?.title;
+  if (nestedTitle) return nestedTitle;
+  return attempt?.exam_id || 'unknown';
+}
+
+function extractTestType(attempt) {
+  if (attempt?.test_type) return attempt.test_type;
+  const nestedType = attempt?.results?.exam?.test_type;
+  if (nestedType) return nestedType;
+  return 'lesen';
+}
+
+function generateAttemptId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `attempt-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+}
+
 export class LocalStorageAttemptStorage extends AttemptStorageInterface {
   constructor(storageKey = DEFAULT_STORAGE_KEY) {
     super();
@@ -24,30 +41,30 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
       if (!serialized) return [];
       const parsed = JSON.parse(serialized);
       return Array.isArray(parsed) ? parsed : [];
-    } catch (err) {
-      console.warn('[LocalStorageAttemptStorage] Failed to parse attempts from localStorage:', err);
+    } catch (parseError) {
+      console.warn('[LocalStorageAttemptStorage] Failed to parse stored attempts', parseError);
       return [];
     }
   }
 
-  _saveRawList(list) {
+  _saveRawList(attemptsList) {
     if (!this._isStorageAvailable()) return;
     try {
-      const capped = list.slice(0, MAX_STORED_ATTEMPTS);
-      window.localStorage.setItem(this.storageKey, JSON.stringify(capped));
-    } catch (err) {
-      console.warn('[LocalStorageAttemptStorage] Failed to save attempts to localStorage:', err);
+      const cappedList = attemptsList.slice(0, MAX_STORED_ATTEMPTS);
+      window.localStorage.setItem(this.storageKey, JSON.stringify(cappedList));
+    } catch (storageError) {
+      console.warn('[LocalStorageAttemptStorage] Failed to save attempts to localStorage', storageError);
     }
   }
 
   async saveAttempt(attempt) {
-    const list = this._loadRawList();
+    const attemptsList = this._loadRawList();
     
     const record = {
-      id: attempt.id || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `att-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`),
+      id: attempt.id || generateAttemptId(),
       exam_id: attempt.exam_id,
-      exam_title: attempt.exam_title || attempt.results?.exam?.title || attempt.exam_id,
-      test_type: attempt.test_type || attempt.results?.exam?.test_type || 'lesen',
+      exam_title: extractAttemptTitle(attempt),
+      test_type: extractTestType(attempt),
       score: Number(attempt.score) || 0,
       total_questions: Number(attempt.total_questions) || 15,
       percentage: Number(attempt.percentage) || 0,
@@ -58,40 +75,39 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
       created_at: attempt.created_at || new Date().toISOString(),
     };
 
-    // Prepend new attempt to the front
-    const filtered = list.filter(item => item.id !== record.id);
-    const updated = [record, ...filtered];
+    const remainingAttempts = attemptsList.filter(item => item.id !== record.id);
+    const updatedList = [record, ...remainingAttempts];
     
-    this._saveRawList(updated);
+    this._saveRawList(updatedList);
     return record;
   }
 
   async getAttempts({ testType, examId, limit = 50 } = {}) {
-    let list = this._loadRawList();
+    let attemptsList = this._loadRawList();
 
     if (testType) {
-      list = list.filter(item => (item.test_type || 'lesen') === testType);
+      attemptsList = attemptsList.filter(item => (item.test_type || 'lesen') === testType);
     }
 
     if (examId) {
-      list = list.filter(item => item.exam_id === examId);
+      attemptsList = attemptsList.filter(item => item.exam_id === examId);
     }
 
-    return list.slice(0, limit);
+    return attemptsList.slice(0, limit);
   }
 
   async getAttemptById(id) {
     if (!id) return null;
-    const list = this._loadRawList();
-    const found = list.find(item => item.id === id);
-    return found ? JSON.parse(JSON.stringify(found)) : null;
+    const attemptsList = this._loadRawList();
+    const foundAttempt = attemptsList.find(item => item.id === id);
+    return foundAttempt ? JSON.parse(JSON.stringify(foundAttempt)) : null;
   }
 
   async getExamAttemptCounts(testType) {
-    const list = this._loadRawList();
+    const attemptsList = this._loadRawList();
     const counts = {};
 
-    for (const item of list) {
+    for (const item of attemptsList) {
       if (testType && (item.test_type || 'lesen') !== testType) continue;
       if (item.exam_id) {
         counts[item.exam_id] = (counts[item.exam_id] || 0) + 1;
@@ -108,10 +124,10 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
 
   async deleteAttempt(id) {
     if (!id) return false;
-    const list = this._loadRawList();
-    const updated = list.filter(item => item.id !== id);
-    if (updated.length !== list.length) {
-      this._saveRawList(updated);
+    const attemptsList = this._loadRawList();
+    const filteredList = attemptsList.filter(item => item.id !== id);
+    if (filteredList.length !== attemptsList.length) {
+      this._saveRawList(filteredList);
       return true;
     }
     return false;
@@ -121,8 +137,8 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
     if (!this._isStorageAvailable()) return;
     try {
       window.localStorage.removeItem(this.storageKey);
-    } catch (err) {
-      console.warn('[LocalStorageAttemptStorage] Failed to clear localStorage:', err);
+    } catch (storageError) {
+      console.warn('[LocalStorageAttemptStorage] Failed to clear attempts from localStorage', storageError);
     }
   }
 }

@@ -1,33 +1,28 @@
 import React from 'react';
 import ConfirmSubmitModal from './ConfirmSubmitModal.jsx';
 import ConfirmLeaveModal from './ConfirmLeaveModal.jsx';
+import TimeUpModal from './TimeUpModal.jsx';
 
-export default function AppModals({
-  confirmSubmitOpen,
-  onCloseSubmitModal,
-  onConfirmSubmit,
-  answeredCount,
-  totalQuestions,
-  isSubmitting,
-  confirmLeaveOpen,
-  onCloseLeaveModal,
-  onConfirmLeave,
-}) {
+export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
   return (
     <>
       <ConfirmSubmitModal
-        isOpen={confirmSubmitOpen}
-        onClose={onCloseSubmitModal}
-        onConfirm={onConfirmSubmit}
-        answeredCount={answeredCount}
-        totalQuestions={totalQuestions}
-        isSubmitting={isSubmitting}
+        isOpen={modals.confirmSubmitOpen}
+        onClose={modals.closeSubmitModal}
+        onConfirm={actions.onConfirmSubmit}
+        submissionStats={stats}
       />
       <ConfirmLeaveModal
-        isOpen={confirmLeaveOpen}
-        onClose={onCloseLeaveModal}
-        onConfirm={onConfirmLeave}
+        isOpen={modals.confirmLeaveOpen}
+        onClose={modals.closeLeaveModal}
+        onConfirm={actions.onConfirmLeave}
       />
+      {modals.timeUpModalOpen && (
+        <TimeUpModal
+          isOpen={modals.timeUpModalOpen}
+          onConfirm={actions.onConfirmTimeUp}
+        />
+      )}
     </>
   );
 }

@@ -9,13 +9,12 @@ export default function Antwortbogen({
   isSubmitted,
   results = null,
 }) {
-  const teil1Questions = questions.filter((q) => q.teil === 1);
-  const teil2Questions = questions.filter((q) => q.teil === 2);
-  const teil3Questions = questions.filter((q) => q.teil === 3);
+  const teil1Questions = questions.filter((question) => question.teil === 1);
+  const teil2Questions = questions.filter((question) => question.teil === 2);
+  const teil3Questions = questions.filter((question) => question.teil === 3);
 
   return (
     <div className="bg-white rounded-2xl border-2 border-slate-300 p-4 sm:p-6 shadow-md">
-      {/* Header */}
       <div className="flex items-center justify-between border-b-2 border-slate-900 pb-3 mb-4">
         <div>
           <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
@@ -35,7 +34,6 @@ export default function Antwortbogen({
         Здесь отображаются ваши заполненные ответы в формате официального экзаменационного бланка:
       </p>
 
-      {/* Grid of 3 Teile */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <AntwortbogenColumn
           title="Teil 1 (1–5)"

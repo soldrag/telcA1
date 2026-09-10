@@ -1,37 +1,44 @@
 import { useState, useCallback, useEffect } from 'react';
-import { attemptStorage } from '../services/storage/index.js';
+import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
 
-export function useAttemptHistory(activeTestType = 'lesen') {
+export function useAttemptHistory(activeTestType = 'lesen', storage = defaultAttemptStorage) {
   const [recentAttempts, setRecentAttempts] = useState([]);
   const [historyAttempts, setHistoryAttempts] = useState([]);
   const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyError, setHistoryError] = useState(null);
 
   const refreshAttempts = useCallback(async () => {
     try {
-      const list = await attemptStorage.getAttempts({ testType: activeTestType, limit: 3 });
-      setRecentAttempts(list);
-    } catch (err) {
-      console.error('Failed to load recent attempts:', err);
+      setHistoryError(null);
+      const attemptsList = await storage.getAttempts({ testType: activeTestType, limit: 3 });
+      setRecentAttempts(attemptsList);
+    } catch (error) {
+      setHistoryError('Не удалось загрузить недавние попытки');
     }
-  }, [activeTestType]);
+  }, [activeTestType, storage]);
 
   const refreshHistory = useCallback(async () => {
     setHistoryLoading(true);
+    setHistoryError(null);
     try {
-      const list = await attemptStorage.getAttempts();
-      setHistoryAttempts(list);
-    } catch (err) {
-      console.error('Failed to load history:', err);
+      const attemptsList = await storage.getAttempts();
+      setHistoryAttempts(attemptsList);
+    } catch (error) {
+      setHistoryError('Не удалось загрузить историю экзаменов');
     } finally {
       setHistoryLoading(false);
     }
-  }, []);
+  }, [storage]);
 
   const clearHistory = useCallback(async () => {
-    await attemptStorage.clearAttempts();
-    await refreshAttempts();
-    await refreshHistory();
-  }, [refreshAttempts, refreshHistory]);
+    try {
+      await storage.clearAttempts();
+      await refreshAttempts();
+      await refreshHistory();
+    } catch (error) {
+      setHistoryError('Не удалось очистить историю');
+    }
+  }, [storage, refreshAttempts, refreshHistory]);
 
   useEffect(() => {
     refreshAttempts();
@@ -41,6 +48,7 @@ export function useAttemptHistory(activeTestType = 'lesen') {
     recentAttempts,
     historyAttempts,
     historyLoading,
+    historyError,
     refreshAttempts,
     refreshHistory,
     clearHistory,
