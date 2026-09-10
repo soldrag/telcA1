@@ -19,6 +19,8 @@ export function initDatabase(database = getDatabase()) {
 
 export const db = new Proxy({}, {
   get(target, prop) {
-    return getDatabase()[prop];
+    const database = getDatabase();
+    const value = database[prop];
+    return typeof value === 'function' ? value.bind(database) : value;
   }
 });
