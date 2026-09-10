@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileText, Check, X } from 'lucide-react';
+import Teil3NoticeCard from './teil3/Teil3NoticeCard.jsx';
 
 export default function Teil3({
   questions = [],
@@ -9,32 +10,8 @@ export default function Teil3({
 }) {
   return (
     <div className="space-y-8">
-      {/* Official Section Banner */}
-      <div className="bg-white border-l-4 border-telc-600 rounded-r-2xl p-4 shadow-sm border-y border-r border-slate-200">
-        <div className="flex items-start space-x-4">
-          <div className="p-3 bg-telc-50 text-telc-700 rounded-xl mt-0.5 border border-telc-200 shadow-xs">
-            <FileText className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xs font-black uppercase tracking-wider text-telc-700 bg-telc-50 px-3 py-1 rounded border border-telc-200">
-                Leseverstehen • Teil 3
-              </span>
-              <span className="text-xs text-slate-600 font-bold">Aufgaben 11–15</span>
-            </div>
-            <h2 className="text-base sm:text-xl font-black text-slate-950 mt-1">
-              Hinweisschilder, Notizen und Aushänge
-            </h2>
-            <p className="text-sm text-slate-700 mt-1 font-medium leading-normal">
-              Lesen Sie die Schilder und Mitteilungen. Ist die Aussage{' '}
-              <strong className="text-emerald-700 font-black">richtig (+)</strong> oder{' '}
-              <strong className="text-rose-700 font-black">falsch (-)</strong>?
-            </p>
-          </div>
-        </div>
-      </div>
+      <Teil3Banner />
 
-      {/* Questions 11 - 15 */}
       <div className="space-y-8">
         {questions.map((q) => {
           const currentAnswer = answers[q.id];
@@ -46,7 +23,7 @@ export default function Teil3({
               id={`question-${q.id}`}
               className="bg-white rounded-3xl border-2 border-slate-300 overflow-hidden shadow-md"
             >
-              {/* Question Number Bar */}
+              {/* Header */}
               <div className="bg-slate-100/90 px-5 sm:px-6 py-4 border-b-2 border-slate-200 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <span className="w-8 h-8 rounded-xl bg-telc-800 text-white font-black text-sm flex items-center justify-center shadow-sm">
@@ -72,25 +49,12 @@ export default function Teil3({
                 </div>
               </div>
 
-              {/* Authentic Sign / Notice Board Container */}
-              <div className="p-6 sm:p-8 bg-slate-100/70 flex justify-center">
-                <div className="w-full max-w-2xl bg-amber-50/90 border-2 border-amber-300 rounded-2xl p-6 sm:p-8 shadow-sm relative">
-                  {/* Pin or Tape graphic accent */}
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-amber-200/90 rounded-sm border border-amber-300 shadow-xs transform -rotate-1" />
+              <Teil3NoticeCard
+                contextHeader={q.context_header}
+                contextBody={q.context_body}
+              />
 
-                  {q.context_header && (
-                    <div className="text-center font-black text-slate-950 text-base sm:text-xl border-b-2 border-amber-300/80 pb-3 mb-4 uppercase tracking-wider">
-                      {q.context_header}
-                    </div>
-                  )}
-
-                  <div className="text-slate-950 text-base sm:text-lg font-medium font-sans whitespace-pre-line leading-relaxed text-center sm:text-left">
-                    {q.context_body}
-                  </div>
-                </div>
-              </div>
-
-              {/* Statement & Action Footer */}
+              {/* Statement & Action buttons */}
               <div className="p-4 sm:p-6 border-t-2 border-slate-200 bg-white flex flex-col lg:flex-row lg:items-center justify-between gap-5">
                 <div className="flex items-start space-x-3 flex-1">
                   <span className="text-xs font-black uppercase tracking-wider text-telc-800 bg-telc-50 px-3 py-1 rounded border border-telc-200 mt-1 flex-shrink-0">
@@ -101,7 +65,6 @@ export default function Teil3({
                   </p>
                 </div>
 
-                {/* Richtig / Falsch Buttons */}
                 <div className="grid grid-cols-2 gap-3 flex-shrink-0 w-full sm:w-auto">
                   <button
                     type="button"
@@ -135,6 +98,34 @@ export default function Teil3({
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function Teil3Banner() {
+  return (
+    <div className="bg-white border-l-4 border-telc-600 rounded-r-2xl p-4 shadow-sm border-y border-r border-slate-200">
+      <div className="flex items-start space-x-4">
+        <div className="p-3 bg-telc-50 text-telc-700 rounded-xl mt-0.5 border border-telc-200 shadow-xs">
+          <FileText className="w-6 h-6" />
+        </div>
+        <div>
+          <div className="flex items-center space-x-2">
+            <span className="text-xs font-black uppercase tracking-wider text-telc-700 bg-telc-50 px-3 py-1 rounded border border-telc-200">
+              Leseverstehen • Teil 3
+            </span>
+            <span className="text-xs text-slate-600 font-bold">Aufgaben 11–15</span>
+          </div>
+          <h2 className="text-base sm:text-xl font-black text-slate-950 mt-1">
+            Hinweisschilder, Notizen und Aushänge
+          </h2>
+          <p className="text-sm text-slate-700 mt-1 font-medium leading-normal">
+            Lesen Sie die Schilder und Mitteilungen. Ist die Aussage{' '}
+            <strong className="text-emerald-700 font-black">richtig (+)</strong> oder{' '}
+            <strong className="text-rose-700 font-black">falsch (-)</strong>?
+          </p>
+        </div>
       </div>
     </div>
   );
