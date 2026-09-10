@@ -12,12 +12,12 @@ const badgeVariants = {
 };
 
 export function Badge({ className = '', variant = 'default', children, ...props }) {
-  const vClass = badgeVariants[variant] || badgeVariants.default;
+  const variantClasses = badgeVariants[variant] || badgeVariants.default;
   return (
     <span
       className={cn(
         'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border transition-colors',
-        vClass,
+        variantClasses,
         className
       )}
       {...props}

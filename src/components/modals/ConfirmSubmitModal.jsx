@@ -7,10 +7,11 @@ export default function ConfirmSubmitModal({
   isOpen,
   onClose,
   onConfirm,
-  answeredCount,
-  totalQuestions,
-  isSubmitting,
+  submissionStats = {},
 }) {
+  const answeredCount = submissionStats.answeredCount ?? 0;
+  const totalQuestions = submissionStats.totalQuestions ?? 15;
+  const isSubmitting = submissionStats.isSubmitting ?? false;
   const unansweredCount = totalQuestions - answeredCount;
 
   return (

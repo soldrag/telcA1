@@ -6,10 +6,11 @@ import HistoryView from './HistoryView.jsx';
 
 export default function AppScreens({
   screen,
-  welcomeProps,
-  historyProps,
-  resultsProps,
-  examProps,
+  screenProps = {},
+  welcomeProps = screenProps.welcome,
+  historyProps = screenProps.history,
+  resultsProps = screenProps.results,
+  examProps = screenProps.exam,
 }) {
   if (screen === 'welcome') {
     return <WelcomeScreen {...welcomeProps} />;
@@ -20,7 +21,7 @@ export default function AppScreens({
   if (screen === 'results' && resultsProps?.results) {
     return <ResultsView {...resultsProps} />;
   }
-  if (screen === 'exam' && examProps?.examData) {
+  if (screen === 'exam' && (examProps?.examConfig || examProps?.examData)) {
     return <ExamView {...examProps} />;
   }
   return null;

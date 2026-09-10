@@ -28,10 +28,10 @@ export default function ModuleStructureCards({ testType = 'lesen' }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-5 border-t border-white/10 relative z-10">
-      {cards.map((card, idx) => {
+      {cards.map((card, cardIndex) => {
         const Icon = card.icon;
         return (
-          <div key={idx} className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
+          <div key={cardIndex} className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
             <div className="flex items-center space-x-2 text-sky-200 text-xs font-bold uppercase">
               <Icon className="w-4 h-4" />
               <span>{card.label}</span>

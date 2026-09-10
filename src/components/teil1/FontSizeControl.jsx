@@ -14,19 +14,19 @@ export default function FontSizeControl({ fontSizeLevel, onSelectLevel }) {
         <Type className="w-3 h-3 mr-0.5" />
         Текст:
       </span>
-      {options.map((opt) => (
+      {options.map((option) => (
         <button
-          key={opt.level}
+          key={option.level}
           type="button"
-          onClick={() => onSelectLevel(opt.level)}
-          title={opt.title}
+          onClick={() => onSelectLevel(option.level)}
+          title={option.title}
           className={`min-w-[44px] min-h-[44px] px-3 py-2 text-xs font-black rounded-lg transition-all focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
-            fontSizeLevel === opt.level
+            fontSizeLevel === option.level
               ? 'bg-telc-800 text-white shadow-xs'
               : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
           }`}
         >
-          {opt.label}
+          {option.label}
         </button>
       ))}
     </div>

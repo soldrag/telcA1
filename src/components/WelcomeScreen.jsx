@@ -6,19 +6,29 @@ import TeacherExamPicker from './welcome/TeacherExamPicker.jsx';
 import RecentAttemptsList from './welcome/RecentAttemptsList.jsx';
 
 export default function WelcomeScreen({
-  exams = [],
-  testTypes = [],
-  activeTestType = 'lesen',
-  onSelectTestType,
-  currentExamId,
-  onSelectExam,
-  onStartExam,
-  onStartRandomExam,
-  onOpenHistory,
-  onLoadAttempt,
-  recentAttempts = [],
+  examState = {},
+  navigation = {},
+  actions = {},
 }) {
-  const currentModule = testTypes.find(t => t.id === activeTestType) || {
+  const {
+    exams = [],
+    testTypes = [],
+    activeTestType = 'lesen',
+    currentExamId,
+    recentAttempts = [],
+  } = examState;
+
+  const {
+    onSelectTestType,
+    onSelectExam,
+    onStartExam,
+    onStartRandomExam,
+    onLoadAttempt,
+  } = actions;
+
+  const { onOpenHistory } = navigation;
+
+  const currentModule = testTypes.find(testTypeItem => testTypeItem.id === activeTestType) || {
     id: 'lesen',
     title: 'Lesen',
     titleRu: 'Чтение',
@@ -29,7 +39,6 @@ export default function WelcomeScreen({
 
   return (
     <div className="max-w-4xl mx-auto space-y-7 animate-fadeIn py-3">
-      {/* Hero Welcome Banner */}
       <div className="bg-gradient-to-br from-slate-900 via-telc-900 to-telc-800 rounded-3xl p-6 sm:p-9 text-white shadow-xl relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 w-60 h-60 rounded-full bg-white/5 blur-2xl pointer-events-none" />
 
@@ -47,28 +56,21 @@ export default function WelcomeScreen({
           </p>
         </div>
 
-        {/* Dynamic Exam Structure Cards */}
         <ModuleStructureCards testType={activeTestType} />
       </div>
 
-      {/* Module Selector (Lesen, Hören, Schreiben, Sprechen) */}
       <TestTypeSelector
         testTypes={testTypes}
         activeTypeId={activeTestType}
         onSelectType={onSelectTestType}
       />
 
-      {/* Primary Action: Balanced Random Exam */}
       <RandomExamCard
         onStartRandomExam={onStartRandomExam}
         attemptsCount={recentAttempts.length}
-        moduleTitle={currentModule.title}
-        timeLimitMinutes={currentModule.timeLimitMinutes}
-        passScore={currentModule.passScore}
-        totalQuestions={currentModule.totalQuestions}
+        moduleInfo={currentModule}
       />
 
-      {/* Teacher Quick-Select Mode */}
       <TeacherExamPicker
         exams={exams}
         currentExamId={currentExamId}
@@ -76,7 +78,6 @@ export default function WelcomeScreen({
         onStartExam={onStartExam}
       />
 
-      {/* User Attempts History */}
       <RecentAttemptsList
         recentAttempts={recentAttempts}
         onOpenHistory={onOpenHistory}

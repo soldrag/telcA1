@@ -2,15 +2,33 @@ const STORAGE_KEY = 'telc_user_id';
 const COOKIE_NAME = 'telc_user_id';
 const ONE_YEAR_SECONDS = 365 * 24 * 60 * 60;
 
-function readCookie(name) {
+function readCookie(cookieName) {
   if (typeof document === 'undefined') return null;
-  const match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-  return match ? decodeURIComponent(match[3]) : null;
+  const cookieMatch = document.cookie.match(new RegExp('(^|;\\s*)(' + cookieName + ')=([^;]*)'));
+  return cookieMatch ? decodeURIComponent(cookieMatch[3]) : null;
 }
 
-function writeCookie(name, value) {
+function writeCookie(cookieName, cookieValue) {
   if (typeof document === 'undefined') return;
-  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${ONE_YEAR_SECONDS}; SameSite=Lax`;
+  document.cookie = `${cookieName}=${encodeURIComponent(cookieValue)}; path=/; max-age=${ONE_YEAR_SECONDS}; SameSite=Lax`;
+}
+
+function safeSetStorage(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (storageError) {
+    return false;
+  }
+  return true;
+}
+
+function safeRemoveStorage(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch (storageError) {
+    return false;
+  }
+  return true;
 }
 
 export function getOrCreateUserId() {
@@ -22,32 +40,23 @@ export function getOrCreateUserId() {
     return storedId.trim();
   }
 
-  const newId = typeof crypto !== 'undefined' && crypto.randomUUID 
+  const generatedUserId = typeof crypto !== 'undefined' && crypto.randomUUID 
     ? crypto.randomUUID() 
     : `user-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 
-  try {
-    localStorage.setItem(STORAGE_KEY, newId);
-  } catch {
-    // localStorage might be disabled
-  }
-  writeCookie(COOKIE_NAME, newId);
-  return newId;
+  safeSetStorage(STORAGE_KEY, generatedUserId);
+  writeCookie(COOKIE_NAME, generatedUserId);
+  return generatedUserId;
 }
 
 export function getShortUserId(userId) {
   if (!userId || userId === 'anonymous') return 'Гость';
-  const clean = userId.replace(/^user-/, '');
-  return `#${clean.slice(0, 5)}`;
+  const cleanId = userId.replace(/^user-/, '');
+  return `#${cleanId.slice(0, 5)}`;
 }
 
 export function resetUserId() {
   if (typeof window === 'undefined') return;
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // Ignore
-  }
+  safeRemoveStorage(STORAGE_KEY);
   writeCookie(COOKIE_NAME, '');
-  return getOrCreateUserId();
 }

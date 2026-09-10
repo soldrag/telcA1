@@ -2,29 +2,45 @@ import React, { useState, useEffect } from 'react';
 import { FileSpreadsheet } from 'lucide-react';
 import ExamTimer from './ExamTimer.jsx';
 import QuestionNav from './QuestionNav.jsx';
-import Teil1 from './Teil1.jsx';
-import Teil2 from './Teil2.jsx';
-import Teil3 from './Teil3.jsx';
 import Antwortbogen from './Antwortbogen.jsx';
 import ModuleTaskView from './parts/ModuleTaskView.jsx';
+import ExamBottomNav from './exam/ExamBottomNav.jsx';
+import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
+import { scrollToElement, scrollToExamHeader } from '../utils/scrollService.js';
+
+function getMaxTeile(testType) {
+  return testType === 'schreiben' ? 2 : 3;
+}
 
 export default function ExamView({
-  testType = 'lesen',
-  timerState,
-  session,
-  questions = [],
-  answeredCount = 0,
-  totalQuestions = 0,
+  examConfig = {},
+  session = {},
+  timer = {},
   onOpenSubmitConfirm,
+  testType = examConfig.testType || 'lesen',
+  timerState = timer,
+  questions = examConfig.questions || [],
 }) {
   const [showAntwortbogen, setShowAntwortbogen] = useState(false);
+  const maxTeile = getMaxTeile(testType);
+  const answeredCount = session.answeredCount ?? 0;
+  const totalQuestions = questions.length;
 
   useEffect(() => {
     if (!session.scrollTargetId) return;
-    const el = document.getElementById(`question-${session.scrollTargetId}`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    session.setScrollTargetId(null);
+    scrollToElement(`question-${session.scrollTargetId}`);
+    session.clearScrollTarget();
   }, [session.scrollTargetId, session]);
+
+  const handlePreviousTeil = () => {
+    session.previousTeil();
+    scrollToExamHeader();
+  };
+
+  const handleNextTeil = () => {
+    session.nextTeil(maxTeile);
+    scrollToExamHeader();
+  };
 
   return (
     <>
@@ -38,11 +54,7 @@ export default function ExamView({
         <div className="lg:col-span-8">
           <QuestionNav
             questions={questions}
-            answers={session.answers}
-            activeTeil={session.activeTeil}
-            setActiveTeil={session.setActiveTeil}
-            activeQuestionIndex={session.activeQuestionIndex}
-            onSelectQuestion={session.jumpToQuestion}
+            session={session}
           />
         </div>
       </div>
@@ -78,102 +90,25 @@ export default function ExamView({
           <LesenTeilRenderer
             activeTeil={session.activeTeil}
             questions={questions}
-            answers={session.answers}
-            onSelectAnswer={session.selectAnswer}
-            isSubmitted={session.isSubmitted}
+            session={session}
           />
         ) : (
           <ModuleTaskView
             questions={questions}
-            answers={session.answers}
-            onSelectAnswer={session.selectAnswer}
-            isSubmitted={session.isSubmitted}
+            sessionState={session}
             activeTeil={session.activeTeil}
           />
         )}
       </div>
 
       <ExamBottomNav
-        activeTeil={session.activeTeil}
-        maxTeile={testType === 'schreiben' ? 2 : 3}
-        onPreviousTeil={() => {
-          session.setActiveTeil((prev) => Math.max(1, prev - 1));
-          window.scrollTo({ top: 180, behavior: 'smooth' });
+        pagination={{ activeTeil: session.activeTeil, maxTeile }}
+        actions={{
+          onPreviousTeil: handlePreviousTeil,
+          onNextTeil: handleNextTeil,
+          onSubmit: onOpenSubmitConfirm,
         }}
-        onNextTeil={() => {
-          session.setActiveTeil((prev) => prev + 1);
-          window.scrollTo({ top: 180, behavior: 'smooth' });
-        }}
-        onSubmit={onOpenSubmitConfirm}
       />
     </>
-  );
-}
-
-function LesenTeilRenderer({ activeTeil, questions, answers, onSelectAnswer, isSubmitted }) {
-  if (activeTeil === 1) {
-    return (
-      <Teil1
-        questions={questions.filter((q) => q.teil === 1)}
-        answers={answers}
-        onSelectAnswer={onSelectAnswer}
-        isSubmitted={isSubmitted}
-      />
-    );
-  }
-  if (activeTeil === 2) {
-    return (
-      <Teil2
-        questions={questions.filter((q) => q.teil === 2)}
-        answers={answers}
-        onSelectAnswer={onSelectAnswer}
-        isSubmitted={isSubmitted}
-      />
-    );
-  }
-  return (
-    <Teil3
-      questions={questions.filter((q) => q.teil === 3)}
-      answers={answers}
-      onSelectAnswer={onSelectAnswer}
-      isSubmitted={isSubmitted}
-    />
-  );
-}
-
-function ExamBottomNav({ activeTeil, maxTeile, onPreviousTeil, onNextTeil, onSubmit }) {
-  return (
-    <div className="bg-white rounded-2xl border-2 border-slate-300 p-4 sm:p-5 flex items-center justify-between shadow-sm">
-      <button
-        type="button"
-        disabled={activeTeil === 1}
-        onClick={onPreviousTeil}
-        className="px-6 py-3 text-sm font-black text-slate-800 bg-white hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed rounded-xl border-2 border-slate-300 transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
-      >
-        ← Предыдущая часть
-      </button>
-
-      <div className="text-sm font-black text-slate-800 bg-slate-100 px-4 py-2 rounded-lg border border-slate-200 hidden sm:block">
-        Часть {activeTeil} из {maxTeile}
-      </div>
-
-      {activeTeil < maxTeile ? (
-        <button
-          type="button"
-          onClick={onNextTeil}
-          className="px-6 py-2.5 text-sm font-black text-white bg-telc-700 hover:bg-telc-800 rounded-xl shadow-sm transition-colors border-2 border-telc-800 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
-        >
-          Следующая часть →
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={onSubmit}
-          className="px-6 py-2.5 text-sm font-black text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-md shadow-emerald-600/30 transition-all scale-105 border-2 border-emerald-700 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
-        >
-          Завершить экзамен ✓
-        </button>
-      )}
-    </div>
   );
 }
