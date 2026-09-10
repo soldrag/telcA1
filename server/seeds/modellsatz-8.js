@@ -1,0 +1,468 @@
+export const exam = {
+  id: 'modellsatz-8',
+  title: 'telc Deutsch A1 — Modellsatz 8',
+  subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
+  description: 'Восьмой официальный тренировочный вариант экзамена telc Deutsch A1 / Start Deutsch 1. Темы: велопрогулка, спортивный клуб, услуги химчистки, доставка цветов и правила в общественных зонах.',
+  time_limit_minutes: 25,
+  total_questions: 15,
+  pass_score: 9,
+};
+
+export const questions = [
+  // ==========================================
+  // MODELLSATZ 8 - TEIL 1 (Aufgaben 1-5)
+  // ==========================================
+  // Text 1: E-Mail von Jonas an Felix (Aufgaben 1-2)
+  {
+    id: 'm8-q1',
+    exam_id: 'modellsatz-8',
+    teil: 1,
+    question_number: 1,
+    title: 'E-Mail von Jonas an Felix',
+    context_header: 'Von: Jonas Bergmann <jonas.b@post.de>\nAn: Felix Schulz <felix.schulz@gmx.de>\nDatum: 22. Mai, 18:15 Uhr\nBetreff: Radtour am Sonntag an den See',
+    context_body: `Hallo Felix,
+
+das Wetter am Sonntag wird herrlich: 25 Grad und strahlender Sonnenschein! Wollen wir unsere geplante Fahrradtour zum Wannsee machen?
+
+Wir treffen uns um 10:00 Uhr morgens am S-Bahnhof Wannsee vor der Bäckerei. Die Tour dauert ungefähr drei Stunden.
+
+Ich bringe eine Luftpumpe und Werkzeug mit, falls an den Rädern etwas repariert werden muss. Bring du bitte dein stabiles Fahrradschloss und eine große Flasche Wasser mit, damit wir unsere Räder am See sicher abschließen können.
+
+Gib mir kurz Bescheid, ob 10:00 Uhr für dich passt.
+
+Viele Grüße
+Jonas`,
+    statement: 'Felix soll ein Fahrradschloss mitbringen.',
+    correct_answer: 'richtig',
+    clue_quote: 'Bring du bitte dein stabiles Fahrradschloss und eine große Flasche Wasser mit',
+    explanation_ru: 'Йонас прямо просит Феликса: «Bring du bitte dein stabiles Fahrradschloss ... mit» («Принеси, пожалуйста, свой прочный велосипедный замок»). Утверждение верно (Richtig).',
+    explanation_de: 'Jonas bittet Felix, ein Fahrradschloss mitzubringen.',
+    vocabulary_notes: [
+      { word: 'das Fahrradschloss', translation: 'велосипедный замок' },
+      { word: 'die Radtour / Fahrradtour', translation: 'велопрогулка' },
+      { word: 'abschließen', translation: 'запирать на замок' }
+    ]
+  },
+  {
+    id: 'm8-q2',
+    exam_id: 'modellsatz-8',
+    teil: 1,
+    question_number: 2,
+    title: 'E-Mail von Jonas an Felix',
+    context_header: 'Von: Jonas Bergmann <jonas.b@post.de>\nAn: Felix Schulz <felix.schulz@gmx.de>\nDatum: 22. Mai, 18:15 Uhr\nBetreff: Radtour am Sonntag an den See',
+    context_body: `Hallo Felix,
+
+das Wetter am Sonntag wird herrlich: 25 Grad und strahlender Sonnenschein! Wollen wir unsere geplante Fahrradtour zum Wannsee machen?
+
+Wir treffen uns um 10:00 Uhr morgens am S-Bahnhof Wannsee vor der Bäckerei. Die Tour dauert ungefähr drei Stunden.
+
+Ich bringe eine Luftpumpe und Werkzeug mit, falls an den Rädern etwas repariert werden muss. Bring du bitte dein stabiles Fahrradschloss und eine große Flasche Wasser mit, damit wir unsere Räder am See sicher abschließen können.
+
+Gib mir kurz Bescheid, ob 10:00 Uhr für dich passt.
+
+Viele Grüße
+Jonas`,
+    statement: 'Die beiden Freunde treffen sich erst am Nachmittag.',
+    correct_answer: 'falsch',
+    clue_quote: 'Wir treffen uns um 10:00 Uhr morgens am S-Bahnhof Wannsee vor der Bäckerei.',
+    explanation_ru: 'Йонас назначает встречу на 10:00 утра («um 10:00 Uhr morgens»). Это первая половина дня/утро, а не день после полудня («am Nachmittag»). Утверждение неверно (Falsch).',
+    explanation_de: 'Sie treffen sich um 10:00 Uhr morgens, nicht am Nachmittag.',
+    vocabulary_notes: [
+      { word: 'morgens / am Morgen', translation: 'утром' },
+      { word: 'nachmittags', translation: 'во второй половине дня' },
+      { word: 'sich treffen', translation: 'встречаться' }
+    ]
+  },
+
+  // Text 2: Sportverein TSV Grün-Weiß (Aufgaben 3-5)
+  {
+    id: 'm8-q3',
+    exam_id: 'modellsatz-8',
+    teil: 1,
+    question_number: 3,
+    title: 'Information des Sportvereins TSV Grün-Weiß',
+    context_header: 'TSV Grün-Weiß e.V. — Neue Sportangebote ab April',
+    context_body: `Liebe Sportbegeisterte,
+
+ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle:
+- Badminton: Montags von 18:30 bis 20:00 Uhr
+- Tischtennis: Mittwochs von 19:00 bis 20:30 Uhr
+
+Schnuppertraining:
+Sie sind noch kein Mitglied? Kein Problem! Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen. Eine kurze Voranmeldung per E-Mail genügt.
+
+Wichtige Hallenordnung:
+Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen mit abriebfester, heller Sohle gestattet. Straßenschuhe sind streng verboten!
+
+Sportliche Grüße
+Ihr Vereinsvorstand`,
+    statement: 'Wer noch kein Mitglied ist, darf zweimal kostenlos mittrainieren.',
+    correct_answer: 'richtig',
+    clue_quote: 'Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen.',
+    explanation_ru: 'В объявлении спортивного клуба четко сказано: новички могут до двух раз бесплатно посетить пробную тренировку («bis zu zweimal kostenlos an einem Probetraining teilnehmen»). Утверждение верно (Richtig).',
+    explanation_de: 'Nicht-Mitglieder dürfen zweimal kostenlos zum Probetraining kommen.',
+    vocabulary_notes: [
+      { word: 'das Probetraining / Schnuppertraining', translation: 'пробная тренировка' },
+      { word: 'das Mitglied (-er)', translation: 'член клуба' },
+      { word: 'teilnehmen an...', translation: 'принимать участие в...' }
+    ]
+  },
+  {
+    id: 'm8-q4',
+    exam_id: 'modellsatz-8',
+    teil: 1,
+    question_number: 4,
+    title: 'Information des Sportvereins TSV Grün-Weiß',
+    context_header: 'TSV Grün-Weiß e.V. — Neue Sportangebote ab April',
+    context_body: `Liebe Sportbegeisterte,
+
+ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle:
+- Badminton: Montags von 18:30 bis 20:00 Uhr
+- Tischtennis: Mittwochs von 19:00 bis 20:30 Uhr
+
+Schnuppertraining:
+Sie sind noch kein Mitglied? Kein Problem! Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen. Eine kurze Voranmeldung per E-Mail genügt.
+
+Wichtige Hallenordnung:
+Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen mit abriebfester, heller Sohle gestattet. Straßenschuhe sind streng verboten!
+
+Sportliche Grüße
+Ihr Vereinsvorstand`,
+    statement: 'Man darf mit normalen Straßenschuhen in die Sporthalle gehen.',
+    correct_answer: 'falsch',
+    clue_quote: 'Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen ... gestattet. Straßenschuhe sind streng verboten!',
+    explanation_ru: 'Правила спортзала категоричны: вход разрешен исключительно в чистой спортивной сменной обуви («ausschließlich mit sauberen Hallenturnschuhen»), уличная обувь строго запрещена («Straßenschuhe sind streng verboten!»). Утверждение неверно (Falsch).',
+    explanation_de: 'Straßenschuhe sind streng verboten in der Halle.',
+    vocabulary_notes: [
+      { word: 'die Straßenschuhe (pl.)', translation: 'уличная обувь' },
+      { word: 'die Hallenturnschuhe (pl.)', translation: 'спортивная обувь для зала' },
+      { word: 'streng verboten', translation: 'строго запрещено' }
+    ]
+  },
+  {
+    id: 'm8-q5',
+    exam_id: 'modellsatz-8',
+    teil: 1,
+    question_number: 5,
+    title: 'Information des Sportvereins TSV Grün-Weiß',
+    context_header: 'TSV Grün-Weiß e.V. — Neue Sportangebote ab April',
+    context_body: `Liebe Sportbegeisterte,
+
+ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle:
+- Badminton: Montags von 18:30 bis 20:00 Uhr
+- Tischtennis: Mittwochs von 19:00 bis 20:30 Uhr
+
+Schnuppertraining:
+Sie sind noch kein Mitglied? Kein Problem! Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen. Eine kurze Voranmeldung per E-Mail genügt.
+
+Wichtige Hallenordnung:
+Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen mit abriebfester, heller Sohle gestattet. Straßenschuhe sind streng verboten!
+
+Sportliche Grüße
+Ihr Vereinsvorstand`,
+    statement: 'Die neuen Sportkurse fangen im April an.',
+    correct_answer: 'richtig',
+    clue_quote: 'ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle',
+    explanation_ru: 'В самом начале текста указано: «ab Montag, dem 1. April, starten unsere neuen Breitensportkurse» (с понедельника, 1 апреля, начинаются наши новые курсы). Утверждение верно (Richtig).',
+    explanation_de: 'Die Kurse beginnen am 1. April.',
+    vocabulary_notes: [
+      { word: 'anfangen / starten', translation: 'начинаться' },
+      { word: 'die Sporthalle', translation: 'спортивный зал' },
+      { word: 'der Verein', translation: 'спортивный клуб / общество' }
+    ]
+  },
+
+  // ==========================================
+  // MODELLSATZ 8 - TEIL 2 (Aufgaben 6-10)
+  // ==========================================
+  {
+    id: 'm8-q6',
+    exam_id: 'modellsatz-8',
+    teil: 2,
+    question_number: 6,
+    title: 'Aufgabe 6',
+    situation: 'Sie müssen morgen auf eine wichtige Hochzeit und brauchen eine Express-Textilreinigung für Ihren Anzug innerhalb von 24 Stunden.',
+    options_json: [
+      {
+        id: 'a',
+        badge: 'www.blitz-reinigung-24h.de',
+        title: 'BlitzBlank Textilreinigung: Express-Service in 24 Stunden',
+        text: 'Schonende chemische Reinigung für Anzüge, Abendkleider und Mäntel. Heute bis 10:00 Uhr abgeben, morgen abholbereit! Express-Zuschlag nur 5 €. Professionell gebügelt.',
+        details: 'Service: Express-Reinigung in 24h • Anzüge & Abendkleider'
+      },
+      {
+        id: 'b',
+        badge: 'www.teppich-waescherei-spezial.de',
+        title: 'OrientTeppich-Wäscherei & Lederpflege',
+        text: 'Spezialwäsche für handgeknüpfte Orientteppiche und schwere Lederjacken. Bearbeitungszeit ca. 2 bis 3 Wochen. Keine Kleidung wie Anzüge oder Hemden im Sortiment.',
+        details: 'Dauer: 2–3 Wochen • Nur Teppiche & Leder • Keine Anzüge'
+      }
+    ],
+    correct_answer: 'a',
+    clue_quote: 'BlitzBlank Textilreinigung: Express-Service in 24 Stunden ... Heute bis 10:00 Uhr abgeben, morgen abholbereit! ... Anzüge',
+    explanation_ru: 'Вам нужна: 1) химчистка для костюма (Anzug), 2) срочно за 24 часа (innerhalb von 24 Stunden). Вариант «b» стирает ковры 2-3 недели и не принимает костюмы. Вариант «a» чистит костюмы за 24 часа («Express-Service in 24 Stunden, morgen abholbereit»). Правильный ответ: a.',
+    explanation_de: 'Gesucht ist eine Express-Reinigung für einen Anzug innerhalb von 24 Stunden. Anzeige a bietet Express-Service in 24h.',
+    vocabulary_notes: [
+      { word: 'die Textilreinigung', translation: 'химчистка одежды' },
+      { word: 'abholbereit', translation: 'готово к выдаче' },
+      { word: 'der Anzug', translation: 'мужской костюм' }
+    ]
+  },
+  {
+    id: 'm8-q7',
+    exam_id: 'modellsatz-8',
+    teil: 2,
+    question_number: 7,
+    title: 'Aufgabe 7',
+    situation: 'Sie möchten am Wochenende eine geführte Bergwanderung mit einem erfahrenen Bergführer in den bayerischen Alpen machen.',
+    options_json: [
+      {
+        id: 'a',
+        badge: 'www.kletterhalle-cityclimb.de',
+        title: 'CityClimb: Indoor-Kletterhalle im Stadtzentrum',
+        text: 'Klettern und Bouldern an künstlichen Wänden in der Halle. Kurse für Kinder und Erwachsene bei jedem Wetter mitten in der Stadt. Keine Bergtouren im Freien.',
+        details: 'Ort: Kletterhalle drinnen in der Stadt • Keine Bergwanderungen'
+      },
+      {
+        id: 'b',
+        badge: 'www.alpen-bergfuehrer-touren.de',
+        title: 'AlpinTours: Geführte Bergwanderungen in den Alpen',
+        text: 'Sicher die schönsten Berggipfel Bayerns entdecken! Staatlich geprüfte Bergführer begleiten Sie auf leichten bis mittelschweren Wochenendtouren. Samstag ab Garmisch.',
+        details: 'Angebot: Geführte Bergtouren mit Bergführer in den Alpen • Sa'
+      }
+    ],
+    correct_answer: 'b',
+    clue_quote: 'Geführte Bergwanderungen in den Alpen ... Staatlich geprüfte Bergführer begleiten Sie auf leichten bis mittelschweren Wochenendtouren.',
+    explanation_ru: 'Критерии: 1) поход в Альпах (in den bayerischen Alpen), 2) с опытным гидом-проводником (geführte Bergwanderung mit Bergführer). Вариант «a» — это закрытый скалодром в центре города («Indoor-Kletterhalle mitten in der Stadt»). Вариант «b» — горные походы с дипломированными гидами по выходным. Правильный ответ: b.',
+    explanation_de: 'Gesucht wird eine geführte Bergwanderung mit Bergführer in den Alpen. Anzeige b bietet Bergtouren mit Bergführern.',
+    vocabulary_notes: [
+      { word: 'die Bergwanderung', translation: 'горный поход' },
+      { word: 'der Bergführer', translation: 'горный гид / проводник' },
+      { word: 'die Alpen', translation: 'Альпы' }
+    ]
+  },
+  {
+    id: 'm8-q8',
+    exam_id: 'modellsatz-8',
+    teil: 2,
+    question_number: 8,
+    title: 'Aufgabe 8',
+    situation: 'Ihre Mutter hat heute Geburtstag. Sie möchten ihr einen frischen Blumenstrauß mit garantierter Lieferung noch am selben Tag schicken.',
+    options_json: [
+      {
+        id: 'a',
+        badge: 'www.blumen-sofort-bote.de',
+        title: 'BlumenExpress: Frische Blumenlieferung am gleichen Tag',
+        text: 'Überraschen Sie Ihre Liebsten! Bei Bestellung bis 14:00 Uhr liefert unser Kurier bunte Sträuße noch heute direkt an die Haustür der Empfängerin. Frische-Garantie inklusive.',
+        details: 'Service: Blumenlieferung noch heute am selben Tag • Bis 14 Uhr'
+      },
+      {
+        id: 'b',
+        badge: 'www.garten-saatgut-versand.de',
+        title: 'BioGarten: Samen und Blumenzwiebeln online bestellen',
+        text: 'Große Auswahl an Pflanzensamen, Gemüsesaatgut und Zwiebeln für Ihren Garten. Postversand per Paket innerhalb von 3 bis 5 Werktagen. Keine frischen Schnittblumensträuße.',
+        details: 'Lieferzeit: 3–5 Werktage • Nur Samen • Keine frischen Blumen'
+      }
+    ],
+    correct_answer: 'a',
+    clue_quote: 'BlumenExpress: Frische Blumenlieferung am gleichen Tag ... liefert unser Kurier bunte Sträuße noch heute direkt an die Haustür',
+    explanation_ru: 'Вам нужны: 1) букет свежих цветов (frischer Blumenstrauß), 2) доставка сегодня в день заказа (Lieferung noch am selben Tag). Вариант «b» высылает по почте семена за 3-5 дней и не продаёт букеты. Вариант «a» доставляет свежие букеты курьером в тот же день при заказе до 14:00. Правильный ответ: a.',
+    explanation_de: 'Gesucht wird eine Blumenstrauß-Lieferung am selben Tag. Anzeige a liefert noch am gleichen Tag aus.',
+    vocabulary_notes: [
+      { word: 'der Blumenstrauß', translation: 'букет цветов' },
+      { word: 'am selben Tag / am gleichen Tag', translation: 'в тот же день' },
+      { word: 'der Kurier / Bote', translation: 'курьер' }
+    ]
+  },
+  {
+    id: 'm8-q9',
+    exam_id: 'modellsatz-8',
+    teil: 2,
+    question_number: 9,
+    title: 'Aufgabe 9',
+    situation: 'Sie möchten sanftes Yoga lernen und suchen ein Studio, das Kurse für Anfänger am Vormittag anbietet.',
+    options_json: [
+      {
+        id: 'a',
+        badge: 'www.power-crossfit-night.de',
+        title: 'Extreme Crossfit & Power Yoga Night',
+        text: 'Harte Workouts für Hochleistungssportler. Intensives Ashtanga-Yoga ausschließlich spät abends ab 21:30 Uhr. Keine Anfängerkurse, nur für Personen mit langjähriger Praxis.',
+        details: 'Zeiten: Nur spät abends ab 21:30 Uhr • Nur Profis, keine Anfänger'
+      },
+      {
+        id: 'b',
+        badge: 'www.yoga-sanft-morgen.de',
+        title: 'YogaOase: Entspannung & Hatha-Yoga für Einsteiger',
+        text: 'Entspannt in den Tag starten! Unsere Hatha-Yoga-Kurse für Anfänger ohne Vorkenntnisse finden dienstags und donnerstags jeweils von 09:30 bis 11:00 Uhr vormittags statt.',
+        details: 'Zeiten: Di & Do 09:30–11:00 Uhr vormittags • Für Anfänger'
+      }
+    ],
+    correct_answer: 'b',
+    clue_quote: 'Yoga-Kurse für Anfänger ohne Vorkenntnisse finden dienstags und donnerstags jeweils von 09:30 bis 11:00 Uhr vormittags statt.',
+    explanation_ru: 'Критерии: 1) йога для начинающих (Yoga für Einsteiger / Anfänger), 2) в первой половине дня (am Vormittag, 09:30). Вариант «a» проводит жесткие ночные тренировки для профи с 21:30 («Keine Anfängerkurse»). Вариант «b» обучает новичков по утрам с 09:30. Правильный ответ: b.',
+    explanation_de: 'Gesucht ist ein Anfänger-Yogakurs am Vormittag. Anzeige b bietet Kurse für Einsteiger um 09:30 Uhr an.',
+    vocabulary_notes: [
+      { word: 'der Vormittag', translation: 'первая половина дня' },
+      { word: 'die Entspannung', translation: 'расслабление / отдых' },
+      { word: 'ohne Vorkenntnisse', translation: 'без предварительных знаний' }
+    ]
+  },
+  {
+    id: 'm8-q10',
+    exam_id: 'modellsatz-8',
+    teil: 2,
+    question_number: 10,
+    title: 'Aufgabe 10',
+    situation: 'Sie lernen Deutsch auf Niveau A1/A2 und suchen einen lockeren, kostenlosen Stammtisch zum Deutschsprechen am Abend.',
+    options_json: [
+      {
+        id: 'a',
+        badge: 'www.sprachen-stammtisch-berlin.de',
+        title: 'Café Dialog: Kostenloser Deutsch-Sprachstammtisch',
+        text: 'Einfach Deutsch sprechen und neue Leute kennenlernen! Unser offenes Sprachtreffen findet jeden Donnerstag ab 19:00 Uhr in lockerer Bar-Atmosphäre statt. Eintritt frei, keine Anmeldung.',
+        details: 'Angebot: Kostenloser Stammtisch • Do ab 19:00 Uhr • Eintritt frei'
+      },
+      {
+        id: 'b',
+        badge: 'www.akademie-grammatik-pruefung.de',
+        title: 'Institut für Fachsprache & Prüfungszertifikate',
+        text: 'Vorbereitung auf schwere C1/C2-Hochschulprüfungen. Strenger wissenschaftlicher Einzelunterricht mit Grammatiktests. Monatlicher Beitrag: 380 €. Nicht für Anfänger geeignet.',
+        details: 'Kosten: 380 € pro Monat • Nur C1/C2 Wissenschaftssprache'
+      }
+    ],
+    correct_answer: 'a',
+    clue_quote: 'Café Dialog: Kostenloser Deutsch-Sprachstammtisch ... jeden Donnerstag ab 19:00 Uhr ... Eintritt frei',
+    explanation_ru: 'Вам нужны: 1) разговорный клуб / общение (Sprachstammtisch zum Deutschsprechen), 2) бесплатно (kostenlos / Eintritt frei), 3) вечером (abends ab 19:00 Uhr). Вариант «b» — академический платный курс за 380 € уровня C1/C2. Вариант «a» — бесплатный разговорный клуб по четвергам в 19:00. Правильный ответ: a.',
+    explanation_de: 'Gesucht ist ein kostenloser Sprachstammtisch am Abend. Anzeige a bietet ein kostenloses Sprachtreffen donnerstags ab 19:00 Uhr an.',
+    vocabulary_notes: [
+      { word: 'der Stammtisch / das Sprachtreffen', translation: 'регулярная встреча клуба по интересам' },
+      { word: 'Eintritt frei / kostenlos', translation: 'вход свободный / бесплатно' },
+      { word: 'Leute kennenlernen', translation: 'знакомиться с людьми' }
+    ]
+  },
+
+  // ==========================================
+  // MODELLSATZ 8 - TEIL 3 (Aufgaben 11-15)
+  // ==========================================
+  {
+    id: 'm8-q11',
+    exam_id: 'modellsatz-8',
+    teil: 3,
+    question_number: 11,
+    title: 'Schild an der automatischen PKW-Waschstraße',
+    context_header: 'CleanCar Waschstraße — Einfahrthinweis',
+    context_body: `Wichtige Kundenanweisung vor der Einfahrt:
+
+1. Antenne abschrauben oder einschieben
+2. Alle Fenster und das Schiebedach fest schließen
+3. Scheibenwischer auf „Aus" stellen
+4. Gang rausnehmen und Handbremse nicht anziehen!
+
+Für Schäden durch Nichtbeachtung wird keine Haftung übernommen.`,
+    statement: 'Autofahrer müssen vor dem Waschen die Fenster fest zumachen.',
+    correct_answer: 'richtig',
+    clue_quote: 'Alle Fenster und das Schiebedach fest schließen',
+    explanation_ru: 'В инструкции перед въездом на автомойку написано: «Alle Fenster ... fest schließen» («плотно закрыть все окна»). Утверждение верно (Richtig).',
+    explanation_de: 'Die Fenster müssen vor dem Waschen fest geschlossen werden.',
+    vocabulary_notes: [
+      { word: 'fest schließen / zumachen', translation: 'плотно закрыть' },
+      { word: 'die Autowaschstraße', translation: 'автомойка' },
+      { word: 'die Einfahrt', translation: 'въезд' }
+    ]
+  },
+  {
+    id: 'm8-q12',
+    exam_id: 'modellsatz-8',
+    teil: 3,
+    question_number: 12,
+    title: 'Hinweisschild am städtischen Wertstoffhof',
+    context_header: 'Stadtwerke Entsorgung — Wertstoffhof Süd',
+    context_body: `Elektroschrott & Batterien:
+
+Alte Haushaltsgeräte (wie Toaster, Föhns, Kaffeemaschinen) und Batterien gehören nicht in den normalen Restmüll!
+
+Bitte werfen Sie Elektrokleingeräte und Akkus getrennt in den grünen Sammelcontainer Nr. 4.`,
+    statement: 'Alte Elektrogeräte darf man in Container 4 abgeben.',
+    correct_answer: 'richtig',
+    clue_quote: 'Bitte werfen Sie Elektrokleingeräte und Akkus getrennt in den grünen Sammelcontainer Nr. 4.',
+    explanation_ru: 'На табличке написано: выбрасывать бытовые приборы в обычный мусор нельзя, их нужно сдавать отдельно в контейнер № 4 («in den grünen Sammelcontainer Nr. 4»). Утверждение верно (Richtig).',
+    explanation_de: 'Elektrogeräte gehören in Container 4.',
+    vocabulary_notes: [
+      { word: 'der Wertstoffhof / Recyclinghof', translation: 'пункт сбора вторсырья' },
+      { word: 'der Elektroschrott', translation: 'электронные отходы' },
+      { word: 'getrennt werfen', translation: 'выбрасывать раздельно' }
+    ]
+  },
+  {
+    id: 'm8-q13',
+    exam_id: 'modellsatz-8',
+    teil: 3,
+    question_number: 13,
+    title: 'Aushang an der Praxistür für Physiotherapie',
+    context_header: 'Physiotherapie & Massagepraxis Franke',
+    context_body: `Liebe Patientinnen und Patienten,
+
+bitte sagen Sie vereinbarte Behandlungstermine mindestens 24 Stunden vorher telefonisch ab, falls Sie verhindert sind.
+
+Bei kurzfristiger Absage oder Nichterscheinen müssen wir Ihnen die Behandlungszeit leider privat in Rechnung stellen.`,
+    statement: 'Man kann einen Termin eine Stunde vorher absagen, ohne dafür bezahlen zu müssen.',
+    correct_answer: 'falsch',
+    clue_quote: 'mindestens 24 Stunden vorher telefonisch ab ... Bei kurzfristiger Absage ... müssen wir Ihnen die Behandlungszeit privat in Rechnung stellen.',
+    explanation_ru: 'В объявлении четко указано: отменять прием нужно как минимум за 24 часа («mindestens 24 Stunden vorher»). Если отменить всего за 1 час, пациенту выставят счет за пропущенное время. Бесплатно за 1 час отменить нельзя. Утверждение неверно (Falsch).',
+    explanation_de: 'Man muss mindestens 24 Stunden vorher absagen, sonst wird es kostenpflichtig.',
+    vocabulary_notes: [
+      { word: 'absagen', translation: 'отменять (запись)' },
+      { word: 'in Rechnung stellen', translation: 'выставить счет к оплате' },
+      { word: 'mindestens 24 Stunden vorher', translation: 'как минимум за 24 часа' }
+    ]
+  },
+  {
+    id: 'm8-q14',
+    exam_id: 'modellsatz-8',
+    teil: 3,
+    question_number: 14,
+    title: 'Hinweisschild am Hotel-Frühstücksbuffet',
+    context_header: 'Hotel am Park — Frühstücksrestaurant',
+    context_body: `Sehr geehrte Gäste,
+
+unser Frühstücksbuffet steht Ihnen täglich von 07:00 bis 10:30 Uhr im Speisesaal zur Verfügung.
+
+Bitte beachten Sie:
+Alle Speisen und Getränke sind ausschließlich für den Verzehr in unserem Frühstücksraum bestimmt. Das Einpacken und Mitnehmen von belegten Brötchen oder Obst auf das Zimmer oder für unterwegs ist nicht gestattet.`,
+    statement: 'Hotelgäste dürfen belegte Brötchen vom Buffet für Ausflüge einpacken und mitnehmen.',
+    correct_answer: 'falsch',
+    clue_quote: 'Das Einpacken und Mitnehmen von belegten Brötchen oder Obst ... für unterwegs ist nicht gestattet.',
+    explanation_ru: 'В правилах ресторана отеля строго указано: еда предназначена только для употребления в зале, а уносить с собой бутерброды и фрукты не разрешено («ist nicht gestattet»). Утверждение неверно (Falsch).',
+    explanation_de: 'Das Mitnehmen von Speisen für unterwegs ist verboten („nicht gestattet").',
+    vocabulary_notes: [
+      { word: 'der Verzehr', translation: 'употребление в пищу' },
+      { word: 'nicht gestattet', translation: 'не разрешено' },
+      { word: 'für unterwegs', translation: 'с собой в дорогу' }
+    ]
+  },
+  {
+    id: 'm8-q15',
+    exam_id: 'modellsatz-8',
+    teil: 3,
+    question_number: 15,
+    title: 'Hinweisschild vor der Ausfahrtschranke im Parkhaus',
+    context_header: 'City-Parkhaus Markt — Ausfahrt',
+    context_body: `Achtung Autofahrer!
+
+Keine Kartenzahlung an der Schranke möglich!
+
+Bitte bezahlen Sie Ihr Parkticket vor dem Einsteigen an den Kassenautomaten im Erdgeschoss (neben dem Kundencenter).
+
+Die Schranke öffnet sich nur mit einem bereits bezahlten Ticket.`,
+    statement: 'Man muss das Parkticket bezahlen, bevor man zur Schranke fährt.',
+    correct_answer: 'richtig',
+    clue_quote: 'Bitte bezahlen Sie Ihr Parkticket vor dem Einsteigen an den Kassenautomaten im Erdgeschoss ... Die Schranke öffnet sich nur mit einem bereits bezahlten Ticket.',
+    explanation_ru: 'На табло написано: на самой выездной стойке оплата невозможна, билет нужно оплатить в автомате до посадки в машину («vor dem Einsteigen an den Kassenautomaten bezahlen»), иначе шлагбаум не откроется. Утверждение верно (Richtig).',
+    explanation_de: 'Das Ticket muss vorher am Kassenautomaten bezahlt werden.',
+    vocabulary_notes: [
+      { word: 'die Ausfahrtschranke', translation: 'выездной шлагбаум' },
+      { word: 'der Kassenautomat', translation: 'парковочный автомат оплаты' },
+      { word: 'vor dem Einsteigen', translation: 'перед посадкой в автомобиль' }
+    ]
+  }
+];
