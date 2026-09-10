@@ -51,11 +51,11 @@ export default function RandomExamCard({
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto shrink-0">
           <button
             type="button"
             onClick={() => onStartRandomExam({ timed: false })}
-            className="px-4 py-3 rounded-xl border border-border-default bg-surface-card hover:bg-slate-100 dark:hover:bg-slate-700 text-content-primary text-xs sm:text-sm font-bold transition-all text-center min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="px-4 py-3 rounded-xl border border-border-default bg-surface-card hover:bg-slate-100 dark:hover:bg-slate-700 text-content-primary text-xs sm:text-sm font-bold transition-all text-center min-h-[44px] whitespace-nowrap focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
             Тренировка (без таймера)
           </button>
@@ -63,10 +63,10 @@ export default function RandomExamCard({
           <button
             type="button"
             onClick={() => onStartRandomExam({ timed: true })}
-            className="px-6 py-3 rounded-xl bg-telc-600 hover:bg-telc-700 text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-telc-600/30 hover:scale-[1.02] transition-all flex items-center justify-center space-x-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="px-6 py-3 rounded-xl bg-telc-600 hover:bg-telc-700 text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-telc-600/30 hover:scale-[1.02] transition-all flex items-center justify-center space-x-2 min-h-[44px] whitespace-nowrap focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
-            <Play className="w-4 h-4 fill-current" />
-            <span>Начать ({timeLimitMinutes} мин)</span>
+            <Play className="w-4 h-4 fill-current shrink-0" />
+            <span className="whitespace-nowrap">Начать ({timeLimitMinutes} мин)</span>
           </button>
         </div>
       </div>
