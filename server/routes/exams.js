@@ -2,47 +2,7 @@ import { Router } from 'express';
 import crypto from 'node:crypto';
 import { extractUserId } from '../services/user-context.js';
 import { selectBalancedRandomExam } from '../services/exam-balancer.js';
-
-function gradeQuestion(question, answers) {
-  const userAnswer = (answers[question.id] || '').trim().toLowerCase();
-  const correctAnswer = question.correct_answer.trim().toLowerCase();
-  const isCorrect = userAnswer !== '' && userAnswer === correctAnswer;
-
-  return {
-    id: question.id,
-    teil: question.teil,
-    question_number: question.question_number,
-    title: question.title,
-    situation: question.situation,
-    context_header: question.context_header,
-    context_body: question.context_body,
-    options_json: question.options_json ? JSON.parse(question.options_json) : null,
-    statement: question.statement,
-    user_answer: userAnswer || null,
-    correct_answer: correctAnswer,
-    is_correct: isCorrect,
-    clue_quote: question.clue_quote,
-    explanation_ru: question.explanation_ru,
-    explanation_de: question.explanation_de,
-    vocabulary_notes: question.vocabulary_notes ? JSON.parse(question.vocabulary_notes) : [],
-  };
-}
-
-function evaluateExamSubmission(questions, answers) {
-  let score = 0;
-  const teilBreakdown = { 1: { score: 0, total: 0 }, 2: { score: 0, total: 0 }, 3: { score: 0, total: 0 } };
-  const reviewItems = questions.map(q => {
-    const item = gradeQuestion(q, answers);
-    if (item.is_correct) score++;
-    if (teilBreakdown[q.teil]) {
-      teilBreakdown[q.teil].total++;
-      if (item.is_correct) teilBreakdown[q.teil].score++;
-    }
-    return item;
-  });
-
-  return { score, reviewItems, teilBreakdown };
-}
+import { evaluateExamSubmission } from '../services/exam-evaluator.js';
 
 export function createExamsRouter(db) {
   const router = Router();
@@ -88,10 +48,7 @@ export function createExamsRouter(db) {
         FROM questions 
         WHERE exam_id = ? 
         ORDER BY question_number ASC
-      `).all(req.params.id).map(q => ({
-        ...q,
-        options_json: q.options_json ? JSON.parse(q.options_json) : null
-      }));
+      `).all(req.params.id).map(parseQuestionOptions);
 
       res.json({ exam, questions });
     } catch (err) {
@@ -111,12 +68,23 @@ export function createExamsRouter(db) {
 
       const totalQuestions = questions.length;
       const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 1000) / 10 : 0;
-      const passed = score >= exam.pass_score ? 1 : 0;
+      const passed = score >= exam.pass_score;
       const attemptId = crypto.randomUUID();
 
-      const resultsPayload = { exam, score, totalQuestions, percentage, passed: Boolean(passed), teilBreakdown, reviewItems, timeSpentSeconds };
+      const resultsPayload = {
+        attemptId,
+        exam,
+        score,
+        totalQuestions,
+        percentage,
+        passed,
+        teilBreakdown,
+        reviewItems,
+        timeSpentSeconds,
+        passScore: exam.pass_score,
+      };
 
-      res.json({ attemptId, ...resultsPayload, passScore: exam.pass_score });
+      res.json(resultsPayload);
     } catch (err) {
       console.error('Error submitting exam:', err);
       res.status(500).json({ error: 'Failed to process exam submission' });
@@ -124,4 +92,11 @@ export function createExamsRouter(db) {
   });
 
   return router;
+}
+
+function parseQuestionOptions(question) {
+  return {
+    ...question,
+    options_json: question.options_json ? JSON.parse(question.options_json) : null,
+  };
 }
