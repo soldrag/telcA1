@@ -114,8 +114,9 @@ All exam questions are stored in `server/seed-data.js`. When adding a new test v
   statement: 'Thomas soll Laura beim Umzug helfen.', // statement in German
   correct_answer: 'richtig', // strictly 'richtig' or 'falsch'
   clue_quote: 'Kannst du mir bitte ab 10 Uhr beim Tragen helfen?', // exact quote from text
-  explanation_ru: 'Detailed explanation: phrase translation, reasoning, and why this answer is correct.',
-  explanation_de: 'Brief confirmation in German.',
+  explanation_en: 'Laura asks for help with carrying items ("beim Tragen helfen") at 10:00. The statement is True.',
+  explanation_ru: 'Лаура просит помочь носить вещи («beim Tragen helfen») с 10:00. Утверждение верно (Richtig).',
+  explanation_de: 'Laura bittet ab 10 Uhr um Hilfe beim Tragen.',
   vocabulary_notes: [
     { word: 'beim Umzug helfen', translation: 'help with moving' },
     { word: 'tragen', translation: 'to carry / haul' }
@@ -150,7 +151,8 @@ All exam questions are stored in `server/seed-data.js`. When adding a new test v
   ],
   correct_answer: 'a', // strictly 'a' or 'b'
   clue_quote: 'Jeden Samstag ab 22:00 Uhr große Tanzparty ... Cocktails und beste Musik.',
-  explanation_ru: 'Explanation: why site "a" fits (dance party on Saturday night), and why site "b" does not (classical concert in the afternoon, no dancing).',
+  explanation_en: 'Option (a) offers a dance party on Saturday night, matching the request. Option (b) is an afternoon classical concert without dancing.',
+  explanation_ru: 'Вариант (a) предлагает танцевальную вечеринку в субботу вечером. Вариант (b) — дневной концерт классической музыки без танцев.',
   explanation_de: 'Gesucht wird eine Tanzgelegenheit am Samstagabend. Anzeige a bietet eine Party an.',
   vocabulary_notes: [
     { word: 'tanzen gehen', translation: 'to go dancing' },
@@ -172,7 +174,8 @@ All exam questions are stored in `server/seed-data.js`. When adding a new test v
   statement: 'Man kann am 18. Juli von Dr. Meier behandelt werden.',
   correct_answer: 'falsch', // strictly 'richtig' or 'falsch'
   clue_quote: 'unsere Praxis bleibt vom 15. bis 22. Juli wegen Renovierung geschlossen.',
-  explanation_ru: 'Explanation: the practice is closed for renovation from July 15 to 22 ("geschlossen"), so Dr. Meier cannot be visited on July 18.',
+  explanation_en: 'The practice is closed for renovations from July 15 to 22 ("geschlossen"). Treatment on July 18 is not possible. The statement is False.',
+  explanation_ru: 'Практика закрыта на ремонт с 15 по 22 июля («geschlossen»). Приём 18 июля невозможен. Утверждение неверно (Falsch).',
   explanation_de: 'Die Praxis ist bis 22. Juli geschlossen.',
   vocabulary_notes: [
     { word: 'geschlossen', translation: 'closed' },
@@ -230,6 +233,17 @@ npm start
 ```
 The new test variant will automatically appear in the exam selector dropdown in the header!
 
+### Multilingual Explanations Standards
+Explanations must be provided in all supported UI languages:
+- **`explanation_en`**: Clear, factual explanation in English.
+- **`explanation_ru`**: Clear, factual explanation in Russian.
+- **`explanation_de`**: Concise German confirmation referencing the key clue.
+
+**Tone and Content Guidelines**:
+- **Factual and clue-driven**: Focus on the concrete evidence from `clue_quote`. Avoid conversational fluff ("Забавно, но автор имеет в виду...").
+- **Clear contrast**: State clearly what the source text specifies vs. what the statement claims (e.g. "Classes run Monday to Thursday, not Friday. The statement is False.").
+- **For Teil 2**: Explain why option `a` or `b` fulfills the requirements and highlight the subtle mismatch in the rejected distractor.
+
 ---
 
 ## 6. Quality Checklist Before Adding
@@ -237,7 +251,8 @@ The new test variant will automatically appear in the exam selector dropdown in 
 Before saving a new set, verify:
 - [ ] Exactly 15 questions: Teil 1 (5 items), Teil 2 (5 items), Teil 3 (5 items).
 - [ ] Accurate clue quote `clue_quote` provided for every question.
-- [ ] Clear and comprehensive explanation `explanation_ru` provided.
+- [ ] Multilingual explanations provided in all supported languages: `explanation_en`, `explanation_ru`, and `explanation_de`.
+- [ ] Explanations are factual, concise, and highlight key clues without excessive filler.
 - [ ] Core A1 vocabulary cards `vocabulary_notes` included.
 - [ ] Balanced `richtig` / `falsch` answers in Teil 1 and Teil 3.
 - [ ] In Teil 2, both options (`a` and `b`) are plausible, but exactly one is correct.

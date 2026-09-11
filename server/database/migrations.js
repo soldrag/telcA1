@@ -31,6 +31,7 @@ export function runMigrations(database) {
       correct_answer TEXT NOT NULL,
       clue_quote TEXT NOT NULL,
       explanation_ru TEXT NOT NULL,
+      explanation_en TEXT,
       explanation_de TEXT NOT NULL,
       vocabulary_notes TEXT,
       FOREIGN KEY (exam_id) REFERENCES exams(id) ON DELETE CASCADE
@@ -52,6 +53,9 @@ export function runMigrations(database) {
     );
   `);
 
+  if (!hasColumn(database, 'questions', 'explanation_en')) {
+    database.exec("ALTER TABLE questions ADD COLUMN explanation_en TEXT");
+  }
   if (!hasColumn(database, 'exams', 'test_type')) {
     database.exec("ALTER TABLE exams ADD COLUMN test_type TEXT NOT NULL DEFAULT 'lesen'");
   }

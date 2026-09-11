@@ -40,7 +40,7 @@ describe('Server Route Handlers (Offline Unit Test)', () => {
       id TEXT PRIMARY KEY, exam_id TEXT, teil INT, question_number INT,
       title TEXT, situation TEXT, context_header TEXT, context_body TEXT,
       options_json TEXT, statement TEXT, correct_answer TEXT,
-      clue_quote TEXT, explanation_ru TEXT, explanation_de TEXT, vocabulary_notes TEXT
+      clue_quote TEXT, explanation_ru TEXT, explanation_en TEXT, explanation_de TEXT, vocabulary_notes TEXT
     );
     CREATE TABLE attempts (
       id TEXT PRIMARY KEY, exam_id TEXT, user_id TEXT, score INT,
@@ -51,7 +51,7 @@ describe('Server Route Handlers (Offline Unit Test)', () => {
       ('modellsatz-1', 'Exam 1', 'Sub', 'Desc', 'lesen', 25, 1, 1, 1),
       ('modellsatz-2', 'Exam 2', 'Sub', 'Desc', 'lesen', 25, 1, 1, 2);
     INSERT INTO questions VALUES 
-      ('q1', 'modellsatz-1', 1, 1, 'Q1', NULL, NULL, 'Body', NULL, 'St', 'richtig', 'Clue', 'Ru', 'De', NULL);
+      ('q1', 'modellsatz-1', 1, 1, 'Q1', NULL, NULL, 'Body', NULL, 'St', 'richtig', 'Clue', 'Ru', 'En', 'De', NULL);
   `);
 
   it('GET /api/test-types handler returns active and upcoming test modules', () => {
@@ -94,6 +94,7 @@ describe('Server Route Handlers (Offline Unit Test)', () => {
     assert.equal(res.body.score, 1);
     assert.equal(res.body.passed, true);
     assert.ok(res.body.attemptId);
+    assert.equal(res.body.reviewItems[0].explanation_en, 'En');
 
     // Verify no attempts written to SQLite attempts table
     const storedCount = db.prepare('SELECT COUNT(*) as cnt FROM attempts').get().cnt;

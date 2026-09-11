@@ -2,10 +2,18 @@ import React from 'react';
 import { HelpCircle, BookOpen } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
+function resolveExplanation(item, language) {
+  if (language === 'ru') {
+    return item.explanation_ru || item.explanation_en || item.explanation_de;
+  }
+  return item.explanation_en || item.explanation_de || item.explanation_ru;
+}
+
 export default function ExpandedExplanationContent({ item }) {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const options = item.options_json;
   const vocabularyList = item.vocabulary_notes;
+  const explanation = resolveExplanation(item, language);
 
   return (
     <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-border-default bg-surface-card rounded-b-2xl space-y-4">
@@ -47,7 +55,7 @@ export default function ExpandedExplanationContent({ item }) {
           <span>{t('results.whyExplanation')}</span>
         </div>
         <p className="text-xs sm:text-sm text-content-primary leading-relaxed">
-          {item.explanation_ru}
+          {explanation}
         </p>
       </div>
 
