@@ -1,7 +1,26 @@
 import { useState, useCallback, useEffect } from 'react';
 import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
 
-export function useAttemptHistory(activeTestType = 'lesen', storage = defaultAttemptStorage) {
+export function resolveAttemptStorage(optionsOrStorage) {
+  if (!optionsOrStorage) return defaultAttemptStorage;
+  if (typeof optionsOrStorage === 'object' && optionsOrStorage.storage) {
+    return optionsOrStorage.storage;
+  }
+  return optionsOrStorage;
+}
+
+export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrStorage = defaultAttemptStorage) {
+  let activeTestType = 'lesen';
+  let storage = defaultAttemptStorage;
+
+  if (activeTestTypeOrOptions && typeof activeTestTypeOrOptions === 'object' && !('getAttempts' in activeTestTypeOrOptions)) {
+    activeTestType = activeTestTypeOrOptions.activeTestType || activeTestTypeOrOptions.testType || 'lesen';
+    storage = resolveAttemptStorage(activeTestTypeOrOptions.storage);
+  } else {
+    activeTestType = activeTestTypeOrOptions || 'lesen';
+    storage = resolveAttemptStorage(optionsOrStorage);
+  }
+
   const [recentAttempts, setRecentAttempts] = useState([]);
   const [historyAttempts, setHistoryAttempts] = useState([]);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -42,7 +61,8 @@ export function useAttemptHistory(activeTestType = 'lesen', storage = defaultAtt
 
   useEffect(() => {
     refreshAttempts();
-  }, [refreshAttempts]);
+    refreshHistory();
+  }, [refreshAttempts, refreshHistory]);
 
   return {
     recentAttempts,

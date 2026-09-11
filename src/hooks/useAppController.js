@@ -19,7 +19,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
   const modals = useModalCoordinator();
   const session = useExamSession({ storage });
   const timer = useExamTimer(25 * 60);
-  const history = useAttemptHistory(loader.activeTestType, { storage });
+  const history = useAttemptHistory(loader.activeTestType, storage);
 
   const navigateTo = useCallback((targetScreen) => {
     setScreen(targetScreen);

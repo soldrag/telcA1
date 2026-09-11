@@ -28,29 +28,35 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
   constructor(storageKey = DEFAULT_STORAGE_KEY) {
     super();
     this.storageKey = storageKey;
+    this._memoryFallback = [];
   }
 
   _isStorageAvailable() {
-    return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+    try {
+      return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined' && window.localStorage !== null;
+    } catch {
+      return false;
+    }
   }
 
   _loadRawList() {
-    if (!this._isStorageAvailable()) return [];
+    if (!this._isStorageAvailable()) return [...this._memoryFallback];
     try {
       const serialized = window.localStorage.getItem(this.storageKey);
-      if (!serialized) return [];
+      if (!serialized) return [...this._memoryFallback];
       const parsed = JSON.parse(serialized);
-      return Array.isArray(parsed) ? parsed : [];
+      return Array.isArray(parsed) ? parsed : [...this._memoryFallback];
     } catch (parseError) {
       console.warn('[LocalStorageAttemptStorage] Failed to parse stored attempts', parseError);
-      return [];
+      return [...this._memoryFallback];
     }
   }
 
   _saveRawList(attemptsList) {
+    const cappedList = attemptsList.slice(0, MAX_STORED_ATTEMPTS);
+    this._memoryFallback = cappedList;
     if (!this._isStorageAvailable()) return;
     try {
-      const cappedList = attemptsList.slice(0, MAX_STORED_ATTEMPTS);
       window.localStorage.setItem(this.storageKey, JSON.stringify(cappedList));
     } catch (storageError) {
       console.warn('[LocalStorageAttemptStorage] Failed to save attempts to localStorage', storageError);
@@ -134,6 +140,7 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
   }
 
   async clearAttempts() {
+    this._memoryFallback = [];
     if (!this._isStorageAvailable()) return;
     try {
       window.localStorage.removeItem(this.storageKey);

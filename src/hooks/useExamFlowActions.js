@@ -58,7 +58,8 @@ export function useExamFlowActions({
     });
     modals.closeSubmitModal();
     modals.closeTimeUpModal();
-    history.refreshAttempts();
+    await history.refreshAttempts();
+    await history.refreshHistory();
     navigateTo('results');
   }, [session, loader.currentExamId, timer, modals, history, navigateTo]);
 

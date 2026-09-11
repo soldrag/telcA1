@@ -142,4 +142,48 @@ describe('Storage Layer & Pluggable Providers', () => {
 
     assert.equal(selected.id, 'modellsatz-3', 'Should choose modellsatz-3 which has 0 attempts');
   });
+
+  it('resolveAttemptStorage resolves storage correctly from both object and instance', async () => {
+    const { resolveAttemptStorage } = await import('../src/hooks/useAttemptHistory.js');
+
+    // Case 1: Wrapped in options object { storage }
+    const resolvedFromObj = resolveAttemptStorage({ storage: memoryStorage });
+    assert.equal(resolvedFromObj, memoryStorage);
+
+    // Case 2: Direct instance passed
+    const resolvedFromDirect = resolveAttemptStorage(memoryStorage);
+    assert.equal(resolvedFromDirect, memoryStorage);
+
+    // Case 3: Empty / undefined falls back to default singleton without error
+    const resolvedDefault = resolveAttemptStorage();
+    assert.ok(resolvedDefault);
+    assert.equal(typeof resolvedDefault.getAttempts, 'function');
+  });
+
+  it('LocalStorageAttemptStorage operates gracefully with in-memory fallback if localStorage fails', async () => {
+    // Window exists but localStorage throws on access
+    global.window = {
+      get localStorage() {
+        throw new Error('Access denied (SecurityError)');
+      }
+    };
+
+    const fallbackStorage = new LocalStorageAttemptStorage('security_error_key');
+    const saved = await fallbackStorage.saveAttempt({
+      exam_id: 'modellsatz-1',
+      test_type: 'lesen',
+      score: 15,
+      passed: true
+    });
+
+    assert.ok(saved.id);
+    const attempts = await fallbackStorage.getAttempts();
+    assert.equal(attempts.length, 1);
+    assert.equal(attempts[0].id, saved.id);
+
+    await fallbackStorage.clearAttempts();
+    assert.equal((await fallbackStorage.getAttempts()).length, 0);
+
+    delete global.window;
+  });
 });
