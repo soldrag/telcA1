@@ -362,17 +362,17 @@ Zu Ihrer und aller Besucher Sicherheit gilt:
 
 zur Verkürzung der Wartezeiten:
 - Briefe, Einschreiben und Briefmarken: Schalter 1 und 2
-- Paketabgabe und Retouren: ausschließlich an Schalter 3 und 4
+- Paketabgabe und Retouren: nur an Schalter 3 und 4
 
 Vielen Dank für Ihre Mithilfe!`,
     statement: 'Man kann Pakete an Schalter 1 abgeben.',
     correct_answer: 'falsch',
-    clue_quote: 'Paketabgabe und Retouren: ausschließlich an Schalter 3 und 4',
-    explanation_ru: 'На табличке в почтовом отделении написано: сдача посылок происходит исключительно в окнах 3 и 4 («ausschließlich an Schalter 3 und 4»). Окно 1 предназначено только для писем и марок. Утверждение неверно (Falsch).',
+    clue_quote: 'Paketabgabe und Retouren: nur an Schalter 3 und 4',
+    explanation_ru: 'На табличке в почтовом отделении написано: сдача посылок происходит только в окнах 3 и 4 («nur an Schalter 3 und 4»). Окно 1 предназначено только для писем и марок. Утверждение неверно (Falsch).',
     explanation_de: 'Pakete werden nur an Schalter 3 und 4 angenommen, nicht an Schalter 1.',
     vocabulary_notes: [
       { word: 'der Schalter', translation: 'операционное окно / стойка' },
-      { word: 'ausschließlich', translation: 'исключительно' },
+      { word: 'nur an Schalter...', translation: 'только в окне...' },
       { word: 'die Paketabgabe', translation: 'сдача посылок' }
     ]
   },

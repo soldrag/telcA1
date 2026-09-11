@@ -22,11 +22,11 @@ export const questions = [
     context_header: 'Von: Jonas Bergmann <jonas.b@post.de>\nAn: Felix Schulz <felix.schulz@gmx.de>\nDatum: 22. Mai, 18:15 Uhr\nBetreff: Radtour am Sonntag an den See',
     context_body: `Hallo Felix,
 
-das Wetter am Sonntag wird herrlich: 25 Grad und strahlender Sonnenschein! Wollen wir unsere geplante Fahrradtour zum Wannsee machen?
+das Wetter am Sonntag wird super: 25 Grad und viel Sonne! Wollen wir unsere Fahrradtour zum Wannsee machen?
 
 Wir treffen uns um 10:00 Uhr morgens am S-Bahnhof Wannsee vor der Bäckerei. Die Tour dauert ungefähr drei Stunden.
 
-Ich bringe eine Luftpumpe und Werkzeug mit, falls an den Rädern etwas repariert werden muss. Bring du bitte dein stabiles Fahrradschloss und eine große Flasche Wasser mit, damit wir unsere Räder am See sicher abschließen können.
+Ich bringe eine Luftpumpe und Werkzeug mit, wenn an den Fahrrädern etwas kaputt ist. Bring du bitte dein Fahrradschloss und eine große Flasche Wasser mit. Am See schließen wir unsere Fahrräder ab.
 
 Gib mir kurz Bescheid, ob 10:00 Uhr für dich passt.
 
@@ -34,12 +34,12 @@ Viele Grüße
 Jonas`,
     statement: 'Felix soll ein Fahrradschloss mitbringen.',
     correct_answer: 'richtig',
-    clue_quote: 'Bring du bitte dein stabiles Fahrradschloss und eine große Flasche Wasser mit',
-    explanation_ru: 'Йонас прямо просит Феликса: «Bring du bitte dein stabiles Fahrradschloss ... mit» («Принеси, пожалуйста, свой прочный велосипедный замок»). Утверждение верно (Richtig).',
+    clue_quote: 'Bring du bitte dein Fahrradschloss und eine große Flasche Wasser mit.',
+    explanation_ru: 'Йонас прямо просит Феликса: «Bring du bitte dein Fahrradschloss ... mit» («Принеси, пожалуйста, свой велосипедный замок»). Утверждение верно (Richtig).',
     explanation_de: 'Jonas bittet Felix, ein Fahrradschloss mitzubringen.',
     vocabulary_notes: [
       { word: 'das Fahrradschloss', translation: 'велосипедный замок' },
-      { word: 'die Radtour / Fahrradtour', translation: 'велопрогулка' },
+      { word: 'die Fahrradtour', translation: 'велопрогулка' },
       { word: 'abschließen', translation: 'запирать на замок' }
     ]
   },
@@ -52,11 +52,11 @@ Jonas`,
     context_header: 'Von: Jonas Bergmann <jonas.b@post.de>\nAn: Felix Schulz <felix.schulz@gmx.de>\nDatum: 22. Mai, 18:15 Uhr\nBetreff: Radtour am Sonntag an den See',
     context_body: `Hallo Felix,
 
-das Wetter am Sonntag wird herrlich: 25 Grad und strahlender Sonnenschein! Wollen wir unsere geplante Fahrradtour zum Wannsee machen?
+das Wetter am Sonntag wird super: 25 Grad und viel Sonne! Wollen wir unsere Fahrradtour zum Wannsee machen?
 
 Wir treffen uns um 10:00 Uhr morgens am S-Bahnhof Wannsee vor der Bäckerei. Die Tour dauert ungefähr drei Stunden.
 
-Ich bringe eine Luftpumpe und Werkzeug mit, falls an den Rädern etwas repariert werden muss. Bring du bitte dein stabiles Fahrradschloss und eine große Flasche Wasser mit, damit wir unsere Räder am See sicher abschließen können.
+Ich bringe eine Luftpumpe und Werkzeug mit, wenn an den Fahrrädern etwas kaputt ist. Bring du bitte dein Fahrradschloss und eine große Flasche Wasser mit. Am See schließen wir unsere Fahrräder ab.
 
 Gib mir kurz Bescheid, ob 10:00 Uhr für dich passt.
 
@@ -82,29 +82,29 @@ Jonas`,
     question_number: 3,
     title: 'Information des Sportvereins TSV Grün-Weiß',
     context_header: 'TSV Grün-Weiß e.V. — Neue Sportangebote ab April',
-    context_body: `Liebe Sportbegeisterte,
+    context_body: `Liebe Sportfreunde,
 
-ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle:
+ab Montag, dem 1. April, starten unsere neuen Sportkurse in der Stadtsporthalle:
 - Badminton: Montags von 18:30 bis 20:00 Uhr
 - Tischtennis: Mittwochs von 19:00 bis 20:30 Uhr
 
-Schnuppertraining:
-Sie sind noch kein Mitglied? Kein Problem! Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen. Eine kurze Voranmeldung per E-Mail genügt.
+Probetraining:
+Sie sind noch kein Mitglied? Kein Problem! Sie können zweimal kostenlos beim Training mitmachen. Bitte schreiben Sie uns vorher eine kurze E-Mail.
 
 Wichtige Hallenordnung:
-Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen mit abriebfester, heller Sohle gestattet. Straßenschuhe sind streng verboten!
+In der Sporthalle darf man nur mit sauberen Sportschuhen trainieren. Bitte bringen Sie Schuhe mit heller Sohle mit. Straßenschuhe sind streng verboten!
 
 Sportliche Grüße
-Ihr Vereinsvorstand`,
-    statement: 'Wer noch kein Mitglied ist, darf zweimal kostenlos mittrainieren.',
+Ihr Sportverein TSV Grün-Weiß`,
+    statement: 'Nicht-Mitglieder können zweimal kostenlos beim Training mitmachen.',
     correct_answer: 'richtig',
-    clue_quote: 'Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen.',
-    explanation_ru: 'В объявлении спортивного клуба четко сказано: новички могут до двух раз бесплатно посетить пробную тренировку («bis zu zweimal kostenlos an einem Probetraining teilnehmen»). Утверждение верно (Richtig).',
+    clue_quote: 'Sie können zweimal kostenlos beim Training mitmachen.',
+    explanation_ru: 'В объявлении клуба написано: те, кто еще не являются членами клуба, могут два раза бесплатно участвовать в тренировке («Sie können zweimal kostenlos beim Training mitmachen»). Утверждение верно (Richtig).',
     explanation_de: 'Nicht-Mitglieder dürfen zweimal kostenlos zum Probetraining kommen.',
     vocabulary_notes: [
-      { word: 'das Probetraining / Schnuppertraining', translation: 'пробная тренировка' },
+      { word: 'das Probetraining', translation: 'пробная тренировка' },
       { word: 'das Mitglied (-er)', translation: 'член клуба' },
-      { word: 'teilnehmen an...', translation: 'принимать участие в...' }
+      { word: 'mitmachen', translation: 'принимать участие' }
     ]
   },
   {
@@ -114,28 +114,28 @@ Ihr Vereinsvorstand`,
     question_number: 4,
     title: 'Information des Sportvereins TSV Grün-Weiß',
     context_header: 'TSV Grün-Weiß e.V. — Neue Sportangebote ab April',
-    context_body: `Liebe Sportbegeisterte,
+    context_body: `Liebe Sportfreunde,
 
-ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle:
+ab Montag, dem 1. April, starten unsere neuen Sportkurse in der Stadtsporthalle:
 - Badminton: Montags von 18:30 bis 20:00 Uhr
 - Tischtennis: Mittwochs von 19:00 bis 20:30 Uhr
 
-Schnuppertraining:
-Sie sind noch kein Mitglied? Kein Problem! Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen. Eine kurze Voranmeldung per E-Mail genügt.
+Probetraining:
+Sie sind noch kein Mitglied? Kein Problem! Sie können zweimal kostenlos beim Training mitmachen. Bitte schreiben Sie uns vorher eine kurze E-Mail.
 
 Wichtige Hallenordnung:
-Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen mit abriebfester, heller Sohle gestattet. Straßenschuhe sind streng verboten!
+In der Sporthalle darf man nur mit sauberen Sportschuhen trainieren. Bitte bringen Sie Schuhe mit heller Sohle mit. Straßenschuhe sind streng verboten!
 
 Sportliche Grüße
-Ihr Vereinsvorstand`,
+Ihr Sportverein TSV Grün-Weiß`,
     statement: 'Man darf mit normalen Straßenschuhen in die Sporthalle gehen.',
     correct_answer: 'falsch',
-    clue_quote: 'Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen ... gestattet. Straßenschuhe sind streng verboten!',
-    explanation_ru: 'Правила спортзала категоричны: вход разрешен исключительно в чистой спортивной сменной обуви («ausschließlich mit sauberen Hallenturnschuhen»), уличная обувь строго запрещена («Straßenschuhe sind streng verboten!»). Утверждение неверно (Falsch).',
+    clue_quote: 'Straßenschuhe sind streng verboten!',
+    explanation_ru: 'Правила спортзала категоричны: вход разрешен только в чистой спортивной обуви, уличная обувь строго запрещена («Straßenschuhe sind streng verboten!»). Утверждение неверно (Falsch).',
     explanation_de: 'Straßenschuhe sind streng verboten in der Halle.',
     vocabulary_notes: [
       { word: 'die Straßenschuhe (pl.)', translation: 'уличная обувь' },
-      { word: 'die Hallenturnschuhe (pl.)', translation: 'спортивная обувь для зала' },
+      { word: 'die Sportschuhe (pl.)', translation: 'спортивная обувь' },
       { word: 'streng verboten', translation: 'строго запрещено' }
     ]
   },
@@ -146,29 +146,29 @@ Ihr Vereinsvorstand`,
     question_number: 5,
     title: 'Information des Sportvereins TSV Grün-Weiß',
     context_header: 'TSV Grün-Weiß e.V. — Neue Sportangebote ab April',
-    context_body: `Liebe Sportbegeisterte,
+    context_body: `Liebe Sportfreunde,
 
-ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle:
+ab Montag, dem 1. April, starten unsere neuen Sportkurse in der Stadtsporthalle:
 - Badminton: Montags von 18:30 bis 20:00 Uhr
 - Tischtennis: Mittwochs von 19:00 bis 20:30 Uhr
 
-Schnuppertraining:
-Sie sind noch kein Mitglied? Kein Problem! Interessierte können bis zu zweimal kostenlos an einem Probetraining teilnehmen. Eine kurze Voranmeldung per E-Mail genügt.
+Probetraining:
+Sie sind noch kein Mitglied? Kein Problem! Sie können zweimal kostenlos beim Training mitmachen. Bitte schreiben Sie uns vorher eine kurze E-Mail.
 
 Wichtige Hallenordnung:
-Das Betreten der Sporthalle ist ausschließlich mit sauberen Hallenturnschuhen mit abriebfester, heller Sohle gestattet. Straßenschuhe sind streng verboten!
+In der Sporthalle darf man nur mit sauberen Sportschuhen trainieren. Bitte bringen Sie Schuhe mit heller Sohle mit. Straßenschuhe sind streng verboten!
 
 Sportliche Grüße
-Ihr Vereinsvorstand`,
+Ihr Sportverein TSV Grün-Weiß`,
     statement: 'Die neuen Sportkurse fangen im April an.',
     correct_answer: 'richtig',
-    clue_quote: 'ab Montag, dem 1. April, starten unsere neuen Breitensportkurse in der Stadtsporthalle',
-    explanation_ru: 'В самом начале текста указано: «ab Montag, dem 1. April, starten unsere neuen Breitensportkurse» (с понедельника, 1 апреля, начинаются наши новые курсы). Утверждение верно (Richtig).',
+    clue_quote: 'ab Montag, dem 1. April, starten unsere neuen Sportkurse in der Stadtsporthalle',
+    explanation_ru: 'В самом начале текста указано: «ab Montag, dem 1. April, starten unsere neuen Sportkurse» (с понедельника, 1 апреля, начинаются наши новые спортивные курсы). Утверждение верно (Richtig).',
     explanation_de: 'Die Kurse beginnen am 1. April.',
     vocabulary_notes: [
       { word: 'anfangen / starten', translation: 'начинаться' },
       { word: 'die Sporthalle', translation: 'спортивный зал' },
-      { word: 'der Verein', translation: 'спортивный клуб / общество' }
+      { word: 'der Sportverein', translation: 'спортивный клуб' }
     ]
   },
 
@@ -402,17 +402,17 @@ Bitte werfen Sie Elektrokleingeräte und Akkus getrennt in den grünen Sammelcon
     context_header: 'Physiotherapie & Massagepraxis Franke',
     context_body: `Liebe Patientinnen und Patienten,
 
-bitte sagen Sie vereinbarte Behandlungstermine mindestens 24 Stunden vorher telefonisch ab, falls Sie verhindert sind.
+bitte sagen Sie Ihren Termin mindestens 24 Stunden vorher telefonisch ab, wenn Sie nicht kommen können.
 
-Bei kurzfristiger Absage oder Nichterscheinen müssen wir Ihnen die Behandlungszeit leider privat in Rechnung stellen.`,
-    statement: 'Man kann einen Termin eine Stunde vorher absagen, ohne dafür bezahlen zu müssen.',
+Wenn Sie zu spät absagen oder nicht kommen, müssen Sie die Behandlungszeit leider privat bezahlen.`,
+    statement: 'Man kann einen Termin eine Stunde vorher absagen und muss nichts bezahlen.',
     correct_answer: 'falsch',
-    clue_quote: 'mindestens 24 Stunden vorher telefonisch ab ... Bei kurzfristiger Absage ... müssen wir Ihnen die Behandlungszeit privat in Rechnung stellen.',
-    explanation_ru: 'В объявлении четко указано: отменять прием нужно как минимум за 24 часа («mindestens 24 Stunden vorher»). Если отменить всего за 1 час, пациенту выставят счет за пропущенное время. Бесплатно за 1 час отменить нельзя. Утверждение неверно (Falsch).',
-    explanation_de: 'Man muss mindestens 24 Stunden vorher absagen, sonst wird es kostenpflichtig.',
+    clue_quote: 'bitte sagen Sie Ihren Termin mindestens 24 Stunden vorher telefonisch ab ... sonst müssen Sie die Behandlungszeit leider privat bezahlen.',
+    explanation_ru: 'В объявлении сказано: отменять прием нужно как минимум за 24 часа. Если отменить слишком поздно, придется оплатить назначенное время. Бесплатно за 1 час отменить нельзя. Утверждение неверно (Falsch).',
+    explanation_de: 'Man muss mindestens 24 Stunden vorher absagen, sonst muss man die Stunde bezahlen.',
     vocabulary_notes: [
-      { word: 'absagen', translation: 'отменять (запись)' },
-      { word: 'in Rechnung stellen', translation: 'выставить счет к оплате' },
+      { word: 'den Termin absagen', translation: 'отменять запись / прием' },
+      { word: 'bezahlen', translation: 'платить' },
       { word: 'mindestens 24 Stunden vorher', translation: 'как минимум за 24 часа' }
     ]
   },
@@ -425,19 +425,19 @@ Bei kurzfristiger Absage oder Nichterscheinen müssen wir Ihnen die Behandlungsz
     context_header: 'Hotel am Park — Frühstücksrestaurant',
     context_body: `Sehr geehrte Gäste,
 
-unser Frühstücksbuffet steht Ihnen täglich von 07:00 bis 10:30 Uhr im Speisesaal zur Verfügung.
+unser Frühstücksbuffet ist täglich von 07:00 bis 10:30 Uhr im Speisesaal geöffnet.
 
 Bitte beachten Sie:
-Alle Speisen und Getränke sind ausschließlich für den Verzehr in unserem Frühstücksraum bestimmt. Das Einpacken und Mitnehmen von belegten Brötchen oder Obst auf das Zimmer oder für unterwegs ist nicht gestattet.`,
+Essen und Getränke sind nur für den Frühstücksraum. Sie dürfen keine Brötchen oder Obst mit auf das Zimmer nehmen oder für Ausflüge einpacken.`,
     statement: 'Hotelgäste dürfen belegte Brötchen vom Buffet für Ausflüge einpacken und mitnehmen.',
     correct_answer: 'falsch',
-    clue_quote: 'Das Einpacken und Mitnehmen von belegten Brötchen oder Obst ... für unterwegs ist nicht gestattet.',
-    explanation_ru: 'В правилах ресторана отеля строго указано: еда предназначена только для употребления в зале, а уносить с собой бутерброды и фрукты не разрешено («ist nicht gestattet»). Утверждение неверно (Falsch).',
-    explanation_de: 'Das Mitnehmen von Speisen für unterwegs ist verboten („nicht gestattet").',
+    clue_quote: 'Sie dürfen keine Brötchen oder Obst mit auf das Zimmer nehmen oder für Ausflüge einpacken.',
+    explanation_ru: 'В правилах ресторана отеля строго указано: еда только для завтрака в зале («nur für den Frühstücksraum»), уносить с собой бутерброды и фрукты нельзя. Утверждение неверно (Falsch).',
+    explanation_de: 'Das Mitnehmen von Speisen für unterwegs ist nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'der Verzehr', translation: 'употребление в пищу' },
-      { word: 'nicht gestattet', translation: 'не разрешено' },
-      { word: 'für unterwegs', translation: 'с собой в дорогу' }
+      { word: 'das Frühstücksbuffet', translation: 'шведский стол на завтрак' },
+      { word: 'nicht mitnehmen dürfen', translation: 'запрещено уносить с собой' },
+      { word: 'der Ausflug (Ausflüge)', translation: 'поездка / экскурсия' }
     ]
   },
   {
@@ -454,15 +454,15 @@ Keine Kartenzahlung an der Schranke möglich!
 Bitte bezahlen Sie Ihr Parkticket vor dem Einsteigen an den Kassenautomaten im Erdgeschoss (neben dem Kundencenter).
 
 Die Schranke öffnet sich nur mit einem bereits bezahlten Ticket.`,
-    statement: 'Man muss das Parkticket bezahlen, bevor man zur Schranke fährt.',
+    statement: 'Man muss das Parkticket vor dem Ausfahren am Kassenautomaten bezahlen.',
     correct_answer: 'richtig',
     clue_quote: 'Bitte bezahlen Sie Ihr Parkticket vor dem Einsteigen an den Kassenautomaten im Erdgeschoss ... Die Schranke öffnet sich nur mit einem bereits bezahlten Ticket.',
-    explanation_ru: 'На табло написано: на самой выездной стойке оплата невозможна, билет нужно оплатить в автомате до посадки в машину («vor dem Einsteigen an den Kassenautomaten bezahlen»), иначе шлагбаум не откроется. Утверждение верно (Richtig).',
+    explanation_ru: 'На табло написано: на самой выездной стойке оплата невозможна, билет нужно оплатить в автомате до посадки в машину («an den Kassenautomaten bezahlen»), иначе шлагбаум не откроется. Утверждение верно (Richtig).',
     explanation_de: 'Das Ticket muss vorher am Kassenautomaten bezahlt werden.',
     vocabulary_notes: [
-      { word: 'die Ausfahrtschranke', translation: 'выездной шлагбаум' },
+      { word: 'die Schranke', translation: 'выездной шлагбаум' },
       { word: 'der Kassenautomat', translation: 'парковочный автомат оплаты' },
-      { word: 'vor dem Einsteigen', translation: 'перед посадкой в автомобиль' }
+      { word: 'bezahlen', translation: 'оплачивать' }
     ]
   }
 ];

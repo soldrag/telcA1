@@ -30,7 +30,7 @@ Den Wohnungsschlüssel habe ich Ihnen in den Briefkasten geworfen. Als kleines D
 
 Herzlichen Dank für Ihre Hilfe und bis bald
 Susanne Keller`,
-    statement: 'Frau Müller soll während Susannes Urlaub die Blumen gießen.',
+    statement: 'Frau Müller soll in Susannes Urlaub die Blumen gießen.',
     correct_answer: 'richtig',
     clue_quote: 'Könnten Sie bitte alle zwei bis drei Tage meine Tomaten und Blumen auf dem Balkon gießen',
     explanation_ru: 'Сюзанна прямо просит соседку: «Könnten Sie bitte alle zwei bis drei Tage meine Tomaten und Blumen auf dem Balkon gießen» («Не могли бы вы каждые два-три дня поливать мои помидоры и цветы на балконе»). Утверждение верно (Richtig).',
@@ -80,29 +80,28 @@ Susanne Keller`,
     context_header: 'Von: ImmoNord Hausverwaltung <service@immonord-hamburg.de>\nAn: Bewerber Herr Al-Mansur\nBetreff: Einladung zur Besichtigung — 2-Zimmer-Wohnung Goethestraße 4',
     context_body: `Sehr geehrter Herr Al-Mansur,
 
-vielen Dank für Ihr Interesse an unserer 2-Zimmer-Wohnung in Hamburg-Altona.
+vielen Dank für Ihr Interesse an der 2-Zimmer-Wohnung in Hamburg-Altona.
 
-Wir laden Sie herzlich zum Sammel-Besichtigungstermin ein:
+Wir laden Sie herzlich zum Besichtigungstermin ein:
 - Termin: Dienstag, 18. September, pünktlich um 17:30 Uhr
 - Treffpunkt: Vor dem Hauseingang der Goethestraße 4 (bitte bei „Hausmeister Schmidt" klingeln)
 
-Bitte bringen Sie folgende Unterlagen in Kopie mit:
-1. Kopie Ihres Personalausweises oder Reisepasses
-2. Die letzten drei Gehaltsnachweise Ihres Arbeitgebers
-3. Eine ausgefüllte Mieterselbstauskunft
+Bitte bringen Sie folgende Papiere mit:
+1. Eine Kopie von Ihrem Personalausweis oder Pass
+2. Die letzten drei Gehaltsabrechnungen von Ihrer Arbeit
 
-Hinweis: Das Halten von Haustieren (Hunde/Katzen) ist in diesem Wohnhaus laut Eigentümerbeschluss leider nicht erlaubt.
+Wichtig: Haustiere (Hunde und Katzen) sind in diesem Haus leider nicht erlaubt.
 
 Mit freundlichen Grüßen
 Ihre Hausverwaltung ImmoNord`,
     statement: 'Interessenten müssen Nachweise über ihr Gehalt zum Termin mitbringen.',
     correct_answer: 'richtig',
-    clue_quote: 'Bitte bringen Sie folgende Unterlagen in Kopie mit: ... Die letzten drei Gehaltsnachweise Ihres Arbeitgebers',
-    explanation_ru: 'В письме четко указано принести с собой подтверждение дохода за последние три месяца («Die letzten drei Gehaltsnachweise Ihres Arbeitgebers»). Утверждение верно (Richtig).',
+    clue_quote: 'Die letzten drei Gehaltsabrechnungen von Ihrer Arbeit',
+    explanation_ru: 'В письме указано принести с собой подтверждение зарплаты за последние три месяца («Die letzten drei Gehaltsabrechnungen von Ihrer Arbeit»). Утверждение верно (Richtig).',
     explanation_de: 'Gehaltsnachweise müssen zur Besichtigung mitgebracht werden.',
     vocabulary_notes: [
-      { word: 'der Gehaltsnachweis (-e)', translation: 'справка о доходах / зарплате' },
-      { word: 'die Unterlagen (pl.)', translation: 'документы' },
+      { word: 'die Gehaltsabrechnung (-en)', translation: 'расчетный листок / справка о зарплате' },
+      { word: 'die Papiere (pl.) / Unterlagen', translation: 'документы' },
       { word: 'die Besichtigung', translation: 'осмотр (квартиры)' }
     ]
   },
@@ -115,18 +114,17 @@ Ihre Hausverwaltung ImmoNord`,
     context_header: 'Von: ImmoNord Hausverwaltung <service@immonord-hamburg.de>\nAn: Bewerber Herr Al-Mansur\nBetreff: Einladung zur Besichtigung — 2-Zimmer-Wohnung Goethestraße 4',
     context_body: `Sehr geehrter Herr Al-Mansur,
 
-vielen Dank für Ihr Interesse an unserer 2-Zimmer-Wohnung in Hamburg-Altona.
+vielen Dank für Ihr Interesse an der 2-Zimmer-Wohnung in Hamburg-Altona.
 
-Wir laden Sie herzlich zum Sammel-Besichtigungstermin ein:
+Wir laden Sie herzlich zum Besichtigungstermin ein:
 - Termin: Dienstag, 18. September, pünktlich um 17:30 Uhr
 - Treffpunkt: Vor dem Hauseingang der Goethestraße 4 (bitte bei „Hausmeister Schmidt" klingeln)
 
-Bitte bringen Sie folgende Unterlagen in Kopie mit:
-1. Kopie Ihres Personalausweises oder Reisepasses
-2. Die letzten drei Gehaltsnachweise Ihres Arbeitgebers
-3. Eine ausgefüllte Mieterselbstauskunft
+Bitte bringen Sie folgende Papiere mit:
+1. Eine Kopie von Ihrem Personalausweis oder Pass
+2. Die letzten drei Gehaltsabrechnungen von Ihrer Arbeit
 
-Hinweis: Das Halten von Haustieren (Hunde/Katzen) ist in diesem Wohnhaus laut Eigentümerbeschluss leider nicht erlaubt.
+Wichtig: Haustiere (Hunde und Katzen) sind in diesem Haus leider nicht erlaubt.
 
 Mit freundlichen Grüßen
 Ihre Hausverwaltung ImmoNord`,
@@ -150,28 +148,27 @@ Ihre Hausverwaltung ImmoNord`,
     context_header: 'Von: ImmoNord Hausverwaltung <service@immonord-hamburg.de>\nAn: Bewerber Herr Al-Mansur\nBetreff: Einladung zur Besichtigung — 2-Zimmer-Wohnung Goethestraße 4',
     context_body: `Sehr geehrter Herr Al-Mansur,
 
-vielen Dank für Ihr Interesse an unserer 2-Zimmer-Wohnung in Hamburg-Altona.
+vielen Dank für Ihr Interesse an der 2-Zimmer-Wohnung in Hamburg-Altona.
 
-Wir laden Sie herzlich zum Sammel-Besichtigungstermin ein:
+Wir laden Sie herzlich zum Besichtigungstermin ein:
 - Termin: Dienstag, 18. September, pünktlich um 17:30 Uhr
 - Treffpunkt: Vor dem Hauseingang der Goethestraße 4 (bitte bei „Hausmeister Schmidt" klingeln)
 
-Bitte bringen Sie folgende Unterlagen in Kopie mit:
-1. Kopie Ihres Personalausweises oder Reisepasses
-2. Die letzten drei Gehaltsnachweise Ihres Arbeitgebers
-3. Eine ausgefüllte Mieterselbstauskunft
+Bitte bringen Sie folgende Papiere mit:
+1. Eine Kopie von Ihrem Personalausweis oder Pass
+2. Die letzten drei Gehaltsabrechnungen von Ihrer Arbeit
 
-Hinweis: Das Halten von Haustieren (Hunde/Katzen) ist in diesem Wohnhaus laut Eigentümerbeschluss leider nicht erlaubt.
+Wichtig: Haustiere (Hunde und Katzen) sind in diesem Haus leider nicht erlaubt.
 
 Mit freundlichen Grüßen
 Ihre Hausverwaltung ImmoNord`,
     statement: 'Mieter dürfen in dieser Wohnung Hunde und Katzen halten.',
     correct_answer: 'falsch',
-    clue_quote: 'Das Halten von Haustieren (Hunde/Katzen) ist in diesem Wohnhaus ... leider nicht erlaubt.',
-    explanation_ru: 'В примечании прямо указано: содержание домашних животных (собак и кошек) в этом доме запрещено («leider nicht erlaubt»). Утверждение неверно (Falsch).',
+    clue_quote: 'Haustiere (Hunde und Katzen) sind in diesem Haus leider nicht erlaubt.',
+    explanation_ru: 'В примечании прямо указано: домашние животные (собаки и кошки) в этом доме запрещены («Haustiere ... sind in diesem Haus leider nicht erlaubt»). Утверждение неверно (Falsch).',
     explanation_de: 'Haustiere wie Hunde und Katzen sind verboten („nicht erlaubt").',
     vocabulary_notes: [
-      { word: 'das Halten von Haustieren', translation: 'содержание домашних животных' },
+      { word: 'das Haustier (-e)', translation: 'домашнее животное' },
       { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
       { word: 'die Katze (-n)', translation: 'кошка' }
     ]
