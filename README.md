@@ -20,8 +20,9 @@ The **Lesen** section consists of **15 tasks (15 points)**:
 
 ## ✨ Key Features
 
-1. **Two Full Practice Exams (Modellsatz 1 and 2)**:
-   - 30 authentic A1 tasks featuring typical exam traps (*Fallen*).
+1. **10 Full Practice Exams (Modellsatz 1–10)**:
+   - 150 authentic A1 reading tasks featuring typical exam traps (*Fallen*).
+   - Stub modules for Hören, Schreiben, and Sprechen.
 2. **Official Exam Timer (25:00)**:
    - Real-time countdown display with a color-coded warning during the final 5 minutes.
    - Pause option for untimed practice sessions.
@@ -44,6 +45,8 @@ The **Lesen** section consists of **15 tasks (15 points)**:
 6. **SQLite Database**:
    - Automatic persistence of all exam attempts, completion times, and scores.
    - Attempt history review to track performance and progress over time.
+7. **Multilingual UI**: Interface available in German, English, and Russian.
+8. **Responsive Design**: Mobile-friendly layout with dark/light theme support.
 
 ---
 
@@ -87,26 +90,108 @@ The SQLite database is persisted in the `telc_data` volume.
 ```
 telcA1/
 ├── server/
-│   ├── db.js            # SQLite database initialization (node:sqlite) and migrations
-│   ├── seed-data.js     # Question bank for Modellsatz 1 and 2 with explanations
-│   └── index.js         # Express REST API server
+│   ├── index.js              # Express REST API server
+│   ├── db.js                 # Database facade: singleton, lazy proxy, init orchestration
+│   ├── seed-data.js          # Barrel aggregator: imports all seeds, exports combined seedData
+│   ├── database/
+│   │   ├── connection.js     # Low-level SQLite connection factory
+│   │   ├── migrations.js     # Schema DDL and idempotent migrations
+│   │   └── seeder.js         # Database seeder (INSERT OR REPLACE)
+│   ├── seeds/
+│   │   ├── modellsatz-1.js   # Exam data: Modellsatz 1 (15 questions)
+│   │   ├── ...               # modellsatz-2.js through modellsatz-9.js
+│   │   ├── modellsatz-10.js  # Exam data: Modellsatz 10 (15 questions)
+│   │   └── stubs-modules.js  # Stub exams for Hören, Schreiben, Sprechen
+│   ├── routes/               # API route handlers (questions, exams, topics, auth, admin)
+│   └── models/               # Data access layer (Question, Exam, Topic)
 ├── src/
+│   ├── App.jsx               # Main application component
+│   ├── main.jsx              # React entry point
+│   ├── index.css             # Tailwind CSS styles
 │   ├── components/
-│   │   ├── Header.jsx         # Header with test variant selector and controls
-│   │   ├── ExamTimer.jsx      # 25-minute timer with pause and warning alerts
-│   │   ├── QuestionNav.jsx    # 1–15 question navigator and part switchers
-│   │   ├── Teil1.jsx          # Reading texts, emails, and Richtig/Falsch questions
-│   │   ├── Teil2.jsx          # Situations and website options (a / b)
-│   │   ├── Teil3.jsx          # Signs, notices, and True/False statements
-│   │   ├── Antwortbogen.jsx   # Authentic telc S10 answer sheet
-│   │   ├── ResultsView.jsx    # Results screen with scoring, review, and explanations
-│   │   └── HistoryModal.jsx   # Attempt history modal
-│   ├── App.jsx                # Main application component and exam orchestration
-│   ├── main.jsx               # React entry point
-│   └── index.css              # Tailwind CSS styles
+│   │   ├── ExamView.jsx      # Active exam screen (timer, nav, renderer, footer)
+│   │   ├── Header.jsx        # App header (logo, title, actions)
+│   │   ├── WelcomeScreen.jsx # Welcome dashboard (module selector, exam picker)
+│   │   ├── ResultsView.jsx   # Results screen (score, review, explanations)
+│   │   ├── HistoryView.jsx   # Full-page history (stats, attempt cards)
+│   │   ├── Teil1.jsx         # Reading Part 1 (emails, Richtig/Falsch)
+│   │   ├── Teil2.jsx         # Reading Part 2 (situations, website a/b)
+│   │   ├── Teil3.jsx         # Reading Part 3 (signs, Richtig/Falsch)
+│   │   ├── Antwortbogen.jsx  # Interactive telc S10 answer sheet
+│   │   ├── ExamTimer.jsx     # Countdown / stopwatch timer
+│   │   ├── QuestionNav.jsx   # Question navigation matrix (1–15)
+│   │   ├── teil1/            # Teil 1 subcomponents (text cards, questions)
+│   │   ├── teil2/            # Teil 2 subcomponents (webpage options)
+│   │   ├── teil3/            # Teil 3 subcomponents (notice cards)
+│   │   ├── exam/             # Exam subcomponents (bottom nav, skeleton)
+│   │   ├── header/           # Header subcomponents (actions, theme, lang)
+│   │   ├── results/          # Results subcomponents (hero, filters, review)
+│   │   ├── welcome/          # Welcome subcomponents (selectors, cards)
+│   │   ├── history/          # History subcomponents (stats, list, cards)
+│   │   ├── modals/           # App-level modals (submit, leave, time-up)
+│   │   ├── parts/            # Generic module task views (Hören, etc.)
+│   │   └── ui/               # Primitive UI components (Button, Card, Dialog)
+│   ├── hooks/                # Custom hooks (useExam, useTimer, useAttempts)
+│   ├── services/             # API services and local data service
+│   ├── stores/               # Zustand state stores
+│   ├── utils/                # Utilities (cn, formatting, balancing, scroll)
+│   ├── i18n/                 # i18n context and provider
+│   └── locales/              # Translations (de.json, en.json, ru.json)
 ├── data/
-│   └── telc_a1.db             # SQLite database
+│   └── telc_a1.db            # SQLite database (auto-created)
 ├── package.json
 ├── vite.config.js
-└── tailwind.config.js
+└── Dockerfile
 ```
+
+### Architecture Notes
+
+- **Components**: Each top-level `.jsx` in `components/` is a **screen orchestrator** — it composes subcomponents from the matching subdirectory. This keeps every file under the 150–200 line limit.
+- **Database**: `server/db.js` is a **facade** that orchestrates `database/connection.js` (factory), `database/migrations.js` (DDL), and `database/seeder.js` (data population).
+- **Seed Data**: `server/seed-data.js` is a **barrel aggregator** that imports modular exam files from `server/seeds/` and exports a combined `seedData` object.
+
+---
+
+## 🔧 Modes of Operation
+
+### GitHub Pages (Static)
+Data is loaded from the built-in `seed-data.js` via `localDataService`. No server required.
+
+### Full-stack (with Server)
+Data is stored in SQLite. API is served by Express.js on port 3001.
+
+---
+
+## 📝 Exam Format: telc A1 Leseverstehen
+
+| Part | Task Type | Questions | Answer Format |
+|------|-----------|-----------|---------------|
+| Teil 1 | Reading short texts (emails, letters) | 5 | Richtig / Falsch |
+| Teil 2 | Matching situations to websites | 5 | a / b |
+| Teil 3 | Understanding signs and notices | 5 | Richtig / Falsch |
+
+Total duration: **25 minutes** for 15 questions.
+
+---
+
+## 📚 Adding New Exam Sets
+
+See [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) for a detailed guide on adding new Modellsatz exam variants.
+
+## 📦 Current Exam Variants
+
+| ID | Title | Questions | Status |
+|----|-------|-----------|--------|
+| modellsatz-1 | Modellsatz 1 | 15 | ✅ Ready |
+| modellsatz-2 | Modellsatz 2 | 15 | ✅ Ready |
+| modellsatz-3 | Modellsatz 3 | 15 | ✅ Ready |
+| modellsatz-4 | Modellsatz 4 | 15 | ✅ Ready |
+| modellsatz-5 | Modellsatz 5 | 15 | ✅ Ready |
+| modellsatz-6 | Modellsatz 6 | 15 | ✅ Ready |
+| modellsatz-7 | Modellsatz 7 | 15 | ✅ Ready |
+| modellsatz-8 | Modellsatz 8 | 15 | ✅ Ready |
+| modellsatz-9 | Modellsatz 9 | 15 | ✅ Ready |
+| modellsatz-10 | Modellsatz 10 | 15 | ✅ Ready |
+| hoeren-modellsatz-1 | Hören (stub) | 3 | 🚧 Stub |
+| schreiben-modellsatz-1 | Schreiben (stub) | 2 | 🚧 Stub |
+| sprechen-modellsatz-1 | Sprechen (stub) | 1 | 🚧 Stub |
