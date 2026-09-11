@@ -60,47 +60,53 @@ export default function Header({
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 sm:space-x-2.5">
-          <LanguageSelector />
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center space-x-2">
+            {screen === 'exam' && (
+              <ExamHeaderActions
+                onNavigateHome={onNavigateHome}
+                onSubmitExam={onSubmitExam}
+                answeredCount={answeredCount}
+                totalQuestions={totalQuestions}
+              />
+            )}
 
-          {themeControl && (
-            <ThemeToggle
-              theme={theme}
-              toggleTheme={toggleTheme}
-              isDark={isDark}
-            />
-          )}
+            {screen === 'results' && (
+              <ResultsHeaderActions
+                onNavigateHome={onNavigateHome}
+                onResetExam={onResetExam}
+              />
+            )}
 
-          {screen === 'exam' && (
-            <ExamHeaderActions
-              onNavigateHome={onNavigateHome}
-              onSubmitExam={onSubmitExam}
-              answeredCount={answeredCount}
-              totalQuestions={totalQuestions}
-            />
-          )}
+            {screen !== 'exam' && screen !== 'results' && (
+              <DefaultHeaderActions
+                screen={screen}
+                onNavigateHome={onNavigateHome}
+                onOpenHistory={onOpenHistory}
+              />
+            )}
+          </div>
 
-          {screen === 'results' && (
-            <ResultsHeaderActions
-              onNavigateHome={onNavigateHome}
-              onResetExam={onResetExam}
-            />
-          )}
+          <div className="hidden sm:block h-6 w-px bg-border-subtle shrink-0" aria-hidden="true" />
 
-          {screen !== 'exam' && screen !== 'results' && (
-            <DefaultHeaderActions
-              screen={screen}
-              onNavigateHome={onNavigateHome}
-              onOpenHistory={onOpenHistory}
-            />
-          )}
+          <div className="flex items-center space-x-1.5 shrink-0">
+            <LanguageSelector />
 
-          {userShortId && (
-            <div className="hidden lg:flex items-center space-x-1 px-3 py-1 text-xs font-mono text-content-secondary bg-surface-inset border border-border-default rounded-lg">
-              <User className="w-3.5 h-3.5 text-content-muted" />
-              <span>{userShortId === 'Локально' ? t('header.localUser') : userShortId}</span>
-            </div>
-          )}
+            {themeControl && (
+              <ThemeToggle
+                theme={theme}
+                toggleTheme={toggleTheme}
+                isDark={isDark}
+              />
+            )}
+
+            {userShortId && (
+              <div className="hidden xl:flex items-center space-x-1 px-2.5 py-1 text-xs font-mono text-content-secondary bg-surface-inset border border-border-default rounded-lg">
+                <User className="w-3.5 h-3.5 text-content-muted" />
+                <span>{userShortId === 'Локально' ? t('header.localUser') : userShortId}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
