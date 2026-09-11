@@ -53,6 +53,7 @@ export const moduleQuestions = [
     correct_answer: 'a',
     clue_quote: 'heute ist sie im Angebot für 59 Euro.',
     explanation_ru: 'Специальная цена со скидкой сегодня составляет 59 евро (вариант a).',
+    explanation_en: 'The discounted sale price today is 59 euros (option a).',
     explanation_de: 'Die Jacke kostet heute im Angebot 59 Euro.',
     vocabulary_notes: [{ word: 'im Angebot', translation: 'по скидке / по акции' }]
   },
@@ -70,6 +71,7 @@ export const moduleQuestions = [
     correct_answer: 'falsch',
     clue_quote: 'fährt heute von Gleis 7 ab.',
     explanation_ru: 'Поезд отправляется с пути 7, а не с пути 4. Утверждение неверно (Falsch).',
+    explanation_en: 'The train departs from platform 7, not platform 4. The statement is False.',
     explanation_de: 'Der Zug fährt von Gleis 7 ab, nicht von Gleis 4.',
     vocabulary_notes: [{ word: 'Gleis', translation: 'путь / платформа' }]
   },
@@ -87,6 +89,7 @@ export const moduleQuestions = [
     correct_answer: 'richtig',
     clue_quote: 'muss leider auf 15 Uhr verschoben werden.',
     explanation_ru: 'Приём перенесён на 15:00. Утверждение верно (Richtig).',
+    explanation_en: 'The appointment has been postponed to 15:00. The statement is True.',
     explanation_de: 'Der Termin wurde auf 15 Uhr verschoben.',
     vocabulary_notes: [{ word: 'verschieben', translation: 'переносить (время)' }]
   },
@@ -105,6 +108,7 @@ export const moduleQuestions = [
     correct_answer: 'bauer',
     clue_quote: 'Eva Bauer',
     explanation_ru: 'Фамилия гостьи — Bauer.',
+    explanation_en: 'The guest’s last name is Bauer.',
     explanation_de: 'Der Familienname lautet Bauer.',
     vocabulary_notes: [{ word: 'Familienname', translation: 'фамилия' }]
   },
@@ -121,6 +125,7 @@ export const moduleQuestions = [
     correct_answer: 'richtig',
     clue_quote: 'Sehr geehrte Damen und Herren...',
     explanation_ru: 'Пример письма: «Sehr geehrte Damen und Herren, ich möchte ein Einzelzimmer für 2 Nächte ab dem 15. Mai buchen. Ist das Frühstück im Preis inklusive? Mit freundlichen Grüßen, ...»',
+    explanation_en: 'Sample email covering all three required guide points with salutation and closing.',
     explanation_de: 'Musterlösung für die telc A1 E-Mail mit Grußformel und allen drei Leitpunkten.',
     vocabulary_notes: [{ word: 'Sehr geehrte Damen und Herren', translation: 'Уважаемые дамы и господа' }]
   },
@@ -139,6 +144,7 @@ export const moduleQuestions = [
     correct_answer: 'richtig',
     clue_quote: 'Ich heiße ..., ich komme aus ..., ich wohne in ...',
     explanation_ru: 'Шаблон рассказа: «Ich heiße Anna. Ich bin 28 Jahre alt. Ich komme aus der Ukraine und wohne in Berlin. Ich spreche Ukrainisch, Russisch und ein bisschen Deutsch. Ich bin Ingenieurin von Beruf. Mein Hobby ist Musik hören.»',
+    explanation_en: 'Sample personal introduction covering all official telc A1 speaking criteria.',
     explanation_de: 'Sprechen Teil 1 Selbstdarstellung nach den offiziellen telc Kriterien.',
     vocabulary_notes: [{ word: 'Sich vorstellen', translation: 'представиться' }]
   }

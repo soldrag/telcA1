@@ -26,7 +26,7 @@ export class ExamRepository {
     const questions = this.database.prepare(`
       SELECT id, exam_id, teil, question_number, title, situation, 
              context_header, context_body, options_json, statement,
-             correct_answer, clue_quote, explanation_ru, explanation_de, vocabulary_notes
+             correct_answer, clue_quote, explanation_ru, explanation_en, explanation_de, vocabulary_notes
       FROM questions 
       WHERE exam_id = ? 
       ORDER BY question_number ASC

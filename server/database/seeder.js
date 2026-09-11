@@ -12,8 +12,8 @@ export function seedDatabase(database) {
     INSERT OR REPLACE INTO questions (
       id, exam_id, teil, question_number, title, situation, 
       context_header, context_body, options_json, statement, 
-      correct_answer, clue_quote, explanation_ru, explanation_de, vocabulary_notes
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      correct_answer, clue_quote, explanation_ru, explanation_en, explanation_de, vocabulary_notes
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   for (const exam of seedData.exams) {
@@ -45,6 +45,7 @@ export function seedDatabase(database) {
       question.correct_answer,
       question.clue_quote,
       question.explanation_ru,
+      question.explanation_en || null,
       question.explanation_de,
       question.vocabulary_notes ? JSON.stringify(question.vocabulary_notes) : null
     );

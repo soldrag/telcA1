@@ -36,6 +36,7 @@ export function gradeQuestion(question, answers = {}) {
     is_correct: isCorrect,
     clue_quote: question.clue_quote,
     explanation_ru: question.explanation_ru,
+    explanation_en: question.explanation_en,
     explanation_de: question.explanation_de,
     vocabulary_notes: parseJsonSafely(question.vocabulary_notes, []),
   };
