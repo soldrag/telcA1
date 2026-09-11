@@ -88,7 +88,7 @@ Hinweise zu unseren Kursen:
 Unsere Yoga- und Rückenkurse sind für alle Mitglieder kostenlos. Sie müssen sich aber mindestens 24 Stunden vorher online auf unserer Website anmelden, da die Teilnehmerzahl auf 15 Personen begrenzt ist.
 
 Wichtig für Ihren Trainingsbesuch:
-Bitte bringen Sie immer saubere Hallenturnschuhe und ein eigenes Handtuch mit. Das Trainieren ohne Handtuch ist im Gerätebereich nicht gestattet.
+Bitte bringen Sie immer saubere Hallenturnschuhe und ein eigenes Handtuch mit. Das Trainieren ohne Handtuch ist im Gerätebereich nicht erlaubt.
 
 Wir freuen uns auf Sie!
 Ihr Fit & Aktiv-Team`,
@@ -120,7 +120,7 @@ Hinweise zu unseren Kursen:
 Unsere Yoga- und Rückenkurse sind für alle Mitglieder kostenlos. Sie müssen sich aber mindestens 24 Stunden vorher online auf unserer Website anmelden, da die Teilnehmerzahl auf 15 Personen begrenzt ist.
 
 Wichtig für Ihren Trainingsbesuch:
-Bitte bringen Sie immer saubere Hallenturnschuhe und ein eigenes Handtuch mit. Das Trainieren ohne Handtuch ist im Gerätebereich nicht gestattet.
+Bitte bringen Sie immer saubere Hallenturnschuhe und ein eigenes Handtuch mit. Das Trainieren ohne Handtuch ist im Gerätebereich nicht erlaubt.
 
 Wir freuen uns auf Sie!
 Ihr Fit & Aktiv-Team`,
@@ -152,17 +152,17 @@ Hinweise zu unseren Kursen:
 Unsere Yoga- und Rückenkurse sind für alle Mitglieder kostenlos. Sie müssen sich aber mindestens 24 Stunden vorher online auf unserer Website anmelden, da die Teilnehmerzahl auf 15 Personen begrenzt ist.
 
 Wichtig für Ihren Trainingsbesuch:
-Bitte bringen Sie immer saubere Hallenturnschuhe und ein eigenes Handtuch mit. Das Trainieren ohne Handtuch ist im Gerätebereich nicht gestattet.
+Bitte bringen Sie immer saubere Hallenturnschuhe und ein eigenes Handtuch mit. Das Trainieren ohne Handtuch ist im Gerätebereich nicht erlaubt.
 
 Wir freuen uns auf Sie!
 Ihr Fit & Aktiv-Team`,
     statement: 'Man darf im Gerätebereich nicht ohne Handtuch trainieren.',
     correct_answer: 'richtig',
-    clue_quote: 'Das Trainieren ohne Handtuch ist im Gerätebereich nicht gestattet.',
-    explanation_ru: 'В правилах написано: «Das Trainieren ohne Handtuch ist im Gerätebereich nicht gestattet» («Тренироваться без полотенца в тренажерной зоне не разрешено»). Это означает, что без полотенца заниматься нельзя. Утверждение верно (Richtig).',
-    explanation_de: 'Ohne Handtuch darf man nicht trainieren („nicht gestattet").',
+    clue_quote: 'Das Trainieren ohne Handtuch ist im Gerätebereich nicht erlaubt.',
+    explanation_ru: 'В правилах написано: «Das Trainieren ohne Handtuch ist im Gerätebereich nicht erlaubt» («Тренироваться без полотенца в тренажерной зоне не разрешено»). Это означает, что без полотенца заниматься нельзя. Утверждение верно (Richtig).',
+    explanation_de: 'Ohne Handtuch darf man nicht trainieren („nicht erlaubt").',
     vocabulary_notes: [
-      { word: 'nicht gestattet / verboten', translation: 'не разрешено / запрещено' },
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
       { word: 'das Handtuch', translation: 'полотенце' },
       { word: 'der Gerätebereich', translation: 'зона тренажеров' }
     ]
@@ -355,7 +355,7 @@ Vom 1. bis 20. Juli ist die Ausleihe im Gebäude wegen Umbauarbeiten geschlossen
 Bücher und DVDs können Sie jedoch rund um die Uhr in die Rückgabebox am Haupteingang einwerfen.
 
 Wir öffnen wieder am 21. Juli ab 10:00 Uhr.`,
-    statement: 'Man kann auch während der Schließung Bücher in der Rückgabebox abgeben.',
+    statement: 'Man kann Bücher auch abgeben, wenn die Bibliothek geschlossen ist.',
     correct_answer: 'richtig',
     clue_quote: 'Bücher und DVDs können Sie jedoch rund um die Uhr in die Rückgabebox am Haupteingang einwerfen.',
     explanation_ru: 'Хотя само здание закрыто на ремонт, в объявлении подчеркивается: книги и DVD можно круглосуточно сдать через специальный ящик у главного входа («rund um die Uhr in die Rückgabebox einwerfen»). Утверждение верно (Richtig).',
@@ -404,14 +404,14 @@ bitte halten Sie nach Möglichkeit passendes Bargeld bereit.
 
 Aus technischen Gründen können wir an dieser Kasse keine Kredit- oder EC-Karten annehmen.
 
-Zahlung ist ausschließlich in bar möglich. Ein Geldautomat befindet sich bei der Sparkasse gegenüber.`,
+Zahlung ist nur in bar möglich. Ein Geldautomat befindet sich bei der Sparkasse gegenüber.`,
     statement: 'Man kann die Brötchen an dieser Kasse mit der EC-Karte bezahlen.',
     correct_answer: 'falsch',
-    clue_quote: 'können wir an dieser Kasse keine Kredit- oder EC-Karten annehmen. Zahlung ist ausschließlich in bar möglich.',
-    explanation_ru: 'На табличке возле кассы написано: карты не принимаются («keine Kredit- oder EC-Karten annehmen»), оплата возможна исключительно наличными («Zahlung ist ausschließlich in bar möglich»). Утверждение неверно (Falsch).',
-    explanation_de: 'Kartenzahlung ist nicht möglich, nur Barzahlung („ausschließlich in bar").',
+    clue_quote: 'können wir an dieser Kasse keine Kredit- oder EC-Karten annehmen. Zahlung ist nur in bar möglich.',
+    explanation_ru: 'На табличке возле кассы написано: карты не принимаются («keine Kredit- oder EC-Karten annehmen»), оплата возможна только наличными («Zahlung ist nur in bar möglich»). Утверждение неверно (Falsch).',
+    explanation_de: 'Kartenzahlung ist nicht möglich, nur Barzahlung („nur in bar").',
     vocabulary_notes: [
-      { word: 'ausschließlich in bar', translation: 'исключительно наличными' },
+      { word: 'nur in bar', translation: 'только наличными' },
       { word: 'annehmen', translation: 'принимать' },
       { word: 'der Geldautomat', translation: 'банкомат' }
     ]

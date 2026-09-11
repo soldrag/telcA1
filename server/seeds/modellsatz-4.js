@@ -86,7 +86,7 @@ Wichtige Informationen zu Ihrem Hotelaufenthalt:
 - Rezeption: Täglich von 07:00 bis 21:00 Uhr besetzt. Bei späterer Anreise nach 21:00 Uhr informieren Sie uns bitte telefonisch.
 - Frühstück: Unser großes Schwarzwälder Frühstücksbuffet servieren wir von 07:30 bis 10:00 Uhr im Panoramarestaurant.
 - Wellnessbereich & Schwimmbad: Kostenlos nutzbar von 08:00 bis 20:00 Uhr für Hotelgäste.
-- Haustiere: Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt (Reinigungsgebühr: 10 € pro Nacht). Im Restaurantbereich sind Hunde jedoch nicht gestattet.
+- Haustiere: Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt (Reinigungsgebühr: 10 € pro Nacht). Im Restaurant sind Hunde jedoch nicht erlaubt.
 
 Einen schönen Urlaub wünscht Ihnen
 Familie Huber`,
@@ -116,7 +116,7 @@ Wichtige Informationen zu Ihrem Hotelaufenthalt:
 - Rezeption: Täglich von 07:00 bis 21:00 Uhr besetzt. Bei späterer Anreise nach 21:00 Uhr informieren Sie uns bitte telefonisch.
 - Frühstück: Unser großes Schwarzwälder Frühstücksbuffet servieren wir von 07:30 bis 10:00 Uhr im Panoramarestaurant.
 - Wellnessbereich & Schwimmbad: Kostenlos nutzbar von 08:00 bis 20:00 Uhr für Hotelgäste.
-- Haustiere: Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt (Reinigungsgebühr: 10 € pro Nacht). Im Restaurantbereich sind Hunde jedoch nicht gestattet.
+- Haustiere: Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt (Reinigungsgebühr: 10 € pro Nacht). Im Restaurant sind Hunde jedoch nicht erlaubt.
 
 Einen schönen Urlaub wünscht Ihnen
 Familie Huber`,
@@ -146,19 +146,19 @@ Wichtige Informationen zu Ihrem Hotelaufenthalt:
 - Rezeption: Täglich von 07:00 bis 21:00 Uhr besetzt. Bei späterer Anreise nach 21:00 Uhr informieren Sie uns bitte telefonisch.
 - Frühstück: Unser großes Schwarzwälder Frühstücksbuffet servieren wir von 07:30 bis 10:00 Uhr im Panoramarestaurant.
 - Wellnessbereich & Schwimmbad: Kostenlos nutzbar von 08:00 bis 20:00 Uhr für Hotelgäste.
-- Haustiere: Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt (Reinigungsgebühr: 10 € pro Nacht). Im Restaurantbereich sind Hunde jedoch nicht gestattet.
+- Haustiere: Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt (Reinigungsgebühr: 10 € pro Nacht). Im Restaurant sind Hunde jedoch nicht erlaubt.
 
 Einen schönen Urlaub wünscht Ihnen
 Familie Huber`,
     statement: 'Man darf den Hund mit ins Zimmer nehmen, aber nicht ins Restaurant.',
     correct_answer: 'richtig',
-    clue_quote: 'Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt ... Im Restaurantbereich sind Hunde jedoch nicht gestattet.',
-    explanation_ru: 'Правила отеля гласят: собаки в номерах разрешены по предварительной заявке («in den Hotelzimmern nach Voranmeldung erlaubt»), но в ресторан с собаками нельзя («Im Restaurantbereich jedoch nicht gestattet»). Утверждение верно (Richtig).',
+    clue_quote: 'Hunde sind in den Hotelzimmern nach Voranmeldung erlaubt ... Im Restaurant sind Hunde jedoch nicht erlaubt.',
+    explanation_ru: 'Правила отеля гласят: собаки в номерах разрешены по предварительной заявке («in den Hotelzimmern nach Voranmeldung erlaubt»), но в ресторан с собаками нельзя («Im Restaurant jedoch nicht erlaubt»). Утверждение верно (Richtig).',
     explanation_de: 'Hunde sind im Zimmer erlaubt, aber im Restaurant verboten.',
     vocabulary_notes: [
       { word: 'nach Voranmeldung', translation: 'по предварительному уведомлению' },
-      { word: 'nicht gestattet', translation: 'не разрешено' },
-      { word: 'der Restaurantbereich', translation: 'зона ресторана' }
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
+      { word: 'das Restaurant', translation: 'ресторан' }
     ]
   },
 

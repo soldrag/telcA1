@@ -93,7 +93,7 @@ Ihre Buchungsdetails:
 - Verpflegung: Frühstücksbuffet ist im Preis enthalten (täglich 07:30 – 10:30 Uhr)
 
 Wichtige Hinweise:
-Parkplätze in unserer Tiefgarage stehen Ihnen kostenlos zur Verfügung. Haustiere wie Hunde sind in unserem Hotel leider nicht gestattet.
+Parkplätze in unserer Tiefgarage stehen Ihnen kostenlos zur Verfügung. Haustiere wie Hunde sind in unserem Hotel leider nicht erlaubt.
 
 Bei Fragen rufen Sie uns gerne an!
 
@@ -128,7 +128,7 @@ Ihre Buchungsdetails:
 - Verpflegung: Frühstücksbuffet ist im Preis enthalten (täglich 07:30 – 10:30 Uhr)
 
 Wichtige Hinweise:
-Parkplätze in unserer Tiefgarage stehen Ihnen kostenlos zur Verfügung. Haustiere wie Hunde sind in unserem Hotel leider nicht gestattet.
+Parkplätze in unserer Tiefgarage stehen Ihnen kostenlos zur Verfügung. Haustiere wie Hunde sind in unserem Hotel leider nicht erlaubt.
 
 Bei Fragen rufen Sie uns gerne an!
 
@@ -163,7 +163,7 @@ Ihre Buchungsdetails:
 - Verpflegung: Frühstücksbuffet ist im Preis enthalten (täglich 07:30 – 10:30 Uhr)
 
 Wichtige Hinweise:
-Parkplätze in unserer Tiefgarage stehen Ihnen kostenlos zur Verfügung. Haustiere wie Hunde sind in unserem Hotel leider nicht gestattet.
+Parkplätze in unserer Tiefgarage stehen Ihnen kostenlos zur Verfügung. Haustiere wie Hunde sind in unserem Hotel leider nicht erlaubt.
 
 Bei Fragen rufen Sie uns gerne an!
 
@@ -171,13 +171,13 @@ Herzliche Grüße
 Ihr Empfangsteam`,
     statement: 'Man darf einen Hund mit in das Hotel bringen.',
     correct_answer: 'falsch',
-    clue_quote: 'Haustiere wie Hunde sind in unserem Hotel leider nicht gestattet.',
-    explanation_ru: 'В примечании написано: «Haustiere wie Hunde sind in unserem Hotel leider nicht gestattet» («Домашние животные, такие как собаки, в нашем отеле, к сожалению, не разрешены»). Слово «nicht gestattet» означает «запрещено / не разрешено». Утверждение неверно (Falsch).',
-    explanation_de: 'Hunde sind nicht erlaubt („leider nicht gestattet"). Die Aussage ist falsch.',
+    clue_quote: 'Haustiere wie Hunde sind in unserem Hotel leider nicht erlaubt.',
+    explanation_ru: 'В примечании написано: «Haustiere wie Hunde sind in unserem Hotel leider nicht erlaubt» («Домашние животные, такие как собаки, в нашем отеле, к сожалению, не разрешены»). Утверждение неверно (Falsch).',
+    explanation_de: 'Hunde sind im Hotel nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'nicht gestattet / nicht erlaubt', translation: 'не разрешено / запрещено' },
-      { word: 'das Haustier', translation: 'домашнее животное' },
-      { word: 'der Hund', translation: 'собака' }
+      { word: 'nicht erlaubt', translation: 'не разрешено' },
+      { word: 'das Haustier (-e)', translation: 'домашнее животное' },
+      { word: 'mitbringen', translation: 'привозить с собой' }
     ]
   },
 

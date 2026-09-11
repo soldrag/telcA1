@@ -87,22 +87,22 @@ Martin`,
 Öffnungszeiten:
 Täglich von 10:00 bis 22:30 Uhr (auch an Sonn- und Feiertagen).
 
-Sicherheitshinweise für neue Klettergäste:
-Bevor Sie zum ersten Mal an unseren hohen Seilwänden klettern, müssen alle Personen an einer 15-minütigen Sicherheitsunterweisung durch unsere Trainer teilnehmen. Diese Einweisung findet zu jeder vollen Stunde statt und ist kostenlos.
+Wichtig für neue Gäste:
+Sie klettern zum ersten Mal bei uns? Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit (15 Minuten) mit einem Trainer. Diese Erklärung ist kostenlos.
 
-Ausrüstung und Alter:
-Passende Kletterschuhe und Sicherungsgurte können Sie für 5 € Leihgebühr an der Kasse mieten. Kinder unter 14 Jahren dürfen die Kletterhalle nur in Begleitung einer volljährigen Aufsichtsperson betreten.
+Ausrüstung und Kinder:
+Kletterschuhe können Sie für 5 € an der Kasse leihen. Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle kommen.
 
 Viel Spaß beim Klettern wünscht
 Ihr Trainerteam`,
-    statement: 'Neue Kletterer müssen vor dem Klettern an einer kurzen Sicherheitseinweisung teilnehmen.',
+    statement: 'Neue Kletterer bekommen vor dem Klettern eine kurze Erklärung zur Sicherheit.',
     correct_answer: 'richtig',
-    clue_quote: 'Bevor Sie zum ersten Mal an unseren hohen Seilwänden klettern, müssen alle Personen an einer 15-minütigen Sicherheitsunterweisung ... teilnehmen.',
-    explanation_ru: 'В правилах безопасности написано: перед первым восхождением все новички обязаны пройти 15-минутный инструктаж по безопасности («müssen ... an einer 15-minütigen Sicherheitsunterweisung teilnehmen»). Утверждение верно (Richtig).',
-    explanation_de: 'Eine 15-minütige Sicherheitsunterweisung ist für neue Kletterer Pflicht.',
+    clue_quote: 'Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit (15 Minuten) mit einem Trainer.',
+    explanation_ru: 'В правилах написано: перед первым восхождением новые посетители слушают 15-минутное объяснение правил безопасности с тренером («Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit»). Утверждение верно (Richtig).',
+    explanation_de: 'Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit mit dem Trainer.',
     vocabulary_notes: [
-      { word: 'die Sicherheitsunterweisung / Einweisung', translation: 'инструктаж по безопасности' },
-      { word: 'teilnehmen müssen', translation: 'обязан принять участие' },
+      { word: 'die Erklärung', translation: 'объяснение / инструктаж' },
+      { word: 'die Sicherheit', translation: 'безопасность' },
       { word: 'zum ersten Mal', translation: 'в первый раз' }
     ]
   },
@@ -118,23 +118,23 @@ Ihr Trainerteam`,
 Öffnungszeiten:
 Täglich von 10:00 bis 22:30 Uhr (auch an Sonn- und Feiertagen).
 
-Sicherheitshinweise für neue Klettergäste:
-Bevor Sie zum ersten Mal an unseren hohen Seilwänden klettern, müssen alle Personen an einer 15-minütigen Sicherheitsunterweisung durch unsere Trainer teilnehmen. Diese Einweisung findet zu jeder vollen Stunde statt und ist kostenlos.
+Wichtig für neue Gäste:
+Sie klettern zum ersten Mal bei uns? Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit (15 Minuten) mit einem Trainer. Diese Erklärung ist kostenlos.
 
-Ausrüstung und Alter:
-Passende Kletterschuhe und Sicherungsgurte können Sie für 5 € Leihgebühr an der Kasse mieten. Kinder unter 14 Jahren dürfen die Kletterhalle nur in Begleitung einer volljährigen Aufsichtsperson betreten.
+Ausrüstung und Kinder:
+Kletterschuhe können Sie für 5 € an der Kasse leihen. Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle kommen.
 
 Viel Spaß beim Klettern wünscht
 Ihr Trainerteam`,
     statement: 'Kinder unter 14 Jahren dürfen ganz ohne Erwachsene in die Halle.',
     correct_answer: 'falsch',
-    clue_quote: 'Kinder unter 14 Jahren dürfen die Kletterhalle nur in Begleitung einer volljährigen Aufsichtsperson betreten.',
-    explanation_ru: 'Правила четко гласят: детям до 14 лет разрешено входить только в сопровождении совершеннолетнего сопровождающего («nur in Begleitung einer volljährigen Aufsichtsperson»). Одним без взрослых находиться в зале нельзя. Утверждение неверно (Falsch).',
-    explanation_de: 'Kinder unter 14 Jahren dürfen nur mit einer volljährigen Begleitperson in die Halle.',
+    clue_quote: 'Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle kommen.',
+    explanation_ru: 'Правила четко гласят: детям до 14 лет разрешено входить только со взрослыми («nur mit Erwachsenen in die Halle kommen»). Одним без взрослых находиться в зале нельзя. Утверждение неверно (Falsch).',
+    explanation_de: 'Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle.',
     vocabulary_notes: [
-      { word: 'in Begleitung', translation: 'в сопровождении' },
-      { word: 'volljährig', translation: 'совершеннолетний (18+)' },
-      { word: 'die Aufsichtsperson', translation: 'ответственное сопровождающее лицо' }
+      { word: 'Erwachsene (pl.)', translation: 'взрослые' },
+      { word: 'ohne Erwachsene', translation: 'без взрослых' },
+      { word: 'die Halle', translation: 'зал' }
     ]
   },
   {
@@ -149,22 +149,22 @@ Ihr Trainerteam`,
 Öffnungszeiten:
 Täglich von 10:00 bis 22:30 Uhr (auch an Sonn- und Feiertagen).
 
-Sicherheitshinweise für neue Klettergäste:
-Bevor Sie zum ersten Mal an unseren hohen Seilwänden klettern, müssen alle Personen an einer 15-minütigen Sicherheitsunterweisung durch unsere Trainer teilnehmen. Diese Einweisung findet zu jeder vollen Stunde statt und ist kostenlos.
+Wichtig für neue Gäste:
+Sie klettern zum ersten Mal bei uns? Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit (15 Minuten) mit einem Trainer. Diese Erklärung ist kostenlos.
 
-Ausrüstung und Alter:
-Passende Kletterschuhe und Sicherungsgurte können Sie für 5 € Leihgebühr an der Kasse mieten. Kinder unter 14 Jahren dürfen die Kletterhalle nur in Begleitung einer volljährigen Aufsichtsperson betreten.
+Ausrüstung und Kinder:
+Kletterschuhe können Sie für 5 € an der Kasse leihen. Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle kommen.
 
 Viel Spaß beim Klettern wünscht
 Ihr Trainerteam`,
     statement: 'Man kann Kletterschuhe gegen eine Gebühr an der Kasse leihen.',
     correct_answer: 'richtig',
-    clue_quote: 'Passende Kletterschuhe und Sicherungsgurte können Sie für 5 € Leihgebühr an der Kasse mieten.',
-    explanation_ru: 'В тексте прямо указано: специальную обувь и страховочные пояса можно арендовать на кассе за 5 € («für 5 € Leihgebühr an der Kasse mieten»). Утверждение верно (Richtig).',
-    explanation_de: 'Kletterschuhe können für 5 € Leihgebühr gemietet werden.',
+    clue_quote: 'Kletterschuhe können Sie für 5 € an der Kasse leihen.',
+    explanation_ru: 'В тексте прямо указано: обувь для лазания можно взять напрокат на кассе за 5 € («Kletterschuhe können Sie für 5 € an der Kasse leihen»). Утверждение верно (Richtig).',
+    explanation_de: 'Kletterschuhe können für 5 € an der Kasse geliehen werden.',
     vocabulary_notes: [
-      { word: 'leihen / mieten', translation: 'брать напрокат / арендовать' },
-      { word: 'die Leihgebühr', translation: 'плата за прокат' },
+      { word: 'leihen / mieten', translation: 'брать напрокат / одалживать' },
+      { word: 'an der Kasse', translation: 'на кассе' },
       { word: 'die Kletterschuhe (pl.)', translation: 'обувь для скалолазания' }
     ]
   },

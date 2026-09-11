@@ -83,7 +83,7 @@ Julia Neumann`,
 herzlich willkommen im Wohnheim Campus Nord! Zur Sicherheit aller Bewohner bitten wir um Beachtung folgender Regeln:
 
 1. Fahrräder:
-Fahrräder dürfen ausschließlich im gekennzeichneten Fahrradkeller oder an den Fahrradständern im Hof abgestellt werden. Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten (Fluchtweg!).
+Fahrräder dürfen nur im Fahrradkeller oder an den Fahrradständern im Hof stehen. Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten!
 
 2. Mülltrennung:
 Bitte trennen Sie Ihren Müll sorgfältig! Im Innenhof finden Sie getrennte Tonnen für Altpapier (blau), Plastik/Verpackungen (gelb) und Restmüll (schwarz).
@@ -94,13 +94,13 @@ Ab 22:00 Uhr gilt gesetzliche Nachtruhe. Musik im Zimmer bitte auf Zimmerlautst�
 Ihre Wohnheimverwaltung`,
     statement: 'Studenten dürfen ihre Fahrräder auf dem Flur vor ihrer Zimmertür parken.',
     correct_answer: 'falsch',
-    clue_quote: 'Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten',
+    clue_quote: 'Das Abstellen im Treppenhaus oder auf den Fluren ist ... streng verboten',
     explanation_ru: 'В правилах общежития четко написано: оставлять велосипеды на лестнице или в коридорах строго запрещено («auf den Fluren ... streng verboten»). Их нужно ставить в подвал или во двор. Утверждение неверно (Falsch).',
     explanation_de: 'Fahrräder auf dem Flur abzustellen ist streng verboten.',
     vocabulary_notes: [
       { word: 'der Flur (-e)', translation: 'коридор' },
-      { word: 'das Abstellen', translation: 'парковка / оставление вещей' },
-      { word: 'streng verboten', translation: 'строго запрещено' }
+      { word: 'streng verboten', translation: 'строго запрещено' },
+      { word: 'der Fahrradkeller', translation: 'подвал для велосипедов' }
     ]
   },
   {
@@ -115,7 +115,7 @@ Ihre Wohnheimverwaltung`,
 herzlich willkommen im Wohnheim Campus Nord! Zur Sicherheit aller Bewohner bitten wir um Beachtung folgender Regeln:
 
 1. Fahrräder:
-Fahrräder dürfen ausschließlich im gekennzeichneten Fahrradkeller oder an den Fahrradständern im Hof abgestellt werden. Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten (Fluchtweg!).
+Fahrräder dürfen nur im Fahrradkeller oder an den Fahrradständern im Hof stehen. Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten!
 
 2. Mülltrennung:
 Bitte trennen Sie Ihren Müll sorgfältig! Im Innenhof finden Sie getrennte Tonnen für Altpapier (blau), Plastik/Verpackungen (gelb) und Restmüll (schwarz).
@@ -147,7 +147,7 @@ Ihre Wohnheimverwaltung`,
 herzlich willkommen im Wohnheim Campus Nord! Zur Sicherheit aller Bewohner bitten wir um Beachtung folgender Regeln:
 
 1. Fahrräder:
-Fahrräder dürfen ausschließlich im gekennzeichneten Fahrradkeller oder an den Fahrradständern im Hof abgestellt werden. Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten (Fluchtweg!).
+Fahrräder dürfen nur im Fahrradkeller oder an den Fahrradständern im Hof stehen. Das Abstellen im Treppenhaus oder auf den Fluren ist aus Brandschutzgründen streng verboten!
 
 2. Mülltrennung:
 Bitte trennen Sie Ihren Müll sorgfältig! Im Innenhof finden Sie getrennte Tonnen für Altpapier (blau), Plastik/Verpackungen (gelb) und Restmüll (schwarz).
@@ -350,17 +350,17 @@ Ihre Wohnheimverwaltung`,
     context_body: `Liebe Badegäste,
 
 bitte beachten Sie unsere Belegungszeiten:
-Jeden Mittwochnachmittag von 14:00 bis 16:30 Uhr ist das Hallenbad ausschließlich für den Schul- und Vereinssport reserviert.
+Jeden Mittwochnachmittag von 14:00 bis 16:30 Uhr ist das Hallenbad nur für den Schul- und Vereinssport reserviert.
 
-Kein öffentlicher Einlass für Freizeitgäste während dieser Zeit!`,
+Kein Eintritt für andere Gäste während dieser Zeit!`,
     statement: 'Man kann am Mittwochnachmittag um 15:00 Uhr ganz normal zum Schwimmen kommen.',
     correct_answer: 'falsch',
-    clue_quote: 'Jeden Mittwochnachmittag von 14:00 bis 16:30 Uhr ist das Hallenbad ausschließlich für den Schul- und Vereinssport reserviert. Kein öffentlicher Einlass',
-    explanation_ru: 'На табличке в бассейне четко написано: по средам с 14:00 до 16:30 вход открыт исключительно для школьников и секций («Kein öffentlicher Einlass für Freizeitgäste»). Обычные посетители в 15:00 плавать не могут. Утверждение неверно (Falsch).',
-    explanation_de: 'Von 14:00 bis 16:30 Uhr ist am Mittwoch kein öffentlicher Einlass.',
+    clue_quote: 'Jeden Mittwochnachmittag von 14:00 bis 16:30 Uhr ist das Hallenbad nur für den Schul- und Vereinssport reserviert. Kein Eintritt',
+    explanation_ru: 'На табличке в бассейне четко написано: по средам с 14:00 до 16:30 вход открыт только для школьников и секций («nur für den Schul- und Vereinssport reserviert»). Обычные посетители в 15:00 плавать не могут. Утверждение неверно (Falsch).',
+    explanation_de: 'Von 14:00 bis 16:30 Uhr ist am Mittwoch kein Eintritt für andere Gäste.',
     vocabulary_notes: [
-      { word: 'ausschließlich', translation: 'исключительно' },
-      { word: 'der Einlass', translation: 'впуск / вход' },
+      { word: 'nur für...', translation: 'только для...' },
+      { word: 'der Eintritt', translation: 'вход' },
       { word: 'reserviert für...', translation: 'забронировано для...' }
     ]
   },

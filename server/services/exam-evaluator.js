@@ -1,5 +1,6 @@
 function parseJsonSafely(jsonString, fallbackValue) {
   if (!jsonString) return fallbackValue;
+  if (typeof jsonString === 'object') return jsonString;
   try {
     return JSON.parse(jsonString);
   } catch (parseError) {
