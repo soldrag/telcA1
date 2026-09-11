@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { cn } from '../../lib/utils.js';
+import { cn } from '../../utils/cn.js';
 import { X } from 'lucide-react';
 import { lockBodyScroll, unlockBodyScroll } from '../../utils/scrollService.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '../../lib/utils.js';
+import { cn } from '../../utils/cn.js';
 
 export function Card({ className = '', children, ...props }) {
   return (

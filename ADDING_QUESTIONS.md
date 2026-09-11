@@ -2,7 +2,7 @@
 
 This document provides comprehensive guidelines, data structures, linguistic requirements, and examples for generating new practice test sets for the **telc Deutsch A1 / Start Deutsch 1 (Leseverstehen)** exam.
 
-Use this guide as a prompt and specification for an AI agent or educator when creating new exam sets (Modellsatz 3, 4, 5...).
+Use this guide as a prompt and specification for an AI agent or educator when creating new exam sets (Modellsatz 11, 12, ...).
 
 ---
 
@@ -84,9 +84,15 @@ When generating texts, strictly adhere to the A1 vocabulary and grammar standard
 
 ---
 
-## 4. JSON Data Schema Specification
+## 4. Data Architecture & Schema Specification
 
-All exam questions are stored in `server/seed-data.js`. When adding a new test variant, add an exam object to the `exams` array and 15 question objects to the `questions` array.
+Exam data is organized in a modular structure:
+
+- **`server/seeds/modellsatz-N.js`** — one file per exam variant, exports `exam` object and `questions` array.
+- **`server/seed-data.js`** — barrel aggregator that imports all seed modules and exports a combined `seedData` object.
+- **`server/database/seeder.js`** — reads `seedData` and writes to SQLite via `INSERT OR REPLACE`.
+
+When adding a new test variant, create a new file in `server/seeds/` and register it in `server/seed-data.js`.
 
 ### Exam Object Schema (`exams`):
 ```javascript
@@ -190,42 +196,65 @@ All exam questions are stored in `server/seed-data.js`. When adding a new test v
 
 Once a new exam set is prepared:
 
-### Step 1: Add to `server/seed-data.js`
-1. Open `server/seed-data.js`.
-2. Add the new exam object to `seedData.exams`:
-   ```javascript
-   {
-     id: 'modellsatz-3',
-     title: 'telc Deutsch A1 — Modellsatz 3',
-     subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
-     description: 'Third official practice test for telc Deutsch A1.',
-     time_limit_minutes: 25,
-     total_questions: 15,
-     pass_score: 9
-   }
-   ```
-3. Add the 15 tasks (`m3-q1` through `m3-q15`) to `seedData.questions`.
+### Step 1: Create a new seed file in `server/seeds/`
 
-### Step 2: Update the SQLite Database
+Create `server/seeds/modellsatz-N.js` with the exam metadata and 15 questions:
+
+```javascript
+export const exam = {
+  id: 'modellsatz-N',
+  title: 'telc Deutsch A1 — Modellsatz N',
+  subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
+  description: 'Practice test N for telc Deutsch A1.',
+  time_limit_minutes: 25,
+  total_questions: 15,
+  pass_score: 9
+};
+
+export const questions = [
+  // mN-q1 through mN-q15
+];
+```
+
+### Step 2: Register in the aggregator
+
+Add the import and entries in `server/seed-data.js`:
+
+```javascript
+import { exam as examN, questions as questionsN } from './seeds/modellsatz-N.js';
+
+export const seedData = {
+  exams: [
+    // ... existing exams
+    { ...examN, sort_order: N },
+  ],
+  questions: [
+    // ... existing questions
+    ...questionsN,
+  ]
+};
+```
+
+### Step 3: Update the SQLite Database
 When the server starts, `initDatabase()` is called. To force a refresh of the database with the new records:
-- Either remove the database file `data/telc_a1.db` (it will be automatically re-created and seeded from `seed-data.js`):
+- Either remove the database file `data/telc_a1.db` (it will be automatically re-created and seeded):
    ```bash
    rm data/telc_a1.db
    ```
-- Or run the `seedDatabase()` function via Node:
+- Or run `initDatabase()` via Node:
    ```bash
-   node -e "import('./server/db.js').then(m => m.seedDatabase())"
+   node -e "import('./server/db.js').then(m => m.initDatabase())"
    ```
 
-### Step 3: Verification
+### Step 4: Verification
 Check via the terminal that all 15 questions of the new test are correctly loaded:
 ```bash
 node -e "import('./server/db.js').then(m => {
-  const count = m.db.prepare('SELECT COUNT(*) as c FROM questions WHERE exam_id = ?').get('modellsatz-3');
-  console.log('Modellsatz 3 questions:', count.c);
+  const count = m.db.prepare('SELECT COUNT(*) as c FROM questions WHERE exam_id = ?').get('modellsatz-N');
+  console.log('Modellsatz N questions:', count.c);
 })"
 ```
-The expected output is: `Modellsatz 3 questions: 15`.
+The expected output is: `Modellsatz N questions: 15`.
 
 Then start the application:
 ```bash
@@ -257,3 +286,23 @@ Before saving a new set, verify:
 - [ ] Balanced `richtig` / `falsch` answers in Teil 1 and Teil 3.
 - [ ] In Teil 2, both options (`a` and `b`) are plausible, but exactly one is correct.
 - [ ] No grammatical errors or typos in the German text.
+
+---
+
+## 7. Current Exam Variants
+
+| ID | Title | Module | Questions | Status |
+|----|-------|--------|-----------|--------|
+| modellsatz-1 | Modellsatz 1 | Lesen | 15 | ✅ Ready |
+| modellsatz-2 | Modellsatz 2 | Lesen | 15 | ✅ Ready |
+| modellsatz-3 | Modellsatz 3 | Lesen | 15 | ✅ Ready |
+| modellsatz-4 | Modellsatz 4 | Lesen | 15 | ✅ Ready |
+| modellsatz-5 | Modellsatz 5 | Lesen | 15 | ✅ Ready |
+| modellsatz-6 | Modellsatz 6 | Lesen | 15 | ✅ Ready |
+| modellsatz-7 | Modellsatz 7 | Lesen | 15 | ✅ Ready |
+| modellsatz-8 | Modellsatz 8 | Lesen | 15 | ✅ Ready |
+| modellsatz-9 | Modellsatz 9 | Lesen | 15 | ✅ Ready |
+| modellsatz-10 | Modellsatz 10 | Lesen | 15 | ✅ Ready |
+| hoeren-modellsatz-1 | Hören (stub) | Hören | 3 | 🚧 Stub |
+| schreiben-modellsatz-1 | Schreiben (stub) | Schreiben | 2 | 🚧 Stub |
+| sprechen-modellsatz-1 | Sprechen (stub) | Sprechen | 1 | 🚧 Stub |
