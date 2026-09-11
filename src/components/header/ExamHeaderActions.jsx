@@ -2,9 +2,10 @@ import React from 'react';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { Button } from '../ui/Button.jsx';
 import { Badge } from '../ui/Badge.jsx';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answeredCount, totalQuestions }) {
-  const isAllAnswered = answeredCount === totalQuestions;
+  const { t } = useI18n();
 
   return (
     <>
@@ -12,25 +13,25 @@ export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answer
         variant="secondary"
         size="sm"
         onClick={onNavigateHome}
-        title="Вернуться к выбору вариантов"
+        title={t('header.menu')}
         className="text-xs sm:text-sm font-semibold"
       >
         <ArrowLeft className="w-4 h-4 mr-1.5" />
-        <span>В меню</span>
+        <span>{t('header.menu')}</span>
       </Button>
 
-      <Badge variant="secondary" className="px-3 py-1.5 hidden md:inline-flex text-xs font-bold text-slate-700">
-        Отвечено: {answeredCount} / {totalQuestions}
+      <Badge variant="secondary" className="px-3 py-1.5 hidden md:inline-flex text-xs font-bold text-content-secondary">
+        {t('header.answeredProgress', { answered: answeredCount, total: totalQuestions })}
       </Badge>
 
       <Button
-        variant={isAllAnswered ? 'success' : 'default'}
+        variant="secondary"
         size="sm"
         onClick={onSubmitExam}
-        className="text-xs sm:text-sm shadow-sm"
+        className="text-xs sm:text-sm font-bold border border-border-default hover:border-action-primary"
       >
-        <CheckCircle2 className="w-4 h-4 mr-1.5" />
-        <span>Завершить ({answeredCount}/{totalQuestions})</span>
+        <CheckCircle2 className="w-4 h-4 mr-1.5 text-content-tertiary" />
+        <span>{t('header.finish')} ({answeredCount}/{totalQuestions})</span>
       </Button>
     </>
   );

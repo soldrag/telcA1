@@ -1,6 +1,8 @@
 import React from 'react';
 import { History, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
 import { formatExamName } from '../../utils/examFormat.js';
+import { formatAttemptDateShort, formatAttemptDuration } from '../../utils/historyFormat.js';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function RecentAttemptsList({
   recentAttempts = [],
@@ -28,6 +30,8 @@ export default function RecentAttemptsList({
 }
 
 function RecentAttemptsHeader({ onOpenHistory }) {
+  const { t, isRussian } = useI18n();
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
@@ -36,10 +40,10 @@ function RecentAttemptsHeader({ onOpenHistory }) {
         </div>
         <div>
           <h2 className="text-base font-bold text-content-primary">
-            История ваших прохождений
+            {t('welcome.recentAttempts.title')}
           </h2>
           <p className="text-xs text-content-tertiary">
-            Привязана к вашему браузеру
+            {isRussian ? 'Привязана к вашему браузеру' : 'Saved in your browser'}
           </p>
         </div>
       </div>
@@ -47,9 +51,9 @@ function RecentAttemptsHeader({ onOpenHistory }) {
       <button
         type="button"
         onClick={onOpenHistory}
-        className="text-xs sm:text-sm font-bold text-telc-600 dark:text-telc-400 hover:text-telc-700 dark:hover:text-telc-300 flex items-center space-x-1 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+        className="text-xs sm:text-sm font-bold text-action-primary hover:text-action-primary-hover flex items-center space-x-1 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 cursor-pointer"
       >
-        <span>Вся история</span>
+        <span>{t('welcome.recentAttempts.viewAll')}</span>
         <ArrowRight className="w-4 h-4" />
       </button>
     </div>
@@ -57,34 +61,31 @@ function RecentAttemptsHeader({ onOpenHistory }) {
 }
 
 function RecentAttemptsEmpty() {
+  const { t } = useI18n();
+
   return (
     <div className="text-center py-6 text-content-muted text-xs sm:text-sm bg-surface-inset rounded-2xl border border-dashed border-border-subtle">
-      Вы ещё не проходили тесты на этом устройстве. Запустите случайный тест выше!
+      {t('welcome.recentAttempts.empty')}
     </div>
   );
 }
 
 function RecentAttemptRow({ attempt, onLoadAttempt }) {
-  const minutes = Math.floor(attempt.time_spent_seconds / 60);
-  const seconds = attempt.time_spent_seconds % 60;
-  const formattedDate = new Date(attempt.created_at + 'Z').toLocaleString('ru-RU', {
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  const { t, language, isRussian } = useI18n();
+  const { minutes, seconds } = formatAttemptDuration(attempt.time_spent_seconds);
+  const formattedDate = formatAttemptDateShort(attempt.created_at, language);
 
   return (
     <button
       type="button"
       onClick={() => onLoadAttempt(attempt.id)}
-      className="w-full p-3 rounded-xl border border-border-subtle hover:border-telc-400 hover:bg-telc-50/40 dark:hover:bg-telc-950/40 transition-all cursor-pointer flex items-center justify-between gap-3 group min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+      className="w-full p-3 rounded-xl border border-border-subtle hover:border-border-strong hover:bg-surface-raised transition-all cursor-pointer flex items-center justify-between gap-3 group min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
     >
       <div className="flex items-center space-x-3">
         {attempt.passed ? (
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+          <CheckCircle2 className="w-5 h-5 text-state-success flex-shrink-0" />
         ) : (
-          <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 flex-shrink-0" />
+          <XCircle className="w-5 h-5 text-state-error flex-shrink-0" />
         )}
 
         <div className="text-left">
@@ -92,16 +93,16 @@ function RecentAttemptRow({ attempt, onLoadAttempt }) {
             <span className="text-xs sm:text-sm font-bold text-content-primary">
               {formatExamName(attempt.exam_id || attempt.exam_title)}
             </span>
-            <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+            <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${
               attempt.passed
-                ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300'
-                : 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300'
+                ? 'bg-state-success-subtle text-state-success-text border-state-success-border'
+                : 'bg-state-error-subtle text-state-error-text border-state-error-border'
             }`}>
-              {attempt.passed ? 'Сдано' : 'Не сдано'}
+              {attempt.passed ? t('welcome.recentAttempts.passedBadge') : t('welcome.recentAttempts.failedBadge')}
             </span>
           </div>
           <div className="text-xs text-content-tertiary mt-0.5">
-            {formattedDate} • {minutes}м {seconds}с
+            {formattedDate} • {minutes}{isRussian ? 'м' : 'm'} {seconds}{isRussian ? 'с' : 's'}
           </div>
         </div>
       </div>
@@ -110,8 +111,8 @@ function RecentAttemptRow({ attempt, onLoadAttempt }) {
         <span className="font-extrabold text-xs sm:text-sm text-content-primary">
           {attempt.score} / {attempt.total_questions} ({attempt.percentage}%)
         </span>
-        <span className="text-xs text-telc-600 dark:text-telc-400 group-hover:underline hidden sm:inline font-semibold">
-          Разбор →
+        <span className="text-xs text-action-primary group-hover:underline hidden sm:inline font-semibold">
+          {isRussian ? 'Разбор →' : 'Review →'}
         </span>
       </div>
     </button>

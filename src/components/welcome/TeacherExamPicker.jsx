@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GraduationCap, Eye, ChevronDown } from 'lucide-react';
 import { formatExamName, sortExamsNumerically } from '../../utils/examFormat.js';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function TeacherExamPicker({
   exams = [],
@@ -8,6 +9,7 @@ export default function TeacherExamPicker({
   onSelectExam,
   onStartExam,
 }) {
+  const { isRussian } = useI18n();
   const sortedExams = sortExamsNumerically(exams);
   const [selectedId, setSelectedId] = useState(currentExamId || sortedExams[0]?.id || '');
 
@@ -36,9 +38,9 @@ export default function TeacherExamPicker({
   return (
     <div className="bg-surface-inset rounded-2xl border border-border-default p-4 sm:p-5 space-y-3">
       <div className="flex items-center space-x-2 text-content-secondary">
-        <GraduationCap className="w-4 h-4 text-telc-600 dark:text-telc-400" />
+        <GraduationCap className="w-4 h-4 text-action-primary" />
         <span className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
-          Режим преподавателя: быстрый выбор варианта
+          {isRussian ? 'Режим преподавателя: быстрый выбор варианта' : 'Teacher mode: quick variant selection'}
         </span>
       </div>
 
@@ -47,7 +49,7 @@ export default function TeacherExamPicker({
           <select
             value={selectedId}
             onChange={handleVariantChange}
-            className="w-full appearance-none bg-surface-card border border-border-default hover:border-slate-400 focus:border-telc-500 focus:ring-2 focus:ring-telc-200 rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-content-primary pr-9 transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="w-full appearance-none bg-surface-card border border-border-default hover:border-border-strong focus:border-action-primary focus:ring-2 focus:ring-action-primary-subtle rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-content-primary pr-9 transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
             {sortedExams.map((exam) => (
               <option key={exam.id} value={exam.id} className="bg-surface-card text-content-primary">
@@ -61,10 +63,10 @@ export default function TeacherExamPicker({
         <button
           type="button"
           onClick={handleLaunch}
-          className="px-6 py-3 rounded-xl bg-telc-700 hover:bg-telc-800 text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center justify-center space-x-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 shrink-0 cursor-pointer"
+          className="px-6 py-3 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center justify-center space-x-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 shrink-0 cursor-pointer"
         >
           <Eye className="w-4 h-4" />
-          <span>Открыть вариант</span>
+          <span>{isRussian ? 'Открыть вариант' : 'Open variant'}</span>
         </button>
       </div>
     </div>

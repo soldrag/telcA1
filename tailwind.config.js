@@ -40,33 +40,33 @@ export default {
         // State: success
         'state-success':         '#059669',  // emerald-600
         'state-success-hover':   '#047857',  // emerald-700
-        'state-success-subtle':  '#ecfdf5',  // emerald-50
-        'state-success-muted':   '#d1fae5',  // emerald-100
-        'state-success-border':  '#6ee7b7',  // emerald-300
-        'state-success-text':    '#064e3b',  // emerald-900
+        'state-success-subtle':  'var(--state-success-subtle, #ecfdf5)',
+        'state-success-muted':   'var(--state-success-muted, #d1fae5)',
+        'state-success-border':  'var(--state-success-border, #a7f3d0)',
+        'state-success-text':    'var(--state-success-text, #065f46)',
 
         // State: error
         'state-error':         '#e11d48',  // rose-600
         'state-error-hover':   '#be123c',  // rose-700
-        'state-error-subtle':  '#fff1f2',  // rose-50
-        'state-error-muted':   '#ffe4e6',  // rose-100
-        'state-error-border':  '#fda4af',  // rose-300
-        'state-error-text':    '#881337',  // rose-900
+        'state-error-subtle':  'var(--state-error-subtle, #fff1f2)',
+        'state-error-muted':   'var(--state-error-muted, #ffe4e6)',
+        'state-error-border':  'var(--state-error-border, #fecdd3)',
+        'state-error-text':    'var(--state-error-text, #9f1239)',
 
         // State: warning
         'state-warning':         '#d97706',  // amber-600
         'state-warning-hover':   '#b45309',  // amber-700
-        'state-warning-subtle':  '#fffbeb',  // amber-50
-        'state-warning-muted':   '#fef3c7',  // amber-100
-        'state-warning-border':  '#fcd34d',  // amber-300
-        'state-warning-text':    '#78350f',  // amber-900
+        'state-warning-subtle':  'var(--state-warning-subtle, #fffbeb)',
+        'state-warning-muted':   'var(--state-warning-muted, #fef3c7)',
+        'state-warning-border':  'var(--state-warning-border, #fde68a)',
+        'state-warning-text':    'var(--state-warning-text, #92400e)',
 
         // State: info
         'state-info':         '#0284c7',  // sky-600
-        'state-info-subtle':  '#f0f9ff',  // sky-50
-        'state-info-muted':   '#e0f2fe',  // sky-100
-        'state-info-border':  '#7dd3fc',  // sky-300
-        'state-info-text':    '#0c4a6e',  // sky-900
+        'state-info-subtle':  'var(--state-info-subtle, #f0f9ff)',
+        'state-info-muted':   'var(--state-info-muted, #e0f2fe)',
+        'state-info-border':  'var(--state-info-border, #bae6fd)',
+        'state-info-text':    'var(--state-info-text, #075985)',
 
         // Legacy telc scale (kept for gradients / branding where semantic is too broad)
         telc: {

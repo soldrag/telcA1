@@ -6,6 +6,7 @@ import Antwortbogen from './Antwortbogen.jsx';
 import ModuleTaskView from './parts/ModuleTaskView.jsx';
 import ExamBottomNav from './exam/ExamBottomNav.jsx';
 import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
+import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
 import { scrollToElement, scrollToExamHeader } from '../utils/scrollService.js';
 
 function getMaxTeile(testType) {
@@ -20,6 +21,7 @@ export default function ExamView({
   testType = examConfig.testType || 'lesen',
   timerState = timer,
   questions = examConfig.questions || [],
+  isLoading = false,
 }) {
   const [showAntwortbogen, setShowAntwortbogen] = useState(false);
   const maxTeile = getMaxTeile(testType);
@@ -42,6 +44,10 @@ export default function ExamView({
     scrollToExamHeader();
   };
 
+  if (isLoading || questions.length === 0) {
+    return <ExamLoadingSkeleton />;
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
@@ -59,19 +65,19 @@ export default function ExamView({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card px-4 py-3 rounded-2xl border-2 border-border-default shadow-sm text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card px-4 py-3 rounded-2xl border-2 border-border-default shadow-xs text-sm">
         <div className="flex items-center space-x-2 text-content-secondary">
           <span className="font-extrabold text-content-primary">Прогресс теста:</span>
-          <span className="font-mono font-black text-telc-900 dark:text-telc-200 bg-telc-100 dark:bg-telc-950/80 px-3 py-1 rounded-lg border border-telc-300 dark:border-telc-800">
+          <span className="font-mono font-black text-action-primary bg-action-primary-subtle px-3 py-1 rounded-lg border border-action-primary-border">
             {answeredCount} из {totalQuestions} отвечено
           </span>
         </div>
         <button
           type="button"
           onClick={() => setShowAntwortbogen(!showAntwortbogen)}
-          className="flex items-center space-x-2 font-bold text-telc-800 dark:text-telc-300 hover:text-telc-900 dark:hover:text-telc-100 bg-surface-card hover:bg-slate-50 dark:hover:bg-slate-700/60 px-4 py-2 rounded-xl border-2 border-border-default hover:border-slate-400 shadow-xs transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+          className="flex items-center space-x-2 font-bold text-content-primary bg-surface-card hover:bg-surface-raised px-4 py-2 rounded-xl border-2 border-border-default hover:border-border-strong shadow-xs transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
         >
-          <FileSpreadsheet className="w-4 h-4 text-telc-700 dark:text-telc-400 stroke-[2.5]" />
+          <FileSpreadsheet className="w-4 h-4 text-action-primary stroke-[2.5]" />
           <span>{showAntwortbogen ? 'Скрыть бланк' : 'Показать бланк (Antwortbogen)'}</span>
         </button>
       </div>

@@ -25,20 +25,20 @@ export default function HistoryView({
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-bg-canvas text-content-primary">
       <div className="h-16" />
       <HistoryTopNav onBack={onBack} />
 
       <div className="max-w-4xl mx-auto p-4 sm:p-8 space-y-6">
         <HistoryStatsGrid attempts={attempts} />
 
-        <div className="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-4 flex items-center space-x-2 text-xs text-emerald-900">
-          <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+        <div className="bg-state-success-subtle border border-state-success-border rounded-2xl p-4 flex items-center space-x-3 text-xs text-state-success-text">
+          <ShieldCheck className="w-4 h-4 text-state-success flex-shrink-0" />
           <span>Вся история и разборы хранятся исключительно в памяти вашего браузера. Сервер не сохраняет ваши результаты.</span>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-          <h2 className="text-xl font-bold text-slate-900">История тестов</h2>
+          <h2 className="text-xl font-bold text-content-primary">История тестов</h2>
           <div className="flex items-center space-x-2">
             {attempts.length > 0 && (
               showClearConfirm ? (
@@ -50,9 +50,9 @@ export default function HistoryView({
                 <button
                   type="button"
                   onClick={() => setShowClearConfirm(true)}
-                  className="flex items-center space-x-1 text-xs text-slate-500 hover:text-rose-600 font-semibold px-3 py-2 rounded-lg hover:bg-rose-50 transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[36px]"
+                  className="flex items-center space-x-1 text-xs text-content-secondary hover:text-state-error font-semibold px-3 py-2 rounded-xl hover:bg-state-error-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] cursor-pointer"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-4 h-4" />
                   <span>Очистить историю</span>
                 </button>
               )
@@ -60,9 +60,9 @@ export default function HistoryView({
             <button
               type="button"
               onClick={onRefresh}
-              className="flex items-center space-x-1 text-xs text-telc-600 hover:text-telc-700 font-semibold px-3 py-2 rounded-lg hover:bg-telc-50 transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[36px]"
+              className="flex items-center space-x-1 text-xs text-action-primary hover:text-action-primary-hover font-semibold px-3 py-2 rounded-xl hover:bg-action-primary-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-4 h-4" />
               <span>Обновить</span>
             </button>
           </div>

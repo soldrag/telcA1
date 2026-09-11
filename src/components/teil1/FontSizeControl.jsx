@@ -20,10 +20,10 @@ export default function FontSizeControl({ fontSizeLevel, onSelectLevel }) {
           type="button"
           onClick={() => onSelectLevel(option.level)}
           title={option.title}
-          className={`min-w-[44px] min-h-[44px] px-3 py-2 text-xs font-black rounded-lg transition-all focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
+          className={`min-w-[44px] min-h-[44px] px-3 py-2 text-xs font-black rounded-lg transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
             fontSizeLevel === option.level
-              ? 'bg-telc-800 dark:bg-telc-700 text-white shadow-xs'
-              : 'text-content-secondary hover:text-content-primary hover:bg-slate-100 dark:hover:bg-slate-700'
+              ? 'bg-action-primary text-white shadow-xs'
+              : 'text-content-secondary hover:text-content-primary hover:bg-surface-raised'
           }`}
         >
           {option.label}

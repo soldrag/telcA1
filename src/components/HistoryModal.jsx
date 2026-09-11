@@ -30,8 +30,8 @@ export default function HistoryModal({
         />
       </div>
 
-      <div className="mt-5 pt-4 border-t border-slate-200 flex justify-end">
-        <Button type="button" variant="secondary" onClick={onClose}>
+      <div className="mt-5 pt-4 border-t border-border-default flex justify-end">
+        <Button type="button" variant="secondary" size="default" onClick={onClose} className="min-h-[44px]">
           Закрыть
         </Button>
       </div>
@@ -45,7 +45,7 @@ function HistoryModalList({ loading, attempts, onLoadAttempt, onClose }) {
   }
   if (attempts.length === 0) {
     return (
-      <div className="text-center py-10 text-slate-500 text-sm">
+      <div className="text-center py-10 text-content-secondary text-sm">
         Пока нет сохранённых результатов. Завершите тест, чтобы увидеть здесь свою попытку!
       </div>
     );

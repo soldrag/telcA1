@@ -10,13 +10,13 @@ export default function HistoryListContainer({
   onStartExam,
 }) {
   return (
-    <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="bg-surface-card rounded-3xl border border-border-default shadow-xs overflow-hidden">
       {loading ? (
         <HistoryLoadingSkeleton />
       ) : attempts.length === 0 ? (
         <HistoryEmptyState onStartExam={onStartExam} />
       ) : (
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-border-subtle">
           {attempts.map((attempt) => (
             <HistoryItemCard
               key={attempt.id}

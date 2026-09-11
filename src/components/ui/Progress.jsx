@@ -10,11 +10,11 @@ export function Progress({ value = 0, max = 100, className = '', indicatorClassN
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={max}
-      className={cn('relative h-2 w-full overflow-hidden rounded-full bg-slate-100', className)}
+      className={cn('relative h-2 w-full overflow-hidden rounded-full bg-surface-inset border border-border-subtle/50', className)}
       {...props}
     >
       <div
-        className={cn('h-full w-full flex-1 bg-telc-600 transition-all duration-300', indicatorClassName)}
+        className={cn('h-full w-full flex-1 bg-action-primary transition-all duration-300', indicatorClassName)}
         style={{ transform: `translateX(-${100 - percentage}%)` }}
       />
     </div>

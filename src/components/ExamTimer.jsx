@@ -4,39 +4,40 @@ import { Card } from './ui/Card.jsx';
 import { Button } from './ui/Button.jsx';
 import { Badge } from './ui/Badge.jsx';
 import { Progress } from './ui/Progress.jsx';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 export default function ExamTimer({ timer, isSubmitted = false }) {
+  const { isRussian } = useI18n();
   if (!timer) return null;
 
   if (!timer.isTimed) {
-    return <UntimedPracticeCard secondsElapsed={timer.secondsElapsed} />;
+    return <UntimedPracticeCard secondsElapsed={timer.secondsElapsed} isRussian={isRussian} />;
   }
 
   const { secondsLeft, totalSeconds, isPaused, togglePause } = timer;
   const formattedTime = formatTimeDisplay(secondsLeft);
   const isCritical = secondsLeft <= 5 * 60;
-  const progressPercent = Math.max(0, Math.min(100, (secondsLeft / totalSeconds) * 100));
 
   return (
     <Card className="p-4 shadow-xs">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className={`p-2.5 rounded-xl ${isCritical ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 animate-pulse' : 'bg-surface-inset text-content-secondary'}`}>
+          <div className={`p-2.5 rounded-xl ${isCritical ? 'bg-state-warning-subtle text-state-warning animate-pulse' : 'bg-surface-inset text-content-secondary'}`}>
             <Timer className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xs text-content-tertiary font-semibold">
-              Время на чтение (25:00)
+              {isRussian ? 'Время на чтение (25:00)' : 'Reading time (25:00)'}
             </div>
             <div className="flex items-baseline space-x-2">
               <span className={`text-2xl sm:text-3xl font-black tracking-tight font-mono-num ${
-                isCritical ? 'text-rose-600 dark:text-rose-400' : 'text-content-primary'
+                isCritical ? 'text-state-error' : 'text-content-primary'
               }`}>
                 {formattedTime}
               </span>
               {isCritical && secondsLeft > 0 && !isSubmitted && (
-                <span className="text-xs font-bold text-rose-600 dark:text-rose-400 animate-pulse">
-                  Осталось мало времени!
+                <span className="text-xs font-bold text-state-error animate-pulse">
+                  {isRussian ? 'Осталось мало времени!' : 'Time running out!'}
                 </span>
               )}
             </div>
@@ -48,11 +49,11 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
             variant={isPaused ? 'default' : 'secondary'}
             size="sm"
             onClick={togglePause}
-            className={isPaused ? 'bg-amber-500 hover:bg-amber-600 text-white' : ''}
-            title={isPaused ? 'Продолжить таймер' : 'Поставить на паузу'}
+            className={isPaused ? 'bg-state-warning hover:bg-state-warning-hover text-white' : ''}
+            title={isPaused ? (isRussian ? 'Продолжить таймер' : 'Resume timer') : (isRussian ? 'Поставить на паузу' : 'Pause timer')}
           >
             {isPaused ? <Play className="w-4 h-4 fill-current mr-1.5" /> : <Pause className="w-4 h-4 fill-current mr-1.5" />}
-            <span>{isPaused ? 'Продолжить' : 'Пауза'}</span>
+            <span>{isPaused ? (isRussian ? 'Продолжить' : 'Resume') : (isRussian ? 'Пауза' : 'Pause')}</span>
           </Button>
         )}
       </div>
@@ -61,32 +62,32 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
         <Progress
           value={secondsLeft}
           max={totalSeconds}
-          indicatorClassName={isCritical ? 'bg-rose-500' : 'bg-telc-600'}
+          indicatorClassName={isCritical ? 'bg-state-error' : 'bg-action-primary'}
         />
       </div>
 
       {isPaused && !isSubmitted && (
-        <div className="mt-3 p-3 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 rounded-xl text-xs text-amber-800 dark:text-amber-200 font-medium">
-          Экзамен на паузе. Нажмите «Продолжить», чтобы вернуть отсчёт времени.
+        <div className="mt-3 p-3 bg-state-warning-subtle border border-state-warning-border rounded-xl text-xs text-state-warning-text font-medium">
+          {isRussian ? 'Экзамен на паузе. Нажмите «Продолжить», чтобы вернуть отсчёт времени.' : 'Exam paused. Click "Resume" to continue countdown.'}
         </div>
       )}
     </Card>
   );
 }
 
-function UntimedPracticeCard({ secondsElapsed }) {
+function UntimedPracticeCard({ secondsElapsed, isRussian }) {
   const formattedElapsed = formatTimeDisplay(secondsElapsed);
 
   return (
     <Card className="p-4 shadow-xs">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="p-2.5 rounded-xl bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300">
+          <div className="p-2.5 rounded-xl bg-state-info-subtle text-state-info">
             <Compass className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xs text-content-tertiary font-semibold">
-              Режим тренировки (без ограничения)
+              {isRussian ? 'Режим тренировки (без ограничения)' : 'Practice mode (untimed)'}
             </div>
             <div className="text-xl sm:text-2xl font-black text-content-primary font-mono-num">
               {formattedElapsed}
@@ -94,8 +95,8 @@ function UntimedPracticeCard({ secondsElapsed }) {
           </div>
         </div>
 
-        <Badge variant="outline" className="text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border-sky-200 dark:border-sky-800">
-          Без таймера
+        <Badge variant="outline" className="text-state-info-text bg-state-info-subtle border-state-info-border">
+          {isRussian ? 'Без таймера' : 'Untimed'}
         </Badge>
       </div>
     </Card>

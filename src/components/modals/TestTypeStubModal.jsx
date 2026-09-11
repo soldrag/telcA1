@@ -2,6 +2,7 @@ import React from 'react';
 import { Headphones, PenTool, MessageSquare, Clock, Award, Sparkles } from 'lucide-react';
 import { Dialog } from '../ui/Dialog.jsx';
 import { Button } from '../ui/Button.jsx';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 const MODULE_ICONS = {
   hoeren: Headphones,
@@ -10,42 +11,44 @@ const MODULE_ICONS = {
 };
 
 export default function TestTypeStubModal({ testType, isOpen, onClose }) {
+  const { t, isRussian } = useI18n();
   if (!testType) return null;
 
   const Icon = MODULE_ICONS[testType.id] || Sparkles;
+  const moduleSub = isRussian ? (testType.titleRu || '') : '';
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose} maxWidth="max-w-lg">
       <div className="flex items-center space-x-3 mb-4">
-        <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-2xl bg-state-warning-subtle text-state-warning flex items-center justify-center border border-state-warning-border">
           <Icon className="w-6 h-6" />
         </div>
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-50 text-amber-700 border border-amber-200 uppercase tracking-wide">
-            <span>Модуль в разработке</span>
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-extrabold bg-state-warning-subtle text-state-warning-text border border-state-warning-border uppercase tracking-wide">
+            <span>{t('modals.stubTitle')}</span>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mt-1">
-            telc A1 — {testType.title} ({testType.titleRu})
+          <h3 className="text-xl font-bold text-content-primary mt-1">
+            telc A1 — {testType.title} {moduleSub ? `(${moduleSub})` : ''}
           </h3>
         </div>
       </div>
 
-      <p className="text-sm text-slate-600 leading-relaxed">
-        {testType.description}
+      <p className="text-sm text-content-secondary leading-relaxed">
+        {t('modals.stubDesc', { title: testType.title })}
       </p>
 
-      <div className="grid grid-cols-2 gap-3 mt-5 p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
-        <div className="flex items-center space-x-2 text-slate-700">
-          <Clock className="w-4 h-4 text-slate-400" />
-          <span>Время: <strong>{testType.timeLimitMinutes} минут</strong></span>
+      <div className="grid grid-cols-2 gap-3 mt-5 p-4 bg-surface-inset rounded-2xl border border-border-default text-xs">
+        <div className="flex items-center space-x-2 text-content-secondary">
+          <Clock className="w-4 h-4 text-content-muted" />
+          <span>Время: <strong className="text-content-primary">{testType.timeLimitMinutes} минут</strong></span>
         </div>
-        <div className="flex items-center space-x-2 text-slate-700">
-          <Award className="w-4 h-4 text-slate-400" />
-          <span>Баллы: <strong>{testType.maxScore} баллов</strong></span>
+        <div className="flex items-center space-x-2 text-content-secondary">
+          <Award className="w-4 h-4 text-content-muted" />
+          <span>Баллы: <strong className="text-content-primary">{testType.maxScore} баллов</strong></span>
         </div>
       </div>
 
-      <div className="mt-5 p-4 bg-sky-50 rounded-2xl border border-sky-100 text-xs text-sky-800">
+      <div className="mt-5 p-4 bg-state-info-subtle rounded-2xl border border-state-info-border text-xs text-state-info-text leading-relaxed">
         💡 Аутентичные задания и интерактивный тренажёр для этого модуля готовятся к публикации. Сейчас вам доступен полноценный модуль <strong>Lesen (Чтение)</strong> из 10 вариантов.
       </div>
 
@@ -53,9 +56,11 @@ export default function TestTypeStubModal({ testType, isOpen, onClose }) {
         <Button
           type="button"
           variant="default"
+          size="default"
           onClick={onClose}
+          className="min-h-[44px]"
         >
-          Понятно, тренировать Чтение
+          {t('modals.stubClose')}
         </Button>
       </div>
     </Dialog>

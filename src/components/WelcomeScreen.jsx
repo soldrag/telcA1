@@ -4,12 +4,14 @@ import ModuleStructureCards from './welcome/ModuleStructureCards.jsx';
 import RandomExamCard from './welcome/RandomExamCard.jsx';
 import TeacherExamPicker from './welcome/TeacherExamPicker.jsx';
 import RecentAttemptsList from './welcome/RecentAttemptsList.jsx';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 export default function WelcomeScreen({
   examState = {},
   navigation = {},
   actions = {},
 }) {
+  const { t, isRussian } = useI18n();
   const {
     exams = [],
     testTypes = [],
@@ -37,6 +39,9 @@ export default function WelcomeScreen({
     totalQuestions: 15,
   };
 
+  const moduleSubTitle = isRussian ? (currentModule.titleRu || 'Чтение') : t('welcome.readingTitle');
+  const moduleDescription = isRussian && currentModule.description ? currentModule.description : t('welcome.defaultDescription');
+
   return (
     <div className="max-w-4xl mx-auto space-y-7 animate-fadeIn py-3">
       <div className="bg-gradient-to-br from-slate-900 via-telc-900 to-telc-800 rounded-3xl p-6 sm:p-9 text-white shadow-xl relative overflow-hidden">
@@ -44,15 +49,15 @@ export default function WelcomeScreen({
 
         <div className="max-w-2xl space-y-3 relative z-10">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 backdrop-blur-sm border border-white/20 text-telc-200">
-            <span>🇩🇪 telc Deutsch A1 / Start Deutsch 1</span>
+            <span>{t('welcome.badge')}</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight text-white">
-            Симулятор экзамена: <span className="text-sky-300">{currentModule.title}</span> ({currentModule.titleRu})
+            {t('welcome.title')} <span className="text-sky-300">{currentModule.title}</span> ({moduleSubTitle})
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
-            {currentModule.description || 'Тренировка официального формата экзамена telc Deutsch A1 с автоматической проверкой.'}
+          <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
+            {moduleDescription}
           </p>
         </div>
 

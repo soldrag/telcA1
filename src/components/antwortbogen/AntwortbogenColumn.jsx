@@ -5,12 +5,12 @@ function getChoicePillClass(isSelected, review) {
     return 'bg-surface-card text-content-muted border-border-default';
   }
   if (!review) {
-    return 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 border-slate-900 dark:border-slate-100 shadow-xs';
+    return 'bg-content-primary text-canvas border-content-primary shadow-xs';
   }
   if (review.is_correct) {
-    return 'bg-emerald-600 text-white border-emerald-700 shadow-xs';
+    return 'bg-state-success text-white border-state-success-hover shadow-xs';
   }
-  return 'bg-rose-600 text-white border-rose-700 shadow-xs';
+  return 'bg-state-error text-white border-state-error-hover shadow-xs';
 }
 
 export default function AntwortbogenColumn({

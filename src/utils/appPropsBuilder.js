@@ -76,6 +76,7 @@ export function buildScreenProps(controller) {
       onOpenHistory: controller.openHistory,
     },
     exam: {
+      isLoading: controller.isLoadingExam,
       examConfig: {
         testType: activeType,
         questions,

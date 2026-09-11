@@ -21,6 +21,7 @@ export function useExamLoader({
   const [activeTestType, setActiveTestType] = useState('lesen');
   const [currentExamId, setCurrentExamId] = useState('modellsatz-1');
   const [examData, setExamData] = useState(null);
+  const [isLoadingExam, setIsLoadingExam] = useState(false);
 
   const onErrorRef = useRef(onError);
   useEffect(() => {
@@ -52,6 +53,7 @@ export function useExamLoader({
   }, [activeTestType, activeApi]);
 
   const loadExamById = useCallback(async (examId) => {
+    setIsLoadingExam(true);
     try {
       const data = await activeApi.fetchExamDetails(examId);
       setExamData(data);
@@ -59,6 +61,8 @@ export function useExamLoader({
     } catch {
       onErrorRef.current?.(`Ошибка при загрузке теста ${examId}`);
       return null;
+    } finally {
+      setIsLoadingExam(false);
     }
   }, [activeApi]);
 
@@ -82,6 +86,7 @@ export function useExamLoader({
     activeTestType,
     currentExamId,
     examData,
+    isLoadingExam,
     changeTestType,
     selectExam,
     loadExamById,
