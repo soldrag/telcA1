@@ -262,6 +262,7 @@ export const TRANSLATION_CONTRACT = {
   },
   footer: {
     text: 'string',
+    privacy: 'string',
   },
   languages: {
     en: 'string',
