@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RotateCcw, Trash2, ShieldCheck } from 'lucide-react';
 import HistoryTopNav from './history/HistoryTopNav.jsx';
 import HistoryStatsGrid from './history/HistoryStatsGrid.jsx';
@@ -18,6 +18,10 @@ export default function HistoryView({
   loading = state.loading || false,
 }) {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+  useEffect(() => {
+    onRefresh?.();
+  }, [onRefresh]);
 
   const handleConfirmClear = () => {
     onClearHistory?.();
