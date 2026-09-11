@@ -1,111 +1,111 @@
-# telc Deutsch A1 (Start Deutsch 1) — Lesen Prüfungssimulator
+# telc Deutsch A1 (Start Deutsch 1) — Reading Exam Simulator
 
-Веб-приложение для подготовки к экзамену **telc Deutsch A1 / Start Deutsch 1** (часть **Lesen — Чтение**).
+A web application designed for **telc Deutsch A1 / Start Deutsch 1** exam preparation (specifically the **Lesen — Reading** section).
 
-Приложение точно эмулирует реальный экзамен: структура частей, аутентичные тексты, таймер 25 минут, подсчёт баллов и подробный разбор ошибок на русском языке с цитатами и лексическими подсказками.
-
----
-
-## 🎯 Соответствие реальному экзамену telc A1 / Start Deutsch 1
-
-Часть **Lesen** состоит из **15 заданий (15 баллов)**:
-- **Teil 1 (Aufgaben 1–5)**: Чтение 2 коротких аутентичных текстов (e-mail, личные письма, информационные рассылки). Формат: **Richtig (+)** / **Falsch (-)**.
-- **Teil 2 (Aufgaben 6–10)**: 5 жизненных ситуаций. Для каждой ситуации даны 2 сайта/объявления (**a** и **b**). Задача: выбрать сайт, подходящий под запрос.
-- **Teil 3 (Aufgaben 11–15)**: 5 аутентичных объявлений, вывесок и указателей (Schilder, Aushänge). Формат: **Richtig (+)** / **Falsch (-)**.
-
-- **Время на экзамене**: 25 минут (в реальном экзамене блок «Lesen + Schreiben» длится 45 минут, из которых ~25 мин отводится на чтение).
-- **Проходной балл**: **9 из 15 (60%)** — официальный стандарт telc.
+The application accurately simulates the real exam environment: authentic part structure, authentic texts, a 25-minute countdown timer, score calculation, and a detailed review of mistakes with clue quotes and vocabulary notes.
 
 ---
 
-## ✨ Ключевые возможности
+## 🎯 Conformity to the Real telc A1 / Start Deutsch 1 Exam
 
-1. **Два полноценных варианта экзамена (Modellsatz 1 и 2)**:
-   - 30 авторских аутентичных заданий A1 с типичными экзаменационными ловушками (Fallen).
-2. **Экзаменационный таймер (25:00)**:
-   - Индикация оставшегося времени с цветовым предупреждением на последних 5 минутах.
-   - Возможность паузы для тренировочного режима.
-   - Автоматическая сдача при истечении времени.
-3. **Аутентичный интерфейс и бланк ответов (Antwortbogen S10)**:
-   - Оформление текстов как настоящих электронных писем.
-   - Оформление Teil 2 как сниппетов сайтов и карточек объявлений.
-   - Оформление Teil 3 как табличек на дверях, вывесок магазинов и объявлений.
-   - Интерактивный электронный бланк ответов telc S10 с пузырьками ответов `[+] [-]` и `[a] [b]`.
-4. **Умная навигация**:
-   - Быстрый переход между частями и номерами 1–15.
-   - Индикаторы заполненных и пропущенных вопросов.
-5. **Детальный разбор результатов и ошибок**:
-   - Итоговый балл, процент и статус: **BESTANDEN** или **NICHT BESTANDEN**.
-   - Статистика по каждой из трёх частей (Teil 1, 2, 3).
-   - Фильтр по ошибкам / правильным ответам.
-   - **Подробное объяснение каждого задания на русском языке** с выделением цитаты-подсказки из немецкого текста.
-   - Словарик ключевых слов уровня A1 к каждому заданию.
-   - Режим **«Работа над ошибками»** (повторное прохождение только неверно решённых заданий).
-6. **База данных SQLite**:
-   - Автоматическое сохранение всех попыток, времени прохождения и баллов.
-   - Просмотр истории попыток и динамики результатов.
+The **Lesen** section consists of **15 tasks (15 points)**:
+- **Teil 1 (Tasks 1–5)**: Reading 2 short authentic texts (emails, personal letters, informational notices). Format: **Richtig (+)** / **Falsch (-)**.
+- **Teil 2 (Tasks 6–10)**: 5 real-life situations. For each situation, 2 websites/advertisements (**a** and **b**) are provided. Objective: select the website that matches the user's request.
+- **Teil 3 (Tasks 11–15)**: 5 authentic notices, signs, and announcements (Schilder, Aushänge). Format: **Richtig (+)** / **Falsch (-)**.
+
+- **Exam Duration**: 25 minutes (in the official exam, the combined "Lesen + Schreiben" module lasts 45 minutes, with ~25 minutes allocated to reading).
+- **Passing Score**: **9 out of 15 (60%)** — the official telc benchmark.
 
 ---
 
-## 🚀 Быстрый старт
+## ✨ Key Features
 
-### Требования
-- Node.js >= 18 (протестировано на Node.js v25)
+1. **Two Full Practice Exams (Modellsatz 1 and 2)**:
+   - 30 authentic A1 tasks featuring typical exam traps (*Fallen*).
+2. **Official Exam Timer (25:00)**:
+   - Real-time countdown display with a color-coded warning during the final 5 minutes.
+   - Pause option for untimed practice sessions.
+   - Automatic test submission when time expires.
+3. **Authentic Interface & Answer Sheet (Antwortbogen S10)**:
+   - Realistic email presentation formatting.
+   - Teil 2 formatted as modern web snippets and classified ads.
+   - Teil 3 formatted as door signs, store notices, and public announcements.
+   - Interactive digital telc S10 answer sheet with clickable bubble options `[+] [-]` and `[a] [b]`.
+4. **Smart Navigation**:
+   - Seamless jumping between exam parts and questions 1–15.
+   - Status indicators for answered and unanswered questions.
+5. **Detailed Review & Error Analysis**:
+   - Final score, percentage, and pass/fail status (**BESTANDEN** / **NICHT BESTANDEN**).
+   - Breakdown by section (Teil 1, 2, 3).
+   - Filter by incorrect vs. correct answers.
+   - Detailed explanation for each question with relevant clue quotes highlighted from the German text.
+   - A1 core vocabulary glossary for each task.
+   - **"Review Mistakes" Mode** (re-attempt only incorrect questions).
+6. **SQLite Database**:
+   - Automatic persistence of all exam attempts, completion times, and scores.
+   - Attempt history review to track performance and progress over time.
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js >= 18 (tested on Node.js v25)
 - npm
 
-### Запуск приложения
+### Running the Application
 
 ```bash
-# 1. Установка зависимостей (если ещё не установлены)
+# 1. Install dependencies (if not already installed)
 npm install
 
-# 2. Сборка фронтенда
+# 2. Build the frontend
 npm run build
 
-# 3. Запуск сервера (приложение доступно на http://localhost:3001)
+# 3. Start the server (available at http://localhost:3001)
 npm start
 ```
 
-### Запуск через Docker:
+### Running with Docker
 
 ```bash
-# Сборка и запуск контейнера с помощью Docker Compose
+# Build and run container using Docker Compose
 docker compose up --build
 
-# Либо стандартными командами docker:
+# Or using standard Docker commands:
 docker build -t telc-a1 .
 docker run -d -p 3001:3001 -v telc_data:/app/data --name telc-a1-app telc-a1
 ```
 
-Приложение будет доступно по адресу `http://localhost:3001`.
-База данных SQLite сохраняется в volume `telc_data`.
+The application will be accessible at `http://localhost:3001`.
+The SQLite database is persisted in the `telc_data` volume.
 
 ---
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
 ```
 telcA1/
 ├── server/
-│   ├── db.js            # Инициализация SQLite (node:sqlite) и миграции
-│   ├── seed-data.js     # База заданий Modellsatz 1 и 2 с объяснениями
-│   └── index.js         # Express REST API сервер
+│   ├── db.js            # SQLite database initialization (node:sqlite) and migrations
+│   ├── seed-data.js     # Question bank for Modellsatz 1 and 2 with explanations
+│   └── index.js         # Express REST API server
 ├── src/
 │   ├── components/
-│   │   ├── Header.jsx         # Шапка с выбором варианта и кнопками
-│   │   ├── ExamTimer.jsx      # Таймер 25 минут с паузой и предупреждениями
-│   │   ├── QuestionNav.jsx    # Навигатор 1–15 и переключатель частей
-│   │   ├── Teil1.jsx          # Тексты, письма и вопросы Richtig/Falsch
-│   │   ├── Teil2.jsx          # Ситуации и карточки сайтов a / b
-│   │   ├── Teil3.jsx          # Вывески, объявления и утверждения
-│   │   ├── Antwortbogen.jsx   # Аутентичный бланк ответов telc S10
-│   │   ├── ResultsView.jsx    # Экран баллов, разбора ошибок и пояснений
-│   │   └── HistoryModal.jsx   # Модальное окно истории попыток
-│   ├── App.jsx                # Главное приложение и логика экзамена
-│   ├── main.jsx               # Точка входа React
-│   └── index.css              # Стили Tailwind CSS
+│   │   ├── Header.jsx         # Header with test variant selector and controls
+│   │   ├── ExamTimer.jsx      # 25-minute timer with pause and warning alerts
+│   │   ├── QuestionNav.jsx    # 1–15 question navigator and part switchers
+│   │   ├── Teil1.jsx          # Reading texts, emails, and Richtig/Falsch questions
+│   │   ├── Teil2.jsx          # Situations and website options (a / b)
+│   │   ├── Teil3.jsx          # Signs, notices, and True/False statements
+│   │   ├── Antwortbogen.jsx   # Authentic telc S10 answer sheet
+│   │   ├── ResultsView.jsx    # Results screen with scoring, review, and explanations
+│   │   └── HistoryModal.jsx   # Attempt history modal
+│   ├── App.jsx                # Main application component and exam orchestration
+│   ├── main.jsx               # React entry point
+│   └── index.css              # Tailwind CSS styles
 ├── data/
-│   └── telc_a1.db             # База данных SQLite
+│   └── telc_a1.db             # SQLite database
 ├── package.json
 ├── vite.config.js
 └── tailwind.config.js
