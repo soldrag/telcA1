@@ -14,24 +14,24 @@ export default function Teil1QuestionItem({
       id={`question-${question.id}`}
       className={`p-4 sm:p-5 rounded-2xl border-2 transition-all space-y-4 ${
         isAnswered
-          ? 'bg-sky-50/40 dark:bg-sky-950/30 border-telc-500 shadow-sm ring-1 ring-telc-500/20'
-          : 'bg-surface-card border-border-default hover:border-slate-400 shadow-xs'
+          ? 'bg-action-primary-subtle/50 border-action-primary shadow-xs ring-1 ring-action-primary/20'
+          : 'bg-surface-card border-border-default hover:border-border-strong shadow-xs'
       }`}
     >
       <div className="flex items-start space-x-3">
-        <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-telc-800 dark:bg-telc-700 text-white font-black text-sm flex items-center justify-center shadow-sm mt-0.5">
+        <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-action-primary text-white font-black text-sm flex items-center justify-center shadow-sm mt-0.5">
           {question.question_number}
         </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-telc-800 dark:text-telc-300 bg-telc-50 dark:bg-telc-950/60 px-3 py-1 rounded border border-telc-200 dark:border-telc-800">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-action-primary bg-action-primary-subtle px-3 py-1 rounded border border-action-primary-border">
               Aufgabe {question.question_number}
             </span>
             {isAnswered && (
               <span className={`text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs flex items-center space-x-1 ${
                 currentAnswer === 'richtig'
-                  ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-900 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
-                  : 'bg-rose-100 dark:bg-rose-950/80 text-rose-900 dark:text-rose-300 border-rose-300 dark:border-rose-800'
+                  ? 'bg-state-success-subtle text-state-success-text border-state-success-border'
+                  : 'bg-state-error-subtle text-state-error-text border-state-error-border'
               }`}>
                 <span>{currentAnswer === 'richtig' ? '✓ Richtig (+)' : '✕ Falsch (-)'}</span>
               </span>
@@ -50,11 +50,11 @@ export default function Teil1QuestionItem({
           disabled={isSubmitted}
           className={`focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-sm sm:text-base font-extrabold transition-all border-2 min-h-[48px] cursor-pointer active:scale-[0.98] ${
             currentAnswer === 'richtig'
-              ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700 shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/50 scale-[1.01]'
-              : 'bg-surface-card hover:bg-emerald-50/50 dark:hover:bg-emerald-950/40 text-content-primary hover:text-emerald-900 dark:hover:text-emerald-200 border-border-default hover:border-emerald-500 shadow-xs'
+              ? 'bg-state-success hover:bg-state-success-hover text-white border-state-success-hover shadow-md shadow-state-success/30 ring-2 ring-state-success/40 scale-[1.01]'
+              : 'bg-surface-card hover:bg-state-success-subtle text-content-primary hover:text-state-success-text border-border-default hover:border-state-success shadow-xs'
           }`}
         >
-          <Check className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'richtig' ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'}`} />
+          <Check className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'richtig' ? 'text-white' : 'text-state-success'}`} />
           <span>Richtig (+)</span>
         </button>
 
@@ -64,11 +64,11 @@ export default function Teil1QuestionItem({
           disabled={isSubmitted}
           className={`focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-sm sm:text-base font-extrabold transition-all border-2 min-h-[48px] cursor-pointer active:scale-[0.98] ${
             currentAnswer === 'falsch'
-              ? 'bg-rose-600 hover:bg-rose-700 text-white border-rose-700 shadow-md shadow-rose-600/30 ring-2 ring-rose-400/50 scale-[1.01]'
-              : 'bg-surface-card hover:bg-rose-50/50 dark:hover:bg-rose-950/40 text-content-primary hover:text-rose-900 dark:hover:text-rose-200 border-border-default hover:border-rose-500 shadow-xs'
+              ? 'bg-state-error hover:bg-state-error-hover text-white border-state-error-hover shadow-md shadow-state-error/30 ring-2 ring-state-error/40 scale-[1.01]'
+              : 'bg-surface-card hover:bg-state-error-subtle text-content-primary hover:text-state-error-text border-border-default hover:border-state-error shadow-xs'
           }`}
         >
-          <X className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'falsch' ? 'text-white' : 'text-rose-600 dark:text-rose-400'}`} />
+          <X className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'falsch' ? 'text-white' : 'text-state-error'}`} />
           <span>Falsch (-)</span>
         </button>
       </div>

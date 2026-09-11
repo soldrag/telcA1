@@ -1,15 +1,17 @@
 import React from 'react';
 import { RotateCcw, CheckCircle2, Award, Clock } from 'lucide-react';
 import { calculateHistoryStats } from '../../utils/historyFormat.js';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function HistoryStatsGrid({ attempts = [] }) {
+  const { t, isRussian } = useI18n();
   const { count, passRate, avgScore, avgMinutes } = calculateHistoryStats(attempts);
 
   const stats = [
-    { label: 'Всего попыток', value: count, icon: RotateCcw, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Успешность', value: `${passRate}%`, icon: CheckCircle2, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-    { label: 'Средний балл', value: `${avgScore}%`, icon: Award, color: 'text-purple-600', bg: 'bg-purple-50' },
-    { label: 'Ср. время', value: `${avgMinutes} мин`, icon: Clock, color: 'text-orange-600', bg: 'bg-orange-50' },
+    { label: t('history.totalAttempts'), value: count, icon: RotateCcw, color: 'text-action-primary', bg: 'bg-action-primary-subtle' },
+    { label: t('history.passRate'), value: `${passRate}%`, icon: CheckCircle2, color: 'text-state-success', bg: 'bg-state-success-subtle' },
+    { label: t('history.averageScore'), value: `${avgScore}%`, icon: Award, color: 'text-state-info', bg: 'bg-state-info-subtle' },
+    { label: isRussian ? 'Ср. время' : 'Avg time', value: `${avgMinutes} ${isRussian ? 'мин' : 'min'}`, icon: Clock, color: 'text-state-warning', bg: 'bg-state-warning-subtle' },
   ];
 
   return (
@@ -19,13 +21,13 @@ export default function HistoryStatsGrid({ attempts = [] }) {
         return (
           <div
             key={stat.label}
-            className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center text-center"
+            className="bg-surface-card p-4 sm:p-5 rounded-2xl border border-border-default shadow-xs flex flex-col items-center text-center"
           >
             <div className={`p-2 sm:p-3 ${stat.bg} ${stat.color} rounded-xl mb-3`}>
               <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div className="text-xl sm:text-2xl font-black text-slate-900">{stat.value}</div>
-            <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
+            <div className="text-xl sm:text-2xl font-black text-content-primary">{stat.value}</div>
+            <div className="text-xs text-content-tertiary mt-1">{stat.label}</div>
           </div>
         );
       })}

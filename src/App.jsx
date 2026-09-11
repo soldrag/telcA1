@@ -5,11 +5,13 @@ import AppModals from './components/modals/AppModals.jsx';
 import AppErrorBanner from './components/AppErrorBanner.jsx';
 import { useAppController } from './hooks/useAppController.js';
 import { useTheme } from './hooks/useTheme.js';
+import { useI18n } from './i18n/I18nContext.jsx';
 import { buildHeaderConfig, buildScreenProps } from './utils/appPropsBuilder.js';
 
 export default function App() {
   const controller = useAppController();
   const themeControl = useTheme();
+  const { t } = useI18n();
   const headerConfig = buildHeaderConfig(controller);
   const screenProps = buildScreenProps(controller);
 
@@ -44,7 +46,7 @@ export default function App() {
       />
 
       <footer className="mt-auto border-t border-border-subtle bg-surface-card py-4 text-center text-xs text-content-tertiary">
-        <p>Симулятор экзамена telc Deutsch A1 / Start Deutsch 1 • 15 баллов • Проходной порог: 60% (9 баллов)</p>
+        <p>{t('footer.text')}</p>
       </footer>
     </div>
   );

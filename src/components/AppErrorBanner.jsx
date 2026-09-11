@@ -1,18 +1,23 @@
 import React from 'react';
+import { AlertCircle, X } from 'lucide-react';
 
 export default function AppErrorBanner({ message, onDismiss }) {
   if (!message) return null;
 
   return (
     <div className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-      <div className="p-4 bg-rose-50 border border-rose-200 text-rose-800 text-sm rounded-xl flex items-center justify-between">
-        <span>{message}</span>
+      <div className="p-4 bg-state-error-subtle border border-state-error-border text-state-error-text text-sm rounded-xl flex items-center justify-between shadow-xs">
+        <div className="flex items-center space-x-2.5 min-w-0">
+          <AlertCircle className="w-5 h-5 text-state-error shrink-0" />
+          <span className="font-semibold">{message}</span>
+        </div>
         <button
           type="button"
           onClick={onDismiss}
-          className="text-rose-600 font-bold hover:underline ml-4"
+          aria-label="Закрыть уведомление об ошибке"
+          className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-state-error hover:bg-state-error-muted rounded-lg transition-colors cursor-pointer ml-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-state-error"
         >
-          Закрыть
+          <X className="w-4 h-4" />
         </button>
       </div>
     </div>

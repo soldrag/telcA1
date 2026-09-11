@@ -11,12 +11,12 @@ export default function EmailHeader({ headerText }) {
     <div className="mb-4 bg-surface-card rounded-2xl border-2 border-border-default overflow-hidden shadow-xs">
       <div className="bg-surface-inset px-4 py-2 border-b border-border-subtle flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Mail className="w-4 h-4 text-telc-600 dark:text-telc-400" />
+          <Mail className="w-4 h-4 text-action-primary" />
           <span className="text-xs font-extrabold uppercase tracking-wider text-content-primary">
             E-Mail Kopfzeile
           </span>
         </div>
-        <span className="text-xs font-bold text-telc-800 dark:text-telc-200 bg-telc-100 dark:bg-telc-950/80 px-2 py-1 rounded border border-telc-200 dark:border-telc-800">
+        <span className="text-xs font-bold text-action-primary bg-action-primary-subtle px-2 py-1 rounded border border-action-primary-border">
           Posteingang
         </span>
       </div>
@@ -65,8 +65,8 @@ function parseHeaderLine(line) {
 
 function getHeaderIcon(key) {
   const lower = key.toLowerCase();
-  if (lower === 'von' || lower === 'an') return <User className="w-4 h-4 text-telc-700" />;
-  if (lower === 'datum') return <Calendar className="w-4 h-4 text-amber-700" />;
-  if (lower === 'betreff') return <Tag className="w-4 h-4 text-blue-700" />;
-  return <Mail className="w-4 h-4 text-slate-600" />;
+  if (lower === 'von' || lower === 'an') return <User className="w-4 h-4 text-action-primary" />;
+  if (lower === 'datum') return <Calendar className="w-4 h-4 text-state-warning" />;
+  if (lower === 'betreff') return <Tag className="w-4 h-4 text-action-primary" />;
+  return <Mail className="w-4 h-4 text-content-secondary" />;
 }

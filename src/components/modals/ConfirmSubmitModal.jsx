@@ -2,6 +2,7 @@ import React from 'react';
 import { AlertCircle } from 'lucide-react';
 import { Dialog } from '../ui/Dialog.jsx';
 import { Button } from '../ui/Button.jsx';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ConfirmSubmitModal({
   isOpen,
@@ -9,6 +10,7 @@ export default function ConfirmSubmitModal({
   onConfirm,
   submissionStats = {},
 }) {
+  const { t } = useI18n();
   const answeredCount = submissionStats.answeredCount ?? 0;
   const totalQuestions = submissionStats.totalQuestions ?? 15;
   const isSubmitting = submissionStats.isSubmitting ?? false;
@@ -16,20 +18,19 @@ export default function ConfirmSubmitModal({
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose}>
-      <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+      <div className="w-12 h-12 rounded-2xl bg-state-warning-subtle text-state-warning flex items-center justify-center mb-4 border border-state-warning-border">
         <AlertCircle className="w-6 h-6" />
       </div>
 
-      <h3 className="text-xl font-bold text-slate-900">
-        Завершить экзамен telc A1?
+      <h3 className="text-xl font-bold text-content-primary">
+        {t('modals.submitTitle')}
       </h3>
 
-      <p className="text-sm text-slate-600 mt-2">
-        Вы ответили на <strong className="text-slate-900">{answeredCount}</strong> из{' '}
-        <strong className="text-slate-900">{totalQuestions}</strong> вопросов.
+      <p className="text-sm text-content-secondary mt-2 leading-relaxed">
+        {t('modals.submitDesc', { answered: answeredCount, total: totalQuestions })}
         {unansweredCount > 0 && (
-          <span className="block text-amber-700 font-medium mt-1">
-            Внимание: осталось {unansweredCount} вопросов без ответа! Настоятельно рекомендуется сделать выбор во всех заданиях.
+          <span className="block text-state-warning-text font-medium mt-1">
+            {t('modals.submitWarning', { count: unansweredCount })}
           </span>
         )}
       </p>
@@ -37,20 +38,20 @@ export default function ConfirmSubmitModal({
       <div className="mt-6 flex items-center justify-end space-x-3">
         <Button
           variant="secondary"
-          size="sm"
+          size="default"
           onClick={onClose}
           className="text-xs sm:text-sm font-semibold"
         >
-          Вернуться к тесту
+          {t('modals.submitCancel')}
         </Button>
         <Button
           variant="success"
-          size="sm"
+          size="default"
           onClick={onConfirm}
-          disabled={isSubmitting}
+          isLoading={isSubmitting}
           className="text-xs sm:text-sm font-bold shadow-sm"
         >
-          {isSubmitting ? 'Проверка...' : 'Да, проверить ответы'}
+          {isSubmitting ? t('modals.submitting') : t('modals.submitConfirm')}
         </Button>
       </div>
     </Dialog>

@@ -6,7 +6,7 @@ function Teil3CardHeader({ questionNumber, title, isAnswered, currentAnswer }) {
   return (
     <div className="bg-surface-inset px-5 sm:px-6 py-4 border-b-2 border-border-default flex items-center justify-between">
       <div className="flex items-center space-x-3">
-        <span className="w-8 h-8 rounded-xl bg-telc-800 dark:bg-telc-700 text-white font-black text-sm flex items-center justify-center shadow-sm">
+        <span className="w-8 h-8 rounded-xl bg-action-primary text-white font-black text-sm flex items-center justify-center shadow-sm">
           {questionNumber}
         </span>
         <span className="text-sm font-black text-content-primary uppercase tracking-wide">
@@ -20,8 +20,8 @@ function Teil3CardHeader({ questionNumber, title, isAnswered, currentAnswer }) {
         {isAnswered && (
           <span className={`text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs ${
             currentAnswer === 'richtig'
-              ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-900 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
-              : 'bg-rose-100 dark:bg-rose-950/80 text-rose-900 dark:text-rose-300 border-rose-300 dark:border-rose-800'
+              ? 'bg-state-success-subtle text-state-success-text border-state-success-border'
+              : 'bg-state-error-subtle text-state-error-text border-state-error-border'
           }`}>
             {currentAnswer === 'richtig' ? '✓ Richtig (+)' : '✕ Falsch (-)'}
           </span>
@@ -40,11 +40,11 @@ function Teil3CardActions({ questionId, currentAnswer, isSubmitted, onSelectAnsw
         disabled={isSubmitted}
         className={`focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 flex items-center justify-center space-x-2 py-3 px-5 rounded-xl text-sm sm:text-base font-extrabold transition-all border-2 min-h-[48px] cursor-pointer active:scale-[0.98] ${
           currentAnswer === 'richtig'
-            ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700 shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/50 scale-[1.01]'
-            : 'bg-surface-card hover:bg-emerald-50/50 dark:hover:bg-emerald-950/40 text-content-primary hover:text-emerald-900 dark:hover:text-emerald-200 border-border-default hover:border-emerald-500 shadow-xs'
+            ? 'bg-state-success hover:bg-state-success-hover text-white border-state-success-hover shadow-md shadow-state-success/30 ring-2 ring-state-success/40 scale-[1.01]'
+            : 'bg-surface-card hover:bg-state-success-subtle text-content-primary hover:text-state-success-text border-border-default hover:border-state-success shadow-xs'
         }`}
       >
-        <Check className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'richtig' ? 'text-white' : 'text-emerald-600 dark:text-emerald-400'}`} />
+        <Check className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'richtig' ? 'text-white' : 'text-state-success'}`} />
         <span>Richtig (+)</span>
       </button>
 
@@ -54,11 +54,11 @@ function Teil3CardActions({ questionId, currentAnswer, isSubmitted, onSelectAnsw
         disabled={isSubmitted}
         className={`focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 flex items-center justify-center space-x-2 py-3 px-5 rounded-xl text-sm sm:text-base font-extrabold transition-all border-2 min-h-[48px] cursor-pointer active:scale-[0.98] ${
           currentAnswer === 'falsch'
-            ? 'bg-rose-600 hover:bg-rose-700 text-white border-rose-700 shadow-md shadow-rose-600/30 ring-2 ring-rose-400/50 scale-[1.01]'
-            : 'bg-surface-card hover:bg-rose-50/50 dark:hover:bg-rose-950/40 text-content-primary hover:text-rose-900 dark:hover:text-rose-200 border-border-default hover:border-rose-500 shadow-xs'
+            ? 'bg-state-error hover:bg-state-error-hover text-white border-state-error-hover shadow-md shadow-state-error/30 ring-2 ring-state-error/40 scale-[1.01]'
+            : 'bg-surface-card hover:bg-state-error-subtle text-content-primary hover:text-state-error-text border-border-default hover:border-state-error shadow-xs'
         }`}
       >
-        <X className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'falsch' ? 'text-white' : 'text-rose-600 dark:text-rose-400'}`} />
+        <X className={`w-5 h-5 stroke-[2.5] ${currentAnswer === 'falsch' ? 'text-white' : 'text-state-error'}`} />
         <span>Falsch (-)</span>
       </button>
     </div>
@@ -92,7 +92,7 @@ export default function Teil3QuestionCard({
 
       <div className="p-4 sm:p-6 border-t-2 border-border-default bg-surface-card flex flex-col lg:flex-row lg:items-center justify-between gap-5">
         <div className="flex items-start space-x-3 flex-1">
-          <span className="text-xs font-black uppercase tracking-wider text-telc-800 dark:text-telc-300 bg-telc-50 dark:bg-telc-950/60 px-3 py-1 rounded border border-telc-200 dark:border-telc-800 mt-1 flex-shrink-0">
+          <span className="text-xs font-black uppercase tracking-wider text-action-primary bg-action-primary-subtle px-3 py-1 rounded border border-action-primary-border mt-1 flex-shrink-0">
             Aussage:
           </span>
           <p className="text-base sm:text-lg font-bold text-content-primary leading-snug">

@@ -21,6 +21,30 @@
   --scrollbar-track: #f1f5f9;
   --scrollbar-thumb: #cbd5e1;
   --scrollbar-thumb-hover: #94a3b8;
+
+  /* State: success */
+  --state-success-subtle: #ecfdf5;
+  --state-success-muted: #d1fae5;
+  --state-success-border: #a7f3d0;
+  --state-success-text: #065f46;
+
+  /* State: error */
+  --state-error-subtle: #fff1f2;
+  --state-error-muted: #ffe4e6;
+  --state-error-border: #fecdd3;
+  --state-error-text: #9f1239;
+
+  /* State: warning */
+  --state-warning-subtle: #fffbeb;
+  --state-warning-muted: #fef3c7;
+  --state-warning-border: #fde68a;
+  --state-warning-text: #92400e;
+
+  /* State: info */
+  --state-info-subtle: #f0f9ff;
+  --state-info-muted: #e0f2fe;
+  --state-info-border: #bae6fd;
+  --state-info-text: #075985;
 }
 
 .dark {
@@ -42,6 +66,30 @@
   --scrollbar-track: #0f172a;
   --scrollbar-thumb: #334155;
   --scrollbar-thumb-hover: #475569;
+
+  /* State: success */
+  --state-success-subtle: rgba(5, 150, 105, 0.15);
+  --state-success-muted: rgba(5, 150, 105, 0.25);
+  --state-success-border: rgba(16, 185, 129, 0.4);
+  --state-success-text: #34d399;
+
+  /* State: error */
+  --state-error-subtle: rgba(225, 29, 72, 0.15);
+  --state-error-muted: rgba(225, 29, 72, 0.25);
+  --state-error-border: rgba(244, 63, 94, 0.4);
+  --state-error-text: #fb7185;
+
+  /* State: warning */
+  --state-warning-subtle: rgba(217, 119, 6, 0.15);
+  --state-warning-muted: rgba(217, 119, 6, 0.25);
+  --state-warning-border: rgba(245, 158, 11, 0.4);
+  --state-warning-text: #fbbf24;
+
+  /* State: info */
+  --state-info-subtle: rgba(2, 132, 199, 0.15);
+  --state-info-muted: rgba(2, 132, 199, 0.25);
+  --state-info-border: rgba(56, 189, 248, 0.4);
+  --state-info-text: #38bdf8;
 }
 
 @layer base {

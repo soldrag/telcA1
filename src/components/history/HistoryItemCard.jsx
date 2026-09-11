@@ -8,12 +8,12 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
   const examTitle = cleanExamTitle(attempt.exam_title);
 
   const statusBadgeClass = attempt.passed
-    ? 'bg-emerald-100 text-emerald-800'
-    : 'bg-rose-100 text-rose-800';
+    ? 'bg-state-success-subtle text-state-success-text border-state-success-border'
+    : 'bg-state-error-subtle text-state-error-text border-state-error-border';
 
   const iconContainerClass = attempt.passed
-    ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
-    : 'bg-rose-100 text-rose-700 border-rose-200';
+    ? 'bg-state-success-subtle text-state-success border-state-success-border'
+    : 'bg-state-error-subtle text-state-error border-state-error-border';
 
   return (
     <button
@@ -21,34 +21,38 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
       onClick={() => onSelect(attempt.id)}
       className={`w-full text-left transition-all cursor-pointer flex items-center justify-between gap-4 group focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] ${
         compact
-          ? 'p-4 rounded-2xl border border-slate-200 hover:border-telc-400 hover:bg-telc-50/40'
-          : 'p-4 sm:p-6 hover:bg-slate-50'
+          ? 'p-4 rounded-2xl border border-border-default hover:border-action-primary hover:bg-action-primary-subtle/30'
+          : 'p-4 sm:p-6 hover:bg-surface-raised'
       }`}
     >
       <div className="flex items-center space-x-4 min-w-0">
         <div className={`flex-shrink-0 flex items-center justify-center border ${
           compact ? 'w-10 h-10 rounded-xl' : 'w-12 h-12 rounded-2xl'
         } ${iconContainerClass}`}>
-          {attempt.passed ? <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" /> : <XCircle className="w-5 h-5 sm:w-6 sm:h-6" />}
+          {attempt.passed ? (
+            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
+          ) : (
+            <XCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+          )}
         </div>
 
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className={`font-bold text-slate-900 truncate ${compact ? 'text-sm' : 'text-base'}`}>
+            <span className={`font-bold text-content-primary truncate ${compact ? 'text-sm' : 'text-base'}`}>
               {examTitle}
             </span>
-            <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full ${statusBadgeClass}`}>
+            <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${statusBadgeClass}`}>
               {attempt.passed ? 'Сдано' : 'Не сдано'}
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-content-tertiary">
             <span className="flex items-center space-x-1">
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+              <Calendar className="w-3.5 h-3.5 text-content-muted" />
               <span>{formattedDate}</span>
             </span>
             <span className="flex items-center space-x-1">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
+              <Clock className="w-3.5 h-3.5 text-content-muted" />
               <span>{minutes}м {seconds}с</span>
             </span>
           </div>
@@ -57,19 +61,19 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
 
       <div className="flex items-center space-x-3 flex-shrink-0">
         <div className="text-right">
-          <div className={`font-black text-slate-900 ${compact ? 'text-sm sm:text-base' : 'text-lg'}`}>
-            {attempt.score} <span className="text-xs sm:text-sm font-medium text-slate-500">/ {attempt.total_questions}</span>
+          <div className={`font-black text-content-primary ${compact ? 'text-sm sm:text-base' : 'text-lg'}`}>
+            {attempt.score} <span className="text-xs sm:text-sm font-medium text-content-tertiary">/ {attempt.total_questions}</span>
           </div>
-          <div className={`text-xs font-bold ${attempt.passed ? 'text-emerald-600' : 'text-rose-600'}`}>
+          <div className={`text-xs font-bold ${attempt.passed ? 'text-state-success' : 'text-state-error'}`}>
             {attempt.percentage}%
           </div>
         </div>
 
         <div className="flex items-center">
           {compact ? (
-            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-telc-600 transition-colors" />
+            <ChevronRight className="w-5 h-5 text-content-muted group-hover:text-action-primary transition-colors" />
           ) : (
-            <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-telc-50 group-hover:text-telc-600 group-hover:border-telc-200 transition-all">
+            <div className="w-10 h-10 rounded-xl bg-surface-card border border-border-default flex items-center justify-center text-content-muted group-hover:bg-action-primary-subtle group-hover:text-action-primary group-hover:border-action-primary-border transition-all">
               <Eye className="w-5 h-5" />
             </div>
           )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpen, Headphones, PenTool, MessageSquare } from 'lucide-react';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 const TYPE_ICONS = {
   lesen: BookOpen,
@@ -13,10 +14,12 @@ export default function TestTypeSelector({
   activeTypeId = 'lesen',
   onSelectType,
 }) {
+  const { isRussian } = useI18n();
+
   return (
     <div className="space-y-2">
       <div className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
-        Выберите раздел экзамена
+        {isRussian ? 'Выберите раздел экзамена' : 'Select exam module'}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -37,13 +40,13 @@ export default function TestTypeSelector({
                     <Icon className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-card text-content-tertiary">
-                    Скоро
+                    {isRussian ? 'Скоро' : 'Coming soon'}
                   </span>
                 </div>
 
                 <div className="mt-2">
                   <div className="text-sm font-bold text-content-tertiary">{type.title}</div>
-                  <div className="text-xs text-content-muted">{type.titleRu}</div>
+                  <div className="text-xs text-content-muted">{isRussian ? type.titleRu : ''}</div>
                 </div>
               </div>
             );
@@ -56,24 +59,24 @@ export default function TestTypeSelector({
               onClick={() => onSelectType(type.id)}
               className={`p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
                 isActive
-                  ? 'border-telc-600 bg-telc-50/70 dark:bg-telc-950/60 text-content-primary shadow-sm ring-2 ring-telc-500/20'
-                  : 'border-border-default bg-surface-card hover:border-slate-300 text-content-secondary hover:bg-slate-50 dark:hover:bg-slate-700/60'
+                  ? 'border-action-primary bg-action-primary-subtle text-content-primary shadow-xs ring-2 ring-action-primary/20'
+                  : 'border-border-default bg-surface-card hover:border-border-strong text-content-secondary hover:bg-surface-raised'
               }`}
             >
               <div className="flex items-center justify-between w-full">
-                <div className={`p-2 rounded-xl ${isActive ? 'bg-telc-600 text-white' : 'bg-surface-inset text-content-secondary'}`}>
+                <div className={`p-2 rounded-xl ${isActive ? 'bg-action-primary text-white' : 'bg-surface-inset text-content-secondary'}`}>
                   <Icon className="w-4 h-4" />
                 </div>
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                  isActive ? 'bg-telc-100 dark:bg-telc-950 text-telc-800 dark:text-telc-200' : 'bg-surface-inset text-content-tertiary'
+                  isActive ? 'bg-action-primary-subtle text-action-primary border border-action-primary-border' : 'bg-surface-inset text-content-tertiary'
                 }`}>
-                  10 вариантов
+                  {isRussian ? '10 вариантов' : '10 variants'}
                 </span>
               </div>
 
               <div className="mt-2">
                 <div className="text-sm font-extrabold">{type.title}</div>
-                <div className="text-xs text-content-tertiary">{type.titleRu}</div>
+                <div className="text-xs text-content-tertiary">{isRussian ? type.titleRu : ''}</div>
               </div>
             </button>
           );

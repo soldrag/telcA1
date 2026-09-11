@@ -1,5 +1,6 @@
 import React from 'react';
 import { RotateCcw, AlertTriangle } from 'lucide-react';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ResultsActionBar({
   mistakesCount = 0,
@@ -7,26 +8,28 @@ export default function ResultsActionBar({
   onRetakeMistakes,
   onOpenHistory,
 }) {
+  const { t } = useI18n();
+
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+    <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card p-4 rounded-2xl border border-border-default shadow-xs">
       <div className="flex items-center space-x-2">
         <button
           type="button"
           onClick={onResetExam}
-          className="flex items-center space-x-2 px-4 py-2 bg-telc-600 hover:bg-telc-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-sm transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+          className="flex items-center space-x-2 px-4 py-2 bg-action-primary hover:bg-action-primary-hover text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
         >
           <RotateCcw className="w-4 h-4" />
-          <span>Пройти этот тест заново</span>
+          <span>{t('results.retakeExam')}</span>
         </button>
 
         {mistakesCount > 0 && onRetakeMistakes && (
           <button
             type="button"
             onClick={onRetakeMistakes}
-            className="flex items-center space-x-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-sm transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="flex items-center space-x-2 px-4 py-2 bg-state-warning hover:bg-state-warning-hover text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
             <AlertTriangle className="w-4 h-4" />
-            <span>Работа над ошибками ({mistakesCount})</span>
+            <span>{t('results.reviewMistakes', { count: mistakesCount })}</span>
           </button>
         )}
       </div>
@@ -34,9 +37,9 @@ export default function ResultsActionBar({
       <button
         type="button"
         onClick={onOpenHistory}
-        className="text-xs sm:text-sm text-slate-600 hover:text-slate-900 font-semibold px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+        className="text-xs sm:text-sm text-content-secondary hover:text-content-primary font-semibold px-3 py-2 rounded-xl hover:bg-surface-raised transition-colors min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
       >
-        Посмотреть историю попыток
+        {t('results.viewHistory')}
       </button>
     </div>
   );

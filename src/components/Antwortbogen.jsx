@@ -15,7 +15,7 @@ export default function Antwortbogen({
 
   return (
     <div className="bg-surface-card rounded-2xl border-2 border-border-default p-4 sm:p-6 shadow-md">
-      <div className="flex items-center justify-between border-b-2 border-slate-900 dark:border-slate-200 pb-3 mb-4">
+      <div className="flex items-center justify-between border-b-2 border-border-strong pb-3 mb-4">
         <div>
           <div className="text-xs font-bold uppercase tracking-widest text-content-tertiary">
             Offizieller Prüfungsvordruck

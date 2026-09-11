@@ -44,7 +44,7 @@ export default function ResultsView({
         onOpenHistory={onOpenHistory}
       />
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-6">
+      <div className="bg-surface-card rounded-2xl border border-border-default p-4 sm:p-6 shadow-sm space-y-6">
         <ResultsFilterBar
           filter={filter}
           onSetFilter={setFilter}

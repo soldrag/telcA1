@@ -14,16 +14,42 @@ export function formatAttemptDuration(seconds = 0) {
   return { minutes, seconds: remainingSecs };
 }
 
-export function formatAttemptDate(isoString) {
+export function formatAttemptDate(isoString, lang = 'ru') {
   if (!isoString) return '';
   const dateValue = isoString.endsWith('Z') ? isoString : `${isoString}Z`;
-  return new Date(dateValue).toLocaleString('ru-RU', {
+  const locale = lang === 'en' ? 'en-US' : 'ru-RU';
+  return new Date(dateValue).toLocaleString(locale, {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
   });
+}
+
+export function formatAttemptDateShort(isoString, lang = 'ru') {
+  if (!isoString) return '';
+  const dateValue = isoString.endsWith('Z') ? isoString : `${isoString}Z`;
+  const locale = lang === 'en' ? 'en-US' : 'ru-RU';
+  return new Date(dateValue).toLocaleString(locale, {
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+export function pluralizeAttempts(count = 0, lang = 'ru') {
+  const safeCount = Math.max(0, count || 0);
+  if (lang === 'en') {
+    return `${safeCount} ${safeCount === 1 ? 'attempt' : 'attempts'}`;
+  }
+  const abs = safeCount % 100;
+  const rem = abs % 10;
+  if (abs > 10 && abs < 20) return `${safeCount} попыток`;
+  if (rem > 1 && rem < 5) return `${safeCount} попытки`;
+  if (rem === 1) return `${safeCount} попытка`;
+  return `${safeCount} попыток`;
 }
 
 export function calculateHistoryStats(attempts = []) {
