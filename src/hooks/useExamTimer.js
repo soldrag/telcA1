@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 const DEFAULT_TIME_LIMIT_SECONDS = 25 * 60;
 
@@ -11,23 +11,27 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
   const [secondsLeft, setSecondsLeft] = useState(initialSeconds);
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [timeUpHandler, setTimeUpHandler] = useState(() => onTimeUp);
+
+  const timeUpHandlerRef = useRef(onTimeUp);
+  useEffect(() => {
+    timeUpHandlerRef.current = onTimeUp;
+  }, [onTimeUp]);
+
+  const registerTimeUpHandler = useCallback((handler) => {
+    timeUpHandlerRef.current = handler;
+  }, []);
 
   const resetTimer = useCallback((timed = true, newDurationSeconds) => {
-    const targetSeconds = newDurationSeconds || totalSeconds;
-    if (newDurationSeconds) setTotalSeconds(newDurationSeconds);
+    const targetSeconds = newDurationSeconds || DEFAULT_TIME_LIMIT_SECONDS;
+    setTotalSeconds(targetSeconds);
     setIsTimed(timed);
     setSecondsLeft(targetSeconds);
     setSecondsElapsed(0);
     setIsPaused(false);
-  }, [totalSeconds]);
+  }, []);
 
   const togglePause = useCallback(() => {
     setIsPaused((previousState) => !previousState);
-  }, []);
-
-  const registerTimeUpHandler = useCallback((handler) => {
-    setTimeUpHandler(() => handler);
   }, []);
 
   useEffect(() => {
@@ -35,29 +39,24 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
 
     if (!isTimed) {
       const intervalId = setInterval(() => {
-        setSecondsElapsed((previousSeconds) => previousSeconds + 1);
+        setSecondsElapsed((prev) => prev + 1);
       }, 1000);
       return () => clearInterval(intervalId);
     }
 
-    if (secondsLeft <= 0) {
-      if (timeUpHandler) timeUpHandler();
-      return;
-    }
-
     const intervalId = setInterval(() => {
-      setSecondsLeft((previousSeconds) => {
-        if (previousSeconds <= 1) {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
           clearInterval(intervalId);
-          if (timeUpHandler) timeUpHandler();
+          timeUpHandlerRef.current?.();
           return 0;
         }
-        return previousSeconds - 1;
+        return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isTimed, isPaused, isSubmitted, secondsLeft, timeUpHandler]);
+  }, [isTimed, isPaused, isSubmitted]);
 
   return {
     isTimed,

@@ -2,18 +2,25 @@ import { useState, useEffect, useCallback } from 'react';
 
 const STORAGE_KEY = 'telc_app_theme';
 
+function sanitizeTheme(val) {
+  if (val === 'light' || val === 'dark' || val === 'system') return val;
+  return 'system';
+}
+
 export function useTheme() {
   const [theme, setThemeState] = useState(() => {
     try {
-      return localStorage.getItem(STORAGE_KEY) || 'system';
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return sanitizeTheme(stored);
     } catch {
       return 'system';
     }
   });
 
   const getResolvedTheme = useCallback((mode) => {
-    if (mode === 'dark') return 'dark';
-    if (mode === 'light') return 'light';
+    const validMode = sanitizeTheme(mode);
+    if (validMode === 'dark') return 'dark';
+    if (validMode === 'light') return 'light';
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }, []);
 
@@ -50,12 +57,16 @@ export function useTheme() {
   }, [theme]);
 
   const setTheme = useCallback((newTheme) => {
-    setThemeState(newTheme);
-    try {
-      localStorage.setItem(STORAGE_KEY, newTheme);
-    } catch {
-      // ignore storage errors
-    }
+    setThemeState((prevTheme) => {
+      const rawTheme = typeof newTheme === 'function' ? newTheme(prevTheme) : newTheme;
+      const validTheme = sanitizeTheme(rawTheme);
+      try {
+        localStorage.setItem(STORAGE_KEY, validTheme);
+      } catch {
+        // ignore storage errors
+      }
+      return validTheme;
+    });
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -67,7 +78,7 @@ export function useTheme() {
   }, [setTheme]);
 
   return {
-    theme,
+    theme: sanitizeTheme(theme),
     setTheme,
     toggleTheme,
     isDark: resolvedTheme === 'dark',
