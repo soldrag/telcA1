@@ -1,10 +1,12 @@
 import React from 'react';
 import { CheckCircle2, XCircle, Calendar, Clock, Eye, ChevronRight } from 'lucide-react';
 import { cleanExamTitle, formatAttemptDate, formatAttemptDuration } from '../../utils/historyFormat.js';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function HistoryItemCard({ attempt, onSelect, compact = false }) {
+  const { t, language } = useI18n();
   const { minutes, seconds } = formatAttemptDuration(attempt.time_spent_seconds);
-  const formattedDate = formatAttemptDate(attempt.created_at);
+  const formattedDate = formatAttemptDate(attempt.created_at, language);
   const examTitle = cleanExamTitle(attempt.exam_title);
 
   const statusBadgeClass = attempt.passed
@@ -42,7 +44,7 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
               {examTitle}
             </span>
             <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${statusBadgeClass}`}>
-              {attempt.passed ? 'Сдано' : 'Не сдано'}
+              {attempt.passed ? t('history.passedBadge') : t('history.failedBadge')}
             </span>
           </div>
 
@@ -53,7 +55,7 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
             </span>
             <span className="flex items-center space-x-1">
               <Clock className="w-3.5 h-3.5 text-content-muted" />
-              <span>{minutes}м {seconds}с</span>
+              <span>{t('history.duration', { minutes, seconds })}</span>
             </span>
           </div>
         </div>

@@ -39,17 +39,9 @@ export function formatAttemptDateShort(isoString, lang = 'ru') {
   });
 }
 
-export function pluralizeAttempts(count = 0, lang = 'ru') {
+export function pluralizeAttempts(count = 0, lang = 'en') {
   const safeCount = Math.max(0, count || 0);
-  if (lang === 'en') {
-    return `${safeCount} ${safeCount === 1 ? 'attempt' : 'attempts'}`;
-  }
-  const abs = safeCount % 100;
-  const rem = abs % 10;
-  if (abs > 10 && abs < 20) return `${safeCount} попыток`;
-  if (rem > 1 && rem < 5) return `${safeCount} попытки`;
-  if (rem === 1) return `${safeCount} попытка`;
-  return `${safeCount} попыток`;
+  return `${safeCount} ${safeCount === 1 ? 'attempt' : 'attempts'}`;
 }
 
 export function calculateHistoryStats(attempts = []) {

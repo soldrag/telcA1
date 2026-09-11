@@ -30,7 +30,7 @@ export default function RecentAttemptsList({
 }
 
 function RecentAttemptsHeader({ onOpenHistory }) {
-  const { t, isRussian } = useI18n();
+  const { t } = useI18n();
 
   return (
     <div className="flex items-center justify-between">
@@ -43,7 +43,7 @@ function RecentAttemptsHeader({ onOpenHistory }) {
             {t('welcome.recentAttempts.title')}
           </h2>
           <p className="text-xs text-content-tertiary">
-            {isRussian ? 'Привязана к вашему браузеру' : 'Saved in your browser'}
+            {t('welcome.recentAttempts.browserStored')}
           </p>
         </div>
       </div>
@@ -71,7 +71,7 @@ function RecentAttemptsEmpty() {
 }
 
 function RecentAttemptRow({ attempt, onLoadAttempt }) {
-  const { t, language, isRussian } = useI18n();
+  const { t, language } = useI18n();
   const { minutes, seconds } = formatAttemptDuration(attempt.time_spent_seconds);
   const formattedDate = formatAttemptDateShort(attempt.created_at, language);
 
@@ -102,7 +102,7 @@ function RecentAttemptRow({ attempt, onLoadAttempt }) {
             </span>
           </div>
           <div className="text-xs text-content-tertiary mt-0.5">
-            {formattedDate} • {minutes}{isRussian ? 'м' : 'm'} {seconds}{isRussian ? 'с' : 's'}
+            {formattedDate} • {t('welcome.recentAttempts.duration', { minutes, seconds })}
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ function RecentAttemptRow({ attempt, onLoadAttempt }) {
           {attempt.score} / {attempt.total_questions} ({attempt.percentage}%)
         </span>
         <span className="text-xs text-action-primary group-hover:underline hidden sm:inline font-semibold">
-          {isRussian ? 'Разбор →' : 'Review →'}
+          {t('welcome.recentAttempts.reviewLink')}
         </span>
       </div>
     </button>

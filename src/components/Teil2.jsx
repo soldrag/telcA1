@@ -1,8 +1,11 @@
 import React from 'react';
 import { Globe } from 'lucide-react';
 import Teil2WebpageOption from './teil2/Teil2WebpageOption.jsx';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 function Teil2Banner() {
+  const { t } = useI18n();
+
   return (
     <div className="bg-surface-card border-l-4 border-action-primary rounded-r-2xl p-5 shadow-sm border-y border-r border-border-default">
       <div className="flex items-start space-x-4">
@@ -25,7 +28,7 @@ function Teil2Banner() {
             <strong className="text-action-primary font-black">b</strong>.
           </p>
           <p className="text-xs text-content-tertiary mt-0.5">
-            Прочитайте ситуацию и обе веб-страницы. Выберите подходящую страницу: a или b.
+            {t('exam.instructionsPart2')}
           </p>
         </div>
       </div>
@@ -39,6 +42,8 @@ export default function Teil2({
   onSelectAnswer,
   isSubmitted,
 }) {
+  const { t } = useI18n();
+
   return (
     <div className="space-y-8">
       <Teil2Banner />
@@ -67,7 +72,7 @@ export default function Teil2({
                       </span>
                       {isAnswered && (
                         <span className="text-xs font-extrabold text-action-primary bg-action-primary-subtle px-3 py-1 rounded-full border border-action-primary-border shadow-xs">
-                          Выбрано: {String(currentAnswer).toUpperCase()}
+                          {t('exam.part2Selected', { answer: String(currentAnswer).toUpperCase() })}
                         </span>
                       )}
                     </div>

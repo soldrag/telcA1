@@ -4,28 +4,28 @@ import { useI18n } from '../../i18n/I18nContext.jsx';
 
 const MODULE_STRUCTURES = {
   lesen: [
-    { icon: Mail, label: 'Teil 1 (1–5)', title: '2 письма / e-mail', titleEn: '2 letters / e-mails', sub: 'Richtig / Falsch', subEn: 'True / False' },
-    { icon: Globe, label: 'Teil 2 (6–10)', title: '5 ситуаций и сайтов', titleEn: '5 situations & websites', sub: 'Выбор: a или b', subEn: 'Choice: a or b' },
-    { icon: FileText, label: 'Teil 3 (11–15)', title: '5 вывесок и объявлений', titleEn: '5 signs & notices', sub: 'Richtig / Falsch', subEn: 'True / False' },
+    { icon: Mail, label: 'Teil 1 (1–5)', titleKey: 'welcome.structure.lesenTeil1Title', subKey: 'welcome.structure.lesenTeil1Sub' },
+    { icon: Globe, label: 'Teil 2 (6–10)', titleKey: 'welcome.structure.lesenTeil2Title', subKey: 'welcome.structure.lesenTeil2Sub' },
+    { icon: FileText, label: 'Teil 3 (11–15)', titleKey: 'welcome.structure.lesenTeil3Title', subKey: 'welcome.structure.lesenTeil3Sub' },
   ],
   hoeren: [
-    { icon: Headphones, label: 'Teil 1 (1–6)', title: 'Короткие диалоги', titleEn: 'Short dialogs', sub: 'Выбор: a, b или c', subEn: 'Choice: a, b or c' },
-    { icon: Radio, label: 'Teil 2 (7–10)', title: 'Объявления на вокзале', titleEn: 'Station announcements', sub: 'Richtig / Falsch', subEn: 'True / False' },
-    { icon: PhoneCall, label: 'Teil 3 (11–15)', title: 'Сообщения на автоответчике', titleEn: 'Voicemail messages', sub: 'Richtig / Falsch', subEn: 'True / False' },
+    { icon: Headphones, label: 'Teil 1 (1–6)', titleKey: 'welcome.structure.hoerenTeil1Title', subKey: 'welcome.structure.hoerenTeil1Sub' },
+    { icon: Radio, label: 'Teil 2 (7–10)', titleKey: 'welcome.structure.hoerenTeil2Title', subKey: 'welcome.structure.hoerenTeil2Sub' },
+    { icon: PhoneCall, label: 'Teil 3 (11–15)', titleKey: 'welcome.structure.hoerenTeil3Title', subKey: 'welcome.structure.hoerenTeil3Sub' },
   ],
   schreiben: [
-    { icon: PenTool, label: 'Teil 1 (1–5)', title: 'Заполнение формуляра', titleEn: 'Fill out a form', sub: '5 пунктов (5 баллов)', subEn: '5 fields (5 points)' },
-    { icon: Mail, label: 'Teil 2 (6)', title: 'Написание короткого письма', titleEn: 'Write a short message', sub: 'ca. 30 слов (10 баллов)', subEn: 'ca. 30 words (10 points)' },
+    { icon: PenTool, label: 'Teil 1 (1–5)', titleKey: 'welcome.structure.schreibenTeil1Title', subKey: 'welcome.structure.schreibenTeil1Sub' },
+    { icon: Mail, label: 'Teil 2 (6)', titleKey: 'welcome.structure.schreibenTeil2Title', subKey: 'welcome.structure.schreibenTeil2Sub' },
   ],
   sprechen: [
-    { icon: Users, label: 'Teil 1', title: 'Sich vorstellen', titleEn: 'Self introduction', sub: 'Рассказ о себе + вопросы', subEn: 'Intro + questions' },
-    { icon: MessageSquare, label: 'Teil 2', title: 'Informationen erfragen', titleEn: 'Ask for information', sub: 'Вопросы по карточкам', subEn: 'Questions from cards' },
-    { icon: MessageSquare, label: 'Teil 3', title: 'Bitten formulieren', titleEn: 'Formulate requests', sub: 'Просьбы и реакции', subEn: 'Requests & responses' },
+    { icon: Users, label: 'Teil 1', titleKey: 'welcome.structure.sprechenTeil1Title', subKey: 'welcome.structure.sprechenTeil1Sub' },
+    { icon: MessageSquare, label: 'Teil 2', titleKey: 'welcome.structure.sprechenTeil2Title', subKey: 'welcome.structure.sprechenTeil2Sub' },
+    { icon: MessageSquare, label: 'Teil 3', titleKey: 'welcome.structure.sprechenTeil3Title', subKey: 'welcome.structure.sprechenTeil3Sub' },
   ],
 };
 
 export default function ModuleStructureCards({ testType = 'lesen' }) {
-  const { isRussian } = useI18n();
+  const { t } = useI18n();
   const cards = MODULE_STRUCTURES[testType] || MODULE_STRUCTURES.lesen;
 
   return (
@@ -39,10 +39,10 @@ export default function ModuleStructureCards({ testType = 'lesen' }) {
               <span>{card.label}</span>
             </div>
             <div className="text-xs sm:text-sm font-bold text-white mt-1">
-              {isRussian ? card.title : card.titleEn}
+              {t(card.titleKey)}
             </div>
             <div className="text-xs text-white/80 mt-0.5">
-              {isRussian ? card.sub : card.subEn}
+              {t(card.subKey)}
             </div>
           </div>
         );

@@ -10,11 +10,11 @@ export default function ExamBottomNav({
   onNextTeil = actions.onNextTeil,
   onSubmit = actions.onSubmit,
 }) {
-  const { t, isRussian } = useI18n();
+  const { t } = useI18n();
 
   return (
     <nav
-      aria-label="Навигация по разделам экзамена"
+      aria-label={t('exam.navAriaLabel')}
       className="sticky bottom-0 z-40 bg-surface-card/95 backdrop-blur-md border-t-2 border-border-default py-3.5 px-4 sm:px-6 -mx-4 sm:-mx-6 lg:-mx-8 rounded-b-none sm:rounded-2xl shadow-lg flex items-center justify-between gap-3"
     >
       <button
@@ -27,7 +27,7 @@ export default function ExamBottomNav({
       </button>
 
       <div className="text-xs sm:text-sm font-black text-content-primary bg-surface-inset px-4 py-2 rounded-lg border border-border-subtle hidden sm:block whitespace-nowrap">
-        {isRussian ? `Часть ${activeTeil} из ${maxTeile}` : `Part ${activeTeil} of ${maxTeile}`}
+        {t('exam.partOfTotalParts', { current: activeTeil, total: maxTeile })}
       </div>
 
       {activeTeil < maxTeile ? (

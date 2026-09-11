@@ -1,4 +1,5 @@
 import React from 'react';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function Teil2WebpageOption({
   option,
@@ -6,6 +7,7 @@ export default function Teil2WebpageOption({
   isSubmitted,
   onSelect,
 }) {
+  const { t } = useI18n();
   const containerClass = isSelected
     ? 'border-action-primary bg-action-primary-subtle/70 shadow-lg ring-2 ring-action-primary/30 scale-[1.01]'
     : 'border-border-default hover:border-border-strong bg-surface-card hover:bg-surface-raised shadow-xs';
@@ -59,8 +61,8 @@ export default function Teil2WebpageOption({
         >
           <span>
             {isSelected
-              ? `✓ Выбрана веб-страница [${option.id.toUpperCase()}]`
-              : `Выбрать веб-страницу [${option.id.toUpperCase()}]`}
+              ? t('exam.part2OptionSelected', { id: option.id.toUpperCase() })
+              : t('exam.part2SelectOption', { id: option.id.toUpperCase() })}
           </span>
           <div
             className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black transition-all ${

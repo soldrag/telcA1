@@ -37,9 +37,9 @@ Julia Neumann`,
     explanation_en: 'Julia writes that her train is delayed by about 45 minutes due to a switch malfunction (\'Zug ... ca. 45 Minuten Verspätung\'), so she cannot arrive on time. The statement is True.',
     explanation_de: 'Julia verspätet sich, weil ihr Zug Verspätung hat.',
     vocabulary_notes: [
-      { word: 'die Verspätung', translation: 'опоздание / задержка' },
-      { word: 'das Vorstellungsgespräch', translation: 'собеседование при приеме на работу' },
-      { word: 'pünktlich', translation: 'вовремя' }
+      { word: 'die Verspätung', translation: 'опоздание / задержка', translation_en: 'delay' },
+      { word: 'das Vorstellungsgespräch', translation: 'собеседование при приеме на работу', translation_en: 'job interview' },
+      { word: 'pünktlich', translation: 'вовремя', translation_en: 'punctual / on time' }
     ]
   },
   {
@@ -66,9 +66,9 @@ Julia Neumann`,
     explanation_en: 'Julia asks whether they could push today\'s interview back by half an hour (\'heute um eine halbe Stunde nach hinten zu verschieben\'), rather than rescheduling it for next week. The statement is False.',
     explanation_de: 'Julia möchte den Termin heute um 30 Minuten verschieben, nicht auf nächste Woche.',
     vocabulary_notes: [
-      { word: 'verschieben / verlegen', translation: 'переносить (по времени)' },
-      { word: 'eine halbe Stunde', translation: 'полчаса' },
-      { word: 'heute', translation: 'сегодня' }
+      { word: 'verschieben / verlegen', translation: 'переносить (по времени)', translation_en: 'to postpone / reschedule' },
+      { word: 'eine halbe Stunde', translation: 'полчаса', translation_en: 'half an hour' },
+      { word: 'heute', translation: 'сегодня', translation_en: 'today' }
     ]
   },
 
@@ -101,9 +101,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'The dormitory house rules state that leaving bicycles in stairwells or hallways is strictly forbidden (\'auf den Fluren ist ... streng verboten\'). The statement is False.',
     explanation_de: 'Fahrräder auf dem Flur abzustellen ist streng verboten.',
     vocabulary_notes: [
-      { word: 'der Flur (-e)', translation: 'коридор' },
-      { word: 'streng verboten', translation: 'строго запрещено' },
-      { word: 'der Fahrradkeller', translation: 'подвал для велосипедов' }
+      { word: 'der Flur (-e)', translation: 'коридор', translation_en: 'corridor / hallway' },
+      { word: 'streng verboten', translation: 'строго запрещено', translation_en: 'strictly forbidden' },
+      { word: 'der Fahrradkeller', translation: 'подвал для велосипедов', translation_en: 'bicycle cellar / bike room' }
     ]
   },
   {
@@ -134,9 +134,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'The dormitory regulations state that separated bins for waste paper, plastics, and general waste are in the courtyard (\'getrennte Tonnen für Altpapier, Plastik ... und Restmüll\'). The statement is True.',
     explanation_de: 'Der Müll wird im Innenhof getrennt in verschiedenen Tonnen entsorgt.',
     vocabulary_notes: [
-      { word: 'die Mülltrennung', translation: 'сортировка мусора' },
-      { word: 'die Tonne (-n)', translation: 'мусорный бак / контейнер' },
-      { word: 'der Innenhof', translation: 'внутренний двор' }
+      { word: 'die Mülltrennung', translation: 'сортировка мусора', translation_en: 'waste separation / recycling' },
+      { word: 'die Tonne (-n)', translation: 'мусорный бак / контейнер', translation_en: 'trash bin / container' },
+      { word: 'der Innenhof', translation: 'внутренний двор', translation_en: 'inner courtyard' }
     ]
   },
   {
@@ -167,9 +167,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'From 22:00 quiet hours apply by law and music must be kept at room volume (\'Ab 22:00 Uhr gilt gesetzliche Nachtruhe\'), meaning residents must keep quiet. The statement is True.',
     explanation_de: 'Ab 22:00 Uhr gilt Nachtruhe, man muss leise sein.',
     vocabulary_notes: [
-      { word: 'die Nachtruhe', translation: 'ночной покой / время тишины' },
-      { word: 'Zimmerlautstärke', translation: 'комнатная (негромкая) громкость' },
-      { word: 'leise', translation: 'тихий / тихо' }
+      { word: 'die Nachtruhe', translation: 'ночной покой / время тишины', translation_en: 'night rest hours' },
+      { word: 'Zimmerlautstärke', translation: 'комнатная (негромкая) громкость', translation_en: 'room volume (low noise level)' },
+      { word: 'leise', translation: 'тихий / тихо', translation_en: 'quiet / quietly' }
     ]
   },
 
@@ -205,9 +205,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'You are looking for a childminder for a two-year-old on weekday mornings. Option a provides morning childcare for toddlers aged 1 to 3 from Monday to Thursday, whereas option b is an afternoon homework club for older teenagers.',
     explanation_de: 'Gesucht wird eine Tagesmutter für ein 2-jähriges Kind am Vormittag. Anzeige a bietet Betreuung für 1-3-Jährige von Mo-Do vormittags an.',
     vocabulary_notes: [
-      { word: 'die Tagesmutter', translation: 'частная няня / воспитательница на дому' },
-      { word: 'das Kleinkind', translation: 'ребенок младшего возраста (ясельного)' },
-      { word: 'die Betreuungszeit', translation: 'время присмотра за ребенком' }
+      { word: 'die Tagesmutter', translation: 'частная няня / воспитательница на дому', translation_en: 'childminder / registered nanny' },
+      { word: 'das Kleinkind', translation: 'ребенок младшего возраста (ясельного)', translation_en: 'toddler / young child' },
+      { word: 'die Betreuungszeit', translation: 'время присмотра за ребенком', translation_en: 'childcare hours' }
     ]
   },
   {
@@ -239,9 +239,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'You want a beginner weekend workshop on watercolour painting. Option b offers a weekend watercolour course for beginners on Saturdays and Sundays, whereas option a is a pottery and clay sculpting workshop.',
     explanation_de: 'Gesucht ist ein Aquarellkurs für Anfänger am Wochenende. Anzeige b passt perfekt.',
     vocabulary_notes: [
-      { word: 'das Aquarell / die Wasserfarben', translation: 'акварель / водяные краски' },
-      { word: 'das Malen / malen', translation: 'рисование / рисовать' },
-      { word: 'der Pinsel', translation: 'кисточка' }
+      { word: 'das Aquarell / die Wasserfarben', translation: 'акварель / водяные краски', translation_en: 'watercolor / water paints' },
+      { word: 'das Malen / malen', translation: 'рисование / рисовать', translation_en: 'painting / to paint' },
+      { word: 'der Pinsel', translation: 'кисточка', translation_en: 'paint brush' }
     ]
   },
   {
@@ -273,9 +273,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'You need a seasonal tyre change and winter tyre storage for your car. Option a changes car tyres and stores winter wheels safely in their warehouse, whereas option b only sells bicycle tyres and puncture kits.',
     explanation_de: 'Gesucht wird ein Reifenwechsel mit Einlagerung fürs Auto. Anzeige a bietet Räderwechsel und Reifeneinlagerung an.',
     vocabulary_notes: [
-      { word: 'der Reifenwechsel', translation: 'смена автомобильных колес / резины' },
-      { word: 'die Reifeneinlagerung', translation: 'сезонное хранение шин' },
-      { word: 'die Werkstatt', translation: 'автомастерская' }
+      { word: 'der Reifenwechsel', translation: 'смена автомобильных колес / резины', translation_en: 'tire change' },
+      { word: 'die Reifeneinlagerung', translation: 'сезонное хранение шин', translation_en: 'seasonal tire storage' },
+      { word: 'die Werkstatt', translation: 'автомастерская', translation_en: 'repair shop / workshop' }
     ]
   },
   {
@@ -307,9 +307,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'You want an affordable walking tour of Nuremberg\'s historic Old Town. Option a provides a guided walking tour through the Old Town starting from €9, whereas option b offers expensive sightseeing flights by helicopter.',
     explanation_de: 'Gesucht ist ein historischer Stadtrundgang zu Fuß in Nürnberg. Anzeige a bietet eine Fußführung für 9 € an.',
     vocabulary_notes: [
-      { word: 'die Stadtführung / der Stadtrundgang', translation: 'экскурсия по городу' },
-      { word: 'zu Fuß', translation: 'пешком' },
-      { word: 'die Altstadt', translation: 'старый город (исторический центр)' }
+      { word: 'die Stadtführung / der Stadtrundgang', translation: 'экскурсия по городу', translation_en: 'city guided tour / walking tour' },
+      { word: 'zu Fuß', translation: 'пешком', translation_en: 'on foot / walking' },
+      { word: 'die Altstadt', translation: 'старый город (исторический центр)', translation_en: 'old town / historic center' }
     ]
   },
   {
@@ -341,9 +341,9 @@ Ihre Wohnheimverwaltung`,
     explanation_en: 'You need fresh Asian herbs, vegetables, and sauces for Thai cooking. Option b is an Asian supermarket stocking fresh Thai basil, lemongrass, and numerous sauces, whereas option a is a traditional Bavarian butcher shop selling meat.',
     explanation_de: 'Gesucht werden asiatische Zutaten für thailändisches Essen. Anzeige b ist ein Asia-Supermarkt.',
     vocabulary_notes: [
-      { word: 'die Lebensmittel (pl.)', translation: 'продукты питания' },
-      { word: 'die Kräuter (pl.)', translation: 'зелень / пряные травы' },
-      { word: 'asiatisch', translation: 'азиатский' }
+      { word: 'die Lebensmittel (pl.)', translation: 'продукты питания', translation_en: 'groceries / food items' },
+      { word: 'die Kräuter (pl.)', translation: 'зелень / пряные травы', translation_en: 'herbs' },
+      { word: 'asiatisch', translation: 'азиатский', translation_en: 'Asian' }
     ]
   },
 
@@ -370,9 +370,9 @@ Kein Eintritt für andere Gäste während dieser Zeit!`,
     explanation_en: 'On Wednesday afternoons between 14:00 and 16:30 the indoor pool is exclusively reserved for schools and clubs with no general public admission (\'Kein Eintritt für den allgemeinen Badebetrieb\'). The statement is False.',
     explanation_de: 'Von 14:00 bis 16:30 Uhr ist am Mittwoch kein Eintritt für andere Gäste.',
     vocabulary_notes: [
-      { word: 'nur für...', translation: 'только для...' },
-      { word: 'der Eintritt', translation: 'вход' },
-      { word: 'reserviert für...', translation: 'забронировано для...' }
+      { word: 'nur für...', translation: 'только для...', translation_en: 'only for...' },
+      { word: 'der Eintritt', translation: 'вход', translation_en: 'admission / entrance fee' },
+      { word: 'reserviert für...', translation: 'забронировано для...', translation_en: 'reserved for...' }
     ]
   },
   {
@@ -396,9 +396,9 @@ Bitte nutzen Sie die Haltestelle „Hauptbahnhof" als Ausweichmöglichkeit.`,
     explanation_en: 'The bus company announced that due to a demonstration, the Rathausplatz stop will not be served between 12:00 and 17:00 (\'Haltestellen nicht bedient werden: Rathausplatz\'). The statement is True.',
     explanation_de: 'Die Haltestelle Rathausplatz entfällt zwischen 12:00 und 17:00 Uhr.',
     vocabulary_notes: [
-      { word: 'nicht bedient werden', translation: 'не обслуживаться (о транспорте)' },
-      { word: 'die Ausweichmöglichkeit', translation: 'альтернативный вариант' },
-      { word: 'die Demonstration', translation: 'демонстрация / митинг' }
+      { word: 'nicht bedient werden', translation: 'не обслуживаться (о транспорте)', translation_en: 'not serviced (of a stop or route)' },
+      { word: 'die Ausweichmöglichkeit', translation: 'альтернативный вариант', translation_en: 'alternative option' },
+      { word: 'die Demonstration', translation: 'демонстрация / митинг', translation_en: 'demonstration / rally' }
     ]
   },
   {
@@ -422,9 +422,9 @@ Hinweis: Die Nutzungsdauer ist auf maximal 2 Stunden pro Gast begrenzt. Nach Abl
     explanation_en: 'The table card indicates that the café offers free wireless internet access to customers (\'kostenloses Internet\'). The statement is True.',
     explanation_de: 'Das Internet ist für Gäste kostenlos („kostenloses Internet").',
     vocabulary_notes: [
-      { word: 'kostenlos', translation: 'бесплатно' },
-      { word: 'das WLAN / Internet', translation: 'беспроводной интернет' },
-      { word: 'begrenzt auf...', translation: 'ограничен (по времени)...' }
+      { word: 'kostenlos', translation: 'бесплатно', translation_en: 'free of charge' },
+      { word: 'das WLAN / Internet', translation: 'беспроводной интернет', translation_en: 'Wi-Fi / Internet' },
+      { word: 'begrenzt auf...', translation: 'ограничен (по времени)...', translation_en: 'limited to...' }
     ]
   },
   {
@@ -448,9 +448,9 @@ Ab Montag, den 7. April, sind wir wieder wie gewohnt für Sie da. Schöne Feiert
     explanation_en: 'The notice states that the adult education center is closed during Easter break and no courses or exams take place (\'finden keine Kurse oder Prüfungen statt\'). The statement is False.',
     explanation_de: 'In den Osterferien finden keine Kurse statt, das Gebäude ist geschlossen.',
     vocabulary_notes: [
-      { word: 'die Osterferien', translation: 'пасхальные каникулы' },
-      { word: 'keine Kurse', translation: 'нет занятий' },
-      { word: 'geschlossen', translation: 'закрыто' }
+      { word: 'die Osterferien', translation: 'пасхальные каникулы', translation_en: 'Easter holidays' },
+      { word: 'keine Kurse', translation: 'нет занятий', translation_en: 'no courses / classes' },
+      { word: 'geschlossen', translation: 'закрыто', translation_en: 'closed' }
     ]
   },
   {
@@ -473,9 +473,9 @@ Raucher nutzen bitte die gekennzeichnete Zone hinten am Parkplatz.`,
     explanation_en: 'Smoking is strictly prohibited directly in front of the main entrance door (\'Das Rauchen ... direkt vor der Haupteingangstür verboten!\'). The statement is False.',
     explanation_de: 'Das Rauchen vor dem Haupteingang ist verboten.',
     vocabulary_notes: [
-      { word: 'das Rauchverbot / Rauchen verboten', translation: 'запрет на курение' },
-      { word: 'die Haupteingangstür', translation: 'дверь главного входа' },
-      { word: 'gekennzeichnete Zone', translation: 'обозначенная зона' }
+      { word: 'das Rauchverbot / Rauchen verboten', translation: 'запрет на курение', translation_en: 'smoking ban / no smoking' },
+      { word: 'die Haupteingangstür', translation: 'дверь главного входа', translation_en: 'main entrance door' },
+      { word: 'gekennzeichnete Zone', translation: 'обозначенная зона', translation_en: 'designated area / marked zone' }
     ]
   }
 ];

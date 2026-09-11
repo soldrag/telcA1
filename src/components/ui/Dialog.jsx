@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { cn } from '../../lib/utils.js';
 import { X } from 'lucide-react';
 import { lockBodyScroll, unlockBodyScroll } from '../../utils/scrollService.js';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export function Dialog({ isOpen, onClose, title, description, children, maxWidth = 'max-w-md' }) {
+  const { t } = useI18n();
   useEffect(() => {
     const handleKeyDown = (keyboardEvent) => {
       if (keyboardEvent.key === 'Escape' && isOpen) {
@@ -56,7 +58,7 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
               type="button"
               onClick={onClose}
               className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-raised transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
-              aria-label="Закрыть"
+              aria-label={t('common.close')}
             >
               <X className="w-5 h-5" />
             </button>

@@ -8,6 +8,7 @@ import ExamBottomNav from './exam/ExamBottomNav.jsx';
 import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
 import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
 import { scrollToElement, scrollToExamHeader } from '../utils/scrollService.js';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 function getMaxTeile(testType) {
   return testType === 'schreiben' ? 2 : 3;
@@ -23,6 +24,7 @@ export default function ExamView({
   questions = examConfig.questions || [],
   isLoading = false,
 }) {
+  const { t } = useI18n();
   const [showAntwortbogen, setShowAntwortbogen] = useState(false);
   const maxTeile = getMaxTeile(testType);
   const answeredCount = session.answeredCount ?? 0;
@@ -67,9 +69,9 @@ export default function ExamView({
 
       <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card px-4 py-3 rounded-2xl border-2 border-border-default shadow-xs text-sm">
         <div className="flex items-center space-x-2 text-content-secondary">
-          <span className="font-extrabold text-content-primary">Прогресс теста:</span>
+          <span className="font-extrabold text-content-primary">{t('exam.progressLabel')}</span>
           <span className="font-mono font-black text-action-primary bg-action-primary-subtle px-3 py-1 rounded-lg border border-action-primary-border">
-            {answeredCount} из {totalQuestions} отвечено
+            {t('exam.progressCounter', { answered: answeredCount, total: totalQuestions })}
           </span>
         </div>
         <button
@@ -78,7 +80,7 @@ export default function ExamView({
           className="flex items-center space-x-2 font-bold text-content-primary bg-surface-card hover:bg-surface-raised px-4 py-2 rounded-xl border-2 border-border-default hover:border-border-strong shadow-xs transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
         >
           <FileSpreadsheet className="w-4 h-4 text-action-primary stroke-[2.5]" />
-          <span>{showAntwortbogen ? 'Скрыть бланк' : 'Показать бланк (Antwortbogen)'}</span>
+          <span>{showAntwortbogen ? t('exam.toggleAntwortbogenHide') : t('exam.toggleAntwortbogenShow')}</span>
         </button>
       </div>
 

@@ -11,11 +11,11 @@ const MODULE_ICONS = {
 };
 
 export default function TestTypeStubModal({ testType, isOpen, onClose }) {
-  const { t, isRussian } = useI18n();
+  const { t } = useI18n();
   if (!testType) return null;
 
   const Icon = MODULE_ICONS[testType.id] || Sparkles;
-  const moduleSub = isRussian ? (testType.titleRu || '') : '';
+  const moduleSub = t(`welcome.moduleSubtitle_${testType.id}`);
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose} maxWidth="max-w-lg">
@@ -40,16 +40,16 @@ export default function TestTypeStubModal({ testType, isOpen, onClose }) {
       <div className="grid grid-cols-2 gap-3 mt-5 p-4 bg-surface-inset rounded-2xl border border-border-default text-xs">
         <div className="flex items-center space-x-2 text-content-secondary">
           <Clock className="w-4 h-4 text-content-muted" />
-          <span>Время: <strong className="text-content-primary">{testType.timeLimitMinutes} минут</strong></span>
+          <span><strong className="text-content-primary">{t('modals.stubTime', { minutes: testType.timeLimitMinutes })}</strong></span>
         </div>
         <div className="flex items-center space-x-2 text-content-secondary">
           <Award className="w-4 h-4 text-content-muted" />
-          <span>Баллы: <strong className="text-content-primary">{testType.maxScore} баллов</strong></span>
+          <span><strong className="text-content-primary">{t('modals.stubPoints', { points: testType.maxScore })}</strong></span>
         </div>
       </div>
 
       <div className="mt-5 p-4 bg-state-info-subtle rounded-2xl border border-state-info-border text-xs text-state-info-text leading-relaxed">
-        💡 Аутентичные задания и интерактивный тренажёр для этого модуля готовятся к публикации. Сейчас вам доступен полноценный модуль <strong>Lesen (Чтение)</strong> из 10 вариантов.
+        {t('modals.stubNotice')}
       </div>
 
       <div className="mt-6 flex justify-end">

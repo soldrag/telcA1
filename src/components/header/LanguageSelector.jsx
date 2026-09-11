@@ -3,15 +3,19 @@ import { Globe } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function LanguageSelector() {
-  const { language, setLanguage, t } = useI18n();
+  const { language, setLanguage, supportedLanguages, t } = useI18n();
+
+  const list = supportedLanguages && supportedLanguages.length > 0 ? supportedLanguages : ['en', 'ru'];
+  const currentIndex = list.indexOf(language);
+  const nextIndex = (currentIndex + 1) % list.length;
+  const nextLang = list[nextIndex];
 
   const handleToggle = () => {
-    const nextLanguage = language === 'en' ? 'ru' : 'en';
-    setLanguage(nextLanguage);
+    setLanguage(nextLang);
   };
 
   const currentCode = language.toUpperCase();
-  const nextName = language === 'en' ? 'Русский' : 'English';
+  const nextName = t(`languages.${nextLang}`);
   const label = `${t('header.changeLanguage')} -> ${nextName}`;
 
   return (

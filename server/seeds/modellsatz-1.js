@@ -38,9 +38,9 @@ Sarah`,
     explanation_en: 'Sarah explicitly states that the party will take place at her home ("bei mir zu Hause"), not at a restaurant. The statement is False.',
     explanation_de: 'Sarah feiert zu Hause („bei mir zu Hause"), nicht im Restaurant.',
     vocabulary_notes: [
-      { word: 'bei mir zu Hause', translation: 'у меня дома' },
-      { word: 'feiern', translation: 'праздновать' },
-      { word: 'Bescheid geben', translation: 'сообщить / дать знать' }
+      { word: 'bei mir zu Hause', translation: 'у меня дома', translation_en: 'at my home / at my place' },
+      { word: 'feiern', translation: 'праздновать', translation_en: 'to celebrate' },
+      { word: 'Bescheid geben', translation: 'сообщить / дать знать', translation_en: 'to let know / inform' }
     ]
   },
   {
@@ -68,9 +68,9 @@ Sarah`,
     explanation_en: 'Sarah tells Anna that she does not need to bring any food ("Du musst nichts zu essen mitbringen") because Sarah is buying everything, asking her only to bring music. The statement is False.',
     explanation_de: 'Anna muss kein Essen mitbringen („Du musst nichts zu essen mitbringen").',
     vocabulary_notes: [
-      { word: 'nichts zu essen', translation: 'ничего из еды' },
-      { word: 'mitbringen', translation: 'приносить с собой' },
-      { word: 'Getränke', translation: 'напитки' }
+      { word: 'nichts zu essen', translation: 'ничего из еды', translation_en: 'nothing to eat' },
+      { word: 'mitbringen', translation: 'приносить с собой', translation_en: 'to bring along' },
+      { word: 'Getränke', translation: 'напитки', translation_en: 'drinks / beverages' }
     ]
   },
 
@@ -104,9 +104,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'The German course takes place from Monday to Thursday, and no classes are held on Fridays ("Freitags findet kein Unterricht statt"). The statement is False.',
     explanation_de: 'Der Unterricht findet nur von Montag bis Donnerstag statt. Am Freitag ist kein Unterricht.',
     vocabulary_notes: [
-      { word: 'stattfinden', translation: 'состояться / проходить' },
-      { word: 'kein Unterricht', translation: 'нет занятий' },
-      { word: 'Kursteilnehmer', translation: 'участник курса' }
+      { word: 'stattfinden', translation: 'состояться / проходить', translation_en: 'to take place' },
+      { word: 'kein Unterricht', translation: 'нет занятий', translation_en: 'no classes / no lesson' },
+      { word: 'Kursteilnehmer', translation: 'участник курса', translation_en: 'course participant / student' }
     ]
   },
   {
@@ -138,9 +138,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'The notice clearly states that the textbook cannot be purchased in the office ("Im Sekretariat kann man das Buch leider nicht kaufen"), but in a bookstore or online. The statement is False.',
     explanation_de: 'Im Sekretariat gibt es das Buch nicht („leider nicht kaufen").',
     vocabulary_notes: [
-      { word: 'das Lehrbuch / Kursbuch', translation: 'учебник' },
-      { word: 'die Buchhandlung', translation: 'книжный магазин' },
-      { word: 'leider nicht', translation: 'к сожалению, нет' }
+      { word: 'das Lehrbuch / Kursbuch', translation: 'учебник', translation_en: 'textbook / course book' },
+      { word: 'die Buchhandlung', translation: 'книжный магазин', translation_en: 'bookstore' },
+      { word: 'leider nicht', translation: 'к сожалению, нет', translation_en: 'unfortunately not' }
     ]
   },
   {
@@ -172,9 +172,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'On the first day, participants meet at 8:45 AM ("um 8:45 Uhr"), which is before 9:00 AM. The statement is True.',
     explanation_de: '8:45 Uhr ist vor 9:00 Uhr, daher ist die Aussage richtig.',
     vocabulary_notes: [
-      { word: 'vor 9:00 Uhr', translation: 'до 9:00 часов' },
-      { word: 'sich treffen', translation: 'встречаться' },
-      { word: 'am ersten Tag', translation: 'в первый день' }
+      { word: 'vor 9:00 Uhr', translation: 'до 9:00 часов', translation_en: 'before 9:00 am' },
+      { word: 'sich treffen', translation: 'встречаться', translation_en: 'to meet' },
+      { word: 'am ersten Tag', translation: 'в первый день', translation_en: 'on the first day' }
     ]
   },
 
@@ -210,9 +210,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'Option b offers 100% vegetarian and vegan meals and is open on Sunday evening until 22:00, whereas option a specializes in traditional meat dishes.',
     explanation_de: 'Gesucht wird vegetarisches Essen am Sonntagabend. Anzeige b bietet 100% vegetarische Speisen und hat sonntags geöffnet.',
     vocabulary_notes: [
-      { word: 'vegetarisch', translation: 'вегетарианский' },
-      { word: 'Schweinshaxe / Fleisch', translation: 'свиная рулька / мясо' },
-      { word: 'geöffnet', translation: 'открыто' }
+      { word: 'vegetarisch', translation: 'вегетарианский', translation_en: 'vegetarian' },
+      { word: 'Schweinshaxe / Fleisch', translation: 'свиная рулька / мясо', translation_en: 'pork knuckle / meat' },
+      { word: 'geöffnet', translation: 'открыто', translation_en: 'open' }
     ]
   },
   {
@@ -244,9 +244,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'Option b sells affordable used bicycles starting from 45 € ("Second-Hand-Rädern ab 45 €"), whereas option a is only a rental service that does not sell bikes.',
     explanation_de: 'Gesucht wird der Kauf eines gebrauchten Fahrrads. Anzeige a ist nur ein Verleih, Anzeige b verkauft gebrauchte Räder („Second-Hand").',
     vocabulary_notes: [
-      { word: 'gebraucht', translation: 'подержанный / б/у' },
-      { word: 'kaufen', translation: 'покупать' },
-      { word: 'der Verleih / mieten', translation: 'прокат / арендовать' }
+      { word: 'gebraucht', translation: 'подержанный / б/у', translation_en: 'used / second-hand' },
+      { word: 'kaufen', translation: 'покупать', translation_en: 'to buy' },
+      { word: 'der Verleih / mieten', translation: 'прокат / арендовать', translation_en: 'rental / to rent' }
     ]
   },
   {
@@ -278,9 +278,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'Option b offers live online evening classes via Zoom starting at 19:00, whereas option a is an in-person morning course.',
     explanation_de: 'Gesucht ist ein Online-Kurs am Abend. Anzeige b bietet Online-Unterricht um 19:00 Uhr an.',
     vocabulary_notes: [
-      { word: 'abends', translation: 'по вечерам' },
-      { word: 'vormittags', translation: 'в первой половине дня' },
-      { word: 'berufstätig', translation: 'работающий' }
+      { word: 'abends', translation: 'по вечерам', translation_en: 'in the evenings' },
+      { word: 'vormittags', translation: 'в первой половине дня', translation_en: 'in the mornings' },
+      { word: 'berufstätig', translation: 'работающий', translation_en: 'employed / working' }
     ]
   },
   {
@@ -312,9 +312,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'Option a provides train travel with bicycle transport on weekends, whereas option b is a bus service where bicycles are not allowed.',
     explanation_de: 'Gesucht wird eine Zugreise mit Fahrradmitnahme. Anzeige a informiert über Fahrradmitnahme im Zug. Bei Anzeige b (Bus) ist das nicht möglich.',
     vocabulary_notes: [
-      { word: 'der Zug / die Bahn', translation: 'поезд / железная дорога' },
-      { word: 'Fahrradmitnahme', translation: 'провоз велосипеда' },
-      { word: 'Fernbus', translation: 'междугородный автобус' }
+      { word: 'der Zug / die Bahn', translation: 'поезд / железная дорога', translation_en: 'train / railway' },
+      { word: 'Fahrradmitnahme', translation: 'провоз велосипеда', translation_en: 'bicycle transport / taking bikes' },
+      { word: 'Fernbus', translation: 'междугородный автобус', translation_en: 'long-distance bus / coach' }
     ]
   },
   {
@@ -346,9 +346,9 @@ Ihr Sprachschul-Team`,
     explanation_en: 'Option a offers furnished 1-room apartments for temporary rent between 1 month and 1 year, whereas option b only sells unfurnished larger properties.',
     explanation_de: 'Gesucht wird eine möblierte Mietwohnung für 6 Monate. Anzeige a bietet möblierte Apartments auf Zeit (1-12 Monate). Anzeige b verkauft nur.',
     vocabulary_notes: [
-      { word: 'die Miete / mieten', translation: 'аренда / снимать' },
-      { word: 'möbliert', translation: 'меблированный' },
-      { word: 'zum Kauf / kaufen', translation: 'к покупке / покупать' }
+      { word: 'die Miete / mieten', translation: 'аренда / снимать', translation_en: 'rent / to rent' },
+      { word: 'möbliert', translation: 'меблированный', translation_en: 'furnished' },
+      { word: 'zum Kauf / kaufen', translation: 'к покупке / покупать', translation_en: 'for sale / to buy' }
     ]
   },
 
@@ -379,9 +379,9 @@ Ab Montag, 22. August, sind wir wieder wie gewohnt für Sie da.`,
     explanation_en: 'Dr. Weber\'s practice is closed for holidays from August 1 to August 19 ("geschlossen"), so you cannot visit him on August 10. The statement is False.',
     explanation_de: 'Die Praxis von Dr. Weber ist bis 19. August geschlossen. Am 10. August kann man nicht zu ihm gehen.',
     vocabulary_notes: [
-      { word: 'geschlossen', translation: 'закрыто' },
-      { word: 'die Vertretung', translation: 'замещение / дежурный врач' },
-      { word: 'Notfall', translation: 'экстренный случай' }
+      { word: 'geschlossen', translation: 'закрыто', translation_en: 'closed' },
+      { word: 'die Vertretung', translation: 'замещение / дежурный врач', translation_en: 'substitute / locum doctor' },
+      { word: 'Notfall', translation: 'экстренный случай', translation_en: 'emergency' }
     ]
   },
   {
@@ -407,9 +407,9 @@ Vielen Dank für Ihr Verständnis!`,
     explanation_en: 'The notice states that the elevator is out of service ("außer Betrieb") today due to repair work. The statement is True.',
     explanation_de: '„Außer Betrieb" bedeutet, dass der Aufzug nicht funktioniert. Die Aussage ist richtig.',
     vocabulary_notes: [
-      { word: 'außer Betrieb', translation: 'не работает / отключён' },
-      { word: 'die Rolltreppe', translation: 'эскалатор' },
-      { word: 'der Aufzug', translation: 'лифт' }
+      { word: 'außer Betrieb', translation: 'не работает / отключён', translation_en: 'out of order / out of service' },
+      { word: 'die Rolltreppe', translation: 'эскалатор', translation_en: 'escalator' },
+      { word: 'der Aufzug', translation: 'лифт', translation_en: 'elevator / lift' }
     ]
   },
   {
@@ -433,9 +433,9 @@ Bitte zahlen Sie sonntags nur bar!`,
     explanation_en: 'Card payments are not accepted on Sundays, and customers must pay in cash only ("keine Kartenzahlung möglich. Bitte zahlen Sie sonntags nur bar!"). The statement is False.',
     explanation_de: 'Sonntags kann man nur bar bezahlen („keine Kartenzahlung möglich"). Die Aussage ist falsch.',
     vocabulary_notes: [
-      { word: 'keine Kartenzahlung', translation: 'оплата картой невозможна' },
-      { word: 'bar zahlen', translation: 'платить наличными' },
-      { word: 'frische Brötchen', translation: 'свежие булочки' }
+      { word: 'keine Kartenzahlung', translation: 'оплата картой невозможна', translation_en: 'no card payment' },
+      { word: 'bar zahlen', translation: 'платить наличными', translation_en: 'to pay in cash' },
+      { word: 'frische Brötchen', translation: 'свежие булочки', translation_en: 'fresh bread rolls' }
     ]
   },
   {
@@ -458,9 +458,9 @@ Der Automat ist 24 Stunden an allen 7 Wochentagen für Sie geöffnet.`,
     explanation_en: 'The book return machine operates 24 hours a day on all 7 days of the week ("24 Stunden an allen 7 Wochentagen geöffnet"), allowing returns at night as well. The statement is True.',
     explanation_de: 'Der Rückgabeautomat ist 24 Stunden geöffnet, also auch nachts.',
     vocabulary_notes: [
-      { word: 'Bücherrückgabe', translation: 'возврат книг' },
-      { word: 'außerhalb der Öffnungszeiten', translation: 'в нерабочие часы' },
-      { word: 'jederzeit / 24 Stunden', translation: 'в любое время / 24 часа' }
+      { word: 'Bücherrückgabe', translation: 'возврат книг', translation_en: 'book return' },
+      { word: 'außerhalb der Öffnungszeiten', translation: 'в нерабочие часы', translation_en: 'outside opening hours' },
+      { word: 'jederzeit / 24 Stunden', translation: 'в любое время / 24 часа', translation_en: 'anytime / 24 hours' }
     ]
   },
   {
@@ -486,9 +486,9 @@ Vielen Dank für Ihre Rücksichtnahme!`,
     explanation_en: 'Quiet hours are observed between 13:00 and 15:00 ("Mittagsruhe"), during which loud music is strictly prohibited. The statement is False.',
     explanation_de: 'Von 13:00 bis 15:00 Uhr ist Mittagsruhe. Lautes Musikhören ist verboten.',
     vocabulary_notes: [
-      { word: 'die Ruhezeit', translation: 'время тишины' },
-      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
-      { word: 'Mittagsruhe', translation: 'обеденный перерыв на тишину' }
+      { word: 'die Ruhezeit', translation: 'время тишины', translation_en: 'quiet hours' },
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено', translation_en: 'not allowed / forbidden' },
+      { word: 'Mittagsruhe', translation: 'обеденный перерыв на тишину', translation_en: 'midday quiet period' }
     ]
   }
 ];

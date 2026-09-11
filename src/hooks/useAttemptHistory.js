@@ -32,7 +32,7 @@ export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrSt
       const attemptsList = await storage.getAttempts({ testType: activeTestType, limit: 3 });
       setRecentAttempts(attemptsList);
     } catch (error) {
-      setHistoryError('Не удалось загрузить недавние попытки');
+      setHistoryError('errors.loadRecentAttempts');
     }
   }, [activeTestType, storage]);
 
@@ -43,7 +43,7 @@ export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrSt
       const attemptsList = await storage.getAttempts();
       setHistoryAttempts(attemptsList);
     } catch (error) {
-      setHistoryError('Не удалось загрузить историю экзаменов');
+      setHistoryError('errors.loadHistory');
     } finally {
       setHistoryLoading(false);
     }
@@ -55,7 +55,7 @@ export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrSt
       await refreshAttempts();
       await refreshHistory();
     } catch (error) {
-      setHistoryError('Не удалось очистить историю');
+      setHistoryError('errors.clearHistory');
     }
   }, [storage, refreshAttempts, refreshHistory]);
 

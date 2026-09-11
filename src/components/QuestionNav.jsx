@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Globe, FileText } from 'lucide-react';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 export default function QuestionNav({
   questions = [],
@@ -11,6 +12,7 @@ export default function QuestionNav({
   activeQuestionIndex = session.activeQuestionIndex,
   onSelectQuestion = session.jumpToQuestion,
 }) {
+  const { t } = useI18n();
   const teilGroups = [
     { teil: 1, label: 'Teil 1 (1–5)', sublabel: 'E-Mails & Briefe', icon: Mail, questions: questions.filter(question => question.teil === 1) },
     { teil: 2, label: 'Teil 2 (6–10)', sublabel: 'Webseiten / Anzeigen', icon: Globe, questions: questions.filter(question => question.teil === 2) },
@@ -44,7 +46,7 @@ export default function QuestionNav({
               </div>
               <span className="text-xs text-content-tertiary font-semibold">{group.sublabel}</span>
               <span className="text-xs text-content-muted font-medium mt-1">
-                {answeredInTeil} из {totalInTeil}
+                {t('exam.partOfTotal', { current: answeredInTeil, total: totalInTeil })}
               </span>
             </button>
           );
@@ -72,6 +74,10 @@ export default function QuestionNav({
             badgeClass += ' ring-2 ring-action-primary ring-offset-2 scale-105 z-10 shadow-sm';
           }
 
+          const buttonTitle = isAnswered
+            ? t('exam.questionTooltipAnswered', { number: question.question_number, answer: answers[question.id].toUpperCase() })
+            : t('exam.questionTooltipUnanswered', { number: question.question_number });
+
           return (
             <button
               key={question.id}
@@ -81,7 +87,7 @@ export default function QuestionNav({
                 onSelectQuestion(questionIndex, question.id);
               }}
               className={`flex-shrink-0 w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${badgeClass}`}
-              title={`Aufgabe ${question.question_number} (${isAnswered ? `Ответ: ${answers[question.id].toUpperCase()}` : 'Без ответа'})`}
+              title={buttonTitle}
             >
               {question.question_number}
             </button>

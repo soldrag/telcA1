@@ -4,14 +4,14 @@ import { calculateHistoryStats } from '../../utils/historyFormat.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function HistoryStatsGrid({ attempts = [] }) {
-  const { t, isRussian } = useI18n();
+  const { t } = useI18n();
   const { count, passRate, avgScore, avgMinutes } = calculateHistoryStats(attempts);
 
   const stats = [
     { label: t('history.totalAttempts'), value: count, icon: RotateCcw, color: 'text-action-primary', bg: 'bg-action-primary-subtle' },
     { label: t('history.passRate'), value: `${passRate}%`, icon: CheckCircle2, color: 'text-state-success', bg: 'bg-state-success-subtle' },
     { label: t('history.averageScore'), value: `${avgScore}%`, icon: Award, color: 'text-state-info', bg: 'bg-state-info-subtle' },
-    { label: isRussian ? 'Ср. время' : 'Avg time', value: `${avgMinutes} ${isRussian ? 'мин' : 'min'}`, icon: Clock, color: 'text-state-warning', bg: 'bg-state-warning-subtle' },
+    { label: t('history.avgTime'), value: `${avgMinutes} ${t('common.minutesShort')}`, icon: Clock, color: 'text-state-warning', bg: 'bg-state-warning-subtle' },
   ];
 
   return (

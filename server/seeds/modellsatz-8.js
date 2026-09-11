@@ -39,9 +39,9 @@ Jonas`,
     explanation_en: 'Jonas explicitly asks Felix to bring along his bicycle lock (\'Bring du bitte dein Fahrradschloss ... mit\'). The statement is True.',
     explanation_de: 'Jonas bittet Felix, ein Fahrradschloss mitzubringen.',
     vocabulary_notes: [
-      { word: 'das Fahrradschloss', translation: 'велосипедный замок' },
-      { word: 'die Fahrradtour', translation: 'велопрогулка' },
-      { word: 'abschließen', translation: 'запирать на замок' }
+      { word: 'das Fahrradschloss', translation: 'велосипедный замок', translation_en: 'bicycle lock' },
+      { word: 'die Fahrradtour', translation: 'велопрогулка', translation_en: 'bike tour / bicycle excursion' },
+      { word: 'abschließen', translation: 'запирать на замок', translation_en: 'to lock up' }
     ]
   },
   {
@@ -70,9 +70,9 @@ Jonas`,
     explanation_en: 'They are meeting at 10:00 in the morning (\'um 10:00 Uhr morgens\'), not in the afternoon. The statement is False.',
     explanation_de: 'Sie treffen sich um 10:00 Uhr morgens, nicht am Nachmittag.',
     vocabulary_notes: [
-      { word: 'morgens / am Morgen', translation: 'утром' },
-      { word: 'nachmittags', translation: 'во второй половине дня' },
-      { word: 'sich treffen', translation: 'встречаться' }
+      { word: 'morgens / am Morgen', translation: 'утром', translation_en: 'in the morning' },
+      { word: 'nachmittags', translation: 'во второй половине дня', translation_en: 'in the afternoon' },
+      { word: 'sich treffen', translation: 'встречаться', translation_en: 'to meet' }
     ]
   },
 
@@ -105,9 +105,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'The club notice states that interested non-members may join training twice for free (\'zweimal kostenlos beim Training mitmachen\'). The statement is True.',
     explanation_de: 'Nicht-Mitglieder dürfen zweimal kostenlos zum Probetraining kommen.',
     vocabulary_notes: [
-      { word: 'das Probetraining', translation: 'пробная тренировка' },
-      { word: 'das Mitglied (-er)', translation: 'член клуба' },
-      { word: 'mitmachen', translation: 'принимать участие' }
+      { word: 'das Probetraining', translation: 'пробная тренировка', translation_en: 'trial training session' },
+      { word: 'das Mitglied (-er)', translation: 'член клуба', translation_en: 'member(s)' },
+      { word: 'mitmachen', translation: 'принимать участие', translation_en: 'to take part / join in' }
     ]
   },
   {
@@ -138,9 +138,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'The rules strictly forbid wearing regular street shoes inside the sports hall (\'Straßenschuhe sind streng verboten!\'). The statement is False.',
     explanation_de: 'Straßenschuhe sind streng verboten in der Halle.',
     vocabulary_notes: [
-      { word: 'die Straßenschuhe (pl.)', translation: 'уличная обувь' },
-      { word: 'die Sportschuhe (pl.)', translation: 'спортивная обувь' },
-      { word: 'streng verboten', translation: 'строго запрещено' }
+      { word: 'die Straßenschuhe (pl.)', translation: 'уличная обувь', translation_en: 'outdoor street shoes' },
+      { word: 'die Sportschuhe (pl.)', translation: 'спортивная обувь', translation_en: 'sports shoes / sneakers' },
+      { word: 'streng verboten', translation: 'строго запрещено', translation_en: 'strictly forbidden' }
     ]
   },
   {
@@ -171,9 +171,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'The announcement states that the new sports courses start on Monday, April 1 (\'ab Montag, dem 1. April, starten unsere neuen Sportkurse\'). The statement is True.',
     explanation_de: 'Die Kurse beginnen am 1. April.',
     vocabulary_notes: [
-      { word: 'anfangen / starten', translation: 'начинаться' },
-      { word: 'die Sporthalle', translation: 'спортивный зал' },
-      { word: 'der Sportverein', translation: 'спортивный клуб' }
+      { word: 'anfangen / starten', translation: 'начинаться', translation_en: 'to start / begin' },
+      { word: 'die Sporthalle', translation: 'спортивный зал', translation_en: 'gym / sports hall' },
+      { word: 'der Sportverein', translation: 'спортивный клуб', translation_en: 'sports club' }
     ]
   },
 
@@ -209,9 +209,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'You need 24-hour express dry cleaning for a suit. Option a offers a 24-hour express cleaning service for suits ready the next day, whereas option b cleans carpets and upholstered furniture over several weeks and does not accept suits.',
     explanation_de: 'Gesucht ist eine Express-Reinigung für einen Anzug innerhalb von 24 Stunden. Anzeige a bietet Express-Service in 24h.',
     vocabulary_notes: [
-      { word: 'die Textilreinigung', translation: 'химчистка одежды' },
-      { word: 'abholbereit', translation: 'готово к выдаче' },
-      { word: 'der Anzug', translation: 'мужской костюм' }
+      { word: 'die Textilreinigung', translation: 'химчистка одежды', translation_en: 'dry cleaner' },
+      { word: 'abholbereit', translation: 'готово к выдаче', translation_en: 'ready for pickup' },
+      { word: 'der Anzug', translation: 'мужской костюм', translation_en: 'suit' }
     ]
   },
   {
@@ -243,9 +243,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'You want a guided mountain hike in the Bavarian Alps with an experienced guide. Option b provides guided alpine weekend tours with certified mountain guides, whereas option a is an indoor climbing gym located in the city.',
     explanation_de: 'Gesucht wird eine geführte Bergwanderung mit Bergführer in den Alpen. Anzeige b bietet Bergtouren mit Bergführern.',
     vocabulary_notes: [
-      { word: 'die Bergwanderung', translation: 'горный поход' },
-      { word: 'der Bergführer', translation: 'горный гид / проводник' },
-      { word: 'die Alpen', translation: 'Альпы' }
+      { word: 'die Bergwanderung', translation: 'горный поход', translation_en: 'mountain hike' },
+      { word: 'der Bergführer', translation: 'горный гид / проводник', translation_en: 'mountain guide' },
+      { word: 'die Alpen', translation: 'Альпы', translation_en: 'the Alps' }
     ]
   },
   {
@@ -277,9 +277,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'You need a fresh bouquet of flowers delivered today for a birthday. Option a guarantees same-day courier delivery of fresh flower bouquets for orders placed before 14:00, whereas option b sells plant seeds by mail and does not offer fresh bouquets.',
     explanation_de: 'Gesucht wird eine Blumenstrauß-Lieferung am selben Tag. Anzeige a liefert noch am gleichen Tag aus.',
     vocabulary_notes: [
-      { word: 'der Blumenstrauß', translation: 'букет цветов' },
-      { word: 'am selben Tag / am gleichen Tag', translation: 'в тот же день' },
-      { word: 'der Kurier / Bote', translation: 'курьер' }
+      { word: 'der Blumenstrauß', translation: 'букет цветов', translation_en: 'flower bouquet' },
+      { word: 'am selben Tag / am gleichen Tag', translation: 'в тот же день', translation_en: 'on the same day' },
+      { word: 'der Kurier / Bote', translation: 'курьер', translation_en: 'courier / messenger' }
     ]
   },
   {
@@ -311,9 +311,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'You want gentle yoga classes for beginners in the morning. Option b offers beginner Hatha yoga classes on Tuesday and Thursday mornings at 09:30, whereas option a is an intense late-night crossfit and power yoga studio with no beginner classes.',
     explanation_de: 'Gesucht ist ein Anfänger-Yogakurs am Vormittag. Anzeige b bietet Kurse für Einsteiger um 09:30 Uhr an.',
     vocabulary_notes: [
-      { word: 'der Vormittag', translation: 'первая половина дня' },
-      { word: 'die Entspannung', translation: 'расслабление / отдых' },
-      { word: 'ohne Vorkenntnisse', translation: 'без предварительных знаний' }
+      { word: 'der Vormittag', translation: 'первая половина дня', translation_en: 'morning / before noon' },
+      { word: 'die Entspannung', translation: 'расслабление / отдых', translation_en: 'relaxation' },
+      { word: 'ohne Vorkenntnisse', translation: 'без предварительных знаний', translation_en: 'no previous experience required' }
     ]
   },
   {
@@ -345,9 +345,9 @@ Ihr Sportverein TSV Grün-Weiß`,
     explanation_en: 'You are looking for a free, casual German conversation meet-up in the evening. Option a hosts a free weekly conversation get-together every Thursday evening from 19:00, whereas option b is an expensive advanced academic exam preparation institute.',
     explanation_de: 'Gesucht ist ein kostenloser Sprachstammtisch am Abend. Anzeige a bietet ein kostenloses Sprachtreffen donnerstags ab 19:00 Uhr an.',
     vocabulary_notes: [
-      { word: 'der Stammtisch / das Sprachtreffen', translation: 'регулярная встреча клуба по интересам' },
-      { word: 'Eintritt frei / kostenlos', translation: 'вход свободный / бесплатно' },
-      { word: 'Leute kennenlernen', translation: 'знакомиться с людьми' }
+      { word: 'der Stammtisch / das Sprachtreffen', translation: 'регулярная встреча клуба по интересам', translation_en: 'regular meetup / language exchange' },
+      { word: 'Eintritt frei / kostenlos', translation: 'вход свободный / бесплатно', translation_en: 'free admission / free of charge' },
+      { word: 'Leute kennenlernen', translation: 'знакомиться с людьми', translation_en: 'to get to know people' }
     ]
   },
 
@@ -376,9 +376,9 @@ Für Schäden durch Nichtbeachtung wird keine Haftung übernommen.`,
     explanation_en: 'The car wash safety instructions tell drivers to close all windows and the sunroof tightly before entry (\'Alle Fenster ... fest schließen\'). The statement is True.',
     explanation_de: 'Die Fenster müssen vor dem Waschen fest geschlossen werden.',
     vocabulary_notes: [
-      { word: 'fest schließen / zumachen', translation: 'плотно закрыть' },
-      { word: 'die Autowaschstraße', translation: 'автомойка' },
-      { word: 'die Einfahrt', translation: 'въезд' }
+      { word: 'fest schließen / zumachen', translation: 'плотно закрыть', translation_en: 'to close tightly' },
+      { word: 'die Autowaschstraße', translation: 'автомойка', translation_en: 'car wash' },
+      { word: 'die Einfahrt', translation: 'въезд', translation_en: 'entrance / driveway' }
     ]
   },
   {
@@ -400,9 +400,9 @@ Bitte werfen Sie Elektrokleingeräte und Akkus getrennt in den grünen Sammelcon
     explanation_en: 'The waste disposal notice directs small electrical appliances and batteries into green collection container number 4 (\'in den grünen Sammelcontainer Nr. 4\'). The statement is True.',
     explanation_de: 'Elektrogeräte gehören in Container 4.',
     vocabulary_notes: [
-      { word: 'der Wertstoffhof / Recyclinghof', translation: 'пункт сбора вторсырья' },
-      { word: 'der Elektroschrott', translation: 'электронные отходы' },
-      { word: 'getrennt werfen', translation: 'выбрасывать раздельно' }
+      { word: 'der Wertstoffhof / Recyclinghof', translation: 'пункт сбора вторсырья', translation_en: 'recycling center' },
+      { word: 'der Elektroschrott', translation: 'электронные отходы', translation_en: 'electronic waste / e-waste' },
+      { word: 'getrennt werfen', translation: 'выбрасывать раздельно', translation_en: 'to dispose of separately' }
     ]
   },
   {
@@ -424,9 +424,9 @@ Wenn Sie zu spät absagen oder nicht kommen, müssen Sie die Behandlungszeit lei
     explanation_en: 'Appointments must be cancelled at least 24 hours in advance, otherwise the treatment time will be billed (\'mindestens 24 Stunden vorher telefonisch ab ... sonst ... privat bezahlen\'). The statement is False.',
     explanation_de: 'Man muss mindestens 24 Stunden vorher absagen, sonst muss man die Stunde bezahlen.',
     vocabulary_notes: [
-      { word: 'den Termin absagen', translation: 'отменять запись / прием' },
-      { word: 'bezahlen', translation: 'платить' },
-      { word: 'mindestens 24 Stunden vorher', translation: 'как минимум за 24 часа' }
+      { word: 'den Termin absagen', translation: 'отменять запись / прием', translation_en: 'to cancel the appointment' },
+      { word: 'bezahlen', translation: 'платить', translation_en: 'to pay' },
+      { word: 'mindestens 24 Stunden vorher', translation: 'как минимум за 24 часа', translation_en: 'at least 24 hours in advance' }
     ]
   },
   {
@@ -449,9 +449,9 @@ Essen und Getränke sind nur für den Frühstücksraum. Sie dürfen keine Brötc
     explanation_en: 'The hotel breakfast rules explicitly state that guests are not allowed to pack rolls or fruit for trips (\'keine Brötchen oder Obst ... für Ausflüge einpacken\'). The statement is False.',
     explanation_de: 'Das Mitnehmen von Speisen für unterwegs ist nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'das Frühstücksbuffet', translation: 'шведский стол на завтрак' },
-      { word: 'nicht mitnehmen dürfen', translation: 'запрещено уносить с собой' },
-      { word: 'der Ausflug (Ausflüge)', translation: 'поездка / экскурсия' }
+      { word: 'das Frühstücksbuffet', translation: 'шведский стол на завтрак', translation_en: 'breakfast buffet' },
+      { word: 'nicht mitnehmen dürfen', translation: 'запрещено уносить с собой', translation_en: 'not allowed to take away' },
+      { word: 'der Ausflug (Ausflüge)', translation: 'поездка / экскурсия', translation_en: 'excursion (excursions)' }
     ]
   },
   {
@@ -475,9 +475,9 @@ Die Schranke öffnet sich nur mit einem bereits bezahlten Ticket.`,
     explanation_en: 'The sign instructs drivers to pay at the pay machine before getting into the car, as the exit barrier opens only with a prepaid ticket (\'bezahlen Sie Ihr Parkticket vor dem Einsteigen an den Kassenautomaten\'). The statement is True.',
     explanation_de: 'Das Ticket muss vorher am Kassenautomaten bezahlt werden.',
     vocabulary_notes: [
-      { word: 'die Schranke', translation: 'выездной шлагбаум' },
-      { word: 'der Kassenautomat', translation: 'парковочный автомат оплаты' },
-      { word: 'bezahlen', translation: 'оплачивать' }
+      { word: 'die Schranke', translation: 'выездной шлагбаум', translation_en: 'boom barrier / barrier gate' },
+      { word: 'der Kassenautomat', translation: 'парковочный автомат оплаты', translation_en: 'pay station / parking ticket machine' },
+      { word: 'bezahlen', translation: 'оплачивать', translation_en: 'to pay' }
     ]
   }
 ];

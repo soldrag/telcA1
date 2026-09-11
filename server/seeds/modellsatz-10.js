@@ -39,9 +39,9 @@ Martin`,
     explanation_en: 'Martin writes that he is inviting friends over to watch the Champions League football final on Saturday (\'lade ein paar Freunde zu mir nach Hause ein ... Spiel auf dem großen Fernseher schauen\'). The statement is True.',
     explanation_de: 'Martin lädt Freunde zum gemeinsamen Fußballschauen am Samstag ein.',
     vocabulary_notes: [
-      { word: 'das Fußballspiel / Finale', translation: 'футбольный матч / финал' },
-      { word: 'einladen', translation: 'приглашать' },
-      { word: 'das Wohnzimmer', translation: 'гостиная' }
+      { word: 'das Fußballspiel / Finale', translation: 'футбольный матч / финал', translation_en: 'soccer match / final' },
+      { word: 'einladen', translation: 'приглашать', translation_en: 'to invite' },
+      { word: 'das Wohnzimmer', translation: 'гостиная', translation_en: 'living room' }
     ]
   },
   {
@@ -70,9 +70,9 @@ Martin`,
     explanation_en: 'Martin clearly states that he will order and pay for the pizzas himself as a birthday treat (\'und bezahle das Essen als Geburtstagsgeschenk für euch\'). The statement is False.',
     explanation_de: 'Martin bezahlt die Pizzen komplett selbst.',
     vocabulary_notes: [
-      { word: 'bezahlen', translation: 'оплачивать' },
-      { word: 'das Geschenk', translation: 'подарок' },
-      { word: 'mitbringen', translation: 'приносить с собой' }
+      { word: 'bezahlen', translation: 'оплачивать', translation_en: 'to pay' },
+      { word: 'das Geschenk', translation: 'подарок', translation_en: 'gift / present' },
+      { word: 'mitbringen', translation: 'приносить с собой', translation_en: 'to bring along' }
     ]
   },
 
@@ -104,9 +104,9 @@ Ihr Trainerteam`,
     explanation_en: 'The climbing gym rules state that new climbers receive a 15-minute safety briefing with an instructor before their first climb (\'Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit\'). The statement is True.',
     explanation_de: 'Vor dem ersten Klettern gibt es eine kurze Erklärung zur Sicherheit mit dem Trainer.',
     vocabulary_notes: [
-      { word: 'die Erklärung', translation: 'объяснение / инструктаж' },
-      { word: 'die Sicherheit', translation: 'безопасность' },
-      { word: 'zum ersten Mal', translation: 'в первый раз' }
+      { word: 'die Erklärung', translation: 'объяснение / инструктаж', translation_en: 'explanation / instructions' },
+      { word: 'die Sicherheit', translation: 'безопасность', translation_en: 'safety / security' },
+      { word: 'zum ersten Mal', translation: 'в первый раз', translation_en: 'for the first time' }
     ]
   },
   {
@@ -136,9 +136,9 @@ Ihr Trainerteam`,
     explanation_en: 'Children under 14 are only allowed into the climbing hall when accompanied by an adult (\'Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle\'). The statement is False.',
     explanation_de: 'Kinder unter 14 Jahren dürfen nur mit Erwachsenen in die Halle.',
     vocabulary_notes: [
-      { word: 'Erwachsene (pl.)', translation: 'взрослые' },
-      { word: 'ohne Erwachsene', translation: 'без взрослых' },
-      { word: 'die Halle', translation: 'зал' }
+      { word: 'Erwachsene (pl.)', translation: 'взрослые', translation_en: 'adults' },
+      { word: 'ohne Erwachsene', translation: 'без взрослых', translation_en: 'without adults' },
+      { word: 'die Halle', translation: 'зал', translation_en: 'hall / indoor venue' }
     ]
   },
   {
@@ -168,9 +168,9 @@ Ihr Trainerteam`,
     explanation_en: 'The hall rules confirm that climbing shoes can be rented at the cash desk for €5 (\'Kletterschuhe können Sie für 5 € an der Kasse leihen\'). The statement is True.',
     explanation_de: 'Kletterschuhe können für 5 € an der Kasse geliehen werden.',
     vocabulary_notes: [
-      { word: 'leihen / mieten', translation: 'брать напрокат / одалживать' },
-      { word: 'an der Kasse', translation: 'на кассе' },
-      { word: 'die Kletterschuhe (pl.)', translation: 'обувь для скалолазания' }
+      { word: 'leihen / mieten', translation: 'брать напрокат / одалживать', translation_en: 'to rent / borrow' },
+      { word: 'an der Kasse', translation: 'на кассе', translation_en: 'at the checkout / ticket desk' },
+      { word: 'die Kletterschuhe (pl.)', translation: 'обувь для скалолазания', translation_en: 'climbing shoes' }
     ]
   },
 
@@ -206,9 +206,9 @@ Ihr Trainerteam`,
     explanation_en: 'You are seeking home tutoring in 6th-grade school mathematics for your son. Option b provides home tutoring for school students in grades 1 through 10, whereas option a is aimed at university students studying advanced engineering mathematics on campus.',
     explanation_de: 'Gesucht ist Mathe-Nachhilfe für die 6. Klasse zu Hause. Anzeige b bietet Schülernachhilfe für Klassen 1-10 zu Hause an.',
     vocabulary_notes: [
-      { word: 'die Nachhilfe', translation: 'репетиторство / дополнительные занятия' },
-      { word: 'der Schüler / die Klasse', translation: 'школьник / класс' },
-      { word: 'zu Hause', translation: 'дома' }
+      { word: 'die Nachhilfe', translation: 'репетиторство / дополнительные занятия', translation_en: 'tutoring / private lessons' },
+      { word: 'der Schüler / die Klasse', translation: 'школьник / класс', translation_en: 'pupil / school class' },
+      { word: 'zu Hause', translation: 'дома', translation_en: 'at home' }
     ]
   },
   {
@@ -240,9 +240,9 @@ Ihr Trainerteam`,
     explanation_en: 'You need a workshop to replace your laptop\'s battery today. Option a replaces laptop batteries within 2 hours on the same day, whereas option b only repairs household appliances like washing machines and refrigerators.',
     explanation_de: 'Gesucht wird ein schneller Akkutausch für einen Laptop am selben Tag. Anzeige a tauscht Laptop-Akkus in 2 Stunden.',
     vocabulary_notes: [
-      { word: 'der Akkutausch / Akkuwechsel', translation: 'замена аккумулятора' },
-      { word: 'am selben Tag', translation: 'в тот же день' },
-      { word: 'austauschen / wechseln', translation: 'заменять / менять' }
+      { word: 'der Akkutausch / Akkuwechsel', translation: 'замена аккумулятора', translation_en: 'battery replacement' },
+      { word: 'am selben Tag', translation: 'в тот же день', translation_en: 'on the same day' },
+      { word: 'austauschen / wechseln', translation: 'заменять / менять', translation_en: 'to exchange / replace' }
     ]
   },
   {
@@ -274,9 +274,9 @@ Ihr Trainerteam`,
     explanation_en: 'You want to camp in a tent by a lake in Bavaria with pedal boat rentals and fishing spots. Option b is a lakeside campsite offering tent pitches, pedal boats, and fishing, whereas option a is a five-star luxury hotel without camping facilities.',
     explanation_de: 'Gesucht ist ein Campingplatz am See in Bayern mit Bootsverleih und Angeln. Anzeige b bietet alles.',
     vocabulary_notes: [
-      { word: 'der Campingplatz / campen', translation: 'кемпинг / отдыхать в кемпинге' },
-      { word: 'der Bootsverleih', translation: 'прокат лодок' },
-      { word: 'die Angelplätze / angeln', translation: 'места для рыбалки / рыбачить' }
+      { word: 'der Campingplatz / campen', translation: 'кемпинг / отдыхать в кемпинге', translation_en: 'campsite / to camp' },
+      { word: 'der Bootsverleih', translation: 'прокат лодок', translation_en: 'boat rental' },
+      { word: 'die Angelplätze / angeln', translation: 'места для рыбалки / рыбачить', translation_en: 'fishing spots / to fish' }
     ]
   },
   {
@@ -308,9 +308,9 @@ Ihr Trainerteam`,
     explanation_en: 'You need an official driving licence first aid course on a Saturday. Option a provides official driving licence first aid courses every Saturday, whereas option b is an advanced weekday academy for emergency doctors and paramedics.',
     explanation_de: 'Gesucht ist ein Erste-Hilfe-Kurs für den Führerschein an einem Samstag. Anzeige a führt diesen Kurs samstags durch.',
     vocabulary_notes: [
-      { word: 'der Erste-Hilfe-Kurs', translation: 'курс первой медицинской помощи' },
-      { word: 'der Führerschein', translation: 'водительское удостоверение' },
-      { word: 'die amtliche Bescheinigung', translation: 'официальное свидетельство / справка' }
+      { word: 'der Erste-Hilfe-Kurs', translation: 'курс первой медицинской помощи', translation_en: 'first aid course' },
+      { word: 'der Führerschein', translation: 'водительское удостоверение', translation_en: 'driver\'s license' },
+      { word: 'die amtliche Bescheinigung', translation: 'официальное свидетельство / справка', translation_en: 'official certificate' }
     ]
   },
   {
@@ -342,9 +342,9 @@ Ihr Trainerteam`,
     explanation_en: 'You need weekend boarding for your dog from Friday to Sunday. Option b is a dog boarding kennel offering weekend care from Friday to Sunday, whereas option a specifically cares for reptiles and fish and does not accept dogs.',
     explanation_de: 'Gesucht ist eine Wochenendbetreuung für einen Hund von Fr bis So. Anzeige b bietet Hundepension am Wochenende an.',
     vocabulary_notes: [
-      { word: 'die Hundepension / der Hundesitter', translation: 'гостиница для собак / догситтер' },
-      { word: 'die Betreuung', translation: 'уход / присмотр' },
-      { word: 'der Auslauf', translation: 'выгул / площадка для бега' }
+      { word: 'die Hundepension / der Hundesitter', translation: 'гостиница для собак / догситтер', translation_en: 'dog boarding hotel / dog sitter' },
+      { word: 'die Betreuung', translation: 'уход / присмотр', translation_en: 'care / supervision' },
+      { word: 'der Auslauf', translation: 'выгул / площадка для бега', translation_en: 'exercise run / dog run' }
     ]
   },
 
@@ -370,9 +370,9 @@ Täglich werden in Hotels tonnenweise Handtücher unnötig gewaschen. Sie entsch
     explanation_en: 'The environmental card indicates that leaving a towel on the floor means housekeeping should replace it with a fresh one (\'Handtuch auf dem Boden bedeutet: Bitte austauschen\'). The statement is True.',
     explanation_de: 'Handtücher auf dem Boden werden vom Personal gegen frische ausgetauscht.',
     vocabulary_notes: [
-      { word: 'das Handtuch', translation: 'полотенце' },
-      { word: 'auf dem Boden', translation: 'на полу' },
-      { word: 'austauschen', translation: 'заменять / менять' }
+      { word: 'das Handtuch', translation: 'полотенце', translation_en: 'towel' },
+      { word: 'auf dem Boden', translation: 'на полу', translation_en: 'on the floor / on the ground' },
+      { word: 'austauschen', translation: 'заменять / менять', translation_en: 'to exchange / replace' }
     ]
   },
   {
@@ -394,9 +394,9 @@ Bitte sorgen Sie vorab für ausreichend Trinkwasser.`,
     explanation_en: 'Drinking water is turned off throughout the entire building on Thursday between 08:30 and 11:30 (\'von 08:30 bis 11:30 Uhr im gesamten Gebäude abgestellt\'), so you cannot take a shower at 10:00. The statement is False.',
     explanation_de: 'Von 08:30 bis 11:30 Uhr ist das Wasser abgestellt, man kann um 10:00 Uhr nicht duschen.',
     vocabulary_notes: [
-      { word: 'das Wasser abstellen', translation: 'перекрывать / отключать воду' },
-      { word: 'die Wasserleitung', translation: 'водопровод' },
-      { word: 'ausreichend', translation: 'достаточный' }
+      { word: 'das Wasser abstellen', translation: 'перекрывать / отключать воду', translation_en: 'to shut off the water' },
+      { word: 'die Wasserleitung', translation: 'водопровод', translation_en: 'water pipe' },
+      { word: 'ausreichend', translation: 'достаточный', translation_en: 'sufficient / enough' }
     ]
   },
   {
@@ -418,9 +418,9 @@ An dieser Kasse ist aus Zeitgründen nur bargeldlose Zahlung mit EC- oder Kredit
     explanation_en: 'The express checkout is limited to a maximum of 5 items (\'maximal 5 Artikeln\') and explicitly does not accept cash payments (\'Keine Barzahlung!\'). The statement is False.',
     explanation_de: 'Erlaubt sind maximal 5 Artikel und nur Kartenzahlung, keine Barzahlung.',
     vocabulary_notes: [
-      { word: 'die Schnellkasse / Expresskasse', translation: 'экспресс-касса' },
-      { word: 'maximal 5 Artikel', translation: 'максимум 5 товаров' },
-      { word: 'keine Barzahlung', translation: 'оплата наличными не принимается' }
+      { word: 'die Schnellkasse / Expresskasse', translation: 'экспресс-касса', translation_en: 'express checkout' },
+      { word: 'maximal 5 Artikel', translation: 'максимум 5 товаров', translation_en: 'maximum 5 items' },
+      { word: 'keine Barzahlung', translation: 'оплата наличными не принимается', translation_en: 'no cash payment' }
     ]
   },
   {
@@ -442,9 +442,9 @@ Viele Tiere werden von mitgebrachtem Brot, Keksen oder Obst schwer krank oder st
     explanation_en: 'Feeding the animals is strictly forbidden (\'Das Füttern der Tiere ist strengstens verboten!\'), as outside bread and fruit make the animals sick. The statement is False.',
     explanation_de: 'Das Füttern der Tiere ist strengstens verboten.',
     vocabulary_notes: [
-      { word: 'das Füttern / füttern', translation: 'кормление / кормить' },
-      { word: 'strengstens verboten', translation: 'строжайше запрещено' },
-      { word: 'das Gehege', translation: 'вольер для животных' }
+      { word: 'das Füttern / füttern', translation: 'кормление / кормить', translation_en: 'feeding / to feed' },
+      { word: 'strengstens verboten', translation: 'строжайше запрещено', translation_en: 'strictly forbidden' },
+      { word: 'das Gehege', translation: 'вольер для животных', translation_en: 'animal enclosure' }
     ]
   },
   {
@@ -467,9 +467,9 @@ Sie finden das neue Fundbüro im Servicegebäude B direkt gegenüber von Gleis 1
     explanation_en: 'The notice announces that the lost property office has relocated from the main reception building to Service Building B (\'das Fundbüro im Empfangsgebäude ist ab sofort umgezogen\'). The statement is True.',
     explanation_de: 'Das Fundbüro ist umgezogen und befindet sich an einem neuen Ort.',
     vocabulary_notes: [
-      { word: 'das Fundbüro / Fundsachen', translation: 'бюро находок / найденные вещи' },
-      { word: 'umziehen / umgezogen', translation: 'переезжать / переехал' },
-      { word: 'gegenüber von Gleis 1', translation: 'напротив пути 1' }
+      { word: 'das Fundbüro / Fundsachen', translation: 'бюро находок / найденные вещи', translation_en: 'lost and found office / lost property' },
+      { word: 'umziehen / umgezogen', translation: 'переезжать / переехал', translation_en: 'to move / moved' },
+      { word: 'gegenüber von Gleis 1', translation: 'напротив пути 1', translation_en: 'opposite platform 1' }
     ]
   }
 ];

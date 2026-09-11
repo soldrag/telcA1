@@ -37,9 +37,9 @@ Stefan`,
     explanation_en: 'Stefan explicitly asks Michael to bring orange juice or cola because he has no non-alcoholic drinks left ("keine alkoholfreien Getränke mehr"). The statement is True.',
     explanation_de: 'Stefan bittet Michael, Saft oder Cola mitzubringen, da er keine alkoholfreien Getränke mehr hat.',
     vocabulary_notes: [
-      { word: 'alkoholfreie Getränke', translation: 'безалкогольные напитки' },
-      { word: 'der Umzug', translation: 'переезд' },
-      { word: 'mitbringen', translation: 'приносить с собой' }
+      { word: 'alkoholfreie Getränke', translation: 'безалкогольные напитки', translation_en: 'non-alcoholic drinks' },
+      { word: 'der Umzug', translation: 'переезд', translation_en: 'moving / relocation' },
+      { word: 'mitbringen', translation: 'приносить с собой', translation_en: 'to bring along' }
     ]
   },
   {
@@ -66,9 +66,9 @@ Stefan`,
     explanation_en: 'The party takes place on Friday evening ("Am Freitagabend"), while Wednesday evening is merely the deadline to RSVP. The statement is False.',
     explanation_de: 'Die Feier ist am Freitagabend. Am Mittwoch soll Michael nur Bescheid sagen.',
     vocabulary_notes: [
-      { word: 'am Freitagabend', translation: 'в пятницу вечером' },
-      { word: 'stattfinden', translation: 'проходить / иметь место' },
-      { word: 'antworten bis...', translation: 'ответить до...' }
+      { word: 'am Freitagabend', translation: 'в пятницу вечером', translation_en: 'on Friday evening' },
+      { word: 'stattfinden', translation: 'проходить / иметь место', translation_en: 'to take place' },
+      { word: 'antworten bis...', translation: 'ответить до...', translation_en: 'reply by / reply before...' }
     ]
   },
 
@@ -101,9 +101,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'The fitness studio opens at 06:30 on weekdays, but on weekends ("Samstag und Sonntag") it only opens at 08:00. The statement is False.',
     explanation_de: 'Am Wochenende öffnet das Studio erst um 08:00 Uhr, nicht um 06:30 Uhr.',
     vocabulary_notes: [
-      { word: 'das Wochenende', translation: 'выходные (суббота и воскресенье)' },
-      { word: 'die Öffnungszeiten', translation: 'часы работы' },
-      { word: 'öffnen', translation: 'открываться' }
+      { word: 'das Wochenende', translation: 'выходные (суббота и воскресенье)', translation_en: 'weekend' },
+      { word: 'die Öffnungszeiten', translation: 'часы работы', translation_en: 'opening hours' },
+      { word: 'öffnen', translation: 'открываться', translation_en: 'to open' }
     ]
   },
   {
@@ -134,9 +134,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Yoga and back training courses are free for all members ("für alle Mitglieder kostenlos"), so no additional payment is required. The statement is False.',
     explanation_de: 'Die Kurse sind kostenlos für Mitglieder („für alle Mitglieder kostenlos").',
     vocabulary_notes: [
-      { word: 'kostenlos', translation: 'бесплатно' },
-      { word: 'extra bezahlen', translation: 'доплачивать дополнительно' },
-      { word: 'das Mitglied (-er)', translation: 'член клуба / участник' }
+      { word: 'kostenlos', translation: 'бесплатно', translation_en: 'free of charge' },
+      { word: 'extra bezahlen', translation: 'доплачивать дополнительно', translation_en: 'to pay extra' },
+      { word: 'das Mitglied (-er)', translation: 'член клуба / участник', translation_en: 'member(s)' }
     ]
   },
   {
@@ -167,9 +167,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Training without a towel in the equipment area is not permitted ("nicht erlaubt"). The statement is True.',
     explanation_de: 'Ohne Handtuch darf man nicht trainieren („nicht erlaubt").',
     vocabulary_notes: [
-      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
-      { word: 'das Handtuch', translation: 'полотенце' },
-      { word: 'der Gerätebereich', translation: 'зона тренажеров' }
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено', translation_en: 'not allowed / forbidden' },
+      { word: 'das Handtuch', translation: 'полотенце', translation_en: 'towel' },
+      { word: 'der Gerätebereich', translation: 'зона тренажеров', translation_en: 'gym equipment area' }
     ]
   },
 
@@ -205,9 +205,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Option b offers affordable rooms in shared flats for students starting at 350 €, whereas option a rents luxury apartments and explicitly forbids students and flat shares.',
     explanation_de: 'Gesucht wird ein WG-Zimmer für Studenten. Anzeige a verbietet WGs und Studenten. Anzeige b bietet günstige WG-Zimmer.',
     vocabulary_notes: [
-      { word: 'die Wohngemeinschaft (WG)', translation: 'совместная аренда квартиры несколькими людьми' },
-      { word: 'bezahlbar / günstig', translation: 'доступный по цене / недорогой' },
-      { word: 'die Miete', translation: 'арендная плата' }
+      { word: 'die Wohngemeinschaft (WG)', translation: 'совместная аренда квартиры несколькими людьми', translation_en: 'shared apartment / flatshare (WG)' },
+      { word: 'bezahlbar / günstig', translation: 'доступный по цене / недорогой', translation_en: 'affordable / inexpensive' },
+      { word: 'die Miete', translation: 'арендная плата', translation_en: 'rent' }
     ]
   },
   {
@@ -239,9 +239,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Option a offers relaxing 2-hour sightseeing boat tours on the Rhine on Saturday afternoon at 14:00 and 16:30, whereas option b is strenuous whitewater rafting and kayaking on the Ruhr.',
     explanation_de: 'Gesucht ist eine Schifffahrt auf dem Rhein am Samstagnachmittag. Anzeige a bietet Panorama-Rundfahrten mit dem Schiff an.',
     vocabulary_notes: [
-      { word: 'das Schiff (-e)', translation: 'корабль / теплоход' },
-      { word: 'die Rundfahrt', translation: 'круговая экскурсия / тур' },
-      { word: 'der Ausflug', translation: 'загородная прогулка / экскурсия' }
+      { word: 'das Schiff (-e)', translation: 'корабль / теплоход', translation_en: 'ship / boat' },
+      { word: 'die Rundfahrt', translation: 'круговая экскурсия / тур', translation_en: 'round trip / sightseeing boat tour' },
+      { word: 'der Ausflug', translation: 'загородная прогулка / экскурсия', translation_en: 'excursion / outing' }
     ]
   },
   {
@@ -273,9 +273,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Option b offers evening German classes for working professionals twice a week starting at 18:45, whereas option a is a morning course with no evening classes.',
     explanation_de: 'Gesucht ist ein Deutschkurs am Abend. Anzeige b bietet Abendkurse von 18:45 bis 20:45 Uhr an.',
     vocabulary_notes: [
-      { word: 'am Abend / abends', translation: 'вечером' },
-      { word: 'nach der Arbeit', translation: 'после работы' },
-      { word: 'der Vormittag', translation: 'первая половина дня' }
+      { word: 'am Abend / abends', translation: 'вечером', translation_en: 'in the evening' },
+      { word: 'nach der Arbeit', translation: 'после работы', translation_en: 'after work' },
+      { word: 'der Vormittag', translation: 'первая половина дня', translation_en: 'morning / before noon' }
     ]
   },
   {
@@ -307,9 +307,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Option a is open on Mondays and welcomes walk-in customers without an appointment, whereas option b is closed on Mondays and requires advance telephone booking.',
     explanation_de: 'Gesucht wird ein Friseur, der montags ohne Termin geöffnet hat. Anzeige a erfüllt beide Kriterien.',
     vocabulary_notes: [
-      { word: 'ohne Termin', translation: 'без записи' },
-      { word: 'der Ruhetag', translation: 'выходной день заведения' },
-      { word: 'vorbeikommen', translation: 'зайти / подойти' }
+      { word: 'ohne Termin', translation: 'без записи', translation_en: 'without appointment' },
+      { word: 'der Ruhetag', translation: 'выходной день заведения', translation_en: 'rest day / day off (closed)' },
+      { word: 'vorbeikommen', translation: 'зайти / подойти', translation_en: 'to drop by / come over' }
     ]
   },
   {
@@ -341,9 +341,9 @@ Ihr Fit & Aktiv-Team`,
     explanation_en: 'Option b is an outdoor weekly market where regional farmers sell fresh produce, eggs, and cheese, whereas option a is a wholesale warehouse restricted to commercial businesses.',
     explanation_de: 'Gesucht wird ein Wochenmarkt mit frischen Lebensmitteln vom Bauern. Anzeige b passt genau.',
     vocabulary_notes: [
-      { word: 'der Wochenmarkt', translation: 'еженедельный рынок' },
-      { word: 'der Bauernhof', translation: 'ферма / крестьянское хозяйство' },
-      { word: 'unter freiem Himmel / im Freien', translation: 'под открытым небом' }
+      { word: 'der Wochenmarkt', translation: 'еженедельный рынок', translation_en: 'weekly farmers market' },
+      { word: 'der Bauernhof', translation: 'ферма / крестьянское хозяйство', translation_en: 'farm' },
+      { word: 'unter freiem Himmel / im Freien', translation: 'под открытым небом', translation_en: 'outdoors / in the open air' }
     ]
   },
 
@@ -372,9 +372,9 @@ Wir öffnen wieder am 21. Juli ab 10:00 Uhr.`,
     explanation_en: 'Books and DVDs can be returned 24/7 using the return box at the main entrance ("rund um die Uhr in die Rückgabebox einwerfen"), even when the library is closed. The statement is True.',
     explanation_de: 'Die Rückgabebox am Eingang ist rund um die Uhr geöffnet.',
     vocabulary_notes: [
-      { word: 'die Rückgabebox', translation: 'ящик для возврата' },
-      { word: 'rund um die Uhr', translation: 'круглосуточно' },
-      { word: 'einwerfen', translation: 'бросать / опускать (в ящик)' }
+      { word: 'die Rückgabebox', translation: 'ящик для возврата', translation_en: 'return drop box' },
+      { word: 'rund um die Uhr', translation: 'круглосуточно', translation_en: 'around the clock / 24/7' },
+      { word: 'einwerfen', translation: 'бросать / опускать (в ящик)', translation_en: 'to drop in / insert' }
     ]
   },
   {
@@ -398,9 +398,9 @@ Ab Montagmorgen fahren alle Busse wieder die normale Route.`,
     explanation_en: 'Bus line 12 does not stop at Goetheplatz on Saturday and Sunday ("wird am Samstag und Sonntag nicht angefahren"), so passengers must use an alternative stop. The statement is False.',
     explanation_de: 'Am Sonntag hält der Bus dort nicht („wird nicht angefahren").',
     vocabulary_notes: [
-      { word: 'nicht angefahren', translation: 'не обслуживается / автобус не заезжает' },
-      { word: 'die Ersatzhaltestelle', translation: 'временная заменяющая остановка' },
-      { word: 'die Straßenbauarbeiten', translation: 'дорожные работы' }
+      { word: 'nicht angefahren', translation: 'не обслуживается / автобус не заезжает', translation_en: 'not served / bypassed' },
+      { word: 'die Ersatzhaltestelle', translation: 'временная заменяющая остановка', translation_en: 'temporary replacement stop' },
+      { word: 'die Straßenbauarbeiten', translation: 'дорожные работы', translation_en: 'road construction works' }
     ]
   },
   {
@@ -424,9 +424,9 @@ Zahlung ist nur in bar möglich. Ein Geldautomat befindet sich bei der Sparkasse
     explanation_en: 'This checkout counter cannot accept EC or credit cards, and payment is only possible in cash ("Zahlung ist nur in bar möglich"). The statement is False.',
     explanation_de: 'Kartenzahlung ist nicht möglich, nur Barzahlung („nur in bar").',
     vocabulary_notes: [
-      { word: 'nur in bar', translation: 'только наличными' },
-      { word: 'annehmen', translation: 'принимать' },
-      { word: 'der Geldautomat', translation: 'банкомат' }
+      { word: 'nur in bar', translation: 'только наличными', translation_en: 'in cash only' },
+      { word: 'annehmen', translation: 'принимать', translation_en: 'to accept' },
+      { word: 'der Geldautomat', translation: 'банкомат', translation_en: 'ATM / cash machine' }
     ]
   },
   {
@@ -451,9 +451,9 @@ Vielen Dank für Ihre Geduld!`,
     explanation_en: 'The notice states that the elevator does not work today due to maintenance work ("wegen Wartungsarbeiten funktioniert dieser Aufzug heute leider nicht"). The statement is True.',
     explanation_de: 'Der Aufzug ist außer Betrieb und funktioniert heute nicht.',
     vocabulary_notes: [
-      { word: 'außer Betrieb', translation: 'не работает / выведен из эксплуатации' },
-      { word: 'die Wartungsarbeiten', translation: 'техобслуживание' },
-      { word: 'die Rolltreppe', translation: 'эскалатор' }
+      { word: 'außer Betrieb', translation: 'не работает / выведен из эксплуатации', translation_en: 'out of order / out of service' },
+      { word: 'die Wartungsarbeiten', translation: 'техобслуживание', translation_en: 'maintenance work' },
+      { word: 'die Rolltreppe', translation: 'эскалатор', translation_en: 'escalator' }
     ]
   },
   {
@@ -476,9 +476,9 @@ Wir bitten Sie um Beachtung folgender Regeln:
     explanation_en: 'Bringing outside food and drinks into the cinema hall is strictly not allowed ("ist nicht erlaubt"). The statement is False.',
     explanation_de: 'Eigene Speisen mitzubringen ist verboten („nicht erlaubt").',
     vocabulary_notes: [
-      { word: 'das Mitbringen', translation: 'принос с собой' },
-      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
-      { word: 'stumm schalten', translation: 'ставить на беззвучный режим' }
+      { word: 'das Mitbringen', translation: 'принос с собой', translation_en: 'bringing along (food/drinks)' },
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено', translation_en: 'not allowed / forbidden' },
+      { word: 'stumm schalten', translation: 'ставить на беззвучный режим', translation_en: 'to mute / switch to silent' }
     ]
   }
 ];

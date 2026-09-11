@@ -1,6 +1,5 @@
 import React from 'react';
 import { Play, Shuffle } from 'lucide-react';
-import { pluralizeAttempts } from '../../utils/historyFormat.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function RandomExamCard({
@@ -8,7 +7,7 @@ export default function RandomExamCard({
   attemptsCount = 0,
   moduleInfo = {},
 }) {
-  const { t, language, isRussian } = useI18n();
+  const { t } = useI18n();
   const {
     title: moduleTitle = 'Lesen',
     timeLimitMinutes = 25,
@@ -22,7 +21,7 @@ export default function RandomExamCard({
         <div className="space-y-1.5 max-w-xl">
           <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-action-primary-subtle text-action-primary border border-action-primary-border">
             <Shuffle className="w-3.5 h-3.5 text-action-primary" />
-            <span>{isRussian ? 'Умный балансировщик вариантов' : 'Smart Variant Balancer'}</span>
+            <span>{t('welcome.randomCard.smartBalancerBadge')}</span>
           </div>
 
           <h2 className="text-xl sm:text-2xl font-black text-content-primary">
@@ -36,10 +35,10 @@ export default function RandomExamCard({
 
         <div className="bg-surface-inset border border-border-default rounded-2xl p-3 sm:text-right flex-shrink-0">
           <div className="text-xs font-bold uppercase tracking-wider text-content-muted">
-            {isRussian ? 'Ваш прогресс' : 'Your progress'}
+            {t('welcome.randomCard.yourProgress')}
           </div>
           <div className="text-lg font-black text-action-primary mt-0.5">
-            {pluralizeAttempts(attemptsCount, language)}
+            {t('welcome.randomCard.attemptsCount', { count: attemptsCount })}
           </div>
         </div>
       </div>
@@ -47,12 +46,14 @@ export default function RandomExamCard({
       <div className="bg-surface-inset rounded-2xl p-4 sm:p-5 border border-border-default flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <div className="space-y-1">
           <div className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
-            {isRussian ? `Формат раздела ${moduleTitle}` : `${moduleTitle} section format`}
+            {t('welcome.randomCard.sectionFormat', { module: moduleTitle })}
           </div>
           <div className="text-sm font-semibold text-content-primary">
-            {isRussian
-              ? `${totalQuestions} заданий • ${timeLimitMinutes}:00 минут • Порог сдачи: ${passScore} из ${totalQuestions} (60%)`
-              : `${totalQuestions} questions • ${timeLimitMinutes}:00 min • Passing score: ${passScore} of ${totalQuestions} (60%)`}
+            {t('welcome.randomCard.formatDetails', {
+              total: totalQuestions,
+              minutes: timeLimitMinutes,
+              pass: passScore,
+            })}
           </div>
         </div>
 
@@ -62,7 +63,7 @@ export default function RandomExamCard({
             onClick={() => onStartRandomExam({ timed: false })}
             className="px-4 py-3 rounded-xl border border-border-default bg-surface-card hover:bg-surface-raised text-content-primary text-xs sm:text-sm font-bold transition-all text-center min-h-[44px] whitespace-nowrap focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 cursor-pointer"
           >
-            {isRussian ? 'Тренировка (без таймера)' : 'Practice (no timer)'}
+            {t('welcome.randomCard.practiceNoTimer')}
           </button>
 
           <button
@@ -72,7 +73,7 @@ export default function RandomExamCard({
           >
             <Play className="w-4 h-4 fill-current shrink-0" />
             <span className="whitespace-nowrap">
-              {isRussian ? `Начать (${timeLimitMinutes} мин)` : `Start (${timeLimitMinutes} min)`}
+              {t('welcome.randomCard.startTimed', { minutes: timeLimitMinutes })}
             </span>
           </button>
         </div>

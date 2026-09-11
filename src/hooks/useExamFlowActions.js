@@ -81,7 +81,7 @@ export function useExamFlowActions({
       session.loadPastAttempt(data);
       navigateTo('results');
     } catch {
-      showError('Не удалось загрузить сохранённую попытку');
+      showError('errors.loadSavedAttempt');
     }
   }, [storage, loader, session, navigateTo, showError]);
 
