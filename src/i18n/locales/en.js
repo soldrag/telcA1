@@ -261,6 +261,7 @@ export const en = {
   },
   footer: {
     text: 'telc Deutsch A1 / Start Deutsch 1 Exam Simulator • 15 points • Passing score: 60% (9 points)',
+    privacy: 'This app does not collect or store any personal data. All progress and settings are saved locally in your browser.',
   },
   languages: {
     en: 'English',

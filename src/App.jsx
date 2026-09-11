@@ -47,6 +47,7 @@ export default function App() {
 
       <footer className="mt-auto border-t border-border-subtle bg-surface-card py-4 text-center text-xs text-content-tertiary">
         <p>{t('footer.text')}</p>
+        <p className="mt-1 opacity-70">{t('footer.privacy')}</p>
       </footer>
     </div>
   );
