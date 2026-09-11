@@ -9,7 +9,7 @@ export default function TeacherExamPicker({
   onSelectExam,
   onStartExam,
 }) {
-  const { isRussian } = useI18n();
+  const { t } = useI18n();
   const sortedExams = sortExamsNumerically(exams);
   const [selectedId, setSelectedId] = useState(currentExamId || sortedExams[0]?.id || '');
 
@@ -40,7 +40,7 @@ export default function TeacherExamPicker({
       <div className="flex items-center space-x-2 text-content-secondary">
         <GraduationCap className="w-4 h-4 text-action-primary" />
         <span className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
-          {isRussian ? 'Режим преподавателя: быстрый выбор варианта' : 'Teacher mode: quick variant selection'}
+          {t('welcome.teacherPicker.teacherModeBadge')}
         </span>
       </div>
 
@@ -66,7 +66,7 @@ export default function TeacherExamPicker({
           className="px-6 py-3 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center justify-center space-x-2 min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 shrink-0 cursor-pointer"
         >
           <Eye className="w-4 h-4" />
-          <span>{isRussian ? 'Открыть вариант' : 'Open variant'}</span>
+          <span>{t('welcome.teacherPicker.openVariant')}</span>
         </button>
       </div>
     </div>

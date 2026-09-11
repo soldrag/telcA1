@@ -1,8 +1,11 @@
 import React from 'react';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ExamLoadingSkeleton() {
+  const { t } = useI18n();
+
   return (
-    <div className="space-y-6 animate-pulse" aria-label="Загрузка экзамена...">
+    <div className="space-y-6 animate-pulse" aria-label={t('exam.loadingAriaLabel')}>
       {/* Timer and Nav skeletons */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="lg:col-span-4 bg-surface-card rounded-2xl border border-border-default p-4 h-24 flex items-center space-x-3">

@@ -118,8 +118,8 @@ All exam questions are stored in `server/seed-data.js`. When adding a new test v
   explanation_ru: 'Лаура просит помочь носить вещи («beim Tragen helfen») с 10:00. Утверждение верно (Richtig).',
   explanation_de: 'Laura bittet ab 10 Uhr um Hilfe beim Tragen.',
   vocabulary_notes: [
-    { word: 'beim Umzug helfen', translation: 'help with moving' },
-    { word: 'tragen', translation: 'to carry / haul' }
+    { word: 'beim Umzug helfen', translation: 'помогать при переезде', translation_en: 'help with moving' },
+    { word: 'tragen', translation: 'носить / таскать', translation_en: 'to carry / haul' }
   ]
 }
 ```

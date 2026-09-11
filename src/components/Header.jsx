@@ -103,7 +103,7 @@ export default function Header({
             {userShortId && (
               <div className="hidden xl:flex items-center space-x-1 px-2.5 py-1 text-xs font-mono text-content-secondary bg-surface-inset border border-border-default rounded-lg">
                 <User className="w-3.5 h-3.5 text-content-muted" />
-                <span>{userShortId === 'Локально' ? t('header.localUser') : userShortId}</span>
+                <span>{String(userShortId).toLowerCase() === 'local' ? t('header.localUser') : userShortId}</span>
               </div>
             )}
           </div>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { CheckCircle2, XCircle, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import ExpandedExplanationContent from './ExpandedExplanationContent.jsx';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ResultsReviewCard({ item, isExpanded, onToggleExpand }) {
+  const { t } = useI18n();
   const cardBorderClass = item.is_correct
     ? 'border-state-success-border bg-state-success-subtle/20'
     : 'border-state-error-border bg-state-error-subtle/20';
@@ -33,7 +35,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand }) 
               </span>
               {!item.is_correct && (
                 <span className="text-xs font-bold text-state-error-text bg-state-error-muted px-2 py-0.5 rounded-md">
-                  Ошибка
+                  {t('results.badgeIncorrect')}
                 </span>
               )}
             </div>
@@ -46,13 +48,13 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand }) 
 
         <div className="flex items-center space-x-3 flex-shrink-0">
           <div className="flex items-center space-x-2 text-xs font-mono font-bold">
-            <span className="text-content-tertiary hidden md:inline">Ваш ответ:</span>
+            <span className="text-content-tertiary hidden md:inline">{t('results.yourAnswer')}</span>
             <span className={`px-2 py-1 rounded-md border uppercase ${
               item.is_correct
                 ? 'bg-state-success-muted text-state-success-text border-state-success-border'
                 : 'bg-state-error-muted text-state-error-text border-state-error-border line-through'
             }`}>
-              {item.user_answer || 'Нет ответа'}
+              {item.user_answer || t('results.noAnswer')}
             </span>
 
             {!item.is_correct && (
@@ -66,7 +68,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand }) 
           </div>
 
           <div className="flex items-center space-x-1 p-2 rounded-lg text-content-secondary hover:text-content-primary hover:bg-surface-raised transition-colors font-semibold text-xs">
-            <span>Разбор</span>
+            <span>{t('results.reviewToggle')}</span>
             {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
           </div>
         </div>

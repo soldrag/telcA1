@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileSpreadsheet } from 'lucide-react';
 import AntwortbogenColumn from './antwortbogen/AntwortbogenColumn.jsx';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 export default function Antwortbogen({
   questions = [],
@@ -9,6 +10,7 @@ export default function Antwortbogen({
   isSubmitted,
   results = null,
 }) {
+  const { t } = useI18n();
   const teil1Questions = questions.filter((question) => question.teil === 1);
   const teil2Questions = questions.filter((question) => question.teil === 2);
   const teil3Questions = questions.filter((question) => question.teil === 3);
@@ -31,7 +33,7 @@ export default function Antwortbogen({
       </div>
 
       <p className="text-xs text-content-secondary mb-4">
-        Здесь отображаются ваши заполненные ответы в формате официального экзаменационного бланка:
+        {t('exam.antwortbogenNotice')}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

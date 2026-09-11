@@ -25,7 +25,7 @@ export function buildHeaderConfig(controller) {
       activeModulePoints: currentModule.maxScore || 15,
     },
     user: {
-      userShortId: 'Локально',
+      userShortId: 'local',
     },
   };
 }

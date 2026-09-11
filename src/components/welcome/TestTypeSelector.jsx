@@ -14,12 +14,12 @@ export default function TestTypeSelector({
   activeTypeId = 'lesen',
   onSelectType,
 }) {
-  const { isRussian } = useI18n();
+  const { t } = useI18n();
 
   return (
     <div className="space-y-2">
       <div className="text-xs font-bold uppercase tracking-wider text-content-tertiary">
-        {isRussian ? 'Выберите раздел экзамена' : 'Select exam module'}
+        {t('welcome.types.selectModule')}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -40,13 +40,13 @@ export default function TestTypeSelector({
                     <Icon className="w-4 h-4" />
                   </div>
                   <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-surface-card text-content-tertiary">
-                    {isRussian ? 'Скоро' : 'Coming soon'}
+                    {t('welcome.types.comingSoonBadge')}
                   </span>
                 </div>
 
                 <div className="mt-2">
                   <div className="text-sm font-bold text-content-tertiary">{type.title}</div>
-                  <div className="text-xs text-content-muted">{isRussian ? type.titleRu : ''}</div>
+                  <div className="text-xs text-content-muted">{t(`welcome.types.${type.id}`)}</div>
                 </div>
               </div>
             );
@@ -70,13 +70,13 @@ export default function TestTypeSelector({
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                   isActive ? 'bg-action-primary-subtle text-action-primary border border-action-primary-border' : 'bg-surface-inset text-content-tertiary'
                 }`}>
-                  {isRussian ? '10 вариантов' : '10 variants'}
+                  {t('welcome.types.variantsCount', { count: 10 })}
                 </span>
               </div>
 
               <div className="mt-2">
                 <div className="text-sm font-extrabold">{type.title}</div>
-                <div className="text-xs text-content-tertiary">{isRussian ? type.titleRu : ''}</div>
+                <div className="text-xs text-content-tertiary">{t(`welcome.moduleSubtitle_${type.id}`)}</div>
               </div>
             </button>
           );

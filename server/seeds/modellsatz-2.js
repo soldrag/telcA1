@@ -39,9 +39,9 @@ Jan`,
     explanation_en: 'Jan states that he will buy the group day ticket in advance for both of them ("Ich kaufe schon vorab ein Gruppen-Tagesticket"), so Felix does not need to buy it. The statement is False.',
     explanation_de: 'Jan kauft das Ticket selbst („Ich kaufe schon vorab ein Gruppen-Tagesticket"). Felix muss kein Ticket kaufen.',
     vocabulary_notes: [
-      { word: 'vorab / im Voraus', translation: 'заранее' },
-      { word: 'Gruppen-Tagesticket', translation: 'групповой билет на весь день' },
-      { word: 'Badesachen', translation: 'вещи для купания' }
+      { word: 'vorab / im Voraus', translation: 'заранее', translation_en: 'in advance' },
+      { word: 'Gruppen-Tagesticket', translation: 'групповой билет на весь день', translation_en: 'group day ticket' },
+      { word: 'Badesachen', translation: 'вещи для купания', translation_en: 'swimwear / swimming gear' }
     ]
   },
   {
@@ -70,9 +70,9 @@ Jan`,
     explanation_en: 'Jan suggests meeting directly at Munich Central Station at platform 28 ("am Münchner Hauptbahnhof am Gleis 28"). The statement is True.',
     explanation_de: 'Sie treffen sich am Münchner Hauptbahnhof (Gleis 28).',
     vocabulary_notes: [
-      { word: 'Hauptbahnhof', translation: 'главный вокзал' },
-      { word: 'Gleis', translation: 'железнодорожный путь / платформа' },
-      { word: 'abfahren', translation: 'отправляться' }
+      { word: 'Hauptbahnhof', translation: 'главный вокзал', translation_en: 'central station' },
+      { word: 'Gleis', translation: 'железнодорожный путь / платформа', translation_en: 'track / platform' },
+      { word: 'abfahren', translation: 'отправляться', translation_en: 'to depart' }
     ]
   },
 
@@ -108,9 +108,9 @@ Ihr Empfangsteam`,
     explanation_en: 'The booking confirmation states that the breakfast buffet is included in the price ("im Preis enthalten"), so it does not cost extra. The statement is False.',
     explanation_de: 'Das Frühstück ist bereits im Preis enthalten und kostet nicht extra.',
     vocabulary_notes: [
-      { word: 'im Preis enthalten / inbegriffen', translation: 'включено в стоимость' },
-      { word: 'extra kosten', translation: 'стоить дополнительно' },
-      { word: 'die Reservierung / Buchung', translation: 'бронирование' }
+      { word: 'im Preis enthalten / inbegriffen', translation: 'включено в стоимость', translation_en: 'included in the price' },
+      { word: 'extra kosten', translation: 'стоить дополнительно', translation_en: 'cost extra' },
+      { word: 'die Reservierung / Buchung', translation: 'бронирование', translation_en: 'reservation / booking' }
     ]
   },
   {
@@ -144,9 +144,9 @@ Ihr Empfangsteam`,
     explanation_en: 'Parking spaces in the underground garage are provided free of charge ("kostenlos zur Verfügung"). The statement is True.',
     explanation_de: 'Das Parken in der Tiefgarage ist kostenlos.',
     vocabulary_notes: [
-      { word: 'kostenlos', translation: 'бесплатно' },
-      { word: 'zur Verfügung stehen', translation: 'находиться в распоряжении' },
-      { word: 'die Tiefgarage', translation: 'подземная парковка' }
+      { word: 'kostenlos', translation: 'бесплатно', translation_en: 'free of charge' },
+      { word: 'zur Verfügung stehen', translation: 'находиться в распоряжении', translation_en: 'to be available' },
+      { word: 'die Tiefgarage', translation: 'подземная парковка', translation_en: 'underground parking' }
     ]
   },
   {
@@ -180,9 +180,9 @@ Ihr Empfangsteam`,
     explanation_en: 'The hotel policy states that pets such as dogs are not allowed ("Hunde sind in unserem Hotel leider nicht erlaubt"). The statement is False.',
     explanation_de: 'Hunde sind im Hotel nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'nicht erlaubt', translation: 'не разрешено' },
-      { word: 'das Haustier (-e)', translation: 'домашнее животное' },
-      { word: 'mitbringen', translation: 'привозить с собой' }
+      { word: 'nicht erlaubt', translation: 'не разрешено', translation_en: 'not allowed' },
+      { word: 'das Haustier (-e)', translation: 'домашнее животное', translation_en: 'pet(s)' },
+      { word: 'mitbringen', translation: 'привозить с собой', translation_en: 'to bring along' }
     ]
   },
 
@@ -218,9 +218,9 @@ Ihr Empfangsteam`,
     explanation_en: 'Option a offers swimming lessons for adults aged 18 and older on Saturdays or Sundays, whereas option b is only for young children on weekdays.',
     explanation_de: 'Gesucht ist ein Kurs für Erwachsene am Wochenende. Anzeige a bietet Erwachsenen-Schwimmkurse samstags und sonntags an.',
     vocabulary_notes: [
-      { word: 'der Erwachsene', translation: 'взрослый' },
-      { word: 'das Wochenende (Sa & So)', translation: 'выходные' },
-      { word: 'ausschließlich für Kinder', translation: 'исключительно для детей' }
+      { word: 'der Erwachsene', translation: 'взрослый', translation_en: 'adult' },
+      { word: 'das Wochenende (Sa & So)', translation: 'выходные', translation_en: 'weekend (Sat & Sun)' },
+      { word: 'ausschließlich für Kinder', translation: 'исключительно для детей', translation_en: 'exclusively for children' }
     ]
   },
   {
@@ -252,9 +252,9 @@ Ihr Empfangsteam`,
     explanation_en: 'Option b sends a technician directly to your home for on-site repairs, whereas option a only sells new appliances and does not provide repairs.',
     explanation_de: 'Gesucht wird eine Reparatur der Waschmaschine zu Hause. Anzeige b bietet Vor-Ort-Reparaturservice.',
     vocabulary_notes: [
-      { word: 'kaputt / defekt', translation: 'сломанный' },
-      { word: 'reparieren', translation: 'ремонтировать' },
-      { word: 'vor Ort / zu Hause', translation: 'на месте / дома' }
+      { word: 'kaputt / defekt', translation: 'сломанный', translation_en: 'broken / defective' },
+      { word: 'reparieren', translation: 'ремонтировать', translation_en: 'to repair / fix' },
+      { word: 'vor Ort / zu Hause', translation: 'на месте / дома', translation_en: 'on-site / at home' }
     ]
   },
   {
@@ -286,9 +286,9 @@ Ihr Empfangsteam`,
     explanation_en: 'Option a shows animated films in German for families on Saturday afternoon at 14:30, whereas option b screens late-night foreign-language films for adults only.',
     explanation_de: 'Gesucht ist ein Animationsfilm für Kinder am Samstagnachmittag auf Deutsch. Anzeige a passt perfekt.',
     vocabulary_notes: [
-      { word: 'der Zeichentrickfilm / Animationsfilm', translation: 'мультфильм' },
-      { word: 'in deutscher Sprache', translation: 'на немецком языке' },
-      { word: 'Originalfassung mit Untertiteln', translation: 'оригинальная версия с субтитрами' }
+      { word: 'der Zeichentrickfilm / Animationsfilm', translation: 'мультфильм', translation_en: 'cartoon / animated film' },
+      { word: 'in deutscher Sprache', translation: 'на немецком языке', translation_en: 'in German language' },
+      { word: 'Originalfassung mit Untertiteln', translation: 'оригинальная версия с субтитрами', translation_en: 'original version with subtitles' }
     ]
   },
   {
@@ -320,9 +320,9 @@ Ihr Empfangsteam`,
     explanation_en: 'Option b rents a party room specifically for birthdays and private celebrations, whereas option a strictly forbids private parties.',
     explanation_de: 'Gesucht wird ein Partyraum für einen Geburtstag. Bei Anzeige a sind Feiern verboten. Anzeige b vermietet Partyräume.',
     vocabulary_notes: [
-      { word: 'die Feier / das Fest', translation: 'праздник / торжество' },
-      { word: 'Partyraum mieten', translation: 'арендовать зал для вечеринки' },
-      { word: 'nicht erlaubt / verboten', translation: 'запрещено' }
+      { word: 'die Feier / das Fest', translation: 'праздник / торжество', translation_en: 'celebration / party' },
+      { word: 'Partyraum mieten', translation: 'арендовать зал для вечеринки', translation_en: 'to rent a party room' },
+      { word: 'nicht erlaubt / verboten', translation: 'запрещено', translation_en: 'not allowed / forbidden' }
     ]
   },
   {
@@ -354,9 +354,9 @@ Ihr Empfangsteam`,
     explanation_en: 'Option a operates S-Bahn trains around the clock every 20 minutes to the city center on Sunday mornings, whereas option b does not run on weekends.',
     explanation_de: 'Gesucht ist eine Fahrt am Sonntagmorgen um 6:00 Uhr. Anzeige a fährt sonntags rund um die Uhr, Anzeige b fährt am Wochenende gar nicht.',
     vocabulary_notes: [
-      { word: 'öffentliche Verkehrsmittel', translation: 'общественный транспорт' },
-      { word: 'rund um die Uhr', translation: 'круглосуточно' },
-      { word: 'früh morgens', translation: 'рано утром' }
+      { word: 'öffentliche Verkehrsmittel', translation: 'общественный транспорт', translation_en: 'public transport' },
+      { word: 'rund um die Uhr', translation: 'круглосуточно', translation_en: 'around the clock / 24/7' },
+      { word: 'früh morgens', translation: 'рано утром', translation_en: 'early in the morning' }
     ]
   },
 
@@ -383,9 +383,9 @@ Bitte benutzen Sie die Busse der Linie E16. Die Ersatzhaltestelle befindet sich 
     explanation_en: 'Tram line 16 does not run from Friday evening until Monday morning ("fährt ... nicht"), with replacement buses operating instead. The statement is False.',
     explanation_de: 'Die Tram fährt am Wochenende gar nicht, es gibt Ersatzbusse.',
     vocabulary_notes: [
-      { word: 'Gleisbauarbeiten', translation: 'ремонтные работы на путях' },
-      { word: 'Ersatzverkehr / Ersatzbus', translation: 'компенсационный автобусный маршрут' },
-      { word: 'fährt nicht', translation: 'не ходит' }
+      { word: 'Gleisbauarbeiten', translation: 'ремонтные работы на путях', translation_en: 'track maintenance' },
+      { word: 'Ersatzverkehr / Ersatzbus', translation: 'компенсационный автобусный маршрут', translation_en: 'rail replacement bus service' },
+      { word: 'fährt nicht', translation: 'не ходит', translation_en: 'does not run / not operating' }
     ]
   },
   {
@@ -409,9 +409,9 @@ Wir bitten um Ihr Verständnis!`,
     explanation_en: 'The supermarket closes early at 18:00 on Thursday ("bereits um 18:00 Uhr") due to inventory, so it will already be closed at 19:00. The statement is False.',
     explanation_de: 'Der Markt schließt schon um 18:00 Uhr. Um 19:00 Uhr ist er bereits geschlossen.',
     vocabulary_notes: [
-      { word: 'bereits / schon', translation: 'уже' },
-      { word: 'schließen', translation: 'закрываться' },
-      { word: 'einkaufen', translation: 'делать покупки' }
+      { word: 'bereits / schon', translation: 'уже', translation_en: 'already' },
+      { word: 'schließen', translation: 'закрываться', translation_en: 'to close' },
+      { word: 'einkaufen', translation: 'делать покупки', translation_en: 'to shop / go shopping' }
     ]
   },
   {
@@ -434,9 +434,9 @@ Füllen Sie bitte die Vollmacht auf der gelben Benachrichtigungskarte aus. Dann 
     explanation_en: 'By filling out the authorization form ("Vollmacht") on the notification card, another person is allowed to pick up the parcel for you. The statement is True.',
     explanation_de: 'Mit einer ausgefüllten Vollmacht kann eine andere Person das Paket abholen.',
     vocabulary_notes: [
-      { word: 'die Vollmacht', translation: 'доверенность' },
-      { word: 'abholen', translation: 'забирать' },
-      { word: 'eine andere Person', translation: 'другой человек' }
+      { word: 'die Vollmacht', translation: 'доверенность', translation_en: 'power of attorney / authorization' },
+      { word: 'abholen', translation: 'забирать', translation_en: 'to pick up / collect' },
+      { word: 'eine andere Person', translation: 'другой человек', translation_en: 'another person' }
     ]
   },
   {
@@ -458,9 +458,9 @@ Das Springen vom Beckenrand ist nur im Sprungbecken (Halle 2) erlaubt. Im Schwim
     explanation_en: 'Jumping into the water in the swimmers\' pool is strictly prohibited ("strengstens verboten"). The statement is False.',
     explanation_de: 'Im Schwimmerbecken ist das Springen strengstens verboten, nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'strengstens verboten', translation: 'строжайше запрещено' },
-      { word: 'springen', translation: 'прыгать' },
-      { word: 'erlaubt', translation: 'разрешено' }
+      { word: 'strengstens verboten', translation: 'строжайше запрещено', translation_en: 'strictly forbidden' },
+      { word: 'springen', translation: 'прыгать', translation_en: 'to jump' },
+      { word: 'erlaubt', translation: 'разрешено', translation_en: 'allowed / permitted' }
     ]
   },
   {
@@ -484,9 +484,9 @@ Mensa-Karten können am Terminal im Erdgeschoss mit EC-Karte oder Bargeld aufgel
     explanation_en: 'The washing machines only work with a rechargeable student card, and paying in cash with coins is no longer possible ("Barzahlung mit Münzen ist leider nicht mehr möglich"). The statement is False.',
     explanation_de: 'Münzzahlung ist nicht mehr möglich („Barzahlung mit Münzen ist leider nicht mehr möglich").',
     vocabulary_notes: [
-      { word: 'die Münzen (pl.)', translation: 'монеты' },
-      { word: 'nicht mehr möglich', translation: 'больше невозможно' },
-      { word: 'aufladbar', translation: 'пополняемый' }
+      { word: 'die Münzen (pl.)', translation: 'монеты', translation_en: 'coins' },
+      { word: 'nicht mehr möglich', translation: 'больше невозможно', translation_en: 'no longer possible' },
+      { word: 'aufladbar', translation: 'пополняемый', translation_en: 'rechargeable / reloadable' }
     ]
   }
 ];

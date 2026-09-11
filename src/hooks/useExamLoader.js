@@ -33,7 +33,7 @@ export function useExamLoader({
   useEffect(() => {
     activeApi.fetchTestTypes()
       .then((response) => setTestTypes(response.testTypes || []))
-      .catch(() => onErrorRef.current?.('Не удалось загрузить список модулей'));
+      .catch(() => onErrorRef.current?.('errors.loadModules'));
   }, [activeApi]);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function useExamLoader({
           return sorted[0].id;
         });
       })
-      .catch(() => onErrorRef.current?.('Не удалось загрузить варианты'));
+      .catch(() => onErrorRef.current?.('errors.loadVariants'));
   }, [activeTestType, activeApi]);
 
   const loadExamById = useCallback(async (examId) => {
@@ -59,7 +59,7 @@ export function useExamLoader({
       setExamData(data);
       return data;
     } catch {
-      onErrorRef.current?.(`Ошибка при загрузке теста ${examId}`);
+      onErrorRef.current?.('errors.loadExamFailed');
       return null;
     } finally {
       setIsLoadingExam(false);

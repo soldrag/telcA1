@@ -9,6 +9,14 @@ function resolveExplanation(item, language) {
   return item.explanation_en || item.explanation_de || item.explanation_ru;
 }
 
+function resolveWordTranslation(entry, language) {
+  if (!entry) return '';
+  if (language === 'ru') {
+    return entry.translation_ru || entry.translation || entry.translation_en || '';
+  }
+  return entry.translation_en || entry.translation || entry.translation_ru || '';
+}
+
 export default function ExpandedExplanationContent({ item }) {
   const { t, language } = useI18n();
   const options = item.options_json;
@@ -70,7 +78,7 @@ export default function ExpandedExplanationContent({ item }) {
               <div key={index} className="bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle text-xs">
                 <span className="font-bold text-content-primary">{entry.word}</span>
                 <span className="text-content-muted mx-1">—</span>
-                <span className="text-content-secondary">{entry.translation}</span>
+                <span className="text-content-secondary">{resolveWordTranslation(entry, language)}</span>
               </div>
             ))}
           </div>

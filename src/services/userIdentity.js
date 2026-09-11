@@ -50,7 +50,7 @@ export function getOrCreateUserId() {
 }
 
 export function getShortUserId(userId) {
-  if (!userId || userId === 'anonymous') return 'Гость';
+  if (!userId || userId === 'anonymous') return '#guest';
   const cleanId = userId.replace(/^user-/, '');
   return `#${cleanId.slice(0, 5)}`;
 }

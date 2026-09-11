@@ -37,9 +37,9 @@ Susanne Keller`,
     explanation_en: 'Susanne asks Frau Müller to water the tomatoes and flowers on her balcony while she is away (\'Könnten Sie bitte ... meine Tomaten und Blumen auf dem Balkon gießen\'). The statement is True.',
     explanation_de: 'Susanne bittet Frau Müller, die Blumen auf dem Balkon zu gießen.',
     vocabulary_notes: [
-      { word: 'Blumen gießen', translation: 'поливать цветы' },
-      { word: 'der Balkon', translation: 'балкон' },
-      { word: 'der Briefkasten', translation: 'почтовый ящик' }
+      { word: 'Blumen gießen', translation: 'поливать цветы', translation_en: 'to water flowers / plants' },
+      { word: 'der Balkon', translation: 'балкон', translation_en: 'balcony' },
+      { word: 'der Briefkasten', translation: 'почтовый ящик', translation_en: 'mailbox / letterbox' }
     ]
   },
   {
@@ -66,9 +66,9 @@ Susanne Keller`,
     explanation_en: 'Susanne writes that she is traveling to Italy for two weeks (\'für zwei Wochen\'), from August 10 to 24, not just for a weekend. The statement is False.',
     explanation_de: 'Susanne bleibt zwei Wochen in Italien, nicht nur ein Wochenende.',
     vocabulary_notes: [
-      { word: 'zwei Wochen', translation: 'две недели' },
-      { word: 'der Urlaub', translation: 'отпуск' },
-      { word: 'das Wochenende', translation: 'выходные' }
+      { word: 'zwei Wochen', translation: 'две недели', translation_en: 'two weeks / a fortnight' },
+      { word: 'der Urlaub', translation: 'отпуск', translation_en: 'vacation / leave' },
+      { word: 'das Wochenende', translation: 'выходные', translation_en: 'weekend' }
     ]
   },
 
@@ -103,9 +103,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'The viewing invitation requires applicants to bring their last three salary statements to the appointment (\'Die letzten drei Gehaltsabrechnungen von Ihrer Arbeit\'). The statement is True.',
     explanation_de: 'Gehaltsnachweise müssen zur Besichtigung mitgebracht werden.',
     vocabulary_notes: [
-      { word: 'die Gehaltsabrechnung (-en)', translation: 'расчетный листок / справка о зарплате' },
-      { word: 'die Papiere (pl.) / Unterlagen', translation: 'документы' },
-      { word: 'die Besichtigung', translation: 'осмотр (квартиры)' }
+      { word: 'die Gehaltsabrechnung (-en)', translation: 'расчетный листок / справка о зарплате', translation_en: 'payslip(s) / payroll statement' },
+      { word: 'die Papiere (pl.) / Unterlagen', translation: 'документы', translation_en: 'papers / documents' },
+      { word: 'die Besichtigung', translation: 'осмотр (квартиры)', translation_en: 'viewing / property inspection' }
     ]
   },
   {
@@ -138,9 +138,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'The viewing appointment is scheduled for Tuesday at 17:30 (\'Dienstag ... um 17:30 Uhr\'), which is late afternoon, not in the morning. The statement is False.',
     explanation_de: 'Der Termin ist um 17:30 Uhr am Nachmittag, nicht am Morgen.',
     vocabulary_notes: [
-      { word: 'am Morgen / morgens', translation: 'утром' },
-      { word: 'am Nachmittag / Nachmittags', translation: 'днем / после полудня' },
-      { word: 'pünktlich', translation: 'вовремя / пунктуально' }
+      { word: 'am Morgen / morgens', translation: 'утром', translation_en: 'in the morning' },
+      { word: 'am Nachmittag / Nachmittags', translation: 'днем / после полудня', translation_en: 'in the afternoon' },
+      { word: 'pünktlich', translation: 'вовремя / пунктуально', translation_en: 'punctual / on time' }
     ]
   },
   {
@@ -173,9 +173,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'The text states that pets, specifically dogs and cats, are not permitted in the building (\'Haustiere (Hunde und Katzen) sind in diesem Haus leider nicht erlaubt\'). The statement is False.',
     explanation_de: 'Haustiere wie Hunde und Katzen sind verboten („nicht erlaubt").',
     vocabulary_notes: [
-      { word: 'das Haustier (-e)', translation: 'домашнее животное' },
-      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
-      { word: 'die Katze (-n)', translation: 'кошка' }
+      { word: 'das Haustier (-e)', translation: 'домашнее животное', translation_en: 'pet(s)' },
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено', translation_en: 'not allowed / forbidden' },
+      { word: 'die Katze (-n)', translation: 'кошка', translation_en: 'cat(s)' }
     ]
   },
 
@@ -211,9 +211,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'You want to rent a piano with an option to buy it later. Option a offers piano rentals where 100% of monthly rent payments are credited toward purchase, whereas option b only sells grand pianos outright and does not offer rentals or hire-purchase.',
     explanation_de: 'Gesucht wird ein Klavier zur Miete mit Kaufoption (Mietkauf). Anzeige a bietet genau das.',
     vocabulary_notes: [
-      { word: 'das Klavier (-e)', translation: 'фортепиано / пианино' },
-      { word: 'die Kaufoption / der Mietkauf', translation: 'право выкупа / аренда с выкупом' },
-      { word: 'anrechnen', translation: 'засчитывать (в счет оплаты)' }
+      { word: 'das Klavier (-e)', translation: 'фортепиано / пианино', translation_en: 'piano(s)' },
+      { word: 'die Kaufoption / der Mietkauf', translation: 'право выкупа / аренда с выкупом', translation_en: 'option to purchase / rent-to-own' },
+      { word: 'anrechnen', translation: 'засчитывать (в счет оплаты)', translation_en: 'to credit / deduct from total price' }
     ]
   },
   {
@@ -245,9 +245,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'You are looking for a weekend vegetarian cooking class. Option b offers a Saturday workshop dedicated to creative meatless cuisine, whereas option a is a barbecue school for meat lovers that does not offer vegetarian options.',
     explanation_de: 'Gesucht ist ein vegetarischer Kochkurs am Wochenende. Anzeige b kocht vegetarisch am Samstag.',
     vocabulary_notes: [
-      { word: 'vegetarisch / ohne Fleisch', translation: 'вегетарианский / без мяса' },
-      { word: 'der Kochkurs', translation: 'кулинарный курс' },
-      { word: 'die Zutat (-en)', translation: 'ингредиент' }
+      { word: 'vegetarisch / ohne Fleisch', translation: 'вегетарианский / без мяса', translation_en: 'vegetarian / meatless' },
+      { word: 'der Kochkurs', translation: 'кулинарный курс', translation_en: 'cooking course' },
+      { word: 'die Zutat (-en)', translation: 'ингредиент', translation_en: 'ingredient(s)' }
     ]
   },
   {
@@ -279,9 +279,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'You need to rent a large van (Sprinter) for a full Saturday to move house. Option a rents spacious Mercedes Sprinters with a special Saturday day rate, whereas option b only rents e-scooters and city bikes.',
     explanation_de: 'Gesucht wird ein Transporter für einen Umzug am Samstag. Anzeige a vermietet Transporter und Sprinter.',
     vocabulary_notes: [
-      { word: 'der Transporter / Umzugswagen', translation: 'грузовой фургон для переезда' },
-      { word: 'die Tagespauschale', translation: 'суточный фиксированный тариф' },
-      { word: 'geräumig', translation: 'просторный / вместительный' }
+      { word: 'der Transporter / Umzugswagen', translation: 'грузовой фургон для переезда', translation_en: 'van / moving truck' },
+      { word: 'die Tagespauschale', translation: 'суточный фиксированный тариф', translation_en: 'daily flat rate' },
+      { word: 'geräumig', translation: 'просторный / вместительный', translation_en: 'spacious / roomy' }
     ]
   },
   {
@@ -313,9 +313,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'You want a holiday home by the Baltic Sea with a fenced garden that welcomes your dog. Option a offers holiday homes with securely fenced gardens where dogs are welcome, whereas option b strictly prohibits pets.',
     explanation_de: 'Gesucht ist ein Ferienhaus an der Ostsee mit Garten, wo Hunde erlaubt sind. Anzeige a passt perfekt.',
     vocabulary_notes: [
-      { word: 'der Vierbeiner / Hund', translation: 'четвероногий друг / собака' },
-      { word: 'eingezäunter Garten', translation: 'огороженный забором сад' },
-      { word: 'herzlich willkommen', translation: 'добро пожаловать' }
+      { word: 'der Vierbeiner / Hund', translation: 'четвероногий друг / собака', translation_en: 'four-legged friend / dog' },
+      { word: 'eingezäunter Garten', translation: 'огороженный забором сад', translation_en: 'fenced garden' },
+      { word: 'herzlich willkommen', translation: 'добро пожаловать', translation_en: 'warmly welcome' }
     ]
   },
   {
@@ -347,9 +347,9 @@ Ihre Hausverwaltung ImmoNord`,
     explanation_en: 'You are looking for a weekend minijob as a café server. Option b seeks friendly weekend service staff for a 538-euro minijob, whereas option a is looking for a full-time head chef.',
     explanation_de: 'Gesucht wird ein Wochenend-Minijob im Service eines Cafés. Anzeige b sucht Servicekräfte für Sa & So als Minijob.',
     vocabulary_notes: [
-      { word: 'die Aushilfe / der Minijob', translation: 'подсобный работник / подработка с лимитом дохода' },
-      { word: 'die Servicekraft / der Kellner', translation: 'официант / работник зала' },
-      { word: 'in Vollzeit', translation: 'на полную ставку' }
+      { word: 'die Aushilfe / der Minijob', translation: 'подсобный работник / подработка с лимитом дохода', translation_en: 'temporary helper / mini-job' },
+      { word: 'die Servicekraft / der Kellner', translation: 'официант / работник зала', translation_en: 'service staff / waiter' },
+      { word: 'in Vollzeit', translation: 'на полную ставку', translation_en: 'full-time' }
     ]
   },
 
@@ -377,9 +377,9 @@ Jeden ersten Freitag im Monat ab 15:00 Uhr ist der Eintritt für alle Besucher f
     explanation_en: 'The notice announces that admission is free for all visitors every first Friday of the month starting at 15:00 (\'Eintritt für alle Besucher frei\'). The statement is True.',
     explanation_de: 'Ab 15:00 Uhr am ersten Freitag im Monat ist der Eintritt frei (kostenlos).',
     vocabulary_notes: [
-      { word: 'Eintritt frei', translation: 'вход бесплатный' },
-      { word: 'grundsätzlich geschlossen', translation: 'принципиально / всегда закрыто' },
-      { word: 'ermäßigt', translation: 'по льготной цене' }
+      { word: 'Eintritt frei', translation: 'вход бесплатный', translation_en: 'admission free / free entry' },
+      { word: 'grundsätzlich geschlossen', translation: 'принципиально / всегда закрыто', translation_en: 'strictly closed / regularly closed' },
+      { word: 'ermäßigt', translation: 'по льготной цене', translation_en: 'concession / discounted' }
     ]
   },
   {
@@ -403,9 +403,9 @@ Zahlung an der Nachtkasse mit allen gängigen Karten oder passendem Bargeld.`,
     explanation_en: 'The sign states that between 22:00 and 06:00 customers are served and pay at the night window next to the entrance (\'bedienen wir Sie gerne an unserem Nachtschalter\'). The statement is True.',
     explanation_de: 'Nachts erfolgt die Bezahlung am Nachtschalter.',
     vocabulary_notes: [
-      { word: 'der Nachtschalter', translation: 'ночное окно обслуживания' },
-      { word: 'der Verkaufsraum', translation: 'торговый зал' },
-      { word: 'bedienen', translation: 'обслуживать' }
+      { word: 'der Nachtschalter', translation: 'ночное окно обслуживания', translation_en: 'night service counter' },
+      { word: 'der Verkaufsraum', translation: 'торговый зал', translation_en: 'sales floor / retail room' },
+      { word: 'bedienen', translation: 'обслуживать', translation_en: 'to operate / to serve' }
     ]
   },
   {
@@ -427,9 +427,9 @@ Der Eigentümer kann den Schlüssel beim Hausmeister (Herr Krause, EG links) geg
     explanation_en: 'The lost-and-found notice tells the owner to collect the found bunch of keys from the caretaker Mr. Krause (\'beim Hausmeister ... abholen\'). The statement is True.',
     explanation_de: 'Die Schlüssel können beim Hausmeister abgeholt werden.',
     vocabulary_notes: [
-      { word: 'der Schlüsselbund', translation: 'связка ключей' },
-      { word: 'der Hausmeister', translation: 'управляющий домом / комендант' },
-      { word: 'die Fundsache', translation: 'найденная вещь' }
+      { word: 'der Schlüsselbund', translation: 'связка ключей', translation_en: 'keychain / set of keys' },
+      { word: 'der Hausmeister', translation: 'управляющий домом / комендант', translation_en: 'caretaker / building superintendent' },
+      { word: 'die Fundsache', translation: 'найденная вещь', translation_en: 'found item' }
     ]
   },
   {
@@ -450,9 +450,9 @@ Bitte stellen Sie Ihr Reisegepäck, Einkaufstaschen und schmutzige Rucksäcke ni
     explanation_en: 'Passengers are instructed not to place luggage on the seats, but rather on the floor or luggage racks (\'nicht auf die Sitzpolster\'). The statement is False.',
     explanation_de: 'Gepäck auf die Sitze zu stellen ist nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'das Reisegepäck', translation: 'багаж' },
-      { word: 'die Sitzpolster / Sitze', translation: 'сиденья' },
-      { word: 'die Gepäckablage', translation: 'багажная полка' }
+      { word: 'das Reisegepäck', translation: 'багаж', translation_en: 'luggage / baggage' },
+      { word: 'die Sitzpolster / Sitze', translation: 'сиденья', translation_en: 'seat cushions / seats' },
+      { word: 'die Gepäckablage', translation: 'багажная полка', translation_en: 'luggage rack' }
     ]
   },
   {
@@ -478,9 +478,9 @@ Telefon: 0221 / 44 55 66
     explanation_en: 'The notice states that the Löwen-Apotheke closes at 18:30 (\'hat heute ab 18:30 Uhr geschlossen\') and night emergency duty is handled by the Engel-Apotheke instead. The statement is False.',
     explanation_de: 'Die Löwen-Apotheke ist ab 18:30 Uhr geschlossen. Den Notdienst hat die Engel-Apotheke.',
     vocabulary_notes: [
-      { word: 'die Apotheke (-n)', translation: 'аптека' },
-      { word: 'der Notdienst', translation: 'ночное дежурство' },
-      { word: 'übernehmen', translation: 'брать на себя' }
+      { word: 'die Apotheke (-n)', translation: 'аптека', translation_en: 'pharmacy (pharmacies)' },
+      { word: 'der Notdienst', translation: 'ночное дежурство', translation_en: 'emergency service (on-call)' },
+      { word: 'übernehmen', translation: 'брать на себя', translation_en: 'to take over / cover costs' }
     ]
   }
 ];

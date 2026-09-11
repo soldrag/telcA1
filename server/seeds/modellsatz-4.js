@@ -37,9 +37,9 @@ Katja`,
     explanation_en: 'Katja writes that she has a high fever and sore throat and therefore cannot come to the office today ("nicht ins Büro kommen"). The statement is True.',
     explanation_de: 'Katja ist krank und kann heute nicht ins Büro kommen.',
     vocabulary_notes: [
-      { word: 'krank', translation: 'больной' },
-      { word: 'das Fieber', translation: 'высокая температура / жар' },
-      { word: 'die Krankmeldung', translation: 'уведомление о болезни' }
+      { word: 'krank', translation: 'больной', translation_en: 'ill / sick' },
+      { word: 'das Fieber', translation: 'высокая температура / жар', translation_en: 'fever' },
+      { word: 'die Krankmeldung', translation: 'уведомление о болезни', translation_en: 'sick leave certificate' }
     ]
   },
   {
@@ -66,9 +66,9 @@ Katja`,
     explanation_en: 'The documents are already printed out and ready on Katja\'s desk ("liegen fertig ausgedruckt"), so David does not need to print them. The statement is False.',
     explanation_de: 'Die Dokumente sind bereits fertig ausgedruckt auf Katjas Schreibtisch.',
     vocabulary_notes: [
-      { word: 'fertig ausgedruckt', translation: 'готовый в распечатанном виде' },
-      { word: 'die Unterlagen (pl.)', translation: 'документы / материалы' },
-      { word: 'der Schreibtisch', translation: 'письменный стол' }
+      { word: 'fertig ausgedruckt', translation: 'готовый в распечатанном виде', translation_en: 'printed out / hard copy' },
+      { word: 'die Unterlagen (pl.)', translation: 'документы / материалы', translation_en: 'documents / papers' },
+      { word: 'der Schreibtisch', translation: 'письменный стол', translation_en: 'desk / writing table' }
     ]
   },
 
@@ -99,9 +99,9 @@ Familie Huber`,
     explanation_en: 'Hotel guests can use the wellness area and swimming pool free of charge ("Kostenlos nutzbar"), which means without any extra surcharge. The statement is True.',
     explanation_de: 'Das Schwimmbad ist für Hotelgäste kostenlos nutzbar.',
     vocabulary_notes: [
-      { word: 'ohne Aufpreis / kostenlos', translation: 'без доплаты / бесплатно' },
-      { word: 'das Schwimmbad', translation: 'бассейн' },
-      { word: 'der Aufenthalt', translation: 'пребывание' }
+      { word: 'ohne Aufpreis / kostenlos', translation: 'без доплаты / бесплатно', translation_en: 'at no extra charge / free' },
+      { word: 'das Schwimmbad', translation: 'бассейн', translation_en: 'swimming pool' },
+      { word: 'der Aufenthalt', translation: 'пребывание', translation_en: 'stay / visit' }
     ]
   },
   {
@@ -130,9 +130,9 @@ Familie Huber`,
     explanation_en: 'The hotel reception is staffed only from 07:00 to 21:00 ("von 07:00 bis 21:00 Uhr besetzt"), not all night. The statement is False.',
     explanation_de: 'Die Rezeption schließt um 21:00 Uhr und ist nachts nicht besetzt.',
     vocabulary_notes: [
-      { word: 'die Rezeption', translation: 'стойка регистрации / рецепция' },
-      { word: 'die ganze Nacht', translation: 'всю ночь' },
-      { word: 'besetzt', translation: 'работает (есть сотрудник на месте)' }
+      { word: 'die Rezeption', translation: 'стойка регистрации / рецепция', translation_en: 'reception desk' },
+      { word: 'die ganze Nacht', translation: 'всю ночь', translation_en: 'all night / throughout the night' },
+      { word: 'besetzt', translation: 'работает (есть сотрудник на месте)', translation_en: 'occupied / taken' }
     ]
   },
   {
@@ -161,9 +161,9 @@ Familie Huber`,
     explanation_en: 'Dogs are allowed in the hotel rooms upon prior notice, but they are not permitted in the restaurant ("Im Restaurant sind Hunde jedoch nicht erlaubt"). The statement is True.',
     explanation_de: 'Hunde sind im Zimmer erlaubt, aber im Restaurant verboten.',
     vocabulary_notes: [
-      { word: 'nach Voranmeldung', translation: 'по предварительному уведомлению' },
-      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено' },
-      { word: 'das Restaurant', translation: 'ресторан' }
+      { word: 'nach Voranmeldung', translation: 'по предварительному уведомлению', translation_en: 'by prior appointment / booking' },
+      { word: 'nicht erlaubt / verboten', translation: 'не разрешено / запрещено', translation_en: 'not allowed / forbidden' },
+      { word: 'das Restaurant', translation: 'ресторан', translation_en: 'restaurant' }
     ]
   },
 
@@ -199,9 +199,9 @@ Familie Huber`,
     explanation_en: 'Option b offers affordable used dining tables and chairs for self-pickup starting from 20 €, whereas option a sells expensive new furniture and does not carry used items.',
     explanation_de: 'Gesucht werden günstige gebrauchte Möbel zur Selbstabholung. Anzeige b bietet genau das.',
     vocabulary_notes: [
-      { word: 'gebrauchte Möbel', translation: 'подержанная мебель' },
-      { word: 'die Selbstabholung', translation: 'самовывоз' },
-      { word: 'für kleines Geld', translation: 'за небольшие деньги / недорого' }
+      { word: 'gebrauchte Möbel', translation: 'подержанная мебель', translation_en: 'used furniture / second-hand furniture' },
+      { word: 'die Selbstabholung', translation: 'самовывоз', translation_en: 'self-pickup' },
+      { word: 'für kleines Geld', translation: 'за небольшие деньги / недорого', translation_en: 'for little money / cheap' }
     ]
   },
   {
@@ -233,9 +233,9 @@ Familie Huber`,
     explanation_en: 'Option a is a children\'s puppet theater for ages 4 to 10 on Sunday afternoon at 15:00, whereas option b is an evening drama for adults starting at age 16.',
     explanation_de: 'Gesucht ist ein Kindertheater am Sonntagnachmittag. Anzeige a ist für Kinder von 4-10 Jahren sonntags um 15:00 Uhr.',
     vocabulary_notes: [
-      { word: 'das Theaterstück', translation: 'пьеса / спектакль' },
-      { word: 'das Kindertheater / Puppentheater', translation: 'детский / кукольный театр' },
-      { word: 'geeignet ab... Jahren', translation: 'подходит с... лет' }
+      { word: 'das Theaterstück', translation: 'пьеса / спектакль', translation_en: 'theater play' },
+      { word: 'das Kindertheater / Puppentheater', translation: 'детский / кукольный театр', translation_en: 'children\'s theater / puppet theater' },
+      { word: 'geeignet ab... Jahren', translation: 'подходит с... лет', translation_en: 'suitable from... years of age' }
     ]
   },
   {
@@ -267,9 +267,9 @@ Familie Huber`,
     explanation_en: 'Option b delivers hot stone-baked pizza directly to your door within 30 minutes, whereas option a is a dine-in restaurant with no delivery service.',
     explanation_de: 'Gesucht ist ein Pizzalieferservice nach Hause. Anzeige a hat keinen Lieferdienst, Anzeige b liefert direkt an die Tür.',
     vocabulary_notes: [
-      { word: 'der Lieferservice', translation: 'служба доставки' },
-      { word: 'nach Hause bringen / liefern', translation: 'привозить / доставлять на дом' },
-      { word: 'kein Außer-Haus-Verkauf', translation: 'на вынос не продается' }
+      { word: 'der Lieferservice', translation: 'служба доставки', translation_en: 'delivery service' },
+      { word: 'nach Hause bringen / liefern', translation: 'привозить / доставлять на дом', translation_en: 'to deliver to home' },
+      { word: 'kein Außer-Haus-Verkauf', translation: 'на вынос не продается', translation_en: 'no takeaway / dine-in only' }
     ]
   },
   {
@@ -301,9 +301,9 @@ Familie Huber`,
     explanation_en: 'Option a is a seaside campsite right by the sandy beach with tent meadows, whereas option b is a luxury hotel where camping or pitching tents is strictly forbidden.',
     explanation_de: 'Gesucht wird ein Zeltplatz am Nordseestrand. Anzeige a bietet Zelten direkt am Meer an.',
     vocabulary_notes: [
-      { word: 'das Zelt (-e) / zelten', translation: 'палатка / жить в палатке' },
-      { word: 'der Campingplatz', translation: 'кемпинг' },
-      { word: 'streng untersagt / verboten', translation: 'строго запрещено' }
+      { word: 'das Zelt (-e) / zelten', translation: 'палатка / жить в палатке', translation_en: 'tent(s) / to camp in a tent' },
+      { word: 'der Campingplatz', translation: 'кемпинг', translation_en: 'campsite / campground' },
+      { word: 'streng untersagt / verboten', translation: 'строго запрещено', translation_en: 'strictly forbidden / prohibited' }
     ]
   },
   {
@@ -335,9 +335,9 @@ Familie Huber`,
     explanation_en: 'Option b offers a swimming class specifically for adult non-swimmers on Saturday mornings from 09:30 to 10:45, whereas option a is intensive training for competitive swimmers with no beginner courses.',
     explanation_de: 'Gesucht ist ein Schwimmkurs für Erwachsene am Samstagvormittag. Anzeige b passt genau.',
     vocabulary_notes: [
-      { word: 'der Nichtschwimmer', translation: 'человек, не умеющий плавать' },
-      { word: 'der Anfänger', translation: 'начинающий' },
-      { word: 'am Vormittag', translation: 'в первой половине дня' }
+      { word: 'der Nichtschwimmer', translation: 'человек, не умеющий плавать', translation_en: 'non-swimmer' },
+      { word: 'der Anfänger', translation: 'начинающий', translation_en: 'beginner' },
+      { word: 'am Vormittag', translation: 'в первой половине дня', translation_en: 'in the morning / before noon' }
     ]
   },
 
@@ -365,9 +365,9 @@ Kunden ohne Termin können leider nicht bedient werden.`,
     explanation_en: 'Visits to the citizens\' office are only possible with a prior appointment, and customers without an appointment cannot be served ("nur nach vorheriger Terminvereinbarung"). The statement is True.',
     explanation_de: 'Ein Besuch ist nur mit Terminvereinbarung möglich.',
     vocabulary_notes: [
-      { word: 'die Terminvereinbarung', translation: 'запись на прием' },
-      { word: 'vorherig', translation: 'предварительный' },
-      { word: 'bedienen', translation: 'обслуживать' }
+      { word: 'die Terminvereinbarung', translation: 'запись на прием', translation_en: 'making an appointment' },
+      { word: 'vorherig', translation: 'предварительный', translation_en: 'prior / advance' },
+      { word: 'bedienen', translation: 'обслуживать', translation_en: 'to operate / to serve' }
     ]
   },
   {
@@ -392,9 +392,9 @@ Wir danken für Ihr Verständnis!`,
     explanation_en: 'Daily quiet hours are observed from 13:00 to 15:00 ("Mittagsruhe"), during which mowing the lawn in the courtyard is forbidden. The statement is False.',
     explanation_de: 'Um 14:00 Uhr ist Mittagsruhe, Rasenmähen ist verboten.',
     vocabulary_notes: [
-      { word: 'die Mittagsruhe', translation: 'обеденный тихий час' },
-      { word: 'verboten', translation: 'запрещено' },
-      { word: 'der Innenhof', translation: 'внутренний двор дома' }
+      { word: 'die Mittagsruhe', translation: 'обеденный тихий час', translation_en: 'midday quiet hours' },
+      { word: 'verboten', translation: 'запрещено', translation_en: 'forbidden / prohibited' },
+      { word: 'der Innenhof', translation: 'внутренний двор дома', translation_en: 'inner courtyard' }
     ]
   },
   {
@@ -418,9 +418,9 @@ Bitte beachten Sie:
     explanation_en: 'Phone calls are not permitted in the quiet area ("Ruhebereich"), and passengers are asked to step into the vestibule or bistro car to make calls. The statement is False.',
     explanation_de: 'Telefongespräche sind im Ruhewagen nicht gestattet, sondern nur im Vorraum/Bistro.',
     vocabulary_notes: [
-      { word: 'der Ruhebereich', translation: 'зона тишины' },
-      { word: 'auf lautlos stellen', translation: 'поставить на беззвучный режим' },
-      { word: 'Telefongespräche führen', translation: 'разговаривать по телефону' }
+      { word: 'der Ruhebereich', translation: 'зона тишины', translation_en: 'quiet zone / relaxation area' },
+      { word: 'auf lautlos stellen', translation: 'поставить на беззвучный режим', translation_en: 'to set to silent mode' },
+      { word: 'Telefongespräche führen', translation: 'разговаривать по телефону', translation_en: 'to make phone calls' }
     ]
   },
   {
@@ -443,9 +443,9 @@ Weitere Teile können Sie an der Sammelstange vor der Kabine deponieren.`,
     explanation_en: 'Customers may take a maximum of 4 garments at a time into the fitting room ("maximal 4 Kleidungsstücke gleichzeitig"). The statement is True.',
     explanation_de: 'Maximal 4 Kleidungsstücke bedeutet höchstens 4 Teile.',
     vocabulary_notes: [
-      { word: 'maximal / höchstens', translation: 'максимум / не более' },
-      { word: 'die Umkleidekabine', translation: 'примерочная кабина' },
-      { word: 'das Kleidungsstück (-e)', translation: 'предмет одежды' }
+      { word: 'maximal / höchstens', translation: 'максимум / не более', translation_en: 'at most / maximum' },
+      { word: 'die Umkleidekabine', translation: 'примерочная кабина', translation_en: 'fitting room / changing cubicle' },
+      { word: 'das Kleidungsstück (-e)', translation: 'предмет одежды', translation_en: 'article of clothing / garment(s)' }
     ]
   },
   {
@@ -469,9 +469,9 @@ Unsere normalen Sprechstunden beginnen wieder am Montag ab 08:30 Uhr.`,
     explanation_en: 'The veterinary practice is closed on Saturday and Sunday ("am Samstag und Sonntag regulär geschlossen"), and regular hours resume on Monday. The statement is False.',
     explanation_de: 'Die Praxis ist am Sonntag geschlossen, Sprechstunden gibt es erst wieder am Montag.',
     vocabulary_notes: [
-      { word: 'geschlossen', translation: 'закрыто' },
-      { word: 'die Sprechstunde', translation: 'часы приёма врача' },
-      { word: 'der Notdienst', translation: 'экстренная / дежурная служба' }
+      { word: 'geschlossen', translation: 'закрыто', translation_en: 'closed' },
+      { word: 'die Sprechstunde', translation: 'часы приёма врача', translation_en: 'consultation hours' },
+      { word: 'der Notdienst', translation: 'экстренная / дежурная служба', translation_en: 'emergency service (on-call)' }
     ]
   }
 ];

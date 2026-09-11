@@ -39,9 +39,9 @@ Maria`,
     explanation_en: 'Maria suggests meeting directly at the exit of the Eberswalder Straße subway station ("am Ausgang der U-Bahn-Station"). The statement is True.',
     explanation_de: 'Sie treffen sich an der U-Bahn-Station Eberswalder Straße.',
     vocabulary_notes: [
-      { word: 'die U-Bahn-Station', translation: 'станция метро' },
-      { word: 'der Flohmarkt', translation: 'блошиный рынок' },
-      { word: 'sich treffen', translation: 'встречаться' }
+      { word: 'die U-Bahn-Station', translation: 'станция метро', translation_en: 'subway / metro station' },
+      { word: 'der Flohmarkt', translation: 'блошиный рынок', translation_en: 'flea market' },
+      { word: 'sich treffen', translation: 'встречаться', translation_en: 'to meet' }
     ]
   },
   {
@@ -70,9 +70,9 @@ Maria`,
     explanation_en: 'Maria proposes having breakfast at the café after visiting the flea market ("Danach können wir noch im Café gemütlich frühstücken"), not before it. The statement is False.',
     explanation_de: 'Sie frühstücken nach dem Flohmarkt („danach"), nicht davor.',
     vocabulary_notes: [
-      { word: 'danach', translation: 'после этого / затем' },
-      { word: 'frühstücken', translation: 'завтракать' },
-      { word: 'vor dem Markt', translation: 'до рынка' }
+      { word: 'danach', translation: 'после этого / затем', translation_en: 'afterwards / then' },
+      { word: 'frühstücken', translation: 'завтракать', translation_en: 'to have breakfast' },
+      { word: 'vor dem Markt', translation: 'до рынка', translation_en: 'in front of the market / before the market' }
     ]
   },
 
@@ -106,9 +106,9 @@ Ihr VHS-Team`,
     explanation_en: 'The Spanish course meets every Thursday ("Jeden Donnerstag"), which is exactly once a week. The statement is True.',
     explanation_de: 'Der Kurs findet jeden Donnerstag statt, also einmal pro Woche.',
     vocabulary_notes: [
-      { word: 'einmal in der Woche', translation: 'раз в неделю' },
-      { word: 'jeden Donnerstag', translation: 'каждый четверг' },
-      { word: 'der Kursort', translation: 'место проведения курса' }
+      { word: 'einmal in der Woche', translation: 'раз в неделю', translation_en: 'once a week' },
+      { word: 'jeden Donnerstag', translation: 'каждый четверг', translation_en: 'every Thursday' },
+      { word: 'der Kursort', translation: 'место проведения курса', translation_en: 'course venue / location' }
     ]
   },
   {
@@ -140,9 +140,9 @@ Ihr VHS-Team`,
     explanation_en: 'The notice clearly states that no classes take place during autumn holidays ("In den Herbstferien ... findet kein Unterricht statt!"). The statement is False.',
     explanation_de: 'In den Herbstferien fällt der Unterricht aus („kein Unterricht").',
     vocabulary_notes: [
-      { word: 'die Herbstferien', translation: 'осенние каникулы' },
-      { word: 'kein Unterricht', translation: 'нет занятий' },
-      { word: 'stattfinden', translation: 'проходить / иметь место' }
+      { word: 'die Herbstferien', translation: 'осенние каникулы', translation_en: 'autumn holidays' },
+      { word: 'kein Unterricht', translation: 'нет занятий', translation_en: 'no classes / no lesson' },
+      { word: 'stattfinden', translation: 'проходить / иметь место', translation_en: 'to take place' }
     ]
   },
   {
@@ -174,9 +174,9 @@ Ihr VHS-Team`,
     explanation_en: 'The textbook is already included in the course fee ("in der Kursgebühr enthalten") and is handed out by the teacher on the first evening, so participants do not need to buy it. The statement is False.',
     explanation_de: 'Das Buch ist in der Kursgebühr enthalten und wird im Kurs verteilt.',
     vocabulary_notes: [
-      { word: 'in der Kursgebühr enthalten', translation: 'включено в стоимость курса' },
-      { word: 'die Lehrkraft / der Lehrer', translation: 'преподаватель' },
-      { word: 'verteilen', translation: 'раздавать' }
+      { word: 'in der Kursgebühr enthalten', translation: 'включено в стоимость курса', translation_en: 'included in the course fee' },
+      { word: 'die Lehrkraft / der Lehrer', translation: 'преподаватель', translation_en: 'teacher / instructor' },
+      { word: 'verteilen', translation: 'раздавать', translation_en: 'to distribute / hand out' }
     ]
   },
 
@@ -212,9 +212,9 @@ Ihr VHS-Team`,
     explanation_en: 'Option a offers express on-site screen repairs in just 30 minutes without an appointment, whereas option b sells phone plans and does not perform any repair work.',
     explanation_de: 'Gesucht wird eine Displayreparatur für ein Smartphone. Anzeige a bietet Sofort-Reparatur in 30 Minuten an.',
     vocabulary_notes: [
-      { word: 'das Display / der Bildschirm', translation: 'экран / дисплей' },
-      { word: 'die Sofort-Reparatur', translation: 'срочный ремонт' },
-      { word: 'das Ersatzteil (-e)', translation: 'запасная деталь' }
+      { word: 'das Display / der Bildschirm', translation: 'экран / дисплей', translation_en: 'display / screen' },
+      { word: 'die Sofort-Reparatur', translation: 'срочный ремонт', translation_en: 'instant repair / while-you-wait repair' },
+      { word: 'das Ersatzteil (-e)', translation: 'запасная деталь', translation_en: 'spare part(s)' }
     ]
   },
   {
@@ -246,9 +246,9 @@ Ihr VHS-Team`,
     explanation_en: 'Option b offers flexible carsharing by the hour for short errands, whereas option a rents holiday camper vans with a 7-day minimum rental period.',
     explanation_de: 'Gesucht ist eine Autovermietung für 2 Stunden. Anzeige b bietet flexibles Carsharing auf Stundenbasis.',
     vocabulary_notes: [
-      { word: 'stundenweise mieten', translation: 'арендовать по часам' },
-      { word: 'die Kurzzeitmiete', translation: 'краткосрочная аренда' },
-      { word: 'Besorgungen machen', translation: 'делать дела / покупки' }
+      { word: 'stundenweise mieten', translation: 'арендовать по часам', translation_en: 'to rent by the hour' },
+      { word: 'die Kurzzeitmiete', translation: 'краткосрочная аренда', translation_en: 'short-term rental' },
+      { word: 'Besorgungen machen', translation: 'делать дела / покупки', translation_en: 'to run errands' }
     ]
   },
   {
@@ -280,9 +280,9 @@ Ihr VHS-Team`,
     explanation_en: 'Option a is a casual beginner running group in the park on Saturday morning at 09:00, whereas option b is an advanced marathon training session strictly not intended for beginners.',
     explanation_de: 'Gesucht ist eine Anfänger-Laufgruppe am Samstagmorgen. Anzeige a richtet sich an Anfänger am Samstag um 9:00 Uhr.',
     vocabulary_notes: [
-      { word: 'der Einsteiger / der Anfänger', translation: 'новичок / начинающий' },
-      { word: 'das Tempo', translation: 'скорость / темп' },
-      { word: 'die Gehpause', translation: 'перерыв на шаг' }
+      { word: 'der Einsteiger / der Anfänger', translation: 'новичок / начинающий', translation_en: 'beginner / novice' },
+      { word: 'das Tempo', translation: 'скорость / темп', translation_en: 'pace / tempo / speed' },
+      { word: 'die Gehpause', translation: 'перерыв на шаг', translation_en: 'walking break / pause' }
     ]
   },
   {
@@ -314,9 +314,9 @@ Ihr VHS-Team`,
     explanation_en: 'Option b is located just 100 meters from the central station and includes a breakfast buffet in the room price, whereas option a is located 12 km away at the airport and does not offer breakfast.',
     explanation_de: 'Gesucht ist ein Hotel am Hauptbahnhof mit Frühstück inklusive. Anzeige b erfüllt beide Wünsche.',
     vocabulary_notes: [
-      { word: 'im Zimmerpreis enthalten', translation: 'включено в стоимость номера' },
-      { word: 'zentrale Lage', translation: 'центральное расположение' },
-      { word: 'der Hauptbahnhof', translation: 'главный вокзал' }
+      { word: 'im Zimmerpreis enthalten', translation: 'включено в стоимость номера', translation_en: 'included in room price' },
+      { word: 'zentrale Lage', translation: 'центральное расположение', translation_en: 'central location' },
+      { word: 'der Hauptbahnhof', translation: 'главный вокзал', translation_en: 'central train station' }
     ]
   },
   {
@@ -348,9 +348,9 @@ Ihr VHS-Team`,
     explanation_en: 'Option a offers a Salsa basic course for couples and beginners on Friday evenings from 19:30 to 21:00, whereas option b is a youth hip-hop dance class with no partner dancing.',
     explanation_de: 'Gesucht ist ein Salsa-Kurs für Paare am Freitagabend. Anzeige a bietet genau das an.',
     vocabulary_notes: [
-      { word: 'der Paartanz', translation: 'парный танец' },
-      { word: 'ohne Vorkenntnisse', translation: 'без предварительных навыков' },
-      { word: 'die Schnupperstunde', translation: 'пробный урок' }
+      { word: 'der Paartanz', translation: 'парный танец', translation_en: 'couple dancing / partner dance' },
+      { word: 'ohne Vorkenntnisse', translation: 'без предварительных навыков', translation_en: 'no previous experience required' },
+      { word: 'die Schnupperstunde', translation: 'пробный урок', translation_en: 'taster session / trial class' }
     ]
   },
 
@@ -378,9 +378,9 @@ Der Bon ist an jeder Kasse einlösbar.`,
     explanation_en: 'Customers are instructed to return deposit bottles at the replacement machine in the parking lot ("am Ersatzautomaten hinten auf dem Parkplatz abgeben"). The statement is True.',
     explanation_de: 'Am Ersatzautomaten auf dem Parkplatz kann man die Flaschen abgeben.',
     vocabulary_notes: [
-      { word: 'die Pfandflasche (-n)', translation: 'бутылка с залоговой стоимостью' },
-      { word: 'der Leergutautomat', translation: 'автомат приема бутылок' },
-      { word: 'außer Betrieb', translation: 'не работает' }
+      { word: 'die Pfandflasche (-n)', translation: 'бутылка с залоговой стоимостью', translation_en: 'deposit bottle(s)' },
+      { word: 'der Leergutautomat', translation: 'автомат приема бутылок', translation_en: 'bottle return machine' },
+      { word: 'außer Betrieb', translation: 'не работает', translation_en: 'out of order / out of service' }
     ]
   },
   {
@@ -403,9 +403,9 @@ Sollten Sie keine Maske dabeihaben, erhalten Sie eine an der Anmeldung gegen ein
     explanation_en: 'Entering the practice is only permitted with a medical mask ("nur mit einer gut sitzenden medizinischen Maske erlaubt"), so entering without a mask is not allowed. The statement is False.',
     explanation_de: 'Ohne Maske darf man die Praxis nicht betreten („nur mit ... Maske erlaubt").',
     vocabulary_notes: [
-      { word: 'das Betreten', translation: 'вход / посещение' },
-      { word: 'nur mit Maske', translation: 'только в маске' },
-      { word: 'die Schutzmaßnahme', translation: 'мера защиты' }
+      { word: 'das Betreten', translation: 'вход / посещение', translation_en: 'entering / stepping on' },
+      { word: 'nur mit Maske', translation: 'только в маске', translation_en: 'mask required / with mask only' },
+      { word: 'die Schutzmaßnahme', translation: 'мера защиты', translation_en: 'protective measure' }
     ]
   },
   {
@@ -427,9 +427,9 @@ In den neuen Niederflur-Bahnen befinden sich keine Entwerter mehr. Fahren ohne g
     explanation_en: 'Tickets must be stamped at the validators on the platform before boarding ("vor dem Einsteigen an den Entwertern auf dem Bahnsteig entwertet werden"), because there are no validators inside the trams. The statement is True.',
     explanation_de: 'Tickets müssen vor dem Einsteigen auf dem Bahnsteig gestempelt werden.',
     vocabulary_notes: [
-      { word: 'entwerten / abstempeln', translation: 'компостировать / гасить билет' },
-      { word: 'der Bahnsteig', translation: 'перрон / посадочная платформа' },
-      { word: 'das Schwarzfahren', translation: 'безбилетный проезд' }
+      { word: 'entwerten / abstempeln', translation: 'компостировать / гасить билет', translation_en: 'to validate / stamp a ticket' },
+      { word: 'der Bahnsteig', translation: 'перрон / посадочная платформа', translation_en: 'train platform' },
+      { word: 'das Schwarzfahren', translation: 'безбилетный проезд', translation_en: 'fare evasion / riding without a ticket' }
     ]
   },
   {
@@ -453,9 +453,9 @@ Bei Überschreiten der Parkzeit oder fehlender Parkscheibe wird das Fahrzeug kos
     explanation_en: 'The maximum parking time is 2 hours ("Höchstparkdauer: 2 Stunden") and exceeding it leads to towing, so leaving the car for the entire day is not permitted. The statement is False.',
     explanation_de: 'Die maximale Parkdauer beträgt 2 Stunden, der ganze Tag ist nicht erlaubt.',
     vocabulary_notes: [
-      { word: 'die Parkscheibe', translation: 'парковочный диск со стрелкой времени' },
-      { word: 'Höchstparkdauer', translation: 'максимальная продолжительность парковки' },
-      { word: 'abschleppen', translation: 'эвакуировать (автомобиль)' }
+      { word: 'die Parkscheibe', translation: 'парковочный диск со стрелкой времени', translation_en: 'parking disc' },
+      { word: 'Höchstparkdauer', translation: 'максимальная продолжительность парковки', translation_en: 'maximum parking time' },
+      { word: 'abschleppen', translation: 'эвакуировать (автомобиль)', translation_en: 'to tow away' }
     ]
   },
   {
@@ -477,9 +477,9 @@ Die Benutzung von Blitzlicht, Stativen und Selfie-Sticks ist zum Schutz der empf
     explanation_en: 'The use of flash photography is strictly prohibited in the museum ("Die Benutzung von Blitzlicht ... ist strengstens verboten"). The statement is False.',
     explanation_de: 'Das Fotografieren mit Blitz ist strengstens verboten.',
     vocabulary_notes: [
-      { word: 'das Blitzlicht', translation: 'фотовспышка' },
-      { word: 'strengstens verboten', translation: 'строжайше запрещено' },
-      { word: 'das Gemälde', translation: 'картина / полотно' }
+      { word: 'das Blitzlicht', translation: 'фотовспышка', translation_en: 'flash (photography)' },
+      { word: 'strengstens verboten', translation: 'строжайше запрещено', translation_en: 'strictly forbidden' },
+      { word: 'das Gemälde', translation: 'картина / полотно', translation_en: 'painting' }
     ]
   }
 ];

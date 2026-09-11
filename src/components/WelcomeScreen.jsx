@@ -11,7 +11,7 @@ export default function WelcomeScreen({
   navigation = {},
   actions = {},
 }) {
-  const { t, isRussian } = useI18n();
+  const { t } = useI18n();
   const {
     exams = [],
     testTypes = [],
@@ -33,14 +33,13 @@ export default function WelcomeScreen({
   const currentModule = testTypes.find(testTypeItem => testTypeItem.id === activeTestType) || {
     id: 'lesen',
     title: 'Lesen',
-    titleRu: 'Чтение',
     timeLimitMinutes: 25,
     passScore: 9,
     totalQuestions: 15,
   };
 
-  const moduleSubTitle = isRussian ? (currentModule.titleRu || 'Чтение') : t('welcome.readingTitle');
-  const moduleDescription = isRussian && currentModule.description ? currentModule.description : t('welcome.defaultDescription');
+  const moduleSubTitle = t(`welcome.moduleSubtitle_${currentModule.id}`);
+  const moduleDescription = t(`welcome.moduleDesc_${currentModule.id}`);
 
   return (
     <div className="max-w-4xl mx-auto space-y-7 animate-fadeIn py-3">

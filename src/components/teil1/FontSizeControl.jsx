@@ -1,18 +1,20 @@
 import React from 'react';
 import { Type } from 'lucide-react';
+import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function FontSizeControl({ fontSizeLevel, onSelectLevel }) {
+  const { t } = useI18n();
   const options = [
-    { level: 'normal', label: 'A', title: 'Обычный шрифт (16px)' },
-    { level: 'large', label: 'A+', title: 'Крупный шрифт (18px)' },
-    { level: 'xlarge', label: 'A++', title: 'Очень крупный шрифт (20px)' },
+    { level: 'normal', label: 'A', title: t('exam.fontSizeNormal') },
+    { level: 'large', label: 'A+', title: t('exam.fontSizeLarge') },
+    { level: 'xlarge', label: 'A++', title: t('exam.fontSizeExtraLarge') },
   ];
 
   return (
     <div className="flex items-center space-x-1 bg-surface-card p-1 rounded-xl border border-border-default shadow-xs">
       <span className="text-xs font-bold uppercase tracking-wider text-content-tertiary pl-1 flex items-center pr-1">
         <Type className="w-3 h-3 mr-0.5" />
-        Текст:
+        {t('exam.fontSizeLabel')}
       </span>
       {options.map((option) => (
         <button

@@ -8,7 +8,7 @@ export default function ResultsFilterTabs({
   mistakesCount,
   score,
 }) {
-  const { isRussian } = useI18n();
+  const { t } = useI18n();
 
   return (
     <div className="flex items-center bg-surface-inset p-1 rounded-xl border border-border-default text-xs font-semibold">
@@ -21,7 +21,7 @@ export default function ResultsFilterTabs({
             : 'text-content-secondary hover:text-content-primary'
         }`}
       >
-        {isRussian ? `Все (${totalQuestions})` : `All (${totalQuestions})`}
+        {t('results.tabAll', { count: totalQuestions })}
       </button>
 
       <button
@@ -33,7 +33,7 @@ export default function ResultsFilterTabs({
             : 'text-content-secondary hover:text-state-error'
         }`}
       >
-        <span>{isRussian ? 'Ошибки' : 'Mistakes'}</span>
+        <span>{t('results.tabMistakes')}</span>
         <span className="bg-state-error-muted text-state-error-text text-xs px-2 py-0.5 rounded-full font-extrabold">
           {mistakesCount}
         </span>
@@ -48,7 +48,7 @@ export default function ResultsFilterTabs({
             : 'text-content-secondary hover:text-state-success'
         }`}
       >
-        <span>{isRussian ? 'Верно' : 'Correct'}</span>
+        <span>{t('results.tabCorrect')}</span>
         <span className="bg-state-success-muted text-state-success-text text-xs px-2 py-0.5 rounded-full font-extrabold">
           {score}
         </span>

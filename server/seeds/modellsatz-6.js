@@ -37,9 +37,9 @@ Lukas`,
     explanation_en: 'Lukas writes that he has already booked a large taxi for them (\'habe ich für uns ein Großraumtaxi bestellt\'). The statement is True.',
     explanation_de: 'Lukas hat das Taxi bereits bestellt („habe ich ... bestellt").',
     vocabulary_notes: [
-      { word: 'bestellen', translation: 'заказывать' },
-      { word: 'der Abflug / starten', translation: 'вылет / взлетать' },
-      { word: 'die Kosten teilen', translation: 'разделить расходы' }
+      { word: 'bestellen', translation: 'заказывать', translation_en: 'to order' },
+      { word: 'der Abflug / starten', translation: 'вылет / взлетать', translation_en: 'departure / takeoff' },
+      { word: 'die Kosten teilen', translation: 'разделить расходы', translation_en: 'to share the costs / split bill' }
     ]
   },
   {
@@ -66,9 +66,9 @@ Lukas`,
     explanation_en: 'Lukas states that they will simply split the taxi costs (\'Wir teilen uns einfach die Kosten\'), so he does not pay for them alone. The statement is False.',
     explanation_de: 'Sie teilen die Kosten untereinander auf (ca. 25 € pro Person).',
     vocabulary_notes: [
-      { word: 'die Kosten teilen', translation: 'делить расходы' },
-      { word: 'pro Person', translation: 'с человека' },
-      { word: 'alleine bezahlen', translation: 'платить в одиночку' }
+      { word: 'die Kosten teilen', translation: 'делить расходы', translation_en: 'to share the costs / split bill' },
+      { word: 'pro Person', translation: 'с человека', translation_en: 'per person' },
+      { word: 'alleine bezahlen', translation: 'платить в одиночку', translation_en: 'to pay alone' }
     ]
   },
 
@@ -97,9 +97,9 @@ Ihr Kita-Team`,
     explanation_en: 'The announcement states that if there is bad weather or rain, the summer party will move to the school gymnasium (\'Bei schlechtem Wetter oder Regen weichen wir ... in die große Turnhalle ... aus\'). The statement is True.',
     explanation_de: 'Bei Regen weicht die Feier in die Turnhalle aus.',
     vocabulary_notes: [
-      { word: 'bei schlechtem Wetter', translation: 'при плохой погоде' },
-      { word: 'die Turnhalle', translation: 'спортивный зал' },
-      { word: 'ausweichen', translation: 'перебазироваться / перейти' }
+      { word: 'bei schlechtem Wetter', translation: 'при плохой погоде', translation_en: 'in bad weather' },
+      { word: 'die Turnhalle', translation: 'спортивный зал', translation_en: 'gymnasium / sports hall' },
+      { word: 'ausweichen', translation: 'перебазироваться / перейти', translation_en: 'to switch to an alternative venue' }
     ]
   },
   {
@@ -126,9 +126,9 @@ Ihr Kita-Team`,
     explanation_en: 'The kindergarten provides cold drinks for everyone free of charge (\'stellt der Kindergarten für alle kostenlos bereit\'), so parents do not need to pay for them. The statement is False.',
     explanation_de: 'Die Getränke werden von der Kita kostenlos bereitgestellt.',
     vocabulary_notes: [
-      { word: 'kostenlos bereitstellen', translation: 'предоставлять бесплатно' },
-      { word: 'die Getränke (pl.)', translation: 'напитки' },
-      { word: 'das Kuchenbuffet', translation: 'сладкий стол / пирожные' }
+      { word: 'kostenlos bereitstellen', translation: 'предоставлять бесплатно', translation_en: 'to provide free of charge' },
+      { word: 'die Getränke (pl.)', translation: 'напитки', translation_en: 'drinks / beverages' },
+      { word: 'das Kuchenbuffet', translation: 'сладкий стол / пирожные', translation_en: 'cake buffet' }
     ]
   },
   {
@@ -155,9 +155,9 @@ Ihr Kita-Team`,
     explanation_en: 'The party begins on Friday afternoon at 15:30 (\'Freitagnachmittag ... Wir starten um 15:30 Uhr\'), which is in the afternoon. The statement is True.',
     explanation_de: '15:30 Uhr ist am Nachmittag, das Fest beginnt am Nachmittag.',
     vocabulary_notes: [
-      { word: 'der Nachmittag', translation: 'вторая половина дня (после полудня)' },
-      { word: 'starten / beginnen', translation: 'начинать(ся)' },
-      { word: 'selbstgebacken', translation: 'домашней выпечки' }
+      { word: 'der Nachmittag', translation: 'вторая половина дня (после полудня)', translation_en: 'afternoon' },
+      { word: 'starten / beginnen', translation: 'начинать(ся)', translation_en: 'to start / begin' },
+      { word: 'selbstgebacken', translation: 'домашней выпечки', translation_en: 'home-baked / homemade' }
     ]
   },
 
@@ -193,9 +193,9 @@ Ihr Kita-Team`,
     explanation_en: 'You are looking for a cleaner for a private two-room apartment every two weeks in the morning. Option b offers domestic cleaners for private households with flexible morning slots, whereas option a only cleans large commercial premises and explicitly excludes private households.',
     explanation_de: 'Gesucht wird eine Reinigungskraft für eine Privatwohnung. Anzeige b bietet Putzhilfen für Privathaushalte.',
     vocabulary_notes: [
-      { word: 'die Haushaltshilfe / Putzhilfe', translation: 'помощница по хозяйству / уборщица' },
-      { word: 'der Privathaushalt', translation: 'частное домашнее хозяйство' },
-      { word: 'vormittags', translation: 'в первой половине дня' }
+      { word: 'die Haushaltshilfe / Putzhilfe', translation: 'помощница по хозяйству / уборщица', translation_en: 'domestic helper / cleaner' },
+      { word: 'der Privathaushalt', translation: 'частное домашнее хозяйство', translation_en: 'private household' },
+      { word: 'vormittags', translation: 'в первой половине дня', translation_en: 'in the mornings' }
     ]
   },
   {
@@ -227,9 +227,9 @@ Ihr Kita-Team`,
     explanation_en: 'You want a day trip to an amusement park featuring roller coasters and shows. Option a features over 40 rides, spectacular roller coasters, and live stunt shows, whereas option b is a quiet botanical garden with no rides.',
     explanation_de: 'Gesucht wird ein Freizeitpark mit Achterbahnen. Anzeige a bietet über 40 Fahrgeschäfte und Achterbahnen.',
     vocabulary_notes: [
-      { word: 'die Achterbahn (-en)', translation: 'американские (русские) горки' },
-      { word: 'der Freizeitpark / Erlebnispark', translation: 'парк развлечений' },
-      { word: 'die Fahrgeschäfte (pl.)', translation: 'аттракционы' }
+      { word: 'die Achterbahn (-en)', translation: 'американские (русские) горки', translation_en: 'roller coaster(s)' },
+      { word: 'der Freizeitpark / Erlebnispark', translation: 'парк развлечений', translation_en: 'amusement park / theme park' },
+      { word: 'die Fahrgeschäfte (pl.)', translation: 'аттракционы', translation_en: 'fairground rides / attractions' }
     ]
   },
   {
@@ -261,9 +261,9 @@ Ihr Kita-Team`,
     explanation_en: 'You are looking for second-hand children\'s clothing and affordable wooden toys. Option b offers second-hand children\'s clothes and wooden toys starting from €2, whereas option a sells luxury women\'s fashion and has no children\'s items.',
     explanation_de: 'Gesucht wird gebrauchte Kinderkleidung und Holzspielzeug. Anzeige b bietet genau dieses Sortiment an.',
     vocabulary_notes: [
-      { word: 'die Kinderkleidung', translation: 'детская одежда' },
-      { word: 'das Holzspielzeug', translation: 'деревянные игрушки' },
-      { word: 'gut erhalten', translation: 'в хорошем состоянии' }
+      { word: 'die Kinderkleidung', translation: 'детская одежда', translation_en: 'children\'s clothing' },
+      { word: 'das Holzspielzeug', translation: 'деревянные игрушки', translation_en: 'wooden toys' },
+      { word: 'gut erhalten', translation: 'в хорошем состоянии', translation_en: 'well preserved / in good condition' }
     ]
   },
   {
@@ -295,9 +295,9 @@ Ihr Kita-Team`,
     explanation_en: 'You want to book a train ticket from Munich to Vienna online with a reserved seat. Option a provides Railjet train tickets to Vienna with seat reservation during booking, whereas option b is a car rental company that does not sell train tickets.',
     explanation_de: 'Gesucht wird ein Zugticket von München nach Wien mit Sitzplatzreservierung. Anzeige a bietet Bahnfahrkarten mit Sitzplatzwahl.',
     vocabulary_notes: [
-      { word: 'das Zugticket / die Zugfahrkarte', translation: 'билет на поезд' },
-      { word: 'die Sitzplatzreservierung', translation: 'бронирование места' },
-      { word: 'der Sparpreis', translation: 'скидочный / эконом-тариф' }
+      { word: 'das Zugticket / die Zugfahrkarte', translation: 'билет на поезд', translation_en: 'train ticket' },
+      { word: 'die Sitzplatzreservierung', translation: 'бронирование места', translation_en: 'seat reservation' },
+      { word: 'der Sparpreis', translation: 'скидочный / эконом-тариф', translation_en: 'saver fare / discount ticket' }
     ]
   },
   {
@@ -329,9 +329,9 @@ Ihr Kita-Team`,
     explanation_en: 'You want private acoustic guitar lessons for adults at the teacher\'s home. Option b offers one-on-one acoustic guitar instruction at the teacher\'s home music room, whereas option a only provides group workshops for drums and bass in a commercial studio.',
     explanation_de: 'Gesucht ist Einzelunterricht für Akustikgitarre beim Lehrer zu Hause. Anzeige b entspricht genau der Situation.',
     vocabulary_notes: [
-      { word: 'der Einzelunterricht', translation: 'индивидуальное занятие' },
-      { word: 'die Akustikgitarre', translation: 'акустическая гитара' },
-      { word: 'der Gruppenunterricht', translation: 'групповое занятие' }
+      { word: 'der Einzelunterricht', translation: 'индивидуальное занятие', translation_en: 'one-on-one lessons / private tuition' },
+      { word: 'die Akustikgitarre', translation: 'акустическая гитара', translation_en: 'acoustic guitar' },
+      { word: 'der Gruppenunterricht', translation: 'групповое занятие', translation_en: 'group lessons' }
     ]
   },
 
@@ -357,9 +357,9 @@ Zu Ihrer und aller Besucher Sicherheit gilt:
     explanation_en: 'The park rules explicitly require dogs to be kept on a short leash on all park paths (\'Hunde sind ... an der kurzen Leine zu führen\'). The statement is True.',
     explanation_de: 'Hunde müssen an der Leine geführt werden.',
     vocabulary_notes: [
-      { word: 'an der Leine führen', translation: 'водить на поводке' },
-      { word: 'das Fahrrad schieben', translation: 'вести велосипед пешком (рядом)' },
-      { word: 'der Fußweg', translation: 'пешеходная дорожка' }
+      { word: 'an der Leine führen', translation: 'водить на поводке', translation_en: 'to keep on a leash' },
+      { word: 'das Fahrrad schieben', translation: 'вести велосипед пешком (рядом)', translation_en: 'to push one\'s bicycle' },
+      { word: 'der Fußweg', translation: 'пешеходная дорожка', translation_en: 'footpath / sidewalk' }
     ]
   },
   {
@@ -383,9 +383,9 @@ Vielen Dank für Ihre Mithilfe!`,
     explanation_en: 'The notice states that parcel drop-offs and returns are only handled at counters 3 and 4 (\'nur an Schalter 3 und 4\'), while counter 1 is for letters and stamps. The statement is False.',
     explanation_de: 'Pakete werden nur an Schalter 3 und 4 angenommen, nicht an Schalter 1.',
     vocabulary_notes: [
-      { word: 'der Schalter', translation: 'операционное окно / стойка' },
-      { word: 'nur an Schalter...', translation: 'только в окне...' },
-      { word: 'die Paketabgabe', translation: 'сдача посылок' }
+      { word: 'der Schalter', translation: 'операционное окно / стойка', translation_en: 'service counter / ticket window' },
+      { word: 'nur an Schalter...', translation: 'только в окне...', translation_en: 'only at counter...' },
+      { word: 'die Paketabgabe', translation: 'сдача посылок', translation_en: 'parcel drop-off' }
     ]
   },
   {
@@ -407,9 +407,9 @@ Die Cafeteria im Erdgeschoss bleibt bis 17:00 Uhr geöffnet.`,
     explanation_en: 'The cafeteria closes early at 13:45 today and meal service ends at 13:30 (\'Essensausgabe bis 13:30 Uhr\'), so no hot lunch is served at 15:00. The statement is False.',
     explanation_de: 'Die Mensa schließt um 13:45 Uhr, um 15:00 Uhr gibt es kein Essen mehr.',
     vocabulary_notes: [
-      { word: 'die Mensa', translation: 'студенческая столовая' },
-      { word: 'die Essensausgabe', translation: 'раздача блюд' },
-      { word: 'bereits / schon', translation: 'уже' }
+      { word: 'die Mensa', translation: 'студенческая столовая', translation_en: 'university cafeteria / canteen' },
+      { word: 'die Essensausgabe', translation: 'раздача блюд', translation_en: 'food counter / meal distribution' },
+      { word: 'bereits / schon', translation: 'уже', translation_en: 'already' }
     ]
   },
   {
@@ -432,9 +432,9 @@ Eltern haften für ihre Kinder. Bitte achten Sie stets auf Nichtschwimmer.`,
     explanation_en: 'The notice states that there is no swimming supervision or lifeguards at the lake (\'keine Badeaufsicht und keine Rettungsschwimmer\'). The statement is True.',
     explanation_de: 'Es gibt keinen Rettungsschwimmer an diesem See.',
     vocabulary_notes: [
-      { word: 'auf eigene Gefahr', translation: 'на свой страх и риск / под свою ответственность' },
-      { word: 'der Rettungsschwimmer', translation: 'спасатель на воде' },
-      { word: 'die Badeaufsicht', translation: 'надзор / наблюдение за купающимися' }
+      { word: 'auf eigene Gefahr', translation: 'на свой страх и риск / под свою ответственность', translation_en: 'at one\'s own risk' },
+      { word: 'der Rettungsschwimmer', translation: 'спасатель на воде', translation_en: 'lifeguard' },
+      { word: 'die Badeaufsicht', translation: 'надзор / наблюдение за купающимися', translation_en: 'pool supervision / lifeguard duty' }
     ]
   },
   {
@@ -458,9 +458,9 @@ Ihr DHL-Zusteller`,
     explanation_en: 'The delivery driver left a note saying the parcel was delivered to her neighbor Mr. Meier on the 1st floor (\'bei Ihrem Nachbarn Herrn Meier im 1. Stock ... abgegeben\'). The statement is True.',
     explanation_de: 'Das Paket wurde beim Nachbarn im ersten Stock hinterlegt.',
     vocabulary_notes: [
-      { word: 'der Nachbar (-n)', translation: 'сосед' },
-      { word: 'im ersten Stock', translation: 'на первом этаже (европейский 2-й этаж)' },
-      { word: 'abgeben bei...', translation: 'оставить у...' }
+      { word: 'der Nachbar (-n)', translation: 'сосед', translation_en: 'neighbor(s)' },
+      { word: 'im ersten Stock', translation: 'на первом этаже (европейский 2-й этаж)', translation_en: 'on the first floor' },
+      { word: 'abgeben bei...', translation: 'оставить у...', translation_en: 'to leave with / hand to...' }
     ]
   }
 ];

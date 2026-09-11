@@ -1,8 +1,11 @@
 import React from 'react';
 import { FileText } from 'lucide-react';
 import Teil3QuestionCard from './teil3/Teil3QuestionCard.jsx';
+import { useI18n } from '../i18n/I18nContext.jsx';
 
 function Teil3Banner() {
+  const { t } = useI18n();
+
   return (
     <div className="bg-surface-card border-l-4 border-action-primary rounded-r-2xl p-5 shadow-sm border-y border-r border-border-default">
       <div className="flex items-start space-x-4">
@@ -25,7 +28,7 @@ function Teil3Banner() {
             <strong className="text-state-error font-black">falsch (-)</strong>?
           </p>
           <p className="text-xs text-content-tertiary mt-0.5">
-            Прочитайте вывески и объявления. Определите, верно (+) утверждение или неверно (-).
+            {t('exam.instructionsPart3')}
           </p>
         </div>
       </div>
