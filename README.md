@@ -96,14 +96,18 @@ telcA1/
 │   ├── database/
 │   │   ├── connection.js     # Low-level SQLite connection factory
 │   │   ├── migrations.js     # Schema DDL and idempotent migrations
-│   │   └── seeder.js         # Database seeder (INSERT OR REPLACE)
+│   │   ├── seeder.js         # Database seeder (INSERT OR REPLACE)
+│   │   ├── validate-seeds.js # CLI seed and schema validation tool
+│   │   └── validators/       # Modular seed validators (exam, question)
 │   ├── seeds/
 │   │   ├── modellsatz-1.js   # Exam data: Modellsatz 1 (15 questions)
-│   │   ├── ...               # modellsatz-2.js through modellsatz-9.js
-│   │   ├── modellsatz-10.js  # Exam data: Modellsatz 10 (15 questions)
-│   │   └── stubs-modules.js  # Stub exams for Hören, Schreiben, Sprechen
-│   ├── routes/               # API route handlers (questions, exams, topics, auth, admin)
-│   └── models/               # Data access layer (Question, Exam, Topic)
+│   │   ├── ...               # modellsatz-2.js through modellsatz-10.js
+│   │   ├── schreiben-modellsatz-1.js # Schreiben 1 (Formular + Brief)
+│   │   ├── schreiben-modellsatz-2.js # Schreiben 2 (Formular + Brief)
+│   │   └── stubs-modules.js  # Stub exams for Hören, Sprechen
+│   ├── routes/               # API route handlers (attempts, exams, test-types, debug)
+│   ├── repositories/         # SQLite data access layer (exam, attempt)
+│   └── services/             # Backend services (balancer, evaluator, user context)
 ├── src/
 │   ├── App.jsx               # Main application component
 │   ├── main.jsx              # React entry point
@@ -123,6 +127,7 @@ telcA1/
 │   │   ├── teil1/            # Teil 1 subcomponents (text cards, questions)
 │   │   ├── teil2/            # Teil 2 subcomponents (webpage options)
 │   │   ├── teil3/            # Teil 3 subcomponents (notice cards)
+│   │   ├── schreiben/        # Schreiben subcomponents (form, essay, checklist)
 │   │   ├── exam/             # Exam subcomponents (bottom nav, skeleton)
 │   │   ├── header/           # Header subcomponents (actions, theme, lang)
 │   │   ├── results/          # Results subcomponents (hero, filters, review)
@@ -131,14 +136,14 @@ telcA1/
 │   │   ├── modals/           # App-level modals (submit, leave, time-up)
 │   │   ├── parts/            # Generic module task views (Hören, etc.)
 │   │   └── ui/               # Primitive UI components (Button, Card, Dialog)
-│   ├── hooks/                # Custom hooks (useExam, useTimer, useAttempts)
-│   ├── services/             # API services and local data service
-│   ├── stores/               # Zustand state stores
+│   ├── hooks/                # Controller hooks (useAppController, useExamSession)
+│   ├── services/             # API services, localDataService, in-browser AI
 │   ├── utils/                # Utilities (cn, formatting, balancing, scroll)
-│   ├── i18n/                 # i18n context and provider
-│   └── locales/              # Translations (de.json, en.json, ru.json)
+│   ├── i18n/                 # i18n context, contracts and validator
+│   └── i18n/locales/         # Locale translations (ru.js, en.js)
 ├── data/
 │   └── telc_a1.db            # SQLite database (auto-created)
+├── tests/                    # Node.js native test suite
 ├── package.json
 ├── vite.config.js
 └── Dockerfile
@@ -176,25 +181,27 @@ Total duration: **25 minutes** for 15 questions.
 
 ## 📚 Adding New Exam Sets
 
-See [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) for a detailed guide on adding new Modellsatz exam variants.
+See [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) for a detailed guide on creating and validating new exam variants.
+Run `npm run validate:seeds` to verify all questions and exam schemas automatically.
 
 ## 📦 Current Exam Variants
 
-| ID | Title | Questions | Status |
-|----|-------|-----------|--------|
-| modellsatz-1 | Modellsatz 1 | 15 | ✅ Ready |
-| modellsatz-2 | Modellsatz 2 | 15 | ✅ Ready |
-| modellsatz-3 | Modellsatz 3 | 15 | ✅ Ready |
-| modellsatz-4 | Modellsatz 4 | 15 | ✅ Ready |
-| modellsatz-5 | Modellsatz 5 | 15 | ✅ Ready |
-| modellsatz-6 | Modellsatz 6 | 15 | ✅ Ready |
-| modellsatz-7 | Modellsatz 7 | 15 | ✅ Ready |
-| modellsatz-8 | Modellsatz 8 | 15 | ✅ Ready |
-| modellsatz-9 | Modellsatz 9 | 15 | ✅ Ready |
-| modellsatz-10 | Modellsatz 10 | 15 | ✅ Ready |
-| hoeren-modellsatz-1 | Hören (stub) | 3 | 🚧 Stub |
-| schreiben-modellsatz-1 | Schreiben (stub) | 2 | 🚧 Stub |
-| sprechen-modellsatz-1 | Sprechen (stub) | 1 | 🚧 Stub |
+| ID | Title | Module | Questions | Status |
+|----|-------|--------|-----------|--------|
+| modellsatz-1 | Modellsatz 1 | Lesen | 15 | ✅ Ready |
+| modellsatz-2 | Modellsatz 2 | Lesen | 15 | ✅ Ready |
+| modellsatz-3 | Modellsatz 3 | Lesen | 15 | ✅ Ready |
+| modellsatz-4 | Modellsatz 4 | Lesen | 15 | ✅ Ready |
+| modellsatz-5 | Modellsatz 5 | Lesen | 15 | ✅ Ready |
+| modellsatz-6 | Modellsatz 6 | Lesen | 15 | ✅ Ready |
+| modellsatz-7 | Modellsatz 7 | Lesen | 15 | ✅ Ready |
+| modellsatz-8 | Modellsatz 8 | Lesen | 15 | ✅ Ready |
+| modellsatz-9 | Modellsatz 9 | Lesen | 15 | ✅ Ready |
+| modellsatz-10 | Modellsatz 10 | Lesen | 15 | ✅ Ready |
+| schreiben-modellsatz-1 | telc Deutsch A1 — Schreiben 1 | Schreiben | 6 | ✅ Ready |
+| schreiben-modellsatz-2 | telc Deutsch A1 — Schreiben 2 | Schreiben | 6 | ✅ Ready |
+| hoeren-modellsatz-1 | Hören (stub) | Hören | 3 | 🚧 Stub |
+| sprechen-modellsatz-1 | Sprechen (stub) | Sprechen | 1 | 🚧 Stub |
 
 ---
 
