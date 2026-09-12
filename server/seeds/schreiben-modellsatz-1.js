@@ -24,7 +24,7 @@ export const questions = [
     options_json: {
       form_label: 'Familienname',
       placeholder: 'z. B. Bauer',
-      accepted_answers: ['bauer', 'familie bauer']
+      accepted_answers: ['bauer', 'familie bauer', 'frau bauer']
     },
     correct_answer: 'bauer',
     clue_quote: 'Ihre Freundin Eva Bauer wohnt in Köln',
@@ -115,12 +115,12 @@ export const questions = [
     title: 'Anmeldung Hotel Elbflorenz • Zahlungsweise',
     situation: 'Ihre Freundin Eva Bauer macht mit ihrem Mann und ihrem 6-jährigen Sohn Urlaub in Dresden. Helfen Sie ihr beim Ausfüllen des Hotelformulars.',
     context_header: 'Ausgangssituation',
-    context_body: 'Ihre Freundin Eva Bauer wohnt in Köln, Poststraße 14. Sie möchte для 4 Nächte vom 18. bis 22. Juli mit ihrem Mann Michael und ihrem 6-jährigen Sohn Lukas im Hotel „Elbflorenz“ in Dresden übernachten. Sie bucht ein Doppelzimmer mit Zusatzbett für das Kind und bezahlt mit Kreditkarte.',
+    context_body: 'Ihre Freundin Eva Bauer wohnt in Köln, Poststraße 14. Sie möchte für 4 Nächte vom 18. bis 22. Juli mit ihrem Mann Michael und ihrem 6-jährigen Sohn Lukas im Hotel „Elbflorenz“ in Dresden übernachten. Sie bucht ein Doppelzimmer mit Zusatzbett für das Kind und bezahlt mit Kreditkarte.',
     statement: 'Feld (5) — Zahlungsart / Bezahlung:',
     options_json: {
       form_label: 'Zahlungsweise',
       placeholder: 'z. B. Kreditkarte',
-      accepted_answers: ['kreditkarte', 'mit kreditkarte']
+      accepted_answers: ['kreditkarte', 'mit kreditkarte', 'per kreditkarte']
     },
     correct_answer: 'kreditkarte',
     clue_quote: 'bezahlt mit Kreditkarte',

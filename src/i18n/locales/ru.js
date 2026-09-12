@@ -202,6 +202,12 @@ export const ru = {
     tabCorrect: 'Верно',
     expandAll: 'Развернуть все',
     collapseAll: 'Свернуть все',
+    shareResult: 'Поделиться с учителем',
+    teacherReviewBadge: 'Режим преподавателя',
+    teacherReviewTitle: 'Просмотр результатов ученика',
+    teacherReviewNotice: 'Этот просмотр открыт по ссылке и не сохраняется в вашей истории экзаменов.',
+    teacherReviewStudent: 'Ученик: {name}',
+    exitTeacherReview: 'Выйти из режима проверки',
   },
   history: {
     title: 'История прохождений',
@@ -234,6 +240,8 @@ export const ru = {
     examVariant: 'Вариант {id}',
     date: 'Дата',
     attemptsCount: '{count} попыток',
+    shareAttempt: 'Поделиться результатом',
+    linkCopied: 'Ссылка скопирована',
   },
   modals: {
     leaveTitle: 'Покинуть текущий экзамен?',
@@ -255,6 +263,13 @@ export const ru = {
     stubTime: 'Время: {minutes} минут',
     stubPoints: 'Баллы: {points} баллов',
     stubNotice: '💡 Аутентичные задания и интерактивный тренажёр для этого модуля готовятся к публикации. Сейчас вам доступен полноценный модуль Lesen (Чтение) из 10 вариантов.',
+    shareTitle: 'Поделиться результатом теста',
+    shareDesc: 'Сформируйте ссылку для преподавателя. Сервер ничего не сохраняет — результат закодирован прямо в ссылке.',
+    shareNameLabel: 'Ваше имя или фамилия (необязательно):',
+    shareNamePlaceholder: 'Например: Иван Иванов',
+    shareCopyBtn: 'Скопировать ссылку',
+    shareCopiedBtn: 'Ссылка скопирована!',
+    shareClose: 'Закрыть',
   },
   errors: {
     loadRecentAttempts: 'Не удалось загрузить недавние попытки',
@@ -264,6 +279,7 @@ export const ru = {
     loadModules: 'Не удалось загрузить список модулей',
     loadVariants: 'Не удалось загрузить варианты',
     loadExamFailed: 'Ошибка при загрузке теста {examId}',
+    invalidReviewLink: 'Не удалось открыть результат: ссылка повреждена или устарела.',
   },
   footer: {
     text: 'Симулятор экзамена telc Deutsch A1 / Start Deutsch 1 • 15 баллов • Проходной балл: 60% (9 баллов)',

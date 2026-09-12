@@ -303,6 +303,7 @@ Before saving a new set, verify:
 | modellsatz-8 | Modellsatz 8 | Lesen | 15 | ✅ Ready |
 | modellsatz-9 | Modellsatz 9 | Lesen | 15 | ✅ Ready |
 | modellsatz-10 | Modellsatz 10 | Lesen | 15 | ✅ Ready |
+| schreiben-modellsatz-1 | telc Deutsch A1 — Schreiben 1 | Schreiben | 6 | ✅ Ready |
+| schreiben-modellsatz-2 | telc Deutsch A1 — Schreiben 2 | Schreiben | 6 | ✅ Ready |
 | hoeren-modellsatz-1 | Hören (stub) | Hören | 3 | 🚧 Stub |
-| schreiben-modellsatz-1 | Schreiben (stub) | Schreiben | 2 | 🚧 Stub |
 | sprechen-modellsatz-1 | Sprechen (stub) | Sprechen | 1 | 🚧 Stub |

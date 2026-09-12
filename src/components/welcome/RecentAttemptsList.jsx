@@ -1,5 +1,5 @@
 import React from 'react';
-import { History, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
+import { History, ArrowRight, CheckCircle2, XCircle, Share2 } from 'lucide-react';
 import { formatExamName } from '../../utils/examFormat.js';
 import { formatAttemptDateShort, formatAttemptDuration } from '../../utils/historyFormat.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
@@ -8,6 +8,7 @@ export default function RecentAttemptsList({
   recentAttempts = [],
   onOpenHistory,
   onLoadAttempt,
+  onShareAttempt,
 }) {
   return (
     <div className="bg-surface-card rounded-3xl border border-border-subtle p-6 sm:p-8 shadow-sm space-y-4">
@@ -21,6 +22,7 @@ export default function RecentAttemptsList({
               key={attempt.id}
               attempt={attempt}
               onLoadAttempt={onLoadAttempt}
+              onShareAttempt={onShareAttempt}
             />
           ))}
         </div>
@@ -70,15 +72,17 @@ function RecentAttemptsEmpty() {
   );
 }
 
-function RecentAttemptRow({ attempt, onLoadAttempt }) {
+function RecentAttemptRow({ attempt, onLoadAttempt, onShareAttempt }) {
   const { t, language } = useI18n();
   const { minutes, seconds } = formatAttemptDuration(attempt.time_spent_seconds);
   const formattedDate = formatAttemptDateShort(attempt.created_at, language);
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => onLoadAttempt(attempt.id)}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onLoadAttempt(attempt.id); }}
       className="w-full p-3 rounded-xl border border-border-subtle hover:border-border-strong hover:bg-surface-raised transition-all cursor-pointer flex items-center justify-between gap-3 group min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
     >
       <div className="flex items-center space-x-3">
@@ -107,14 +111,29 @@ function RecentAttemptRow({ attempt, onLoadAttempt }) {
         </div>
       </div>
 
-      <div className="flex items-center space-x-2 flex-shrink-0">
+      <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
         <span className="font-extrabold text-xs sm:text-sm text-content-primary">
           {attempt.score} / {attempt.total_questions} ({attempt.percentage}%)
         </span>
+
+        {onShareAttempt && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onShareAttempt(attempt);
+            }}
+            title={t('history.shareAttempt')}
+            className="p-2 rounded-lg text-content-muted hover:text-action-primary hover:bg-action-primary-subtle transition-colors cursor-pointer flex items-center justify-center min-h-[36px] min-w-[36px]"
+          >
+            <Share2 className="w-4 h-4" />
+          </button>
+        )}
+
         <span className="text-xs text-action-primary group-hover:underline hidden sm:inline font-semibold">
           {t('welcome.recentAttempts.reviewLink')}
         </span>
       </div>
-    </button>
+    </div>
   );
 }

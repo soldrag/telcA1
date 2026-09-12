@@ -26,7 +26,13 @@ export function matchTextAnswer(userAnswer = '', question = {}) {
 
   if (acceptedList.includes(cleanUser)) return true;
 
-  return acceptedList.some(target => cleanUser.includes(target) || target.includes(cleanUser));
+  const userWords = cleanUser.split(' ');
+  return acceptedList.some((target) => {
+    if (target.includes(' ')) {
+      return new RegExp(`(^|\\s)${target}(\\s|$)`).test(cleanUser);
+    }
+    return userWords.includes(target);
+  });
 }
 
 export function evaluateEssay(userAnswer = '', question = {}) {

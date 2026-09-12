@@ -2,6 +2,7 @@ import React from 'react';
 import ConfirmSubmitModal from './ConfirmSubmitModal.jsx';
 import ConfirmLeaveModal from './ConfirmLeaveModal.jsx';
 import TimeUpModal from './TimeUpModal.jsx';
+import ShareAttemptModal from './ShareAttemptModal.jsx';
 
 export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
   return (
@@ -21,6 +22,13 @@ export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
         <TimeUpModal
           isOpen={modals.timeUpModalOpen}
           onConfirm={actions.onConfirmTimeUp}
+        />
+      )}
+      {Boolean(modals.shareModalAttempt) && (
+        <ShareAttemptModal
+          isOpen={Boolean(modals.shareModalAttempt)}
+          attempt={modals.shareModalAttempt}
+          onClose={modals.closeShareModal}
         />
       )}
     </>

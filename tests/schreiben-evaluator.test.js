@@ -22,6 +22,24 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.equal(matchTextAnswer('19. Juli', qDate), false);
   });
 
+  it('rejects false positives from single characters or substring fragments', () => {
+    const qName = { correct_answer: 'bauer', options_json: { accepted_answers: ['bauer'] } };
+    assert.equal(matchTextAnswer('a', qName), false);
+    assert.equal(matchTextAnswer('b', qName), false);
+    assert.equal(matchTextAnswer('ba', qName), false);
+    assert.equal(matchTextAnswer('Frau Bauer', qName), true);
+
+    const qRoom = { correct_answer: 'doppelzimmer', options_json: { accepted_answers: ['doppelzimmer', 'dz'] } };
+    assert.equal(matchTextAnswer('zimmer', qRoom), false);
+    assert.equal(matchTextAnswer('d', qRoom), false);
+    assert.equal(matchTextAnswer('ein Doppelzimmer', qRoom), true);
+
+    const qNumber = { correct_answer: '3', options_json: { accepted_answers: ['3', 'drei'] } };
+    assert.equal(matchTextAnswer('13', qNumber), false);
+    assert.equal(matchTextAnswer('30', qNumber), false);
+    assert.equal(matchTextAnswer('3 Personen', qNumber), true);
+  });
+
   it('evaluates essay word count and points', () => {
     const qEssay = { max_points: 10 };
     

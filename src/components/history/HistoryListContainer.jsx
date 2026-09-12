@@ -8,6 +8,7 @@ export default function HistoryListContainer({
   attempts = [],
   onLoadAttempt,
   onStartExam,
+  onShareAttempt,
 }) {
   return (
     <div className="bg-surface-card rounded-3xl border border-border-default shadow-xs overflow-hidden">
@@ -22,6 +23,7 @@ export default function HistoryListContainer({
               key={attempt.id}
               attempt={attempt}
               onSelect={onLoadAttempt}
+              onShare={onShareAttempt}
               compact={false}
             />
           ))}

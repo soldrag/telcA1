@@ -3,12 +3,17 @@ import ResultsHeroCard from './results/ResultsHeroCard.jsx';
 import ResultsActionBar from './results/ResultsActionBar.jsx';
 import ResultsFilterBar from './results/ResultsFilterBar.jsx';
 import ResultsReviewCard from './results/ResultsReviewCard.jsx';
+import TeacherReviewBanner from './results/TeacherReviewBanner.jsx';
 
 export default function ResultsView({
   results,
   onResetExam,
   onRetakeMistakes,
   onOpenHistory,
+  onShareResult,
+  isTeacherReview = false,
+  reviewStudentName = null,
+  onExitReview,
 }) {
   const [filter, setFilter] = useState('all');
   const [expandedQuestions, setExpandedQuestions] = useState({});
@@ -35,6 +40,13 @@ export default function ResultsView({
 
   return (
     <div className="space-y-8 animate-fadeIn">
+      {isTeacherReview && (
+        <TeacherReviewBanner
+          studentName={reviewStudentName}
+          onExitReview={onExitReview}
+        />
+      )}
+
       <ResultsHeroCard results={results} />
 
       <ResultsActionBar
@@ -42,6 +54,8 @@ export default function ResultsView({
         onResetExam={onResetExam}
         onRetakeMistakes={onRetakeMistakes}
         onOpenHistory={onOpenHistory}
+        onShareResult={onShareResult}
+        isTeacherReview={isTeacherReview}
       />
 
       <div className="bg-surface-card rounded-2xl border border-border-default p-4 sm:p-6 shadow-sm space-y-6">
