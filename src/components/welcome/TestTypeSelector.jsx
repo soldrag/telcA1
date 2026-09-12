@@ -70,7 +70,7 @@ export default function TestTypeSelector({
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                   isActive ? 'bg-action-primary-subtle text-action-primary border border-action-primary-border' : 'bg-surface-inset text-content-tertiary'
                 }`}>
-                  {t('welcome.types.variantsCount', { count: type.id === 'schreiben' ? 2 : 10 })}
+                  {t('welcome.types.variantsCount', { count: type.variantsCount ?? (type.id === 'schreiben' ? 4 : 10) })}
                 </span>
               </div>
 

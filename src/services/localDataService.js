@@ -3,7 +3,14 @@ import { evaluateExamSubmission } from '../../server/services/exam-evaluator.js'
 import { TEST_TYPES } from '../../shared/testTypes.js';
 
 export function getLocalTestTypes() {
-  return { testTypes: TEST_TYPES };
+  const testTypes = TEST_TYPES.map((type) => {
+    const count = seedData.exams.filter(e => (e.test_type || 'lesen') === type.id).length;
+    return {
+      ...type,
+      variantsCount: count > 0 ? count : (type.variantsCount ?? 0)
+    };
+  });
+  return { testTypes };
 }
 
 export function getLocalExams(testType = 'lesen') {

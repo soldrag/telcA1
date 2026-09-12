@@ -9,6 +9,7 @@ export const TEST_TYPES = [
     maxScore: 15,
     passScore: 9,
     partsCount: 3,
+    variantsCount: 10,
     description: 'Аутентичные письма, интернет-каталоги и объявления с электронным бланком ответов.'
   },
   {
@@ -21,6 +22,7 @@ export const TEST_TYPES = [
     maxScore: 15,
     passScore: 9,
     partsCount: 3,
+    variantsCount: 0,
     description: 'Короткие диалоги, автоответчик и аудиообъявления в общественных местах.'
   },
   {
@@ -33,6 +35,7 @@ export const TEST_TYPES = [
     maxScore: 15,
     passScore: 9,
     partsCount: 2,
+    variantsCount: 4,
     description: 'Заполнение формуляра на 5 пунктов и написание короткого письма/e-mail (~30 слов).'
   },
   {
@@ -45,6 +48,7 @@ export const TEST_TYPES = [
     maxScore: 15,
     passScore: 9,
     partsCount: 3,
+    variantsCount: 0,
     description: 'Групповой экзамен: самопрезентация, карточки с вопросами и формулировка просьб.'
   }
 ];
