@@ -33,4 +33,10 @@ certs/*.pem
 certs/*.key
 certs/*.crt
 
+# Test coverage & reports
+coverage/
+*.lcov
+.nyc_output/
+tests/eval/reports/
+
 

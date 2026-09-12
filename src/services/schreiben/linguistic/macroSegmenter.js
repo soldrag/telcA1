@@ -8,10 +8,30 @@ const SALUTATION_ROOTS = ['sehr geehrte', 'sehr geehrter', 'sehr geehrtes', 'lie
 const CLOSING_ROOTS = ['mit freundlichen grüßen', 'mit freundlichem gruß', 'freundliche grüße', 'schöne grüße', 'viele grüße', 'herzliche grüße', 'liebe grüße', 'beste grüße', 'bis bald', 'auf wiedersehen'];
 const POLITE_PRONOUNS = new Set(['sie', 'ihr', 'ihnen', 'ihre', 'ihrem', 'ihren', 'ihrer']);
 
+function splitSingleLineBlocks(text = '') {
+  let res = text;
+  const salutationMatch = res.match(/^(sehr geehrte[^,\n]*[,!]|guten tag[^,\n]*[,!]|hallo[^,\n]*[,!]|liebe[^,\n]*[,!]|hi[^,\n]*[,!])\s*/i);
+  if (salutationMatch) {
+    res = `${salutationMatch[1]}\n${res.slice(salutationMatch[0].length)}`;
+  }
+  const closingMatch = res.match(/\s*(mit freundlichen grüßen.*|viele grüße.*|liebe grüße.*|herzliche grüße.*|tschüss.*)$/i);
+  if (closingMatch) {
+    const before = res.slice(0, res.length - closingMatch[0].length);
+    res = `${before}\n${closingMatch[1]}`;
+  }
+  return res;
+}
+
 function normalizeLines(rawText = '') {
-  return String(rawText || '')
+  let text = String(rawText || '')
     .replace(/\r\n/g, '\n')
-    .replace(/\r/g, '\n')
+    .replace(/\r/g, '\n');
+
+  if (!text.includes('\n')) {
+    text = splitSingleLineBlocks(text);
+  }
+
+  return text
     .split('\n')
     .map(l => l.trim())
     .filter(Boolean);
