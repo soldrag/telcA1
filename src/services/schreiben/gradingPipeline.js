@@ -123,6 +123,7 @@ export async function gradeSchreibenSubmission({
     rawText: raw,
     bodySentences: stage0.bodySentences,
     provider: activeProvider,
+    semanticErrors: stage2.semanticErrors || [],
   });
   const grammarPenalty = computeGrammarPenalty(errors.length);
 

@@ -45,8 +45,9 @@ export function runDeterministicBaseline(text = '', criteria = []) {
   const closing = analyzeClosing(trimmed, { isFormal: true });
   const segments = segmentUserEssay(trimmed, criteria);
   const bodySentences = extractBodySentences(trimmed, salutation, closing);
-  const leitpunkte = analyzeLeitpunkte(trimmed, criteria);
-  const grammarErrors = checkGermanA1Grammar(trimmed);
+  const leitpunkte = analyzeLeitpunkte(trimmed, criteria, segments);
+  const rawGrammarErrors = checkGermanA1Grammar(trimmed);
+  const grammarErrors = [...rawGrammarErrors, ...(leitpunkte.semanticErrors || [])];
   const quality = analyzeGermanQuality(trimmed, 30);
 
   return {

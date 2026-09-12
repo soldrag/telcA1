@@ -127,4 +127,32 @@ Anna Schmidt`;
     assert.equal(typeof res.feedback_summary, 'string');
     assert.equal(res.feedback_summary.length > 20, true);
   });
+
+  it('Contract (d): semantic frame inversion is penalized even when keyword match is 100%', async () => {
+    const criterionWithFrame = {
+      id: 'lp3',
+      label: 'Preis und Haustiere',
+      keywords: ['kosten', 'hund', 'erlaubt'],
+      requiredMatches: 2,
+      semantic_slots: [
+        {
+          predicateLemmas: ['kosten'],
+          allowedCategories: ['rental_object'],
+          incompatibleCategories: ['pet']
+        }
+      ]
+    };
+
+    // Both keywords "kosten" and "hund" match (2/2), but argument "der Hund" is incompatible with predicate "kosten"
+    const result = await scoreSingleLeitpunkt({
+      criterion: criterionWithFrame,
+      bodySentences: ['Wie viel kostet der Hund?'],
+      sentenceEmbeddings: [],
+      embedder: null,
+      qwenEngine: null
+    });
+
+    // Score must be capped to 0 due to semantic role inversion (buying a dog instead of paying for rent)
+    assert.equal(result.score, 0);
+  });
 });

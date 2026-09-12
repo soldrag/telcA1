@@ -13,6 +13,8 @@ import {
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { tagTokens } from '../linguistic/a1LexiconService.js';
+import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
@@ -62,6 +64,23 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   return { matchedCount, score: kwScore, relevantSentences };
 }
 
+function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
+  let penalty = 0;
+  for (const s of sentences) {
+    const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
+    const tagged = tagTokens(words);
+    const res = validateSentenceFrame({
+      taggedTokens: tagged,
+      conversiveRules: criterion.conversive_rules || [],
+      semanticSlots: criterion.semantic_slots || []
+    });
+    if (!res.isValid) {
+      penalty = Math.max(penalty, res.maxPenalty);
+    }
+  }
+  return penalty;
+}
+
 export async function scoreSingleLeitpunkt({
   criterion = {},
   bodySentences = [],
@@ -94,11 +113,15 @@ export async function scoreSingleLeitpunkt({
   const baselineScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
   const inGrayZone = isScoreInGrayZone(effectiveSim);
 
+  const framePenalty = checkRelevantSentencesFrame(relevantSentencesList, criterion);
   let finalScore = baselineScore;
   let arbitrated = false;
 
-  // If keyword matches already prove full coverage (kwScore === 2), do not let LLM downgrade to 0
-  if (kwEval.score === 2) {
+  if (framePenalty >= 2) {
+    finalScore = 0;
+  } else if (framePenalty === 1) {
+    finalScore = Math.min(baselineScore, 1);
+  } else if (kwEval.score === 2) {
     finalScore = 2;
   } else if (inGrayZone && relevantSentencesList.length > 0 && qwenEngine) {
     const arbRes = await arbitrateGrayZone({

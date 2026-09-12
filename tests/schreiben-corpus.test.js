@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { questions as ms4Questions } from '../server/seeds/schreiben-modellsatz-4.js';
 
 describe('Schreiben Teil 2 Benchmark Corpus (Gold Standard)', () => {
   const modellsatz1Question = {
@@ -130,5 +131,36 @@ Artem Smirnov`;
     const text = `hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo`;
     const res = evaluateTeil2Essay(text, modellsatz1Question);
     assert.equal(res.points_earned, 0);
+  });
+
+  it('Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel kostet der Hund? Ist die Wohnung erlaubt?)', () => {
+    const ms4Teil2 = ms4Questions.find(q => q.id === 's4-q6');
+    const text = `Sehr geehrte Frau Hansen,
+ich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?
+Mit freundlichen Grüßen
+Alex Müller`;
+
+    const res = evaluateTeil2Essay(text, ms4Teil2);
+    // Punkt 3 must receive 0 points due to Sinnentstellung
+    assert.equal(res.breakdown.items[2].score, 0);
+    assert.match(res.breakdown.items[2].detail, /Sinnentstellung/i);
+    // Total score must be penalised (max 7/10)
+    assert.ok(res.points_earned <= 7);
+  });
+
+  it('Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnung vermieten statt mieten)', () => {
+    const ms4Teil2 = ms4Questions.find(q => q.id === 's4-q6');
+    const text = `Sehr geehrte Frau Hansen,
+ich möchte Ihre Ferienwohnung vermieten. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 10. bis zum 17. Juli. Wie viel kostet die Wohnung? Ist ein Hund erlaubt?
+Mit freundlichen Grüßen
+Alex Müller`;
+
+    const res = evaluateTeil2Essay(text, ms4Teil2);
+    // Punkt 1 is capped to 1 point due to conversive verb error
+    assert.equal(res.breakdown.items[0].score, 1);
+    assert.match(res.breakdown.items[0].detail, /mieten.*nicht.*vermieten/i);
+    // Must be penalized and report lexical error
+    assert.ok(res.points_earned <= 8);
+    assert.ok(res.grammar_errors.some(e => e.code === 'ERR_CONVERSIVE_VERB_DIRECTION'));
   });
 });
