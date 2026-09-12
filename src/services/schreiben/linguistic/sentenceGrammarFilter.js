@@ -73,14 +73,18 @@ export function filterSentenceGrammarCandidates(sentence = '', rawCandidates = [
 }
 
 export function mergeCandidateGrammarErrors(baselineErrors = [], candidateErrors = []) {
-  const seen = new Set(baselineErrors.map(e => (e.original || '').toLowerCase().trim()));
-  const merged = [...baselineErrors];
+  const base = Array.isArray(baselineErrors) ? baselineErrors : [];
+  const candidates = Array.isArray(candidateErrors) ? candidateErrors : [];
+  const seen = new Set(base.map(e => (e?.original || '').toLowerCase().trim()).filter(Boolean));
+  const merged = [...base];
 
-  for (const err of candidateErrors) {
-    const key = (err?.original || '').toLowerCase().trim();
-    if (key && !seen.has(key)) {
+  for (const err of candidates) {
+    if (!err || !err.original) continue;
+    const key = String(err.original).toLowerCase().trim();
+    if (!seen.has(key)) {
       seen.add(key);
       merged.push({
+        ...err,
         original: String(err.original || '').trim(),
         correction: String(err.correction || '').trim(),
         explanation: String(err.explanation || 'Grammatikfehler').trim(),

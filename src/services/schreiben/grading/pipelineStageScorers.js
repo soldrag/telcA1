@@ -12,6 +12,7 @@ import { tagTokens } from '../linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
+import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 
 async function arbitrateLeitpunkt(criterion, relevantSentences, baselineScore, provider) {
   if (!relevantSentences || !provider || provider.id === PROVIDER_IDS.NONE) {
@@ -130,9 +131,16 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
   return { items, totalScore, semanticErrors };
 }
 
-export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider, semanticErrors = [] }) {
-  const baseline = checkGermanA1Grammar(rawText) || [];
-  const initial = [...baseline, ...semanticErrors];
+export async function collectPipelineGrammarErrors({
+  rawText,
+  bodySentences,
+  provider,
+  semanticErrors = [],
+  baselineErrors = []
+}) {
+  const ruleErrors = checkGermanA1Grammar(rawText) || [];
+  const baseMerged = mergeCandidateGrammarErrors(baselineErrors, ruleErrors);
+  const initial = mergeCandidateGrammarErrors(baseMerged, semanticErrors);
   if (!provider || provider.id === PROVIDER_IDS.NONE) return initial;
 
   const candidateList = [];
@@ -146,13 +154,5 @@ export async function collectPipelineGrammarErrors({ rawText, bodySentences, pro
     }
   }
 
-  const merged = [...initial];
-  const seenOriginals = new Set(initial.map((e) => e.original.toLowerCase()));
-  for (const c of candidateList) {
-    if (!seenOriginals.has(c.original.toLowerCase())) {
-      seenOriginals.add(c.original.toLowerCase());
-      merged.push(c);
-    }
-  }
-  return merged;
+  return mergeCandidateGrammarErrors(initial, candidateList);
 }

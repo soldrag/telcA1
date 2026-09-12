@@ -2,6 +2,8 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { gradeSchreibenTeil2 } from '../src/services/schreiben/grading/gradingFacade.js';
 import { scoreSingleLeitpunkt } from '../src/services/schreiben/grading/stage2Leitpunkte.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
+import { mergeCandidateGrammarErrors } from '../src/services/schreiben/linguistic/sentenceGrammarFilter.js';
 
 describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)', () => {
   const sampleQuestion = {
@@ -154,5 +156,70 @@ Anna Schmidt`;
 
     // Score must be capped to 0 due to semantic role inversion (buying a dog instead of paying for rent)
     assert.equal(result.score, 0);
+  });
+
+  it('Contract (e): AI provider cannot wipe out or pardon baseline grammar errors', async () => {
+    const emptyMockEngine = {
+      chat: {
+        completions: {
+          create: async () => ({
+            choices: [{ message: { content: JSON.stringify({ coverage: 'full', errors: [] }) } }]
+          })
+        }
+      }
+    };
+
+    const { ClientWebGpuProvider } = await import('../src/services/ai/index.js');
+    const mockGpuProvider = new ClientWebGpuProvider(emptyMockEngine);
+
+    const textWithVerblessQuestion = `Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel der Preis für die Wohnung? Darf mein Hund mitkommen?\nMit freundlichen Grüßen\nAlex Müller`;
+
+    const questionWithBaseline = {
+      ...sampleQuestion,
+      grammar_errors: [
+        {
+          category: 'syntax',
+          code: 'ERR_MISSING_PREDICATE_QUESTION',
+          original: 'Wie viel der Preis für die Wohnung?',
+          correction: 'Wie viel ist der Preis für die Wohnung?',
+          explanation: 'Im Fragesatz fehlt das finite Verb'
+        }
+      ]
+    };
+
+    const result = await gradeSchreibenSubmission({
+      userText: textWithVerblessQuestion,
+      question: questionWithBaseline,
+      provider: mockGpuProvider,
+      options: { customExtractor: false }
+    });
+
+    // Invariant 1: Baseline grammar errors are NEVER wiped out by an empty LLM response
+    assert.equal(result.grammar_errors.length >= 1, true);
+    const hasMissingPredicate = result.grammar_errors.some(e => e.code === 'ERR_MISSING_PREDICATE_QUESTION');
+    assert.equal(hasMissingPredicate, true);
+
+    // Invariant 2: Grammar penalty is deducted
+    assert.equal(result.grammar_penalty >= 1, true);
+
+    // Invariant 3: Feedback acknowledges the grammar errors, not 'keine wesentlichen Grammatikfehler'
+    assert.equal(result.feedback_summary.includes('keine wesentlichen Grammatikfehler gefunden'), false);
+  });
+
+  it('Contract (f): mergeCandidateGrammarErrors preserves immutability and deduplicates', () => {
+    const baseline = [
+      { code: 'ERR_1', original: 'Wie viel der Preis', correction: 'Wie viel ist der Preis' }
+    ];
+    const candidates = [
+      { code: 'ERR_DUPLICATE', original: 'wie viel der preis', correction: 'other' },
+      { code: 'ERR_NEW', original: 'mein Hund', correction: 'meinen Hund' }
+    ];
+
+    const merged = mergeCandidateGrammarErrors(baseline, candidates);
+    assert.equal(merged.length, 2);
+    assert.equal(merged[0].code, 'ERR_1');
+    assert.equal(merged[1].code, 'ERR_NEW');
+    // Ensure original baseline array is untouched
+    assert.equal(baseline.length, 1);
   });
 });

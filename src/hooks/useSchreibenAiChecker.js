@@ -3,6 +3,7 @@ import { gradeSchreibenSubmission } from '../services/schreiben/gradingPipeline.
 import { gradeSchreibenWithWorker, isWorkerSupported } from '../services/schreiben/grading/gradingWorkerClient.js';
 import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../services/ai/types.js';
+import { mergeCandidateGrammarErrors } from '../services/schreiben/linguistic/sentenceGrammarFilter.js';
 
 const CRITERION_LABELS = {
   anrede: 'Anrede',
@@ -89,7 +90,9 @@ export function useSchreibenAiChecker({
         onApplyScores(normalizedScores);
 
         if (Array.isArray(aiResult.grammar_errors)) {
-          onApplyErrors(aiResult.grammar_errors);
+          const baselineErrors = Array.isArray(item.grammar_errors) ? item.grammar_errors : [];
+          const mergedErrors = mergeCandidateGrammarErrors(baselineErrors, aiResult.grammar_errors);
+          onApplyErrors(mergedErrors);
         }
         if (Array.isArray(aiResult.diff_summary) && aiResult.diff_summary.length > 0) {
           setAiDiffSummary(aiResult.diff_summary);
