@@ -154,6 +154,12 @@ export const ru = {
     part1Tip: 'Перечитайте текст слева при сомнениях перед выбором ответа',
     part2OptionSelected: '✓ Выбрана веб-страница [{id}]',
     part2SelectOption: 'Выбрать веб-страницу [{id}]',
+    schreibenPart1Instruction: 'Прочитайте текст и заполните 5 пунктов в формуляре.',
+    schreibenPart1Tip: 'Внимательно прочитайте ситуацию. Все данные для формуляра находятся прямо в тексте.',
+    schreibenPart2Instruction: 'Напишите письмо (ок. 30 слов), затронув все 3 пункта плана.',
+    schreibenWordCountTooShort: 'Мало слов',
+    schreibenWordCountOptimal: 'Оптимальный объем',
+    schreibenWordCountTooLong: 'Достаточно много',
   },
   timer: {
     readingTime: 'Время на чтение (25:00)',

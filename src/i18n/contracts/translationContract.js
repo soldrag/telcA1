@@ -155,6 +155,12 @@ export const TRANSLATION_CONTRACT = {
     part1Tip: 'string',
     part2OptionSelected: 'string',
     part2SelectOption: 'string',
+    schreibenPart1Instruction: 'string',
+    schreibenPart1Tip: 'string',
+    schreibenPart2Instruction: 'string',
+    schreibenWordCountTooShort: 'string',
+    schreibenWordCountOptimal: 'string',
+    schreibenWordCountTooLong: 'string',
   },
   timer: {
     readingTime: 'string',

@@ -154,6 +154,12 @@ export const en = {
     part1Tip: 'Re-read the text on the left if in doubt before answering',
     part2OptionSelected: '✓ Webpage [{id}] selected',
     part2SelectOption: 'Select webpage [{id}]',
+    schreibenPart1Instruction: 'Read the text and fill in the 5 pieces of information in the form.',
+    schreibenPart1Tip: 'Read the situation carefully. All required details for the form are found directly in the text.',
+    schreibenPart2Instruction: 'Write an email (approx. 30 words) addressing all 3 points.',
+    schreibenWordCountTooShort: 'Too short',
+    schreibenWordCountOptimal: 'Optimal length',
+    schreibenWordCountTooLong: 'Quite long',
   },
   timer: {
     readingTime: 'Reading time (25:00)',

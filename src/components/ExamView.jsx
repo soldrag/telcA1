@@ -6,6 +6,7 @@ import Antwortbogen from './Antwortbogen.jsx';
 import ModuleTaskView from './parts/ModuleTaskView.jsx';
 import ExamBottomNav from './exam/ExamBottomNav.jsx';
 import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
+import SchreibenTeilRenderer from './schreiben/SchreibenTeilRenderer.jsx';
 import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
 import { scrollToElement, scrollToExamHeader } from '../utils/scrollService.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
@@ -90,17 +91,26 @@ export default function ExamView({
           answers={session.answers}
           onSelectQuestion={session.jumpToQuestion}
           isSubmitted={session.isSubmitted}
+          testType={testType}
         />
       )}
 
       <div className="min-h-[500px]">
-        {testType === 'lesen' ? (
+        {testType === 'lesen' && (
           <LesenTeilRenderer
             activeTeil={session.activeTeil}
             questions={questions}
             session={session}
           />
-        ) : (
+        )}
+        {testType === 'schreiben' && (
+          <SchreibenTeilRenderer
+            activeTeil={session.activeTeil}
+            questions={questions}
+            session={session}
+          />
+        )}
+        {testType !== 'lesen' && testType !== 'schreiben' && (
           <ModuleTaskView
             questions={questions}
             sessionState={session}
