@@ -7,6 +7,7 @@ import SchreibenAiStatusBadge from './SchreibenAiStatusBadge.jsx';
 import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
+import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
 
 function deriveInitialScores(item = {}) {
   const cb = item.criteria_breakdown;
@@ -46,7 +47,9 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
   };
 
   const handleApplyScores = useCallback((nextScores) => setScores(nextScores), []);
-  const handleApplyErrors = useCallback((nextErrors) => setLiveGrammarErrors(nextErrors), []);
+  const handleApplyErrors = useCallback((nextErrors) => {
+    setLiveGrammarErrors((prev) => mergeCandidateGrammarErrors(grammarErrors, nextErrors));
+  }, [grammarErrors]);
 
   const {
     aiLoading,

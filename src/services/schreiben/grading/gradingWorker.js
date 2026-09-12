@@ -5,6 +5,8 @@
 
 import { gradeSchreibenSubmission } from '../gradingPipeline.js';
 
+export const WORKER_BUILD_VERSION = '2026.09.13.v2';
+
 self.onmessage = async (event) => {
   const { id, type, payload } = event.data || {};
   if (type !== 'GRADE_REQUEST') return;

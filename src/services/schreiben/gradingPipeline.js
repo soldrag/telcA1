@@ -98,14 +98,14 @@ export async function gradeSchreibenSubmission({
   options = {},
   onProgress = null,
 }) {
-  const raw = String(userText || '').trim();
+  const stage0 = runStage0Preprocessing(userText);
+  const raw = stage0.rawText;
   const criteria = resolveLeitpunktCriteria(question);
   const activeProvider = provider || (options.forceLimitedMode
     ? aiProviderRegistry.getProvider(PROVIDER_IDS.NONE)
     : await aiProviderRegistry.getActiveProvider());
 
   onProgress?.('Vorverarbeitung und Textanalyse...', 0.1);
-  const stage0 = runStage0Preprocessing(raw);
   const quality = analyzeGermanQuality(raw, 30);
   const stage1 = runStage1Scoring(stage0);
 
@@ -119,11 +119,13 @@ export async function gradeSchreibenSubmission({
   });
 
   onProgress?.('Grammatikprüfung...', 0.7);
+  const baselineErrors = question.grammar_errors || options.baselineErrors || [];
   const errors = await collectPipelineGrammarErrors({
     rawText: raw,
     bodySentences: stage0.bodySentences,
     provider: activeProvider,
     semanticErrors: stage2.semanticErrors || [],
+    baselineErrors,
   });
   const grammarPenalty = computeGrammarPenalty(errors.length);
 
