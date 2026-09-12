@@ -208,6 +208,12 @@ export const ru = {
     teacherReviewNotice: 'Этот просмотр открыт по ссылке и не сохраняется в вашей истории экзаменов.',
     teacherReviewStudent: 'Ученик: {name}',
     exitTeacherReview: 'Выйти из режима проверки',
+    aiCheckButton: '🤖 Локальная ИИ-проверка (на вашем устройстве)',
+    aiCheckLoading: 'ИИ анализирует локально...',
+    aiProviderWindowAi: 'Встроенный ИИ браузера (Prompt API)',
+    aiProviderWebGpu: 'Локальная модель (WebGPU, Qwen3-0.6B)',
+    aiProviderLimited: 'Ограниченный режим: только правиловая оценка',
+    aiLimitedNotice: 'Ограниченный режим: только правиловая оценка, без генеративных подсказок',
   },
   history: {
     title: 'История прохождений',
@@ -284,6 +290,8 @@ export const ru = {
   footer: {
     text: 'Симулятор экзамена telc Deutsch A1 / Start Deutsch 1 • 15 баллов • Проходной балл: 60% (9 баллов)',
     privacy: 'Приложение не собирает и не хранит персональные данные. Весь прогресс и настройки сохраняются локально в вашем браузере.',
+    impressum: 'Выходные данные (Impressum)',
+    datenschutz: 'Политика конфиденциальности (Datenschutz)',
   },
   languages: {
     en: 'English',

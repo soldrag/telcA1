@@ -1,0 +1,202 @@
+/**
+ * Stage 2: Leitpunkte Scoring (EmbeddingGemma + Qwen3 Arbiter).
+ * Computes cosine similarity of body sentences against Leitpunkte queries,
+ * incorporates per-LP keywords, and triggers Qwen3 arbitration ONLY in gray zones.
+ */
+
+import {
+  SIMILARITY_T2,
+  SIMILARITY_T1,
+  GRAY_ZONE_DELTA,
+  LEITPUNKT_COVERAGE_SCHEMA
+} from './types.js';
+import { cosineSimilarity } from './vectorMath.js';
+import { getEmbedding } from './embeddingGemmaService.js';
+import { executeQwen3Prompt } from './qwen3Service.js';
+import { stemGermanWord } from '../linguistic/germanStemmer.js';
+
+export function isScoreInGrayZone(similarity = 0, delta = GRAY_ZONE_DELTA) {
+  const nearT2 = Math.abs(similarity - SIMILARITY_T2) <= delta;
+  const nearT1 = Math.abs(similarity - SIMILARITY_T1) <= delta;
+  return nearT2 || nearT1;
+}
+
+export function coverageToPoints(coverage = '', fallback = 0) {
+  const c = String(coverage || '').toLowerCase().trim();
+  if (c === 'full') return 2;
+  if (c === 'partial') return 1;
+  if (c === 'no') return 0;
+  return fallback;
+}
+
+export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
+  const rawKeywords = criterion.keywords || [];
+  if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };
+
+  const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
+  const allWords = sentences
+    .join(' ')
+    .toLowerCase()
+    .split(/\s+/)
+    .map(w => stemGermanWord(w))
+    .filter(s => s && s.length >= 2);
+
+  let matchedCount = 0;
+  for (const cStem of critStems) {
+    if (allWords.includes(cStem)) {
+      matchedCount += 1;
+    }
+  }
+
+  const req = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
+  const threshold = Math.min(req, Math.max(1, critStems.length));
+
+  const relevantSentences = sentences.filter(s => {
+    const sWords = s.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
+    return critStems.some(c => sWords.includes(c));
+  });
+
+  const kwScore = matchedCount >= threshold ? 2 : (matchedCount > 0 ? 1 : 0);
+  return { matchedCount, score: kwScore, relevantSentences };
+}
+
+export function buildArbiterPrompt(lpLabel = '', relevantSentences = '') {
+  return `You are checking a German A1 exam letter task point. Answer strictly in JSON.
+
+Examples:
+Task point: "Neuer Terminvorschlag (Dienstag oder Mittwoch)"
+Student sentences: "Passt es Ihnen an Dienstag oder Mittwoch?"
+JSON: {"coverage":"full"}
+
+Task point: "Fragen Sie nach dem Termin."
+Student sentences: "Wann beginnt der Kurs?"
+JSON: {"coverage":"full"}
+
+Task point: "Kosten"
+Student sentences: "Ich habe keine Zeit."
+JSON: {"coverage":"no"}
+
+Task point: "${lpLabel}"
+Student sentences: "${relevantSentences}"
+
+Does the student address this task point?
+- "full": fully addressed (including question proposals like "Passt es Ihnen...?", "Geht es am...?")
+- "partial": partially addressed or one aspect mentioned
+- "no": not addressed at all
+Schema: {"coverage": "full" | "partial" | "no"}`;
+}
+
+export async function arbitrateGrayZone({ lpLabel, relevantSentences, baselineScore, qwenEngine }) {
+  if (!relevantSentences || !qwenEngine) return { score: baselineScore, arbitrated: false };
+  const prompt = buildArbiterPrompt(lpLabel, relevantSentences);
+  try {
+    const result = await executeQwen3Prompt({
+      prompt,
+      schema: LEITPUNKT_COVERAGE_SCHEMA,
+      maxTokens: 64,
+      engine: qwenEngine
+    });
+    const finalScore = coverageToPoints(result?.coverage, baselineScore);
+    return { score: finalScore, arbitrated: finalScore !== baselineScore, coverage: result?.coverage };
+  } catch (err) {
+    console.warn('[Stage2Leitpunkte] Arbitration fallback to algorithmic score:', err?.message || err);
+    return { score: baselineScore, arbitrated: false };
+  }
+}
+
+export async function scoreSingleLeitpunkt({
+  criterion = {},
+  bodySentences = [],
+  sentenceEmbeddings = [],
+  embedder = null,
+  qwenEngine = null
+}) {
+  const lpText = criterion.label || criterion.id;
+  const kwEval = evaluateCriterionKeywords(bodySentences, criterion);
+
+  let bestSim = 0;
+  let relevantSentencesList = [...kwEval.relevantSentences];
+
+  if (embedder && bodySentences.length > 0) {
+    const lpVec = await getEmbedding(lpText, true, embedder);
+    bodySentences.forEach((s, idx) => {
+      const sVec = sentenceEmbeddings[idx];
+      const sim = sVec ? cosineSimilarity(lpVec, sVec) : 0;
+      if (sim > bestSim) bestSim = sim;
+      if (sim >= 0.35 && !relevantSentencesList.includes(s)) {
+        relevantSentencesList.push(s);
+      }
+    });
+  }
+
+  // Hybrid score: strong keyword evidence guarantees a high baseline similarity
+  const kwSim = kwEval.score === 2 ? 0.75 : (kwEval.score === 1 ? 0.50 : 0.20);
+  const effectiveSim = Math.max(bestSim, kwSim);
+
+  const baselineScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
+  const inGrayZone = isScoreInGrayZone(effectiveSim);
+
+  let finalScore = baselineScore;
+  let arbitrated = false;
+
+  // If keyword matches already prove full coverage (kwScore === 2), do not let LLM downgrade to 0
+  if (kwEval.score === 2) {
+    finalScore = 2;
+  } else if (inGrayZone && relevantSentencesList.length > 0 && qwenEngine) {
+    const arbRes = await arbitrateGrayZone({
+      lpLabel: lpText,
+      relevantSentences: relevantSentencesList.join(' '),
+      baselineScore,
+      qwenEngine
+    });
+    finalScore = arbRes.score;
+    arbitrated = arbRes.arbitrated;
+  }
+
+  return {
+    id: criterion.id,
+    label: lpText,
+    score: finalScore,
+    baselineScore,
+    maxScore: 2,
+    similarity: Number(effectiveSim.toFixed(3)),
+    inGrayZone,
+    arbitrated,
+    matchedSentences: relevantSentencesList
+  };
+}
+
+export async function runStage2Leitpunkte({
+  criteria = [],
+  bodySentences = [],
+  embedder = null,
+  qwenEngine = null
+}) {
+  let sentenceEmbeddings = [];
+  if (embedder && bodySentences.length > 0) {
+    sentenceEmbeddings = await Promise.all(
+      bodySentences.map(s => getEmbedding(s, false, embedder))
+    );
+  }
+
+  const items = [];
+  let totalScore = 0;
+
+  for (const crit of criteria) {
+    const scored = await scoreSingleLeitpunkt({
+      criterion: crit,
+      bodySentences,
+      sentenceEmbeddings,
+      embedder,
+      qwenEngine
+    });
+    items.push(scored);
+    totalScore += scored.score;
+  }
+
+  return {
+    totalScore,
+    maxScore: criteria.length * 2,
+    items
+  };
+}

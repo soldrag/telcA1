@@ -195,3 +195,37 @@ See [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) for a detailed guide on adding ne
 | hoeren-modellsatz-1 | Hören (stub) | 3 | 🚧 Stub |
 | schreiben-modellsatz-1 | Schreiben (stub) | 2 | 🚧 Stub |
 | sprechen-modellsatz-1 | Sprechen (stub) | 1 | 🚧 Stub |
+
+---
+
+## 🤖 Hybrid In-Browser Grader (Schreiben Teil 2)
+
+The "Schreiben Teil 2" essay evaluation runs completely in the user's browser (static hosting, zero external APIs) powered by a privacy-first, two-model hybrid architecture:
+
+1. **EmbeddingGemma-300M-ONNX** (`@huggingface/transformers`):
+   - Computes Matryoshka 256-dimensional normalized embeddings for Leitpunkt semantic search.
+   - Size: ~185 MB (`q4`), cached in browser IndexedDB.
+   - Prefixes: `"task: search result | query: "` (LP query) and `"task: search result | text: "` (student sentences).
+2. **Qwen3-0.6B-q4f16_1-MLC** (`@mlc-ai/web-llm`):
+   - Generative micro-tasks: binary Leitpunkt gray zone arbitration (`full` / `partial` / `no`) and single-sentence grammar proposals.
+   - Temperature = 0, reasoning tokens disabled via `/no_think`, strict JSON schemas.
+   - Size: ~380 MB, cached in CacheStorage / IndexedDB.
+   - Total model download: ~565 MB (within <= 700 MB budget).
+
+### Pipeline Stages & Fallbacks
+- **Stage 0**: Normalization & sentence segmentation (Zero LLM).
+- **Stage 1**: Anrede & Gruß formula scoring (Zero LLM, 0/1/2 pts).
+- **Stage 2**: Leitpunkte cosine similarity + keywords. Qwen3 arbiter is invoked **only** in gray zones ($T_1 \pm D$, $T_2 \pm D$) with relevant sentences. Score mapping is strictly done in code.
+- **Stage 3**: Single-sentence grammar checking. Mandatory filters: exact substring, `correction !== original`, edit-distance cap (1-3 words), and deduplication.
+- **Stage 4**: Deterministic examiner feedback from pre-written, verified A1 German phrases (+ optional LLM polish feature flag).
+- **Fallback Matrix**: If WebGPU is unsupported or model download fails, grader smoothly falls back to **Limited Mode** (deterministic rule scoring).
+
+### 📋 Manual Smoke Checklist
+When verifying updates locally or on staging:
+- [ ] **Cold load (empty cache)**: Open DevTools > Application > Storage > Clear Site Data. Trigger AI check: verify progress indicators for EmbeddingGemma download then Qwen3 download.
+- [ ] **Repeat load (from cache)**: Refresh page and re-run check: verify models load instantly from IndexedDB cache without re-downloading weights.
+- [ ] **Browser without WebGPU**: Disable WebGPU in browser flags or test in unsupported environment: verify check runs in **Limited Mode** with rule-based scoring and appropriate badge.
+- [ ] **60+ word letter**: Submit a long essay with multiple complex sentences: verify segmentation and score calculation complete cleanly without crashes.
+- [ ] **Empty input**: Submit empty text or whitespace: verify 0 points, clean feedback, no exceptions.
+- [ ] **Non-German input**: Submit English or random gibberish: verify quality analyzer flags spam/gibberish, awarding 0 points with no false grammar corrections.
+

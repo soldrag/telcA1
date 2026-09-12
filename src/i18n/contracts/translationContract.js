@@ -209,6 +209,12 @@ export const TRANSLATION_CONTRACT = {
     teacherReviewNotice: 'string',
     teacherReviewStudent: 'string',
     exitTeacherReview: 'string',
+    aiCheckButton: 'string',
+    aiCheckLoading: 'string',
+    aiProviderWindowAi: 'string',
+    aiProviderWebGpu: 'string',
+    aiProviderLimited: 'string',
+    aiLimitedNotice: 'string',
   },
   history: {
     title: 'string',
@@ -285,6 +291,8 @@ export const TRANSLATION_CONTRACT = {
   footer: {
     text: 'string',
     privacy: 'string',
+    impressum: 'string',
+    datenschutz: 'string',
   },
   languages: {
     en: 'string',

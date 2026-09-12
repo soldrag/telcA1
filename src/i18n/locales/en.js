@@ -208,6 +208,12 @@ export const en = {
     teacherReviewNotice: 'This review is opened via link and is not saved to your exam history.',
     teacherReviewStudent: 'Student: {name}',
     exitTeacherReview: 'Exit review',
+    aiCheckButton: '🤖 AI Local Check (on your device)',
+    aiCheckLoading: 'AI analyzing locally...',
+    aiProviderWindowAi: 'Built-in browser AI (Prompt API)',
+    aiProviderWebGpu: 'On-device model (WebGPU, Qwen3-0.6B)',
+    aiProviderLimited: 'Limited mode: rule-based scoring only',
+    aiLimitedNotice: 'Limited mode: rule-based scoring only, no grammar suggestions',
   },
   history: {
     title: 'Attempt History',
@@ -284,6 +290,8 @@ export const en = {
   footer: {
     text: 'telc Deutsch A1 / Start Deutsch 1 Exam Simulator • 15 points • Passing score: 60% (9 points)',
     privacy: 'This app does not collect or store any personal data. All progress and settings are saved locally in your browser.',
+    impressum: 'Legal Notice (Impressum)',
+    datenschutz: 'Privacy Policy (Datenschutz)',
   },
   languages: {
     en: 'English',

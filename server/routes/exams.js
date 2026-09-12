@@ -18,6 +18,7 @@ function buildSubmissionPayload({ exam, questions, answers, timeSpentSeconds }) 
     exam,
     score,
     totalQuestions,
+    maxScore,
     percentage,
     passed,
     teilBreakdown,

@@ -3,6 +3,7 @@ import ConfirmSubmitModal from './ConfirmSubmitModal.jsx';
 import ConfirmLeaveModal from './ConfirmLeaveModal.jsx';
 import TimeUpModal from './TimeUpModal.jsx';
 import ShareAttemptModal from './ShareAttemptModal.jsx';
+import LegalModal from './LegalModal.jsx';
 
 export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
   return (
@@ -29,6 +30,13 @@ export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
           isOpen={Boolean(modals.shareModalAttempt)}
           attempt={modals.shareModalAttempt}
           onClose={modals.closeShareModal}
+        />
+      )}
+      {Boolean(modals.legalModalType) && (
+        <LegalModal
+          isOpen={Boolean(modals.legalModalType)}
+          initialType={modals.legalModalType}
+          onClose={modals.closeLegalModal}
         />
       )}
     </>

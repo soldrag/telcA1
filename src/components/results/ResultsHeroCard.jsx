@@ -18,6 +18,7 @@ export default function ResultsHeroCard({ results }) {
 
   const minutesSpent = Math.floor((timeSpentSeconds || 0) / 60);
   const secondsSpent = (timeSpentSeconds || 0) % 60;
+  const maxScore = results.maxScore || exam?.max_score || (exam?.test_type === 'schreiben' ? 15 : totalQuestions || 15);
 
   const cardStyle = passed
     ? 'bg-gradient-to-br from-emerald-900 via-teal-950 to-slate-950 border-emerald-500/40 shadow-emerald-950/20'
@@ -26,6 +27,15 @@ export default function ResultsHeroCard({ results }) {
   const badgeStyle = passed
     ? 'bg-emerald-400 text-slate-950 font-black'
     : 'bg-rose-400 text-slate-950 font-black';
+
+  const moduleName = exam?.test_type === 'schreiben' ? t('welcome.moduleSubtitle_schreiben') :
+                     exam?.test_type === 'hoeren' ? t('welcome.moduleSubtitle_hoeren') :
+                     t('welcome.moduleSubtitle_lesen');
+
+  const baseDesc = passed ? t('results.passedDesc') : t('results.failedDesc');
+  const localizedDesc = baseDesc
+    .replace('чтения', moduleName.toLowerCase())
+    .replace('reading', moduleName.toLowerCase());
 
   return (
     <div className={`rounded-3xl border p-6 sm:p-8 text-white shadow-xl ${cardStyle}`}>
@@ -41,7 +51,7 @@ export default function ResultsHeroCard({ results }) {
           </h2>
 
           <p className="text-sm sm:text-base text-white/80 max-w-xl">
-            {passed ? t('results.passedDesc') : t('results.failedDesc')}
+            {localizedDesc}
           </p>
 
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 text-xs sm:text-sm text-white/80">
@@ -50,7 +60,7 @@ export default function ResultsHeroCard({ results }) {
               <span>{t('results.timeSpent', { minutes: minutesSpent, seconds: secondsSpent })}</span>
             </div>
             <div className="flex items-center space-x-2 bg-black/20 px-3 py-1.5 rounded-lg border border-white/10">
-              <span>{t('results.passScoreInfo', { passScore, totalQuestions })}</span>
+              <span>{t('results.passScoreInfo', { passScore: passScore || Math.ceil(maxScore * 0.6), totalQuestions: maxScore })}</span>
             </div>
           </div>
         </div>
@@ -62,7 +72,7 @@ export default function ResultsHeroCard({ results }) {
           </span>
           <div className="flex items-baseline space-x-1 my-1">
             <span className="text-5xl font-black text-white">{score}</span>
-            <span className="text-2xl font-bold text-white/70">/{totalQuestions}</span>
+            <span className="text-2xl font-bold text-white/70">/{maxScore}</span>
           </div>
           <div className={`mt-1 text-sm px-3 py-0.5 rounded-full ${badgeStyle}`}>
             {percentage}%
@@ -70,7 +80,7 @@ export default function ResultsHeroCard({ results }) {
         </div>
       </div>
 
-      <TeilBreakdownGrid teilBreakdown={teilBreakdown} />
+      <TeilBreakdownGrid teilBreakdown={teilBreakdown} testType={exam?.test_type || 'lesen'} />
     </div>
   );
 }

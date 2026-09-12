@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="de" class="h-full bg-slate-50 text-slate-900 antialiased">
+<html lang="de" class="h-full antialiased overflow-x-hidden w-full">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=3" />
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=3" />
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png?v=3" />
@@ -14,9 +14,11 @@
     <meta property="og:description" content="Бесплатный онлайн-тренажёр telc A1 Lesen: 10 вариантов, таймер 25 минут, подсчёт баллов и подробные объяснения к каждому заданию на русском языке." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#2563eb" />
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/inter-latin-600.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/fonts/fonts.css">
   </head>
-  <body class="h-full">
+  <body class="h-full w-full overflow-x-hidden">
     <div id="root" class="min-h-full flex flex-col"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

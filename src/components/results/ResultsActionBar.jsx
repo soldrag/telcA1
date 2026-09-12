@@ -13,8 +13,8 @@ export default function ResultsActionBar({
   const { t } = useI18n();
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card p-4 rounded-2xl border border-border-default shadow-xs">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card p-4 rounded-2xl border border-border-default shadow-xs min-w-0">
+      <div className="flex flex-wrap items-center gap-2 min-w-0">
         <button
           type="button"
           onClick={onResetExam}

@@ -12,10 +12,12 @@ export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHis
         variant="secondary"
         size="sm"
         onClick={onNavigateHome}
-        className="text-xs sm:text-sm font-bold"
+        title={t('header.menu')}
+        aria-label={t('header.menu')}
+        className="text-xs sm:text-sm font-bold min-h-[38px] px-2 sm:px-3"
       >
-        <ArrowLeft className="w-4 h-4 mr-1.5" />
-        <span>{t('header.menu')}</span>
+        <ArrowLeft className="w-4 h-4 sm:mr-1.5" />
+        <span className="hidden sm:inline">{t('header.menu')}</span>
       </Button>
     );
   }
@@ -26,10 +28,11 @@ export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHis
       size="sm"
       onClick={onOpenHistory}
       title={t('header.history')}
-      className="text-xs sm:text-sm font-bold border border-border-default"
+      aria-label={t('header.history')}
+      className="text-xs sm:text-sm font-bold border border-border-default min-h-[38px] px-2 sm:px-3"
     >
-      <History className="w-4 h-4 mr-1.5 text-telc-600 dark:text-telc-400" />
-      <span>{t('header.history')}</span>
+      <History className="w-4 h-4 sm:mr-1.5 text-telc-600 dark:text-telc-400" />
+      <span className="hidden sm:inline">{t('header.history')}</span>
     </Button>
   );
 }

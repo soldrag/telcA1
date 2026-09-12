@@ -72,17 +72,6 @@ export default function SchreibenTeil2({
                 ))}
               </div>
             </div>
-
-            <div className="p-3 bg-state-info-subtle border border-state-info-border rounded-xl text-xs space-y-1 text-content-primary">
-              <div className="flex items-center space-x-1.5 font-bold text-state-info-text uppercase tracking-wider">
-                <Lightbulb className="w-4 h-4 text-state-info" />
-                <span>Wichtige Tipps</span>
-              </div>
-              <p className="text-content-secondary leading-relaxed">
-                • Beginnen Sie mit der passenden Anrede (z. B. <em>Sehr geehrte Damen und Herren,</em>).<br />
-                • Beenden Sie mit Grußformel und Name (z. B. <em>Mit freundlichen Grüßen, Ihr Name</em>).
-              </p>
-            </div>
           </div>
         </div>
 
@@ -112,7 +101,7 @@ export default function SchreibenTeil2({
             disabled={isSubmitted}
             value={textValue}
             onChange={(e) => onSelectAnswer(question.id, e.target.value)}
-            placeholder="Sehr geehrte Damen und Herren,&#10;&#10;ich schreibe Ihnen, weil...&#10;&#10;Mit freundlichen Grüßen&#10;[Ihr Name]"
+            placeholder=""
             className="w-full p-4 rounded-xl border-2 border-border-default bg-surface-inset text-content-primary font-sans text-sm sm:text-base placeholder:text-content-muted leading-relaxed focus:outline-none focus:border-action-primary focus:bg-surface-card transition-colors disabled:opacity-75 resize-y min-h-[220px]"
           />
 

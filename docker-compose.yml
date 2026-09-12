@@ -7,11 +7,22 @@ services:
     restart: unless-stopped
     ports:
       - "3001:3001"
+      - "80:3001"
+      - "3443:3443"
+      - "443:3443"
     environment:
       - PORT=3001
+      - HTTPS_PORT=3443
+      - HOST=0.0.0.0
       - NODE_ENV=production
+      - DEBUG=true
+      - LOG_LEVEL=debug
+      - DATA_DIR=/app/data
+      - SSL_CERT_PATH=/app/certs/cert.pem
+      - SSL_KEY_PATH=/app/certs/key.pem
     volumes:
       - telc_data:/app/data
+      - ./certs:/app/certs:ro
 
 volumes:
   telc_data:

@@ -14,10 +14,11 @@ export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answer
         size="sm"
         onClick={onNavigateHome}
         title={t('header.menu')}
-        className="text-xs sm:text-sm font-semibold"
+        aria-label={t('header.menu')}
+        className="text-xs sm:text-sm font-semibold min-h-[38px] px-2 sm:px-3"
       >
-        <ArrowLeft className="w-4 h-4 mr-1.5" />
-        <span>{t('header.menu')}</span>
+        <ArrowLeft className="w-4 h-4 sm:mr-1.5" />
+        <span className="hidden sm:inline">{t('header.menu')}</span>
       </Button>
 
       <Badge variant="secondary" className="px-3 py-1.5 hidden md:inline-flex text-xs font-bold text-content-secondary">
@@ -28,10 +29,13 @@ export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answer
         variant="secondary"
         size="sm"
         onClick={onSubmitExam}
-        className="text-xs sm:text-sm font-bold border border-border-default hover:border-action-primary"
+        title={t('header.finish')}
+        aria-label={t('header.finish')}
+        className="text-xs sm:text-sm font-bold border border-border-default hover:border-action-primary min-h-[38px] px-2 sm:px-3"
       >
-        <CheckCircle2 className="w-4 h-4 mr-1.5 text-content-tertiary" />
-        <span>{t('header.finish')} ({answeredCount}/{totalQuestions})</span>
+        <CheckCircle2 className="w-4 h-4 sm:mr-1.5 text-content-tertiary" />
+        <span className="hidden sm:inline">{t('header.finish')} </span>
+        <span>({answeredCount}/{totalQuestions})</span>
       </Button>
     </>
   );

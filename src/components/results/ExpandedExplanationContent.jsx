@@ -24,7 +24,7 @@ function resolveWordTranslation(entry, language, liveNotes) {
   return en || ru || '';
 }
 
-export default function ExpandedExplanationContent({ item }) {
+export default function ExpandedExplanationContent({ item, onScoreChange }) {
   const { t, language } = useI18n();
   const live = questionLookup.get(item.id);
   const options = item.options_json || live?.options_json;
@@ -34,7 +34,7 @@ export default function ExpandedExplanationContent({ item }) {
   if (options?.type === 'essay') {
     return (
       <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-border-default bg-surface-card rounded-b-2xl space-y-4">
-        <SchreibenSelfCheck item={item} />
+        <SchreibenSelfCheck item={item} onScoreChange={onScoreChange} />
 
         {explanation && (
           <div className="bg-state-info-subtle border border-state-info-border rounded-xl p-4 space-y-2">

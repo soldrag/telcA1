@@ -93,7 +93,10 @@
 }
 
 @layer base {
-  body {
+  html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
     background-color: var(--bg-canvas);
     color: var(--content-primary);
     transition: background-color 0.2s ease, color 0.2s ease;

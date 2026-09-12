@@ -21,7 +21,7 @@ export default function ResultsFilterBar({
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border-default">
       <ResultsFilterHeader />
 
-      <div className="flex items-center space-x-2">
+      <div className="flex flex-wrap items-center gap-2">
         <ResultsFilterTabs
           filter={filter}
           onSetFilter={onSetFilter}
@@ -33,7 +33,7 @@ export default function ResultsFilterBar({
         <button
           type="button"
           onClick={onToggleExpandAll}
-          className="text-xs font-medium text-content-secondary hover:text-content-primary bg-surface-raised hover:bg-surface-inset border border-border-default px-3 py-1.5 rounded-xl transition-colors whitespace-nowrap min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+          className="text-xs font-medium text-content-secondary hover:text-content-primary bg-surface-raised hover:bg-surface-inset border border-border-default px-3 py-1.5 rounded-xl transition-colors whitespace-nowrap min-h-[38px] sm:min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 shrink-0"
         >
           {isAllExpanded ? t('results.collapseAll') : t('results.expandAll')}
         </button>

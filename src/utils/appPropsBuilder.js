@@ -88,6 +88,7 @@ export function buildScreenProps(controller) {
       isTeacherReview: controller.reviewMode?.isTeacherReview || false,
       reviewStudentName: controller.reviewMode?.reviewStudentName || null,
       onExitReview: controller.reviewMode?.exitReview,
+      onUpdateItemScore: controller.session.updateItemScore,
     },
     exam: {
       isLoading: controller.isLoadingExam,

@@ -14,6 +14,7 @@ export default function ResultsView({
   isTeacherReview = false,
   reviewStudentName = null,
   onExitReview,
+  onUpdateItemScore,
 }) {
   const [filter, setFilter] = useState('all');
   const [expandedQuestions, setExpandedQuestions] = useState({});
@@ -76,6 +77,7 @@ export default function ResultsView({
               item={item}
               isExpanded={Boolean(expandedQuestions[item.id])}
               onToggleExpand={() => toggleExpand(item.id)}
+              onUpdateItemScore={onUpdateItemScore}
             />
           ))}
         </div>

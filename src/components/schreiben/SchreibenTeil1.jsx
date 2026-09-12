@@ -59,7 +59,6 @@ export default function SchreibenTeil1({
                 ? JSON.parse(question.options_json || '{}')
                 : (question.options_json || {});
               const label = options.form_label || question.statement?.replace(/Feld \(\d+\)\s*—\s*/, '') || `Feld ${question.question_number}`;
-              const placeholder = options.placeholder || '';
               const value = answers[question.id] || '';
 
               return (
@@ -69,7 +68,6 @@ export default function SchreibenTeil1({
                   questionId={question.id}
                   label={label}
                   value={value}
-                  placeholder={placeholder}
                   onChange={onSelectAnswer}
                   disabled={isSubmitted}
                 />

@@ -36,25 +36,25 @@ export default function Header({
     <header className="app-header border-b border-border-default sticky top-0 z-50 shadow-xs transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
         <div 
-          className="flex items-center space-x-3 cursor-pointer group select-none flex-shrink-0" 
+          className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group select-none min-w-0" 
           onClick={onNavigateHome}
           role="button"
           tabIndex={0}
           onKeyDown={handleKeyDown}
         >
-          <div className="w-10 h-10 rounded-xl bg-action-primary flex items-center justify-center text-white shadow-md shadow-action-primary/20 group-hover:bg-action-primary-hover transition-colors">
-            <BookOpen className="w-5 h-5" />
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-action-primary flex items-center justify-center text-white shadow-md shadow-action-primary/20 group-hover:bg-action-primary-hover transition-colors shrink-0">
+            <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center space-x-1.5">
-              <Badge variant="default" className="text-[11px] py-0 px-2 uppercase tracking-wide">
-                telc A1 / Start Deutsch 1
+              <Badge variant="default" className="text-[10px] sm:text-[11px] py-0 px-1.5 sm:px-2 uppercase tracking-wide truncate">
+                telc A1
               </Badge>
-              <span className="text-xs font-semibold text-content-tertiary hidden sm:inline">
+              <span className="text-xs font-semibold text-content-tertiary hidden sm:inline truncate">
                 {activeModuleTitle} ({activeModulePoints} Punkte)
               </span>
             </div>
-            <h1 className="text-base sm:text-lg font-extrabold text-content-primary leading-tight">
+            <h1 className="text-sm sm:text-lg font-extrabold text-content-primary leading-tight truncate">
               {t('header.simulatorTitle')}
             </h1>
           </div>

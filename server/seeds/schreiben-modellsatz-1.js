@@ -23,7 +23,6 @@ export const questions = [
     statement: 'Feld (1) — Familienname der Gäste:',
     options_json: {
       form_label: 'Familienname',
-      placeholder: 'z. B. Bauer',
       accepted_answers: ['bauer', 'familie bauer', 'frau bauer']
     },
     correct_answer: 'bauer',
@@ -47,7 +46,6 @@ export const questions = [
     statement: 'Feld (2) — Anzahl der Personen (gesamt):',
     options_json: {
       form_label: 'Anzahl Personen',
-      placeholder: 'z. B. 3',
       accepted_answers: ['3', 'drei', '3 personen', 'drei personen', '2 erwachsene 1 kind']
     },
     correct_answer: '3',
@@ -71,7 +69,6 @@ export const questions = [
     statement: 'Feld (3) — Anreisetag (Datum):',
     options_json: {
       form_label: 'Anreisetag',
-      placeholder: 'z. B. 18. Juli',
       accepted_answers: ['18. juli', '18.07', '18.07.', '18.7.', '18 juli']
     },
     correct_answer: '18. juli|18.07',
@@ -95,7 +92,6 @@ export const questions = [
     statement: 'Feld (4) — Gewünschter Zimmertyp:',
     options_json: {
       form_label: 'Zimmertyp',
-      placeholder: 'z. B. Doppelzimmer',
       accepted_answers: ['doppelzimmer', 'doppelzimmer mit zusatzbett', 'dz']
     },
     correct_answer: 'doppelzimmer',
@@ -119,7 +115,6 @@ export const questions = [
     statement: 'Feld (5) — Zahlungsart / Bezahlung:',
     options_json: {
       form_label: 'Zahlungsweise',
-      placeholder: 'z. B. Kreditkarte',
       accepted_answers: ['kreditkarte', 'mit kreditkarte', 'per kreditkarte']
     },
     correct_answer: 'kreditkarte',
@@ -149,6 +144,28 @@ export const questions = [
         'Wann und wie lange (Termin, 4 Wochen, vormittags)',
         'Frage nach den Kurskosten und Anmeldung'
       ],
+      rubric: {
+        leitpunkte_criteria: [
+          {
+            id: 'lp1',
+            label: 'Grund für Ihr Schreiben (Deutschkurs A1 im August)',
+            keywords: ['deutschkurs', 'kurs', 'a1', 'sprachschule', 'august', 'besuchen', 'machen'],
+            requiredMatches: 2
+          },
+          {
+            id: 'lp2',
+            label: 'Wann und wie lange (Termin, 4 Wochen, vormittags)',
+            keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin', 'lernen'],
+            requiredMatches: 2
+          },
+          {
+            id: 'lp3',
+            label: 'Frage nach den Kurskosten und Anmeldung',
+            keywords: ['kosten', 'kostet', 'gebühr', 'gebühren', 'preis', 'anmelden', 'anmeldung', 'wie viel'],
+            requiredMatches: 2
+          }
+        ]
+      },
       sample_solution: 'Sehr geehrte Damen und Herren,\n\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\n\nMit freundlichen Grüßen\nMaria Ivanova',
       breakdown: [
         { label: 'Anrede', text: 'Sehr geehrte Damen und Herren,' },

@@ -12,20 +12,24 @@ export default function ResultsHeaderActions({ onNavigateHome, onResetExam }) {
         variant="secondary"
         size="sm"
         onClick={onNavigateHome}
-        className="text-xs sm:text-sm font-semibold"
+        title={t('header.menu')}
+        aria-label={t('header.menu')}
+        className="text-xs sm:text-sm font-semibold min-h-[38px] px-2 sm:px-3"
       >
-        <Home className="w-4 h-4 mr-1.5" />
-        <span>{t('header.menu')}</span>
+        <Home className="w-4 h-4 sm:mr-1.5" />
+        <span className="hidden sm:inline">{t('header.menu')}</span>
       </Button>
 
       <Button
         variant="outline"
         size="sm"
         onClick={onResetExam}
-        className="text-xs sm:text-sm font-semibold text-telc-700 border-telc-200 bg-telc-50/50 hover:bg-telc-100/70"
+        title={t('header.retake')}
+        aria-label={t('header.retake')}
+        className="text-xs sm:text-sm font-semibold text-telc-700 border-telc-200 bg-telc-50/50 hover:bg-telc-100/70 min-h-[38px] px-2 sm:px-3"
       >
-        <RotateCcw className="w-4 h-4 mr-1.5" />
-        <span>{t('header.retake')}</span>
+        <RotateCcw className="w-4 h-4 sm:mr-1.5" />
+        <span className="hidden sm:inline">{t('header.retake')}</span>
       </Button>
     </>
   );
