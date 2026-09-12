@@ -102,6 +102,52 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     setIsSubmitted(true);
   }, []);
 
+  const updateItemScore = useCallback((itemId, newPoints, newBreakdown) => {
+    setResults((prev) => {
+      if (!prev || !prev.reviewItems) return prev;
+      const updatedItems = prev.reviewItems.map((item) => {
+        if (item.id !== itemId) return item;
+        const isCorrect = newPoints >= Math.ceil((item.max_points || 10) * 0.6);
+        return {
+          ...item,
+          points_earned: newPoints,
+          is_correct: isCorrect,
+          criteria_breakdown: newBreakdown || item.criteria_breakdown
+        };
+      });
+
+      const newTotalScore = updatedItems.reduce((acc, it) => {
+        const pts = it.points_earned !== undefined ? it.points_earned : (it.is_correct ? 1 : 0);
+        return acc + pts;
+      }, 0);
+
+      const maxScore = prev.maxScore || prev.exam?.max_score || 15;
+      const updatedTeilBreakdown = { ...(prev.teilBreakdown || {}) };
+      const currentItem = prev.reviewItems.find((it) => it.id === itemId);
+      const itemTeil = currentItem?.teil;
+
+      if (itemTeil && updatedTeilBreakdown[itemTeil]) {
+        const teilScore = updatedItems
+          .filter((it) => it.teil === itemTeil)
+          .reduce((sum, it) => sum + (it.points_earned !== undefined ? it.points_earned : (it.is_correct ? 1 : 0)), 0);
+        updatedTeilBreakdown[itemTeil] = {
+          ...updatedTeilBreakdown[itemTeil],
+          score: teilScore,
+        };
+      }
+
+      return {
+        ...prev,
+        score: newTotalScore,
+        maxScore,
+        passed: newTotalScore >= (prev.passScore || Math.ceil(maxScore * 0.6)),
+        percentage: maxScore > 0 ? Math.round((newTotalScore / maxScore) * 100) : 0,
+        reviewItems: updatedItems,
+        teilBreakdown: updatedTeilBreakdown,
+      };
+    });
+  }, []);
+
   return {
     answers,
     answeredCount: Object.keys(answers).length,
@@ -121,5 +167,6 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     submitCurrentExam,
     retakeMistakes,
     loadPastAttempt,
+    updateItemScore,
   };
 }

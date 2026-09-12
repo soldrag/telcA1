@@ -1,6 +1,77 @@
 import React from 'react';
-import { Mail, Globe, FileText } from 'lucide-react';
+import { Mail, Globe, FileText, FileSpreadsheet, Volume2, Radio, Phone } from 'lucide-react';
 import { useI18n } from '../i18n/I18nContext.jsx';
+
+function getTeilGroups(questions = [], testType = 'lesen', t) {
+  if (testType === 'schreiben') {
+    return [
+      {
+        teil: 1,
+        label: 'Teil 1 (1–5)',
+        sublabel: t('welcome.moduleSub_formular') || 'Formular',
+        icon: FileSpreadsheet,
+        questions: questions.filter((q) => q.teil === 1),
+      },
+      {
+        teil: 2,
+        label: 'Teil 2 (6)',
+        sublabel: t('welcome.moduleSub_brief') || 'Brief / E-Mail',
+        icon: Mail,
+        questions: questions.filter((q) => q.teil === 2),
+      },
+    ];
+  }
+
+  if (testType === 'hoeren') {
+    return [
+      {
+        teil: 1,
+        label: 'Teil 1 (1–6)',
+        sublabel: 'Gespräche',
+        icon: Volume2,
+        questions: questions.filter((q) => q.teil === 1),
+      },
+      {
+        teil: 2,
+        label: 'Teil 2 (7–10)',
+        sublabel: 'Durchsagen',
+        icon: Radio,
+        questions: questions.filter((q) => q.teil === 2),
+      },
+      {
+        teil: 3,
+        label: 'Teil 3 (11–15)',
+        sublabel: 'Telefon',
+        icon: Phone,
+        questions: questions.filter((q) => q.teil === 3),
+      },
+    ];
+  }
+
+  return [
+    {
+      teil: 1,
+      label: 'Teil 1 (1–5)',
+      sublabel: 'E-Mails & Briefe',
+      icon: Mail,
+      questions: questions.filter((q) => q.teil === 1),
+    },
+    {
+      teil: 2,
+      label: 'Teil 2 (6–10)',
+      sublabel: 'Webseiten / Anzeigen',
+      icon: Globe,
+      questions: questions.filter((q) => q.teil === 2),
+    },
+    {
+      teil: 3,
+      label: 'Teil 3 (11–15)',
+      sublabel: 'Schilder & Zettel',
+      icon: FileText,
+      questions: questions.filter((q) => q.teil === 3),
+    },
+  ];
+}
 
 export default function QuestionNav({
   questions = [],
@@ -11,17 +82,15 @@ export default function QuestionNav({
   setActiveTeil = session.selectTeil || session.setActiveTeil,
   activeQuestionIndex = session.activeQuestionIndex,
   onSelectQuestion = session.jumpToQuestion,
+  testType = 'lesen',
 }) {
   const { t } = useI18n();
-  const teilGroups = [
-    { teil: 1, label: 'Teil 1 (1–5)', sublabel: 'E-Mails & Briefe', icon: Mail, questions: questions.filter(question => question.teil === 1) },
-    { teil: 2, label: 'Teil 2 (6–10)', sublabel: 'Webseiten / Anzeigen', icon: Globe, questions: questions.filter(question => question.teil === 2) },
-    { teil: 3, label: 'Teil 3 (11–15)', sublabel: 'Schilder & Zettel', icon: FileText, questions: questions.filter(question => question.teil === 3) },
-  ];
+  const resolvedType = testType || (questions[0]?.exam_id?.startsWith('schreiben-') ? 'schreiben' : 'lesen');
+  const teilGroups = getTeilGroups(questions, resolvedType, t);
 
   return (
     <div className="bg-surface-card rounded-2xl border-2 border-border-default p-3 sm:p-4 shadow-xs space-y-4">
-      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+      <div className={`grid ${teilGroups.length === 2 ? 'grid-cols-2' : 'grid-cols-3'} gap-2 sm:gap-3`}>
         {teilGroups.map((group) => {
           const Icon = group.icon;
           const isSelected = activeTeil === group.teil;

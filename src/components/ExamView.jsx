@@ -27,9 +27,16 @@ export default function ExamView({
 }) {
   const { t } = useI18n();
   const [showAntwortbogen, setShowAntwortbogen] = useState(false);
-  const maxTeile = getMaxTeile(testType);
+  const resolvedTestType = testType || (questions[0]?.exam_id?.startsWith('schreiben-') ? 'schreiben' : 'lesen');
+  const maxTeile = getMaxTeile(resolvedTestType);
   const answeredCount = session.answeredCount ?? 0;
   const totalQuestions = questions.length;
+
+  useEffect(() => {
+    if (session.activeTeil > maxTeile) {
+      session.selectTeil?.(maxTeile);
+    }
+  }, [session.activeTeil, maxTeile, session]);
 
   useEffect(() => {
     if (!session.scrollTargetId) return;
@@ -64,6 +71,7 @@ export default function ExamView({
           <QuestionNav
             questions={questions}
             session={session}
+            testType={resolvedTestType}
           />
         </div>
       </div>

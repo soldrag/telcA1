@@ -8,6 +8,7 @@ export function useModalCoordinator() {
   const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
   const [timeUpModalOpen, setTimeUpModalOpen] = useState(false);
   const [shareModalAttempt, setShareModalAttempt] = useState(null);
+  const [legalModalType, setLegalModalType] = useState(null);
 
   const openSubmitModal = useCallback(() => setConfirmSubmitOpen(true), []);
   const closeSubmitModal = useCallback(() => setConfirmSubmitOpen(false), []);
@@ -17,12 +18,15 @@ export function useModalCoordinator() {
   const closeTimeUpModal = useCallback(() => setTimeUpModalOpen(false), []);
   const openShareModal = useCallback((attempt) => setShareModalAttempt(attempt), []);
   const closeShareModal = useCallback(() => setShareModalAttempt(null), []);
+  const openLegalModal = useCallback((type = 'impressum') => setLegalModalType(type), []);
+  const closeLegalModal = useCallback(() => setLegalModalType(null), []);
 
   return {
     confirmSubmitOpen,
     confirmLeaveOpen,
     timeUpModalOpen,
     shareModalAttempt,
+    legalModalType,
     openSubmitModal,
     closeSubmitModal,
     openLeaveModal,
@@ -31,5 +35,7 @@ export function useModalCoordinator() {
     closeTimeUpModal,
     openShareModal,
     closeShareModal,
+    openLegalModal,
+    closeLegalModal,
   };
 }

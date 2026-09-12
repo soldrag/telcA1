@@ -16,18 +16,20 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3001
+ENV HOST=0.0.0.0
 
 COPY package*.json ./
 RUN npm ci --omit=dev
 
 COPY shared/ ./shared/
 COPY server/ ./server/
+COPY src/services/ ./src/services/
 COPY --from=builder /app/dist ./dist
 
 RUN mkdir -p /app/data
 
 VOLUME ["/app/data"]
 
-EXPOSE 3001
+EXPOSE 3001 3443
 
 CMD ["node", "server/index.js"]

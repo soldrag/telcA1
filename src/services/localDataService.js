@@ -58,6 +58,7 @@ export function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds 
     },
     score,
     totalQuestions,
+    maxScore,
     percentage,
     passed,
     teilBreakdown,

@@ -55,15 +55,15 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.equal(shortResult.points_earned, 3);
     assert.equal(shortResult.is_correct, false);
 
-    // Medium text (10-19 words)
+    // Medium text (10-19 words, missing closing and name)
     const mediumText = 'Sehr geehrte Damen und Herren, ich möchte Deutsch lernen. Bitte antworten Sie mir.';
     const medResult = evaluateEssay(mediumText, qEssay);
     assert.equal(medResult.word_count, 13);
-    assert.equal(medResult.points_earned, 6);
-    assert.equal(medResult.is_correct, true);
+    assert.equal(medResult.points_earned, 4);
+    assert.equal(medResult.is_correct, false);
 
     // Full text (>= 20 words)
-    const fullText = 'Sehr geehrte Damen und Herren, ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs? Mit freundlichen Grüßen, Anna';
+    const fullText = 'Sehr geehrte Damen und Herren, ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs? Mit freundlichen Grüßen\nAnna';
     const fullResult = evaluateEssay(fullText, qEssay);
     assert.equal(fullResult.word_count >= 20, true);
     assert.equal(fullResult.points_earned, 10);
@@ -92,7 +92,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
       's1-q3': '18.07',
       's1-q4': 'Doppelzimmer',
       's1-q5': 'Kreditkarte',
-      's1-q6': 'Sehr geehrte Damen und Herren, ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs? Mit freundlichen Grüßen, Anna',
+      's1-q6': 'Sehr geehrte Damen und Herren, ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs? Mit freundlichen Grüßen\nAnna',
     };
 
     const result = evaluateExamSubmission(mockQuestions, answers);

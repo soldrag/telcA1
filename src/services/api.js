@@ -91,7 +91,9 @@ export async function fetchExamDetails(examId) {
 
 export async function submitExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
   if (!examId) throw new Error('examId is required to submit exam answers');
-  if (isStaticMode()) return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
+  if (isStaticMode() || examId.startsWith('schreiben-')) {
+    return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
+  }
   try {
     return await request(`/api/exams/${encodeURIComponent(examId)}/submit`, {
       method: 'POST',

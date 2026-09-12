@@ -1,0 +1,4677 @@
+{
+  "ich": [
+    {
+      "w": "ich",
+      "pos": "PRON_SUBJ",
+      "lemma": "ich",
+      "person": [
+        1
+      ],
+      "number": "sg",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "du": [
+    {
+      "w": "du",
+      "pos": "PRON_SUBJ",
+      "lemma": "du",
+      "person": [
+        2
+      ],
+      "number": "sg",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "er": [
+    {
+      "w": "er",
+      "pos": "PRON_SUBJ",
+      "lemma": "er",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "sie": [
+    {
+      "w": "sie",
+      "pos": "PRON_SUBJ",
+      "lemma": "sie",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "gender": "f",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "w": "sie",
+      "pos": "PRON_SUBJ",
+      "lemma": "Sie",
+      "person": [
+        3
+      ],
+      "number": "pl",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "w": "sie",
+      "pos": "PRON_OBJ",
+      "lemma": "sie",
+      "person": [
+        3
+      ],
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "es": [
+    {
+      "w": "es",
+      "pos": "PRON_SUBJ",
+      "lemma": "es",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "gender": "n",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "w": "es",
+      "pos": "PRON_OBJ",
+      "lemma": "es",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "gender": "n",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "wir": [
+    {
+      "w": "wir",
+      "pos": "PRON_SUBJ",
+      "lemma": "wir",
+      "person": [
+        1
+      ],
+      "number": "pl",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "ihr": [
+    {
+      "w": "ihr",
+      "pos": "PRON_SUBJ",
+      "lemma": "ihr",
+      "person": [
+        2
+      ],
+      "number": "pl",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "w": "ihr",
+      "pos": "PRON_OBJ",
+      "lemma": "sie",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    },
+    {
+      "pos": "DET",
+      "lemma": "ihr",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "pos": "DET",
+      "lemma": "Ihr",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "mich": [
+    {
+      "w": "mich",
+      "pos": "PRON_OBJ",
+      "lemma": "ich",
+      "person": [
+        1
+      ],
+      "number": "sg",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "dich": [
+    {
+      "w": "dich",
+      "pos": "PRON_OBJ",
+      "lemma": "du",
+      "person": [
+        2
+      ],
+      "number": "sg",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "ihn": [
+    {
+      "w": "ihn",
+      "pos": "PRON_OBJ",
+      "lemma": "er",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "uns": [
+    {
+      "w": "uns",
+      "pos": "PRON_OBJ",
+      "lemma": "wir",
+      "person": [
+        1
+      ],
+      "number": "pl",
+      "case": [
+        "AKK",
+        "DAT"
+      ]
+    }
+  ],
+  "euch": [
+    {
+      "w": "euch",
+      "pos": "PRON_OBJ",
+      "lemma": "ihr",
+      "person": [
+        2
+      ],
+      "number": "pl",
+      "case": [
+        "AKK",
+        "DAT"
+      ]
+    }
+  ],
+  "mir": [
+    {
+      "w": "mir",
+      "pos": "PRON_OBJ",
+      "lemma": "ich",
+      "person": [
+        1
+      ],
+      "number": "sg",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "dir": [
+    {
+      "w": "dir",
+      "pos": "PRON_OBJ",
+      "lemma": "du",
+      "person": [
+        2
+      ],
+      "number": "sg",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "ihm": [
+    {
+      "w": "ihm",
+      "pos": "PRON_OBJ",
+      "lemma": "er",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "ihnen": [
+    {
+      "w": "ihnen",
+      "pos": "PRON_OBJ",
+      "lemma": "sie",
+      "person": [
+        3
+      ],
+      "number": "pl",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "man": [
+    {
+      "w": "man",
+      "pos": "PRON_SUBJ",
+      "lemma": "man",
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "etwas": [
+    {
+      "w": "etwas",
+      "pos": "PRON_OBJ",
+      "lemma": "etwas"
+    }
+  ],
+  "nichts": [
+    {
+      "w": "nichts",
+      "pos": "PRON_OBJ",
+      "lemma": "nichts"
+    }
+  ],
+  "alles": [
+    {
+      "w": "alles",
+      "pos": "PRON_OBJ",
+      "lemma": "alles"
+    }
+  ],
+  "jemand": [
+    {
+      "w": "jemand",
+      "pos": "PRON_SUBJ",
+      "lemma": "jemand",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "niemand": [
+    {
+      "w": "niemand",
+      "pos": "PRON_SUBJ",
+      "lemma": "niemand",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "der": [
+    {
+      "w": "der",
+      "pos": "DET",
+      "lemma": "der",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "die": [
+    {
+      "w": "die",
+      "pos": "DET",
+      "lemma": "die",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "das": [
+    {
+      "w": "das",
+      "pos": "DET",
+      "lemma": "das",
+      "gender": "n",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "den": [
+    {
+      "w": "den",
+      "pos": "DET",
+      "lemma": "der",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "dem": [
+    {
+      "w": "dem",
+      "pos": "DET",
+      "lemma": "der",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    },
+    {
+      "w": "dem",
+      "pos": "DET",
+      "lemma": "das",
+      "gender": "n",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "des": [
+    {
+      "w": "des",
+      "pos": "DET",
+      "lemma": "der",
+      "case": [
+        "GEN"
+      ]
+    }
+  ],
+  "ein": [
+    {
+      "w": "ein",
+      "pos": "DET",
+      "lemma": "ein",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "pos": "ADJ",
+      "lemma": "ein"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "ein"
+    }
+  ],
+  "eine": [
+    {
+      "w": "eine",
+      "pos": "DET",
+      "lemma": "ein",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "einen": [
+    {
+      "w": "einen",
+      "pos": "DET",
+      "lemma": "ein",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "einem": [
+    {
+      "w": "einem",
+      "pos": "DET",
+      "lemma": "ein",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "einer": [
+    {
+      "w": "einer",
+      "pos": "DET",
+      "lemma": "ein",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "kein": [
+    {
+      "w": "kein",
+      "pos": "DET",
+      "lemma": "kein",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "pos": "PART_NEG",
+      "lemma": "kein"
+    }
+  ],
+  "keine": [
+    {
+      "w": "keine",
+      "pos": "DET",
+      "lemma": "kein",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    },
+    {
+      "pos": "PART_NEG",
+      "lemma": "kein"
+    }
+  ],
+  "keinen": [
+    {
+      "w": "keinen",
+      "pos": "DET",
+      "lemma": "kein",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "keinem": [
+    {
+      "w": "keinem",
+      "pos": "DET",
+      "lemma": "kein",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "keiner": [
+    {
+      "w": "keiner",
+      "pos": "DET",
+      "lemma": "kein",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "mein": [
+    {
+      "pos": "DET",
+      "lemma": "mein",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "meine": [
+    {
+      "pos": "DET",
+      "lemma": "mein",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "meinen": [
+    {
+      "pos": "DET",
+      "lemma": "mein",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "meinem": [
+    {
+      "pos": "DET",
+      "lemma": "mein",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "meiner": [
+    {
+      "pos": "DET",
+      "lemma": "mein",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "dein": [
+    {
+      "pos": "DET",
+      "lemma": "dein",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "deine": [
+    {
+      "pos": "DET",
+      "lemma": "dein",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "deinen": [
+    {
+      "pos": "DET",
+      "lemma": "dein",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "deinem": [
+    {
+      "pos": "DET",
+      "lemma": "dein",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "deiner": [
+    {
+      "pos": "DET",
+      "lemma": "dein",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "sein": [
+    {
+      "pos": "DET",
+      "lemma": "sein",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    },
+    {
+      "pos": "VERB_INF",
+      "lemma": "sein",
+      "valency": "INTRANS"
+    }
+  ],
+  "seine": [
+    {
+      "pos": "DET",
+      "lemma": "sein",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "seinen": [
+    {
+      "pos": "DET",
+      "lemma": "sein",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "seinem": [
+    {
+      "pos": "DET",
+      "lemma": "sein",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "seiner": [
+    {
+      "pos": "DET",
+      "lemma": "sein",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "ihre": [
+    {
+      "pos": "DET",
+      "lemma": "ihr",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    },
+    {
+      "pos": "DET",
+      "lemma": "Ihr",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "ihren": [
+    {
+      "pos": "DET",
+      "lemma": "ihr",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    },
+    {
+      "pos": "DET",
+      "lemma": "Ihr",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "ihrem": [
+    {
+      "pos": "DET",
+      "lemma": "ihr",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    },
+    {
+      "pos": "DET",
+      "lemma": "Ihr",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "ihrer": [
+    {
+      "pos": "DET",
+      "lemma": "ihr",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    },
+    {
+      "pos": "DET",
+      "lemma": "Ihr",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "unser": [
+    {
+      "pos": "DET",
+      "lemma": "unser",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "unsere": [
+    {
+      "pos": "DET",
+      "lemma": "unser",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "unseren": [
+    {
+      "pos": "DET",
+      "lemma": "unser",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "unserem": [
+    {
+      "pos": "DET",
+      "lemma": "unser",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "unserer": [
+    {
+      "pos": "DET",
+      "lemma": "unser",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "euer": [
+    {
+      "pos": "DET",
+      "lemma": "euer",
+      "gender": "m",
+      "case": [
+        "NOM"
+      ]
+    }
+  ],
+  "eure": [
+    {
+      "pos": "DET",
+      "lemma": "euer",
+      "gender": "f",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "euren": [
+    {
+      "pos": "DET",
+      "lemma": "euer",
+      "gender": "m",
+      "case": [
+        "AKK"
+      ]
+    }
+  ],
+  "eurem": [
+    {
+      "pos": "DET",
+      "lemma": "euer",
+      "gender": "m",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "eurer": [
+    {
+      "pos": "DET",
+      "lemma": "euer",
+      "gender": "f",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "dieser": [
+    {
+      "pos": "DET",
+      "lemma": "dieser"
+    }
+  ],
+  "diese": [
+    {
+      "pos": "DET",
+      "lemma": "dieser"
+    }
+  ],
+  "dieses": [
+    {
+      "pos": "DET",
+      "lemma": "dieser"
+    }
+  ],
+  "diesen": [
+    {
+      "pos": "DET",
+      "lemma": "dieser"
+    }
+  ],
+  "diesem": [
+    {
+      "pos": "DET",
+      "lemma": "dieser"
+    }
+  ],
+  "für": [
+    {
+      "pos": "PREP",
+      "lemma": "für",
+      "prepCase": "AKK"
+    }
+  ],
+  "durch": [
+    {
+      "pos": "PREP",
+      "lemma": "durch",
+      "prepCase": "AKK"
+    }
+  ],
+  "gegen": [
+    {
+      "pos": "PREP",
+      "lemma": "gegen",
+      "prepCase": "AKK"
+    }
+  ],
+  "ohne": [
+    {
+      "pos": "PREP",
+      "lemma": "ohne",
+      "prepCase": "AKK"
+    }
+  ],
+  "um": [
+    {
+      "pos": "PREP",
+      "lemma": "um",
+      "prepCase": "AKK"
+    }
+  ],
+  "bis": [
+    {
+      "pos": "PREP",
+      "lemma": "bis",
+      "prepCase": "AKK"
+    }
+  ],
+  "ab": [
+    {
+      "pos": "PREP",
+      "lemma": "ab",
+      "prepCase": "DAT"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "ab"
+    }
+  ],
+  "wegen": [
+    {
+      "pos": "PREP",
+      "lemma": "wegen",
+      "prepCase": "GEN"
+    }
+  ],
+  "aus": [
+    {
+      "pos": "PREP",
+      "lemma": "aus",
+      "prepCase": "DAT"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "aus"
+    }
+  ],
+  "bei": [
+    {
+      "pos": "PREP",
+      "lemma": "bei",
+      "prepCase": "DAT"
+    }
+  ],
+  "mit": [
+    {
+      "pos": "PREP",
+      "lemma": "mit",
+      "prepCase": "DAT"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "mit"
+    }
+  ],
+  "nach": [
+    {
+      "pos": "PREP",
+      "lemma": "nach",
+      "prepCase": "DAT"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "nach"
+    }
+  ],
+  "seit": [
+    {
+      "pos": "PREP",
+      "lemma": "seit",
+      "prepCase": "DAT"
+    }
+  ],
+  "von": [
+    {
+      "pos": "PREP",
+      "lemma": "von",
+      "prepCase": "DAT"
+    }
+  ],
+  "zu": [
+    {
+      "pos": "PREP",
+      "lemma": "zu",
+      "prepCase": "DAT"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "zu"
+    }
+  ],
+  "gegenüber": [
+    {
+      "pos": "PREP",
+      "lemma": "gegenüber",
+      "prepCase": "DAT"
+    }
+  ],
+  "am": [
+    {
+      "pos": "PREP",
+      "lemma": "am",
+      "prepCase": "DAT",
+      "connects": "DATE"
+    }
+  ],
+  "im": [
+    {
+      "pos": "PREP",
+      "lemma": "im",
+      "prepCase": "DAT",
+      "connects": "MONTH_OR_IN"
+    }
+  ],
+  "beim": [
+    {
+      "pos": "PREP",
+      "lemma": "beim",
+      "prepCase": "DAT"
+    }
+  ],
+  "zum": [
+    {
+      "pos": "PREP",
+      "lemma": "zum",
+      "prepCase": "DAT"
+    }
+  ],
+  "zur": [
+    {
+      "pos": "PREP",
+      "lemma": "zur",
+      "prepCase": "DAT"
+    }
+  ],
+  "vom": [
+    {
+      "pos": "PREP",
+      "lemma": "vom",
+      "prepCase": "DAT"
+    }
+  ],
+  "ins": [
+    {
+      "pos": "PREP",
+      "lemma": "ins",
+      "prepCase": "AKK"
+    }
+  ],
+  "ans": [
+    {
+      "pos": "PREP",
+      "lemma": "ans",
+      "prepCase": "AKK"
+    }
+  ],
+  "an": [
+    {
+      "pos": "PREP",
+      "lemma": "an",
+      "prepCase": "WECHSEL"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "an"
+    }
+  ],
+  "auf": [
+    {
+      "pos": "PREP",
+      "lemma": "auf",
+      "prepCase": "WECHSEL"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "auf"
+    }
+  ],
+  "in": [
+    {
+      "pos": "PREP",
+      "lemma": "in",
+      "prepCase": "WECHSEL"
+    }
+  ],
+  "neben": [
+    {
+      "pos": "PREP",
+      "lemma": "neben",
+      "prepCase": "WECHSEL"
+    }
+  ],
+  "über": [
+    {
+      "pos": "PREP",
+      "lemma": "über",
+      "prepCase": "WECHSEL"
+    }
+  ],
+  "unter": [
+    {
+      "pos": "PREP",
+      "lemma": "unter",
+      "prepCase": "WECHSEL"
+    }
+  ],
+  "vor": [
+    {
+      "pos": "PREP",
+      "lemma": "vor",
+      "prepCase": "WECHSEL"
+    },
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "vor"
+    }
+  ],
+  "hinter": [
+    {
+      "pos": "PREP",
+      "lemma": "hinter",
+      "prepCase": "WECHSEL"
+    }
+  ],
+  "zwischen": [
+    {
+      "pos": "PREP",
+      "lemma": "zwischen",
+      "prepCase": "WECHSEL"
+    }
+  ],
+  "und": [
+    {
+      "pos": "KONJ_COORD",
+      "lemma": "und"
+    }
+  ],
+  "aber": [
+    {
+      "pos": "KONJ_COORD",
+      "lemma": "aber"
+    }
+  ],
+  "oder": [
+    {
+      "pos": "KONJ_COORD",
+      "lemma": "oder"
+    }
+  ],
+  "denn": [
+    {
+      "pos": "KONJ_COORD",
+      "lemma": "denn"
+    }
+  ],
+  "sondern": [
+    {
+      "pos": "KONJ_COORD",
+      "lemma": "sondern"
+    }
+  ],
+  "weil": [
+    {
+      "pos": "KONJ_SUB",
+      "lemma": "weil"
+    }
+  ],
+  "dass": [
+    {
+      "pos": "KONJ_SUB",
+      "lemma": "dass"
+    }
+  ],
+  "wenn": [
+    {
+      "pos": "KONJ_SUB",
+      "lemma": "wenn"
+    }
+  ],
+  "ob": [
+    {
+      "pos": "KONJ_SUB",
+      "lemma": "ob"
+    }
+  ],
+  "wer": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wer"
+    }
+  ],
+  "wen": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wen"
+    }
+  ],
+  "wem": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wem"
+    }
+  ],
+  "was": [
+    {
+      "pos": "INTERROG",
+      "lemma": "was"
+    }
+  ],
+  "wann": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wann"
+    }
+  ],
+  "wo": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wo"
+    }
+  ],
+  "wohin": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wohin"
+    }
+  ],
+  "woher": [
+    {
+      "pos": "INTERROG",
+      "lemma": "woher"
+    }
+  ],
+  "wie": [
+    {
+      "pos": "INTERROG",
+      "lemma": "wie"
+    }
+  ],
+  "warum": [
+    {
+      "pos": "INTERROG",
+      "lemma": "warum"
+    }
+  ],
+  "welche": [
+    {
+      "pos": "INTERROG",
+      "lemma": "welche"
+    }
+  ],
+  "welcher": [
+    {
+      "pos": "INTERROG",
+      "lemma": "welcher"
+    }
+  ],
+  "welches": [
+    {
+      "pos": "INTERROG",
+      "lemma": "welches"
+    }
+  ],
+  "nicht": [
+    {
+      "pos": "PART_NEG",
+      "lemma": "nicht"
+    }
+  ],
+  "leider": [
+    {
+      "pos": "ADV",
+      "lemma": "leider"
+    }
+  ],
+  "heute": [
+    {
+      "pos": "ADV",
+      "lemma": "heute"
+    }
+  ],
+  "morgen": [
+    {
+      "pos": "ADV",
+      "lemma": "morgen"
+    }
+  ],
+  "gestern": [
+    {
+      "pos": "ADV",
+      "lemma": "gestern"
+    }
+  ],
+  "jetzt": [
+    {
+      "pos": "ADV",
+      "lemma": "jetzt"
+    }
+  ],
+  "hier": [
+    {
+      "pos": "ADV",
+      "lemma": "hier"
+    }
+  ],
+  "dort": [
+    {
+      "pos": "ADV",
+      "lemma": "dort"
+    }
+  ],
+  "sehr": [
+    {
+      "pos": "ADV",
+      "lemma": "sehr"
+    }
+  ],
+  "gern": [
+    {
+      "pos": "ADV",
+      "lemma": "gern"
+    }
+  ],
+  "gerne": [
+    {
+      "pos": "ADV",
+      "lemma": "gerne"
+    }
+  ],
+  "auch": [
+    {
+      "pos": "ADV",
+      "lemma": "auch"
+    }
+  ],
+  "noch": [
+    {
+      "pos": "ADV",
+      "lemma": "noch"
+    }
+  ],
+  "schon": [
+    {
+      "pos": "ADV",
+      "lemma": "schon"
+    }
+  ],
+  "dann": [
+    {
+      "pos": "ADV",
+      "lemma": "dann"
+    }
+  ],
+  "danach": [
+    {
+      "pos": "ADV",
+      "lemma": "danach"
+    }
+  ],
+  "zuerst": [
+    {
+      "pos": "ADV",
+      "lemma": "zuerst"
+    }
+  ],
+  "bitte": [
+    {
+      "pos": "ADV",
+      "lemma": "bitte"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bitten",
+      "person": [
+        1
+      ],
+      "number": "sg",
+      "valency": "TRANS"
+    }
+  ],
+  "vielleicht": [
+    {
+      "pos": "ADV",
+      "lemma": "vielleicht"
+    }
+  ],
+  "sofort": [
+    {
+      "pos": "ADV",
+      "lemma": "sofort"
+    }
+  ],
+  "später": [
+    {
+      "pos": "ADV",
+      "lemma": "später"
+    }
+  ],
+  "immer": [
+    {
+      "pos": "ADV",
+      "lemma": "immer"
+    }
+  ],
+  "oft": [
+    {
+      "pos": "ADV",
+      "lemma": "oft"
+    }
+  ],
+  "nur": [
+    {
+      "pos": "ADV",
+      "lemma": "nur"
+    }
+  ],
+  "wieder": [
+    {
+      "pos": "ADV",
+      "lemma": "wieder"
+    }
+  ],
+  "zusammen": [
+    {
+      "pos": "ADV",
+      "lemma": "zusammen"
+    }
+  ],
+  "allein": [
+    {
+      "pos": "ADV",
+      "lemma": "allein"
+    }
+  ],
+  "vormittags": [
+    {
+      "pos": "ADV",
+      "lemma": "vormittags"
+    }
+  ],
+  "nachmittags": [
+    {
+      "pos": "ADV",
+      "lemma": "nachmittags"
+    }
+  ],
+  "abends": [
+    {
+      "pos": "ADV",
+      "lemma": "abends"
+    }
+  ],
+  "lange": [
+    {
+      "pos": "ADV",
+      "lemma": "lange"
+    }
+  ],
+  "länger": [
+    {
+      "pos": "ADV",
+      "lemma": "länger"
+    }
+  ],
+  "gut": [
+    {
+      "pos": "ADV",
+      "lemma": "gut"
+    }
+  ],
+  "viel": [
+    {
+      "pos": "ADV",
+      "lemma": "viel"
+    }
+  ],
+  "wenig": [
+    {
+      "pos": "ADV",
+      "lemma": "wenig"
+    }
+  ],
+  "besonders": [
+    {
+      "pos": "ADV",
+      "lemma": "besonders"
+    }
+  ],
+  "direkt": [
+    {
+      "pos": "ADV",
+      "lemma": "direkt"
+    }
+  ],
+  "schnell": [
+    {
+      "pos": "ADV",
+      "lemma": "schnell"
+    }
+  ],
+  "bald": [
+    {
+      "pos": "ADV",
+      "lemma": "bald"
+    }
+  ],
+  "montag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Montag",
+      "gender": "m"
+    }
+  ],
+  "dienstag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Dienstag",
+      "gender": "m"
+    }
+  ],
+  "mittwoch": [
+    {
+      "pos": "NOUN",
+      "lemma": "Mittwoch",
+      "gender": "m"
+    }
+  ],
+  "donnerstag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Donnerstag",
+      "gender": "m"
+    }
+  ],
+  "freitag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Freitag",
+      "gender": "m"
+    }
+  ],
+  "samstag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Samstag",
+      "gender": "m"
+    }
+  ],
+  "sonntag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Sonntag",
+      "gender": "m"
+    }
+  ],
+  "wochenende": [
+    {
+      "pos": "NOUN",
+      "lemma": "Wochenende",
+      "gender": "m"
+    }
+  ],
+  "januar": [
+    {
+      "pos": "NOUN",
+      "lemma": "Januar",
+      "gender": "m"
+    }
+  ],
+  "februar": [
+    {
+      "pos": "NOUN",
+      "lemma": "Februar",
+      "gender": "m"
+    }
+  ],
+  "märz": [
+    {
+      "pos": "NOUN",
+      "lemma": "März",
+      "gender": "m"
+    }
+  ],
+  "maerz": [
+    {
+      "pos": "NOUN",
+      "lemma": "Maerz",
+      "gender": "m"
+    }
+  ],
+  "april": [
+    {
+      "pos": "NOUN",
+      "lemma": "April",
+      "gender": "m"
+    }
+  ],
+  "mai": [
+    {
+      "pos": "NOUN",
+      "lemma": "Mai",
+      "gender": "m"
+    }
+  ],
+  "juni": [
+    {
+      "pos": "NOUN",
+      "lemma": "Juni",
+      "gender": "m"
+    }
+  ],
+  "juli": [
+    {
+      "pos": "NOUN",
+      "lemma": "Juli",
+      "gender": "m"
+    }
+  ],
+  "august": [
+    {
+      "pos": "NOUN",
+      "lemma": "August",
+      "gender": "m"
+    }
+  ],
+  "september": [
+    {
+      "pos": "NOUN",
+      "lemma": "September",
+      "gender": "m"
+    }
+  ],
+  "oktober": [
+    {
+      "pos": "NOUN",
+      "lemma": "Oktober",
+      "gender": "m"
+    }
+  ],
+  "november": [
+    {
+      "pos": "NOUN",
+      "lemma": "November",
+      "gender": "m"
+    }
+  ],
+  "dezember": [
+    {
+      "pos": "NOUN",
+      "lemma": "Dezember",
+      "gender": "m"
+    }
+  ],
+  "uhr": [
+    {
+      "pos": "NOUN",
+      "lemma": "Uhr",
+      "gender": "f"
+    }
+  ],
+  "stunde": [
+    {
+      "pos": "NOUN",
+      "lemma": "Stunde",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "stunden": [
+    {
+      "pos": "NOUN",
+      "lemma": "Stunden",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "tag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Tag",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "tage": [
+    {
+      "pos": "NOUN",
+      "lemma": "Tage",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "tagen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Tagen",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "woche": [
+    {
+      "pos": "NOUN",
+      "lemma": "Woche",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "wochen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Wochen",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "monat": [
+    {
+      "pos": "NOUN",
+      "lemma": "Monat",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "monate": [
+    {
+      "pos": "NOUN",
+      "lemma": "Monate",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "monaten": [
+    {
+      "pos": "NOUN",
+      "lemma": "Monaten",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "jahr": [
+    {
+      "pos": "NOUN",
+      "lemma": "Jahr",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "jahre": [
+    {
+      "pos": "NOUN",
+      "lemma": "Jahre",
+      "gender": "n",
+      "number": "pl"
+    }
+  ],
+  "jahren": [
+    {
+      "pos": "NOUN",
+      "lemma": "Jahren",
+      "gender": "n",
+      "number": "pl"
+    }
+  ],
+  "zeit": [
+    {
+      "pos": "NOUN",
+      "lemma": "Zeit",
+      "gender": "f",
+      "number": "sg",
+      "isUncountable": true
+    }
+  ],
+  "eins": [
+    {
+      "pos": "ADJ",
+      "lemma": "eins"
+    }
+  ],
+  "zwei": [
+    {
+      "pos": "ADJ",
+      "lemma": "zwei"
+    }
+  ],
+  "drei": [
+    {
+      "pos": "ADJ",
+      "lemma": "drei"
+    }
+  ],
+  "vier": [
+    {
+      "pos": "ADJ",
+      "lemma": "vier"
+    }
+  ],
+  "fünf": [
+    {
+      "pos": "ADJ",
+      "lemma": "fünf"
+    }
+  ],
+  "fuenf": [
+    {
+      "pos": "ADJ",
+      "lemma": "fuenf"
+    }
+  ],
+  "sechs": [
+    {
+      "pos": "ADJ",
+      "lemma": "sechs"
+    }
+  ],
+  "sieben": [
+    {
+      "pos": "ADJ",
+      "lemma": "sieben"
+    }
+  ],
+  "acht": [
+    {
+      "pos": "ADJ",
+      "lemma": "acht"
+    }
+  ],
+  "neun": [
+    {
+      "pos": "ADJ",
+      "lemma": "neun"
+    }
+  ],
+  "zehn": [
+    {
+      "pos": "ADJ",
+      "lemma": "zehn"
+    }
+  ],
+  "elf": [
+    {
+      "pos": "ADJ",
+      "lemma": "elf"
+    }
+  ],
+  "zwölf": [
+    {
+      "pos": "ADJ",
+      "lemma": "zwölf"
+    }
+  ],
+  "zwoelf": [
+    {
+      "pos": "ADJ",
+      "lemma": "zwoelf"
+    }
+  ],
+  "viele": [
+    {
+      "pos": "ADJ",
+      "lemma": "viele"
+    }
+  ],
+  "wenige": [
+    {
+      "pos": "ADJ",
+      "lemma": "wenige"
+    }
+  ],
+  "zurück": [
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "zurück"
+    }
+  ],
+  "zurueck": [
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "zurueck"
+    }
+  ],
+  "frei": [
+    {
+      "pos": "VERB_PREFIX",
+      "lemma": "frei"
+    },
+    {
+      "pos": "ADJ",
+      "lemma": "frei"
+    }
+  ],
+  "können": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "können",
+      "valency": "MODAL"
+    },
+    {
+      "pos": "VERB_MOD",
+      "lemma": "können",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "kann": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "können",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "kannst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "können",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "koennen": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "können",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "könnt": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "können",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "koennt": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "können",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "müssen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "müssen",
+      "valency": "MODAL"
+    },
+    {
+      "pos": "VERB_MOD",
+      "lemma": "müssen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "muss": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "müssen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "musst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "müssen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "muessen": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "müssen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "müsst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "müssen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "muesst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "müssen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "wollen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "wollen",
+      "valency": "MODAL"
+    },
+    {
+      "pos": "VERB_MOD",
+      "lemma": "wollen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "will": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "wollen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "willst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "wollen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "wollt": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "wollen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "möchten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "möchten",
+      "valency": "MODAL"
+    },
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "möchte": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "moechte": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "möchtest": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "moechtest": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "moechten": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "möchtet": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "moechtet": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "möchten",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "dürfen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "dürfen",
+      "valency": "MODAL"
+    },
+    {
+      "pos": "VERB_MOD",
+      "lemma": "dürfen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "darf": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "dürfen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "darfst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "dürfen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "duerfen": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "dürfen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "dürft": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "dürfen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "duerft": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "dürfen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "sollen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "sollen",
+      "valency": "MODAL"
+    },
+    {
+      "pos": "VERB_MOD",
+      "lemma": "sollen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "soll": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "sollen",
+      "valency": "MODAL",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "sollst": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "sollen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "sollt": [
+    {
+      "pos": "VERB_MOD",
+      "lemma": "sollen",
+      "valency": "MODAL",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "haben": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "haben",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "haben",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "habe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "haben",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "hast": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "haben",
+      "valency": "TRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "hat": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "haben",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "habt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "haben",
+      "valency": "TRANS",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "hatte": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "haben",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gehabt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "haben",
+      "valency": "TRANS"
+    }
+  ],
+  "bin": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "bist": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "ist": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "sind": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "seid": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "war": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "waren": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sein",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "gewesen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "sein",
+      "valency": "INTRANS"
+    }
+  ],
+  "werden": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "werden",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "werden",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "werde": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "werden",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "wirst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "werden",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "wird": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "werden",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "werdet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "werden",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "geworden": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "werden",
+      "valency": "INTRANS"
+    }
+  ],
+  "arbeiten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "arbeiten",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "arbeiten",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    },
+    {
+      "pos": "NOUN",
+      "lemma": "Arbeiten",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "arbeite": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "arbeiten",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "arbeitest": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "arbeiten",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "arbeitet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "arbeiten",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "arbeiten",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "pl"
+    }
+  ],
+  "gearbeitet": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "arbeiten",
+      "valency": "INTRANS"
+    }
+  ],
+  "kommen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "kommen",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kommen",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "komme": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kommen",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "kommst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kommen",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "kommt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kommen",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gekommen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "kommen",
+      "valency": "INTRANS"
+    }
+  ],
+  "gehen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "gehen",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "gehen",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "gehe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "gehen",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "gehst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "gehen",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "geht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "gehen",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gegangen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "gehen",
+      "valency": "INTRANS"
+    }
+  ],
+  "fahren": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "fahren",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fahren",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "fahre": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fahren",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "fährst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fahren",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "faehrst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fahren",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "fährt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fahren",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "faehrt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fahren",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gefahren": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "fahren",
+      "valency": "INTRANS"
+    }
+  ],
+  "machen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "machen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "machen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "mache": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "machen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "machst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "machen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "macht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "machen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gemacht": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "machen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "sagen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "sagen",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sagen",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "sage": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sagen",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "sagst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sagen",
+      "valency": "TRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "sagt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sagen",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gesagt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "sagen",
+      "valency": "TRANS"
+    }
+  ],
+  "absagen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "absagen",
+      "valency": "SEP",
+      "baseVerb": "sagen"
+    }
+  ],
+  "abgesagt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "absagen",
+      "valency": "SEP",
+      "baseVerb": "sagen"
+    }
+  ],
+  "anrufen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "anrufen",
+      "valency": "SEP",
+      "baseVerb": "rufen",
+      "objCase": "AKK"
+    }
+  ],
+  "angerufen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "anrufen",
+      "valency": "SEP",
+      "baseVerb": "rufen",
+      "objCase": "AKK"
+    }
+  ],
+  "zurückrufen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "zurückrufen",
+      "valency": "SEP",
+      "baseVerb": "rufen",
+      "objCase": "AKK"
+    }
+  ],
+  "zurückgerufen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "zurückrufen",
+      "valency": "SEP",
+      "baseVerb": "rufen",
+      "objCase": "AKK"
+    }
+  ],
+  "zurueckgerufen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "zurückrufen",
+      "valency": "SEP",
+      "baseVerb": "rufen",
+      "objCase": "AKK"
+    }
+  ],
+  "zurueckrufen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "zurückrufen",
+      "valency": "SEP",
+      "baseVerb": "rufen",
+      "objCase": "AKK"
+    }
+  ],
+  "rufen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "rufen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "rufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "rufe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "rufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "rufst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "rufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "ruft": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "rufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gerufen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "rufen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "antworten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "antworten",
+      "valency": "DAT",
+      "objCase": "DAT"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "antworten",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "antworte": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "antworten",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "antwortest": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "antworten",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "antwortet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "antworten",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "geantwortet": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "antworten",
+      "valency": "DAT",
+      "objCase": "DAT"
+    }
+  ],
+  "helfen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "helfen",
+      "valency": "DAT",
+      "objCase": "DAT"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "helfen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "helfe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "helfen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "hilfst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "helfen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "hilft": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "helfen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "geholfen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "helfen",
+      "valency": "DAT",
+      "objCase": "DAT"
+    }
+  ],
+  "danken": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "danken",
+      "valency": "DAT",
+      "objCase": "DAT"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "danken",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "danke": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "danken",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "dankst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "danken",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "dankt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "danken",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gedankt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "danken",
+      "valency": "DAT",
+      "objCase": "DAT"
+    }
+  ],
+  "bitten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "bitten",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bitten",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "bittest": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bitten",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "bittet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bitten",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gebeten": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "bitten",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "schreiben": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "schreiben",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "schreiben",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "schreibe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "schreiben",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "schreibst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "schreiben",
+      "valency": "TRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "schreibt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "schreiben",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "geschrieben": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "schreiben",
+      "valency": "TRANS"
+    }
+  ],
+  "lernen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "lernen",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "lernen",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "lerne": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "lernen",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "lernst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "lernen",
+      "valency": "TRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "lernt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "lernen",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gelernt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "lernen",
+      "valency": "TRANS"
+    }
+  ],
+  "brauchen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "brauchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "brauchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "brauche": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "brauchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "brauchst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "brauchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "braucht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "brauchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gebraucht": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "brauchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "passen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "passen",
+      "valency": "DAT",
+      "objCase": "DAT"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "passen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "passe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "passen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "passt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "passen",
+      "valency": "DAT",
+      "objCase": "DAT",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gepasst": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "passen",
+      "valency": "DAT",
+      "objCase": "DAT"
+    }
+  ],
+  "kosten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "kosten",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kosten",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "koste": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kosten",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "kostet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kosten",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gekostet": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "kosten",
+      "valency": "TRANS"
+    }
+  ],
+  "geben": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "geben",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "geben",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "gebe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "geben",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "gibst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "geben",
+      "valency": "TRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "gibt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "geben",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gegeben": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "geben",
+      "valency": "TRANS"
+    }
+  ],
+  "stornieren": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "stornieren",
+      "valency": "TRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "stornieren",
+      "valency": "TRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "storniere": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "stornieren",
+      "valency": "TRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "storniert": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "stornieren",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "anmelden": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "anmelden",
+      "valency": "SEP",
+      "baseVerb": "melden"
+    }
+  ],
+  "angemeldet": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "anmelden",
+      "valency": "SEP",
+      "baseVerb": "melden"
+    }
+  ],
+  "freihaben": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "freihaben",
+      "valency": "SEP",
+      "baseVerb": "haben"
+    }
+  ],
+  "termin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Termin",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "termine": [
+    {
+      "pos": "NOUN",
+      "lemma": "Termine",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "terminen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Terminen",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "arzttermin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Arzttermin",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "kurs": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kurs",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "kurse": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kurse",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "deutschkurs": [
+    {
+      "pos": "NOUN",
+      "lemma": "Deutschkurs",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "sprachkurs": [
+    {
+      "pos": "NOUN",
+      "lemma": "Sprachkurs",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "chef": [
+    {
+      "pos": "NOUN",
+      "lemma": "Chef",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "chefin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Chefin",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "arbeit": [
+    {
+      "pos": "NOUN",
+      "lemma": "Arbeit",
+      "gender": "f",
+      "number": "sg",
+      "isUncountable": true
+    }
+  ],
+  "überstunde": [
+    {
+      "pos": "NOUN",
+      "lemma": "Überstunde",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "überstunden": [
+    {
+      "pos": "NOUN",
+      "lemma": "Überstunden",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "ueberstunden": [
+    {
+      "pos": "NOUN",
+      "lemma": "Ueberstunden",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "arzt": [
+    {
+      "pos": "NOUN",
+      "lemma": "Arzt",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "ärztin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Ärztin",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "aerztin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Aerztin",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "dr": [
+    {
+      "pos": "NOUN",
+      "lemma": "Dr",
+      "isTitle": true
+    }
+  ],
+  "dr.": [
+    {
+      "pos": "NOUN",
+      "lemma": "Dr.",
+      "isTitle": true
+    }
+  ],
+  "doktor": [
+    {
+      "pos": "NOUN",
+      "lemma": "Doktor",
+      "gender": "m",
+      "isTitle": true
+    }
+  ],
+  "herr": [
+    {
+      "pos": "NOUN",
+      "lemma": "Herr",
+      "gender": "m",
+      "number": "sg",
+      "isTitle": true
+    }
+  ],
+  "herrn": [
+    {
+      "pos": "NOUN",
+      "lemma": "Herrn",
+      "gender": "m",
+      "number": "sg",
+      "isTitle": true
+    }
+  ],
+  "herren": [
+    {
+      "pos": "NOUN",
+      "lemma": "Herren",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "frau": [
+    {
+      "pos": "NOUN",
+      "lemma": "Frau",
+      "gender": "f",
+      "number": "sg",
+      "isTitle": true
+    }
+  ],
+  "frauen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Frauen",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "damen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Damen",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "kollege": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kollege",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "kollegen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kollegen",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "kollegin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kollegin",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "kolleginnen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kolleginnen",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "team": [
+    {
+      "pos": "NOUN",
+      "lemma": "Team",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "praxisteam": [
+    {
+      "pos": "NOUN",
+      "lemma": "Praxisteam",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "praxis": [
+    {
+      "pos": "NOUN",
+      "lemma": "Praxis",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "krankenhaus": [
+    {
+      "pos": "NOUN",
+      "lemma": "Krankenhaus",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "hotel": [
+    {
+      "pos": "NOUN",
+      "lemma": "Hotel",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "zimmer": [
+    {
+      "pos": "NOUN",
+      "lemma": "Zimmer",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "reservierung": [
+    {
+      "pos": "NOUN",
+      "lemma": "Reservierung",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "ticket": [
+    {
+      "pos": "NOUN",
+      "lemma": "Ticket",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "geld": [
+    {
+      "pos": "NOUN",
+      "lemma": "Geld",
+      "gender": "n",
+      "number": "sg",
+      "isUncountable": true
+    }
+  ],
+  "antwort": [
+    {
+      "pos": "NOUN",
+      "lemma": "Antwort",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "bescheid": [
+    {
+      "pos": "NOUN",
+      "lemma": "Bescheid",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "information": [
+    {
+      "pos": "NOUN",
+      "lemma": "Information",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "informationen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Informationen",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "anmeldung": [
+    {
+      "pos": "NOUN",
+      "lemma": "Anmeldung",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "bestätigung": [
+    {
+      "pos": "NOUN",
+      "lemma": "Bestätigung",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "bestaetigung": [
+    {
+      "pos": "NOUN",
+      "lemma": "Bestaetigung",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "gruß": [
+    {
+      "pos": "NOUN",
+      "lemma": "Gruß",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "gruss": [
+    {
+      "pos": "NOUN",
+      "lemma": "Gruss",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "grüße": [
+    {
+      "pos": "NOUN",
+      "lemma": "Grüße",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "gruesse": [
+    {
+      "pos": "NOUN",
+      "lemma": "Gruesse",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "name": [
+    {
+      "pos": "NOUN",
+      "lemma": "Name",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "bus": [
+    {
+      "pos": "NOUN",
+      "lemma": "Bus",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "zug": [
+    {
+      "pos": "NOUN",
+      "lemma": "Zug",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "freund": [
+    {
+      "pos": "NOUN",
+      "lemma": "Freund",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "freunde": [
+    {
+      "pos": "NOUN",
+      "lemma": "Freunde",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "freunden": [
+    {
+      "pos": "NOUN",
+      "lemma": "Freunden",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "vater": [
+    {
+      "pos": "NOUN",
+      "lemma": "Vater",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "bruder": [
+    {
+      "pos": "NOUN",
+      "lemma": "Bruder",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "sohn": [
+    {
+      "pos": "NOUN",
+      "lemma": "Sohn",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "bahnhof": [
+    {
+      "pos": "NOUN",
+      "lemma": "Bahnhof",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "schule": [
+    {
+      "pos": "NOUN",
+      "lemma": "Schule",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "mutter": [
+    {
+      "pos": "NOUN",
+      "lemma": "Mutter",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "tochter": [
+    {
+      "pos": "NOUN",
+      "lemma": "Tochter",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "schwester": [
+    {
+      "pos": "NOUN",
+      "lemma": "Schwester",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "freundin": [
+    {
+      "pos": "NOUN",
+      "lemma": "Freundin",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "familie": [
+    {
+      "pos": "NOUN",
+      "lemma": "Familie",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "wohnung": [
+    {
+      "pos": "NOUN",
+      "lemma": "Wohnung",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "stadt": [
+    {
+      "pos": "NOUN",
+      "lemma": "Stadt",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "hilfe": [
+    {
+      "pos": "NOUN",
+      "lemma": "Hilfe",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "straße": [
+    {
+      "pos": "NOUN",
+      "lemma": "Straße",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "strasse": [
+    {
+      "pos": "NOUN",
+      "lemma": "Strasse",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "auto": [
+    {
+      "pos": "NOUN",
+      "lemma": "Auto",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "haus": [
+    {
+      "pos": "NOUN",
+      "lemma": "Haus",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "kind": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kind",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "kinder": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kinder",
+      "gender": "n",
+      "number": "pl"
+    }
+  ],
+  "kindern": [
+    {
+      "pos": "NOUN",
+      "lemma": "Kindern",
+      "gender": "n",
+      "number": "pl"
+    }
+  ],
+  "schneider": [
+    {
+      "pos": "NOUN",
+      "lemma": "Schneider",
+      "isProperName": true
+    }
+  ],
+  "neu": [
+    {
+      "pos": "ADJ",
+      "lemma": "neu"
+    }
+  ],
+  "neue": [
+    {
+      "pos": "ADJ",
+      "lemma": "neue"
+    }
+  ],
+  "neuer": [
+    {
+      "pos": "ADJ",
+      "lemma": "neuer"
+    }
+  ],
+  "neues": [
+    {
+      "pos": "ADJ",
+      "lemma": "neues"
+    }
+  ],
+  "neuen": [
+    {
+      "pos": "ADJ",
+      "lemma": "neuen"
+    }
+  ],
+  "neuem": [
+    {
+      "pos": "ADJ",
+      "lemma": "neuem"
+    }
+  ],
+  "alt": [
+    {
+      "pos": "ADJ",
+      "lemma": "alt"
+    }
+  ],
+  "alte": [
+    {
+      "pos": "ADJ",
+      "lemma": "alte"
+    }
+  ],
+  "alter": [
+    {
+      "pos": "ADJ",
+      "lemma": "alter"
+    }
+  ],
+  "altes": [
+    {
+      "pos": "ADJ",
+      "lemma": "altes"
+    }
+  ],
+  "alten": [
+    {
+      "pos": "ADJ",
+      "lemma": "alten"
+    }
+  ],
+  "groß": [
+    {
+      "pos": "ADJ",
+      "lemma": "groß"
+    }
+  ],
+  "gross": [
+    {
+      "pos": "ADJ",
+      "lemma": "gross"
+    }
+  ],
+  "große": [
+    {
+      "pos": "ADJ",
+      "lemma": "große"
+    }
+  ],
+  "grosse": [
+    {
+      "pos": "ADJ",
+      "lemma": "grosse"
+    }
+  ],
+  "großer": [
+    {
+      "pos": "ADJ",
+      "lemma": "großer"
+    }
+  ],
+  "großen": [
+    {
+      "pos": "ADJ",
+      "lemma": "großen"
+    }
+  ],
+  "klein": [
+    {
+      "pos": "ADJ",
+      "lemma": "klein"
+    }
+  ],
+  "kleine": [
+    {
+      "pos": "ADJ",
+      "lemma": "kleine"
+    }
+  ],
+  "kleiner": [
+    {
+      "pos": "ADJ",
+      "lemma": "kleiner"
+    }
+  ],
+  "kleinen": [
+    {
+      "pos": "ADJ",
+      "lemma": "kleinen"
+    }
+  ],
+  "krank": [
+    {
+      "pos": "ADJ",
+      "lemma": "krank"
+    }
+  ],
+  "gesund": [
+    {
+      "pos": "ADJ",
+      "lemma": "gesund"
+    }
+  ],
+  "müde": [
+    {
+      "pos": "ADJ",
+      "lemma": "müde"
+    }
+  ],
+  "freie": [
+    {
+      "pos": "ADJ",
+      "lemma": "freie"
+    }
+  ],
+  "freien": [
+    {
+      "pos": "ADJ",
+      "lemma": "freien"
+    }
+  ],
+  "freier": [
+    {
+      "pos": "ADJ",
+      "lemma": "freier"
+    }
+  ],
+  "schön": [
+    {
+      "pos": "ADJ",
+      "lemma": "schön"
+    }
+  ],
+  "schöne": [
+    {
+      "pos": "ADJ",
+      "lemma": "schöne"
+    }
+  ],
+  "schöner": [
+    {
+      "pos": "ADJ",
+      "lemma": "schöner"
+    }
+  ],
+  "schönen": [
+    {
+      "pos": "ADJ",
+      "lemma": "schönen"
+    }
+  ],
+  "schönem": [
+    {
+      "pos": "ADJ",
+      "lemma": "schönem"
+    }
+  ],
+  "herzlich": [
+    {
+      "pos": "ADJ",
+      "lemma": "herzlich"
+    }
+  ],
+  "herzliche": [
+    {
+      "pos": "ADJ",
+      "lemma": "herzliche"
+    }
+  ],
+  "herzlicher": [
+    {
+      "pos": "ADJ",
+      "lemma": "herzlicher"
+    }
+  ],
+  "herzlichen": [
+    {
+      "pos": "ADJ",
+      "lemma": "herzlichen"
+    }
+  ],
+  "freundlich": [
+    {
+      "pos": "ADJ",
+      "lemma": "freundlich"
+    }
+  ],
+  "freundliche": [
+    {
+      "pos": "ADJ",
+      "lemma": "freundliche"
+    }
+  ],
+  "freundlicher": [
+    {
+      "pos": "ADJ",
+      "lemma": "freundlicher"
+    }
+  ],
+  "freundlichen": [
+    {
+      "pos": "ADJ",
+      "lemma": "freundlichen"
+    }
+  ],
+  "freundlichem": [
+    {
+      "pos": "ADJ",
+      "lemma": "freundlichem"
+    }
+  ],
+  "geehrt": [
+    {
+      "pos": "ADJ",
+      "lemma": "geehrt"
+    }
+  ],
+  "geehrte": [
+    {
+      "pos": "ADJ",
+      "lemma": "geehrte"
+    }
+  ],
+  "geehrter": [
+    {
+      "pos": "ADJ",
+      "lemma": "geehrter"
+    }
+  ],
+  "geehrtes": [
+    {
+      "pos": "ADJ",
+      "lemma": "geehrtes"
+    }
+  ],
+  "geehrten": [
+    {
+      "pos": "ADJ",
+      "lemma": "geehrten"
+    }
+  ],
+  "lieb": [
+    {
+      "pos": "ADJ",
+      "lemma": "lieb"
+    }
+  ],
+  "liebe": [
+    {
+      "pos": "ADJ",
+      "lemma": "liebe"
+    }
+  ],
+  "lieber": [
+    {
+      "pos": "ADJ",
+      "lemma": "lieber"
+    }
+  ],
+  "liebes": [
+    {
+      "pos": "ADJ",
+      "lemma": "liebes"
+    }
+  ],
+  "lieben": [
+    {
+      "pos": "ADJ",
+      "lemma": "lieben"
+    }
+  ]
+}

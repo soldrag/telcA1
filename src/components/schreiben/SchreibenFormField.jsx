@@ -48,7 +48,7 @@ export default function SchreibenFormField({
         disabled={disabled}
         value={value}
         onChange={(e) => onChange(questionId, e.target.value)}
-        placeholder={placeholder}
+        placeholder=""
         className="w-full px-3.5 py-2.5 rounded-lg border-2 border-border-default bg-surface-inset text-content-primary font-medium text-sm sm:text-base placeholder:text-content-muted focus:outline-none focus:border-action-primary focus:bg-surface-card transition-colors disabled:opacity-60"
       />
     </div>

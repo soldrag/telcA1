@@ -23,7 +23,6 @@ export const questions = [
     statement: 'Feld (1) — Familienname des Lesers:',
     options_json: {
       form_label: 'Familienname',
-      placeholder: 'z. B. Müller',
       accepted_answers: ['müller', 'mueller']
     },
     correct_answer: 'müller',
@@ -47,7 +46,6 @@ export const questions = [
     statement: 'Feld (2) — Geburtsdatum:',
     options_json: {
       form_label: 'Geburtsdatum',
-      placeholder: 'z. B. 12.03.1994',
       accepted_answers: ['12.03.1994', '12.03.94', '12. märz 1994', '12 märz 1994', '12. 03. 1994', '12. 3. 1994']
     },
     correct_answer: '12.03.1994',
@@ -71,7 +69,6 @@ export const questions = [
     statement: 'Feld (3) — Wohnort:',
     options_json: {
       form_label: 'Wohnort / Stadt',
-      placeholder: 'z. B. Leipzig',
       accepted_answers: ['leipzig', 'in leipzig']
     },
     correct_answer: 'leipzig',
@@ -95,7 +92,6 @@ export const questions = [
     statement: 'Feld (4) — Dauer der Mitgliedschaft:',
     options_json: {
       form_label: 'Dauer der Karte',
-      placeholder: 'z. B. 1 Jahr',
       accepted_answers: ['1 jahr', 'ein jahr', 'jahreskarte', '12 monate', 'ein ganzes jahr', 'ganzes jahr', 'für ein ganzes jahr']
     },
     correct_answer: '1 jahr|jahreskarte',
@@ -119,7 +115,6 @@ export const questions = [
     statement: 'Feld (5) — Zahlungsart:',
     options_json: {
       form_label: 'Zahlungsart',
-      placeholder: 'z. B. Bar',
       accepted_answers: ['bar', 'barzahlung', 'in bar']
     },
     correct_answer: 'bar',
@@ -149,6 +144,28 @@ export const questions = [
         'Warum (Überstunden oder Arbeit)',
         'Neuer Terminvorschlag (Dienstag oder Mittwoch)'
       ],
+      rubric: {
+        leitpunkte_criteria: [
+          {
+            id: 'lp1',
+            label: 'Grund für Ihr Schreiben (Termin am Montag absagen)',
+            keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'],
+            requiredMatches: 2
+          },
+          {
+            id: 'lp2',
+            label: 'Warum (Überstunden oder Arbeit)',
+            keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'],
+            requiredMatches: 1
+          },
+          {
+            id: 'lp3',
+            label: 'Neuer Terminvorschlag (Dienstag oder Mittwoch)',
+            keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'],
+            requiredMatches: 2
+          }
+        ]
+      },
       sample_solution: 'Sehr geehrte Damen und Herren,\n\nich habe am Montag um 14 Uhr einen Termin bei Herrn Dr. Schneider. Leider muss ich länger arbeiten und kann nicht kommen. Haben Sie nächste Woche am Dienstag oder Mittwoch einen neuen Termin frei?\n\nMit freundlichen Grüßen\nStefan Müller',
       breakdown: [
         { label: 'Anrede', text: 'Sehr geehrte Damen und Herren,' },

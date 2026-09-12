@@ -16,7 +16,7 @@ export default function App() {
   const screenProps = buildScreenProps(controller);
 
   return (
-    <div className="min-h-screen flex flex-col bg-bg-canvas font-sans transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-bg-canvas font-sans transition-colors duration-200 w-full max-w-full overflow-x-hidden">
       <Header {...headerConfig} themeControl={themeControl} />
 
       <AppErrorBanner
@@ -24,7 +24,7 @@ export default function App() {
         onDismiss={controller.dismissError}
       />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 min-w-0 overflow-hidden sm:overflow-visible">
         <AppScreens
           screen={controller.screen}
           screenProps={screenProps}
@@ -47,7 +47,24 @@ export default function App() {
 
       <footer className="mt-auto border-t border-border-subtle bg-surface-card py-4 text-center text-xs text-content-tertiary">
         <p>{t('footer.text')}</p>
-        <p className="mt-1 opacity-70">{t('footer.privacy')}</p>
+        <div className="mt-2 flex items-center justify-center space-x-4 text-xs">
+          <button
+            type="button"
+            onClick={() => controller.modals.openLegalModal('impressum')}
+            className="hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary"
+          >
+            {t('footer.impressum') || 'Impressum'}
+          </button>
+          <span className="opacity-40">•</span>
+          <button
+            type="button"
+            onClick={() => controller.modals.openLegalModal('datenschutz')}
+            className="hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary"
+          >
+            {t('footer.datenschutz') || 'Datenschutzerklärung'}
+          </button>
+        </div>
+        <p className="mt-1.5 opacity-70">{t('footer.privacy')}</p>
       </footer>
     </div>
   );

@@ -10,12 +10,13 @@ function parseJsonSafely(jsonString, fallbackValue) {
   }
 }
 
-function createEmptyBreakdown() {
-  return {
-    1: { score: 0, total: 0 },
-    2: { score: 0, total: 0 },
-    3: { score: 0, total: 0 },
-  };
+function createDynamicBreakdown(questions = []) {
+  const teils = [...new Set(questions.map((q) => q.teil).filter(Boolean))].sort((a, b) => a - b);
+  const breakdown = {};
+  for (const t of (teils.length > 0 ? teils : [1, 2, 3])) {
+    breakdown[t] = { score: 0, total: 0 };
+  }
+  return breakdown;
 }
 
 function determineQuestionGrading(question, userAnswer, parsedOptions) {
@@ -57,6 +58,11 @@ export function gradeQuestion(question, answers = {}) {
     points_earned: grading.points_earned,
     max_points: grading.max_points,
     word_count: grading.word_count,
+    criteria_breakdown: grading.breakdown || null,
+    feedback_notes: grading.feedback || [],
+    detected_elements: grading.detected || null,
+    grammar_errors: grading.grammar_errors || [],
+    user_segments: grading.user_segments || null,
     clue_quote: question.clue_quote,
     explanation_ru: question.explanation_ru,
     explanation_en: question.explanation_en,
@@ -67,7 +73,7 @@ export function gradeQuestion(question, answers = {}) {
 
 export function evaluateExamSubmission(questions = [], answers = {}) {
   let score = 0;
-  const teilBreakdown = createEmptyBreakdown();
+  const teilBreakdown = createDynamicBreakdown(questions);
 
   const reviewItems = questions.map((question) => {
     const item = gradeQuestion(question, answers);
