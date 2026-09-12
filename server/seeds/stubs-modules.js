@@ -6,8 +6,8 @@ export const moduleExams = [
     description: 'Официальный тренировочный вариант Hörverstehen telc A1: диалоги, объявления на вокзале и автоответчик.',
     test_type: 'hoeren',
     time_limit_minutes: 20,
-    total_questions: 15,
-    pass_score: 9,
+    total_questions: 3,
+    pass_score: 2,
     sort_order: 1
   },
   {
@@ -17,8 +17,8 @@ export const moduleExams = [
     description: 'Официальный тренировочный вариант Sprechen telc A1: рассказ о себе, вопросы по карточкам и просьбы.',
     test_type: 'sprechen',
     time_limit_minutes: 15,
-    total_questions: 3,
-    pass_score: 9,
+    total_questions: 1,
+    pass_score: 1,
     sort_order: 1
   }
 ];
