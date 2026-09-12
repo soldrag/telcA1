@@ -24,6 +24,7 @@ RUN npm ci --omit=dev
 COPY shared/ ./shared/
 COPY server/ ./server/
 COPY src/services/ ./src/services/
+COPY src/utils/ ./src/utils/
 COPY --from=builder /app/dist ./dist
 
 RUN mkdir -p /app/data

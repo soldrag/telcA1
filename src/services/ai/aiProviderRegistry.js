@@ -8,6 +8,7 @@ import { PROVIDER_IDS } from './types.js';
 import { NoneProvider } from './providers/NoneProvider.js';
 import { WindowAiProvider } from './providers/WindowAiProvider.js';
 import { ClientWebGpuProvider } from './providers/ClientWebGpuProvider.js';
+import { isWebGPUSupported } from '../../utils/webGpuSupport.js';
 
 const STORAGE_OVERRIDE_KEY = 'telc_ai_provider_override';
 
@@ -87,6 +88,7 @@ export class AIProviderRegistry {
       protocol: typeof window !== 'undefined' ? window.location?.protocol : null,
       hostname: typeof window !== 'undefined' ? window.location?.hostname : null,
       hasNavigatorGpu: typeof navigator !== 'undefined' && Boolean(navigator.gpu),
+      hasWebGpuAdapter: isWebGPUSupported(),
       hasLanguageModel: Boolean(globalThis.LanguageModel || (typeof window !== 'undefined' && window.ai?.languageModel)),
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
       selectedProvider: result.id

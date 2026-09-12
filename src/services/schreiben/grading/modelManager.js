@@ -7,15 +7,15 @@
 import { initEmbeddingGemma, unloadEmbeddingGemma } from './embeddingGemmaService.js';
 import { initQwen3, unloadQwen3 } from './qwen3Service.js';
 
+import { isWebGPUAdapterAvailable, isWebGPUSupported } from '../../../utils/webGpuSupport.js';
+
+export { isWebGPUSupported, isWebGPUAdapterAvailable };
+
 export const ESTIMATED_MODEL_SIZES = {
   embeddingGemmaMB: 185,
   qwen3MB: 380,
   totalBudgetMB: 700
 };
-
-export function isWebGPUSupported() {
-  return typeof navigator !== 'undefined' && Boolean(navigator.gpu);
-}
 
 export class ModelManager {
   constructor() {
@@ -26,7 +26,8 @@ export class ModelManager {
   }
 
   async loadEmbeddingModel(onProgress = null) {
-    if (!isWebGPUSupported()) {
+    const supported = await isWebGPUAdapterAvailable();
+    if (!supported) {
       return { success: false, limitedMode: true, reason: 'no_webgpu' };
     }
     try {
@@ -50,7 +51,8 @@ export class ModelManager {
   }
 
   async loadLanguageModel(onProgress = null) {
-    if (!isWebGPUSupported()) {
+    const supported = await isWebGPUAdapterAvailable();
+    if (!supported) {
       return { success: false, limitedMode: true, reason: 'no_webgpu' };
     }
     try {

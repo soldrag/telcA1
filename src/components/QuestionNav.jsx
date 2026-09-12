@@ -1,76 +1,21 @@
 import React from 'react';
-import { Mail, Globe, FileText, FileSpreadsheet, Volume2, Radio, Phone } from 'lucide-react';
 import { useI18n } from '../i18n/I18nContext.jsx';
+import { getTeilGroups } from '../config/teilStructureConfig.js';
 
-function getTeilGroups(questions = [], testType = 'lesen', t) {
-  if (testType === 'schreiben') {
-    return [
-      {
-        teil: 1,
-        label: 'Teil 1 (1–5)',
-        sublabel: t('welcome.moduleSub_formular') || 'Formular',
-        icon: FileSpreadsheet,
-        questions: questions.filter((q) => q.teil === 1),
-      },
-      {
-        teil: 2,
-        label: 'Teil 2 (6)',
-        sublabel: t('welcome.moduleSub_brief') || 'Brief / E-Mail',
-        icon: Mail,
-        questions: questions.filter((q) => q.teil === 2),
-      },
-    ];
+function resolveQuestionBadgeClass({ isAnswered, isCorrect, hasResults, isCurrent }) {
+  if (hasResults) {
+    const success = 'bg-state-success text-white border-2 border-state-success-hover font-black shadow-xs';
+    const error = 'bg-state-error text-white border-2 border-state-error-hover font-black shadow-xs';
+    return isCorrect ? success : error;
   }
-
-  if (testType === 'hoeren') {
-    return [
-      {
-        teil: 1,
-        label: 'Teil 1 (1–6)',
-        sublabel: 'Gespräche',
-        icon: Volume2,
-        questions: questions.filter((q) => q.teil === 1),
-      },
-      {
-        teil: 2,
-        label: 'Teil 2 (7–10)',
-        sublabel: 'Durchsagen',
-        icon: Radio,
-        questions: questions.filter((q) => q.teil === 2),
-      },
-      {
-        teil: 3,
-        label: 'Teil 3 (11–15)',
-        sublabel: 'Telefon',
-        icon: Phone,
-        questions: questions.filter((q) => q.teil === 3),
-      },
-    ];
+  if (isAnswered) {
+    return 'bg-action-primary text-white border-2 border-action-primary-hover font-black shadow-xs';
   }
-
-  return [
-    {
-      teil: 1,
-      label: 'Teil 1 (1–5)',
-      sublabel: 'E-Mails & Briefe',
-      icon: Mail,
-      questions: questions.filter((q) => q.teil === 1),
-    },
-    {
-      teil: 2,
-      label: 'Teil 2 (6–10)',
-      sublabel: 'Webseiten / Anzeigen',
-      icon: Globe,
-      questions: questions.filter((q) => q.teil === 2),
-    },
-    {
-      teil: 3,
-      label: 'Teil 3 (11–15)',
-      sublabel: 'Schilder & Zettel',
-      icon: FileText,
-      questions: questions.filter((q) => q.teil === 3),
-    },
-  ];
+  let base = 'bg-surface-card text-content-primary border-2 border-border-default hover:border-border-strong font-bold';
+  if (isCurrent) {
+    base += ' ring-2 ring-action-primary ring-offset-2 scale-105 z-10 shadow-sm';
+  }
+  return base;
 }
 
 export default function QuestionNav({
@@ -94,7 +39,7 @@ export default function QuestionNav({
         {teilGroups.map((group) => {
           const Icon = group.icon;
           const isSelected = activeTeil === group.teil;
-          const answeredInTeil = group.questions.filter(question => answers[question.id]).length;
+          const answeredInTeil = group.questions.filter((q) => answers[q.id]).length;
           const totalInTeil = group.questions.length;
 
           return (
@@ -126,22 +71,13 @@ export default function QuestionNav({
         {questions.map((question, questionIndex) => {
           const isAnswered = Boolean(answers[question.id]);
           const isCurrent = activeQuestionIndex === questionIndex;
-
-          let badgeClass = 'bg-surface-card text-content-primary border-2 border-border-default hover:border-border-strong font-bold';
-          if (results) {
-            const item = results.reviewItems?.find(reviewItem => reviewItem.id === question.id);
-            if (item?.is_correct) {
-              badgeClass = 'bg-state-success text-white border-2 border-state-success-hover font-black shadow-xs';
-            } else {
-              badgeClass = 'bg-state-error text-white border-2 border-state-error-hover font-black shadow-xs';
-            }
-          } else if (isAnswered) {
-            badgeClass = 'bg-action-primary text-white border-2 border-action-primary-hover font-black shadow-xs';
-          }
-
-          if (isCurrent && !results) {
-            badgeClass += ' ring-2 ring-action-primary ring-offset-2 scale-105 z-10 shadow-sm';
-          }
+          const item = results?.reviewItems?.find((ri) => ri.id === question.id);
+          const badgeClass = resolveQuestionBadgeClass({
+            isAnswered,
+            isCorrect: item?.is_correct,
+            hasResults: Boolean(results),
+            isCurrent: isCurrent && !results,
+          });
 
           const buttonTitle = isAnswered
             ? t('exam.questionTooltipAnswered', { number: question.question_number, answer: answers[question.id].toUpperCase() })
