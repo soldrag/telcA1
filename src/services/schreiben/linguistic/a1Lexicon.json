@@ -4844,5 +4844,121 @@
       ],
       "number": "sg"
     }
+  ],
+  "bleiben": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "bleiben",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bleiben",
+      "valency": "INTRANS",
+      "person": [1, 3],
+      "number": "pl"
+    }
+  ],
+  "bleibe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bleiben",
+      "valency": "INTRANS",
+      "person": [1],
+      "number": "sg"
+    }
+  ],
+  "bleibt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bleiben",
+      "valency": "INTRANS",
+      "person": [3],
+      "number": "sg"
+    }
+  ],
+  "wohnen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "wohnen",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "wohnen",
+      "valency": "INTRANS",
+      "person": [1, 3],
+      "number": "pl"
+    }
+  ],
+  "wohne": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "wohnen",
+      "valency": "INTRANS",
+      "person": [1],
+      "number": "sg"
+    }
+  ],
+  "wohnt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "wohnen",
+      "valency": "INTRANS",
+      "person": [3],
+      "number": "sg"
+    }
+  ],
+  "zahlen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "zahlen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "zahlen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [1, 3],
+      "number": "pl"
+    }
+  ],
+  "zahlt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "zahlen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [3],
+      "number": "sg"
+    }
+  ],
+  "bezahlen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "bezahlen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bezahlen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [1, 3],
+      "number": "pl"
+    }
+  ],
+  "bezahlt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bezahlen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [3],
+      "number": "sg"
+    }
   ]
 }

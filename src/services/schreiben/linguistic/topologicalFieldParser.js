@@ -6,6 +6,7 @@
 
 import { tagTokens } from './a1LexiconService.js';
 import { estimateVorfeldConstituents } from './vorfeldChunker.js';
+import { checkVerblessClause } from './verblessClauseChecker.js';
 
 function splitIntoWords(clauseStr = '') {
   return clauseStr
@@ -85,14 +86,18 @@ function checkSatzklammer(finVerb = {}, mittelfeld = []) {
   return errors;
 }
 
-function parseClause(tokens = [], isCoordinated = false, precedingSubject = null) {
+function parseClause(tokens = [], isCoordinated = false, precedingSubject = null, rawText = '') {
   if (tokens[0]?.pos === 'KONJ_SUB' || /^(weil|dass|wenn|ob)$/i.test(tokens[0]?.raw || '')) {
     return { type: 'SUBORDINATE_CLAUSE', tokens, errors: [] };
   }
 
   const finVerbIdx = tokens.findIndex(t => t.pos === 'VERB_FIN' || t.pos === 'VERB_MOD');
   if (finVerbIdx === -1) {
-    return { type: 'FRAGMENT', tokens, errors: [] };
+    if (isCoordinated) {
+      return { type: 'COORDINATED_PHRASE', tokens, errors: [] };
+    }
+    const fragmentError = checkVerblessClause(tokens, rawText);
+    return { type: 'FRAGMENT', tokens, errors: fragmentError ? [fragmentError] : [] };
   }
 
   const finVerb = tokens[finVerbIdx];
@@ -146,7 +151,7 @@ export function parseSentenceTopology(sentenceStr = '') {
     const activeWords = isCoordinated ? words.slice(1) : words;
 
     const tagged = tagTokens(activeWords);
-    const parsed = parseClause(tagged, isCoordinated, lastSubject);
+    const parsed = parseClause(tagged, isCoordinated, lastSubject, clauseText);
 
     if (parsed.vorfeld) {
       const subj = tagged.find(t => t.pos === 'PRON_SUBJ');
