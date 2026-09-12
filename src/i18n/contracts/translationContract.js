@@ -203,6 +203,12 @@ export const TRANSLATION_CONTRACT = {
     tabCorrect: 'string',
     expandAll: 'string',
     collapseAll: 'string',
+    shareResult: 'string',
+    teacherReviewBadge: 'string',
+    teacherReviewTitle: 'string',
+    teacherReviewNotice: 'string',
+    teacherReviewStudent: 'string',
+    exitTeacherReview: 'string',
   },
   history: {
     title: 'string',
@@ -235,6 +241,8 @@ export const TRANSLATION_CONTRACT = {
     examVariant: 'string',
     date: 'string',
     attemptsCount: 'string',
+    shareAttempt: 'string',
+    linkCopied: 'string',
   },
   modals: {
     leaveTitle: 'string',
@@ -256,6 +264,13 @@ export const TRANSLATION_CONTRACT = {
     stubTime: 'string',
     stubPoints: 'string',
     stubNotice: 'string',
+    shareTitle: 'string',
+    shareDesc: 'string',
+    shareNameLabel: 'string',
+    shareNamePlaceholder: 'string',
+    shareCopyBtn: 'string',
+    shareCopiedBtn: 'string',
+    shareClose: 'string',
   },
   errors: {
     loadRecentAttempts: 'string',
@@ -265,6 +280,7 @@ export const TRANSLATION_CONTRACT = {
     loadModules: 'string',
     loadVariants: 'string',
     loadExamFailed: 'string',
+    invalidReviewLink: 'string',
   },
   footer: {
     text: 'string',

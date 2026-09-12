@@ -48,7 +48,7 @@ export const questions = [
     options_json: {
       form_label: 'Geburtsdatum',
       placeholder: 'z. B. 12.03.1994',
-      accepted_answers: ['12.03.1994', '12.03.94', '12. märz 1994', '12 märz 1994']
+      accepted_answers: ['12.03.1994', '12.03.94', '12. märz 1994', '12 märz 1994', '12. 03. 1994', '12. 3. 1994']
     },
     correct_answer: '12.03.1994',
     clue_quote: 'wurde am 12.03.1994 in Frankfurt geboren',
@@ -72,7 +72,7 @@ export const questions = [
     options_json: {
       form_label: 'Wohnort / Stadt',
       placeholder: 'z. B. Leipzig',
-      accepted_answers: ['leipzig']
+      accepted_answers: ['leipzig', 'in leipzig']
     },
     correct_answer: 'leipzig',
     clue_quote: 'Er wohnt jetzt in Leipzig',
@@ -96,7 +96,7 @@ export const questions = [
     options_json: {
       form_label: 'Dauer der Karte',
       placeholder: 'z. B. 1 Jahr',
-      accepted_answers: ['1 jahr', 'ein jahr', 'jahreskarte', '12 monate']
+      accepted_answers: ['1 jahr', 'ein jahr', 'jahreskarte', '12 monate', 'ein ganzes jahr', 'ganzes jahr', 'für ein ganzes jahr']
     },
     correct_answer: '1 jahr|jahreskarte',
     clue_quote: 'für ein ganzes Jahr',

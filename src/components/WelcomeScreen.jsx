@@ -26,6 +26,7 @@ export default function WelcomeScreen({
     onStartExam,
     onStartRandomExam,
     onLoadAttempt,
+    onShareAttempt,
   } = actions;
 
   const { onOpenHistory } = navigation;
@@ -86,6 +87,7 @@ export default function WelcomeScreen({
         recentAttempts={recentAttempts}
         onOpenHistory={onOpenHistory}
         onLoadAttempt={onLoadAttempt}
+        onShareAttempt={onShareAttempt}
       />
     </div>
   );

@@ -202,6 +202,12 @@ export const en = {
     tabCorrect: 'Correct',
     expandAll: 'Expand all',
     collapseAll: 'Collapse all',
+    shareResult: 'Share with teacher',
+    teacherReviewBadge: 'Teacher Review',
+    teacherReviewTitle: 'Student Exam Review',
+    teacherReviewNotice: 'This review is opened via link and is not saved to your exam history.',
+    teacherReviewStudent: 'Student: {name}',
+    exitTeacherReview: 'Exit review',
   },
   history: {
     title: 'Attempt History',
@@ -234,6 +240,8 @@ export const en = {
     examVariant: 'Variant {id}',
     date: 'Date',
     attemptsCount: '{count} attempts',
+    shareAttempt: 'Share result',
+    linkCopied: 'Link copied',
   },
   modals: {
     leaveTitle: 'Leave current exam?',
@@ -255,6 +263,13 @@ export const en = {
     stubTime: 'Time: {minutes} minutes',
     stubPoints: 'Points: {points} points',
     stubNotice: '💡 Authentic tasks and an interactive trainer for this module are in preparation. Currently, the full Lesen (Reading) module with 10 variants is available.',
+    shareTitle: 'Share Test Result',
+    shareDesc: 'Generate a link for your teacher. The server stores nothing — the result is encoded directly into the link.',
+    shareNameLabel: 'Your name or initials (optional):',
+    shareNamePlaceholder: 'e.g. John Doe',
+    shareCopyBtn: 'Copy link',
+    shareCopiedBtn: 'Link copied!',
+    shareClose: 'Close',
   },
   errors: {
     loadRecentAttempts: 'Failed to load recent attempts',
@@ -264,6 +279,7 @@ export const en = {
     loadModules: 'Failed to load exam modules',
     loadVariants: 'Failed to load variants',
     loadExamFailed: 'Error loading exam {examId}',
+    invalidReviewLink: 'Failed to open review: link is corrupted or invalid.',
   },
   footer: {
     text: 'telc Deutsch A1 / Start Deutsch 1 Exam Simulator • 15 points • Passing score: 60% (9 points)',

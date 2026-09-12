@@ -52,6 +52,7 @@ export function buildScreenProps(controller) {
         onStartExam: controller.startExam,
         onStartRandomExam: controller.startRandomExam,
         onLoadAttempt: controller.loadSavedAttempt,
+        onShareAttempt: controller.modals.openShareModal,
       },
     },
     history: {
@@ -63,6 +64,7 @@ export function buildScreenProps(controller) {
         onStartExam: controller.startExam,
         onClearHistory: controller.history.clearHistory,
         onRefresh: controller.history.refreshHistory,
+        onShareAttempt: controller.modals.openShareModal,
       },
       state: {
         attempts: controller.history.historyAttempts,
@@ -74,6 +76,18 @@ export function buildScreenProps(controller) {
       onResetExam: controller.resetExam,
       onRetakeMistakes: controller.retakeMistakes,
       onOpenHistory: controller.openHistory,
+      onShareResult: controller.session.results ? () => controller.modals.openShareModal({
+        exam_id: controller.currentExamId || controller.session.results.exam?.id,
+        test_type: controller.session.results.exam?.test_type || controller.activeTestType,
+        answers: controller.session.answers,
+        time_spent_seconds: controller.session.results.timeSpentSeconds,
+        created_at: new Date().toISOString(),
+        score: controller.session.results.score,
+        total_questions: controller.session.results.totalQuestions,
+      }) : undefined,
+      isTeacherReview: controller.reviewMode?.isTeacherReview || false,
+      reviewStudentName: controller.reviewMode?.reviewStudentName || null,
+      onExitReview: controller.reviewMode?.exitReview,
     },
     exam: {
       isLoading: controller.isLoadingExam,

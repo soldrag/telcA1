@@ -15,6 +15,7 @@ export default function HistoryView({
   onStartExam = actions.onStartExam,
   onClearHistory = actions.onClearHistory,
   onRefresh = actions.onRefresh,
+  onShareAttempt = actions.onShareAttempt,
   attempts = state.attempts || [],
   loading = state.loading || false,
 }) {
@@ -79,6 +80,7 @@ export default function HistoryView({
           attempts={attempts}
           onLoadAttempt={onLoadAttempt}
           onStartExam={onStartExam}
+          onShareAttempt={onShareAttempt}
         />
       </div>
     </div>

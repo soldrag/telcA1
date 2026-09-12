@@ -1,9 +1,9 @@
 import React from 'react';
-import { CheckCircle2, XCircle, Calendar, Clock, Eye, ChevronRight } from 'lucide-react';
+import { CheckCircle2, XCircle, Calendar, Clock, Eye, ChevronRight, Share2 } from 'lucide-react';
 import { cleanExamTitle, formatAttemptDate, formatAttemptDuration } from '../../utils/historyFormat.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
-export default function HistoryItemCard({ attempt, onSelect, compact = false }) {
+export default function HistoryItemCard({ attempt, onSelect, onShare, compact = false }) {
   const { t, language } = useI18n();
   const { minutes, seconds } = formatAttemptDuration(attempt.time_spent_seconds);
   const formattedDate = formatAttemptDate(attempt.created_at, language);
@@ -18,9 +18,11 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
     : 'bg-state-error-subtle text-state-error border-state-error-border';
 
   return (
-    <button
-      type="button"
+    <div
       onClick={() => onSelect(attempt.id)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(attempt.id); }}
       className={`w-full text-left transition-all cursor-pointer flex items-center justify-between gap-4 group focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] ${
         compact
           ? 'p-4 rounded-2xl border border-border-default hover:border-action-primary hover:bg-action-primary-subtle/30'
@@ -71,7 +73,21 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center space-x-1.5">
+          {!compact && onShare && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onShare(attempt);
+              }}
+              title={t('history.shareAttempt')}
+              className="w-10 h-10 rounded-xl bg-surface-card border border-border-default flex items-center justify-center text-content-muted hover:bg-action-primary-subtle hover:text-action-primary hover:border-action-primary-border transition-all cursor-pointer min-h-[40px]"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+          )}
+
           {compact ? (
             <ChevronRight className="w-5 h-5 text-content-muted group-hover:text-action-primary transition-colors" />
           ) : (
@@ -81,6 +97,6 @@ export default function HistoryItemCard({ attempt, onSelect, compact = false }) 
           )}
         </div>
       </div>
-    </button>
+    </div>
   );
 }
