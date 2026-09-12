@@ -25,6 +25,10 @@ export default function Antwortbogen({
     );
   }
 
+  const teil1Questions = questions.filter((q) => q.teil === 1);
+  const teil2Questions = questions.filter((q) => q.teil === 2);
+  const teil3Questions = questions.filter((q) => q.teil === 3);
+
   return (
     <div className="bg-surface-card rounded-2xl border-2 border-border-default p-4 sm:p-6 shadow-md">
       <div className="flex items-center justify-between border-b-2 border-border-strong pb-3 mb-4">

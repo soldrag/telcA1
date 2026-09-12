@@ -1,4 +1,4 @@
-const VALID_TEST_TYPES = new Set(['lesen', 'schreiben', 'hoeren', 'sprechen']);
+import { VALID_TEST_TYPES, getTestTypeById } from '../../../shared/testTypes.js';
 
 function validateRequiredStrings(exam, errors) {
   const stringFields = ['id', 'title', 'subtitle', 'description'];
@@ -24,7 +24,8 @@ function validateNumericFields(exam, errors) {
   }
 
   const testType = exam.test_type || 'lesen';
-  const effectiveMaxScore = exam.max_score || (testType === 'schreiben' ? 15 : exam.total_questions);
+  const typeConfig = getTestTypeById(testType);
+  const effectiveMaxScore = exam.max_score || typeConfig?.maxScore || exam.total_questions;
 
   if (typeof exam.pass_score === 'number' && typeof effectiveMaxScore === 'number') {
     if (exam.pass_score > effectiveMaxScore) {

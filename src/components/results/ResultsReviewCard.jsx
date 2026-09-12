@@ -13,8 +13,6 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
 
   const handleScoreChange = (newTotal, newBreakdown) => {
     setCurrentPoints(newTotal);
-    item.points_earned = newTotal;
-    item.is_correct = newTotal >= Math.ceil((item.max_points || 10) * 0.6);
     onUpdateItemScore?.(item.id, newTotal, newBreakdown);
   };
 

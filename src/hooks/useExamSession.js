@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { submitExamAnswers } from '../services/api.js';
 import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
+import { getTestTypeById } from '../../shared/testTypes.js';
 
 function createAttemptRecord({ resultData, examId, answers, timeSpent }) {
   return {
@@ -121,7 +122,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
         return acc + pts;
       }, 0);
 
-      const maxScore = prev.maxScore || prev.exam?.max_score || 15;
+      const maxScore = prev.maxScore || prev.exam?.max_score || getTestTypeById(prev.exam?.test_type || 'lesen').maxScore;
       const updatedTeilBreakdown = { ...(prev.teilBreakdown || {}) };
       const currentItem = prev.reviewItems.find((it) => it.id === itemId);
       const itemTeil = currentItem?.teil;

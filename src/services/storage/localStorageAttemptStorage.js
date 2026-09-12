@@ -72,7 +72,7 @@ export class LocalStorageAttemptStorage extends AttemptStorageInterface {
       exam_title: extractAttemptTitle(attempt),
       test_type: extractTestType(attempt),
       score: Number(attempt.score) || 0,
-      total_questions: Number(attempt.total_questions) || 15,
+      total_questions: Number(attempt.total_questions) || Number(attempt.results?.totalQuestions) || 0,
       percentage: Number(attempt.percentage) || 0,
       passed: Boolean(attempt.passed),
       time_spent_seconds: Number(attempt.time_spent_seconds) || 0,

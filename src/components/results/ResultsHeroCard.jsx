@@ -2,6 +2,7 @@ import React from 'react';
 import { Award, Clock } from 'lucide-react';
 import TeilBreakdownGrid from './TeilBreakdownGrid.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { getTestTypeById } from '../../../shared/testTypes.js';
 
 export default function ResultsHeroCard({ results }) {
   const { t } = useI18n();
@@ -18,7 +19,9 @@ export default function ResultsHeroCard({ results }) {
 
   const minutesSpent = Math.floor((timeSpentSeconds || 0) / 60);
   const secondsSpent = (timeSpentSeconds || 0) % 60;
-  const maxScore = results.maxScore || exam?.max_score || (exam?.test_type === 'schreiben' ? 15 : totalQuestions || 15);
+  const moduleKey = exam?.test_type || 'lesen';
+  const typeConfig = getTestTypeById(moduleKey);
+  const maxScore = results.maxScore || exam?.max_score || typeConfig.maxScore;
 
   const cardStyle = passed
     ? 'bg-gradient-to-br from-emerald-900 via-teal-950 to-slate-950 border-emerald-500/40 shadow-emerald-950/20'
@@ -28,9 +31,7 @@ export default function ResultsHeroCard({ results }) {
     ? 'bg-emerald-400 text-slate-950 font-black'
     : 'bg-rose-400 text-slate-950 font-black';
 
-  const moduleName = exam?.test_type === 'schreiben' ? t('welcome.moduleSubtitle_schreiben') :
-                     exam?.test_type === 'hoeren' ? t('welcome.moduleSubtitle_hoeren') :
-                     t('welcome.moduleSubtitle_lesen');
+  const moduleName = t(`welcome.moduleSubtitle_${moduleKey}`);
 
   const baseDesc = passed ? t('results.passedDesc') : t('results.failedDesc');
   const localizedDesc = baseDesc

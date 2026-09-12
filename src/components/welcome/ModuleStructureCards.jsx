@@ -27,9 +27,10 @@ const MODULE_STRUCTURES = {
 export default function ModuleStructureCards({ testType = 'lesen' }) {
   const { t } = useI18n();
   const cards = MODULE_STRUCTURES[testType] || MODULE_STRUCTURES.lesen;
+  const gridColsClass = cards.length === 2 ? 'sm:grid-cols-2' : (cards.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3');
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-5 border-t border-white/10 relative z-10">
+    <div className={`grid grid-cols-1 ${gridColsClass} gap-3 mt-7 pt-5 border-t border-white/10 relative z-10`}>
       {cards.map((card, cardIndex) => {
         const Icon = card.icon;
         return (

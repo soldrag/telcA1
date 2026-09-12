@@ -1,13 +1,13 @@
+import { getTestTypeById } from '../../shared/testTypes.js';
+
 /**
  * Pure builders for assembling Screen and Header DTOs.
  * Isolates presentation configuration from the main App component.
  */
 
 export function buildHeaderConfig(controller) {
-  const currentModule = controller.testTypes.find((item) => item.id === controller.activeTestType) || {
-    title: 'Lesen',
-    maxScore: 15,
-  };
+  const currentModule = controller.testTypes.find((item) => item.id === controller.activeTestType)
+    || getTestTypeById(controller.activeTestType);
   const questionsCount = controller.examData?.questions?.length || 0;
 
   return {

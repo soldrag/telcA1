@@ -12,7 +12,7 @@ export default function ConfirmSubmitModal({
 }) {
   const { t } = useI18n();
   const answeredCount = submissionStats.answeredCount ?? 0;
-  const totalQuestions = submissionStats.totalQuestions ?? 15;
+  const totalQuestions = submissionStats.totalQuestions ?? 0;
   const isSubmitting = submissionStats.isSubmitting ?? false;
   const unansweredCount = totalQuestions - answeredCount;
 

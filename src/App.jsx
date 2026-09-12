@@ -40,7 +40,7 @@ export default function App() {
         }}
         stats={{
           answeredCount: controller.session.answeredCount,
-          totalQuestions: controller.examData?.questions?.length || 15,
+          totalQuestions: controller.examData?.questions?.length || 0,
           isSubmitting: controller.session.isSubmitting,
         }}
       />

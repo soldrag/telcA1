@@ -18,9 +18,9 @@ export default function Header({
   const { screen, onNavigateHome, onOpenHistory, onResetExam, onSubmitExam } = navigation;
   const {
     answeredCount = 0,
-    totalQuestions = 15,
-    activeModuleTitle = 'Lesen',
-    activeModulePoints = 15,
+    totalQuestions = 0,
+    activeModuleTitle = '',
+    activeModulePoints = 0,
   } = stats;
   const userShortId = user.userShortId;
   const { theme, toggleTheme, isDark } = themeControl;

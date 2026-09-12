@@ -20,7 +20,7 @@ function createDynamicBreakdown(questions = []) {
 }
 
 function determineQuestionGrading(question, userAnswer, parsedOptions) {
-  const isEssay = parsedOptions?.type === 'essay' || (question.teil === 2 && question.exam_id?.includes('schreiben'));
+  const isEssay = parsedOptions?.type === 'essay' || question.question_type === 'essay';
   if (isEssay) {
     return evaluateEssay(userAnswer, question);
   }

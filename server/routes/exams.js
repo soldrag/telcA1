@@ -5,11 +5,12 @@ import { selectBalancedRandomExam } from '../services/exam-balancer.js';
 import { evaluateExamSubmission } from '../services/exam-evaluator.js';
 import { ExamRepository } from '../repositories/exam.repository.js';
 import { AttemptRepository } from '../repositories/attempt.repository.js';
+import { getTestTypeById } from '../../shared/testTypes.js';
 
 function buildSubmissionPayload({ exam, questions, answers, timeSpentSeconds }) {
   const { score, reviewItems, teilBreakdown } = evaluateExamSubmission(questions, answers);
   const totalQuestions = questions.length;
-  const maxScore = exam.max_score || 15;
+  const maxScore = exam.max_score || getTestTypeById(exam.test_type).maxScore;
   const percentage = maxScore > 0 ? Math.round((score / maxScore) * 1000) / 10 : 0;
   const passed = score >= exam.pass_score;
 
