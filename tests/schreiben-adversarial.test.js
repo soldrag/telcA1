@@ -82,4 +82,26 @@ David Weber`;
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.grammar_errors.length, 0);
   });
+
+  it('Case 6: Missing predicate in question (Wie viel der Preis für die Wohnung?)', () => {
+    const text = `Sehr geehrte Frau Hansen,
+ich möchte Ihre Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel der Preis für die Wohnung? Darf mein Hund mitkommen?
+Mit freundlichen Grüßen
+Alex Müller`;
+
+    const res = evaluateTeil2Essay(text, modellsatz4Teil2);
+
+    assert.equal(res.points_earned, 9, `Expected 9 points (1 grammar penalty), got ${res.points_earned}`);
+    const missingVerbErr = res.grammar_errors.find(e => e.code === 'ERR_MISSING_PREDICATE_QUESTION');
+    assert.ok(missingVerbErr, 'Must detect ERR_MISSING_PREDICATE_QUESTION');
+    assert.match(missingVerbErr.original, /Wie viel der Preis/i);
+  });
+
+  it('Case 7: Missing copula verb in declarative clause (Das Zimmer sehr schön.)', () => {
+    const text = 'Das Zimmer sehr schön.';
+    const errors = checkGermanA1Grammar(text);
+
+    const copulaErr = errors.find(e => e.code === 'ERR_MISSING_COPULA_VERB');
+    assert.ok(copulaErr, 'Must detect ERR_MISSING_COPULA_VERB for "Das Zimmer sehr schön."');
+  });
 });

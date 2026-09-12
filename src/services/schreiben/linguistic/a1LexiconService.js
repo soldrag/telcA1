@@ -34,7 +34,7 @@ function resolveVerbHomonymy(candidates = [], prevToken = null, nextToken = null
   const isPoliteIntro = prevToken && ['bitte', 'leider', 'vielleicht', 'jetzt', 'dann', 'zuerst', 'heute', 'morgen'].includes(prevLower);
   const isFrontedAdverbOrPart = prevToken && (prevToken.pos === 'ADV' || prevToken.pos === 'PART' || isPoliteIntro);
 
-  if ((!prevToken || isFrontedAdverbOrPart) && nextToken && nextToken.pos === 'PRON_SUBJ') {
+  if (!prevToken || (isFrontedAdverbOrPart && nextToken && nextToken.pos === 'PRON_SUBJ')) {
     return candidates.find(c => c.pos === 'VERB_FIN' || c.pos === 'VERB_MOD') || null;
   }
   return candidates.find(c => c.pos === 'VERB_INF') || null;

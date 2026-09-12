@@ -16,6 +16,9 @@ Examples:
 Sentence: "Ich möchte ein Deutschkurs machen."
 JSON: {"errors":[{"original":"ein Deutschkurs","correction":"einen Deutschkurs","explanation":"Akkusativ maskulin"}]}
 
+Sentence: "Wie viel der Preis?"
+JSON: {"errors":[{"original":"Wie viel der Preis","correction":"Wie viel ist der Preis","explanation":"Fehlendes Prädikat (ist)"}]}
+
 Sentence: "Ich habe vier Wochen Zeit."
 JSON: {"errors":[]}
 

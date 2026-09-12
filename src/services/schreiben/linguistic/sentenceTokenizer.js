@@ -10,6 +10,9 @@ const PROTECTED_ABBRS = [
   { regex: /\bNr\./g, placeholder: '___NR___' },
 ];
 
+const ORDINAL_DATE_REGEX = /\b(\d{1,2})\.(?=\s*(?:bis|und|[a-zäöü]|Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\b)/gi;
+const ORDINAL_PLACEHOLDER = '___ORDDOT___';
+
 export function splitGermanSentences(rawText = '') {
   if (!rawText || !rawText.trim()) return [];
 
@@ -17,6 +20,7 @@ export function splitGermanSentences(rawText = '') {
   for (const abbr of PROTECTED_ABBRS) {
     text = text.replace(abbr.regex, abbr.placeholder);
   }
+  text = text.replace(ORDINAL_DATE_REGEX, `$1${ORDINAL_PLACEHOLDER}`);
 
   // Split on punctuation followed by whitespace or line break
   const rawSegments = text
@@ -33,6 +37,7 @@ export function splitGermanSentences(rawText = '') {
                    abbr.placeholder === '___USW___' ? 'usw.' : 'Nr.';
       s = s.replaceAll(abbr.placeholder, orig);
     }
+    s = s.replaceAll(ORDINAL_PLACEHOLDER, '.');
     return s;
   });
 
