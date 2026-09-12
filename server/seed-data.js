@@ -8,6 +8,8 @@ import { exam as exam7, questions as questions7 } from './seeds/modellsatz-7.js'
 import { exam as exam8, questions as questions8 } from './seeds/modellsatz-8.js';
 import { exam as exam9, questions as questions9 } from './seeds/modellsatz-9.js';
 import { exam as exam10, questions as questions10 } from './seeds/modellsatz-10.js';
+import { exam as sExam1, questions as sQuestions1 } from './seeds/schreiben-modellsatz-1.js';
+import { exam as sExam2, questions as sQuestions2 } from './seeds/schreiben-modellsatz-2.js';
 import { moduleExams, moduleQuestions } from './seeds/stubs-modules.js';
 
 export const seedData = {
@@ -22,6 +24,8 @@ export const seedData = {
     { ...exam8, sort_order: 8 },
     { ...exam9, sort_order: 9 },
     { ...exam10, sort_order: 10 },
+    { ...sExam1, sort_order: 1 },
+    { ...sExam2, sort_order: 2 },
     ...moduleExams
   ],
   questions: [
@@ -35,6 +39,8 @@ export const seedData = {
     ...questions8,
     ...questions9,
     ...questions10,
+    ...sQuestions1,
+    ...sQuestions2,
     ...moduleQuestions
   ]
 };

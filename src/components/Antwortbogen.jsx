@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileSpreadsheet } from 'lucide-react';
 import AntwortbogenColumn from './antwortbogen/AntwortbogenColumn.jsx';
+import SchreibenAntwortbogen from './schreiben/SchreibenAntwortbogen.jsx';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 export default function Antwortbogen({
@@ -9,11 +10,20 @@ export default function Antwortbogen({
   onSelectQuestion,
   isSubmitted,
   results = null,
+  testType = 'lesen',
 }) {
   const { t } = useI18n();
-  const teil1Questions = questions.filter((question) => question.teil === 1);
-  const teil2Questions = questions.filter((question) => question.teil === 2);
-  const teil3Questions = questions.filter((question) => question.teil === 3);
+
+  if (testType === 'schreiben') {
+    return (
+      <SchreibenAntwortbogen
+        questions={questions}
+        answers={answers}
+        onSelectQuestion={onSelectQuestion}
+        isSubmitted={isSubmitted}
+      />
+    );
+  }
 
   return (
     <div className="bg-surface-card rounded-2xl border-2 border-border-default p-4 sm:p-6 shadow-md">

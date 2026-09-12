@@ -42,7 +42,8 @@ export function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds 
 
   const { score, reviewItems, teilBreakdown } = evaluateExamSubmission(questions, answers);
   const totalQuestions = questions.length;
-  const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 1000) / 10 : 0;
+  const maxScore = exam.max_score || 15;
+  const percentage = maxScore > 0 ? Math.round((score / maxScore) * 1000) / 10 : 0;
   const passed = score >= exam.pass_score;
 
   const attemptId = typeof crypto !== 'undefined' && crypto.randomUUID 

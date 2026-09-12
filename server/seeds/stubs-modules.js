@@ -11,17 +11,6 @@ export const moduleExams = [
     sort_order: 1
   },
   {
-    id: 'schreiben-modellsatz-1',
-    title: 'telc Deutsch A1 — Schreiben 1',
-    subtitle: 'Schriftlicher Ausdruck (Teil 1 und 2)',
-    description: 'Официальный тренировочный вариант Schreiben telc A1: заполнение формуляра и написание письма.',
-    test_type: 'schreiben',
-    time_limit_minutes: 15,
-    total_questions: 6,
-    pass_score: 9,
-    sort_order: 1
-  },
-  {
     id: 'sprechen-modellsatz-1',
     title: 'telc Deutsch A1 — Sprechen 1',
     subtitle: 'Mündliche Prüfung (Teil 1, 2 und 3)',
@@ -92,42 +81,6 @@ export const moduleQuestions = [
     explanation_en: 'The appointment has been postponed to 15:00. The statement is True.',
     explanation_de: 'Der Termin wurde auf 15 Uhr verschoben.',
     vocabulary_notes: [{ word: 'verschieben', translation: 'переносить (время)', translation_en: 'to postpone / reschedule' }]
-  },
-
-  // Schreiben: Teil 1 (Formular)
-  {
-    id: 's1-q1',
-    exam_id: 'schreiben-modellsatz-1',
-    teil: 1,
-    question_number: 1,
-    title: 'Anmeldung Hotelbuchung • Familienname',
-    situation: 'Ihre Freundin Eva Bauer reist mit ihrem Sohn nach Dresden.',
-    context_header: 'Ausgangstext',
-    context_body: 'Eva Bauer wohnt in Köln und möchte für 3 Nächte ein Doppelzimmer im Hotel Dresden buchen.',
-    statement: 'Tragen Sie den Familiennamen ein:',
-    correct_answer: 'bauer',
-    clue_quote: 'Eva Bauer',
-    explanation_ru: 'Фамилия гостьи — Bauer.',
-    explanation_en: 'The guest’s last name is Bauer.',
-    explanation_de: 'Der Familienname lautet Bauer.',
-    vocabulary_notes: [{ word: 'Familienname', translation: 'фамилия', translation_en: 'surname / family name' }]
-  },
-  {
-    id: 's1-q2',
-    exam_id: 'schreiben-modellsatz-1',
-    teil: 2,
-    question_number: 2,
-    title: 'E-Mail an ein Hotel schreiben',
-    situation: 'Schreiben Sie eine E-Mail an das Hotel Sonnenschein.',
-    context_header: 'Leitpunkte (План письма)',
-    context_body: '1. Grund für Ihr Schreiben (Zimmer buchen)\n2. Anreisedatum und Personenanzahl\n3. Frage nach Frühstück',
-    statement: 'Verfassen Sie eine kurze E-Mail (ca. 30 Wörter). Schreiben Sie zu allen 3 Punkten.',
-    correct_answer: 'richtig',
-    clue_quote: 'Sehr geehrte Damen und Herren...',
-    explanation_ru: 'Пример письма: «Sehr geehrte Damen und Herren, ich möchte ein Einzelzimmer für 2 Nächte ab dem 15. Mai buchen. Ist das Frühstück im Preis inklusive? Mit freundlichen Grüßen, ...»',
-    explanation_en: 'Sample email covering all three required guide points with salutation and closing.',
-    explanation_de: 'Musterlösung für die telc A1 E-Mail mit Grußformel und allen drei Leitpunkten.',
-    vocabulary_notes: [{ word: 'Sehr geehrte Damen und Herren', translation: 'Уважаемые дамы и господа', translation_en: 'Dear Sir or Madam' }]
   },
 
   // Sprechen: Teil 1, 2, 3

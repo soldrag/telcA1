@@ -47,25 +47,33 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand }) 
         </div>
 
         <div className="flex items-center space-x-3 flex-shrink-0">
-          <div className="flex items-center space-x-2 text-xs font-mono font-bold">
-            <span className="text-content-tertiary hidden md:inline">{t('results.yourAnswer')}</span>
-            <span className={`px-2 py-1 rounded-md border uppercase ${
-              item.is_correct
-                ? 'bg-state-success-muted text-state-success-text border-state-success-border'
-                : 'bg-state-error-muted text-state-error-text border-state-error-border line-through'
-            }`}>
-              {item.user_answer || t('results.noAnswer')}
-            </span>
+          {item.options_json?.type === 'essay' ? (
+            <div className="text-xs font-mono font-bold px-2.5 py-1 rounded-md border border-border-default bg-surface-inset text-content-primary">
+              <span>{item.word_count || 0} Wörter</span>
+              <span className="mx-1.5 text-content-muted">•</span>
+              <span className="text-action-primary font-black">{item.points_earned || 0}/{item.max_points || 10} Pkt</span>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-2 text-xs font-mono font-bold">
+              <span className="text-content-tertiary hidden md:inline">{t('results.yourAnswer')}</span>
+              <span className={`px-2 py-1 rounded-md border uppercase ${
+                item.is_correct
+                  ? 'bg-state-success-muted text-state-success-text border-state-success-border'
+                  : 'bg-state-error-muted text-state-error-text border-state-error-border line-through'
+              }`}>
+                {item.user_answer || t('results.noAnswer')}
+              </span>
 
-            {!item.is_correct && (
-              <>
-                <ArrowRight className="w-4 h-4 text-content-muted" />
-                <span className="px-2 py-1 rounded-md border bg-state-success text-white border-state-success-hover uppercase">
-                  {item.correct_answer}
-                </span>
-              </>
-            )}
-          </div>
+              {!item.is_correct && (
+                <>
+                  <ArrowRight className="w-4 h-4 text-content-muted" />
+                  <span className="px-2 py-1 rounded-md border bg-state-success text-white border-state-success-hover uppercase">
+                    {item.correct_answer}
+                  </span>
+                </>
+              )}
+            </div>
+          )}
 
           <div className="flex items-center space-x-1 p-2 rounded-lg text-content-secondary hover:text-content-primary hover:bg-surface-raised transition-colors font-semibold text-xs">
             <span>{t('results.reviewToggle')}</span>

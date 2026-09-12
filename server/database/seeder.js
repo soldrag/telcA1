@@ -40,14 +40,18 @@ export function seedDatabase(database) {
       question.situation || null,
       question.context_header || null,
       question.context_body || null,
-      question.options_json ? JSON.stringify(question.options_json) : null,
+      typeof question.options_json === 'object' && question.options_json !== null
+        ? JSON.stringify(question.options_json)
+        : (question.options_json || null),
       question.statement || null,
       question.correct_answer,
       question.clue_quote,
       question.explanation_ru,
       question.explanation_en || null,
       question.explanation_de,
-      question.vocabulary_notes ? JSON.stringify(question.vocabulary_notes) : null
+      typeof question.vocabulary_notes === 'object' && question.vocabulary_notes !== null
+        ? JSON.stringify(question.vocabulary_notes)
+        : (question.vocabulary_notes || null)
     );
   }
 }
