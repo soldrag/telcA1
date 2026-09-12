@@ -214,6 +214,7 @@ export const en = {
     aiProviderWebGpu: 'On-device model (WebGPU, Qwen3-0.6B)',
     aiProviderLimited: 'Limited mode: rule-based scoring only',
     aiLimitedNotice: 'Limited mode: rule-based scoring only, no grammar suggestions',
+    aiDisclaimer: 'AI can make mistakes. The evaluation is for guidance only and does not replace an official telc examination.',
   },
   history: {
     title: 'Attempt History',

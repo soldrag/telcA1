@@ -4,6 +4,7 @@ import { useI18n } from '../../i18n/I18nContext.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
 import SchreibenCriteriaChecklist, { CRITERIA_KEYS } from './SchreibenCriteriaChecklist.jsx';
 import SchreibenAiStatusBadge from './SchreibenAiStatusBadge.jsx';
+import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
 
@@ -180,6 +181,8 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
             </p>
           </div>
         )}
+
+        <SchreibenAiDisclaimer />
       </div>
     </div>
   );
