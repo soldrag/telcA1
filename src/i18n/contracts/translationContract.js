@@ -215,6 +215,7 @@ export const TRANSLATION_CONTRACT = {
     aiProviderWebGpu: 'string',
     aiProviderLimited: 'string',
     aiLimitedNotice: 'string',
+    aiDisclaimer: 'string',
   },
   history: {
     title: 'string',
