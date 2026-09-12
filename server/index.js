@@ -33,7 +33,7 @@ app.use(express.json());
 
 app.use('/api/exams', createExamsRouter(db));
 app.use('/api/attempts', createAttemptsRouter(db));
-app.use('/api/test-types', createTestTypesRouter());
+app.use('/api/test-types', createTestTypesRouter(db));
 app.use('/api/debug', createDebugRouter());
 
 const distPath = path.join(__dirname, '../dist');
