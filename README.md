@@ -112,6 +112,9 @@ telcA1/
 │   ├── App.jsx               # Main application component
 │   ├── main.jsx              # React entry point
 │   ├── index.css             # Tailwind CSS styles
+│   ├── config/               # Exam modules and legal configuration
+│   │   ├── teilStructureConfig.js # Modular question groups & icons
+│   │   └── legalConfig.js    # Operator & legal disclaimer metadata
 │   ├── components/
 │   │   ├── ExamView.jsx      # Active exam screen (timer, nav, renderer, footer)
 │   │   ├── Header.jsx        # App header (logo, title, actions)
@@ -133,12 +136,21 @@ telcA1/
 │   │   ├── results/          # Results subcomponents (hero, filters, review)
 │   │   ├── welcome/          # Welcome subcomponents (selectors, cards)
 │   │   ├── history/          # History subcomponents (stats, list, cards)
-│   │   ├── modals/           # App-level modals (submit, leave, time-up)
+│   │   ├── modals/           # App-level modals (submit, leave, time-up, legal)
+│   │   │   └── legal/        # Impressum and Datenschutz subcomponents
 │   │   ├── parts/            # Generic module task views (Hören, etc.)
 │   │   └── ui/               # Primitive UI components (Button, Card, Dialog)
 │   ├── hooks/                # Controller hooks (useAppController, useExamSession)
-│   ├── services/             # API services, localDataService, in-browser AI
-│   ├── utils/                # Utilities (cn, formatting, balancing, scroll)
+│   ├── services/             # Domain and infrastructure services
+│   │   ├── ai/               # AIProvider interface and registry (WebGPU, WindowAI, None)
+│   │   ├── embeddings/       # Local embedding service (EmbeddingGemma)
+│   │   ├── storage/          # Storage interface and providers (LocalStorage, Remote, Memory)
+│   │   └── schreiben/        # Schreiben evaluation pipeline & linguistic engine
+│   │       ├── grading/      # Stages 0-4 micro-graders, model manager, arbitration
+│   │       ├── linguistic/   # Topological field parser, valency, chunkers, tokenizers
+│   │       ├── rules/        # A1 grammar, rektion, orthography, agreement checkers
+│   │       └── scoring/      # telc official scoring calculations
+│   ├── utils/                # Utilities (cn, formatting, balancing, webGpuSupport)
 │   ├── i18n/                 # i18n context, contracts and validator
 │   └── i18n/locales/         # Locale translations (ru.js, en.js)
 ├── data/
@@ -151,9 +163,12 @@ telcA1/
 
 ### Architecture Notes
 
-- **Components**: Each top-level `.jsx` in `components/` is a **screen orchestrator** — it composes subcomponents from the matching subdirectory. This keeps every file under the 150–200 line limit.
+- **Modularity & Clean Architecture**: Strictly conforms to McConnell and Martin limits (files <= 180 lines, functions <= 25 lines, Single Responsibility Principle, and Single Level of Abstraction).
+- **Linguistic Engine**: Relies on systematic linguistic models (Topological Field Parser, Vorfeld chunking, Case & Valency tables) rather than fragile ad-hoc regex patches.
+- **Components**: Each top-level `.jsx` in `components/` is a **screen orchestrator** — it composes subcomponents from the matching subdirectory.
 - **Database**: `server/db.js` is a **facade** that orchestrates `database/connection.js` (factory), `database/migrations.js` (DDL), and `database/seeder.js` (data population).
 - **Seed Data**: `server/seed-data.js` is a **barrel aggregator** that imports modular exam files from `server/seeds/` and exports a combined `seedData` object.
+- **Platform WebGPU Detection**: Utilizes runtime feature detection (`navigator.gpu` + `requestAdapter()`) instead of user-agent sniffing or static assumptions.
 
 ---
 

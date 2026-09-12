@@ -5,6 +5,7 @@ import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
 import SchreibenCriteriaChecklist, { CRITERIA_KEYS } from './SchreibenCriteriaChecklist.jsx';
 import SchreibenAiStatusBadge from './SchreibenAiStatusBadge.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
+import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
 
 function deriveInitialScores(item = {}) {
   const cb = item.criteria_breakdown;
@@ -16,14 +17,6 @@ function deriveInitialScores(item = {}) {
     lp3: Number(cb.lp3 ?? cb.items?.[2]?.score) || 0,
     gruss: Number(cb.gruss) || 0,
   };
-}
-
-function computeGrammarPenalty(count) {
-  const n = Number(count) || 0;
-  if (n >= 8) return 4;
-  if (n >= 6) return 3;
-  if (n >= 3) return 2;
-  return n >= 1 ? 1 : 0;
 }
 
 export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {

@@ -6,18 +6,35 @@
 
 const SALUTATION_ROOTS = ['sehr geehrte', 'sehr geehrter', 'sehr geehrtes', 'liebe', 'lieber', 'liebes', 'guten tag', 'guten morgen', 'guten abend', 'hallo', 'hi'];
 const CLOSING_ROOTS = ['mit freundlichen grüßen', 'mit freundlichem gruß', 'freundliche grüße', 'schöne grüße', 'viele grüße', 'herzliche grüße', 'liebe grüße', 'beste grüße', 'bis bald', 'auf wiedersehen'];
+const SINGLE_LINE_CLOSING_ROOTS = [...CLOSING_ROOTS, 'tschüss'];
 const POLITE_PRONOUNS = new Set(['sie', 'ihr', 'ihnen', 'ihre', 'ihrem', 'ihren', 'ihrer']);
+
+function findSalutationCut(text = '') {
+  const lower = text.toLowerCase();
+  const matched = SALUTATION_ROOTS.find(r => lower.startsWith(r));
+  if (!matched) return -1;
+  const punctIdx = text.search(/[,!]/);
+  return punctIdx !== -1 && punctIdx < 60 ? punctIdx + 1 : -1;
+}
+
+function findClosingCut(text = '') {
+  const lower = text.toLowerCase();
+  for (const root of SINGLE_LINE_CLOSING_ROOTS) {
+    const idx = lower.lastIndexOf(root);
+    if (idx > 0) return idx;
+  }
+  return -1;
+}
 
 function splitSingleLineBlocks(text = '') {
   let res = text;
-  const salutationMatch = res.match(/^(sehr geehrte[^,\n]*[,!]|guten tag[^,\n]*[,!]|hallo[^,\n]*[,!]|liebe[^,\n]*[,!]|hi[^,\n]*[,!])\s*/i);
-  if (salutationMatch) {
-    res = `${salutationMatch[1]}\n${res.slice(salutationMatch[0].length)}`;
+  const salCut = findSalutationCut(res);
+  if (salCut !== -1) {
+    res = `${res.slice(0, salCut).trim()}\n${res.slice(salCut).trim()}`;
   }
-  const closingMatch = res.match(/\s*(mit freundlichen grüßen.*|viele grüße.*|liebe grüße.*|herzliche grüße.*|tschüss.*)$/i);
-  if (closingMatch) {
-    const before = res.slice(0, res.length - closingMatch[0].length);
-    res = `${before}\n${closingMatch[1]}`;
+  const closingCut = findClosingCut(res);
+  if (closingCut !== -1) {
+    res = `${res.slice(0, closingCut).trim()}\n${res.slice(closingCut).trim()}`;
   }
   return res;
 }

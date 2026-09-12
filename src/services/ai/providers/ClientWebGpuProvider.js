@@ -10,7 +10,7 @@ import {
   SENTENCE_GRAMMAR_SCHEMA,
   FEEDBACK_POLISH_SCHEMA
 } from '../types.js';
-import { isWebGPUSupported } from '../../schreiben/grading/modelManager.js';
+import { isWebGPUAdapterAvailable } from '../../../utils/webGpuSupport.js';
 import { executeQwen3Prompt, initQwen3 } from '../../schreiben/grading/qwen3Service.js';
 import { buildArbiterPrompt } from '../../schreiben/grading/stage2Leitpunkte.js';
 import { buildGrammarPrompt } from '../../schreiben/grading/stage3Grammar.js';
@@ -24,16 +24,7 @@ export class ClientWebGpuProvider extends AIProvider {
 
   async isAvailable() {
     if (this.engine) return true;
-    if (typeof navigator === 'undefined' || !navigator.gpu) return false;
-    try {
-      if (typeof navigator.gpu.requestAdapter === 'function') {
-        const adapter = await navigator.gpu.requestAdapter();
-        return Boolean(adapter);
-      }
-      return true;
-    } catch {
-      return false;
-    }
+    return await isWebGPUAdapterAvailable();
   }
 
   async getEngine() {
