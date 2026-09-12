@@ -8,6 +8,8 @@ import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { filterCandidateErrors } from './stage3Grammar.js';
 import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
+import { tagTokens } from '../linguistic/a1LexiconService.js';
+import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
 
@@ -37,6 +39,25 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
   }
 }
 
+function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
+  let penalty = 0;
+  const frameErrors = [];
+  for (const s of sentences) {
+    const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
+    const tagged = tagTokens(words);
+    const res = validateSentenceFrame({
+      taggedTokens: tagged,
+      conversiveRules: criterion.conversive_rules || [],
+      semanticSlots: criterion.semantic_slots || []
+    });
+    if (!res.isValid) {
+      penalty = Math.max(penalty, res.maxPenalty);
+      frameErrors.push(...res.errors);
+    }
+  }
+  return { penalty, frameErrors };
+}
+
 async function scoreCriterionItem({ crit, bodySentences, sentenceVectors, customExtractor, provider }) {
   const lpText = crit.label || crit.id;
   const kw = evaluateCriterionKeywords(bodySentences, crit);
@@ -57,24 +78,39 @@ async function scoreCriterionItem({ crit, bodySentences, sentenceVectors, custom
     }
   }
 
+  const frameCheck = checkRelevantSentencesFrame(relSentences, crit);
   const kwSim = kw.score === 2 ? 0.75 : (kw.score === 1 ? 0.50 : 0.20);
   const effectiveSim = Math.max(bestSim, kwSim);
-  const baseScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
+  let baseScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
+
+  if (frameCheck.penalty >= 2) {
+    baseScore = 0;
+  } else if (frameCheck.penalty === 1) {
+    baseScore = Math.min(baseScore, 1);
+  }
 
   let finalScore = baseScore;
   let arbitrated = false;
-  if (isScoreInGrayZone(effectiveSim)) {
+  if (isScoreInGrayZone(effectiveSim) && frameCheck.penalty === 0) {
     const arb = await arbitrateLeitpunkt(crit, relSentences.join(' '), baseScore, provider);
     finalScore = arb.score;
     arbitrated = arb.arbitrated;
   }
 
-  return { id: crit.id, label: lpText, score: finalScore, baselineScore: baseScore, arbitrated };
+  return {
+    id: crit.id,
+    label: lpText,
+    score: finalScore,
+    baselineScore: baseScore,
+    arbitrated,
+    frameErrors: frameCheck.frameErrors
+  };
 }
 
 export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor }) {
   const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
   const items = [];
+  const semanticErrors = [];
 
   for (const crit of criteria) {
     const scoredItem = await scoreCriterionItem({
@@ -85,15 +121,19 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
       provider,
     });
     items.push(scoredItem);
+    if (scoredItem.frameErrors?.length > 0) {
+      semanticErrors.push(...scoredItem.frameErrors);
+    }
   }
 
   const totalScore = items.reduce((sum, it) => sum + (Number(it.score) || 0), 0);
-  return { items, totalScore };
+  return { items, totalScore, semanticErrors };
 }
 
-export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider }) {
+export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider, semanticErrors = [] }) {
   const baseline = checkGermanA1Grammar(rawText) || [];
-  if (!provider || provider.id === PROVIDER_IDS.NONE) return baseline;
+  const initial = [...baseline, ...semanticErrors];
+  if (!provider || provider.id === PROVIDER_IDS.NONE) return initial;
 
   const candidateList = [];
   for (const s of bodySentences.slice(0, 5)) {
@@ -106,8 +146,8 @@ export async function collectPipelineGrammarErrors({ rawText, bodySentences, pro
     }
   }
 
-  const merged = [...baseline];
-  const seenOriginals = new Set(baseline.map((e) => e.original.toLowerCase()));
+  const merged = [...initial];
+  const seenOriginals = new Set(initial.map((e) => e.original.toLowerCase()));
   for (const c of candidateList) {
     if (!seenOriginals.has(c.original.toLowerCase())) {
       seenOriginals.add(c.original.toLowerCase());

@@ -150,7 +150,14 @@ export const questions = [
             id: 'lp1',
             label: 'Grund für Ihr Schreiben (Ferienwohnung an der Ostsee mieten)',
             keywords: ['ferienwohnung', 'wohnung', 'urlaub', 'mieten', 'buchen', 'reservieren', 'ostsee', 'juli'],
-            requiredMatches: 2
+            requiredMatches: 2,
+            conversive_rules: [
+              {
+                forbiddenLemma: 'vermieten',
+                expectedLemma: 'mieten',
+                messageDe: 'Als Gast möchten Sie die Ferienwohnung „mieten“, nicht „vermieten“.'
+              }
+            ]
           },
           {
             id: 'lp2',
@@ -162,7 +169,21 @@ export const questions = [
             id: 'lp3',
             label: 'Preis und Haustiere (Kosten der Wohnung, Hund erlaubt?)',
             keywords: ['kosten', 'kostet', 'preis', 'hund', 'hunde', 'haustiere', 'erlaubt'],
-            requiredMatches: 2
+            requiredMatches: 2,
+            semantic_slots: [
+              {
+                predicateLemmas: ['kosten', 'preis'],
+                allowedCategories: ['rental_object'],
+                incompatibleCategories: ['pet', 'person'],
+                conflictMessageDe: 'Sinnentstellung: Erfragt wird der Preis der Wohnung, nicht der Preis eines Haustiers.'
+              },
+              {
+                predicateLemmas: ['erlaubt', 'erlauben'],
+                allowedCategories: ['pet'],
+                incompatibleCategories: ['rental_object'],
+                conflictMessageDe: 'Sinnentstellung: Erfragt wird, ob Haustiere erlaubt sind (nicht die Wohnung).'
+              }
+            ]
           }
         ]
       },

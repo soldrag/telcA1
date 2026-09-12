@@ -4029,7 +4029,8 @@
       "pos": "NOUN",
       "lemma": "Hotel",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "category": "rental_object"
     }
   ],
   "zimmer": [
@@ -4037,7 +4038,8 @@
       "pos": "NOUN",
       "lemma": "Zimmer",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "category": "rental_object"
     }
   ],
   "reservierung": [
@@ -4286,7 +4288,8 @@
       "pos": "NOUN",
       "lemma": "Wohnung",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "rental_object"
     }
   ],
   "stadt": [
@@ -4672,6 +4675,174 @@
     {
       "pos": "ADJ",
       "lemma": "lieben"
+    }
+  ],
+  "wohnungen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Wohnung",
+      "gender": "f",
+      "number": "pl",
+      "category": "rental_object"
+    }
+  ],
+  "ferienwohnung": [
+    {
+      "pos": "NOUN",
+      "lemma": "Ferienwohnung",
+      "gender": "f",
+      "number": "sg",
+      "category": "rental_object"
+    }
+  ],
+  "ferienwohnungen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Ferienwohnung",
+      "gender": "f",
+      "number": "pl",
+      "category": "rental_object"
+    }
+  ],
+  "miete": [
+    {
+      "pos": "NOUN",
+      "lemma": "Miete",
+      "gender": "f",
+      "number": "sg",
+      "category": "rental_object"
+    }
+  ],
+  "hund": [
+    {
+      "pos": "NOUN",
+      "lemma": "Hund",
+      "gender": "m",
+      "number": "sg",
+      "category": "pet"
+    }
+  ],
+  "hunde": [
+    {
+      "pos": "NOUN",
+      "lemma": "Hund",
+      "gender": "m",
+      "number": "pl",
+      "category": "pet"
+    }
+  ],
+  "haustier": [
+    {
+      "pos": "NOUN",
+      "lemma": "Haustier",
+      "gender": "n",
+      "number": "sg",
+      "category": "pet"
+    }
+  ],
+  "haustiere": [
+    {
+      "pos": "NOUN",
+      "lemma": "Haustier",
+      "gender": "n",
+      "number": "pl",
+      "category": "pet"
+    }
+  ],
+  "katze": [
+    {
+      "pos": "NOUN",
+      "lemma": "Katze",
+      "gender": "f",
+      "number": "sg",
+      "category": "pet"
+    }
+  ],
+  "katzen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Katze",
+      "gender": "f",
+      "number": "pl",
+      "category": "pet"
+    }
+  ],
+  "erwachsene": [
+    {
+      "pos": "NOUN",
+      "lemma": "Erwachsene",
+      "gender": "pl",
+      "number": "pl",
+      "category": "person",
+      "case": [
+        "NOM",
+        "AKK"
+      ]
+    }
+  ],
+  "erwachsenen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Erwachsene",
+      "gender": "pl",
+      "number": "pl",
+      "category": "person",
+      "case": [
+        "DAT"
+      ]
+    }
+  ],
+  "mieten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "mieten",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "mieten",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "vermieten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "vermieten",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "vermieten",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "erlaubt": [
+    {
+      "pos": "ADJ",
+      "lemma": "erlaubt"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "erlauben",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
     }
   ]
 }
