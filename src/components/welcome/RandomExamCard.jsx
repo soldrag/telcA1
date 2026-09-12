@@ -1,6 +1,7 @@
 import React from 'react';
 import { Play, Shuffle } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { getTestTypeById } from '../../../shared/testTypes.js';
 
 export default function RandomExamCard({
   onStartRandomExam,
@@ -8,11 +9,12 @@ export default function RandomExamCard({
   moduleInfo = {},
 }) {
   const { t } = useI18n();
+  const defaultModule = getTestTypeById('lesen');
   const {
-    title: moduleTitle = 'Lesen',
-    timeLimitMinutes = 25,
-    passScore = 9,
-    totalQuestions = 15,
+    title: moduleTitle = defaultModule.title,
+    timeLimitMinutes = defaultModule.timeLimitMinutes,
+    passScore = defaultModule.passScore,
+    totalQuestions = defaultModule.totalQuestions,
   } = moduleInfo;
 
   return (

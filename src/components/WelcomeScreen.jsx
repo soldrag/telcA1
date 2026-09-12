@@ -5,6 +5,7 @@ import RandomExamCard from './welcome/RandomExamCard.jsx';
 import TeacherExamPicker from './welcome/TeacherExamPicker.jsx';
 import RecentAttemptsList from './welcome/RecentAttemptsList.jsx';
 import { useI18n } from '../i18n/I18nContext.jsx';
+import { getTestTypeById } from '../../shared/testTypes.js';
 
 export default function WelcomeScreen({
   examState = {},
@@ -31,13 +32,8 @@ export default function WelcomeScreen({
 
   const { onOpenHistory } = navigation;
 
-  const currentModule = testTypes.find(testTypeItem => testTypeItem.id === activeTestType) || {
-    id: 'lesen',
-    title: 'Lesen',
-    timeLimitMinutes: 25,
-    passScore: 9,
-    totalQuestions: 15,
-  };
+  const currentModule = testTypes.find(testTypeItem => testTypeItem.id === activeTestType)
+    || getTestTypeById(activeTestType);
 
   const moduleSubTitle = t(`welcome.moduleSubtitle_${currentModule.id}`);
   const moduleDescription = t(`welcome.moduleDesc_${currentModule.id}`);

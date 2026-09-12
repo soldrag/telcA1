@@ -52,3 +52,13 @@ export const TEST_TYPES = [
     description: 'Групповой экзамен: самопрезентация, карточки с вопросами и формулировка просьб.'
   }
 ];
+
+export const VALID_TEST_TYPES = new Set(TEST_TYPES.map((t) => t.id));
+
+export function getTestTypeById(id) {
+  return TEST_TYPES.find((t) => t.id === id) || TEST_TYPES[0];
+}
+
+export function isValidTestType(id) {
+  return VALID_TEST_TYPES.has(id);
+}

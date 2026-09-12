@@ -30,12 +30,13 @@ export default function QuestionNav({
   testType = 'lesen',
 }) {
   const { t } = useI18n();
-  const resolvedType = testType || (questions[0]?.exam_id?.startsWith('schreiben-') ? 'schreiben' : 'lesen');
+  const resolvedType = testType || questions[0]?.test_type || 'lesen';
   const teilGroups = getTeilGroups(questions, resolvedType, t);
+  const gridColsClass = teilGroups.length === 2 ? 'grid-cols-2' : (teilGroups.length === 1 ? 'grid-cols-1' : 'grid-cols-3');
 
   return (
     <div className="bg-surface-card rounded-2xl border-2 border-border-default p-3 sm:p-4 shadow-xs space-y-4">
-      <div className={`grid ${teilGroups.length === 2 ? 'grid-cols-2' : 'grid-cols-3'} gap-2 sm:gap-3`}>
+      <div className={`grid ${gridColsClass} gap-2 sm:gap-3`}>
         {teilGroups.map((group) => {
           const Icon = group.icon;
           const isSelected = activeTeil === group.teil;

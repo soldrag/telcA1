@@ -10,9 +10,18 @@ import SchreibenTeilRenderer from './schreiben/SchreibenTeilRenderer.jsx';
 import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
 import { scrollToElement, scrollToExamHeader } from '../utils/scrollService.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
+import { getTestTypeById } from '../../shared/testTypes.js';
 
-function getMaxTeile(testType) {
-  return testType === 'schreiben' ? 2 : 3;
+const TEIL_RENDERERS = {
+  lesen: LesenTeilRenderer,
+  schreiben: SchreibenTeilRenderer,
+};
+
+function getMaxTeile(questions = [], testType = 'lesen') {
+  if (questions.length > 0) {
+    return Math.max(...questions.map((q) => q.teil || 1), 1);
+  }
+  return getTestTypeById(testType)?.partsCount ?? 3;
 }
 
 export default function ExamView({
@@ -27,8 +36,9 @@ export default function ExamView({
 }) {
   const { t } = useI18n();
   const [showAntwortbogen, setShowAntwortbogen] = useState(false);
-  const resolvedTestType = testType || (questions[0]?.exam_id?.startsWith('schreiben-') ? 'schreiben' : 'lesen');
-  const maxTeile = getMaxTeile(resolvedTestType);
+  const resolvedTestType = testType || examConfig.test_type || questions[0]?.test_type || 'lesen';
+  const maxTeile = getMaxTeile(questions, resolvedTestType);
+  const ActiveTeilRenderer = TEIL_RENDERERS[resolvedTestType] || ModuleTaskView;
   const answeredCount = session.answeredCount ?? 0;
   const totalQuestions = questions.length;
 
@@ -99,32 +109,17 @@ export default function ExamView({
           answers={session.answers}
           onSelectQuestion={session.jumpToQuestion}
           isSubmitted={session.isSubmitted}
-          testType={testType}
+          testType={resolvedTestType}
         />
       )}
 
       <div className="min-h-[500px]">
-        {testType === 'lesen' && (
-          <LesenTeilRenderer
-            activeTeil={session.activeTeil}
-            questions={questions}
-            session={session}
-          />
-        )}
-        {testType === 'schreiben' && (
-          <SchreibenTeilRenderer
-            activeTeil={session.activeTeil}
-            questions={questions}
-            session={session}
-          />
-        )}
-        {testType !== 'lesen' && testType !== 'schreiben' && (
-          <ModuleTaskView
-            questions={questions}
-            sessionState={session}
-            activeTeil={session.activeTeil}
-          />
-        )}
+        <ActiveTeilRenderer
+          activeTeil={session.activeTeil}
+          questions={questions}
+          session={session}
+          sessionState={session}
+        />
       </div>
 
       <ExamBottomNav

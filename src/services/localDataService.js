@@ -1,6 +1,6 @@
 import { seedData } from '../../server/seed-data.js';
 import { evaluateExamSubmission } from '../../server/services/exam-evaluator.js';
-import { TEST_TYPES } from '../../shared/testTypes.js';
+import { TEST_TYPES, getTestTypeById } from '../../shared/testTypes.js';
 
 export function getLocalTestTypes() {
   const testTypes = TEST_TYPES.map((type) => {
@@ -49,7 +49,7 @@ export function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds 
 
   const { score, reviewItems, teilBreakdown } = evaluateExamSubmission(questions, answers);
   const totalQuestions = questions.length;
-  const maxScore = exam.max_score || 15;
+  const maxScore = exam.max_score || getTestTypeById(exam.test_type || 'lesen').maxScore;
   const percentage = maxScore > 0 ? Math.round((score / maxScore) * 1000) / 10 : 0;
   const passed = score >= exam.pass_score;
 

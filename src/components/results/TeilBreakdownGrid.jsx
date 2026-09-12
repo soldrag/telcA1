@@ -1,4 +1,4 @@
-import React from 'react';
+import { getTestTypeById } from '../../../shared/testTypes.js';
 
 const TEIL_TITLES_BY_MODULE = {
   schreiben: {
@@ -23,19 +23,18 @@ export default function TeilBreakdownGrid({ teilBreakdown = {}, testType = 'lese
     .map(Number)
     .filter((t) => teilBreakdown[t] && (teilBreakdown[t].total > 0 || teilBreakdown[t].score > 0));
 
-  const displayTeils = activeTeils.length > 0
-    ? activeTeils
-    : (testType === 'schreiben' ? [1, 2] : [1, 2, 3]);
+  const defaultPartCount = getTestTypeById(testType)?.partsCount ?? 3;
+  const fallbackTeils = Array.from({ length: defaultPartCount }, (_, i) => i + 1);
+  const displayTeils = activeTeils.length > 0 ? activeTeils : fallbackTeils;
 
-  const gridColsClass = displayTeils.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-3';
+  const gridColsClass = displayTeils.length === 2 ? 'sm:grid-cols-2' : (displayTeils.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3');
 
   return (
     <div className={`grid grid-cols-1 ${gridColsClass} gap-3 mt-8 pt-6 border-t border-white/15`}>
       {displayTeils.map((teilNum) => {
         const item = teilBreakdown[teilNum];
         const score = item?.score || 0;
-        const defaultTotal = testType === 'schreiben' ? (teilNum === 2 ? 10 : 5) : 5;
-        const total = item?.total || defaultTotal;
+        const total = item?.total || 5;
         const percent = total > 0 ? Math.round((score / total) * 100) : 0;
 
         return (

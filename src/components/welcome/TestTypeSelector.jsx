@@ -26,7 +26,7 @@ export default function TestTypeSelector({
         {testTypes.map((type) => {
           const Icon = TYPE_ICONS[type.id] || BookOpen;
           const isActive = activeTypeId === type.id;
-          const isAvailable = (type.status === 'active' || type.id === 'lesen') && type.status !== 'upcoming';
+          const isAvailable = type.status === 'active';
 
           if (!isAvailable) {
             return (
@@ -70,7 +70,7 @@ export default function TestTypeSelector({
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                   isActive ? 'bg-action-primary-subtle text-action-primary border border-action-primary-border' : 'bg-surface-inset text-content-tertiary'
                 }`}>
-                  {t('welcome.types.variantsCount', { count: type.variantsCount ?? (type.id === 'schreiben' ? 4 : 10) })}
+                  {t('welcome.types.variantsCount', { count: type.variantsCount ?? 0 })}
                 </span>
               </div>
 
