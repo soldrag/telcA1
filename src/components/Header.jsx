@@ -34,9 +34,9 @@ export default function Header({
 
   return (
     <header className="app-header border-b border-border-default sticky top-0 z-50 shadow-xs transition-colors">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-1.5 sm:gap-4">
         <div 
-          className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group select-none min-w-0" 
+          className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group select-none min-w-0 flex-1 sm:flex-initial min-h-[44px]" 
           onClick={onNavigateHome}
           role="button"
           tabIndex={0}
@@ -47,21 +47,21 @@ export default function Header({
           </div>
           <div className="min-w-0">
             <div className="flex items-center space-x-1.5">
-              <Badge variant="default" className="text-[10px] sm:text-[11px] py-0 px-1.5 sm:px-2 uppercase tracking-wide truncate">
+              <Badge variant="default" className="text-[10px] sm:text-[11px] py-0 px-1.5 sm:px-2 uppercase tracking-wide shrink-0">
                 telc A1
               </Badge>
               <span className="text-xs font-semibold text-content-tertiary hidden sm:inline truncate">
                 {activeModuleTitle} ({activeModulePoints} Punkte)
               </span>
             </div>
-            <h1 className="text-sm sm:text-lg font-extrabold text-content-primary leading-tight truncate">
+            <h1 className="text-xs sm:text-lg font-extrabold text-content-primary leading-tight truncate">
               {t('header.simulatorTitle')}
             </h1>
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 sm:space-x-3">
-          <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-3 shrink-0">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             {screen === 'exam' && (
               <ExamHeaderActions
                 onNavigateHome={onNavigateHome}
@@ -89,7 +89,7 @@ export default function Header({
 
           <div className="hidden sm:block h-6 w-px bg-border-subtle shrink-0" aria-hidden="true" />
 
-          <div className="flex items-center space-x-1.5 shrink-0">
+          <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0">
             <LanguageSelector />
 
             {themeControl && (

@@ -15,9 +15,9 @@ export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answer
         onClick={onNavigateHome}
         title={t('header.menu')}
         aria-label={t('header.menu')}
-        className="text-xs sm:text-sm font-semibold min-h-[38px] px-2 sm:px-3"
+        className="text-xs sm:text-sm font-semibold min-w-[44px] px-2.5 sm:px-3"
       >
-        <ArrowLeft className="w-4 h-4 sm:mr-1.5" />
+        <ArrowLeft className="w-4 h-4 sm:mr-1.5 shrink-0" />
         <span className="hidden sm:inline">{t('header.menu')}</span>
       </Button>
 
@@ -31,11 +31,11 @@ export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answer
         onClick={onSubmitExam}
         title={t('header.finish')}
         aria-label={t('header.finish')}
-        className="text-xs sm:text-sm font-bold border border-border-default hover:border-action-primary min-h-[38px] px-2 sm:px-3"
+        className="text-xs sm:text-sm font-bold border border-border-default hover:border-action-primary min-w-[44px] px-2.5 sm:px-3"
       >
-        <CheckCircle2 className="w-4 h-4 sm:mr-1.5 text-content-tertiary" />
+        <CheckCircle2 className="w-4 h-4 sm:mr-1.5 text-content-tertiary shrink-0" />
         <span className="hidden sm:inline">{t('header.finish')} </span>
-        <span>({answeredCount}/{totalQuestions})</span>
+        <span className="tabular-nums">({answeredCount}/{totalQuestions})</span>
       </Button>
     </>
   );

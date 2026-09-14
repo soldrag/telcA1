@@ -24,9 +24,9 @@ export default function LanguageSelector() {
       onClick={handleToggle}
       title={label}
       aria-label={label}
-      className="flex items-center justify-center space-x-1.5 h-9 px-2.5 rounded-lg border border-border-default bg-surface-card text-content-primary hover:bg-surface-raised transition-colors shadow-xs cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+      className="flex items-center justify-center space-x-1.5 min-h-[44px] min-w-[44px] px-2.5 rounded-xl border border-border-default bg-surface-card text-content-primary hover:bg-surface-raised transition-colors shadow-xs cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary shrink-0"
     >
-      <Globe className="w-4 h-4 text-content-tertiary" />
+      <Globe className="w-4 h-4 text-content-tertiary shrink-0" />
       <span className="text-xs font-bold tracking-wider">{currentCode}</span>
     </button>
   );
