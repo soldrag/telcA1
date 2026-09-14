@@ -1,45 +1,57 @@
-import React from 'react';
-import TestTypeSelector from './welcome/TestTypeSelector.jsx';
+import React, { useState } from 'react';
 import ModuleStructureCards from './welcome/ModuleStructureCards.jsx';
-import RandomExamCard from './welcome/RandomExamCard.jsx';
-import TeacherExamPicker from './welcome/TeacherExamPicker.jsx';
-import RecentAttemptsList from './welcome/RecentAttemptsList.jsx';
+import RoleSelector from './welcome/RoleSelector.jsx';
+import StudentWelcomeView from './welcome/StudentWelcomeView.jsx';
+import TeacherWelcomeView from './welcome/TeacherWelcomeView.jsx';
 import { useI18n } from '../i18n/I18nContext.jsx';
 import { getTestTypeById } from '../../shared/testTypes.js';
+
+const ROLE_STORAGE_KEY = 'telc_welcome_role';
+
+function getInitialRole() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      const stored = window.localStorage.getItem(ROLE_STORAGE_KEY);
+      if (stored === 'student' || stored === 'teacher') return stored;
+    } catch {
+      return 'student';
+    }
+  }
+  return 'student';
+}
 
 export default function WelcomeScreen({
   examState = {},
   navigation = {},
   actions = {},
+  onOpenCreateAssignment,
+  onProcessReview,
+  onOpenTask,
 }) {
   const { t } = useI18n();
+  const [activeRole, setActiveRole] = useState(getInitialRole);
+
   const {
-    exams = [],
     testTypes = [],
     activeTestType = 'lesen',
-    currentExamId,
-    recentAttempts = [],
   } = examState;
 
-  const {
-    onSelectTestType,
-    onSelectExam,
-    onStartExam,
-    onStartRandomExam,
-    onLoadAttempt,
-    onShareAttempt,
-  } = actions;
-
-  const { onOpenHistory } = navigation;
-
-  const currentModule = testTypes.find(testTypeItem => testTypeItem.id === activeTestType)
+  const currentModule = testTypes.find((item) => item.id === activeTestType)
     || getTestTypeById(activeTestType);
 
-  const moduleSubTitle = t(`welcome.moduleSubtitle_${currentModule.id}`);
-  const moduleDescription = t(`welcome.moduleDesc_${currentModule.id}`);
+  const handleRoleChange = (role) => {
+    setActiveRole(role);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        window.localStorage.setItem(ROLE_STORAGE_KEY, role);
+      } catch {
+        // ignore
+      }
+    }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-7 animate-fadeIn py-3">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn py-3">
       <div className="bg-gradient-to-br from-slate-900 via-telc-900 to-telc-800 rounded-3xl p-6 sm:p-9 text-white shadow-xl relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 w-60 h-60 rounded-full bg-white/5 blur-2xl pointer-events-none" />
 
@@ -49,42 +61,35 @@ export default function WelcomeScreen({
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight text-white">
-            {t('welcome.title')} <span className="text-sky-300">{currentModule.title}</span> ({moduleSubTitle})
+            {t('welcome.title')} <span className="text-sky-300">{currentModule.title}</span> ({t(`welcome.moduleSubtitle_${currentModule.id}`)})
           </h1>
 
           <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
-            {moduleDescription}
+            {t(`welcome.moduleDesc_${currentModule.id}`)}
           </p>
         </div>
 
         <ModuleStructureCards testType={activeTestType} />
       </div>
 
-      <TestTypeSelector
-        testTypes={testTypes}
-        activeTypeId={activeTestType}
-        onSelectType={onSelectTestType}
-      />
+      <RoleSelector activeRole={activeRole} onRoleChange={handleRoleChange} />
 
-      <RandomExamCard
-        onStartRandomExam={onStartRandomExam}
-        attemptsCount={recentAttempts.length}
-        moduleInfo={currentModule}
-      />
-
-      <TeacherExamPicker
-        exams={exams}
-        currentExamId={currentExamId}
-        onSelectExam={onSelectExam}
-        onStartExam={onStartExam}
-      />
-
-      <RecentAttemptsList
-        recentAttempts={recentAttempts}
-        onOpenHistory={onOpenHistory}
-        onLoadAttempt={onLoadAttempt}
-        onShareAttempt={onShareAttempt}
-      />
+      {activeRole === 'student' ? (
+        <StudentWelcomeView
+          examState={examState}
+          navigation={navigation}
+          actions={actions}
+          currentModule={currentModule}
+          onOpenTask={onOpenTask}
+        />
+      ) : (
+        <TeacherWelcomeView
+          examState={examState}
+          actions={actions}
+          onOpenCreateAssignment={onOpenCreateAssignment}
+          onProcessReview={onProcessReview}
+        />
+      )}
     </div>
   );
 }

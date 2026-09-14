@@ -5,6 +5,11 @@ import {
   clearReviewTokenFromUrl,
 } from '../services/shareTokenService.js';
 import { submitLocalExamAnswers } from '../services/localDataService.js';
+import {
+  getStoredTeacherKey,
+  verifyAssignmentSignature,
+  setTeacherKey,
+} from '../services/security/teacherSecurityService.js';
 
 function prepareReviewResults(decoded) {
   const resultData = submitLocalExamAnswers(decoded.examId, {
@@ -18,8 +23,28 @@ function prepareReviewResults(decoded) {
   };
 }
 
+async function evaluateSignature(decoded, teacherKey) {
+  if (!decoded?.assignmentId || !decoded?.teacherSignature || !teacherKey) {
+    return decoded?.assignmentId ? 'unverified' : 'none';
+  }
+  const payloadToVerify = {
+    aid: decoded.assignmentId,
+    eid: decoded.examId,
+    created: decoded.assignmentCreatedAt,
+    limit: decoded.assignmentTimeLimit ?? 0,
+    student: decoded.studentName,
+  };
+  const isValid = await verifyAssignmentSignature(
+    payloadToVerify,
+    decoded.teacherSignature,
+    teacherKey
+  );
+  return isValid ? 'valid' : 'invalid';
+}
+
 export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
   const [reviewInfo, setReviewInfo] = useState(null);
+  const [decodedAttempt, setDecodedAttempt] = useState(null);
   const processedTokenRef = useRef(null);
 
   const loaderRef = useRef(loader);
@@ -35,6 +60,7 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
     processedTokenRef.current = null;
     clearReviewTokenFromUrl();
     setReviewInfo(null);
+    setDecodedAttempt(null);
     sessionRef.current?.resetSession();
     navigateToRef.current?.('welcome');
   }, []);
@@ -57,10 +83,16 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
       const reviewPayload = prepareReviewResults(decoded);
       sessionRef.current?.loadPastAttempt(reviewPayload);
 
+      setDecodedAttempt(decoded);
+      const verificationStatus = await evaluateSignature(decoded, getStoredTeacherKey());
+
       setReviewInfo({
         studentName: decoded.studentName,
         createdAt: decoded.createdAt,
         timeSpentSeconds: decoded.timeSpentSeconds,
+        assignmentId: decoded.assignmentId || null,
+        telemetry: decoded.telemetry || null,
+        verificationStatus,
       });
 
       navigateToRef.current?.('results');
@@ -70,6 +102,14 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
       clearReviewTokenFromUrl();
     }
   }, []);
+
+  const verifyWithCustomKey = useCallback(async (customKey) => {
+    if (!decodedAttempt) return false;
+    setTeacherKey(customKey);
+    const verificationStatus = await evaluateSignature(decodedAttempt, customKey);
+    setReviewInfo((prev) => (prev ? { ...prev, verificationStatus } : prev));
+    return verificationStatus === 'valid';
+  }, [decodedAttempt]);
 
   useEffect(() => {
     const handleUrlToken = () => {
@@ -89,6 +129,9 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
   return {
     isTeacherReview: Boolean(reviewInfo),
     reviewStudentName: reviewInfo?.studentName || null,
+    reviewInfo,
+    verifyWithCustomKey,
     exitReview,
+    processReviewToken,
   };
 }

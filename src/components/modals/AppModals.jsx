@@ -4,6 +4,7 @@ import ConfirmLeaveModal from './ConfirmLeaveModal.jsx';
 import TimeUpModal from './TimeUpModal.jsx';
 import ShareAttemptModal from './ShareAttemptModal.jsx';
 import LegalModal from './LegalModal.jsx';
+import CreateAssignmentModal from './CreateAssignmentModal.jsx';
 
 export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
   return (
@@ -37,6 +38,14 @@ export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
           isOpen={Boolean(modals.legalModalType)}
           initialType={modals.legalModalType}
           onClose={modals.closeLegalModal}
+        />
+      )}
+      {Boolean(modals.assignmentModalData) && (
+        <CreateAssignmentModal
+          isOpen={Boolean(modals.assignmentModalData)}
+          examId={modals.assignmentModalData.examId}
+          testType={modals.assignmentModalData.testType}
+          onClose={modals.closeAssignmentModal}
         />
       )}
     </>

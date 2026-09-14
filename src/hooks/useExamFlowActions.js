@@ -13,6 +13,7 @@ export function useExamFlowActions({
   modals,
   history,
   storage,
+  assignmentMode,
   navigateTo,
   showError,
 }) {
@@ -49,7 +50,7 @@ export function useExamFlowActions({
   }, [loader, storage, timer, navigateTo, startExam]);
 
   const submitExam = useCallback(async () => {
-    await session.submitCurrentExam({
+    const submitResult = await session.submitCurrentExam({
       examId: loader.currentExamId,
       isTimed: timer.isTimed,
       secondsLeft: timer.secondsLeft,
@@ -58,10 +59,20 @@ export function useExamFlowActions({
     });
     modals.closeSubmitModal();
     modals.closeTimeUpModal();
+
+    if (assignmentMode?.isAssignmentMode) {
+      await assignmentMode.finalizeAssignment({
+        answers: session.answers,
+        timeSpentSeconds: timer.secondsElapsed,
+        score: submitResult?.score,
+        totalQuestions: submitResult?.totalQuestions,
+      });
+    }
+
     await history.refreshAttempts();
     await history.refreshHistory();
     navigateTo('results');
-  }, [session, loader.currentExamId, timer, modals, history, navigateTo]);
+  }, [session, loader.currentExamId, timer, modals, assignmentMode, history, navigateTo]);
 
   const handleTimeUp = useCallback(() => {
     if (session.isSubmitted || screen !== 'exam') return;

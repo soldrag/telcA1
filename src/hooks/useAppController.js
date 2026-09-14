@@ -6,6 +6,7 @@ import { useModalCoordinator } from './useModalCoordinator.js';
 import { useExamLoader } from './useExamLoader.js';
 import { useExamFlowActions } from './useExamFlowActions.js';
 import { useReviewMode } from './useReviewMode.js';
+import { useAssignmentMode } from './useAssignmentMode.js';
 import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
 import { scrollToTop } from '../utils/scrollService.js';
 
@@ -27,6 +28,21 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     scrollToTop();
   }, []);
 
+  const reviewMode = useReviewMode({
+    loader,
+    session,
+    navigateTo,
+    showError,
+  });
+
+  const assignmentMode = useAssignmentMode({
+    loader,
+    session,
+    timer,
+    navigateTo,
+    showError,
+  });
+
   const flowActions = useExamFlowActions({
     screen,
     loader,
@@ -35,13 +51,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     modals,
     history,
     storage,
-    navigateTo,
-    showError,
-  });
-
-  const reviewMode = useReviewMode({
-    loader,
-    session,
+    assignmentMode,
     navigateTo,
     showError,
   });
@@ -66,6 +76,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     timer,
     history,
     reviewMode,
+    assignmentMode,
     ...flowActions,
   };
 }
