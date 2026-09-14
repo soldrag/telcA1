@@ -1,6 +1,6 @@
-# telc Deutsch A1 (Start Deutsch 1) — Reading Exam Simulator
+# telc Deutsch A1 (Start Deutsch 1) — Exam Simulator
 
-A web application designed for **telc Deutsch A1 / Start Deutsch 1** exam preparation (specifically the **Lesen — Reading** section).
+A browser-first web application for **telc Deutsch A1 / Start Deutsch 1** preparation. It supports the active **Lesen** and **Schreiben** modules; Hören and Sprechen are present as preparation stubs.
 
 The application accurately simulates the real exam environment: authentic part structure, authentic texts, a 25-minute countdown timer, score calculation, and a detailed review of mistakes with clue quotes and vocabulary notes.
 
@@ -20,9 +20,10 @@ The **Lesen** section consists of **15 tasks (15 points)**:
 
 ## ✨ Key Features
 
-1. **10 Full Practice Exams (Modellsatz 1–10)**:
-   - 150 authentic A1 reading tasks featuring typical exam traps (*Fallen*).
-   - Stub modules for Hören, Schreiben, and Sprechen.
+1. **Practice variants for active modules**:
+   - Lesen tasks featuring typical A1 exam traps (*Fallen*).
+   - Schreiben tasks: a form and a short email with in-browser evaluation.
+   - Preparation stubs for Hören and Sprechen.
 2. **Official Exam Timer (25:00)**:
    - Real-time countdown display with a color-coded warning during the final 5 minutes.
    - Pause option for untimed practice sessions.
@@ -42,9 +43,9 @@ The **Lesen** section consists of **15 tasks (15 points)**:
    - Detailed explanation for each question with relevant clue quotes highlighted from the German text.
    - A1 core vocabulary glossary for each task.
    - **"Review Mistakes" Mode** (re-attempt only incorrect questions).
-6. **SQLite Database**:
-   - Automatic persistence of all exam attempts, completion times, and scores.
-   - Attempt history review to track performance and progress over time.
+6. **Private local attempt history**:
+   - Attempts, completion times, and scores are stored in the browser's `localStorage` by default.
+   - The optional Express/SQLite service supplies local API and catalog capabilities; it is not required for normal history tracking or static hosting.
 7. **Multilingual UI**: Interface available in German, English, and Russian.
 8. **Responsive Design**: Mobile-friendly layout with dark/light theme support.
 
@@ -102,8 +103,7 @@ telcA1/
 │   ├── seeds/
 │   │   ├── modellsatz-1.js   # Exam data: Modellsatz 1 (15 questions)
 │   │   ├── ...               # modellsatz-2.js through modellsatz-10.js
-│   │   ├── schreiben-modellsatz-1.js # Schreiben 1 (Formular + Brief)
-│   │   ├── schreiben-modellsatz-2.js # Schreiben 2 (Formular + Brief)
+│   │   ├── schreiben-modellsatz-*.js # Schreiben variants (form + email)
 │   │   └── stubs-modules.js  # Stub exams for Hören, Sprechen
 │   ├── routes/               # API route handlers (attempts, exams, test-types, debug)
 │   ├── repositories/         # SQLite data access layer (exam, attempt)
@@ -163,7 +163,7 @@ telcA1/
 
 ### Architecture Notes
 
-- **Modularity & Clean Architecture**: Strictly conforms to McConnell and Martin limits (files <= 180 lines, functions <= 25 lines, Single Responsibility Principle, and Single Level of Abstraction).
+- **Modularity & Clean Architecture**: The project follows Single Responsibility and single-level-of-abstraction principles. Large data and translation files are intentional exceptions to the preferred module-size guideline.
 - **Linguistic Engine**: Relies on systematic linguistic models (Topological Field Parser, Vorfeld chunking, Case & Valency tables) rather than fragile ad-hoc regex patches.
 - **Components**: Each top-level `.jsx` in `components/` is a **screen orchestrator** — it composes subcomponents from the matching subdirectory.
 - **Database**: `server/db.js` is a **facade** that orchestrates `database/connection.js` (factory), `database/migrations.js` (DDL), and `database/seeder.js` (data population).
@@ -178,7 +178,7 @@ telcA1/
 Data is loaded from the built-in `seed-data.js` via `localDataService`. No server required.
 
 ### Full-stack (with Server)
-Data is stored in SQLite. API is served by Express.js on port 3001.
+The optional Express API is served on port 3001 and uses SQLite for its server-side exam catalog. The client still keeps attempt history locally by default.
 
 ---
 
@@ -198,27 +198,6 @@ Total duration: **25 minutes** for 15 questions.
 
 See [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) for a detailed guide on creating and validating new exam variants.
 Run `npm run validate:seeds` to verify all questions and exam schemas automatically.
-
-## 📦 Current Exam Variants
-
-| ID | Title | Module | Questions | Status |
-|----|-------|--------|-----------|--------|
-| modellsatz-1 | Modellsatz 1 | Lesen | 15 | ✅ Ready |
-| modellsatz-2 | Modellsatz 2 | Lesen | 15 | ✅ Ready |
-| modellsatz-3 | Modellsatz 3 | Lesen | 15 | ✅ Ready |
-| modellsatz-4 | Modellsatz 4 | Lesen | 15 | ✅ Ready |
-| modellsatz-5 | Modellsatz 5 | Lesen | 15 | ✅ Ready |
-| modellsatz-6 | Modellsatz 6 | Lesen | 15 | ✅ Ready |
-| modellsatz-7 | Modellsatz 7 | Lesen | 15 | ✅ Ready |
-| modellsatz-8 | Modellsatz 8 | Lesen | 15 | ✅ Ready |
-| modellsatz-9 | Modellsatz 9 | Lesen | 15 | ✅ Ready |
-| modellsatz-10 | Modellsatz 10 | Lesen | 15 | ✅ Ready |
-| schreiben-modellsatz-1 | telc Deutsch A1 — Schreiben 1 | Schreiben | 6 | ✅ Ready |
-| schreiben-modellsatz-2 | telc Deutsch A1 — Schreiben 2 | Schreiben | 6 | ✅ Ready |
-| hoeren-modellsatz-1 | Hören (stub) | Hören | 3 | 🚧 Stub |
-| sprechen-modellsatz-1 | Sprechen (stub) | Sprechen | 1 | 🚧 Stub |
-
----
 
 ## 🤖 Hybrid In-Browser Grader (Schreiben Teil 2)
 
@@ -250,4 +229,3 @@ When verifying updates locally or on staging:
 - [ ] **60+ word letter**: Submit a long essay with multiple complex sentences: verify segmentation and score calculation complete cleanly without crashes.
 - [ ] **Empty input**: Submit empty text or whitespace: verify 0 points, clean feedback, no exceptions.
 - [ ] **Non-German input**: Submit English or random gibberish: verify quality analyzer flags spam/gibberish, awarding 0 points with no false grammar corrections.
-

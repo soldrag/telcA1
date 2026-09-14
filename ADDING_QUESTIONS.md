@@ -258,7 +258,7 @@ The validator checks:
 - Question count matches `exam.total_questions`.
 - Correct enum answers (`richtig`/`falsch` or `a`/`b`).
 - Full trilingual explanations (`ru`, `en`, `de`) and vocabulary notes.
-- Verbatim appearance of `clue_quote` in source texts (with whitespace normalization).
+- Verbatim appearance of `clue_quote` in source texts (with whitespace normalization). A mismatch is currently reported as a non-fatal warning; review and resolve it before publishing a variant.
 - Absence of duplicate IDs.
 
 ### Step 4: Run Test Suite
