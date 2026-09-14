@@ -9,14 +9,17 @@ export function buildHeaderConfig(controller) {
   const currentModule = controller.testTypes.find((item) => item.id === controller.activeTestType)
     || getTestTypeById(controller.activeTestType);
   const questionsCount = controller.examData?.questions?.length || 0;
+  const isInspection = controller.session?.isInspection || false;
 
   return {
     navigation: {
       screen: controller.screen,
+      isInspection,
       onNavigateHome: controller.navigateHome,
       onOpenHistory: controller.openHistory,
       onResetExam: controller.resetExam,
-      onSubmitExam: controller.modals.openSubmitModal,
+      onSubmitExam: isInspection ? null : controller.modals.openSubmitModal,
+      onExitInspection: controller.exitInspection,
     },
     stats: {
       answeredCount: controller.session.answeredCount,
@@ -42,6 +45,7 @@ function buildWelcomeProps(controller) {
       onSelectTestType: controller.changeTestType,
       onSelectExam: controller.selectExam,
       onStartExam: controller.startExam,
+      onInspectExam: controller.inspectExam,
       onStartRandomExam: controller.startRandomExam,
       onLoadAttempt: controller.loadSavedAttempt,
       onShareAttempt: controller.modals.openShareModal,
@@ -105,12 +109,20 @@ function buildResultsProps(controller) {
 function buildExamProps(controller) {
   const questions = controller.examData?.questions || [];
   const activeType = controller.examData?.exam?.test_type || controller.activeTestType;
+  const isInspection = controller.session?.isInspection || false;
+
   return {
     isLoading: controller.isLoadingExam,
-    examConfig: { testType: activeType, questions },
+    examConfig: {
+      testType: activeType,
+      questions,
+      examTitle: controller.examData?.exam?.title,
+    },
     session: controller.session,
     timer: { ...controller.timer, onTimeUp: controller.handleTimeUp },
-    onOpenSubmitConfirm: controller.modals.openSubmitModal,
+    onOpenSubmitConfirm: isInspection ? null : controller.modals.openSubmitModal,
+    isInspection,
+    onExitInspection: controller.exitInspection,
   };
 }
 

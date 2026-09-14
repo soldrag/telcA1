@@ -4,8 +4,31 @@ import { Button } from '../ui/Button.jsx';
 import { Badge } from '../ui/Badge.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
-export default function ExamHeaderActions({ onNavigateHome, onSubmitExam, answeredCount, totalQuestions }) {
+export default function ExamHeaderActions({
+  onNavigateHome,
+  onSubmitExam,
+  answeredCount,
+  totalQuestions,
+  isInspection = false,
+  onExitInspection,
+}) {
   const { t } = useI18n();
+
+  if (isInspection) {
+    return (
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={onExitInspection || onNavigateHome}
+        title={t('header.exitInspection')}
+        aria-label={t('header.exitInspection')}
+        className="text-xs sm:text-sm font-semibold min-w-[44px] px-2.5 sm:px-3"
+      >
+        <ArrowLeft className="w-4 h-4 sm:mr-1.5 shrink-0" />
+        <span className="hidden sm:inline">{t('header.exitInspection')}</span>
+      </Button>
+    );
+  }
 
   return (
     <>

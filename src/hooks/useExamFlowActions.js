@@ -111,10 +111,31 @@ export function useExamFlowActions({
     navigateTo('welcome');
   }, [modals, navigateTo]);
 
+  const inspectExam = useCallback(async (examId) => {
+    session.resetSession();
+    session.setIsInspection?.(true);
+    const targetId = examId || loader.currentExamId;
+    if (targetId && targetId !== loader.currentExamId) {
+      await loader.loadExamById(targetId);
+      loader.selectExam(targetId);
+    }
+    timer.resetTimer(false, 0);
+    timer.pauseTimer();
+    navigateTo('exam');
+  }, [loader, session, timer, navigateTo]);
+
+  const exitInspection = useCallback(() => {
+    session.resetSession();
+    navigateTo('welcome');
+  }, [session, navigateTo]);
+
   const navigateHome = useCallback(() => {
-    if (screen === 'exam' && !session.isSubmitted && session.answeredCount > 0) {
+    if (screen === 'exam' && !session.isSubmitted && session.answeredCount > 0 && !session.isInspection) {
       modals.openLeaveModal();
     } else {
+      if (session.isInspection) {
+        session.resetSession();
+      }
       navigateTo('welcome');
     }
   }, [screen, session, modals, navigateTo]);
@@ -126,6 +147,8 @@ export function useExamFlowActions({
   return {
     startExam,
     startRandomExam,
+    inspectExam,
+    exitInspection,
     submitExam,
     handleTimeUp,
     loadSavedAttempt,
