@@ -8,17 +8,13 @@ import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
 import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
+import ReviewTaskPrompt from '../results/ReviewTaskPrompt.jsx';
 
 function deriveInitialScores(item = {}) {
   const cb = item.criteria_breakdown;
   if (!cb) return { anrede: 2, lp1: 2, lp2: 2, lp3: 2, gruss: 2 };
-  return {
-    anrede: Number(cb.anrede) || 0,
-    lp1: Number(cb.lp1 ?? cb.items?.[0]?.score) || 0,
-    lp2: Number(cb.lp2 ?? cb.items?.[1]?.score) || 0,
-    lp3: Number(cb.lp3 ?? cb.items?.[2]?.score) || 0,
-    gruss: Number(cb.gruss) || 0,
-  };
+  const getScore = (key, idx) => Number(cb[key] ?? cb.items?.[idx]?.score) || 0;
+  return { anrede: Number(cb.anrede) || 0, lp1: getScore('lp1', 0), lp2: getScore('lp2', 1), lp3: getScore('lp3', 2), gruss: Number(cb.gruss) || 0 };
 }
 
 export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
@@ -81,6 +77,8 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
 
   return (
     <div className="space-y-5 pt-3">
+      <ReviewTaskPrompt item={item} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-4 rounded-xl border border-border-default bg-surface-inset space-y-2">
           <div className="text-xs font-black uppercase tracking-wider text-action-primary flex items-center justify-between">
@@ -116,12 +114,17 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
               <span className="font-extrabold text-action-primary">Anrede: </span>
               <span className="text-content-primary">{segments.anrede || <span className="text-content-muted italic">Keine</span>}</span>
             </div>
-            {segments.leitpunkte.map((lp, idx) => (
-              <div key={idx} className="p-2 rounded-lg bg-surface-inset border border-border-subtle">
-                <span className="font-extrabold text-action-primary">Punkt {lp.index}: </span>
-                <span className="text-content-primary">{lp.userSentence}</span>
-              </div>
-            ))}
+            {segments.leitpunkte.map((lp, idx) => {
+              const lpTitle = options.leitpunkte?.[lp.index - 1] || lp.label;
+              return (
+                <div key={idx} className="p-2 rounded-lg bg-surface-inset border border-border-subtle">
+                  <span className="font-extrabold text-action-primary">
+                    Punkt {lp.index}{lpTitle ? ` (${lpTitle})` : ''}:{' '}
+                  </span>
+                  <span className="text-content-primary">{lp.userSentence}</span>
+                </div>
+              );
+            })}
             <div className="p-2 rounded-lg bg-surface-inset border border-border-subtle">
               <span className="font-extrabold text-action-primary">Grußformel & Name: </span>
               <span className="text-content-primary">{segments.closing} {segments.senderName}</span>

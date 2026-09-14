@@ -63,13 +63,49 @@ def flag_pixel(x, y, w, h):
 
     return r, g, b, int(alpha * 255)
 
+def app_icon_pixel(x, y, w, h):
+    # Full bleed opaque app icon for iOS Apple Touch Icon and Android PWA launcher
+    stripe_height = h / 3.0
+    if y < stripe_height:
+        br, bg, bb = 17, 24, 39      # Black stripe
+    elif y < stripe_height * 2:
+        br, bg, bb = 220, 38, 38     # Red stripe
+    else:
+        br, bg, bb = 251, 191, 36    # Gold stripe
+
+    nx = (x - w / 2.0) / (w / 2.0)
+    ny = (y - h / 2.0) / (h / 2.0)
+    dist = math.sqrt(nx*nx + ny*ny)
+    
+    radius = 0.52
+    if dist < radius:
+        edge_alpha = max(0.0, min(1.0, (radius - dist) * w * 0.5))
+        cr, cg, cb = 15, 23, 42
+        
+        in_book = False
+        if -0.32 <= nx <= -0.04 and -0.22 <= ny <= 0.22:
+            curve = 0.05 * math.cos((nx + 0.18) * 10)
+            if abs(ny - curve) < 0.20:
+                in_book = True
+        elif 0.04 <= nx <= 0.32 and -0.22 <= ny <= 0.22:
+            curve = 0.05 * math.cos((nx - 0.18) * 10)
+            if abs(ny - curve) < 0.20:
+                in_book = True
+                
+        pr, pg, pb = (255, 255, 255) if in_book else (cr, cg, cb)
+        r = int(br * (1 - edge_alpha) + pr * edge_alpha)
+        g = int(bg * (1 - edge_alpha) + pg * edge_alpha)
+        b = int(bb * (1 - edge_alpha) + pb * edge_alpha)
+        return r, g, b, 255
+        
+    return br, bg, bb, 255
+
 def create_ico(png_data, width, height):
-    # Standard ICO containing embedded PNG (supported by all modern browsers/OS)
-    header = struct.pack('<HHH', 0, 1, 1) # reserved, type (1=ico), count (1)
+    header = struct.pack('<HHH', 0, 1, 1)
     w_byte = width if width < 256 else 0
     h_byte = height if height < 256 else 0
     size = len(png_data)
-    offset = 6 + 16 # header(6) + 1 directory entry(16) = 22
+    offset = 6 + 16
     entry = struct.pack('<BBBBHHII', w_byte, h_byte, 0, 0, 1, 32, size, offset)
     return header + entry + png_data
 
@@ -85,15 +121,35 @@ def main():
     with open(os.path.join(public_dir, 'favicon-16x16.png'), 'wb') as f:
         f.write(png_16)
         
-    png_180 = create_png(180, 180, flag_pixel)
+    png_180 = create_png(180, 180, app_icon_pixel)
     with open(os.path.join(public_dir, 'apple-touch-icon.png'), 'wb') as f:
         f.write(png_180)
+    with open(os.path.join(public_dir, 'apple-touch-icon-180x180.png'), 'wb') as f:
+        f.write(png_180)
+    with open(os.path.join(public_dir, 'apple-touch-icon-precomposed.png'), 'wb') as f:
+        f.write(png_180)
+
+    png_152 = create_png(152, 152, app_icon_pixel)
+    with open(os.path.join(public_dir, 'apple-touch-icon-152x152.png'), 'wb') as f:
+        f.write(png_152)
+
+    png_120 = create_png(120, 120, app_icon_pixel)
+    with open(os.path.join(public_dir, 'apple-touch-icon-120x120.png'), 'wb') as f:
+        f.write(png_120)
+
+    png_192 = create_png(192, 192, app_icon_pixel)
+    with open(os.path.join(public_dir, 'icon-192.png'), 'wb') as f:
+        f.write(png_192)
+
+    png_512 = create_png(512, 512, app_icon_pixel)
+    with open(os.path.join(public_dir, 'icon-512.png'), 'wb') as f:
+        f.write(png_512)
         
     ico = create_ico(png_32, 32, 32)
     with open(os.path.join(public_dir, 'favicon.ico'), 'wb') as f:
         f.write(ico)
 
-    print("Successfully generated all favicon assets in public/")
+    print("Successfully generated all favicon and PWA assets in public/")
 
 if __name__ == '__main__':
     main()

@@ -6,6 +6,7 @@ import ResultsHeaderActions from './header/ResultsHeaderActions.jsx';
 import DefaultHeaderActions from './header/DefaultHeaderActions.jsx';
 import ThemeToggle from './header/ThemeToggle.jsx';
 import LanguageSelector from './header/LanguageSelector.jsx';
+import NetworkStatusBadge from './header/NetworkStatusBadge.jsx';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 export default function Header({
@@ -50,6 +51,7 @@ export default function Header({
               <Badge variant="default" className="text-[10px] sm:text-[11px] py-0 px-1.5 sm:px-2 uppercase tracking-wide shrink-0">
                 telc A1
               </Badge>
+              <NetworkStatusBadge />
               <span className="text-xs font-semibold text-content-tertiary hidden sm:inline truncate">
                 {activeModuleTitle} ({activeModulePoints} Punkte)
               </span>

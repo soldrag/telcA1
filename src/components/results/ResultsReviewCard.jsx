@@ -3,6 +3,13 @@ import { CheckCircle2, XCircle, ArrowRight, ChevronDown, ChevronUp } from 'lucid
 import ExpandedExplanationContent from './ExpandedExplanationContent.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
+function resolveCardSubtitle(item) {
+  if (item.options_json?.type === 'essay') {
+    return item.situation || item.statement;
+  }
+  return item.statement || item.situation;
+}
+
 export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, onUpdateItemScore }) {
   const { t } = useI18n();
   const [currentPoints, setCurrentPoints] = React.useState(item.points_earned || 0);
@@ -56,7 +63,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
             </div>
 
             <p className="text-xs sm:text-sm text-content-secondary mt-1 font-medium line-clamp-2 sm:line-clamp-none break-words">
-              {item.statement || item.situation}
+              {resolveCardSubtitle(item)}
             </p>
           </div>
         </div>

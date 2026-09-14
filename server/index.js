@@ -18,6 +18,7 @@ import {
 } from './middleware/static-compression.js';
 import { createSecurityHeadersMiddleware } from './middleware/security-headers.js';
 import { createRateLimiter } from './middleware/rate-limiter.js';
+import { getLanIpAddresses } from './services/network-utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,16 +53,27 @@ app.use(
   })
 );
 
+app.get('/apple-touch-icon*.png', (_req, res) => {
+  res.setHeader('Content-Type', 'image/png');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  res.sendFile(path.join(distPath, 'apple-touch-icon.png'));
+});
+
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api')) return next();
+  if (path.extname(req.path)) {
+    return res.status(404).end();
+  }
   res.setHeader('Cache-Control', getStaticCacheControl('index.html'));
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
 app.listen(PORT, HOST, () => {
+  const lanIps = getLanIpAddresses();
   console.log(`Server running on http://${HOST}:${PORT}`);
+  lanIps.forEach((ip) => console.log(`  ➜ Network: http://${ip}:${PORT}`));
   logger.info('SERVER', 'Startup complete', {
-    port: PORT, host: HOST,
+    port: PORT, host: HOST, lanIps,
     debug: logger.isDebugEnabled(),
     logFile: logger.getLogFilePath(),
     nodeEnv: process.env.NODE_ENV,
@@ -78,8 +90,10 @@ if (fs.existsSync(certPath) && fs.existsSync(keyPath)) {
       key: fs.readFileSync(keyPath),
     };
     https.createServer(credentials, app).listen(HTTPS_PORT, HOST, () => {
+      const lanIps = getLanIpAddresses();
       console.log(`HTTPS server running on https://${HOST}:${HTTPS_PORT}`);
-      logger.info('SERVER', 'HTTPS startup complete', { port: HTTPS_PORT, host: HOST });
+      lanIps.forEach((ip) => console.log(`  ➜ Network (HTTPS): https://${ip}:${HTTPS_PORT}`));
+      logger.info('SERVER', 'HTTPS startup complete', { port: HTTPS_PORT, host: HOST, lanIps });
     });
   } catch (err) {
     logger.error('SERVER', 'Failed to start HTTPS server', { error: err.message });

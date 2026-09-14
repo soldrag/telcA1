@@ -13,6 +13,8 @@ export const en = {
   },
   header: {
     examBadge: 'telc A1 / Start Deutsch 1',
+    offlineBadge: 'Offline',
+    offlineTooltip: 'Offline mode: All 10 practice exams are available without internet',
     points: '{points} points',
     simulatorTitle: 'Exam Simulator',
     menu: 'Main Menu',
@@ -215,6 +217,11 @@ export const en = {
     aiProviderLimited: 'Limited mode: rule-based scoring only',
     aiLimitedNotice: 'Limited mode: rule-based scoring only, no grammar suggestions',
     aiDisclaimer: 'AI can make mistakes. The evaluation is for guidance only and does not replace an official telc examination.',
+    taskAssignment: 'Task Assignment',
+    taskSituation: 'Situation',
+    taskLeitpunkte: 'Guide Points',
+    taskStatement: 'Statement / Question',
+    taskTargetField: 'Form Field',
   },
   history: {
     title: 'Attempt History',

@@ -13,6 +13,8 @@ export const ru = {
   },
   header: {
     examBadge: 'telc A1 / Start Deutsch 1',
+    offlineBadge: 'Офлайн',
+    offlineTooltip: 'Офлайн-режим: все 10 вариантов доступны без интернета',
     points: '{points} баллов',
     simulatorTitle: 'Симулятор экзамена',
     menu: 'Главное меню',
@@ -215,6 +217,11 @@ export const ru = {
     aiProviderLimited: 'Ограниченный режим: только правиловая оценка',
     aiLimitedNotice: 'Ограниченный режим: только правиловая оценка, без генеративных подсказок',
     aiDisclaimer: 'ИИ может ошибаться. Оценка носит ориентировочный характер и не заменяет проверку официальным экзаменатором telc.',
+    taskAssignment: 'Задание',
+    taskSituation: 'Ситуация',
+    taskLeitpunkte: 'Пункты плана',
+    taskStatement: 'Утверждение / Вопрос',
+    taskTargetField: 'Поле формуляра',
   },
   history: {
     title: 'История прохождений',
