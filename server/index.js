@@ -16,6 +16,8 @@ import {
   configureStaticHeaders,
   getStaticCacheControl,
 } from './middleware/static-compression.js';
+import { createSecurityHeadersMiddleware } from './middleware/security-headers.js';
+import { createRateLimiter } from './middleware/rate-limiter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,9 +29,15 @@ const PORT = process.env.PORT || 3001;
 const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 const HOST = process.env.HOST || '0.0.0.0';
 
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
+  : null;
+
+app.use(createSecurityHeadersMiddleware());
+app.use(cors(allowedOrigins ? { origin: allowedOrigins } : {}));
 app.use(compression());
-app.use(express.json());
+app.use(express.json({ limit: '256kb' }));
+app.use('/api', createRateLimiter({ windowMs: 60 * 1000, maxRequests: 120 }));
 
 app.use('/api/exams', createExamsRouter(db));
 app.use('/api/attempts', createAttemptsRouter(db));

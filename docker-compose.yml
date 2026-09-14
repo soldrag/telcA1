@@ -15,8 +15,8 @@ services:
       - HTTPS_PORT=3443
       - HOST=0.0.0.0
       - NODE_ENV=production
-      - DEBUG=true
-      - LOG_LEVEL=debug
+      - DEBUG=false
+      - LOG_LEVEL=info
       - DATA_DIR=/app/data
       - SSL_CERT_PATH=/app/certs/cert.pem
       - SSL_KEY_PATH=/app/certs/key.pem

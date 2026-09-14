@@ -20,6 +20,19 @@ export function getLocalExams(testType = 'lesen') {
   return { exams };
 }
 
+function sanitizeQuestion(question) {
+  const {
+    correct_answer: _ca,
+    clue_quote: _cq,
+    explanation_ru: _eru,
+    explanation_en: _een,
+    explanation_de: _ede,
+    vocabulary_notes: _vn,
+    ...sanitized
+  } = question;
+  return sanitized;
+}
+
 export function getLocalExamDetails(examId) {
   const exam = seedData.exams.find(e => e.id === examId);
   if (!exam) {
@@ -27,7 +40,8 @@ export function getLocalExamDetails(examId) {
   }
   const questions = seedData.questions
     .filter(q => q.exam_id === examId)
-    .sort((a, b) => a.question_number - b.question_number);
+    .sort((a, b) => a.question_number - b.question_number)
+    .map(sanitizeQuestion);
 
   return {
     exam: {

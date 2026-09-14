@@ -22,6 +22,18 @@ export class ExamRepository {
     return this.database.prepare('SELECT * FROM exams WHERE id = ?').get(examId);
   }
 
+  findSanitizedQuestionsByExamId(examId, parseOptions = true) {
+    const questions = this.database.prepare(`
+      SELECT id, exam_id, teil, question_number, title, situation, 
+             context_header, context_body, options_json, statement
+      FROM questions 
+      WHERE exam_id = ? 
+      ORDER BY question_number ASC
+    `).all(examId);
+
+    return parseOptions ? questions.map(parseQuestionOptions) : questions;
+  }
+
   findQuestionsByExamId(examId, parseOptions = true) {
     const questions = this.database.prepare(`
       SELECT id, exam_id, teil, question_number, title, situation, 
@@ -33,5 +45,9 @@ export class ExamRepository {
     `).all(examId);
 
     return parseOptions ? questions.map(parseQuestionOptions) : questions;
+  }
+
+  findQuestionsForGrading(examId) {
+    return this.findQuestionsByExamId(examId, false);
   }
 }

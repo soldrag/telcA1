@@ -29,6 +29,8 @@ export function getStaticCacheControl(filePath = '') {
 }
 
 export function createPrecompressedMiddleware(staticDir) {
+  const resolvedRoot = path.resolve(staticDir);
+
   return (req, res, next) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') {
       return next();
@@ -36,7 +38,11 @@ export function createPrecompressedMiddleware(staticDir) {
 
     const acceptEncoding = req.headers['accept-encoding'] || '';
     const safePath = path.normalize(req.path).replace(/^(\.\.[/\\])+/, '');
-    const absolutePath = path.join(staticDir, safePath);
+    const absolutePath = path.resolve(resolvedRoot, `.${safePath.startsWith('/') ? '' : '/'}${safePath}`);
+
+    if (!absolutePath.startsWith(resolvedRoot)) {
+      return next();
+    }
 
     if (acceptEncoding.includes('br') && fs.existsSync(`${absolutePath}.br`)) {
       req.url = `${req.url}.br`;
