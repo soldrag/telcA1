@@ -26,7 +26,12 @@ export default function DatenschutzContent({ operator, privacy }) {
       </section>
 
       <section>
-        <h4 className="font-bold text-content-primary mb-1">4. Keine Tracking-Cookies & keine Webanalyse</h4>
+        <h4 className="font-bold text-content-primary mb-1">4. Teilen von Prüfungsergebnissen («Ergebnis teilen»)</h4>
+        <p>{privacy.shareTokenPurpose}</p>
+      </section>
+
+      <section>
+        <h4 className="font-bold text-content-primary mb-1">5. Keine Tracking-Cookies & keine Webanalyse</h4>
         <p>
           Wir setzen <strong>weder Tracking-Cookies noch Drittanbieter-Analysetools</strong> (z. B. Google Analytics, Meta Pixel) ein.
           Ein Cookie-Einwilligungsbanner ist daher gemäß § 25 Abs. 2 TDDDG nicht erforderlich.
@@ -34,7 +39,7 @@ export default function DatenschutzContent({ operator, privacy }) {
       </section>
 
       <section>
-        <h4 className="font-bold text-content-primary mb-1">5. Lokale Schriftarten (Fonts)</h4>
+        <h4 className="font-bold text-content-primary mb-1">6. Lokale Schriftarten (Fonts)</h4>
         <p>
           Alle Schriftarten (Inter) werden direkt von unserem eigenen Webserver bereitgestellt.
           Es erfolgt keine Übertragung Ihrer IP-Adresse an Google Fonts oder sonstige externe CDN-Dienste.
@@ -42,7 +47,7 @@ export default function DatenschutzContent({ operator, privacy }) {
       </section>
 
       <section>
-        <h4 className="font-bold text-content-primary mb-1">6. Server-Logfiles</h4>
+        <h4 className="font-bold text-content-primary mb-1">7. Server-Logfiles</h4>
         <p>
           Beim Abruf von Seiten verarbeitet der Webserver aus technischen Gründen temporär Verbindungsdaten (IP-Adresse, Zeitpunkt).
           Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Ausfallsicherheit und Missbrauchsschutz).
@@ -50,7 +55,7 @@ export default function DatenschutzContent({ operator, privacy }) {
       </section>
 
       <section>
-        <h4 className="font-bold text-content-primary mb-1">7. Ihre Rechte</h4>
+        <h4 className="font-bold text-content-primary mb-1">8. Ihre Rechte</h4>
         <p>
           Ihnen stehen die gesetzlichen Rechte nach Art. 15–21 DSGVO zu (Auskunft, Berichtigung, Löschung).
           Wenden Sie sich dazu an die im Impressum angegebene E-Mail-Adresse.
