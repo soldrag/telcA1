@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Share2, Copy, Check, X, ShieldAlert } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Share2, Copy, Check, X } from 'lucide-react';
 import { buildShareUrl } from '../../services/shareTokenService.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
@@ -7,11 +7,27 @@ export default function ShareAttemptModal({ isOpen, attempt, onClose }) {
   const { t } = useI18n();
   const [studentName, setStudentName] = useState('');
   const [copied, setCopied] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
 
-  const shareUrl = useMemo(() => {
-    if (!attempt) return '';
-    return buildShareUrl({ attempt, studentName });
-  }, [attempt, studentName]);
+  useEffect(() => {
+    let cancelled = false;
+    if (!isOpen || !attempt) {
+      setShareUrl('');
+      return;
+    }
+
+    buildShareUrl({ attempt, studentName })
+      .then((url) => {
+        if (!cancelled) setShareUrl(url);
+      })
+      .catch((err) => {
+        console.warn('[ShareAttemptModal] Failed to generate share URL:', err);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, attempt, studentName]);
 
   if (!isOpen || !attempt) return null;
 

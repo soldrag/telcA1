@@ -19,16 +19,32 @@ describe('Share Token Service', () => {
     total_questions: 15,
   };
 
-  it('encodes and decodes an attempt token accurately with student name', () => {
-    const token = encodeAttemptToken({
+  const sampleSchreibenAttempt = {
+    id: 'att-schreiben-1',
+    exam_id: 'modellsatz-1-schreiben',
+    test_type: 'schreiben',
+    answers: {
+      'q_1': 'Eva',
+      'q_2': 'Müller',
+      'q_3': 'Berlin',
+      'q_4': '2',
+      'q_5': 'Barzahlung',
+      'essay': 'Sehr geehrte Damen und Herren, ich schreibe Ihnen, weil ich mich für den Deutschkurs A1 anmelden möchte. Ich habe ein paar Fragen: Wann beginnt der nächste Kurs? Wie viele Stunden pro Woche hat der Unterricht und wie viel kostet das gesamte Lehrbuch? Ich freue mich auf Ihre Antwort. Mit freundlichen Grüßen, Anna Müller',
+    },
+    time_spent_seconds: 900,
+    created_at: '2026-09-12T10:00:00.000Z',
+  };
+
+  it('encodes and decodes compressed v2 attempt token with student name', async () => {
+    const token = await encodeAttemptToken({
       attempt: sampleAttempt,
       studentName: 'Иван Иванов',
     });
 
-    assert.ok(typeof token === 'string' && token.length > 0);
+    assert.ok(typeof token === 'string' && token.startsWith('z2.'));
     assert.ok(!token.includes('+') && !token.includes('/') && !token.includes('='));
 
-    const decoded = decodeAttemptToken(token);
+    const decoded = await decodeAttemptToken(token);
     assert.ok(decoded);
     assert.equal(decoded.examId, 'modellsatz-1');
     assert.equal(decoded.testType, 'lesen');
@@ -38,43 +54,92 @@ describe('Share Token Service', () => {
     assert.equal(decoded.studentName, 'Иван Иванов');
   });
 
-  it('handles optional student name when omitted or whitespace', () => {
-    const token = encodeAttemptToken({ attempt: sampleAttempt });
-    const decoded = decodeAttemptToken(token);
+  it('preserves 100% backward compatibility for legacy v1 uncompressed tokens', async () => {
+    const legacyPayload = {
+      v: 1,
+      eid: 'modellsatz-1',
+      type: 'lesen',
+      ans: { '1': 'a', '2': 'b' },
+      time: 300,
+      date: '2026-09-01T12:00:00.000Z',
+      name: 'Old User',
+    };
+    const legacyToken = Buffer.from(JSON.stringify(legacyPayload), 'utf-8').toString('base64url');
+
+    const decoded = await decodeAttemptToken(legacyToken);
+    assert.ok(decoded);
+    assert.equal(decoded.examId, 'modellsatz-1');
+    assert.equal(decoded.testType, 'lesen');
+    assert.deepEqual(decoded.answers, { '1': 'a', '2': 'b' });
+    assert.equal(decoded.timeSpentSeconds, 300);
+    assert.equal(decoded.studentName, 'Old User');
+  });
+
+  it('achieves substantial compression for Schreiben essays', async () => {
+    const rawJson = JSON.stringify({
+      v: 1,
+      eid: sampleSchreibenAttempt.exam_id,
+      type: sampleSchreibenAttempt.test_type,
+      ans: sampleSchreibenAttempt.answers,
+      time: sampleSchreibenAttempt.time_spent_seconds,
+      date: sampleSchreibenAttempt.created_at,
+      name: 'Анна Мюллер',
+    });
+    const uncompressedBase64Length = Buffer.from(rawJson, 'utf-8').toString('base64url').length;
+
+    const compressedToken = await encodeAttemptToken({
+      attempt: sampleSchreibenAttempt,
+      studentName: 'Анна Мюллер',
+    });
+
+    assert.ok(compressedToken.length < uncompressedBase64Length);
+    const reductionRatio = 1 - (compressedToken.length / uncompressedBase64Length);
+    assert.ok(reductionRatio >= 0.25, `Expected >= 25% compression, got ${(reductionRatio * 100).toFixed(1)}%`);
+
+    const decoded = await decodeAttemptToken(compressedToken);
+    assert.ok(decoded);
+    assert.equal(decoded.answers.essay, sampleSchreibenAttempt.answers.essay);
+    assert.equal(decoded.studentName, 'Анна Мюллер');
+  });
+
+  it('handles optional student name when omitted or whitespace', async () => {
+    const token = await encodeAttemptToken({ attempt: sampleAttempt });
+    const decoded = await decodeAttemptToken(token);
     assert.equal(decoded.studentName, null);
 
-    const tokenWhitespace = encodeAttemptToken({ attempt: sampleAttempt, studentName: '   ' });
-    const decodedWhitespace = decodeAttemptToken(tokenWhitespace);
+    const tokenWhitespace = await encodeAttemptToken({ attempt: sampleAttempt, studentName: '   ' });
+    const decodedWhitespace = await decodeAttemptToken(tokenWhitespace);
     assert.equal(decodedWhitespace.studentName, null);
   });
 
-  it('throws error when encoding attempt without exam_id', () => {
-    assert.throws(() => encodeAttemptToken({ attempt: {} }), /exam_id/);
+  it('throws error when encoding attempt without exam_id', async () => {
+    await assert.rejects(() => encodeAttemptToken({ attempt: {} }), /exam_id/);
   });
 
-  it('returns null for corrupted or invalid tokens', () => {
-    assert.equal(decodeAttemptToken(null), null);
-    assert.equal(decodeAttemptToken(''), null);
-    assert.equal(decodeAttemptToken('invalid-base64-content!@#$'), null);
-    assert.equal(decodeAttemptToken('eyJ2IjoyfQ'), null); // wrong version
+  it('returns null for corrupted or invalid tokens', async () => {
+    assert.equal(await decodeAttemptToken(null), null);
+    assert.equal(await decodeAttemptToken(''), null);
+    assert.equal(await decodeAttemptToken('invalid-base64-content!@#$'), null);
+    assert.equal(await decodeAttemptToken('z2.invalid-deflate-data'), null);
+    assert.equal(await decodeAttemptToken('eyJ2IjoyfQ'), null); // wrong version
   });
 
-  it('builds full URL with hash fragment', () => {
-    const url = buildShareUrl({
+  it('builds full URL with hash fragment', async () => {
+    const url = await buildShareUrl({
       attempt: sampleAttempt,
       studentName: 'Anna Schmidt',
       originAndPath: 'https://telc.example.com/app',
     });
 
-    assert.ok(url.startsWith('https://telc.example.com/app#review='));
+    assert.ok(url.startsWith('https://telc.example.com/app#review=z2.'));
     const token = url.split('#review=')[1];
-    const decoded = decodeAttemptToken(token);
+    const decoded = await decodeAttemptToken(token);
     assert.equal(decoded.studentName, 'Anna Schmidt');
     assert.equal(decoded.examId, 'modellsatz-1');
   });
 
-  it('parses review token from hash and query strings', () => {
-    const sampleToken = encodeAttemptToken({ attempt: sampleAttempt });
+  it('parses review token from hash and query strings', async () => {
+    const sampleToken = await encodeAttemptToken({ attempt: sampleAttempt });
 
     const fromHash = parseReviewTokenFromUrl(`https://telc.example.com/#review=${sampleToken}`);
     assert.equal(fromHash, sampleToken);
@@ -93,7 +158,7 @@ describe('Share Token Service', () => {
     const teacherStorage = new MemoryAttemptStorage();
     assert.equal((await teacherStorage.getAttempts()).length, 0);
 
-    const token = encodeAttemptToken({
+    const token = await encodeAttemptToken({
       attempt: {
         exam_id: 'modellsatz-1',
         test_type: 'lesen',
@@ -103,7 +168,7 @@ describe('Share Token Service', () => {
       studentName: 'Максим',
     });
 
-    const decoded = decodeAttemptToken(token);
+    const decoded = await decodeAttemptToken(token);
     assert.ok(decoded);
 
     // Simulate teacher opening the link and grading

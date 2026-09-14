@@ -43,7 +43,7 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
     if (!token || processedTokenRef.current === token) return;
     processedTokenRef.current = token;
 
-    const decoded = decodeAttemptToken(token);
+    const decoded = await decodeAttemptToken(token);
     if (!decoded?.examId) {
       showErrorRef.current?.('errors.invalidReviewLink');
       clearReviewTokenFromUrl();

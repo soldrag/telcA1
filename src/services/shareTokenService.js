@@ -1,19 +1,15 @@
 /**
  * Service for encoding and decoding exam attempts into a portable URL-safe token.
  * Enables students to share their results with a teacher without requiring server storage.
+ * Supports compact deflate-raw compression with full backward compatibility for legacy v1 tokens.
  */
 
-function encodeBase64Url(str) {
-  if (typeof Buffer !== 'undefined') {
-    return Buffer.from(str, 'utf-8').toString('base64url');
-  }
-  const bytes = new TextEncoder().encode(str);
-  let binary = '';
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
+import {
+  compressStringToBase64Url,
+  decompressBase64UrlToString,
+} from './share/streamCompressor.js';
+
+const COMPRESSED_TOKEN_PREFIX = 'z2.';
 
 function decodeBase64Url(base64url) {
   if (typeof Buffer !== 'undefined') {
@@ -31,13 +27,24 @@ function decodeBase64Url(base64url) {
   return new TextDecoder().decode(bytes);
 }
 
-export function encodeAttemptToken({ attempt, studentName } = {}) {
+function mapPayloadToAttempt(data) {
+  return {
+    examId: data.eid,
+    testType: data.type || 'lesen',
+    answers: typeof data.ans === 'object' && data.ans !== null ? data.ans : {},
+    timeSpentSeconds: Number(data.time) || 0,
+    createdAt: data.date || null,
+    studentName: data.name ? String(data.name).trim() : null,
+  };
+}
+
+export async function encodeAttemptToken({ attempt, studentName } = {}) {
   if (!attempt?.exam_id) {
     throw new Error('Attempt must contain an exam_id');
   }
 
   const payload = {
-    v: 1,
+    v: 2,
     eid: attempt.exam_id,
     type: attempt.test_type || 'lesen',
     ans: attempt.answers || {},
@@ -47,36 +54,35 @@ export function encodeAttemptToken({ attempt, studentName } = {}) {
   };
 
   const serialized = JSON.stringify(payload);
-  return encodeBase64Url(serialized);
+  const compressed = await compressStringToBase64Url(serialized);
+  return `${COMPRESSED_TOKEN_PREFIX}${compressed}`;
 }
 
-export function decodeAttemptToken(token) {
+export async function decodeAttemptToken(token) {
   if (!token || typeof token !== 'string') return null;
 
   try {
-    const rawJson = decodeBase64Url(token.trim());
-    const data = JSON.parse(rawJson);
+    const trimmed = token.trim();
+    const isCompressed = trimmed.startsWith(COMPRESSED_TOKEN_PREFIX);
 
-    if (data?.v !== 1 || !data?.eid || typeof data.eid !== 'string') {
+    const rawJson = isCompressed
+      ? await decompressBase64UrlToString(trimmed.slice(COMPRESSED_TOKEN_PREFIX.length))
+      : decodeBase64Url(trimmed);
+
+    const data = JSON.parse(rawJson);
+    if ((data?.v !== 1 && data?.v !== 2) || !data?.eid || typeof data.eid !== 'string') {
       return null;
     }
 
-    return {
-      examId: data.eid,
-      testType: data.type || 'lesen',
-      answers: typeof data.ans === 'object' && data.ans !== null ? data.ans : {},
-      timeSpentSeconds: Number(data.time) || 0,
-      createdAt: data.date || null,
-      studentName: data.name ? String(data.name).trim() : null,
-    };
+    return mapPayloadToAttempt(data);
   } catch (error) {
     console.warn('[shareTokenService] Failed to decode token:', error);
     return null;
   }
 }
 
-export function buildShareUrl({ attempt, studentName, originAndPath } = {}) {
-  const token = encodeAttemptToken({ attempt, studentName });
+export async function buildShareUrl({ attempt, studentName, originAndPath } = {}) {
+  const token = await encodeAttemptToken({ attempt, studentName });
   const base = originAndPath || (
     typeof window !== 'undefined'
       ? `${window.location.origin}${window.location.pathname}`
