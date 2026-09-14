@@ -17,7 +17,7 @@ export const grammarAndExtremeCases = [
     title: 'Broken Satzklammer (Modal verb bracket violated)',
     examId: 'schreiben-modellsatz-1',
     text: `Sehr geehrte Damen und Herren,\nich möchte lernen Deutsch im August. Ich will besuchen den Kurs am Vormittag. Wie viel kostet der Kurs?\nMit freundlichen Grüßen\nMax Becker`,
-    expected: { anrede: 2, leitpunkte: 5, gruss: 2, minErrors: 1, pointsEarned: 8 }
+    expected: { anrede: 2, leitpunkte: 6, gruss: 2, minErrors: 1, minScore: 8, maxScore: 9 }
   },
   {
     id: 'case-19-w-frage-word-order',

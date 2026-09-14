@@ -4,15 +4,15 @@ import {
   decodeAttemptToken,
   clearReviewTokenFromUrl,
 } from '../services/shareTokenService.js';
-import { submitExamAnswers } from '../services/api.js';
+import { submitLocalExamAnswers } from '../services/localDataService.js';
 import {
   getStoredTeacherKey,
   verifyAssignmentSignature,
   setTeacherKey,
 } from '../services/security/teacherSecurityService.js';
 
-async function prepareReviewResults(decoded) {
-  const resultData = await submitExamAnswers(decoded.examId, {
+function prepareReviewResults(decoded) {
+  const resultData = submitLocalExamAnswers(decoded.examId, {
     answers: decoded.answers,
     timeSpentSeconds: decoded.timeSpentSeconds,
   });
@@ -80,7 +80,7 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
       await loaderRef.current?.loadExamById(decoded.examId);
       loaderRef.current?.selectExam(decoded.examId);
 
-      const reviewPayload = await prepareReviewResults(decoded);
+      const reviewPayload = prepareReviewResults(decoded);
       sessionRef.current?.loadPastAttempt(reviewPayload);
 
       setDecodedAttempt(decoded);

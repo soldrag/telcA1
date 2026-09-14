@@ -237,8 +237,7 @@ describe('Share Token Service', () => {
   });
 
   it('evaluates shared attempt statelessly without calling storage.saveAttempt', async () => {
-    const { seedData } = await import('../server/seed-data.js');
-    const { evaluateExamSubmission } = await import('../server/services/exam-evaluator.js');
+    const { submitLocalExamAnswers } = await import('../src/services/localDataService.js');
     const { MemoryAttemptStorage } = await import('../src/services/storage/memoryAttemptStorage.js');
 
     const teacherStorage = new MemoryAttemptStorage();
@@ -258,11 +257,13 @@ describe('Share Token Service', () => {
     assert.ok(decoded);
 
     // Simulate teacher opening the link and grading
-    const exam = seedData.exams.find((item) => item.id === decoded.examId);
-    const questions = seedData.questions.filter((item) => item.exam_id === decoded.examId);
-    const graded = evaluateExamSubmission(questions, decoded.answers);
+    const graded = submitLocalExamAnswers(decoded.examId, {
+      answers: decoded.answers,
+      timeSpentSeconds: decoded.timeSpentSeconds,
+    });
 
-    assert.equal(exam.id, 'modellsatz-1');
+    assert.equal(graded.exam.id, 'modellsatz-1');
+    assert.equal(graded.totalQuestions, 15);
     assert.ok(Array.isArray(graded.reviewItems));
 
     // Teacher storage must remain completely untouched!
