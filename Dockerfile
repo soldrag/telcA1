@@ -29,6 +29,7 @@ COPY shared/ ./shared/
 COPY server/ ./server/
 COPY src/services/ ./src/services/
 COPY src/utils/ ./src/utils/
+COPY certs/ ./certs/
 COPY --from=builder /app/dist ./dist
 
 RUN mkdir -p /app/data && chown -R node:node /app

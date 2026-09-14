@@ -10,6 +10,7 @@ const MIME_MAP = {
   '.ico': 'image/x-icon',
   '.png': 'image/png',
   '.woff2': 'font/woff2',
+  '.webmanifest': 'application/manifest+json; charset=UTF-8',
 };
 
 export function resolveMimeType(filePath = '') {
@@ -19,6 +20,9 @@ export function resolveMimeType(filePath = '') {
 }
 
 export function getStaticCacheControl(filePath = '') {
+  if (filePath.endsWith('sw.js') || filePath.endsWith('manifest.webmanifest')) {
+    return 'no-cache';
+  }
   if (filePath.includes('/assets/') || filePath.endsWith('.woff2')) {
     return 'public, max-age=31536000, immutable';
   }

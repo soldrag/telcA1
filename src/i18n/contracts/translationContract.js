@@ -14,6 +14,8 @@ export const TRANSLATION_CONTRACT = {
   },
   header: {
     examBadge: 'string',
+    offlineBadge: 'string',
+    offlineTooltip: 'string',
     points: 'string',
     simulatorTitle: 'string',
     menu: 'string',
@@ -216,6 +218,11 @@ export const TRANSLATION_CONTRACT = {
     aiProviderLimited: 'string',
     aiLimitedNotice: 'string',
     aiDisclaimer: 'string',
+    taskAssignment: 'string',
+    taskSituation: 'string',
+    taskLeitpunkte: 'string',
+    taskStatement: 'string',
+    taskTargetField: 'string',
   },
   history: {
     title: 'string',
