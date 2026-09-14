@@ -46,6 +46,12 @@ function buildWelcomeProps(controller) {
       onLoadAttempt: controller.loadSavedAttempt,
       onShareAttempt: controller.modals.openShareModal,
     },
+    onOpenCreateAssignment: (examId) => controller.modals.openAssignmentModal({
+      examId,
+      testType: controller.activeTestType,
+    }),
+    onProcessReview: (token) => controller.reviewMode.processReviewToken(token),
+    onOpenTask: (token) => controller.assignmentMode.processToken(token),
   };
 }
 
@@ -89,6 +95,8 @@ function buildResultsProps(controller) {
     onShareResult: createSharePayload(controller),
     isTeacherReview: controller.reviewMode?.isTeacherReview || false,
     reviewStudentName: controller.reviewMode?.reviewStudentName || null,
+    reviewInfo: controller.reviewMode?.reviewInfo || null,
+    onVerifyWithKey: controller.reviewMode?.verifyWithCustomKey,
     onExitReview: controller.reviewMode?.exitReview,
     onUpdateItemScore: controller.session.updateItemScore,
   };
@@ -106,11 +114,22 @@ function buildExamProps(controller) {
   };
 }
 
+function buildAssignmentProps(controller) {
+  return {
+    isAssignmentMode: controller.assignmentMode?.isAssignmentMode || false,
+    assignmentData: controller.assignmentMode?.assignmentData || null,
+    lockoutState: controller.assignmentMode?.lockoutState || null,
+    onStart: controller.assignmentMode?.startAssignment,
+    onExit: controller.assignmentMode?.exitAssignment,
+  };
+}
+
 export function buildScreenProps(controller) {
   return {
     welcome: buildWelcomeProps(controller),
     history: buildHistoryProps(controller),
     results: buildResultsProps(controller),
     exam: buildExamProps(controller),
+    assignment: buildAssignmentProps(controller),
   };
 }

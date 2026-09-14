@@ -13,6 +13,8 @@ export default function ResultsView({
   onShareResult,
   isTeacherReview = false,
   reviewStudentName = null,
+  reviewInfo = null,
+  onVerifyWithKey,
   onExitReview,
   onUpdateItemScore,
 }) {
@@ -44,6 +46,8 @@ export default function ResultsView({
       {isTeacherReview && (
         <TeacherReviewBanner
           studentName={reviewStudentName}
+          reviewInfo={reviewInfo}
+          onVerifyWithKey={onVerifyWithKey}
           onExitReview={onExitReview}
         />
       )}
