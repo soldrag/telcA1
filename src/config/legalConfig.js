@@ -28,6 +28,8 @@ export const LEGAL_CONFIG = {
   privacy: {
     localStoragePurpose:
       'Die Speicherung von Prüfungsfortschritten, Antworten, Punkten sowie Theme- und Spracheinstellungen erfolgt ausschließlich lokal auf dem Endgerät des Nutzers (LocalStorage gem. § 25 Abs. 2 Nr. 2 TDDDG). Eine serverseitige Speicherung von Prüfungsergebnissen findet nicht statt.',
+    shareTokenPurpose:
+      'Beim Teilen von Ergebnissen («Ergebnis teilen») werden Prüfungsergebnisse und der optionale Name ausschließlich lokal im Browser komprimiert und in den URL-Fragmentbezeichner (Hash-Teil der Webadresse, nach dem «#») eingebettet. Dieser Teil der URL wird technisch bedingt niemals an den Webserver übertragen (Zero-Knowledge-Sharing). Die Weitergabe des Links an Dritte (z. B. Lehrkräfte) erfolgt rein freiwillig durch den Nutzer.',
     serverLogsRetentionDays: 7,
     noThirdPartyTracking: true,
     selfHostedFonts: true,
