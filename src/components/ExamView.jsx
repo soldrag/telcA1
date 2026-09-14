@@ -8,7 +8,7 @@ import ExamBottomNav from './exam/ExamBottomNav.jsx';
 import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
 import SchreibenTeilRenderer from './schreiben/SchreibenTeilRenderer.jsx';
 import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
-import { scrollToElement, scrollToExamHeader } from '../utils/scrollService.js';
+import { scrollToElement, scrollToTop } from '../utils/scrollService.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 import { getTestTypeById } from '../../shared/testTypes.js';
 
@@ -54,14 +54,17 @@ export default function ExamView({
     session.clearScrollTarget();
   }, [session.scrollTargetId, session]);
 
+  useEffect(() => {
+    if (session.scrollTargetId) return;
+    scrollToTop('auto');
+  }, [session.activeTeil]);
+
   const handlePreviousTeil = () => {
     session.previousTeil();
-    scrollToExamHeader();
   };
 
   const handleNextTeil = () => {
     session.nextTeil(maxTeile);
-    scrollToExamHeader();
   };
 
   if (isLoading || questions.length === 0) {
