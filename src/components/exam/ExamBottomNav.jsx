@@ -9,6 +9,8 @@ export default function ExamBottomNav({
   onPreviousTeil = actions.onPreviousTeil,
   onNextTeil = actions.onNextTeil,
   onSubmit = actions.onSubmit,
+  onExit = actions.onExit,
+  isInspection = false,
 }) {
   const { t } = useI18n();
 
@@ -37,6 +39,14 @@ export default function ExamBottomNav({
           className="px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-black text-white bg-action-primary hover:bg-action-primary-hover rounded-xl shadow-md transition-colors border-2 border-action-primary-hover min-h-[44px] whitespace-nowrap focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 cursor-pointer"
         >
           {t('exam.navNext')} →
+        </button>
+      ) : isInspection ? (
+        <button
+          type="button"
+          onClick={onExit}
+          className="px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-black text-white bg-action-primary hover:bg-action-primary-hover rounded-xl shadow-md transition-colors border-2 border-action-primary min-h-[44px] whitespace-nowrap focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 cursor-pointer"
+        >
+          {t('exam.finishInspectionBtn')} ✓
         </button>
       ) : (
         <button

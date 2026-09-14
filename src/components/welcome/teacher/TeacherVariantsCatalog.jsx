@@ -7,6 +7,7 @@ export default function TeacherVariantsCatalog({
   exams = [],
   onSelectExam,
   onStartExam,
+  onInspectExam,
   onOpenCreateAssignment,
 }) {
   const { t } = useI18n();
@@ -14,7 +15,11 @@ export default function TeacherVariantsCatalog({
 
   const handleInspect = (examId) => {
     onSelectExam?.(examId);
-    onStartExam?.({ timed: false, specificExamId: examId });
+    if (onInspectExam) {
+      onInspectExam(examId);
+    } else {
+      onStartExam?.({ timed: false, specificExamId: examId });
+    }
   };
 
   const handleAssign = (examId) => {

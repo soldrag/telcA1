@@ -5,6 +5,7 @@ import QuestionNav from './QuestionNav.jsx';
 import Antwortbogen from './Antwortbogen.jsx';
 import ModuleTaskView from './parts/ModuleTaskView.jsx';
 import ExamBottomNav from './exam/ExamBottomNav.jsx';
+import InspectionInfoCard from './exam/InspectionInfoCard.jsx';
 import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
 import SchreibenTeilRenderer from './schreiben/SchreibenTeilRenderer.jsx';
 import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
@@ -33,6 +34,8 @@ export default function ExamView({
   timerState = timer,
   questions = examConfig.questions || [],
   isLoading = false,
+  isInspection = false,
+  onExitInspection,
 }) {
   const { t } = useI18n();
   const [showAntwortbogen, setShowAntwortbogen] = useState(false);
@@ -75,10 +78,17 @@ export default function ExamView({
     <>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         <div className="lg:col-span-4">
-          <ExamTimer
-            timer={timerState}
-            isSubmitted={session.isSubmitted}
-          />
+          {isInspection ? (
+            <InspectionInfoCard
+              examTitle={examConfig.examTitle}
+              examId={examConfig.examId || questions[0]?.exam_id}
+            />
+          ) : (
+            <ExamTimer
+              timer={timerState}
+              isSubmitted={session.isSubmitted}
+            />
+          )}
         </div>
         <div className="lg:col-span-8">
           <QuestionNav
@@ -91,9 +101,11 @@ export default function ExamView({
 
       <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card px-4 py-3 rounded-2xl border-2 border-border-default shadow-xs text-sm">
         <div className="flex items-center space-x-2 text-content-secondary">
-          <span className="font-extrabold text-content-primary">{t('exam.progressLabel')}</span>
+          <span className="font-extrabold text-content-primary">
+            {isInspection ? t('exam.inspectionTotalQuestions') : t('exam.progressLabel')}
+          </span>
           <span className="font-mono font-black text-action-primary bg-action-primary-subtle px-3 py-1 rounded-lg border border-action-primary-border">
-            {t('exam.progressCounter', { answered: answeredCount, total: totalQuestions })}
+            {isInspection ? totalQuestions : t('exam.progressCounter', { answered: answeredCount, total: totalQuestions })}
           </span>
         </div>
         <button
@@ -131,7 +143,9 @@ export default function ExamView({
           onPreviousTeil: handlePreviousTeil,
           onNextTeil: handleNextTeil,
           onSubmit: onOpenSubmitConfirm,
+          onExit: onExitInspection,
         }}
+        isInspection={isInspection}
       />
     </>
   );

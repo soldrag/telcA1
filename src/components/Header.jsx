@@ -16,7 +16,15 @@ export default function Header({
   themeControl = {},
 }) {
   const { t } = useI18n();
-  const { screen, onNavigateHome, onOpenHistory, onResetExam, onSubmitExam } = navigation;
+  const {
+    screen,
+    onNavigateHome,
+    onOpenHistory,
+    onResetExam,
+    onSubmitExam,
+    isInspection,
+    onExitInspection,
+  } = navigation;
   const {
     answeredCount = 0,
     totalQuestions = 0,
@@ -70,6 +78,8 @@ export default function Header({
                 onSubmitExam={onSubmitExam}
                 answeredCount={answeredCount}
                 totalQuestions={totalQuestions}
+                isInspection={isInspection}
+                onExitInspection={onExitInspection}
               />
             )}
 

@@ -20,6 +20,7 @@ export default function TeacherWelcomeView({
     onSelectTestType,
     onSelectExam,
     onStartExam,
+    onInspectExam,
   } = actions;
 
   return (
@@ -38,6 +39,7 @@ export default function TeacherWelcomeView({
         exams={exams}
         onSelectExam={onSelectExam}
         onStartExam={onStartExam}
+        onInspectExam={onInspectExam}
         onOpenCreateAssignment={onOpenCreateAssignment}
       />
     </div>
