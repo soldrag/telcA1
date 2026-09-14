@@ -49,7 +49,7 @@ export default function TeacherExamPicker({
           <select
             value={selectedId}
             onChange={handleVariantChange}
-            className="w-full appearance-none bg-surface-card border border-border-default hover:border-border-strong focus:border-action-primary focus:ring-2 focus:ring-action-primary-subtle rounded-xl px-4 py-3 text-xs sm:text-sm font-semibold text-content-primary pr-9 transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="w-full appearance-none bg-surface-card border border-border-default hover:border-border-strong focus:border-action-primary focus:ring-2 focus:ring-action-primary-subtle rounded-xl px-4 py-3 text-base sm:text-sm font-semibold text-content-primary pr-9 transition-colors cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
             {sortedExams.map((exam) => (
               <option key={exam.id} value={exam.id} className="bg-surface-card text-content-primary">

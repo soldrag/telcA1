@@ -27,7 +27,7 @@ export default function ThemeToggle({ theme, toggleTheme, isDark }) {
       onClick={toggleTheme}
       title={t('header.themeTitle', { theme: getLabel() })}
       aria-label={t('header.themeAria', { theme: getLabel() })}
-      className="flex items-center justify-center w-9 h-9 rounded-lg border border-border-default bg-surface-card text-content-primary hover:bg-surface-raised transition-colors shadow-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+      className="flex items-center justify-center min-h-[44px] min-w-[44px] w-11 h-11 rounded-xl border border-border-default bg-surface-card text-content-primary hover:bg-surface-raised transition-colors shadow-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary shrink-0"
     >
       {getIcon()}
     </button>

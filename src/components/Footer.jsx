@@ -12,7 +12,7 @@ export default function Footer({ onOpenLegalModal }) {
         <button
           type="button"
           onClick={() => onOpenLegalModal?.('impressum')}
-          className="hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary"
+          className="min-h-[44px] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer"
         >
           {t('footer.impressum') || 'Impressum'}
         </button>
@@ -20,7 +20,7 @@ export default function Footer({ onOpenLegalModal }) {
         <button
           type="button"
           onClick={() => onOpenLegalModal?.('datenschutz')}
-          className="hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary"
+          className="min-h-[44px] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer"
         >
           {t('footer.datenschutz') || 'Datenschutzerklärung'}
         </button>

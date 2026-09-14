@@ -101,6 +101,13 @@
     color: var(--content-primary);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
+
+  /* Prevent automatic viewport zoom on iOS Safari when focusing form elements */
+  @media (max-width: 639px) {
+    input, select, textarea {
+      font-size: 16px;
+    }
+  }
 }
 
 .font-mono-num {
