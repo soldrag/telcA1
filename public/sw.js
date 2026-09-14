@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_NAME = `telc-a1-shell-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
@@ -72,6 +72,24 @@ async function handleAssetRequest(request) {
   }
 }
 
+async function handlePublicApiRequest(request) {
+  try {
+    const response = await fetch(request);
+    if (response?.status === 200) {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch (_error) {
+    const cached = await caches.match(request, { ignoreSearch: false });
+    if (cached) return cached;
+    return new Response(JSON.stringify({ error: 'Offline: no cached exam data available' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
@@ -81,6 +99,11 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(handleNavigation(request));
+    return;
+  }
+
+  if (url.pathname.startsWith('/api/') && request.method === 'GET') {
+    event.respondWith(handlePublicApiRequest(request));
     return;
   }
 

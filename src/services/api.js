@@ -1,10 +1,4 @@
 import { getOrCreateUserId } from './userIdentity.js';
-import {
-  getLocalTestTypes,
-  getLocalExams,
-  getLocalExamDetails,
-  submitLocalExamAnswers,
-} from './localDataService.js';
 
 async function parseErrorResponse(response) {
   try {
@@ -18,15 +12,7 @@ async function parseErrorResponse(response) {
 let customFetcher = null;
 
 export function configureApi({ fetcher } = {}) {
-  if (fetcher) customFetcher = fetcher;
-}
-
-function isStaticMode() {
-  if (typeof window === 'undefined') return false;
-  return (
-    window.location.hostname.endsWith('github.io') ||
-    window.location.protocol === 'file:'
-  );
+  customFetcher = fetcher || null;
 }
 
 async function request(endpoint, options = {}) {
@@ -47,69 +33,32 @@ async function request(endpoint, options = {}) {
 }
 
 export async function fetchTestTypes() {
-  if (isStaticMode()) return getLocalTestTypes();
-  try {
-    return await request('/api/test-types');
-  } catch {
-    return getLocalTestTypes();
-  }
+  return request('/api/test-types');
 }
 
 export async function fetchExams(testType = 'lesen') {
-  if (isStaticMode()) return getLocalExams(testType);
-  try {
-    return await request(`/api/exams?type=${encodeURIComponent(testType)}`);
-  } catch {
-    return getLocalExams(testType);
-  }
+  return request(`/api/exams?type=${encodeURIComponent(testType)}`);
 }
 
 export async function fetchNextRandomExam(testType = 'lesen') {
-  if (isStaticMode()) {
-    const { exams } = getLocalExams(testType);
-    const randomIndex = Math.floor(Math.random() * exams.length);
-    return { exam: exams[randomIndex] || null };
-  }
-  try {
-    return await request(`/api/exams/next-random?type=${encodeURIComponent(testType)}`);
-  } catch {
-    const { exams } = getLocalExams(testType);
-    const randomIndex = Math.floor(Math.random() * exams.length);
-    return { exam: exams[randomIndex] || null };
-  }
+  return request(`/api/exams/next-random?type=${encodeURIComponent(testType)}`);
 }
 
 export async function fetchExamDetails(examId) {
   if (!examId) throw new Error('examId is required to fetch details');
-  if (isStaticMode()) return getLocalExamDetails(examId);
-  try {
-    return await request(`/api/exams/${encodeURIComponent(examId)}`);
-  } catch {
-    return getLocalExamDetails(examId);
-  }
+  return request(`/api/exams/${encodeURIComponent(examId)}`);
 }
 
 export async function submitExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
   if (!examId) throw new Error('examId is required to submit exam answers');
-  if (isStaticMode()) {
-    return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
-  }
-  try {
-    return await request(`/api/exams/${encodeURIComponent(examId)}/submit`, {
-      method: 'POST',
-      body: JSON.stringify({ answers, timeSpentSeconds })
-    });
-  } catch {
-    return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
-  }
+  return request(`/api/exams/${encodeURIComponent(examId)}/submit`, {
+    method: 'POST',
+    body: JSON.stringify({ answers, timeSpentSeconds })
+  });
 }
 
 export async function fetchUserAttempts() {
-  try {
-    return await request('/api/attempts');
-  } catch {
-    return { attempts: [], userId: getOrCreateUserId() };
-  }
+  return request('/api/attempts');
 }
 
 export async function fetchAttemptDetail(attemptId) {

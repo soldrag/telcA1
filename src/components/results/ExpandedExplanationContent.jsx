@@ -1,28 +1,24 @@
 import React from 'react';
 import { HelpCircle, BookOpen } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
-import { seedData } from '../../../server/seed-data.js';
 import SchreibenSelfCheck from '../schreiben/SchreibenSelfCheck.jsx';
 import ReviewTaskPrompt from './ReviewTaskPrompt.jsx';
 
-const questionLookup = new Map((seedData?.questions || []).map(q => [q.id, q]));
-
-function resolveExplanation(item, language, live) {
+function resolveExplanation(item, language) {
   if (language === 'ru') {
-    return item.explanation_ru || live?.explanation_ru || item.explanation_en || live?.explanation_en || item.explanation_de;
+    return item.explanation_ru || item.explanation_en || item.explanation_de;
   }
-  return item.explanation_en || live?.explanation_en || item.explanation_de || live?.explanation_de || item.explanation_ru;
+  return item.explanation_en || item.explanation_de || item.explanation_ru;
 }
 
-function resolveWordTranslation(entry, language, liveNotes) {
+function resolveWordTranslation(entry, language) {
   if (!entry) return '';
-  const liveEntry = liveNotes?.find(n => n.word === entry.word);
-  const en = entry.translation_en || liveEntry?.translation_en;
-  const ru = entry.translation_ru || entry.translation || liveEntry?.translation_ru || liveEntry?.translation;
+  const en = entry.translation_en;
+  const ru = entry.translation_ru || entry.translation;
   return language === 'ru' ? (ru || en || '') : (en || ru || '');
 }
 
-function PedagogicalFeedback({ item, explanation, vocabularyList, language, live, t }) {
+function PedagogicalFeedback({ item, explanation, vocabularyList, language, t }) {
   return (
     <>
       {item.clue_quote && (
@@ -59,7 +55,7 @@ function PedagogicalFeedback({ item, explanation, vocabularyList, language, live
               <div key={index} className="bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle text-xs">
                 <span className="font-bold text-content-primary">{entry.word}</span>
                 <span className="text-content-muted mx-1">—</span>
-                <span className="text-content-secondary">{resolveWordTranslation(entry, language, live?.vocabulary_notes)}</span>
+                <span className="text-content-secondary">{resolveWordTranslation(entry, language)}</span>
               </div>
             ))}
           </div>
@@ -71,10 +67,9 @@ function PedagogicalFeedback({ item, explanation, vocabularyList, language, live
 
 export default function ExpandedExplanationContent({ item, onScoreChange }) {
   const { t, language } = useI18n();
-  const live = questionLookup.get(item.id);
-  const options = item.options_json || live?.options_json;
-  const vocabularyList = item.vocabulary_notes || live?.vocabulary_notes;
-  const explanation = resolveExplanation(item, language, live);
+  const options = item.options_json;
+  const vocabularyList = item.vocabulary_notes;
+  const explanation = resolveExplanation(item, language);
 
   return (
     <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-border-default bg-surface-card rounded-b-2xl space-y-4">
@@ -89,7 +84,6 @@ export default function ExpandedExplanationContent({ item, onScoreChange }) {
         explanation={explanation}
         vocabularyList={vocabularyList}
         language={language}
-        live={live}
         t={t}
       />
     </div>

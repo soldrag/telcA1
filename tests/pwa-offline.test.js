@@ -39,6 +39,16 @@ describe('PWA & Offline Capability Contracts', () => {
     assert.ok(content.includes("self.addEventListener('fetch'"), 'must have fetch listener');
     assert.ok(content.includes('caches.open'), 'must use Cache API');
     assert.ok(content.includes('handleNavigation'), 'must handle navigation requests');
+    assert.ok(content.includes('handlePublicApiRequest'), 'must cache public GET API responses');
+    assert.ok(content.includes("request.method === 'GET'"), 'must not cache grading POST requests');
+  });
+
+  it('keeps server-only seed data outside the client API boundary', () => {
+    const apiPath = path.join(rootDir, 'src/services/api.js');
+    const apiSource = fs.readFileSync(apiPath, 'utf8');
+
+    assert.equal(apiSource.includes('localDataService'), false);
+    assert.equal(apiSource.includes('../../server/'), false);
   });
 
   it('verifies pwaRegister service utility functions', async () => {
