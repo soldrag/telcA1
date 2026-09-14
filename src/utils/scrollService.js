@@ -1,9 +1,23 @@
 export function scrollToTop(behavior = 'auto') {
   if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
     window.scrollTo({ top: 0, left: 0, behavior });
-  } else if (typeof document !== 'undefined') {
-    if (document.documentElement) document.documentElement.scrollTop = 0;
-    if (document.body) document.body.scrollTop = 0;
+  }
+  if (typeof document !== 'undefined') {
+    if (document.scrollingElement) {
+      document.scrollingElement.scrollTop = 0;
+      document.scrollingElement.scrollLeft = 0;
+    }
+    if (document.documentElement) {
+      document.documentElement.scrollTop = 0;
+      document.documentElement.scrollLeft = 0;
+    }
+    if (document.body) {
+      document.body.scrollTop = 0;
+      document.body.scrollLeft = 0;
+    }
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur();
+    }
   }
 }
 
