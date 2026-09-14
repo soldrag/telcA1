@@ -14,7 +14,7 @@ export const ru = {
   header: {
     examBadge: 'telc A1 / Start Deutsch 1',
     offlineBadge: 'Офлайн',
-    offlineTooltip: 'Офлайн-режим: доступны ранее загруженные варианты; проверка требует интернет',
+    offlineTooltip: 'Офлайн-режим: все 10 вариантов доступны без интернета',
     points: '{points} баллов',
     simulatorTitle: 'Симулятор экзамена',
     menu: 'Главное меню',

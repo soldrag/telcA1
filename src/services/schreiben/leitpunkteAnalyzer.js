@@ -11,25 +11,16 @@ import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 
 function extractStems(str = '') {
-  const words = str
+  return str
     .toLowerCase()
     .split(/\s+/)
-    .map(w => w.replace(/^[.,!?;:]+|[.,!?;:]+$/g, ''))
-    .filter(Boolean);
-  const wordStems = words
-    .map(word => stemGermanWord(word))
+    .map(w => stemGermanWord(w))
     .filter(s => s && s.length >= 3);
-  const phraseStems = words
-    .slice(0, -1)
-    .map((word, index) => stemGermanWord(`${word} ${words[index + 1]}`))
-    .filter(s => s && s.length >= 3);
-
-  return [...wordStems, ...phraseStems];
 }
 
 function evaluateStemMatches(textStems = [], criterion = {}) {
   const rawKeywords = criterion.keywords || [];
-  const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
+  const critStems = rawKeywords.map(k => stemGermanWord(k));
 
   let matchedCount = 0;
   for (const cStem of critStems) {

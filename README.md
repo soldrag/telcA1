@@ -174,8 +174,8 @@ telcA1/
 
 ## 🔧 Modes of Operation
 
-### Installed PWA / offline use
-After the app has been opened online, its public exam data is cached by the service worker and remains available offline. Final grading always uses the server; correct answers are never sent to or bundled with the browser.
+### GitHub Pages (Static)
+Data is loaded from the built-in `seed-data.js` via `localDataService`. No server required.
 
 ### Full-stack (with Server)
 Data is stored in SQLite. API is served by Express.js on port 3001.
@@ -250,3 +250,4 @@ When verifying updates locally or on staging:
 - [ ] **60+ word letter**: Submit a long essay with multiple complex sentences: verify segmentation and score calculation complete cleanly without crashes.
 - [ ] **Empty input**: Submit empty text or whitespace: verify 0 points, clean feedback, no exceptions.
 - [ ] **Non-German input**: Submit English or random gibberish: verify quality analyzer flags spam/gibberish, awarding 0 points with no false grammar corrections.
+

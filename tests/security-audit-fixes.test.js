@@ -8,6 +8,7 @@ import { createAttemptsRouter } from '../server/routes/attempts.js';
 import { createSecurityHeadersMiddleware } from '../server/middleware/security-headers.js';
 import { createRateLimiter } from '../server/middleware/rate-limiter.js';
 import { createPrecompressedMiddleware } from '../server/middleware/static-compression.js';
+import { getLocalExamDetails } from '../src/services/localDataService.js';
 import {
   compressStringToBase64Url,
   decompressBase64UrlToString,
@@ -118,6 +119,15 @@ describe('Security Audit Fixes Verification', () => {
       assert.equal(q.explanation_en, undefined);
     });
 
+    it('localDataService.getLocalExamDetails strips correct answers in client static mode', () => {
+      const details = getLocalExamDetails('modellsatz-1');
+      assert.ok(details.questions.length > 0);
+      for (const q of details.questions) {
+        assert.equal(q.correct_answer, undefined);
+        assert.equal(q.clue_quote, undefined);
+        assert.equal(q.explanation_ru, undefined);
+      }
+    });
   });
 
   describe('IDOR Protection on Attempts', () => {
