@@ -124,9 +124,9 @@ Viele Grüße,`;
     const res = await gradeSchreibenTeil2({ userText: text, question, options: { forceLimitedMode: true } });
 
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 5);
     assert.equal(res.breakdown.gruss, 1); // missing sender name
-    assert.equal(res.points_earned, 7);
+    assert.equal(res.points_earned, 6);
 
     // Verify segmentation: Punkt 3 must NOT be empty!
     assert.match(res.user_segments.leitpunkte[0].userSentence, /14:00/);

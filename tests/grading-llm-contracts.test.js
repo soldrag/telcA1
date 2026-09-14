@@ -100,10 +100,12 @@ describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)',
   });
 
   it('Contract (c): if any LLM call throws or times out, pipeline completes with algorithmic scores', async () => {
+    let callCount = 0;
     const brokenEngine = {
       chat: {
         completions: {
           create: async () => {
+            callCount++;
             throw new Error('GPU Out of Memory');
           }
         }
@@ -114,20 +116,22 @@ describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)',
 ich will im August einen Deutschkurs machen. Ich habe vier Wochen Zeit. Wie viel kostet der Kurs?
 Mit freundlichen Grüßen
 Anna Schmidt`;
-
     // Should complete gracefully without crashing
     const res = await gradeSchreibenTeil2({
       userText: text,
       question: sampleQuestion,
-      options: { forceLimitedMode: true }
+      options: { qwenEngine: brokenEngine }
     });
 
+    assert.ok(callCount > 0, 'The failing LLM must be called to exercise the fallback path');
     assert.equal(typeof res.points_earned, 'number');
     assert.equal(res.points_earned >= 8, true);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(typeof res.feedback_summary, 'string');
     assert.equal(res.feedback_summary.length > 20, true);
+    assert.equal(res.breakdown.leitpunkte, 5);
+    assert.equal(res.points_earned, 9);
   });
 
   it('Contract (d): semantic frame inversion is penalized even when keyword match is 100%', async () => {

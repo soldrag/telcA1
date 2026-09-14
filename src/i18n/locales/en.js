@@ -14,7 +14,7 @@ export const en = {
   header: {
     examBadge: 'telc A1 / Start Deutsch 1',
     offlineBadge: 'Offline',
-    offlineTooltip: 'Offline mode: All 10 practice exams are available without internet',
+    offlineTooltip: 'Offline mode: previously loaded exams are available; grading requires internet',
     points: '{points} points',
     simulatorTitle: 'Exam Simulator',
     menu: 'Main Menu',

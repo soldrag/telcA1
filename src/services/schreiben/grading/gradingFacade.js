@@ -14,6 +14,7 @@ import { resolveLeitpunktCriteria } from '../deterministicBaseline.js';
 import { computeTelcFinalScore } from '../scoring/telcScoreCalculator.js';
 import { analyzeGermanQuality } from '../germanQualityAnalyzer.js';
 import { segmentUserEssay } from '../schreibenTextSegmenter.js';
+import { gradeWithDeterministicBaseline } from './limitedModeGrading.js';
 
 function buildUserSegments(rawText, criteria, stage0) {
   const seg = segmentUserEssay(rawText, criteria);
@@ -62,6 +63,12 @@ export async function gradeSchreibenTeil2({
   const stage1 = runStage1Scoring(stage0);
 
   let isLimitedMode = options.forceLimitedMode || !isWebGPUSupported();
+  if (isLimitedMode && !options.qwenEngine) {
+    const result = gradeWithDeterministicBaseline({ rawText: raw, question, criteria });
+    onProgress?.('Bewertung abgeschlossen', 1.0);
+    return result;
+  }
+
   let stage2 = null;
   let stage3 = null;
   let stage4 = null;
