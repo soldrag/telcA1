@@ -115,12 +115,11 @@ export function useExamFlowActions({
     session.resetSession();
     session.setIsInspection?.(true);
     const targetId = examId || loader.currentExamId;
-    if (targetId && targetId !== loader.currentExamId) {
+    loader.selectExam(targetId);
+    if (!loader.examData || loader.examData.exam?.id !== targetId) {
       await loader.loadExamById(targetId);
-      loader.selectExam(targetId);
     }
     timer.resetTimer(false, 0);
-    timer.pauseTimer();
     navigateTo('exam');
   }, [loader, session, timer, navigateTo]);
 
