@@ -1,12 +1,15 @@
-export function scrollToTop(behavior = 'smooth') {
+export function scrollToTop(behavior = 'auto') {
   if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-    window.scrollTo({ top: 0, behavior });
+    window.scrollTo({ top: 0, left: 0, behavior });
+  } else if (typeof document !== 'undefined') {
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
   }
 }
 
-export function scrollToExamHeader(topOffset = 180, behavior = 'smooth') {
+export function scrollToExamHeader(topOffset = 0, behavior = 'auto') {
   if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-    window.scrollTo({ top: topOffset, behavior });
+    window.scrollTo({ top: topOffset, left: 0, behavior });
   }
 }
 
