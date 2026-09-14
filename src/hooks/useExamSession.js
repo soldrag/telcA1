@@ -28,6 +28,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [results, setResults] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
+  const [isInspection, setIsInspection] = useState(false);
 
   const resetSession = useCallback(() => {
     setAnswers({});
@@ -35,6 +36,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     setActiveQuestionIndex(0);
     setIsSubmitted(false);
     setResults(null);
+    setIsInspection(false);
   }, []);
 
   const selectAnswer = useCallback((questionId, value) => {
@@ -64,7 +66,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
   }, []);
 
   const submitCurrentExam = useCallback(async ({ examId, isTimed, secondsLeft, secondsElapsed, totalSeconds }) => {
-    if (isSubmitted || isSubmitting) return;
+    if (isSubmitted || isSubmitting || isInspection) return;
     setIsSubmitting(true);
     const timeSpent = isTimed ? (totalSeconds - secondsLeft) : secondsElapsed;
 
@@ -82,7 +84,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     } finally {
       setIsSubmitting(false);
     }
-  }, [answers, isSubmitted, isSubmitting, storage, submitService]);
+  }, [answers, isInspection, isSubmitted, isSubmitting, storage, submitService]);
 
   const retakeMistakes = useCallback(() => {
     if (!results?.reviewItems) return;
@@ -156,6 +158,8 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     activeQuestionIndex,
     isSubmitted,
     isSubmitting,
+    isInspection,
+    setIsInspection,
     results,
     scrollTargetId,
     clearScrollTarget,
