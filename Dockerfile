@@ -27,7 +27,9 @@ COPY src/services/ ./src/services/
 COPY src/utils/ ./src/utils/
 COPY --from=builder /app/dist ./dist
 
-RUN mkdir -p /app/data
+RUN mkdir -p /app/data && chown -R node:node /app
+
+USER node
 
 VOLUME ["/app/data"]
 

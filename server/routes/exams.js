@@ -80,7 +80,9 @@ export function createExamsRouter(databaseOrRepository) {
       const exam = examRepository.findExamById(req.params.id);
       if (!exam) return res.status(404).json({ error: 'Exam not found' });
 
-      const questions = examRepository.findQuestionsByExamId(req.params.id, true);
+      const questions = examRepository.findSanitizedQuestionsByExamId
+        ? examRepository.findSanitizedQuestionsByExamId(req.params.id, true)
+        : examRepository.findQuestionsByExamId(req.params.id, true);
       res.json({ exam, questions });
     } catch (error) {
       console.error('[ExamsRouter Error] Failed to fetch exam details:', error);
@@ -99,7 +101,9 @@ export function createExamsRouter(databaseOrRepository) {
       if (!exam) return res.status(404).json({ error: 'Exam not found' });
 
       const { answers = {}, timeSpentSeconds = 0 } = req.body;
-      const questions = examRepository.findQuestionsByExamId(req.params.id, false);
+      const questions = examRepository.findQuestionsForGrading
+        ? examRepository.findQuestionsForGrading(req.params.id)
+        : examRepository.findQuestionsByExamId(req.params.id, false);
       const payload = buildSubmissionPayload({ exam, questions, answers, timeSpentSeconds });
 
       res.json(payload);

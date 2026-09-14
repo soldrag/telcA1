@@ -31,6 +31,11 @@ export function createAttemptsRouter(databaseOrRepository) {
         return res.status(404).json({ error: 'Attempt not found' });
       }
 
+      const currentUserId = extractUserId(req);
+      if (attempt.user_id && attempt.user_id !== 'anonymous' && attempt.user_id !== currentUserId) {
+        return res.status(403).json({ error: 'Access denied to this attempt' });
+      }
+
       res.json(attempt);
     } catch (error) {
       console.error('[AttemptsRouter Error] Failed to fetch attempt detail:', error);

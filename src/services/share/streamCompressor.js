@@ -31,14 +31,31 @@ export function base64UrlToUint8Array(base64url) {
   return bytes;
 }
 
+export const MAX_DECOMPRESSED_BYTES = 256 * 1024;
+
+function createSizeLimitTransform(maxBytes = MAX_DECOMPRESSED_BYTES) {
+  let totalBytes = 0;
+  return new TransformStream({
+    transform(chunk, controller) {
+      totalBytes += chunk.byteLength;
+      if (totalBytes > maxBytes) {
+        throw new Error(`Decompressed payload exceeds maximum limit of ${maxBytes} bytes`);
+      }
+      controller.enqueue(chunk);
+    },
+  });
+}
+
 export async function compressStringToBase64Url(str) {
   const stream = new Response(str).body.pipeThrough(new CompressionStream('deflate-raw'));
   const compressedBuffer = await new Response(stream).arrayBuffer();
   return uint8ArrayToBase64Url(new Uint8Array(compressedBuffer));
 }
 
-export async function decompressBase64UrlToString(base64url) {
+export async function decompressBase64UrlToString(base64url, maxBytes = MAX_DECOMPRESSED_BYTES) {
   const bytes = base64UrlToUint8Array(base64url);
-  const stream = new Response(bytes).body.pipeThrough(new DecompressionStream('deflate-raw'));
+  const stream = new Response(bytes).body
+    .pipeThrough(new DecompressionStream('deflate-raw'))
+    .pipeThrough(createSizeLimitTransform(maxBytes));
   return await new Response(stream).text();
 }

@@ -4,13 +4,25 @@
 import { Router } from 'express';
 import { readFile, writeFile } from 'node:fs/promises';
 import * as logger from '../services/debug-logger.js';
+import { createDebugAuthMiddleware } from '../middleware/debug-auth.js';
 
-export function createDebugRouter() {
+function sanitizeLogText(input, maxLength) {
+  if (typeof input !== 'string') return '';
+  return input.slice(0, maxLength).replace(/[\r\n]/g, ' ').trim();
+}
+
+export function createDebugRouter({ authMiddleware = createDebugAuthMiddleware() } = {}) {
   const router = Router();
 
+  if (authMiddleware) {
+    router.use(authMiddleware);
+  }
+
   router.post('/trace', (req, res) => {
-    const { category = 'CLIENT', message = '', data = null } = req.body || {};
-    logger.debug(category, message, data);
+    const { category, message, data = null } = req.body || {};
+    const safeCategory = sanitizeLogText(category, 64) || 'CLIENT';
+    const safeMessage = sanitizeLogText(message, 512);
+    logger.debug(safeCategory, safeMessage, data);
     res.json({ ok: true });
   });
 
