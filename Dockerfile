@@ -7,6 +7,10 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+ARG COMMIT_SHA=unknown
+ENV VITE_GIT_COMMIT=$COMMIT_SHA
+
 RUN npm run build
 
 # Stage 2: Production runtime
