@@ -54,6 +54,91 @@ describe('Share Token Service', () => {
     assert.equal(decoded.studentName, 'Иван Иванов');
   });
 
+  it('preserves assignment metadata and telemetry across encode and decode', async () => {
+    const attemptWithAssignment = {
+      ...sampleAttempt,
+      assignment_id: 'asg_12345',
+      teacher_signature: 'sig_abcde',
+      telemetry: {
+        startedAt: '2026-09-12T09:40:00.000Z',
+        completedAt: '2026-09-12T10:00:00.000Z',
+        wallClockSeconds: 1200,
+        tabSwitches: 2,
+      },
+    };
+
+    const token = await encodeAttemptToken({
+      attempt: attemptWithAssignment,
+      studentName: 'Anna',
+    });
+    const decoded = await decodeAttemptToken(token);
+
+    assert.equal(decoded.assignmentId, 'asg_12345');
+    assert.equal(decoded.teacherSignature, 'sig_abcde');
+    assert.deepEqual(decoded.telemetry, {
+      startedAt: '2026-09-12T09:40:00.000Z',
+      completedAt: '2026-09-12T10:00:00.000Z',
+      wallClockSeconds: 1200,
+      tabSwitches: 2,
+    });
+  });
+
+  it('correctly verifies HMAC signature end-to-end between teacher issue and review', async () => {
+    const { encodeAssignmentToken, decodeAssignmentToken } = await import('../src/services/assignmentTokenService.js');
+    const { verifyAssignmentSignature } = await import('../src/services/security/teacherSecurityService.js');
+
+    const teacherKey = 'LEHRER-VALID-1234';
+    const taskToken = await encodeAssignmentToken({
+      examId: 'lesen_1',
+      testType: 'lesen',
+      timeLimitSeconds: 1500,
+      studentName: 'Anna',
+      teacherKey,
+    });
+    const taskData = await decodeAssignmentToken(taskToken);
+
+    // Student completes assignment
+    const studentAttempt = {
+      exam_id: taskData.examId,
+      test_type: taskData.testType,
+      assignment_id: taskData.assignmentId,
+      teacher_signature: taskData.signature,
+      assignment_created_at: taskData.createdAt,
+      assignment_time_limit: taskData.timeLimitSeconds,
+      answers: { '1': 'a' },
+      time_spent_seconds: 400,
+      created_at: new Date().toISOString(),
+      telemetry: {
+        startedAt: new Date(Date.now() - 400000).toISOString(),
+        completedAt: new Date().toISOString(),
+        wallClockSeconds: 400,
+        tabSwitches: 0,
+      },
+    };
+
+    const reviewToken = await encodeAttemptToken({
+      attempt: studentAttempt,
+      studentName: taskData.studentName,
+    });
+    const reviewDecoded = await decodeAttemptToken(reviewToken);
+
+    // Teacher verifies on review screen
+    const payloadToVerify = {
+      aid: reviewDecoded.assignmentId,
+      eid: reviewDecoded.examId,
+      created: reviewDecoded.assignmentCreatedAt,
+      limit: reviewDecoded.assignmentTimeLimit ?? 0,
+      student: reviewDecoded.studentName,
+    };
+
+    const isAuthentic = await verifyAssignmentSignature(
+      payloadToVerify,
+      reviewDecoded.teacherSignature,
+      teacherKey
+    );
+    assert.equal(isAuthentic, true);
+  });
+
   it('preserves 100% backward compatibility for legacy v1 uncompressed tokens', async () => {
     const legacyPayload = {
       v: 1,

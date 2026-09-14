@@ -35,6 +35,11 @@ function mapPayloadToAttempt(data) {
     timeSpentSeconds: Number(data.time) || 0,
     createdAt: data.date || null,
     studentName: data.name ? String(data.name).trim() : null,
+    assignmentId: data.aid || null,
+    teacherSignature: data.sig || null,
+    assignmentCreatedAt: data.adt || null,
+    assignmentTimeLimit: typeof data.alim === 'number' ? data.alim : null,
+    telemetry: data.tel || null,
   };
 }
 
@@ -51,6 +56,13 @@ export async function encodeAttemptToken({ attempt, studentName } = {}) {
     time: Number(attempt.time_spent_seconds) || 0,
     date: attempt.created_at || new Date().toISOString(),
     name: studentName ? String(studentName).trim().slice(0, 100) : undefined,
+    aid: attempt.assignment_id || attempt.assignmentId || undefined,
+    sig: attempt.teacher_signature || attempt.teacherSignature || undefined,
+    adt: attempt.assignment_created_at || attempt.assignmentCreatedAt || undefined,
+    alim: typeof attempt.assignment_time_limit === 'number'
+      ? attempt.assignment_time_limit
+      : (typeof attempt.assignmentTimeLimit === 'number' ? attempt.assignmentTimeLimit : undefined),
+    tel: attempt.telemetry || undefined,
   };
 
   const serialized = JSON.stringify(payload);
