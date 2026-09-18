@@ -21,17 +21,30 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
     timeUpHandlerRef.current = handler;
   }, []);
 
-  const resetTimer = useCallback((timed = true, newDurationSeconds) => {
-    const targetSeconds = newDurationSeconds || DEFAULT_TIME_LIMIT_SECONDS;
+  const resetTimer = useCallback((timed = true, newDurationSeconds, initialSecondsLeft) => {
+    const targetSeconds = newDurationSeconds ?? DEFAULT_TIME_LIMIT_SECONDS;
     setTotalSeconds(targetSeconds);
-    setIsTimed(timed);
-    setSecondsLeft(targetSeconds);
-    setSecondsElapsed(0);
+    setIsTimed(Boolean(timed));
+    const effectiveSecondsLeft = initialSecondsLeft !== undefined ? initialSecondsLeft : targetSeconds;
+    setSecondsLeft(effectiveSecondsLeft);
+    setSecondsElapsed(Math.max(0, targetSeconds - effectiveSecondsLeft));
     setIsPaused(false);
   }, []);
 
   const togglePause = useCallback(() => {
     setIsPaused((previousState) => !previousState);
+  }, []);
+
+  const pauseTimer = useCallback(() => {
+    setIsPaused(true);
+  }, []);
+
+  const resumeTimer = useCallback(() => {
+    setIsPaused(false);
+  }, []);
+
+  const startTimer = useCallback(() => {
+    setIsPaused(false);
   }, []);
 
   useEffect(() => {
@@ -65,6 +78,9 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
     secondsElapsed,
     isPaused,
     togglePause,
+    pauseTimer,
+    resumeTimer,
+    startTimer,
     resetTimer,
     registerTimeUpHandler,
   };

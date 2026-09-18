@@ -81,6 +81,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
 
       setResults(resultData);
       setIsSubmitted(true);
+      return resultData;
     } finally {
       setIsSubmitting(false);
     }
