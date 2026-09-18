@@ -1,231 +1,94 @@
 # telc Deutsch A1 (Start Deutsch 1) — Exam Simulator
 
-A browser-first web application for **telc Deutsch A1 / Start Deutsch 1** preparation. It supports the active **Lesen** and **Schreiben** modules; Hören and Sprechen are present as preparation stubs.
+A modern, browser-first web application for **telc Deutsch A1 / Start Deutsch 1** exam preparation. It features realistic simulation of the official exam environment, authentic tasks, an interactive answer sheet, and an intelligent in-browser grading engine.
 
-The application accurately simulates the real exam environment: authentic part structure, authentic texts, a 25-minute countdown timer, score calculation, and a detailed review of mistakes with clue quotes and vocabulary notes.
-
----
-
-## 🎯 Conformity to the Real telc A1 / Start Deutsch 1 Exam
-
-The **Lesen** section consists of **15 tasks (15 points)**:
-- **Teil 1 (Tasks 1–5)**: Reading 2 short authentic texts (emails, personal letters, informational notices). Format: **Richtig (+)** / **Falsch (-)**.
-- **Teil 2 (Tasks 6–10)**: 5 real-life situations. For each situation, 2 websites/advertisements (**a** and **b**) are provided. Objective: select the website that matches the user's request.
-- **Teil 3 (Tasks 11–15)**: 5 authentic notices, signs, and announcements (Schilder, Aushänge). Format: **Richtig (+)** / **Falsch (-)**.
-
-- **Exam Duration**: 25 minutes (in the official exam, the combined "Lesen + Schreiben" module lasts 45 minutes, with ~25 minutes allocated to reading).
-- **Passing Score**: **9 out of 15 (60%)** — the official telc benchmark.
+Runs entirely as a static web app on **GitHub Pages** — no server or account required.
 
 ---
 
 ## ✨ Key Features
 
-1. **Practice variants for active modules**:
-   - Lesen tasks featuring typical A1 exam traps (*Fallen*).
-   - Schreiben tasks: a form and a short email with in-browser evaluation.
-   - Preparation stubs for Hören and Sprechen.
-2. **Official Exam Timer (25:00)**:
-   - Real-time countdown display with a color-coded warning during the final 5 minutes.
-   - Pause option for untimed practice sessions.
-   - Automatic test submission when time expires.
-3. **Authentic Interface & Answer Sheet (Antwortbogen S10)**:
-   - Realistic email presentation formatting.
-   - Teil 2 formatted as modern web snippets and classified ads.
-   - Teil 3 formatted as door signs, store notices, and public announcements.
-   - Interactive digital telc S10 answer sheet with clickable bubble options `[+] [-]` and `[a] [b]`.
-4. **Smart Navigation**:
-   - Seamless jumping between exam parts and questions 1–15.
-   - Status indicators for answered and unanswered questions.
-5. **Detailed Review & Error Analysis**:
-   - Final score, percentage, and pass/fail status (**BESTANDEN** / **NICHT BESTANDEN**).
-   - Breakdown by section (Teil 1, 2, 3).
-   - Filter by incorrect vs. correct answers.
-   - Detailed explanation for each question with relevant clue quotes highlighted from the German text.
-   - A1 core vocabulary glossary for each task.
-   - **"Review Mistakes" Mode** (re-attempt only incorrect questions).
-6. **Private local attempt history**:
-   - Attempts, completion times, and scores are stored in the browser's `localStorage` by default.
-   - The optional Express/SQLite service supplies local API and catalog capabilities; it is not required for normal history tracking or static hosting.
-7. **Multilingual UI**: Interface available in German, English, and Russian.
-8. **Responsive Design**: Mobile-friendly layout with dark/light theme support.
+- **Authentic Exam Simulation**:
+  - **Lesen (Reading)**: 15 questions across 3 authentic parts (personal emails, classified ads, public signs) with official scoring (9/15 to pass) and realistic trap questions (*Fallen*).
+  - **Schreiben (Writing)**: Authentic registration form (Teil 1) and short email correspondence (Teil 2).
+  - **Interactive Antwortbogen (S10)**: Faithful digital bubble sheet with auto-scoring and mistake review mode.
+  - **Official Exam Timer**: 25-minute countdown with visual alerts and auto-submission.
+- **In-Browser Hybrid AI Grader (Schreiben Teil 2)**:
+  - Evaluates German essays directly in the client browser using WebGPU / ONNX models and deterministic linguistic analysis (Topological Field Parser, valency, and case checks).
+  - 100% private: no essays or student data are ever sent to external cloud APIs.
+- **Teacher Workspace & Assignment Mode**:
+  - Create customized, tamper-proof assignment links signed with client-side HMAC-SHA256 tokens.
+  - Distributed via URL hash fragments (`#assignment=...`) with zero server logging and duplicate submission lockout.
+- **Offline-First PWA**:
+  - Fully functional offline once loaded. Attempts and progress are kept locally in `localStorage`.
+- **Multilingual UI**: German, English, and Russian interface with detailed German clue highlights and core vocabulary notes.
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js >= 18 (tested on Node.js v25)
+- Node.js >= 18
 - npm
 
-### Running the Application
+### Local Development
 
 ```bash
-# 1. Install dependencies (if not already installed)
+# 1. Install dependencies
 npm install
 
-# 2. Build the frontend
-npm run build
+# 2. Start development server (Frontend + Mock API)
+npm run dev
 
-# 3. Start the server (available at http://localhost:3001)
-npm start
+# Or run client-only (Vite):
+npm run dev:client
 ```
+The client will be available at `http://localhost:5173` (or `http://localhost:3001` when running the optional full-stack Express server).
 
-### Running with Docker
+### Production Build (Static Site)
 
 ```bash
-# Build and run container using Docker Compose
+npm run build
+```
+Outputs static assets to `dist/`, ready for deployment to GitHub Pages or any static CDN.
+
+### Docker (Optional Server)
+
+```bash
 docker compose up --build
+```
+Runs the optional Express + SQLite backend at `http://localhost:3001`.
 
-# Or using standard Docker commands:
-docker build -t telc-a1 .
-docker run -d -p 3001:3001 -v telc_data:/app/data --name telc-a1-app telc-a1
+---
+
+## 📝 Exam Structure
+
+| Module | Part | Tasks / Questions | Format | Duration |
+| :--- | :--- | :--- | :--- | :--- |
+| **Lesen** | Teil 1 | 5 questions (Texts 1–2) | Richtig (+) / Falsch (-) | ~25 min |
+| | Teil 2 | 5 questions (Websites a/b) | Option [a] / [b] | |
+| | Teil 3 | 5 questions (Notices 11–15) | Richtig (+) / Falsch (-) | |
+| **Schreiben** | Teil 1 | 5 form fields | Text / Data input | ~20 min |
+| | Teil 2 | Short email (3 Leitpunkte) | Free text (In-browser AI evaluation) | |
+
+---
+
+## 🧪 Testing & Verification
+
+```bash
+# Run unit tests (routing, rules, scoring, token security)
+npm test
+
+# Validate seed datasets and exam schemas
+npm run validate:seeds
+
+# Benchmark Schreiben AI & linguistic grading pipeline
+npm run eval:schreiben
 ```
 
-The application will be accessible at `http://localhost:3001`.
-The SQLite database is persisted in the `telc_data` volume.
-
 ---
 
-## 📁 Project Structure
+## 📖 Architecture & Guides
 
-```
-telcA1/
-├── server/
-│   ├── index.js              # Express REST API server
-│   ├── db.js                 # Database facade: singleton, lazy proxy, init orchestration
-│   ├── seed-data.js          # Barrel aggregator: imports all seeds, exports combined seedData
-│   ├── database/
-│   │   ├── connection.js     # Low-level SQLite connection factory
-│   │   ├── migrations.js     # Schema DDL and idempotent migrations
-│   │   ├── seeder.js         # Database seeder (INSERT OR REPLACE)
-│   │   ├── validate-seeds.js # CLI seed and schema validation tool
-│   │   └── validators/       # Modular seed validators (exam, question)
-│   ├── seeds/
-│   │   ├── modellsatz-1.js   # Exam data: Modellsatz 1 (15 questions)
-│   │   ├── ...               # modellsatz-2.js through modellsatz-10.js
-│   │   ├── schreiben-modellsatz-*.js # Schreiben variants (form + email)
-│   │   └── stubs-modules.js  # Stub exams for Hören, Sprechen
-│   ├── routes/               # API route handlers (attempts, exams, test-types, debug)
-│   ├── repositories/         # SQLite data access layer (exam, attempt)
-│   └── services/             # Backend services (balancer, evaluator, user context)
-├── src/
-│   ├── App.jsx               # Main application component
-│   ├── main.jsx              # React entry point
-│   ├── index.css             # Tailwind CSS styles
-│   ├── config/               # Exam modules and legal configuration
-│   │   ├── teilStructureConfig.js # Modular question groups & icons
-│   │   └── legalConfig.js    # Operator & legal disclaimer metadata
-│   ├── components/
-│   │   ├── ExamView.jsx      # Active exam screen (timer, nav, renderer, footer)
-│   │   ├── Header.jsx        # App header (logo, title, actions)
-│   │   ├── WelcomeScreen.jsx # Welcome dashboard (module selector, exam picker)
-│   │   ├── ResultsView.jsx   # Results screen (score, review, explanations)
-│   │   ├── HistoryView.jsx   # Full-page history (stats, attempt cards)
-│   │   ├── Teil1.jsx         # Reading Part 1 (emails, Richtig/Falsch)
-│   │   ├── Teil2.jsx         # Reading Part 2 (situations, website a/b)
-│   │   ├── Teil3.jsx         # Reading Part 3 (signs, Richtig/Falsch)
-│   │   ├── Antwortbogen.jsx  # Interactive telc S10 answer sheet
-│   │   ├── ExamTimer.jsx     # Countdown / stopwatch timer
-│   │   ├── QuestionNav.jsx   # Question navigation matrix (1–15)
-│   │   ├── teil1/            # Teil 1 subcomponents (text cards, questions)
-│   │   ├── teil2/            # Teil 2 subcomponents (webpage options)
-│   │   ├── teil3/            # Teil 3 subcomponents (notice cards)
-│   │   ├── schreiben/        # Schreiben subcomponents (form, essay, checklist)
-│   │   ├── exam/             # Exam subcomponents (bottom nav, skeleton)
-│   │   ├── header/           # Header subcomponents (actions, theme, lang)
-│   │   ├── results/          # Results subcomponents (hero, filters, review)
-│   │   ├── welcome/          # Welcome subcomponents (selectors, cards)
-│   │   ├── history/          # History subcomponents (stats, list, cards)
-│   │   ├── modals/           # App-level modals (submit, leave, time-up, legal)
-│   │   │   └── legal/        # Impressum and Datenschutz subcomponents
-│   │   ├── parts/            # Generic module task views (Hören, etc.)
-│   │   └── ui/               # Primitive UI components (Button, Card, Dialog)
-│   ├── hooks/                # Controller hooks (useAppController, useExamSession)
-│   ├── services/             # Domain and infrastructure services
-│   │   ├── ai/               # AIProvider interface and registry (WebGPU, WindowAI, None)
-│   │   ├── embeddings/       # Local embedding service (EmbeddingGemma)
-│   │   ├── storage/          # Storage interface and providers (LocalStorage, Remote, Memory)
-│   │   └── schreiben/        # Schreiben evaluation pipeline & linguistic engine
-│   │       ├── grading/      # Stages 0-4 micro-graders, model manager, arbitration
-│   │       ├── linguistic/   # Topological field parser, valency, chunkers, tokenizers
-│   │       ├── rules/        # A1 grammar, rektion, orthography, agreement checkers
-│   │       └── scoring/      # telc official scoring calculations
-│   ├── utils/                # Utilities (cn, formatting, balancing, webGpuSupport)
-│   ├── i18n/                 # i18n context, contracts and validator
-│   └── i18n/locales/         # Locale translations (ru.js, en.js)
-├── data/
-│   └── telc_a1.db            # SQLite database (auto-created)
-├── tests/                    # Node.js native test suite
-├── package.json
-├── vite.config.js
-└── Dockerfile
-```
-
-### Architecture Notes
-
-- **Modularity & Clean Architecture**: The project follows Single Responsibility and single-level-of-abstraction principles. Large data and translation files are intentional exceptions to the preferred module-size guideline.
-- **Linguistic Engine**: Relies on systematic linguistic models (Topological Field Parser, Vorfeld chunking, Case & Valency tables) rather than fragile ad-hoc regex patches.
-- **Components**: Each top-level `.jsx` in `components/` is a **screen orchestrator** — it composes subcomponents from the matching subdirectory.
-- **Database**: `server/db.js` is a **facade** that orchestrates `database/connection.js` (factory), `database/migrations.js` (DDL), and `database/seeder.js` (data population).
-- **Seed Data**: `server/seed-data.js` is a **barrel aggregator** that imports modular exam files from `server/seeds/` and exports a combined `seedData` object.
-- **Platform WebGPU Detection**: Utilizes runtime feature detection (`navigator.gpu` + `requestAdapter()`) instead of user-agent sniffing or static assumptions.
-
----
-
-## 🔧 Modes of Operation
-
-### GitHub Pages (Static)
-Data is loaded from the built-in `seed-data.js` via `localDataService`. No server required.
-
-### Full-stack (with Server)
-The optional Express API is served on port 3001 and uses SQLite for its server-side exam catalog. The client still keeps attempt history locally by default.
-
----
-
-## 📝 Exam Format: telc A1 Leseverstehen
-
-| Part | Task Type | Questions | Answer Format |
-|------|-----------|-----------|---------------|
-| Teil 1 | Reading short texts (emails, letters) | 5 | Richtig / Falsch |
-| Teil 2 | Matching situations to websites | 5 | a / b |
-| Teil 3 | Understanding signs and notices | 5 | Richtig / Falsch |
-
-Total duration: **25 minutes** for 15 questions.
-
----
-
-## 📚 Adding New Exam Sets
-
-See [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) for a detailed guide on creating and validating new exam variants.
-Run `npm run validate:seeds` to verify all questions and exam schemas automatically.
-
-## 🤖 Hybrid In-Browser Grader (Schreiben Teil 2)
-
-The "Schreiben Teil 2" essay evaluation runs completely in the user's browser (static hosting, zero external APIs) powered by a privacy-first, two-model hybrid architecture:
-
-1. **EmbeddingGemma-300M-ONNX** (`@huggingface/transformers`):
-   - Computes Matryoshka 256-dimensional normalized embeddings for Leitpunkt semantic search.
-   - Size: ~185 MB (`q4`), cached in browser IndexedDB.
-   - Prefixes: `"task: search result | query: "` (LP query) and `"task: search result | text: "` (student sentences).
-2. **Qwen3-0.6B-q4f16_1-MLC** (`@mlc-ai/web-llm`):
-   - Generative micro-tasks: binary Leitpunkt gray zone arbitration (`full` / `partial` / `no`) and single-sentence grammar proposals.
-   - Temperature = 0, reasoning tokens disabled via `/no_think`, strict JSON schemas.
-   - Size: ~380 MB, cached in CacheStorage / IndexedDB.
-   - Total model download: ~565 MB (within <= 700 MB budget).
-
-### Pipeline Stages & Fallbacks
-- **Stage 0**: Normalization & sentence segmentation (Zero LLM).
-- **Stage 1**: Anrede & Gruß formula scoring (Zero LLM, 0/1/2 pts).
-- **Stage 2**: Leitpunkte cosine similarity + keywords. Qwen3 arbiter is invoked **only** in gray zones ($T_1 \pm D$, $T_2 \pm D$) with relevant sentences. Score mapping is strictly done in code.
-- **Stage 3**: Single-sentence grammar checking. Mandatory filters: exact substring, `correction !== original`, edit-distance cap (1-3 words), and deduplication.
-- **Stage 4**: Deterministic examiner feedback from pre-written, verified A1 German phrases (+ optional LLM polish feature flag).
-- **Fallback Matrix**: If WebGPU is unsupported or model download fails, grader smoothly falls back to **Limited Mode** (deterministic rule scoring).
-
-### 📋 Manual Smoke Checklist
-When verifying updates locally or on staging:
-- [ ] **Cold load (empty cache)**: Open DevTools > Application > Storage > Clear Site Data. Trigger AI check: verify progress indicators for EmbeddingGemma download then Qwen3 download.
-- [ ] **Repeat load (from cache)**: Refresh page and re-run check: verify models load instantly from IndexedDB cache without re-downloading weights.
-- [ ] **Browser without WebGPU**: Disable WebGPU in browser flags or test in unsupported environment: verify check runs in **Limited Mode** with rule-based scoring and appropriate badge.
-- [ ] **60+ word letter**: Submit a long essay with multiple complex sentences: verify segmentation and score calculation complete cleanly without crashes.
-- [ ] **Empty input**: Submit empty text or whitespace: verify 0 points, clean feedback, no exceptions.
-- [ ] **Non-German input**: Submit English or random gibberish: verify quality analyzer flags spam/gibberish, awarding 0 points with no false grammar corrections.
+- [ARCHITECTURE.md](ARCHITECTURE.md) — Comprehensive technical architecture, hybrid AI grading pipeline, linguistic parsing engine, and component diagrams.
+- [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) — Guide to creating, formatting, and verifying new exam variants.

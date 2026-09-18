@@ -91,8 +91,10 @@ function ChoiceOptionsView({ options = [], correctAnswer, userAnswer }) {
 export default function ReviewTaskPrompt({ item = {} }) {
   const { t } = useI18n();
   const options = item.options_json || {};
-  const isEssay = options.type === 'essay';
-  const leitpunkte = isEssay ? (options.leitpunkte || []) : [];
+  const rawLeitpunkte = isEssay ? (options.leitpunkte || []) : [];
+  const leitpunkte = rawLeitpunkte.map(lp =>
+    typeof lp === 'string' ? lp.replace(/\s*\([^)]*\)/g, '').trim() : lp
+  );
   const isChoiceList = Array.isArray(options) && options.length > 0;
 
   if (isEssay) {

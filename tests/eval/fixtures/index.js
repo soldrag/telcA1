@@ -15,13 +15,13 @@ export const evaluationQuestions = {
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben (Deutschkurs A1 im August)',
+            label: 'Grund für Ihr Schreiben',
             keywords: ['deutschkurs', 'kurs', 'a1', 'sprachschule', 'august', 'besuchen', 'machen'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
-            label: 'Wann und wie lange (Termin, 4 Wochen, vormittags)',
+            label: 'Wann und wie lange',
             keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin', 'lernen'],
             requiredMatches: 2
           },
@@ -43,19 +43,19 @@ export const evaluationQuestions = {
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben (Termin am Montag absagen)',
+            label: 'Grund für Ihr Schreiben',
             keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
-            label: 'Warum (Überstunden oder Arbeit)',
+            label: 'Warum können Sie nicht kommen',
             keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'],
             requiredMatches: 1
           },
           {
             id: 'lp3',
-            label: 'Neuer Terminvorschlag (Dienstag oder Mittwoch)',
+            label: 'Neuer Terminvorschlag',
             keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'],
             requiredMatches: 2
           }

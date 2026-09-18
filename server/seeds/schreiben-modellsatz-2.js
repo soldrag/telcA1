@@ -134,33 +134,33 @@ export const questions = [
     title: 'Teil 2 • Terminabsage beim Arzt',
     situation: 'Sie haben am Montag um 14:00 Uhr einen Termin in der Praxis Dr. Schneider. Sie können aber nicht kommen. Schreiben Sie eine E-Mail an die Arztpraxis.',
     context_header: 'Leitpunkte (Schreiben Sie zu allen 3 Punkten)',
-    context_body: '1. Grund für Ihr Schreiben (Termin am Montag absagen)\n2. Warum können Sie nicht kommen (krank / Überstunden bei der Arbeit)\n3. Neuer Terminvorschlag (nächste Woche Dienstag oder Mittwoch)',
+    context_body: '1. Grund für Ihr Schreiben\n2. Warum können Sie nicht kommen\n3. Neuer Terminvorschlag',
     statement: 'Schreiben Sie eine kurze E-Mail (ca. 30 Wörter). Denken Sie an Anrede und Gruß.',
     options_json: {
       type: 'essay',
       min_words: 30,
       leitpunkte: [
-        'Grund für Ihr Schreiben (Termin am Montag absagen)',
-        'Warum (Überstunden oder Arbeit)',
-        'Neuer Terminvorschlag (Dienstag oder Mittwoch)'
+        'Grund für Ihr Schreiben',
+        'Warum können Sie nicht kommen',
+        'Neuer Terminvorschlag'
       ],
       rubric: {
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben (Termin am Montag absagen)',
+            label: 'Grund für Ihr Schreiben',
             keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
-            label: 'Warum (Überstunden oder Arbeit)',
+            label: 'Warum können Sie nicht kommen',
             keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'],
             requiredMatches: 1
           },
           {
             id: 'lp3',
-            label: 'Neuer Terminvorschlag (Dienstag oder Mittwoch)',
+            label: 'Neuer Terminvorschlag',
             keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'],
             requiredMatches: 2
           }
