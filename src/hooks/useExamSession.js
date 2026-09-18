@@ -95,6 +95,8 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
       Object.entries(answers).filter(([id]) => !incorrectQuestionIds.has(id))
     );
     setAnswers(preservedAnswers);
+    setActiveTeil(1);
+    setActiveQuestionIndex(0);
     setIsSubmitted(false);
     setResults(null);
   }, [results, answers]);
