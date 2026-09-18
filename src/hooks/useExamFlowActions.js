@@ -18,15 +18,16 @@ export function useExamFlowActions({
   showError,
 }) {
   const startExam = useCallback(async ({ timed = true, specificExamId } = {}) => {
+    session.resetSession();
     const targetId = specificExamId || loader.currentExamId;
-    if (targetId !== loader.currentExamId) {
-      const data = await loader.loadExamById(targetId);
+    let targetExamData = loader.examData;
+
+    if (targetId !== loader.currentExamId || !targetExamData || targetExamData.exam?.id !== targetId) {
+      targetExamData = await loader.loadExamById(targetId);
       loader.selectExam(targetId);
-      timer.resetTimer(timed, getExamDurationSeconds(data));
-    } else {
-      session.resetSession();
-      timer.resetTimer(timed, getExamDurationSeconds(loader.examData));
     }
+
+    timer.resetTimer(timed, getExamDurationSeconds(targetExamData));
     navigateTo('exam');
   }, [loader, session, timer, navigateTo]);
 
@@ -37,17 +38,12 @@ export function useExamFlowActions({
         storage,
         testType: loader.activeTestType,
       });
-      if (selected?.id) {
-        loader.selectExam(selected.id);
-        const data = await loader.loadExamById(selected.id);
-        timer.resetTimer(timed, getExamDurationSeconds(data));
-      }
-      navigateTo('exam');
+      await startExam({ timed, specificExamId: selected?.id });
     } catch (balancerError) {
       console.warn('[useExamFlowActions] Balancer fallback:', balancerError);
-      startExam({ timed });
+      await startExam({ timed });
     }
-  }, [loader, storage, timer, navigateTo, startExam]);
+  }, [loader.exams, loader.activeTestType, storage, startExam]);
 
   const submitExam = useCallback(async () => {
     const submitResult = await session.submitCurrentExam({
@@ -107,9 +103,10 @@ export function useExamFlowActions({
   }, [session, navigateTo]);
 
   const leaveExam = useCallback(() => {
+    session.resetSession();
     modals.closeLeaveModal();
     navigateTo('welcome');
-  }, [modals, navigateTo]);
+  }, [session, modals, navigateTo]);
 
   const inspectExam = useCallback(async (examId) => {
     session.resetSession();
@@ -132,7 +129,7 @@ export function useExamFlowActions({
     if (screen === 'exam' && !session.isSubmitted && session.answeredCount > 0 && !session.isInspection) {
       modals.openLeaveModal();
     } else {
-      if (session.isInspection) {
+      if (session.isInspection || session.isSubmitted) {
         session.resetSession();
       }
       navigateTo('welcome');
