@@ -15,11 +15,14 @@ export default function SchreibenTeil2({
   const options = typeof question.options_json === 'string'
     ? JSON.parse(question.options_json || '{}')
     : (question.options_json || {});
-  const leitpunkte = options.leitpunkte || [
+  const rawLeitpunkte = options.leitpunkte || [
     'Grund für Ihr Schreiben',
     'Termin und Details',
     'Frage oder Bitte um Antwort',
   ];
+  const leitpunkte = rawLeitpunkte.map(lp =>
+    typeof lp === 'string' ? lp.replace(/\s*\([^)]*\)/g, '').trim() : lp
+  );
 
   const handleCharInsert = (char) => {
     if (isSubmitted) return;

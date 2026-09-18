@@ -187,8 +187,8 @@ Text 1 has 2 questions (1–2), Text 2 has 3 questions (3–5).
     type: 'essay',
     min_words: 30,
     leitpunkte: [
-      'Grund für Ihr Schreiben (Deutschkurs A1 im August)',
-      'Wann und wie lange (Termin, 4 Wochen, vormittags)',
+      'Grund für Ihr Schreiben',
+      'Wann und wie lange',
       'Frage nach den Kurskosten und Anmeldung'
     ],
     rubric: {

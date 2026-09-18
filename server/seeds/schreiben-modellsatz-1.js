@@ -134,27 +134,27 @@ export const questions = [
     title: 'Teil 2 • E-Mail an eine Sprachschule',
     situation: 'Sie möchten im August einen Deutschkurs an der Sprachschule „Aktiv“ in München besuchen. Schreiben Sie eine kurze E-Mail an die Schule.',
     context_header: 'Leitpunkte (Schreiben Sie zu allen 3 Punkten)',
-    context_body: '1. Grund für Ihr Schreiben (Deutschkurs A1 im August)\n2. Wann und wie lange (Termin, 4 Wochen, vormittags)\n3. Frage nach Kursgebühren und Anmeldung',
+    context_body: '1. Grund für Ihr Schreiben\n2. Wann und wie lange\n3. Frage nach Kursgebühren und Anmeldung',
     statement: 'Verfassen Sie eine E-Mail (ca. 30 Wörter). Beachten Sie Anrede, 3 Leitpunkte und Grußformel.',
     options_json: {
       type: 'essay',
       min_words: 30,
       leitpunkte: [
-        'Grund für Ihr Schreiben (Deutschkurs A1 im August)',
-        'Wann und wie lange (Termin, 4 Wochen, vormittags)',
+        'Grund für Ihr Schreiben',
+        'Wann und wie lange',
         'Frage nach den Kurskosten und Anmeldung'
       ],
       rubric: {
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben (Deutschkurs A1 im August)',
+            label: 'Grund für Ihr Schreiben',
             keywords: ['deutschkurs', 'kurs', 'a1', 'sprachschule', 'august', 'besuchen', 'machen'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
-            label: 'Wann und wie lange (Termin, 4 Wochen, vormittags)',
+            label: 'Wann und wie lange',
             keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin', 'lernen'],
             requiredMatches: 2
           },

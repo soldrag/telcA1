@@ -19,7 +19,7 @@ export const questions = [
     title: 'Volkshochschule Bremen • Familienname',
     situation: 'Ihr Freund David Weber möchte mit seiner Frau einen Kochkurs an der Volkshochschule Bremen besuchen. Helfen Sie ihm beim Ausfüllen des Anmeldeformulars.',
     context_header: 'Ausgangssituation',
-    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit (2 Personen). Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
+    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit. Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
     statement: 'Feld (1) — Familienname des Teilnehmers:',
     options_json: {
       form_label: 'Familienname',
@@ -42,14 +42,14 @@ export const questions = [
     title: 'Volkshochschule Bremen • Anzahl Personen',
     situation: 'Ihr Freund David Weber möchte mit seiner Frau einen Kochkurs an der Volkshochschule Bremen besuchen. Helfen Sie ihm beim Ausfüllen des Anmeldeformulars.',
     context_header: 'Ausgangssituation',
-    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit (2 Personen). Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
+    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit. Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
     statement: 'Feld (2) — Anzahl der Personen:',
     options_json: {
       form_label: 'Anzahl Personen',
       accepted_answers: ['2', 'zwei', '2 personen', 'zwei personen']
     },
     correct_answer: '2',
-    clue_quote: 'Sie kommen zu zweit (2 Personen)',
+    clue_quote: 'Sie kommen zu zweit',
     explanation_ru: 'Количество участников — 2 человека (Давид и его супруга).',
     explanation_en: 'Number of participants is 2 (David and his wife).',
     explanation_de: 'Es nehmen 2 Personen teil.',
@@ -65,7 +65,7 @@ export const questions = [
     title: 'Volkshochschule Bremen • Kursbezeichnung',
     situation: 'Ihr Freund David Weber möchte mit seiner Frau einen Kochkurs an der Volkshochschule Bremen besuchen. Helfen Sie ihm beim Ausfüllen des Anmeldeformulars.',
     context_header: 'Ausgangssituation',
-    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit (2 Personen). Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
+    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit. Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
     statement: 'Feld (3) — Kursname / Kursthema:',
     options_json: {
       form_label: 'Kursthema',
@@ -88,7 +88,7 @@ export const questions = [
     title: 'Volkshochschule Bremen • Kursbeginn',
     situation: 'Ihr Freund David Weber möchte mit seiner Frau einen Kochkurs an der Volkshochschule Bremen besuchen. Helfen Sie ihm beim Ausfüllen des Anmeldeformulars.',
     context_header: 'Ausgangssituation',
-    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit (2 Personen). Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
+    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit. Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
     statement: 'Feld (4) — Kursbeginn (Datum):',
     options_json: {
       form_label: 'Kursbeginn',
@@ -111,7 +111,7 @@ export const questions = [
     title: 'Volkshochschule Bremen • Zahlungsart',
     situation: 'Ihr Freund David Weber möchte mit seiner Frau einen Kochkurs an der Volkshochschule Bremen besuchen. Helfen Sie ihm beim Ausfüllen des Anmeldeformulars.',
     context_header: 'Ausgangssituation',
-    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit (2 Personen). Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
+    context_body: 'Ihr Freund David Weber wohnt in Bremen in der Parkstraße 10. Er möchte ab dem 15. November zusammen mit seiner Frau an dem Abendkurs „Italienische Küche“ teilnehmen. Sie kommen zu zweit. Er bezahlt die Kursgebühr von 80 Euro direkt mit Kreditkarte.',
     statement: 'Feld (5) — Zahlungsweise:',
     options_json: {
       form_label: 'Zahlungsweise',
@@ -134,21 +134,21 @@ export const questions = [
     title: 'Teil 2 • Buchungsanfrage Ferienwohnung Ostsee',
     situation: 'Sie möchten im Sommer mit Ihrer Familie Urlaub an der Ostsee machen. Schreiben Sie eine E-Mail an Frau Hansen (Ferienwohnung „Meeresbrise“).',
     context_header: 'Leitpunkte (Schreiben Sie zu allen 3 Punkten)',
-    context_body: '1. Grund für Ihr Schreiben (Ferienwohnung an der Ostsee mieten)\n2. Personen und Zeitraum (2 Erwachsene, 1 Kind, 10. bis 17. Juli)\n3. Preis und Haustiere (Kosten der Wohnung, Hund erlaubt?)',
+    context_body: '1. Grund für Ihr Schreiben\n2. Personen und Zeitraum\n3. Preis und Haustiere',
     statement: 'Schreiben Sie eine kurze E-Mail (ca. 30 Wörter). Denken Sie an Anrede und Gruß.',
     options_json: {
       type: 'essay',
       min_words: 30,
       leitpunkte: [
-        'Grund für Ihr Schreiben (Ferienwohnung an der Ostsee mieten)',
-        'Personen und Zeitraum (2 Erwachsene, 1 Kind, 10. bis 17. Juli)',
-        'Preis und Haustiere (Kosten der Wohnung, Hund erlaubt?)'
+        'Grund für Ihr Schreiben',
+        'Personen und Zeitraum',
+        'Preis und Haustiere'
       ],
       rubric: {
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben (Ferienwohnung an der Ostsee mieten)',
+            label: 'Grund für Ihr Schreiben',
             keywords: ['ferienwohnung', 'wohnung', 'urlaub', 'mieten', 'buchen', 'reservieren', 'ostsee', 'juli'],
             requiredMatches: 2,
             conversive_rules: [
@@ -161,13 +161,13 @@ export const questions = [
           },
           {
             id: 'lp2',
-            label: 'Personen und Zeitraum (2 Erwachsene, 1 Kind, 10. bis 17. Juli)',
+            label: 'Personen und Zeitraum',
             keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'bleiben', 'juli', 'personen'],
             requiredMatches: 2
           },
           {
             id: 'lp3',
-            label: 'Preis und Haustiere (Kosten der Wohnung, Hund erlaubt?)',
+            label: 'Preis und Haustiere',
             keywords: ['kosten', 'kostet', 'preis', 'hund', 'hunde', 'haustiere', 'erlaubt'],
             requiredMatches: 2,
             semantic_slots: [

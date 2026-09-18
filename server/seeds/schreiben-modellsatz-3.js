@@ -134,33 +134,33 @@ export const questions = [
     title: 'Teil 2 • Heizungsausfall in der Wohnung',
     situation: 'In Ihrer Wohnung ist die Heizung kaputt. Es ist sehr kalt. Schreiben Sie eine E-Mail an Ihren Vermieter, Herrn Meier.',
     context_header: 'Leitpunkte (Schreiben Sie zu allen 3 Punkten)',
-    context_body: '1. Grund für Ihr Schreiben (Heizung kaputt)\n2. Problem beschreiben (Wohnung sehr kalt, kleines Kind)\n3. Handwerker / Reparaturtermin (Wann kann jemand kommen?)',
+    context_body: '1. Grund für Ihr Schreiben\n2. Problem beschreiben\n3. Handwerker / Reparaturtermin',
     statement: 'Schreiben Sie eine kurze E-Mail (ca. 30 Wörter). Denken Sie an Anrede und Gruß.',
     options_json: {
       type: 'essay',
       min_words: 30,
       leitpunkte: [
-        'Grund für Ihr Schreiben (Heizung kaputt)',
-        'Problem beschreiben (Wohnung sehr kalt, kleines Kind)',
-        'Handwerker / Reparaturtermin (Wann kann jemand kommen?)'
+        'Grund für Ihr Schreiben',
+        'Problem beschreiben',
+        'Handwerker / Reparaturtermin'
       ],
       rubric: {
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben (Heizung kaputt)',
+            label: 'Grund für Ihr Schreiben',
             keywords: ['heizung', 'kaputt', 'funktioniert', 'geht', 'problem'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
-            label: 'Problem beschreiben (Wohnung sehr kalt, kleines Kind)',
+            label: 'Problem beschreiben',
             keywords: ['kalt', 'kind', 'kinder', 'baby', 'wohnung', 'winter'],
             requiredMatches: 2
           },
           {
             id: 'lp3',
-            label: 'Handwerker / Reparaturtermin (Wann kann jemand kommen?)',
+            label: 'Handwerker / Reparaturtermin',
             keywords: ['handwerker', 'techniker', 'reparieren', 'reparatur', 'kommen', 'wann', 'termin'],
             requiredMatches: 2
           }

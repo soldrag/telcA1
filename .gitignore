@@ -39,4 +39,5 @@ coverage/
 .nyc_output/
 tests/eval/reports/
 
-
+# Architecture documentation (local drafts)
+ARCHITECTURE*.md
