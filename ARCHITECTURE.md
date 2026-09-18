@@ -90,10 +90,11 @@ graph TD
     ActiveModule -->|Lesen Teil 1| Teil1["Teil1.jsx (Reading Texts)"]
     ActiveModule -->|Lesen Teil 2| Teil2["Teil2.jsx (Web Ads a/b)"]
     ActiveModule -->|Lesen Teil 3| Teil3["Teil3.jsx (Public Notices)"]
-    ActiveModule -->|Schreiben| SchreibenView["Schreiben (Formular & Brief)"]
-    
     ExamView --> Antwortbogen["Antwortbogen.jsx (Digital S10 Sheet)"]
 ```
+
+### 3.3 Interface Contracts & Contract Guard
+Core ports and adapters declare formal contract specifications in `src/contracts/` (`timerContract`, `sessionContract`, `loaderContract`, `assignmentContract`, and `screenContracts`). At build time, `scripts/verify-contracts.js` statically verifies method invocations and screen DTO completeness, aborting the build on any contract drift.
 
 ---
 
@@ -216,9 +217,10 @@ sequenceDiagram
     Student->>StudentApp: Complete Exam & Generate Result Token
 ```
 
-- **Zero-Knowledge Distribution**: Assignment configuration is packed into the URL hash fragment (`#assignment=...`). URL fragments are never transmitted to web servers in HTTP request headers.
+- **Zero-Knowledge Distribution**: Assignment configuration is packed into the URL hash fragment (`#assignment=...` or `#task=...`). URL fragments are never transmitted to web servers in HTTP request headers.
 - **Tamper Prevention**: Configurations are signed using client-generated HMAC-SHA256 signatures.
 - **Inspection Mode**: Dedicated variant inspection allowing teachers to preview exams without polluting student attempt history.
+- **Assignment Continuity**: Domain service `assignmentTimerService` computes remaining session duration across page reloads based on cryptographic timestamps, preventing infinite retries while preserving student progress.
 
 ---
 
@@ -233,7 +235,8 @@ For local development or environments requiring a centralized exam catalog:
 
 ## 8. Verification & Quality Gates
 
-1. **Automated Unit Tests**: `npm test` runs Node.js native test suites covering routing, linguistic rules, scoring logic, and assignment security.
-2. **Seed Schema Validation**: `npm run validate:seeds` verifies the structural integrity of all exam variants, questions, answer keys, and vocabulary explanations.
-3. **Schreiben Evaluation Benchmarks**: `npm run eval:schreiben` validates AI and linguistic engine grading against gold-standard A1 essays.
-4. **Headless Chrome CDP Testing**: Verified using automated headless Chrome instances for DOM layout, answer sheet bubbling, and timer interaction.
+1. **Contract-Guarded Build (`prebuild`)**: `npm run build` runs `npm run verify:contracts` and `npm test` before compilation. Any contract violation or test failure aborts the build with Exit code 1.
+2. **Automated Unit & Contract Tests**: `npm test` runs Node.js native test suites covering routing, linguistic rules, scoring logic, button action contracts (`tests/assignment-buttons.test.js`, `tests/exam-buttons.test.js`), and assignment security.
+3. **Seed Schema Validation**: `npm run validate:seeds` verifies the structural integrity of all exam variants, questions, answer keys, and vocabulary explanations.
+4. **Schreiben Evaluation Benchmarks**: `npm run eval:schreiben` validates AI and linguistic engine grading against gold-standard A1 essays.
+5. **Headless Chrome CDP E2E Testing**: `npm run test:e2e` (`tests/e2e/all-buttons-smoke.js`) verifies real browser button interactions, DOM transitions, and zero `Runtime.exceptionThrown` console errors.
