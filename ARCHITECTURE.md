@@ -189,6 +189,13 @@ In compliance with project standards, natural language evaluation avoids ad-hoc 
 
 Runtime capability is determined strictly via runtime detection (`navigator.gpu` + `requestAdapter()`), avoiding brittle user-agent sniffing.
 
+### 5.4 Canonical Prompt Architecture & Arbitration Contracts
+To ensure strict adherence to Single Responsibility Principle (SRP) and prevent contract divergence across providers:
+- **Single Source of Truth (`src/services/schreiben/grading/prompts.js`)**: All prompt templates for Leitpunkt arbitration, grammar suggestions, and feedback verbalization are consolidated in a unified module.
+- **Balanced Gray-Zone Arbitration**: The Leitpunkt prompt enforces balanced few-shots (1 full, 1 partial, 1 no) to eliminate frequency bias towards `full`.
+- **Semantic Similarity Calibration**: EmbeddingGemma task prefixes are calibrated to `task: sentence similarity | query:` and `task: sentence similarity | text:` according to the official model specification.
+- **Fail-Safe Fallbacks**: Malformed or damaged LLM outputs fall back to `null` to ensure deterministic baseline scores are preserved without artificial score inflation.
+
 ---
 
 ## 6. Teacher Workspace & Assignment Security

@@ -11,8 +11,11 @@ import {
   FEEDBACK_POLISH_SCHEMA
 } from '../types.js';
 import { extractAndParseLLMJson } from '../../schreiben/webLlmJsonRepair.js';
-import { buildArbiterPrompt } from '../../schreiben/grading/stage2Leitpunkte.js';
-import { buildGrammarPrompt } from '../../schreiben/grading/stage3Grammar.js';
+import {
+  buildArbiterPrompt,
+  buildGrammarPrompt,
+  buildFeedbackPolishPrompt
+} from '../../schreiben/grading/prompts.js';
 import { assembleDeterministicFeedback } from '../../schreiben/grading/stage4Feedback.js';
 
 export class WindowAiProvider extends AIProvider {
@@ -99,7 +102,7 @@ export class WindowAiProvider extends AIProvider {
 
   async polishFeedback(facts = {}) {
     const templateText = assembleDeterministicFeedback(facts);
-    const prompt = `Rewrite these German A1 exam feedback facts into 2 motivating sentences: "${templateText}". Output JSON: {"feedback": "..."}`;
+    const prompt = buildFeedbackPolishPrompt(templateText);
     try {
       const parsed = await this.executePrompt(prompt, FEEDBACK_POLISH_SCHEMA);
       return String(parsed?.feedback || '').trim() || templateText;

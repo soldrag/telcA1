@@ -8,27 +8,9 @@ import { SENTENCE_GRAMMAR_SCHEMA } from './types.js';
 import { executeQwen3Prompt } from './qwen3Service.js';
 import { calculateLevenshtein, normalizeGermanText } from '../schreibenFuzzyMatcher.js';
 import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
+import { buildGrammarPrompt } from './prompts.js';
 
-export function buildGrammarPrompt(sentence = '') {
-  return `You are a German grammar checker for level A1. Answer strictly in JSON.
-
-Examples:
-Sentence: "Ich möchte ein Deutschkurs machen."
-JSON: {"errors":[{"original":"ein Deutschkurs","correction":"einen Deutschkurs","explanation":"Akkusativ maskulin"}]}
-
-Sentence: "Wie viel der Preis?"
-JSON: {"errors":[{"original":"Wie viel der Preis","correction":"Wie viel ist der Preis","explanation":"Fehlendes Prädikat (ist)"}]}
-
-Sentence: "Ich habe vier Wochen Zeit."
-JSON: {"errors":[]}
-
-Sentence: "${sentence}"
-
-List grammar errors in this sentence.
-"original" must be an EXACT substring of the sentence.
-If there are no errors, return an empty list: {"errors": []}.
-Schema: {"errors": [{"original": "...", "correction": "...", "explanation": "..."}]}`;
-}
+export { buildGrammarPrompt };
 
 export function isValidCorrectionDistance(orig = '', corr = '') {
   const origWords = orig.trim().split(/\s+/).filter(Boolean);

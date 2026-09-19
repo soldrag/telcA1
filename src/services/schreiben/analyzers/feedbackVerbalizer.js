@@ -4,18 +4,10 @@
  * based on deterministic facts.
  */
 import { extractAndParseLLMJson } from '../webLlmJsonRepair.js';
+import { FEEDBACK_SCHEMA } from '../grading/types.js';
+import { buildFeedbackPolishPrompt as buildFeedbackPrompt } from '../grading/prompts.js';
 
-export const FEEDBACK_SCHEMA = {
-  type: 'object',
-  properties: {
-    feedback: {
-      type: 'string',
-      description: 'Exactly 2 short sentences in German'
-    }
-  },
-  required: ['feedback'],
-  additionalProperties: false
-};
+export { FEEDBACK_SCHEMA, buildFeedbackPrompt };
 
 export function compileFeedbackFacts({
   salutationScore = 2,
@@ -40,22 +32,6 @@ export function compileFeedbackFacts({
     `Closing & Name: ${closingScore}/2`,
     `Grammar: ${grammarSummary}`
   ].join('\n');
-}
-
-export function buildFeedbackPrompt(factsText = '') {
-  return `You are a friendly German A1 examiner.
-The FACTS below are the ONLY source of truth. Never add, invent or contradict them.
-
-Rules:
-- Write exactly 2 short sentences in simple German (level A1) based ONLY on these facts.
-- If a task point is marked "fully addressed" in the facts, you must NOT tell the student to answer or fix that point.
-- You may mention a task point as missing ONLY if the facts show it as "missing" (0/2).
-- If the facts say "No grammar errors found", do not mention any grammar problem.
-
-Facts:
-${factsText}
-
-Answer strictly in JSON: {"feedback": "..."}`;
 }
 
 const BANNED_HALLUCINATIONS = ['opfer', 'lügen', 'betrügen', 'einkauf', 'beichten', 'teufel', 'polizei'];

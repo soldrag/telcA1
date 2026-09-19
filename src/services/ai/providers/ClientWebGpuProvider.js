@@ -12,8 +12,11 @@ import {
 } from '../types.js';
 import { isWebGPUAdapterAvailable } from '../../../utils/webGpuSupport.js';
 import { executeQwen3Prompt, initQwen3 } from '../../schreiben/grading/qwen3Service.js';
-import { buildArbiterPrompt } from '../../schreiben/grading/stage2Leitpunkte.js';
-import { buildGrammarPrompt } from '../../schreiben/grading/stage3Grammar.js';
+import {
+  buildArbiterPrompt,
+  buildGrammarPrompt,
+  buildFeedbackPolishPrompt
+} from '../../schreiben/grading/prompts.js';
 import { assembleDeterministicFeedback } from '../../schreiben/grading/stage4Feedback.js';
 
 export class ClientWebGpuProvider extends AIProvider {
@@ -71,7 +74,7 @@ export class ClientWebGpuProvider extends AIProvider {
 
   async polishFeedback(facts = {}) {
     const templateText = assembleDeterministicFeedback(facts);
-    const prompt = `You are a friendly German A1 examiner.\nFacts: "${templateText}"\nRewrite into 2 motivating sentences in simple German (level A1).\nStrict rule: Rely ONLY on the facts above.\nAnswer strictly in JSON: {"feedback": "..."}`;
+    const prompt = buildFeedbackPolishPrompt(templateText);
     try {
       const activeEngine = await this.getEngine();
       const parsed = await executeQwen3Prompt({

@@ -46,27 +46,18 @@ export function extractAndParseLLMJson(rawText = '') {
 }
 
 function extractHeuristicFields(text = '') {
-  const result = {
-    criteria_breakdown: { anrede: 2, lp1: 2, lp2: 2, lp3: 2, gruss: 2 },
-    grammar_errors: [],
-    feedback_summary: ''
-  };
+  // 1. Try extracting single-enum coverage for Stage 2 arbitration
+  const covMatch = text.match(/"coverage"\s*:\s*"([a-zA-Z0-9_]+)"/i);
+  if (covMatch) {
+    return { coverage: covMatch[1].toLowerCase() };
+  }
 
-  // Match numbers for anrede, lp1..3, gruss
-  const anredeM = text.match(/"anrede"\s*:\s*(\d)/i);
-  const lp1M = text.match(/"lp1"\s*:\s*(\d)/i);
-  const lp2M = text.match(/"lp2"\s*:\s*(\d)/i);
-  const lp3M = text.match(/"lp3"\s*:\s*(\d)/i);
-  const grussM = text.match(/"gruss"\s*:\s*(\d)/i);
+  // 2. Try extracting feedback summary for Stage 4
+  const fbMatch = text.match(/"feedback"\s*:\s*"([^"]+)"/i);
+  if (fbMatch) {
+    return { feedback: fbMatch[1].trim() };
+  }
 
-  if (anredeM) result.criteria_breakdown.anrede = parseInt(anredeM[1], 10);
-  if (lp1M) result.criteria_breakdown.lp1 = parseInt(lp1M[1], 10);
-  if (lp2M) result.criteria_breakdown.lp2 = parseInt(lp2M[1], 10);
-  if (lp3M) result.criteria_breakdown.lp3 = parseInt(lp3M[1], 10);
-  if (grussM) result.criteria_breakdown.gruss = parseInt(grussM[1], 10);
-
-  const fbM = text.match(/"feedback_summary"\s*:\s*"([^"]+)"/i);
-  if (fbM) result.feedback_summary = fbM[1];
-
-  return result;
+  // Unsalvageable damaged output: return null so caller falls back to deterministic score
+  return null;
 }
