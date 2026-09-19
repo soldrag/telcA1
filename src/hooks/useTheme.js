@@ -23,20 +23,22 @@ function applyThemeColor(resolved) {
   }
 }
 
+function applyStatusBarMeta(resolved) {
+  const statusBarStyle = resolved === 'dark' ? 'black-translucent' : 'default';
+  const meta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+  if (meta) {
+    meta.setAttribute('content', statusBarStyle);
+  }
+}
+
 function applyResolvedTheme(resolved) {
   const root = document.documentElement;
-  if (resolved === 'dark') {
-    root.classList.add('dark');
-    root.classList.remove('light');
-    root.style.colorScheme = 'dark';
-    root.style.backgroundColor = '#0f172a';
-  } else {
-    root.classList.remove('dark');
-    root.classList.add('light');
-    root.style.colorScheme = 'light';
-    root.style.backgroundColor = '#f1f5f9';
-  }
+  const isDark = resolved === 'dark';
+  root.classList.toggle('dark', isDark);
+  root.classList.toggle('light', !isDark);
+  root.style.colorScheme = isDark ? 'dark' : 'light';
   applyThemeColor(resolved);
+  applyStatusBarMeta(resolved);
 }
 
 export function useTheme() {

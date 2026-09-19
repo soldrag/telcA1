@@ -18,7 +18,7 @@
   --border-default: #cbd5e1;
   --border-subtle: #e2e8f0;
   --border-strong: #0f172a;
-  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-bg: #ffffff;
   --scrollbar-track: #f1f5f9;
   --scrollbar-thumb: #cbd5e1;
   --scrollbar-thumb-hover: #94a3b8;
@@ -64,7 +64,7 @@
   --border-default: #334155;   /* slate-700 */
   --border-subtle: #1e293b;    /* slate-800 */
   --border-strong: #64748b;    /* slate-500 */
-  --header-bg: rgba(15, 23, 42, 0.92);
+  --header-bg: #0f172a;
   --scrollbar-track: #0f172a;
   --scrollbar-thumb: #334155;
   --scrollbar-thumb-hover: #475569;
@@ -124,12 +124,10 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Opaque frosted sticky header with safe-area support for iOS notch/Dynamic Island */
+/* Solid sticky header with safe-area support for iOS notch/Dynamic Island */
 header.app-header {
   padding-top: env(safe-area-inset-top, 0px);
   background-color: var(--header-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 /* Footer bottom safe-area spacing for home indicator */
