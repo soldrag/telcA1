@@ -20,18 +20,15 @@
     <meta property="og:description" content="Бесплатный онлайн-тренажёр telc A1 Lesen: 10 вариантов, таймер 25 минут, подсчёт баллов и подробные объяснения к каждому заданию на русском языке." />
     <meta property="og:type" content="website" />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f1f5f9" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" />
+    <meta name="theme-color" content="#0f172a" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="telc A1" />
     <style>
-      html { background-color: #f1f5f9; color-scheme: light; }
-      @media (prefers-color-scheme: dark) {
-        html:not([data-theme="light"]) { background-color: #0f172a; color-scheme: dark; }
-      }
-      html.dark { background-color: #0f172a; color-scheme: dark; }
+      html { background-color: #0f172a; color-scheme: dark; }
+      html.light { background-color: #f1f5f9; color-scheme: light; }
+      body { background-color: inherit; }
     </style>
     <script type="module" src="/src/theme-init.js"></script>
     <link rel="preload" href="./fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>

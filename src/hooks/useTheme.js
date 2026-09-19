@@ -10,18 +10,30 @@ function sanitizeTheme(val) {
 function applyThemeColor(resolved) {
   const color = resolved === 'dark' ? '#0f172a' : '#f1f5f9';
   const metaTags = document.querySelectorAll('meta[name="theme-color"]');
-  metaTags.forEach((tag) => {
-    tag.setAttribute('content', color);
-  });
+  if (metaTags.length > 0) {
+    metaTags.forEach((tag) => {
+      tag.removeAttribute('media');
+      tag.setAttribute('content', color);
+    });
+  } else {
+    const meta = document.createElement('meta');
+    meta.setAttribute('name', 'theme-color');
+    meta.setAttribute('content', color);
+    document.head.appendChild(meta);
+  }
 }
 
 function applyResolvedTheme(resolved) {
   const root = document.documentElement;
   if (resolved === 'dark') {
     root.classList.add('dark');
+    root.classList.remove('light');
+    root.style.colorScheme = 'dark';
     root.style.backgroundColor = '#0f172a';
   } else {
     root.classList.remove('dark');
+    root.classList.add('light');
+    root.style.colorScheme = 'light';
     root.style.backgroundColor = '#f1f5f9';
   }
   applyThemeColor(resolved);
