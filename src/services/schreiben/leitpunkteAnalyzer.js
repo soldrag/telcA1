@@ -9,6 +9,7 @@ import { stemGermanWord } from './linguistic/germanStemmer.js';
 import { tagTokens } from './linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
+import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
 
 function extractStems(str = '') {
   return str
@@ -67,6 +68,15 @@ function evaluateFrameConstraints(targetSentence = '', criterion = {}) {
 
 function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', criterion = {}) {
   const evalText = targetSentence || fullText;
+  if (!evalText) {
+    return { score: 0, matched: false, detail: 'Inhaltspunkt nicht gefunden', frameErrors: [] };
+  }
+
+  const inversion = detectSemanticInversion(evalText, criterion);
+  if (inversion.isInverted) {
+    return { score: 0, matched: false, detail: 'Inhaltspunkt invertiert oder abgelehnt', frameErrors: [] };
+  }
+
   const stems = extractStems(evalText);
   const stemResult = evaluateStemMatches(stems, criterion);
 
@@ -99,7 +109,7 @@ export function analyzeLeitpunkte(text = '', criteria = [], segments = null) {
     const assigned = segments?.leitpunkte?.[index]?.userSentence;
     const targetSentence = (assigned && assigned !== 'Kein Satz im Text gefunden') ? assigned : '';
 
-    const evalRes = evaluateCriterionWithGrounding(targetSentence, text, criterion);
+    const evalRes = evaluateCriterionWithGrounding(targetSentence, segments ? '' : text, criterion);
     totalScore += evalRes.score;
 
     if (evalRes.frameErrors?.length > 0) {
