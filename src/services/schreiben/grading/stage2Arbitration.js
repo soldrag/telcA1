@@ -5,7 +5,7 @@
 
 import { LEITPUNKT_COVERAGE_SCHEMA } from './types.js';
 import { executeQwen3Prompt } from './qwen3Service.js';
-import { coverageToPoints } from './stage2Leitpunkte.js';
+import { coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
 import { buildArbiterPrompt } from './prompts.js';
 
 export { buildArbiterPrompt };
@@ -21,9 +21,8 @@ export async function arbitrateGrayZone({ lpLabel, relevantSentences, baselineSc
       engine: qwenEngine
     });
     const rawScore = coverageToPoints(result?.coverage, baselineScore);
-    const finalScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
-    const isProtected = baselineScore >= 1 && rawScore < baselineScore;
-    return { score: finalScore, arbitrated: finalScore !== baselineScore || isProtected, coverage: result?.coverage };
+    const { score: finalScore, isProtected } = applyConfidenceFloor(baselineScore, rawScore);
+    return { score: finalScore, arbitrated: finalScore !== baselineScore || isProtected };
   } catch (err) {
     console.warn('[Stage2Arbitration] Fallback to algorithmic score:', err?.message || err);
     return { score: baselineScore, arbitrated: false };

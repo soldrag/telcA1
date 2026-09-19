@@ -3,7 +3,7 @@
  * Extracts sentence embeddings scoring and candidate error gathering from the main pipeline orchestrator.
  */
 
-import { evaluateCriterionKeywords, isScoreInGrayZone, coverageToPoints } from './stage2Leitpunkte.js';
+import { evaluateCriterionKeywords, isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
 import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { filterCandidateErrors } from './stage3Grammar.js';
@@ -24,8 +24,7 @@ async function arbitrateLeitpunkt(criterion, relevantSentences, baselineScore, p
   try {
     const res = await provider.classifyCoverage(criterion, relevantSentences);
     const rawScore = coverageToPoints(res?.coverage, baselineScore);
-    const guardedScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
-    const isProtected = baselineScore >= 1 && rawScore < baselineScore;
+    const { score: guardedScore, isProtected } = applyConfidenceFloor(baselineScore, rawScore);
     return { score: guardedScore, arbitrated: guardedScore !== baselineScore || isProtected };
   } catch (err) {
     console.warn('[PipelineStageScorers] LP arbitration skipped on error:', err?.message || err);
@@ -71,31 +70,21 @@ function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
   return { penalty, frameErrors, inversionInfo };
 }
 
-async function scoreCriterionItem({
-  crit,
-  critIdx = 0,
-  bodySentences,
-  sentenceVectors,
-  customExtractor,
-  provider,
-  userSegments = null,
-}) {
-  const lpText = crit.label || crit.id;
+async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments }) {
   const kw = evaluateCriterionKeywords(bodySentences, crit);
   let bestSim = 0;
   const relSentences = [...kw.relevantSentences];
 
   const assigned = userSegments?.leitpunkte?.[critIdx]?.userSentence;
-  if (assigned && assigned !== 'Kein Satz im Text gefunden') {
-    const segSentences = splitGermanSentences(assigned);
-    for (const s of segSentences) {
-      if (!relSentences.includes(s)) relSentences.push(s);
-    }
+  const segSentences = userSegments?.leitpunkte?.[critIdx]?.sentences
+    || (assigned && assigned !== 'Kein Satz im Text gefunden' ? splitGermanSentences(assigned) : []);
+  for (const s of segSentences) {
+    if (!relSentences.includes(s)) relSentences.push(s);
   }
 
   if (sentenceVectors.length > 0) {
     try {
-      const lpVec = await getCachedLpEmbedding(crit.id, lpText, customExtractor);
+      const lpVec = await getCachedLpEmbedding(crit.id, crit.label || crit.id, customExtractor);
       bodySentences.forEach((s, i) => {
         const sVec = sentenceVectors[i];
         const sim = sVec && lpVec ? cosineSimilarity(lpVec, sVec) : 0;
@@ -107,16 +96,23 @@ async function scoreCriterionItem({
     }
   }
 
-  const frameCheck = checkRelevantSentencesFrame(relSentences, crit);
   const kwSim = kw.score === 2 ? 0.75 : (kw.score === 1 ? 0.50 : 0.20);
   const effectiveSim = Math.max(bestSim, kwSim);
-  let baseScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
+  return { relSentences, effectiveSim };
+}
 
-  if (frameCheck.penalty >= 2) {
-    baseScore = 0;
-  } else if (frameCheck.penalty === 1) {
-    baseScore = Math.min(baseScore, 1);
-  }
+function calculateBaseScore(effectiveSim, framePenalty) {
+  if (framePenalty >= 2) return 0;
+  const rawScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
+  return framePenalty === 1 ? Math.min(rawScore, 1) : rawScore;
+}
+
+async function scoreCriterionItem(params) {
+  const { crit, provider } = params;
+  const lpText = crit.label || crit.id;
+  const { relSentences, effectiveSim } = await gatherCriterionEvidence(params);
+  const frameCheck = checkRelevantSentencesFrame(relSentences, crit);
+  const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
 
   let finalScore = baseScore;
   let arbitrated = false;

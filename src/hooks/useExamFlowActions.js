@@ -106,16 +106,21 @@ export function useExamFlowActions({
     navigateTo('exam');
   }, [session, navigateTo]);
 
+function tryExitSpecialMode(assignmentMode, reviewMode) {
+  if (assignmentMode?.isAssignmentMode) {
+    assignmentMode.exitAssignment();
+    return true;
+  }
+  if (reviewMode?.isTeacherReview) {
+    reviewMode.exitReview();
+    return true;
+  }
+  return false;
+}
+
   const leaveExam = useCallback(() => {
     modals.closeLeaveModal();
-    if (assignmentMode?.isAssignmentMode) {
-      assignmentMode.exitAssignment();
-      return;
-    }
-    if (reviewMode?.isTeacherReview) {
-      reviewMode.exitReview();
-      return;
-    }
+    if (tryExitSpecialMode(assignmentMode, reviewMode)) return;
     session.resetSession();
     navigateTo('welcome');
   }, [session, modals, assignmentMode, reviewMode, navigateTo]);
@@ -143,15 +148,7 @@ export function useExamFlowActions({
       return;
     }
 
-    if (assignmentMode?.isAssignmentMode) {
-      assignmentMode.exitAssignment();
-      return;
-    }
-
-    if (reviewMode?.isTeacherReview) {
-      reviewMode.exitReview();
-      return;
-    }
+    if (tryExitSpecialMode(assignmentMode, reviewMode)) return;
 
     if (session.isInspection || session.isSubmitted) {
       session.resetSession();
