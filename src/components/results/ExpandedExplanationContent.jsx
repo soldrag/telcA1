@@ -76,22 +76,44 @@ export default function ExpandedExplanationContent({ item, onScoreChange }) {
   const vocabularyList = item.vocabulary_notes || live?.vocabulary_notes;
   const explanation = resolveExplanation(item, language, live);
 
+  const isEssay = options?.type === 'essay';
+
   return (
     <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-border-default bg-surface-card rounded-b-2xl space-y-4">
-      {options?.type === 'essay' ? (
-        <SchreibenSelfCheck item={item} onScoreChange={onScoreChange} />
+      {isEssay ? (
+        <>
+          <SchreibenSelfCheck item={item} onScoreChange={onScoreChange} />
+          {vocabularyList && vocabularyList.length > 0 && (
+            <div className="bg-surface-inset rounded-xl p-3 border border-border-default">
+              <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-content-secondary mb-2">
+                <BookOpen className="w-4 h-4 text-action-primary" />
+                <span>{t('results.usefulWords')}</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                {vocabularyList.map((entry, index) => (
+                  <div key={index} className="bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle text-xs">
+                    <span className="font-bold text-content-primary">{entry.word}</span>
+                    <span className="text-content-muted mx-1">—</span>
+                    <span className="text-content-secondary">{resolveWordTranslation(entry, language, live?.vocabulary_notes)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       ) : (
-        <ReviewTaskPrompt item={item} />
+        <>
+          <ReviewTaskPrompt item={item} />
+          <PedagogicalFeedback
+            item={item}
+            explanation={explanation}
+            vocabularyList={vocabularyList}
+            language={language}
+            live={live}
+            t={t}
+          />
+        </>
       )}
-
-      <PedagogicalFeedback
-        item={item}
-        explanation={explanation}
-        vocabularyList={vocabularyList}
-        language={language}
-        live={live}
-        t={t}
-      />
     </div>
   );
 }

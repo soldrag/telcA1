@@ -4371,6 +4371,54 @@
       "isProperName": true
     }
   ],
+  "kaputt": [
+    {
+      "pos": "ADJ",
+      "lemma": "kaputt"
+    }
+  ],
+  "perfekt": [
+    {
+      "pos": "ADJ",
+      "lemma": "perfekt"
+    }
+  ],
+  "funktionieren": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "funktionieren",
+      "valency": "INTRANS"
+    }
+  ],
+  "funktioniert": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "funktionieren",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "reparieren": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "reparieren",
+      "valency": "TRANS"
+    }
+  ],
+  "repariert": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reparieren",
+      "valency": "TRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
   "neu": [
     {
       "pos": "ADJ",
