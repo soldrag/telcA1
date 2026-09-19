@@ -4,6 +4,7 @@ const CACHE_NAME = `telc-a1-shell-${CACHE_VERSION}`;
 const PRECACHE_ASSETS = [
   './',
   './index.html',
+  './theme-init.js',
   './manifest.webmanifest',
   './favicon.ico',
   './favicon.svg',

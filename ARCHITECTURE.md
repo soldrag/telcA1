@@ -96,6 +96,12 @@ graph TD
 ### 3.3 Interface Contracts & Contract Guard
 Core ports and adapters declare formal contract specifications in `src/contracts/` (`timerContract`, `sessionContract`, `loaderContract`, `assignmentContract`, and `screenContracts`). At build time, `scripts/verify-contracts.js` statically verifies method invocations and screen DTO completeness, aborting the build on any contract drift.
 
+### 3.4 Theme Initialization & Zero-FOUC Architecture
+To eliminate white canvas flashing (FOUC / FART) upon desktop browser reload:
+- `<meta name="color-scheme" content="dark light" />` placed in `<head>` immediately initializes the Chromium/WebKit document canvas to dark mode.
+- Synchronous render-blocking script `public/theme-init.js` (`<script src="./theme-init.js"></script>`) resolves `localStorage` and `prefers-color-scheme` before the initial layout paint, toggling `.dark`/`.light` and setting `root.style.colorScheme`.
+- Static and CSP-compliant (`script-src 'self'`), without asynchronous module bundling delays.
+
 ---
 
 ## 4. Storage & State Abstraction
