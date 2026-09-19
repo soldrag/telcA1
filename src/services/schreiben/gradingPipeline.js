@@ -82,6 +82,11 @@ function assembleGradingResult({
       lp3: stage2.items[2]?.score ?? 0,
       gruss: stage1.grussScore,
       items: stage2.items,
+      diagnostic: {
+        anrede: stage1.anrede,
+        gruss: stage1.gruss,
+        items: stage2.items,
+      },
     },
     grammar_errors: errors,
     grammar_penalty: grammarPenalty,

@@ -52,9 +52,9 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
     aiStatus,
     aiDiffSummary,
     feedbackSummary,
+    liveCriteriaBreakdown,
     handleRunAi,
     providerId,
-    isLimitedMode,
   } = useSchreibenAiChecker({
     item,
     scores,
@@ -140,6 +140,9 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
           calculatedScore={calculatedScore}
           grammarPenalty={grammarPenalty}
           currentErrorsCount={currentErrorsCount}
+          diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}
+          language={language}
+          t={t}
         />
 
         {/* Adaptive Client AI Assistant - Available on all devices */}

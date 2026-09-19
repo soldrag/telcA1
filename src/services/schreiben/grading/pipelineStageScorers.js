@@ -14,6 +14,7 @@ import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
+import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 
 async function arbitrateLeitpunkt(criterion, relevantSentences, baselineScore, provider) {
   if (!relevantSentences || !provider || provider.id === PROVIDER_IDS.NONE) {
@@ -44,10 +45,12 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
 function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
   let penalty = 0;
   const frameErrors = [];
+  let inversionInfo = { isInverted: false };
   for (const s of sentences) {
     const pol = detectSemanticInversion(s, criterion);
     if (pol.isInverted) {
       penalty = Math.max(penalty, 2);
+      inversionInfo = pol;
     }
 
     const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
@@ -62,7 +65,7 @@ function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
       frameErrors.push(...res.errors);
     }
   }
-  return { penalty, frameErrors };
+  return { penalty, frameErrors, inversionInfo };
 }
 
 async function scoreCriterionItem({ crit, bodySentences, sentenceVectors, customExtractor, provider }) {
@@ -104,12 +107,16 @@ async function scoreCriterionItem({ crit, bodySentences, sentenceVectors, custom
     arbitrated = arb.arbitrated;
   }
 
+  const diagnosticCode = resolveLpDiagnosticCode(finalScore, frameCheck.inversionInfo, frameCheck.penalty === 0);
+
   return {
     id: crit.id,
     label: lpText,
     score: finalScore,
     baselineScore: baseScore,
     arbitrated,
+    diagnosticCode,
+    matchedSentence: relSentences[0] || '',
     frameErrors: frameCheck.frameErrors
   };
 }

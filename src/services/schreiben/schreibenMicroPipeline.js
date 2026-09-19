@@ -119,7 +119,9 @@ export async function runSchreibenMicroPipeline({
     criteria_breakdown: toCriteriaBreakdown({
       salutationScore: salutation.score,
       leitpunkteItems: resolvedItems,
-      closingScore: closing.score
+      closingScore: closing.score,
+      salutation,
+      closing
     }),
     breakdown: {
       anrede: salutation.score,

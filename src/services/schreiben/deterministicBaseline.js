@@ -63,12 +63,24 @@ export function runDeterministicBaseline(text = '', criteria = []) {
   };
 }
 
-export function toCriteriaBreakdown({ salutationScore = 0, leitpunkteItems = [], closingScore = 0 }) {
+export function toCriteriaBreakdown({
+  salutationScore = 0,
+  leitpunkteItems = [],
+  closingScore = 0,
+  salutation = null,
+  closing = null
+}) {
   return {
     anrede: salutationScore ?? 0,
     lp1: leitpunkteItems[0]?.score ?? 0,
     lp2: leitpunkteItems[1]?.score ?? 0,
     lp3: leitpunkteItems[2]?.score ?? 0,
-    gruss: closingScore ?? 0
+    gruss: closingScore ?? 0,
+    items: leitpunkteItems,
+    diagnostic: {
+      anrede: salutation,
+      gruss: closing,
+      items: leitpunkteItems
+    }
   };
 }
