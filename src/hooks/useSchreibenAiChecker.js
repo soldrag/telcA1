@@ -40,6 +40,7 @@ export function useSchreibenAiChecker({
   const [aiDiffSummary, setAiDiffSummary] = useState([]);
   const [feedbackSummary, setFeedbackSummary] = useState('');
   const [activeProvider, setActiveProvider] = useState(null);
+  const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
 
   useEffect(() => {
     let isMounted = true;
@@ -100,6 +101,7 @@ export function useSchreibenAiChecker({
         if (aiResult.feedback_summary) {
           setFeedbackSummary(aiResult.feedback_summary);
         }
+        setLiveCriteriaBreakdown(aiResult.criteria_breakdown);
 
         if (aiResult.is_limited_mode) {
           setAiStatus(language === 'ru'
@@ -127,6 +129,7 @@ export function useSchreibenAiChecker({
     aiStatus,
     aiDiffSummary,
     feedbackSummary,
+    liveCriteriaBreakdown,
     handleRunAi,
     activeProvider,
     providerId: activeProvider?.id || PROVIDER_IDS.NONE,

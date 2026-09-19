@@ -10,6 +10,7 @@ import { tagTokens } from './linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
+import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
 
 function extractStems(str = '') {
   return str
@@ -69,12 +70,13 @@ function evaluateFrameConstraints(targetSentence = '', criterion = {}) {
 function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', criterion = {}) {
   const evalText = targetSentence || fullText;
   if (!evalText) {
-    return { score: 0, matched: false, detail: 'Inhaltspunkt nicht gefunden', frameErrors: [] };
+    return { score: 0, matched: false, detail: 'Inhaltspunkt nicht gefunden', diagnosticCode: 'LP_MISSING', frameErrors: [] };
   }
 
   const inversion = detectSemanticInversion(evalText, criterion);
   if (inversion.isInverted) {
-    return { score: 0, matched: false, detail: 'Inhaltspunkt invertiert oder abgelehnt', frameErrors: [] };
+    const diagnosticCode = resolveLpDiagnosticCode(0, inversion, true);
+    return { score: 0, matched: false, detail: 'Inhaltspunkt invertiert oder abgelehnt', diagnosticCode, frameErrors: [] };
   }
 
   const stems = extractStems(evalText);
@@ -93,10 +95,12 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
     detail = frameResult.errors.map(e => e.explanation).join(' ');
   }
 
+  const diagnosticCode = resolveLpDiagnosticCode(finalScore, inversion, frameResult.isValid);
   return {
     score: finalScore,
     matched: finalScore > 0,
     detail,
+    diagnosticCode,
     frameErrors: frameResult.errors
   };
 }
@@ -123,7 +127,9 @@ export function analyzeLeitpunkte(text = '', criteria = [], segments = null) {
       score: evalRes.score,
       maxScore: 2,
       matched: evalRes.matched,
-      detail: evalRes.detail
+      detail: evalRes.detail,
+      diagnosticCode: evalRes.diagnosticCode,
+      matchedSentence: targetSentence
     };
   });
 

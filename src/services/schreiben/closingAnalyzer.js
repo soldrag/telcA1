@@ -1,5 +1,6 @@
 import { evaluateClosing } from './analyzers/communicationRegister.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
+import { DIAGNOSTIC_CODES } from './feedback/feedbackContracts.js';
 
 export function analyzeClosing(text = '', options = {}) {
   const trimmed = (text || '').trim();
@@ -26,9 +27,16 @@ export function analyzeClosing(text = '', options = {}) {
   } else if (/,\s*$/m.test(res.text) || /\b(liebe\s+grüße|mit\s+freundlichen\s+grüßen|viele\s+grüße|herzliche\s+grüße|schöne\s+grüße),/i.test(text)) {
     grammarNote = 'Zeichensetzung: Im Deutschen steht nach Grußformeln kein Komma (anders als im Englischen).';
   }
+
+  const score = Number(res.score ?? 0);
+  const diagnosticCode = score >= 2
+    ? DIAGNOSTIC_CODES.GRUSS_PERFECT
+    : (score === 1 ? DIAGNOSTIC_CODES.GRUSS_INCOMPLETE : DIAGNOSTIC_CODES.GRUSS_MISSING);
+
   return {
     ...res,
     grammarNote,
+    diagnosticCode,
     recognized: res.score > 0
   };
 }
