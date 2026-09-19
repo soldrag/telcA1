@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
+// Synchronized with public/theme-init.js (STORAGE_KEY and theme colors)
 const STORAGE_KEY = 'telc_app_theme';
 
 function sanitizeTheme(val) {
