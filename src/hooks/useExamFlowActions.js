@@ -5,6 +5,18 @@ function getExamDurationSeconds(details) {
   return (details?.exam?.time_limit_minutes || 25) * 60;
 }
 
+function tryExitSpecialMode(assignmentMode, reviewMode) {
+  if (assignmentMode?.isAssignmentMode) {
+    assignmentMode.exitAssignment();
+    return true;
+  }
+  if (reviewMode?.isTeacherReview) {
+    reviewMode.exitReview();
+    return true;
+  }
+  return false;
+}
+
 export function useExamFlowActions({
   screen,
   loader,
@@ -105,18 +117,6 @@ export function useExamFlowActions({
     session.retakeMistakes();
     navigateTo('exam');
   }, [session, navigateTo]);
-
-function tryExitSpecialMode(assignmentMode, reviewMode) {
-  if (assignmentMode?.isAssignmentMode) {
-    assignmentMode.exitAssignment();
-    return true;
-  }
-  if (reviewMode?.isTeacherReview) {
-    reviewMode.exitReview();
-    return true;
-  }
-  return false;
-}
 
   const leaveExam = useCallback(() => {
     modals.closeLeaveModal();

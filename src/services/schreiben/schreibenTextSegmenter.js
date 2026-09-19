@@ -15,8 +15,7 @@ function assignSentencesToCriteria(sentences = [], criteria = []) {
     return assignments;
   }
 
-  const firstMatched = rawMatches.find(m => m.bestIdx !== -1 && m.score > 0);
-  let currentIdx = firstMatched.bestIdx;
+  let currentIdx = -1;
 
   for (let i = 0; i < sentences.length; i++) {
     const match = rawMatches[i];
