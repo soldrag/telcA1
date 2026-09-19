@@ -252,6 +252,11 @@ export const ru = {
     taskLeitpunkte: 'Пункты плана',
     taskStatement: 'Утверждение / Вопрос',
     taskTargetField: 'Поле формуляра',
+    assignmentSubmissionBadge: 'Домашнее задание сдано',
+    assignmentSubmissionTitle: 'Задание выполнено и зафиксировано!',
+    assignmentSubmissionDesc: 'Ваш результат сохранен. Скопируйте ссылку ниже и отправьте её преподавателю для проверки.',
+    copySubmissionLink: 'Скопировать ссылку для учителя',
+    submissionLinkCopied: 'Ссылка для учителя скопирована!',
     teacherAudit: {
       validSignature: 'Подлинность подтверждена: подписано вашей печатью учителя',
       tamperedSignature: 'Внимание: подпись не совпадает (возможно, задание сгенерировано учеником)',

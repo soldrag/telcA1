@@ -84,6 +84,9 @@ export function useExamFlowActions({
     try {
       const data = await storage.getAttemptById(attemptId);
       if (!data?.results) return;
+      if (data.exam_id && (!loader.examData || loader.examData.exam?.id !== data.exam_id)) {
+        await loader.loadExamById(data.exam_id);
+      }
       loader.selectExam(data.exam_id);
       session.loadPastAttempt(data);
       navigateTo('results');

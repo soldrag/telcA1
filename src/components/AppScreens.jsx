@@ -23,8 +23,15 @@ export default function AppScreens({
   if (screen === 'history') {
     return <HistoryView {...historyProps} />;
   }
-  if (screen === 'results' && resultsProps?.results) {
-    return <ResultsView {...resultsProps} />;
+  if (screen === 'results') {
+    if (resultsProps?.results) {
+      return <ResultsView {...resultsProps} />;
+    }
+    return (
+      <div className="flex items-center justify-center min-h-[40vh]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-action-primary" />
+      </div>
+    );
   }
   if (screen === 'exam' && (examProps?.examConfig || examProps?.examData)) {
     return <ExamView {...examProps} />;

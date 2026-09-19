@@ -76,6 +76,6 @@ export const screenContracts = {
   assignment: ['isAssignmentMode', 'assignmentData', 'lockoutState', 'onStart', 'onExit'],
   welcome: ['examState', 'navigation', 'actions', 'onOpenCreateAssignment', 'onProcessReview', 'onOpenTask'],
   exam: ['isLoading', 'examConfig', 'session', 'timer', 'onOpenSubmitConfirm', 'isInspection', 'onExitInspection'],
-  results: ['results', 'onResetExam', 'onRetakeMistakes', 'onOpenHistory', 'onShareResult', 'isTeacherReview', 'onExitReview'],
+  results: ['results', 'onResetExam', 'onRetakeMistakes', 'onOpenHistory', 'onShareResult', 'isTeacherReview', 'onExitReview', 'assignmentSubmission'],
   history: ['navigation', 'actions', 'state'],
 };

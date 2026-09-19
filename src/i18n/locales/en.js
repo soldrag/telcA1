@@ -252,6 +252,11 @@ export const en = {
     taskLeitpunkte: 'Guide Points',
     taskStatement: 'Statement / Question',
     taskTargetField: 'Form Field',
+    assignmentSubmissionBadge: 'Assignment Submitted',
+    assignmentSubmissionTitle: 'Assignment Completed & Recorded!',
+    assignmentSubmissionDesc: 'Your result has been saved. Copy the link below and send it to your teacher for review.',
+    copySubmissionLink: 'Copy Link for Teacher',
+    submissionLinkCopied: 'Teacher link copied!',
     teacherAudit: {
       validSignature: 'Authenticity verified: signed with your teacher key',
       tamperedSignature: 'Signature mismatch: task was generated without your key (possible student forgery)',
