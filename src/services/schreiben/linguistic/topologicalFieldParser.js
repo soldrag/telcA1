@@ -86,7 +86,7 @@ function checkSatzklammer(finVerb = {}, mittelfeld = []) {
   return errors;
 }
 
-function parseClause(tokens = [], isCoordinated = false, precedingSubject = null, rawText = '') {
+function parseClause(tokens = [], isCoordinated = false, precedingSubject = null, rawText = '', inSubordinateScope = false) {
   if (tokens[0]?.pos === 'KONJ_SUB' || /^(weil|dass|wenn|ob)$/i.test(tokens[0]?.raw || '')) {
     return { type: 'SUBORDINATE_CLAUSE', tokens, errors: [] };
   }
@@ -98,6 +98,14 @@ function parseClause(tokens = [], isCoordinated = false, precedingSubject = null
     }
     const fragmentError = checkVerblessClause(tokens, rawText);
     return { type: 'FRAGMENT', tokens, errors: fragmentError ? [fragmentError] : [] };
+  }
+
+  // Coordinated subordinate clause (e.g. "..., weil A und B ist")
+  if (isCoordinated && inSubordinateScope) {
+    const isVerbFinal = finVerbIdx >= tokens.length - 2;
+    if (isVerbFinal) {
+      return { type: 'COORDINATED_SUBORDINATE_CLAUSE', tokens, errors: [] };
+    }
   }
 
   const finVerb = tokens[finVerbIdx];
@@ -141,6 +149,7 @@ export function parseSentenceTopology(sentenceStr = '') {
   const parsedClauses = [];
   const allErrors = [];
   let lastSubject = null;
+  let inSubordinateScope = false;
 
   for (let i = 0; i < rawClauses.length; i++) {
     const clauseText = rawClauses[i].trim();
@@ -148,10 +157,19 @@ export function parseSentenceTopology(sentenceStr = '') {
 
     const words = splitIntoWords(clauseText);
     const isCoordinated = i > 0 && /^(und|aber|oder|denn)\b/i.test(words[0]);
+    const coordWord = isCoordinated ? words[0].toLowerCase() : '';
     const activeWords = isCoordinated ? words.slice(1) : words;
 
+    if (coordWord === 'aber' || coordWord === 'denn') {
+      inSubordinateScope = false;
+    }
+
     const tagged = tagTokens(activeWords);
-    const parsed = parseClause(tagged, isCoordinated, lastSubject, clauseText);
+    const parsed = parseClause(tagged, isCoordinated, lastSubject, clauseText, inSubordinateScope);
+
+    if (parsed.type === 'SUBORDINATE_CLAUSE') {
+      inSubordinateScope = true;
+    }
 
     if (parsed.vorfeld) {
       const subj = tagged.find(t => t.pos === 'PRON_SUBJ');

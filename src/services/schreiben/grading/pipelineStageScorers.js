@@ -10,6 +10,7 @@ import { filterCandidateErrors } from './stage3Grammar.js';
 import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
 import { tagTokens } from '../linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
+import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
@@ -44,6 +45,11 @@ function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
   let penalty = 0;
   const frameErrors = [];
   for (const s of sentences) {
+    const pol = detectSemanticInversion(s, criterion);
+    if (pol.isInverted) {
+      penalty = Math.max(penalty, 2);
+    }
+
     const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
     const tagged = tagTokens(words);
     const res = validateSentenceFrame({

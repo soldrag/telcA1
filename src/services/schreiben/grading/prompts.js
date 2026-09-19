@@ -23,13 +23,17 @@ Task point: "Kosten"
 Student sentences: "Ich habe keine Zeit."
 JSON: {"coverage":"no"}
 
+Task point: "Handwerker: Bitte um Reparatur"
+Student sentences: "Ich brauche keinen Handwerker. Bitte kommen Sie nicht vorbei."
+JSON: {"coverage":"no"}
+
 Task point: "${lpLabel}"
 Student sentences: "${relevantSentences}"
 
 Does the student address this task point?
 - "full": fully addressed (including question proposals like "Passt es Ihnen...?", "Geht es am...?")
 - "partial": partially addressed or one aspect mentioned
-- "no": not addressed at all
+- "no": not addressed at all, OR the student negates/refuses the task (e.g. says they do not need a repairman, or says there is no problem)
 Schema: {"coverage": "full" | "partial" | "no"}`;
 }
 

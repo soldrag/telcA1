@@ -15,6 +15,7 @@ import { getEmbedding } from './embeddingGemmaService.js';
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { tagTokens } from '../linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
+import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
@@ -38,7 +39,9 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };
 
   const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
-  const allWords = sentences
+  const affirmativeSentences = sentences.filter(s => !detectSemanticInversion(s, criterion).isInverted);
+
+  const allWords = affirmativeSentences
     .join(' ')
     .toLowerCase()
     .split(/\s+/)
@@ -55,7 +58,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   const req = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
   const threshold = Math.min(req, Math.max(1, critStems.length));
 
-  const relevantSentences = sentences.filter(s => {
+  const relevantSentences = affirmativeSentences.filter(s => {
     const sWords = s.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
     return critStems.some(c => sWords.includes(c));
   });
@@ -67,6 +70,11 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
 function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
   let penalty = 0;
   for (const s of sentences) {
+    const pol = detectSemanticInversion(s, criterion);
+    if (pol.isInverted) {
+      penalty = Math.max(penalty, 2);
+    }
+
     const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
     const tagged = tagTokens(words);
     const res = validateSentenceFrame({
