@@ -14,6 +14,7 @@ import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
+import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 
 async function arbitrateLeitpunkt(criterion, relevantSentences, baselineScore, provider) {
@@ -22,8 +23,10 @@ async function arbitrateLeitpunkt(criterion, relevantSentences, baselineScore, p
   }
   try {
     const res = await provider.classifyCoverage(criterion, relevantSentences);
-    const newScore = coverageToPoints(res?.coverage, baselineScore);
-    return { score: newScore, arbitrated: newScore !== baselineScore };
+    const rawScore = coverageToPoints(res?.coverage, baselineScore);
+    const guardedScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
+    const isProtected = baselineScore >= 1 && rawScore < baselineScore;
+    return { score: guardedScore, arbitrated: guardedScore !== baselineScore || isProtected };
   } catch (err) {
     console.warn('[PipelineStageScorers] LP arbitration skipped on error:', err?.message || err);
     return { score: baselineScore, arbitrated: false };
@@ -68,11 +71,27 @@ function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
   return { penalty, frameErrors, inversionInfo };
 }
 
-async function scoreCriterionItem({ crit, bodySentences, sentenceVectors, customExtractor, provider }) {
+async function scoreCriterionItem({
+  crit,
+  critIdx = 0,
+  bodySentences,
+  sentenceVectors,
+  customExtractor,
+  provider,
+  userSegments = null,
+}) {
   const lpText = crit.label || crit.id;
   const kw = evaluateCriterionKeywords(bodySentences, crit);
   let bestSim = 0;
   const relSentences = [...kw.relevantSentences];
+
+  const assigned = userSegments?.leitpunkte?.[critIdx]?.userSentence;
+  if (assigned && assigned !== 'Kein Satz im Text gefunden') {
+    const segSentences = splitGermanSentences(assigned);
+    for (const s of segSentences) {
+      if (!relSentences.includes(s)) relSentences.push(s);
+    }
+  }
 
   if (sentenceVectors.length > 0) {
     try {
@@ -121,18 +140,27 @@ async function scoreCriterionItem({ crit, bodySentences, sentenceVectors, custom
   };
 }
 
-export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor }) {
+export async function scorePipelineLeitpunkte({
+  criteria,
+  bodySentences,
+  provider,
+  customExtractor,
+  userSegments = null,
+}) {
   const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
   const items = [];
   const semanticErrors = [];
 
-  for (const crit of criteria) {
+  for (let idx = 0; idx < criteria.length; idx++) {
+    const crit = criteria[idx];
     const scoredItem = await scoreCriterionItem({
       crit,
+      critIdx: idx,
       bodySentences,
       sentenceVectors,
       customExtractor,
       provider,
+      userSegments,
     });
     items.push(scoredItem);
     if (scoredItem.frameErrors?.length > 0) {

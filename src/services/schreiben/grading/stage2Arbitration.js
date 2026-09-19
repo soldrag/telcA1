@@ -20,8 +20,10 @@ export async function arbitrateGrayZone({ lpLabel, relevantSentences, baselineSc
       maxTokens: 64,
       engine: qwenEngine
     });
-    const finalScore = coverageToPoints(result?.coverage, baselineScore);
-    return { score: finalScore, arbitrated: finalScore !== baselineScore, coverage: result?.coverage };
+    const rawScore = coverageToPoints(result?.coverage, baselineScore);
+    const finalScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
+    const isProtected = baselineScore >= 1 && rawScore < baselineScore;
+    return { score: finalScore, arbitrated: finalScore !== baselineScore || isProtected, coverage: result?.coverage };
   } catch (err) {
     console.warn('[Stage2Arbitration] Fallback to algorithmic score:', err?.message || err);
     return { score: baselineScore, arbitrated: false };

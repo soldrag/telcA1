@@ -49,12 +49,14 @@ export async function arbitrateSingleLeitpunkt({
 
     const parsed = extractAndParseLLMJson(rawResult);
     const coverage = parsed?.coverage || null;
-    const finalScore = coverageToScore(coverage, baselineScore);
+    const rawScore = coverageToScore(coverage, baselineScore);
+    const finalScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
+    const isProtected = baselineScore >= 1 && rawScore < baselineScore;
 
     return {
       score: finalScore,
       coverage,
-      arbitrated: finalScore !== baselineScore
+      arbitrated: finalScore !== baselineScore || isProtected
     };
   } catch (err) {
     console.warn('[LeitpunktArbitrator] Fallback for LP:', taskPoint, err?.message || err);

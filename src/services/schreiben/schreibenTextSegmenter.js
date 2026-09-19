@@ -4,6 +4,36 @@ import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { matchSentenceToCriteria } from './analyzers/semanticTopicMatcher.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 
+function assignSentencesToCriteria(sentences = [], criteria = []) {
+  const assignments = criteria.map(() => []);
+  if (sentences.length === 0 || criteria.length === 0) return assignments;
+
+  const rawMatches = sentences.map(s => matchSentenceToCriteria(s, criteria));
+  const hasAnyMatch = rawMatches.some(m => m.bestIdx !== -1 && m.score > 0);
+
+  if (!hasAnyMatch) {
+    sentences.forEach((s, i) => {
+      const targetIdx = Math.min(i, criteria.length - 1);
+      assignments[targetIdx].push(s);
+    });
+    return assignments;
+  }
+
+  const firstMatched = rawMatches.find(m => m.bestIdx !== -1 && m.score > 0);
+  let currentIdx = firstMatched.bestIdx;
+
+  for (let i = 0; i < sentences.length; i++) {
+    const match = rawMatches[i];
+    if (match.bestIdx !== -1 && match.score > 0) {
+      currentIdx = match.bestIdx;
+    }
+    if (currentIdx >= 0 && currentIdx < criteria.length) {
+      assignments[currentIdx].push(sentences[i]);
+    }
+  }
+  return assignments;
+}
+
 export function segmentUserEssay(rawText = '', criteria = []) {
   const text = (rawText || '').trim();
   if (!text) {
@@ -28,14 +58,7 @@ export function segmentUserEssay(rawText = '', criteria = []) {
   }
 
   const sentences = splitGermanSentences(body);
-  const assignments = criteria.map(() => []);
-
-  for (const sentence of sentences) {
-    const { bestIdx, score } = matchSentenceToCriteria(sentence, criteria);
-    if (bestIdx !== -1 && score > 0) {
-      assignments[bestIdx].push(sentence);
-    }
-  }
+  const assignments = assignSentencesToCriteria(sentences, criteria);
 
   const leitpunkteMatches = criteria.map((crit, idx) => {
     const matchedSentences = assignments[idx] || [];

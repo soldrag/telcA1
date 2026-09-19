@@ -14,6 +14,7 @@ export function useExamFlowActions({
   history,
   storage,
   assignmentMode,
+  reviewMode,
   navigateTo,
   showError,
 }) {
@@ -106,10 +107,18 @@ export function useExamFlowActions({
   }, [session, navigateTo]);
 
   const leaveExam = useCallback(() => {
-    session.resetSession();
     modals.closeLeaveModal();
+    if (assignmentMode?.isAssignmentMode) {
+      assignmentMode.exitAssignment();
+      return;
+    }
+    if (reviewMode?.isTeacherReview) {
+      reviewMode.exitReview();
+      return;
+    }
+    session.resetSession();
     navigateTo('welcome');
-  }, [session, modals, navigateTo]);
+  }, [session, modals, assignmentMode, reviewMode, navigateTo]);
 
   const inspectExam = useCallback(async (examId) => {
     session.resetSession();
@@ -131,13 +140,24 @@ export function useExamFlowActions({
   const navigateHome = useCallback(() => {
     if (screen === 'exam' && !session.isSubmitted && session.answeredCount > 0 && !session.isInspection) {
       modals.openLeaveModal();
-    } else {
-      if (session.isInspection || session.isSubmitted) {
-        session.resetSession();
-      }
-      navigateTo('welcome');
+      return;
     }
-  }, [screen, session, modals, navigateTo]);
+
+    if (assignmentMode?.isAssignmentMode) {
+      assignmentMode.exitAssignment();
+      return;
+    }
+
+    if (reviewMode?.isTeacherReview) {
+      reviewMode.exitReview();
+      return;
+    }
+
+    if (session.isInspection || session.isSubmitted) {
+      session.resetSession();
+    }
+    navigateTo('welcome');
+  }, [screen, session, modals, assignmentMode, reviewMode, navigateTo]);
 
   const resetExam = useCallback(() => {
     startExam({ timed: timer.isTimed });
