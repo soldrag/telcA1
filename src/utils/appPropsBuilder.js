@@ -91,6 +91,16 @@ function createSharePayload(controller) {
 }
 
 function buildResultsProps(controller) {
+  const isAssignment = controller.assignmentMode?.isAssignmentMode || false;
+  const assignmentSubmission = isAssignment
+    ? {
+        isAssignment: true,
+        assignmentData: controller.assignmentMode?.assignmentData || null,
+        lockoutState: controller.assignmentMode?.lockoutState || null,
+        onExitAssignment: controller.assignmentMode?.exitAssignment,
+      }
+    : null;
+
   return {
     results: controller.session.results,
     onResetExam: controller.resetExam,
@@ -103,6 +113,7 @@ function buildResultsProps(controller) {
     onVerifyWithKey: controller.reviewMode?.verifyWithCustomKey,
     onExitReview: controller.reviewMode?.exitReview,
     onUpdateItemScore: controller.session.updateItemScore,
+    assignmentSubmission,
   };
 }
 

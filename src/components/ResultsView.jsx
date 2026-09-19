@@ -4,6 +4,7 @@ import ResultsActionBar from './results/ResultsActionBar.jsx';
 import ResultsFilterBar from './results/ResultsFilterBar.jsx';
 import ResultsReviewCard from './results/ResultsReviewCard.jsx';
 import TeacherReviewBanner from './results/TeacherReviewBanner.jsx';
+import AssignmentSubmissionBanner from './results/AssignmentSubmissionBanner.jsx';
 
 export default function ResultsView({
   results,
@@ -17,6 +18,7 @@ export default function ResultsView({
   onVerifyWithKey,
   onExitReview,
   onUpdateItemScore,
+  assignmentSubmission = null,
 }) {
   const [filter, setFilter] = useState('all');
   const [expandedQuestions, setExpandedQuestions] = useState({});
@@ -41,8 +43,20 @@ export default function ResultsView({
     }
   };
 
+  const isAssignment = Boolean(assignmentSubmission?.isAssignment);
+  const shareSubmissionUrl = assignmentSubmission?.lockoutState?.shareUrl || null;
+  const studentName = assignmentSubmission?.assignmentData?.studentName || null;
+
   return (
     <div className="space-y-8 animate-fadeIn">
+      {isAssignment && shareSubmissionUrl && (
+        <AssignmentSubmissionBanner
+          studentName={studentName}
+          shareUrl={shareSubmissionUrl}
+          onExitAssignment={assignmentSubmission?.onExitAssignment}
+        />
+      )}
+
       {isTeacherReview && (
         <TeacherReviewBanner
           studentName={reviewStudentName}
@@ -61,6 +75,8 @@ export default function ResultsView({
         onOpenHistory={onOpenHistory}
         onShareResult={onShareResult}
         isTeacherReview={isTeacherReview}
+        isAssignment={isAssignment}
+        shareSubmissionUrl={shareSubmissionUrl}
       />
 
       <div className="bg-surface-card rounded-2xl border border-border-default p-4 sm:p-6 shadow-sm space-y-6">

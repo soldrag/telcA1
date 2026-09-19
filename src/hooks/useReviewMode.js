@@ -77,6 +77,9 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
     }
 
     try {
+      if (decoded.testType && loaderRef.current?.changeTestType) {
+        loaderRef.current.changeTestType(decoded.testType);
+      }
       await loaderRef.current?.loadExamById(decoded.examId);
       loaderRef.current?.selectExam(decoded.examId);
 

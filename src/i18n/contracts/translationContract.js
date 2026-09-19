@@ -253,6 +253,11 @@ export const TRANSLATION_CONTRACT = {
     taskLeitpunkte: 'string',
     taskStatement: 'string',
     taskTargetField: 'string',
+    assignmentSubmissionBadge: 'string',
+    assignmentSubmissionTitle: 'string',
+    assignmentSubmissionDesc: 'string',
+    copySubmissionLink: 'string',
+    submissionLinkCopied: 'string',
     teacherAudit: {
       validSignature: 'string',
       tamperedSignature: 'string',
