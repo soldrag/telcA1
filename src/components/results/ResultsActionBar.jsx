@@ -31,7 +31,7 @@ export default function ResultsActionBar({
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-card p-4 rounded-2xl border border-border-default shadow-xs min-w-0">
       <div className="flex flex-wrap items-center gap-2 min-w-0">
-        {!isAssignment && onResetExam && (
+        {!isTeacherReview && !isAssignment && onResetExam && (
           <button
             type="button"
             onClick={onResetExam}

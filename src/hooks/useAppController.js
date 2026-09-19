@@ -52,6 +52,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     history,
     storage,
     assignmentMode,
+    reviewMode,
     navigateTo,
     showError,
   });

@@ -264,4 +264,112 @@ describe('Exam Flow Lifecycle & Session Invariants', () => {
     assert.equal(sessionResetCalled, true, 'navigateHome must reset completed session');
     assert.equal(navigatedScreen, 'welcome', 'must navigate to welcome');
   });
+
+  test('navigateHome delegates to reviewMode.exitReview when review mode is active', () => {
+    let exitReviewCalled = false;
+
+    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentDispatcher.current = {
+      useCallback: (fn) => fn,
+      useEffect: () => {},
+      useRef: (v) => ({ current: v }),
+    };
+
+    const actions = useExamFlowActions({
+      screen: 'results',
+      loader: {},
+      session: { isSubmitted: true, answeredCount: 15, resetSession: () => {} },
+      timer: {},
+      modals: {},
+      reviewMode: {
+        isTeacherReview: true,
+        exitReview: () => { exitReviewCalled = true; },
+      },
+      navigateTo: () => {},
+    });
+
+    actions.navigateHome();
+    assert.equal(exitReviewCalled, true, 'navigateHome must call reviewMode.exitReview()');
+  });
+
+  test('navigateHome delegates to assignmentMode.exitAssignment when assignment mode is active', () => {
+    let exitAssignmentCalled = false;
+
+    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentDispatcher.current = {
+      useCallback: (fn) => fn,
+      useEffect: () => {},
+      useRef: (v) => ({ current: v }),
+    };
+
+    const actions = useExamFlowActions({
+      screen: 'results',
+      loader: {},
+      session: { isSubmitted: true, answeredCount: 15, resetSession: () => {} },
+      timer: {},
+      modals: {},
+      assignmentMode: {
+        isAssignmentMode: true,
+        exitAssignment: () => { exitAssignmentCalled = true; },
+      },
+      navigateTo: () => {},
+    });
+
+    actions.navigateHome();
+    assert.equal(exitAssignmentCalled, true, 'navigateHome must call assignmentMode.exitAssignment()');
+  });
+
+  test('leaveExam delegates to assignmentMode.exitAssignment when abandoning assignment exam', () => {
+    let exitAssignmentCalled = false;
+    let modalClosed = false;
+
+    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentDispatcher.current = {
+      useCallback: (fn) => fn,
+      useEffect: () => {},
+      useRef: (v) => ({ current: v }),
+    };
+
+    const actions = useExamFlowActions({
+      screen: 'exam',
+      loader: {},
+      session: { resetSession: () => {} },
+      timer: {},
+      modals: { closeLeaveModal: () => { modalClosed = true; } },
+      assignmentMode: {
+        isAssignmentMode: true,
+        exitAssignment: () => { exitAssignmentCalled = true; },
+      },
+      navigateTo: () => {},
+    });
+
+    actions.leaveExam();
+    assert.equal(modalClosed, true, 'leaveExam must close leave modal');
+    assert.equal(exitAssignmentCalled, true, 'leaveExam must delegate to assignmentMode.exitAssignment');
+  });
+
+  test('leaveExam delegates to reviewMode.exitReview when abandoning review mode exam', () => {
+    let exitReviewCalled = false;
+    let modalClosed = false;
+
+    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentDispatcher.current = {
+      useCallback: (fn) => fn,
+      useEffect: () => {},
+      useRef: (v) => ({ current: v }),
+    };
+
+    const actions = useExamFlowActions({
+      screen: 'exam',
+      loader: {},
+      session: { resetSession: () => {} },
+      timer: {},
+      modals: { closeLeaveModal: () => { modalClosed = true; } },
+      reviewMode: {
+        isTeacherReview: true,
+        exitReview: () => { exitReviewCalled = true; },
+      },
+      navigateTo: () => {},
+    });
+
+    actions.leaveExam();
+    assert.equal(modalClosed, true, 'leaveExam must close leave modal');
+    assert.equal(exitReviewCalled, true, 'leaveExam must delegate to reviewMode.exitReview');
+  });
 });

@@ -10,6 +10,8 @@ export function buildHeaderConfig(controller) {
     || getTestTypeById(controller.activeTestType);
   const questionsCount = controller.examData?.questions?.length || 0;
   const isInspection = controller.session?.isInspection || false;
+  const isTeacherReview = controller.reviewMode?.isTeacherReview || false;
+  const isAssignment = controller.assignmentMode?.isAssignmentMode || false;
 
   return {
     navigation: {
@@ -17,7 +19,7 @@ export function buildHeaderConfig(controller) {
       isInspection,
       onNavigateHome: controller.navigateHome,
       onOpenHistory: controller.openHistory,
-      onResetExam: controller.resetExam,
+      onResetExam: (isTeacherReview || isAssignment) ? null : controller.resetExam,
       onSubmitExam: isInspection ? null : controller.modals.openSubmitModal,
       onExitInspection: controller.exitInspection,
     },
@@ -61,7 +63,7 @@ function buildWelcomeProps(controller) {
 
 function buildHistoryProps(controller) {
   return {
-    navigation: { onBack: () => controller.navigateTo('welcome') },
+    navigation: { onBack: controller.navigateHome },
     actions: {
       onLoadAttempt: controller.loadSavedAttempt,
       onStartExam: controller.startExam,

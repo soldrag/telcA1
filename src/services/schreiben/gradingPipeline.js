@@ -114,6 +114,14 @@ export async function gradeSchreibenSubmission({
   const quality = analyzeGermanQuality(raw, 30);
   const stage1 = runStage1Scoring(stage0);
 
+  const seg = segmentUserEssay(raw, criteria);
+  const userSegments = {
+    anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
+    closing: stage0.closing.recognized ? stage0.closing.text : (seg.closing || ''),
+    senderName: stage0.closing.senderName || seg.senderName || '',
+    leitpunkte: seg.leitpunkte,
+  };
+
   onProgress?.('Prüfung der Leitpunkte...', 0.4);
   const customExtractor = options.forceLimitedMode ? false : options.customExtractor;
   const stage2 = await scorePipelineLeitpunkte({
@@ -121,6 +129,7 @@ export async function gradeSchreibenSubmission({
     bodySentences: stage0.bodySentences,
     provider: activeProvider,
     customExtractor,
+    userSegments,
   });
 
   onProgress?.('Grammatikprüfung...', 0.7);
@@ -148,13 +157,6 @@ export async function gradeSchreibenSubmission({
   });
 
   const diffSummary = buildDiffSummary(stage2.items);
-  const seg = segmentUserEssay(raw, criteria);
-  const userSegments = {
-    anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
-    closing: stage0.closing.recognized ? stage0.closing.text : (seg.closing || ''),
-    senderName: stage0.closing.senderName || seg.senderName || '',
-    leitpunkte: seg.leitpunkte,
-  };
 
   onProgress?.('Bewertung abgeschlossen', 1.0);
   return assembleGradingResult({
