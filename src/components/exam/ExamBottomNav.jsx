@@ -17,7 +17,7 @@ export default function ExamBottomNav({
   return (
     <nav
       aria-label={t('exam.navAriaLabel')}
-      className="sticky bottom-0 z-40 bg-surface-card/95 backdrop-blur-md border-t-2 border-border-default py-3.5 px-4 sm:px-6 -mx-4 sm:-mx-6 lg:-mx-8 rounded-b-none sm:rounded-2xl shadow-lg flex items-center justify-between gap-3"
+      className="sticky bottom-0 z-40 bg-surface-card/95 backdrop-blur-md border-t-2 border-border-default pt-3.5 pb-[max(0.875rem,calc(0.875rem+env(safe-area-inset-bottom,0px)))] px-4 sm:px-6 -mx-4 sm:-mx-6 lg:-mx-8 rounded-b-none sm:rounded-2xl shadow-lg flex items-center justify-between gap-3"
     >
       <button
         type="button"

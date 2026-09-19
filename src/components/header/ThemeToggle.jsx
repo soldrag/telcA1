@@ -24,6 +24,7 @@ export default function ThemeToggle({ theme, toggleTheme, isDark }) {
   return (
     <button
       type="button"
+      data-testid="theme-toggle"
       onClick={toggleTheme}
       title={t('header.themeTitle', { theme: getLabel() })}
       aria-label={t('header.themeAria', { theme: getLabel() })}

@@ -57,7 +57,7 @@ export default function CreateAssignmentModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-surface-card border border-border-default rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-scaleUp max-h-[90vh] overflow-y-auto">
+      <div className="bg-surface-card border border-border-default rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-scaleUp max-h-[min(90dvh,90vh)] overflow-y-auto overscroll-contain">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-2xl bg-action-primary-subtle text-action-primary flex items-center justify-center shrink-0">

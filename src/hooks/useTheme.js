@@ -7,6 +7,26 @@ function sanitizeTheme(val) {
   return 'system';
 }
 
+function applyThemeColor(resolved) {
+  const color = resolved === 'dark' ? '#0f172a' : '#f1f5f9';
+  const metaTags = document.querySelectorAll('meta[name="theme-color"]');
+  metaTags.forEach((tag) => {
+    tag.setAttribute('content', color);
+  });
+}
+
+function applyResolvedTheme(resolved) {
+  const root = document.documentElement;
+  if (resolved === 'dark') {
+    root.classList.add('dark');
+    root.style.backgroundColor = '#0f172a';
+  } else {
+    root.classList.remove('dark');
+    root.style.backgroundColor = '#f1f5f9';
+  }
+  applyThemeColor(resolved);
+}
+
 export function useTheme() {
   const [theme, setThemeState] = useState(() => {
     try {
@@ -27,15 +47,9 @@ export function useTheme() {
   const [resolvedTheme, setResolvedTheme] = useState(() => getResolvedTheme(theme));
 
   useEffect(() => {
-    const root = document.documentElement;
     const resolved = getResolvedTheme(theme);
     setResolvedTheme(resolved);
-
-    if (resolved === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    applyResolvedTheme(resolved);
   }, [theme, getResolvedTheme]);
 
   useEffect(() => {
@@ -45,11 +59,7 @@ export function useTheme() {
     const handleChange = () => {
       const resolved = mediaQuery.matches ? 'dark' : 'light';
       setResolvedTheme(resolved);
-      if (resolved === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      applyResolvedTheme(resolved);
     };
 
     mediaQuery.addEventListener('change', handleChange);

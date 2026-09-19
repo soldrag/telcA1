@@ -265,3 +265,4 @@ For local development or environments requiring a centralized exam catalog:
 5. **Headless Chrome CDP E2E Testing**:
    - `npm run test:e2e` (`tests/e2e/all-buttons-smoke.js`): verifies real browser button interactions, DOM transitions, and zero `Runtime.exceptionThrown` console errors.
    - `npm run test:e2e:assignment` (`tests/e2e/assignment-flow-e2e.js`): verifies full student homework lifecycle from `#task=...` link to exam submission, immediate `AssignmentSubmissionBanner` rendering, crash-free question review card expansion ("Разбор"), and `#review=...` verification screen.
+   - `npm run test:e2e:mobile` (`tests/e2e/mobile-layout.test.js`): verifies mobile viewport rendering, safe-area inset protection for headers and home indicators, dynamic `meta[name="theme-color"]` synchronization, and zero white flash / FOUC.

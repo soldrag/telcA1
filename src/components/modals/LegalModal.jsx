@@ -13,7 +13,7 @@ export default function LegalModal({ isOpen, initialType = 'impressum', onClose 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-surface-card border border-border-default rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl animate-scaleUp">
+      <div className="bg-surface-card border border-border-default rounded-3xl max-w-2xl w-full max-h-[min(85dvh,85vh)] flex flex-col shadow-2xl animate-scaleUp overscroll-contain">
         <div className="p-5 border-b border-border-default flex items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
             <div className="w-9 h-9 rounded-2xl bg-action-primary-subtle text-action-primary flex items-center justify-center">
@@ -47,8 +47,8 @@ export default function LegalModal({ isOpen, initialType = 'impressum', onClose 
           <button
             type="button"
             onClick={onClose}
-            className="text-content-muted hover:text-content-primary p-2 rounded-xl hover:bg-surface-raised transition-colors"
-            aria-label="Schließen"
+            className="text-content-muted hover:text-content-primary p-2 rounded-xl hover:bg-surface-raised transition-colors cursor-pointer"
+            aria-label={t('common.close') || 'Schließen'}
           >
             <X className="w-5 h-5" />
           </button>

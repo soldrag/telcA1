@@ -36,11 +36,11 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
         role="dialog"
         aria-modal="true"
         className={cn(
-          'relative w-full bg-surface-card rounded-3xl border border-border-default shadow-2xl overflow-hidden z-10 transition-all p-6 sm:p-7',
+          'relative w-full max-h-[calc(100dvh-2rem)] flex flex-col bg-surface-card rounded-3xl border border-border-default shadow-2xl overflow-hidden z-10 transition-all p-6 sm:p-7 overscroll-contain',
           maxWidth
         )}
       >
-        <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="flex items-start justify-between gap-4 mb-4 shrink-0">
           <div>
             {title && (
               <h2 className="text-lg sm:text-xl font-extrabold text-content-primary leading-tight">
@@ -57,14 +57,14 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
             <button
               type="button"
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-raised transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-raised transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary shrink-0"
               aria-label={t('common.close')}
             >
               <X className="w-5 h-5" />
             </button>
           )}
         </div>
-        <div>{children}</div>
+        <div className="overflow-y-auto flex-1 min-h-0">{children}</div>
       </div>
     </div>
   );
