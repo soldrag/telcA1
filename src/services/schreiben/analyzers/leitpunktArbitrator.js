@@ -7,6 +7,7 @@
 import { extractAndParseLLMJson } from '../webLlmJsonRepair.js';
 import { LEITPUNKT_COVERAGE_SCHEMA } from '../grading/types.js';
 import { buildLeitpunktArbiterPrompt as buildLeitpunktPrompt } from '../grading/prompts.js';
+import { applyConfidenceFloor } from '../grading/stage2Leitpunkte.js';
 
 export { LEITPUNKT_COVERAGE_SCHEMA, buildLeitpunktPrompt };
 
@@ -50,8 +51,7 @@ export async function arbitrateSingleLeitpunkt({
     const parsed = extractAndParseLLMJson(rawResult);
     const coverage = parsed?.coverage || null;
     const rawScore = coverageToScore(coverage, baselineScore);
-    const finalScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
-    const isProtected = baselineScore >= 1 && rawScore < baselineScore;
+    const { score: finalScore, isProtected } = applyConfidenceFloor(baselineScore, rawScore);
 
     return {
       score: finalScore,

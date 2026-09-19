@@ -34,6 +34,12 @@ export function coverageToPoints(coverage = '', fallback = 0) {
   return fallback;
 }
 
+export function applyConfidenceFloor(baselineScore = 0, rawScore = 0) {
+  const guardedScore = baselineScore >= 1 ? Math.max(baselineScore, rawScore) : rawScore;
+  const isProtected = baselineScore >= 1 && rawScore < baselineScore;
+  return { score: guardedScore, isProtected };
+}
+
 export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   const rawKeywords = criterion.keywords || [];
   if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };

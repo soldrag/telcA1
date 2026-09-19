@@ -39,7 +39,7 @@ async function arbitrateAllLeitpunkte(baselineItems = [], segments = null, llmCa
     if (arbitrated) {
       diffSummary.push({
         id: `lp${i + 1}`,
-        change: score > item.score ? 'rescued' : 'adjusted',
+        change: score > item.score ? 'rescued' : (score < item.score ? 'adjusted' : 'protected'),
         from: item.score,
         to: score
       });

@@ -12,10 +12,6 @@ function assignSentencesToCriteria(sentences = [], criteria = []) {
   const hasAnyMatch = rawMatches.some(m => m.bestIdx !== -1 && m.score > 0);
 
   if (!hasAnyMatch) {
-    sentences.forEach((s, i) => {
-      const targetIdx = Math.min(i, criteria.length - 1);
-      assignments[targetIdx].push(s);
-    });
     return assignments;
   }
 
@@ -66,6 +62,7 @@ export function segmentUserEssay(rawText = '', criteria = []) {
       index: idx + 1,
       id: crit.id || `lp${idx + 1}`,
       label: crit.label || `Punkt ${idx + 1}`,
+      sentences: matchedSentences,
       userSentence: matchedSentences.length > 0 ? matchedSentences.join(' ') : 'Kein Satz im Text gefunden'
     };
   });
