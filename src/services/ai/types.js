@@ -15,44 +15,8 @@ export const PROVIDER_STATUSES = {
   ERROR: 'error',
 };
 
-export const LEITPUNKT_COVERAGE_SCHEMA = {
-  type: 'object',
-  properties: {
-    coverage: {
-      type: 'string',
-      enum: ['full', 'partial', 'no'],
-    },
-  },
-  required: ['coverage'],
-  additionalProperties: false,
-};
-
-export const SENTENCE_GRAMMAR_SCHEMA = {
-  type: 'object',
-  properties: {
-    errors: {
-      type: 'array',
-      maxItems: 3,
-      items: {
-        type: 'object',
-        properties: {
-          original: { type: 'string' },
-          correction: { type: 'string' },
-          explanation: { type: 'string' },
-        },
-        required: ['original', 'correction', 'explanation'],
-      },
-    },
-  },
-  required: ['errors'],
-  additionalProperties: false,
-};
-
-export const FEEDBACK_POLISH_SCHEMA = {
-  type: 'object',
-  properties: {
-    feedback: { type: 'string' },
-  },
-  required: ['feedback'],
-  additionalProperties: false,
-};
+export {
+  LEITPUNKT_COVERAGE_SCHEMA,
+  SENTENCE_GRAMMAR_SCHEMA,
+  FEEDBACK_SCHEMA as FEEDBACK_POLISH_SCHEMA
+} from '../schreiben/grading/types.js';

@@ -14,9 +14,9 @@ export const SIMILARITY_T2 = 0.65; // >= T2 -> 2 points (full coverage)
 export const SIMILARITY_T1 = 0.45; // >= T1 -> 1 point (partial coverage)
 export const GRAY_ZONE_DELTA = 0.06; // +/- Delta triggers Qwen3 arbitration
 
-// Task prefixes verified from EmbeddingGemma model card
-export const TASK_PREFIX_QUERY = 'task: search result | query: ';
-export const TASK_PREFIX_TEXT = 'task: search result | text: ';
+// Task prefixes verified from EmbeddingGemma model card (sentence similarity for semantic matching)
+export const TASK_PREFIX_QUERY = 'task: sentence similarity | query: ';
+export const TASK_PREFIX_TEXT = 'task: sentence similarity | text: ';
 export const TASK_PREFIX_DOC = 'title: none | text: ';
 
 // JSON Schema for Qwen3 single-Leitpunkt binary coverage arbitration

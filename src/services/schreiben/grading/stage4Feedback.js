@@ -6,6 +6,7 @@
 
 import { FEEDBACK_SCHEMA } from './types.js';
 import { executeQwen3Prompt } from './qwen3Service.js';
+import { buildFeedbackPolishPrompt } from './prompts.js';
 
 const TEMPLATE_BANK = {
   anrede: {
@@ -52,15 +53,7 @@ export function assembleDeterministicFeedback({
 export async function polishFeedbackWithLLM(templateText = '', qwenEngine = null) {
   if (!templateText || !qwenEngine) return templateText;
 
-  const prompt = `You are a friendly German A1 examiner.
-Facts:
-"${templateText}"
-
-Task: Rephrase these facts into 2 friendly, motivating sentences in simple German (level A1).
-Strict rules:
-- Do NOT add new errors or change scores.
-- Rely ONLY on the facts above.
-- Answer strictly in JSON: {"feedback": "..."}`;
+  const prompt = buildFeedbackPolishPrompt(templateText);
 
   try {
     const result = await executeQwen3Prompt({
