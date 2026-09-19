@@ -6,17 +6,18 @@
     const isDark = stored === 'dark' || (stored !== 'light' && prefersDark);
     const root = document.documentElement;
 
-    if (isDark) {
-      root.classList.add('dark');
-      root.classList.remove('light');
-      root.style.colorScheme = 'dark';
-      root.style.backgroundColor = '#0f172a';
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      root.style.colorScheme = 'light';
-      root.style.backgroundColor = '#f1f5f9';
-    }
+    const color = isDark ? '#0f172a' : '#f1f5f9';
+    const statusBarStyle = isDark ? 'black-translucent' : 'default';
+
+    root.classList.toggle('dark', isDark);
+    root.classList.toggle('light', !isDark);
+    root.style.colorScheme = isDark ? 'dark' : 'light';
+
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) themeMeta.setAttribute('content', color);
+
+    const statusBarMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+    if (statusBarMeta) statusBarMeta.setAttribute('content', statusBarStyle);
   } catch {
     // Graceful fallback if localStorage is inaccessible
   }
