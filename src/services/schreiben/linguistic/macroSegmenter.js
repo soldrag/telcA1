@@ -44,9 +44,7 @@ function normalizeLines(rawText = '') {
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n');
 
-  if (!text.includes('\n')) {
-    text = splitSingleLineBlocks(text);
-  }
+  text = splitSingleLineBlocks(text);
 
   return text
     .split('\n')
