@@ -1,6 +1,6 @@
 {
   "name": "telc-a1-deutsch-lesen",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "license": "MIT",
   "type": "module",
   "description": "Interactive Telc Deutsch A1 Lesen Exam Web Application with realistic tasks, timer, scoring and explanations",
@@ -12,6 +12,7 @@
     "test": "node --test tests/*.test.js",
     "test:e2e": "node tests/e2e/all-buttons-smoke.js",
     "test:e2e:assignment": "node tests/e2e/assignment-flow-e2e.js",
+    "test:e2e:mobile": "node tests/e2e/mobile-layout.test.js",
     "test:eval": "node --test tests/eval/*.test.js",
     "eval:schreiben": "node tests/eval/eval-scorecard-reporter.js",
     "validate:seeds": "node server/database/validate-seeds.js",

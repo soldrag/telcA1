@@ -15,7 +15,7 @@ export default function App() {
   const screenProps = buildScreenProps(controller);
 
   return (
-    <div className="min-h-screen flex flex-col bg-bg-canvas font-sans transition-colors duration-200 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen min-h-dvh flex flex-col bg-bg-canvas font-sans transition-colors duration-200 w-full max-w-full overflow-x-hidden">
       <Header {...headerConfig} themeControl={themeControl} />
 
       <AppErrorBanner
