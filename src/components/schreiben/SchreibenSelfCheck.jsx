@@ -91,7 +91,11 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
         </div>
       </div>
 
-      <SchreibenGrammarNotice grammarErrors={liveGrammarErrors} />
+      <SchreibenGrammarNotice
+        grammarErrors={liveGrammarErrors}
+        linguisticAccuracy={item.linguistic_accuracy}
+        language={language}
+      />
 
       {segments && (
         <div className="p-3.5 rounded-xl border border-border-default bg-surface-card space-y-2">

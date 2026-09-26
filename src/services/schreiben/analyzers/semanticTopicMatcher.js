@@ -40,7 +40,7 @@ function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false
     }
   }
 
-  const isProposalOrInquiry = labelStems.some(s => ['vorschlag', 'terminvorschlag', 'frag', 'bitt', 'kost', 'anmeld'].includes(s));
+  const isProposalOrInquiry = labelStems.some(s => ['vorschlag', 'terminvorschlag', 'frag', 'bitt', 'kost', 'preis', 'gebühr', 'anmeld'].includes(s));
   if (isQuestion && isProposalOrInquiry) {
     score += 1;
   }

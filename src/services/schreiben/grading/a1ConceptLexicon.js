@@ -8,13 +8,21 @@
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
 
 // Canonical German A1 temporal range, calendar months, seasons, and days of week
-export const TEMPORAL_RANGE_REGEX = /\b(?:vom|von)\s+(?:\d{1,2}\.?|[a-zäöü]+)\s*(?:bis|und|-)\s*(?:zum\s+)?(?:\d{1,2}\.?|[a-zäöü]+)|\b(?:für|fuer)\s+(?:\d+|ein|eine|einen|zwei|drei|vier|fünf)\s+(?:tage?|wochen?|monate?)\b|\b(?:ab|am|im|in)\s+(?:\d{1,2}\.?\s+)?(?:januar|februar|märz|maerz|april|mai|juni|juli|august|september|oktober|november|dezember|sommer|winter|herbst|frühling|fruehling|montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|wochenende)\b/i;
+const MONTH_NAMES = 'januar|februar|märz|maerz|april|mai|juni|juli|august|september|oktober|november|dezember';
+const CALENDAR_TOKENS = `${MONTH_NAMES}|sommer|winter|herbst|frühling|fruehling|montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|wochenende`;
+
+export const TEMPORAL_RANGE_REGEX = new RegExp(
+  `\\b(?:vom|von)\\s+(?:\\d{1,2}\\.?\\s*(?:${MONTH_NAMES})?|[a-zäöü]+)\\s*(?:bis|und|-)\\s*(?:zum\\s+)?(?:\\d{1,2}\\.?\\s*(?:${MONTH_NAMES})?|[a-zäöü]+)` +
+  `|\\b(?:für|fuer)\\s+(?:\\d+|ein|eine|einen|zwei|drei|vier|fünf)\\s+(?:tage?|wochen?|monate?)\\b` +
+  `|\\b(?:ab|am|im|in|bis)\\s+(?:\\d{1,2}\\.?\\s+)?(?:${CALENDAR_TOKENS})\\b`,
+  'i'
+);
 
 const QUANTIFIED_DURATION_REGEX = /\b(?:\d+|ein|eine|einen|zwei|drei|vier|fünf|fuenf|sechs|sieben|zehn)\s+(?:tage?|wochen?|monate?)\b/i;
 
 const A1_CONCEPT_STEM_DOMAINS = {
   person: ['person', 'leut', 'wir', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
-  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend'],
+  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende', 'vom', 'bis', 'ab'],
   preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
   tier: ['hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
   grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'anmeld', 'buch'],

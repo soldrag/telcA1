@@ -163,13 +163,33 @@ export const questions = [
             id: 'lp2',
             label: 'Personen und Zeitraum',
             keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'bleiben', 'juli', 'august', 'juni', 'personen', 'vom', 'bis', 'tage', 'zeitraum'],
-            requiredMatches: 2
+            requiredMatches: 2,
+            aspects: [
+              {
+                label: 'Personen',
+                keywords: ['personen', 'erwachsene', 'kind', 'kinder', 'wir', 'familie']
+              },
+              {
+                label: 'Zeitraum',
+                keywords: ['zeitraum', 'woche', 'wochen', 'tage', 'bleiben', 'vom', 'bis', 'juli', 'august', 'juni']
+              }
+            ]
           },
           {
             id: 'lp3',
             label: 'Preis und Haustiere',
-            keywords: ['kosten', 'kostet', 'preis', 'hund', 'hunde', 'haustiere', 'erlaubt'],
+            keywords: ['kosten', 'kostet', 'preis', 'hund', 'hunde', 'haustiere', 'katze', 'erlaubt'],
             requiredMatches: 2,
+            aspects: [
+              {
+                label: 'Preis',
+                keywords: ['kosten', 'kostet', 'preis', 'nacht', 'euro', 'bezahlen']
+              },
+              {
+                label: 'Haustiere',
+                keywords: ['hund', 'hunde', 'haustiere', 'erlaubt', 'katze', 'tier', 'tiere', 'mitbringen']
+              }
+            ],
             semantic_slots: [
               {
                 predicateLemmas: ['kosten', 'preis'],

@@ -1,22 +1,50 @@
 import React from 'react';
-import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Award } from 'lucide-react';
+import { calculateLinguisticAccuracy } from '../../services/schreiben/scoring/linguisticAccuracyScorer.js';
 
-export default function SchreibenGrammarNotice({ grammarErrors = [] }) {
+export default function SchreibenGrammarNotice({ grammarErrors = [], linguisticAccuracy = null, language = 'ru' }) {
+  const accuracy = linguisticAccuracy || calculateLinguisticAccuracy({
+    grammarErrors,
+    wordCount: grammarErrors.length > 0 ? 30 : 0,
+  });
+
   if (!grammarErrors || grammarErrors.length === 0) {
     return (
-      <div className="p-3.5 rounded-xl border border-state-success-border bg-state-success-subtle/20 flex items-center space-x-2 text-xs font-bold text-state-success-text">
-        <CheckCircle2 className="w-4 h-4 text-state-success flex-shrink-0" />
-        <span>Sprachliche Korrektheit: Keine groben grammatikalischen A1-Fehler gefunden.</span>
+      <div className="p-3.5 rounded-xl border border-state-success-border bg-state-success-subtle/20 flex items-center justify-between text-xs font-bold text-state-success-text">
+        <div className="flex items-center space-x-2">
+          <CheckCircle2 className="w-4 h-4 text-state-success flex-shrink-0" />
+          <span>Sprachliche Korrektheit: Keine groben grammatikalischen A1-Fehler gefunden.</span>
+        </div>
+        <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-state-success text-white">
+          10 / 10
+        </span>
       </div>
     );
   }
 
+  const bandLabel = language === 'ru' ? accuracy.bandRu : accuracy.bandDe;
+  const accuracyTitle = language === 'ru' ? 'Языковая точность (A1 → A2)' : 'Sprachliche Genauigkeit (A1 → A2)';
+  const pedagogicHint = language === 'ru'
+    ? 'По регламенту telc A1 ошибки грамматики не снижают официальный балл за содержание, если смысл понятен. Однако на уровне A2/B1 они приведут к потере баллов.'
+    : 'Bei telc A1 führen diese Fehler nicht zum Punktabzug, wenn die Mitteilung verständlich ist. Auf Niveau A2/B1 führen sie jedoch zum Punktabzug.';
+
   return (
-    <div className="p-4 rounded-xl border border-state-warning-border bg-state-warning-subtle/20 space-y-2.5">
-      <div className="flex items-center space-x-2 text-state-warning-text font-bold text-xs uppercase tracking-wider">
-        <AlertCircle className="w-4 h-4 text-state-warning flex-shrink-0" />
-        <span>Sprachliche Korrektheit & Grammatik-Hinweise ({grammarErrors.length}):</span>
+    <div className="p-4 rounded-xl border border-state-warning-border bg-state-warning-subtle/20 space-y-3">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center space-x-2 text-state-warning-text font-bold text-xs uppercase tracking-wider">
+          <AlertCircle className="w-4 h-4 text-state-warning flex-shrink-0" />
+          <span>Sprachliche Korrektheit & Grammatik-Hinweise ({grammarErrors.length}):</span>
+        </div>
+        <div className="flex items-center space-x-2 bg-surface-card px-2.5 py-1 rounded-lg border border-border-default">
+          <Award className="w-3.5 h-3.5 text-action-primary flex-shrink-0" />
+          <span className="text-[11px] font-semibold text-content-secondary">{accuracyTitle}:</span>
+          <span className="font-mono text-xs font-bold text-content-primary">
+            {accuracy.score} / {accuracy.maxScore}
+          </span>
+          <span className="text-[10px] text-content-muted">({bandLabel})</span>
+        </div>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
         {grammarErrors.map((err, idx) => (
           <div key={idx} className="p-2.5 rounded-lg bg-surface-card border border-border-default space-y-1">
@@ -29,6 +57,10 @@ export default function SchreibenGrammarNotice({ grammarErrors = [] }) {
           </div>
         ))}
       </div>
+
+      <p className="text-[11px] text-content-muted italic leading-tight">
+        {pedagogicHint}
+      </p>
     </div>
   );
 }

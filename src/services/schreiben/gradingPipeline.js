@@ -10,6 +10,7 @@ import { composePipelineFeedback } from './grading/pipelineFeedback.js';
 import { getRankerPolicy } from './grading/policies/index.js';
 import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
+import { calculateLinguisticAccuracy } from './scoring/linguisticAccuracyScorer.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
@@ -56,7 +57,7 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
   };
 }
 
-function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments }) {
+function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy }) {
   const items = attachPoints(stage2.items, score);
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
   return {
@@ -67,6 +68,7 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     is_limited_mode: activeProvider.id === PROVIDER_IDS.NONE,
     provider_id: activeProvider.id,
     provider_name: activeProvider.name,
+    linguistic_accuracy: linguisticAccuracy,
     breakdown: {
       anrede: stage1.anredeScore,
       leitpunkte: items.reduce((sum, it) => sum + it.points, 0),
@@ -152,9 +154,14 @@ export async function gradeSchreibenSubmission({
   });
 
   const diffSummary = buildDiffSummary(stage2.items);
+  const linguisticAccuracy = calculateLinguisticAccuracy({
+    grammarErrors: errors,
+    wordCount: stage0.wordCount,
+    isGibberish: quality.isGibberish,
+  });
 
   onProgress?.('Bewertung abgeschlossen', 1.0);
   return assembleGradingResult({
-    stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments,
+    stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy,
   });
 }
