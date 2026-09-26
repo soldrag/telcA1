@@ -9,9 +9,8 @@ import { summarizeVariantScores } from '../../utils/attemptStats.js';
 import { summarizeModuleProgress } from '../../utils/moduleProgress.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { getReceivedAssignments } from '../../services/storage/receivedAssignmentsStorage.js';
-
-// On phones both columns dissolve (display: contents) so `order` can interleave them into one stream.
-const COLUMN = 'contents lg:flex lg:flex-col lg:gap-10';
+import Section from '../layout/Section.jsx';
+import { BAND, PAGE_STACK, SPAN } from '../layout/pageLayout.js';
 
 function collectAssignedExamIds(assignments, testType) {
   return assignments
@@ -19,19 +18,19 @@ function collectAssignedExamIds(assignments, testType) {
     .map((assignment) => assignment.examId);
 }
 
-function StructureAside({ testType, t }) {
+function StructureAside({ testType, t, className }) {
   return (
-    <section aria-labelledby="module-structure-title" className="hidden lg:block space-y-2">
-      <h2 id="module-structure-title" className="text-sm font-medium text-content-secondary">{t('welcome.randomCard.structureToggle')}</h2>
+    <Section id="module-structure-title" title={t('welcome.randomCard.structureToggle')} padding="flush" className={`hidden lg:flex ${className}`}>
       <ModuleStructureCards testType={testType} variant="list" />
-    </section>
+    </Section>
   );
 }
 
 /**
- * Student home. Phones and tablets: one stream (start → teacher → progress → variants → attempts).
- * From 1024 px the module heading spans the page over two top-aligned columns:
- * start, progress and variants on the left; teacher tasks, attempts and the structure on the right.
+ * Student home on the 12-column page grid: the module heading, then three bands whose two blocks
+ * share their top and bottom edges — exam | from the teacher, progress | recent attempts,
+ * variants | module structure. Below 1024 px the bands dissolve into one stream in `order`:
+ * start → teacher → progress → variants → attempts.
  */
 export default function StudentWelcomeView({
   examState = {},
@@ -49,35 +48,26 @@ export default function StudentWelcomeView({
   const startVariant = (examId) => onStartExam?.({ timed: true, specificExamId: examId });
 
   return (
-    <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-x-12 lg:gap-y-8 lg:items-start lg:pt-4">
-      <div className="lg:col-span-2">
-        <ModuleHeading moduleInfo={currentModule} />
+    <div className={`${PAGE_STACK} lg:pt-4`}>
+      <ModuleHeading moduleInfo={currentModule} />
+      <div className={BAND}>
+        <RandomExamCard onStartRandomExam={onStartRandomExam} moduleInfo={currentModule} className={`order-1 lg:order-none ${SPAN.main}`} />
+        <TeacherTasksSection assignments={assignments} onOpenTask={onOpenTask} className={`order-2 lg:order-none ${SPAN.side}`} />
       </div>
-      <div className={COLUMN}>
-        <div className="order-1 lg:order-none">
-          <RandomExamCard onStartRandomExam={onStartRandomExam} moduleInfo={currentModule} />
-        </div>
-        <div className="order-3 lg:order-none empty:hidden">
-          <ModuleProgressCard progress={progress} testType={activeTestType} />
-        </div>
-        <div className="order-4 lg:order-none">
-          <VariantGrid
-            exams={exams}
-            scores={scores}
-            assignedExamIds={collectAssignedExamIds(assignments, activeTestType)}
-            passScore={currentModule.passScore}
-            onStartVariant={startVariant}
-          />
-        </div>
+      <div className={BAND}>
+        <ModuleProgressCard progress={progress} testType={activeTestType} className={`order-3 lg:order-none ${SPAN.main}`} />
+        <RecentAttemptsList recentAttempts={recentAttempts} onOpenHistory={navigation.onOpenHistory} onLoadAttempt={onLoadAttempt} className={`order-5 lg:order-none ${SPAN.side}`} />
       </div>
-      <div className={COLUMN}>
-        <div className="order-2 lg:order-none">
-          <TeacherTasksSection assignments={assignments} onOpenTask={onOpenTask} />
-        </div>
-        <div className="order-5 lg:order-none">
-          <RecentAttemptsList recentAttempts={recentAttempts} onOpenHistory={navigation.onOpenHistory} onLoadAttempt={onLoadAttempt} />
-        </div>
-        <StructureAside testType={activeTestType} t={t} />
+      <div className={BAND}>
+        <VariantGrid
+          exams={exams}
+          scores={scores}
+          assignedExamIds={collectAssignedExamIds(assignments, activeTestType)}
+          passScore={currentModule.passScore}
+          onStartVariant={startVariant}
+          className={`order-4 lg:order-none ${SPAN.main}`}
+        />
+        <StructureAside testType={activeTestType} t={t} className={SPAN.side} />
       </div>
     </div>
   );

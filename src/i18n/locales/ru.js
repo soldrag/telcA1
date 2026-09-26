@@ -43,6 +43,7 @@ export const ru = {
     moduleDesc_schreiben: 'Практика письменной речи: заполнение формуляров и написание коротких писем.',
     moduleDesc_sprechen: 'Практика устной речи: знакомство, вопросы по карточкам и просьбы.',
     randomCard: {
+      title: 'Экзамен',
       startExam: 'Начать экзамен · {minutes} мин',
       practice: 'Тренировка без таймера',
       balancerHint: 'Дадим вариант, который вы решали реже всего',
@@ -55,7 +56,7 @@ export const ru = {
       notSolved: 'не решён',
       assigned: 'ДЗ',
       startAria: '{name}: начать экзамен',
-      attemptsLine: 'попыток: {count} · {date}',
+      attemptsLine: '×{count} · {date}',
       startHint: 'Начать →',
     },
     assignments: {
@@ -130,7 +131,7 @@ export const ru = {
       title: 'Прогресс по частям',
       hint: 'Средний балл за последние попытки · черта — порог сдачи',
       weakest: 'слабее всего',
-      chartAria: 'Последние попытки: {list}',
+      empty: 'После первой попытки здесь появится средний балл по каждой части',
     },
     structure: {
       sectionTitle: 'Структура экзамена',

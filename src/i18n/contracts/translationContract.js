@@ -44,6 +44,7 @@ export const TRANSLATION_CONTRACT = {
     moduleDesc_schreiben: 'string',
     moduleDesc_sprechen: 'string',
     randomCard: {
+      title: 'string',
       startExam: 'string',
       practice: 'string',
       balancerHint: 'string',
@@ -131,7 +132,7 @@ export const TRANSLATION_CONTRACT = {
       title: 'string',
       hint: 'string',
       weakest: 'string',
-      chartAria: 'string',
+      empty: 'string',
     },
     structure: {
       sectionTitle: 'string',

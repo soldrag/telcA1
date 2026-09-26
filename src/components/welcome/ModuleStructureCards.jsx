@@ -24,13 +24,14 @@ const MODULE_STRUCTURES = {
   ],
 };
 
-// variant="list": one compact line per Teil («Teil 1 (1–5) · Title · sub»), for the desktop side column.
+// variant="list": one line per Teil («Teil 1 (1–5) · Title · sub») that share the height of the
+// desktop side column's frame.
 function StructureList({ cards, t }) {
   return (
-    <ul className="rounded-2xl bg-surface-card border border-border-default divide-y divide-border-subtle">
+    <ul className="flex-1 flex flex-col divide-y divide-border-subtle">
       {cards.map(({ icon: Icon, label, titleKey, subKey }) => (
-        <li key={label} className="px-4 py-3 flex items-start gap-3 text-sm">
-          <Icon className="w-4 h-4 mt-0.5 shrink-0 text-content-tertiary" aria-hidden="true" />
+        <li key={label} className="flex-1 px-6 py-3 flex items-center gap-3 text-sm">
+          <Icon className="w-4 h-4 shrink-0 text-content-tertiary" aria-hidden="true" />
           <span className="min-w-0">
             <span className="text-content-primary font-medium">{label} · {t(titleKey)}</span>
             <span className="block text-content-secondary">{t(subKey)}</span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronDown, Play } from 'lucide-react';
 import ModuleStructureCards from './ModuleStructureCards.jsx';
+import Section from '../layout/Section.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { getTestTypeById } from '../../../shared/testTypes.js';
 
@@ -41,13 +42,14 @@ function StructureDetails({ module, t }) {
   );
 }
 
-export default function RandomExamCard({ onStartRandomExam, moduleInfo = {} }) {
+// Phones keep the bare buttons under the module heading; from 1024 px they sit in a framed «Exam» block.
+export default function RandomExamCard({ onStartRandomExam, moduleInfo = {}, className = '' }) {
   const { t } = useI18n();
   const module = { ...getTestTypeById(moduleInfo.id || 'lesen'), ...moduleInfo };
 
   return (
-    <section className="space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    <Section id="start-exam-title" title={t('welcome.randomCard.title')} frame="desktop" titleDesktopOnly className={className} bodyClassName="gap-4 lg:justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-4">
         <button
           type="button"
           onClick={() => onStartRandomExam({ timed: true })}
@@ -59,13 +61,13 @@ export default function RandomExamCard({ onStartRandomExam, moduleInfo = {} }) {
         <button
           type="button"
           onClick={() => onStartRandomExam({ timed: false })}
-          className={`min-h-[3.25rem] px-6 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`}
+          className={`min-h-[3.25rem] px-6 rounded-xl bg-surface-card lg:bg-surface-raised border border-border-default hover:bg-surface-raised lg:hover:bg-surface-inset text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`}
         >
           {t('welcome.randomCard.practice')}
         </button>
       </div>
       <p className="text-sm text-content-secondary">{t('welcome.randomCard.balancerHint')}</p>
       <StructureDetails module={module} t={t} />
-    </section>
+    </Section>
   );
 }

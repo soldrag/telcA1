@@ -22,7 +22,7 @@ function AssignmentTitle({ assignment }) {
 function PendingAssignment({ assignment, onOpenTask, t, language }) {
   const details = describeAssignment(assignment, t);
   return (
-    <li className="rounded-2xl bg-surface-card border border-action-primary-border p-4 space-y-3">
+    <li className="py-3 first:pt-0 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 space-y-0.5">
           <AssignmentTitle assignment={assignment} />
@@ -49,11 +49,11 @@ function SubmittedAssignment({ assignment, onOpenTask, t, language }) {
   const { passScore, maxScore } = getTestTypeById(assignment.testType || 'lesen');
   const hasScore = assignment.score !== null && assignment.score !== undefined;
   return (
-    <li>
+    <li className="first:-mt-3">
       <button
         type="button"
         onClick={() => onOpenTask?.(assignment.token)}
-        className={`w-full text-left rounded-2xl bg-surface-card border border-border-default hover:bg-surface-raised px-4 py-3 flex items-center justify-between gap-3 cursor-pointer transition-colors ${FOCUS_RING}`}
+        className={`text-left rounded-xl -mx-2 w-[calc(100%+1rem)] hover:bg-surface-raised px-2 py-3 flex items-center justify-between gap-3 cursor-pointer transition-colors ${FOCUS_RING}`}
       >
         <span className="min-w-0 space-y-0.5">
           <AssignmentTitle assignment={assignment} />
@@ -75,15 +75,13 @@ export default function ReceivedAssignmentsList({ assignments = [], onOpenTask }
   const { t, language } = useI18n();
   if (assignments.length === 0) return null;
 
+  // Rows of the «From the teacher» card, which carries the title.
   return (
-    <section aria-labelledby="received-assignments-title" className="space-y-2">
-      <h2 id="received-assignments-title" className="text-sm font-medium text-content-secondary">{t('welcome.assignments.title')}</h2>
-      <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 items-start">
-        {assignments.slice(0, VISIBLE_LIMIT).map((assignment) => {
-          const Row = assignment.submittedAt ? SubmittedAssignment : PendingAssignment;
-          return <Row key={assignment.assignmentId} assignment={assignment} onOpenTask={onOpenTask} t={t} language={language} />;
-        })}
-      </ul>
-    </section>
+    <ul className="divide-y divide-border-subtle">
+      {assignments.slice(0, VISIBLE_LIMIT).map((assignment) => {
+        const Row = assignment.submittedAt ? SubmittedAssignment : PendingAssignment;
+        return <Row key={assignment.assignmentId} assignment={assignment} onOpenTask={onOpenTask} t={t} language={language} />;
+      })}
+    </ul>
   );
 }

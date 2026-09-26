@@ -43,6 +43,7 @@ export const en = {
     moduleDesc_schreiben: 'Written expression practice: filling out forms and writing short messages.',
     moduleDesc_sprechen: 'Oral expression practice: introductions, question cards, and everyday requests.',
     randomCard: {
+      title: 'Exam',
       startExam: 'Start exam · {minutes} min',
       practice: 'Practice without timer',
       balancerHint: 'We pick the variant you have solved least often',
@@ -55,7 +56,7 @@ export const en = {
       notSolved: 'not solved',
       assigned: 'Task',
       startAria: '{name}: start exam',
-      attemptsLine: 'attempts: {count} · {date}',
+      attemptsLine: '×{count} · {date}',
       startHint: 'Start →',
     },
     assignments: {
@@ -130,7 +131,7 @@ export const en = {
       title: 'Progress by part',
       hint: 'Average of recent attempts · the mark is the pass line',
       weakest: 'weakest',
-      chartAria: 'Last attempts: {list}',
+      empty: 'After your first attempt you will see the average for each part here',
     },
     structure: {
       sectionTitle: 'Module Structure',

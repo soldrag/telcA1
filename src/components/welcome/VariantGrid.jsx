@@ -2,6 +2,7 @@ import React from 'react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { formatExamName, getExamNumber } from '../../utils/examFormat.js';
 import { formatDayMonth } from '../../utils/historyFormat.js';
+import Section from '../layout/Section.jsx';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
 
@@ -22,7 +23,7 @@ function VariantCell({ exam, status, activity, onStart, t, language }) {
       type="button"
       onClick={() => onStart(exam.id)}
       aria-label={`${t('welcome.variants.startAria', { name })}, ${status.text}`}
-      className={`group min-h-[3.25rem] lg:min-h-[6rem] rounded-xl bg-surface-card border border-border-default hover:border-action-primary hover:ring-1 hover:ring-action-primary hover:bg-surface-raised flex flex-col items-center justify-center lg:items-start lg:justify-start lg:px-3 lg:py-3 gap-0.5 min-w-0 cursor-pointer transition-colors ${FOCUS_RING}`}
+      className={`group min-h-[3.25rem] lg:min-h-[6rem] lg:text-left rounded-xl bg-surface-card lg:bg-surface-raised border border-border-default hover:border-action-primary hover:ring-1 hover:ring-action-primary hover:bg-surface-raised flex flex-col items-center justify-center lg:items-start lg:justify-start lg:px-3 lg:py-3 gap-0.5 min-w-0 cursor-pointer transition-colors ${FOCUS_RING}`}
     >
       <span className="font-semibold text-content-primary">
         <span className="lg:hidden">{getExamNumber(exam.id) || name}</span>
@@ -37,22 +38,20 @@ function VariantCell({ exam, status, activity, onStart, t, language }) {
   );
 }
 
-export default function VariantGrid({ exams = [], scores = {}, assignedExamIds = [], passScore = 9, onStartVariant }) {
+export default function VariantGrid({ exams = [], scores = {}, assignedExamIds = [], passScore = 9, onStartVariant, className = '' }) {
   const { t, language } = useI18n();
   if (exams.length === 0) return null;
   const { bestByExamId = {}, activityByExamId = {}, best, attemptsCount = 0 } = scores;
 
+  const summary = best ? (
+    <span className="text-sm text-content-secondary tabular-nums">
+      {t('welcome.variants.summary', { best: best.score, max: best.total, count: attemptsCount })}
+    </span>
+  ) : null;
+
   return (
-    <section aria-labelledby="variants-title" className="space-y-3">
-      <div className="flex items-baseline justify-between gap-3">
-        <h2 id="variants-title" className="text-base font-semibold text-content-primary">{t('welcome.variants.title')}</h2>
-        {best && (
-          <span className="text-sm text-content-secondary tabular-nums">
-            {t('welcome.variants.summary', { best: best.score, max: best.total, count: attemptsCount })}
-          </span>
-        )}
-      </div>
-      <div className={`grid grid-cols-5 lg:grid-cols-4 ${exams.length > 4 ? 'xl:grid-cols-5' : ''} gap-2 lg:gap-3`}>
+    <Section id="variants-title" title={t('welcome.variants.title')} action={summary} frame="desktop" className={className}>
+      <div className={`grid grid-cols-5 lg:grid-cols-4 ${exams.length > 4 ? 'xl:grid-cols-5' : ''} gap-2 lg:gap-3 lg:my-auto`}>
         {exams.map((exam) => (
           <VariantCell
             key={exam.id}
@@ -65,6 +64,6 @@ export default function VariantGrid({ exams = [], scores = {}, assignedExamIds =
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
