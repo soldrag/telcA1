@@ -14,7 +14,7 @@ const QUANTIFIED_DURATION_REGEX = /\b(?:\d+|ein|eine|einen|zwei|drei|vier|fünf|
 
 const A1_CONCEPT_STEM_DOMAINS = {
   person: ['person', 'leut', 'wir', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
-  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt'],
+  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend'],
   preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
   tier: ['hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
   grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'anmeld', 'buch'],
@@ -45,7 +45,7 @@ export function scoreAspectConceptOverlap(aspectLabel = '', sentenceStems = [], 
     .split(/\s+/)
     .filter((w) => w.length > 2);
 
-  const isTimeAspect = aspectTokens.some((t) => /zeit|dau|termin|datum/i.test(t));
+  const isTimeAspect = aspectTokens.some((t) => /zeit|dau|termin|datum|wann|lang/i.test(t));
   if (isTimeAspect && rawSentence) {
     if (TEMPORAL_RANGE_REGEX.test(rawSentence)) {
       return 0.95;

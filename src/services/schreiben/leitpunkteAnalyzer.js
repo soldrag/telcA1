@@ -12,6 +12,7 @@ import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
 import { TEMPORAL_RANGE_REGEX } from './grading/a1ConceptLexicon.js';
+import { evaluateCompoundCriterionBaseline } from './grading/compoundBaselineEvaluator.js';
 
 function extractStems(str = '') {
   return str
@@ -101,13 +102,24 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
     detail = frameResult.errors.map(e => e.explanation).join(' ');
   }
 
+  let rankerDetails = null;
+  const compoundEval = evaluateCompoundCriterionBaseline(criterion, evalText);
+  if (compoundEval) {
+    finalScore = Math.min(finalScore, compoundEval.score);
+    rankerDetails = compoundEval.rankerDetails;
+    if (compoundEval.score < 2 && compoundEval.missingAspects?.length > 0) {
+      detail = `Teilweise bearbeitet: Aspekt fehlt (${compoundEval.missingAspects.join(', ')})`;
+    }
+  }
+
   const diagnosticCode = resolveLpDiagnosticCode(finalScore, inversion, frameResult.isValid);
   return {
     score: finalScore,
     matched: finalScore > 0,
     detail,
     diagnosticCode,
-    frameErrors: frameResult.errors
+    frameErrors: frameResult.errors,
+    rankerDetails,
   };
 }
 
@@ -135,7 +147,8 @@ export function analyzeLeitpunkte(text = '', criteria = [], segments = null) {
       matched: evalRes.matched,
       detail: evalRes.detail,
       diagnosticCode: evalRes.diagnosticCode,
-      matchedSentence: targetSentence
+      matchedSentence: targetSentence,
+      rankerDetails: evalRes.rankerDetails || null,
     };
   });
 

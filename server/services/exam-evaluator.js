@@ -59,6 +59,8 @@ export function gradeQuestion(question, answers = {}) {
     max_points: grading.max_points,
     word_count: grading.word_count,
     criteria_breakdown: grading.breakdown || null,
+    examiner_feedback: grading.examiner_feedback || null,
+    feedback_summary: grading.feedback_summary || null,
     feedback_notes: grading.feedback || [],
     detected_elements: grading.detected || null,
     grammar_errors: grading.grammar_errors || [],

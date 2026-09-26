@@ -49,10 +49,14 @@ export function useSchreibenAiChecker({
   language,
 }) {
   const [aiLoading, setAiLoading] = useState(false);
-  const [aiStatus, setAiStatus] = useState('');
+  const [aiStatus, setAiStatus] = useState(() => (
+    item.examiner_feedback
+      ? (language === 'ru' ? '⚡ Оценка выполнена микро-ранжировщиком (System 1)' : '⚡ Bewertung durch Micro-Ranker (System 1) abgeschlossen')
+      : ''
+  ));
   const [aiDiffSummary, setAiDiffSummary] = useState([]);
-  const [feedbackSummary, setFeedbackSummary] = useState('');
-  const [examinerFeedback, setExaminerFeedback] = useState(null);
+  const [feedbackSummary, setFeedbackSummary] = useState(() => item.feedback_summary || '');
+  const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
   const [activeProvider, setActiveProvider] = useState(null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
   const [abComparison, setAbComparison] = useState(null);
@@ -133,6 +137,12 @@ export function useSchreibenAiChecker({
       setAiLoading(false);
     }
   }, [runEvaluationForProvider, applyResult, language]);
+
+  useEffect(() => {
+    if (!item?.examiner_feedback && item?.user_answer && !aiLoading) {
+      handleRunRankerAi();
+    }
+  }, [item?.examiner_feedback, item?.user_answer, handleRunRankerAi]);
 
   const handleRunAbComparison = useCallback(async () => {
     setAiLoading(true);

@@ -87,12 +87,7 @@ async function assignKeywordByEmbedding(keyword, aspectLabels, embedder) {
   return best;
 }
 
-/**
- * Distributes rubric keywords across compound sub-aspects.
- * Priority: explicit rubric `aspects[]` -> concept lexicon domain -> embedding proximity.
- * @returns {Promise<Record<string, string[]>>}
- */
-export async function partitionAspectKeywords(criterion, aspectLabels = [], embedder = null) {
+export function partitionAspectKeywordsSync(criterion, aspectLabels = []) {
   const keywords = Array.isArray(criterion?.keywords) ? criterion.keywords : [];
   const result = Object.fromEntries(aspectLabels.map((label) => [label, []]));
   if (aspectLabels.length === 1) {
@@ -107,9 +102,28 @@ export async function partitionAspectKeywords(criterion, aspectLabels = [], embe
   }
 
   for (const keyword of keywords) {
-    const target = assignKeywordByLexicon(keyword, aspectLabels)
-      || (embedder ? await assignKeywordByEmbedding(keyword, aspectLabels, embedder) : null);
+    const target = assignKeywordByLexicon(keyword, aspectLabels);
     if (target) result[target].push(keyword);
   }
   return result;
+}
+
+/**
+ * Distributes rubric keywords across compound sub-aspects.
+ * Priority: explicit rubric `aspects[]` -> concept lexicon domain -> embedding proximity.
+ * @returns {Promise<Record<string, string[]>>}
+ */
+export async function partitionAspectKeywords(criterion, aspectLabels = [], embedder = null) {
+  const syncResult = partitionAspectKeywordsSync(criterion, aspectLabels);
+  if (!embedder || aspectLabels.length <= 1) return syncResult;
+
+  const keywords = Array.isArray(criterion?.keywords) ? criterion.keywords : [];
+  const assigned = new Set(Object.values(syncResult).flat());
+  const unassigned = keywords.filter((k) => !assigned.has(k));
+
+  for (const keyword of unassigned) {
+    const target = await assignKeywordByEmbedding(keyword, aspectLabels, embedder);
+    if (target) syncResult[target].push(keyword);
+  }
+  return syncResult;
 }
