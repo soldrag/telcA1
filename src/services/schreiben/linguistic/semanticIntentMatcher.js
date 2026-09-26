@@ -5,6 +5,7 @@
  */
 
 import { parseSentencePropositions } from './clauseStructureParser.js';
+import { buildRequestTargets, isTargetAction, isTargetNoun } from './criterionRequestTargets.js';
 
 export const INTENT_TYPES = {
   DEFECT_REPORT: 'DEFECT_REPORT',
@@ -42,16 +43,16 @@ function evaluateDefectPolarity(clauseProps) {
   return { isMatch: false, isInverted: false };
 }
 
-function evaluateRequestPolarity(clauseProps) {
-  const { polarity, arguments: args } = clauseProps;
-  if (polarity.negatedNouns.some(n => ['handwerker', 'techniker', 'hilfe', 'reparatur'].includes(n))) {
+function evaluateRequestPolarity(clauseProps, targets) {
+  const { polarity, predicateCore, arguments: args } = clauseProps;
+  const hasTargetAction = isTargetAction(predicateCore, targets);
+  if (polarity.negatedNouns.some(n => isTargetNoun(n, targets))) {
     return { isMatch: false, isInverted: true, reason: 'negated_entity' };
   }
-  if (polarity.negatedActions.some(a => ['kommen', 'reparieren', 'vorbeikommen', 'schicken'].includes(a))) {
+  if (polarity.negatedActions.length > 0 && hasTargetAction) {
     return { isMatch: false, isInverted: true, reason: 'negated_action' };
   }
-  const hasTargetEntity = args.objects.some(o => ['handwerker', 'techniker', 'hilfe', 'reparatur'].includes(o));
-  const hasTargetAction = ['kommen', 'reparieren', 'vorbeikommen', 'schicken'].includes(clauseProps.predicateCore.baseAction);
+  const hasTargetEntity = args.objects.some(o => isTargetNoun(o, targets));
   return { isMatch: hasTargetEntity || hasTargetAction, isInverted: false };
 }
 
@@ -81,12 +82,12 @@ function evaluateProposalPolarity(clauseProps) {
   return { isMatch: false, isInverted: false };
 }
 
-export function matchPropositionToIntent(clauseProps, intentType) {
+export function matchPropositionToIntent(clauseProps, { intentType, targets = new Set() } = {}) {
   switch (intentType) {
     case INTENT_TYPES.DEFECT_REPORT:
       return evaluateDefectPolarity(clauseProps);
     case INTENT_TYPES.ACTION_REQUEST:
-      return evaluateRequestPolarity(clauseProps);
+      return evaluateRequestPolarity(clauseProps, targets);
     case INTENT_TYPES.APPOINTMENT_CANCEL:
       return evaluateCancellationPolarity(clauseProps);
     case INTENT_TYPES.APPOINTMENT_PROPOSAL:
@@ -101,12 +102,13 @@ export function evaluateSentenceAgainstCriterion(sentence = '', criterion = {}) 
   if (clauses.length === 0) return { isInverted: false, isMatch: false };
 
   const intentType = inferCriterionIntent(criterion);
+  const targets = buildRequestTargets(criterion);
   let isInverted = false;
   let inversionReason = null;
   let isMatch = false;
 
   for (const c of clauses) {
-    const res = matchPropositionToIntent(c, intentType);
+    const res = matchPropositionToIntent(c, { intentType, targets });
     if (res.isInverted) {
       isInverted = true;
       inversionReason = res.reason;

@@ -8,10 +8,9 @@ import { SIMILARITY_T2, SIMILARITY_T1, GRAY_ZONE_DELTA } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
-import { tagTokens } from '../linguistic/a1LexiconService.js';
-import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
+import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { TEMPORAL_RANGE_REGEX } from './a1ConceptLexicon.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
@@ -77,28 +76,6 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   return { matchedCount, score: kwScore, relevantSentences };
 }
 
-function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
-  let penalty = 0;
-  for (const s of sentences) {
-    const pol = detectSemanticInversion(s, criterion);
-    if (pol.isInverted) {
-      penalty = Math.max(penalty, 2);
-    }
-
-    const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
-    const tagged = tagTokens(words);
-    const res = validateSentenceFrame({
-      taggedTokens: tagged,
-      conversiveRules: criterion.conversive_rules || [],
-      semanticSlots: criterion.semantic_slots || []
-    });
-    if (!res.isValid) {
-      penalty = Math.max(penalty, res.maxPenalty);
-    }
-  }
-  return penalty;
-}
-
 export async function scoreSingleLeitpunkt({
   criterion = {},
   bodySentences = [],
@@ -131,7 +108,9 @@ export async function scoreSingleLeitpunkt({
   const baselineScore = effectiveSim >= SIMILARITY_T2 ? 2 : (effectiveSim >= SIMILARITY_T1 ? 1 : 0);
   const inGrayZone = isScoreInGrayZone(effectiveSim);
 
-  const framePenalty = checkRelevantSentencesFrame(relevantSentencesList, criterion);
+  const { penalty: framePenalty } = assessEvidenceSentences({
+    sentences: relevantSentencesList, criterion, hasAffirmativeEvidence: kwEval.relevantSentences.length > 0
+  });
   let finalScore = baselineScore;
   let arbitrated = false;
 

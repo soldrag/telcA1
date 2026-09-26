@@ -78,3 +78,33 @@ describe('Stage 2 Adversarial Semantic Inversion Protection', () => {
     assert.equal(res.items[2].score, 0);
   });
 });
+
+describe('Inversion is anchored to the criterion contract, not to a fixed lexicon', () => {
+  const critHomework = { label: 'Hausaufgaben', keywords: ['hausaufgabe', 'hausaufgaben', 'schicken', 'senden', 'aufgabe'] };
+  const critBringHelp = { label: 'Mitbringen oder Hilfe', keywords: ['mitbringen', 'kuchen', 'salat', 'getränk', 'wein', 'hilfe'] };
+  const critBrochure = { label: 'Informationen schicken', keywords: ['prospekt', 'informationen', 'schicken'] };
+
+  const foreignNegations = [
+    [critHomework, 'ich kann heute leider nicht zum Deutschkurs kommen, weil ich krank bin und hohes Fieber habe.'],
+    [critBringHelp, 'Mein Mann kann auch nicht kommen.'],
+    [critBrochure, 'Am Montag kann ich nicht kommen.'],
+  ];
+  for (const [criterion, sentence] of foreignNegations) {
+    it(`does not invert "${criterion.label}" when the negation targets something else: ${sentence}`, () => {
+      assert.equal(detectSemanticInversion(sentence, criterion).isInverted, false);
+    });
+  }
+
+  const ownNegations = [
+    [critHomework, 'Ich brauche keine Hausaufgaben.', 'negated_entity'],
+    [critHomework, 'Bitte schicken Sie mir die Hausaufgaben nicht.', 'negated_action'],
+    [critBringHelp, 'Ich brauche keine Hilfe.', 'negated_entity'],
+  ];
+  for (const [criterion, sentence, reason] of ownNegations) {
+    it(`inverts "${criterion.label}" when the negation targets its own subject: ${sentence}`, () => {
+      const res = detectSemanticInversion(sentence, criterion);
+      assert.equal(res.isInverted, true);
+      assert.equal(res.reason, reason);
+    });
+  }
+});

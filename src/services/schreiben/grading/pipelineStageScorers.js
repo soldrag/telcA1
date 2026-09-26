@@ -10,9 +10,7 @@ import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { filterCandidateErrors } from './stage3Grammar.js';
 import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
-import { tagTokens } from '../linguistic/a1LexiconService.js';
-import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
-import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
+import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
 import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/rankerEmbedder.js';
@@ -30,32 +28,6 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
     console.warn('[PipelineStageScorers] Embedding computation failed, falling back to keywords:', err?.message || err);
     return [];
   }
-}
-
-function checkRelevantSentencesFrame(sentences = [], criterion = {}) {
-  let penalty = 0;
-  const frameErrors = [];
-  let inversionInfo = { isInverted: false };
-  for (const s of sentences) {
-    const pol = detectSemanticInversion(s, criterion);
-    if (pol.isInverted) {
-      penalty = Math.max(penalty, 2);
-      inversionInfo = pol;
-    }
-
-    const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
-    const tagged = tagTokens(words);
-    const res = validateSentenceFrame({
-      taggedTokens: tagged,
-      conversiveRules: criterion.conversive_rules || [],
-      semanticSlots: criterion.semantic_slots || []
-    });
-    if (!res.isValid) {
-      penalty = Math.max(penalty, res.maxPenalty);
-      frameErrors.push(...res.errors);
-    }
-  }
-  return { penalty, frameErrors, inversionInfo };
 }
 
 async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments }) {
@@ -89,7 +61,7 @@ async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceV
 
   const kwSim = kw.score === 2 ? 0.75 : (kw.score === 1 ? 0.50 : 0.20);
   const effectiveSim = Math.max(bestSim, kwSim);
-  return { relSentences, effectiveSim };
+  return { relSentences, effectiveSim, hasAffirmativeEvidence: kw.relevantSentences.length > 0 };
 }
 
 function calculateBaseScore(effectiveSim, framePenalty) {
@@ -101,8 +73,8 @@ function calculateBaseScore(effectiveSim, framePenalty) {
 async function scoreCriterionItem(params) {
   const { crit, provider, bodySentences, rankerEmbedder, criteria = [] } = params;
   const lpText = crit.label || crit.id;
-  const { relSentences, effectiveSim } = await gatherCriterionEvidence(params);
-  const frameCheck = checkRelevantSentencesFrame(relSentences, crit);
+  const { relSentences, effectiveSim, hasAffirmativeEvidence } = await gatherCriterionEvidence(params);
+  const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence });
   const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
 
   let finalScore = baseScore;
