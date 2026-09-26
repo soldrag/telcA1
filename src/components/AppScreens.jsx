@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import WelcomeScreen from './WelcomeScreen.jsx';
-import ExamView from './ExamView.jsx';
-import ResultsView from './ResultsView.jsx';
-import HistoryView from './HistoryView.jsx';
-import AssignmentLandingScreen from './assignment/AssignmentLandingScreen.jsx';
+
+const ExamView = lazy(() => import('./ExamView.jsx'));
+const ResultsView = lazy(() => import('./ResultsView.jsx'));
+const HistoryView = lazy(() => import('./HistoryView.jsx'));
+const AssignmentLandingScreen = lazy(() => import('./assignment/AssignmentLandingScreen.jsx'));
+
+function ScreenLoadingFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-[40vh]">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-action-primary" />
+    </div>
+  );
+}
 
 export default function AppScreens({
   screen,
@@ -15,26 +24,38 @@ export default function AppScreens({
   assignmentProps = screenProps.assignment,
 }) {
   if (assignmentProps?.isAssignmentMode && screen === 'welcome') {
-    return <AssignmentLandingScreen {...assignmentProps} />;
+    return (
+      <Suspense fallback={<ScreenLoadingFallback />}>
+        <AssignmentLandingScreen {...assignmentProps} />
+      </Suspense>
+    );
   }
   if (screen === 'welcome') {
     return <WelcomeScreen {...welcomeProps} />;
   }
   if (screen === 'history') {
-    return <HistoryView {...historyProps} />;
+    return (
+      <Suspense fallback={<ScreenLoadingFallback />}>
+        <HistoryView {...historyProps} />
+      </Suspense>
+    );
   }
   if (screen === 'results') {
     if (resultsProps?.results) {
-      return <ResultsView {...resultsProps} />;
+      return (
+        <Suspense fallback={<ScreenLoadingFallback />}>
+          <ResultsView {...resultsProps} />
+        </Suspense>
+      );
     }
-    return (
-      <div className="flex items-center justify-center min-h-[40vh]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-action-primary" />
-      </div>
-    );
+    return <ScreenLoadingFallback />;
   }
   if (screen === 'exam' && (examProps?.examConfig || examProps?.examData)) {
-    return <ExamView {...examProps} />;
+    return (
+      <Suspense fallback={<ScreenLoadingFallback />}>
+        <ExamView {...examProps} />
+      </Suspense>
+    );
   }
   return null;
 }

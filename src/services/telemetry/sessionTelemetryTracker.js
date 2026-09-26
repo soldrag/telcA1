@@ -22,6 +22,7 @@ export function createSessionTelemetryTracker({ initialStartedAt = null } = {}) 
   }
 
   function start() {
+    if (active) return;
     if (!startedAt) {
       startedAt = new Date().toISOString();
     }

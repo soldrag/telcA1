@@ -5,8 +5,6 @@
  */
 
 import { initEmbeddingGemma, unloadEmbeddingGemma } from './embeddingGemmaService.js';
-import { initQwen3, unloadQwen3 } from './qwen3Service.js';
-
 import { isWebGPUAdapterAvailable, isWebGPUSupported } from '../../../utils/webGpuSupport.js';
 
 export { isWebGPUSupported, isWebGPUAdapterAvailable };
@@ -50,28 +48,11 @@ export class ModelManager {
     this.embeddingLoaded = false;
   }
 
-  async loadLanguageModel(onProgress = null) {
-    const supported = await isWebGPUAdapterAvailable();
-    if (!supported) {
-      return { success: false, limitedMode: true, reason: 'no_webgpu' };
-    }
-    try {
-      onProgress?.('Lade Sprachmodell (Qwen3-0.6B)...', 0.45);
-      const engine = await initQwen3((msg, prog) => {
-        const scaledProg = prog ? 0.45 + prog * 0.45 : 0.6;
-        onProgress?.(msg, scaledProg);
-      });
-      this.qwenLoaded = true;
-      return { success: true, engine };
-    } catch (err) {
-      this.loadingError = err;
-      console.warn('[ModelManager] Qwen3 load failed:', err);
-      return { success: false, limitedMode: true, error: err?.message || String(err) };
-    }
+  async loadLanguageModel() {
+    return { success: false, limitedMode: true, reason: 'generative_llm_deprecated' };
   }
 
   async unloadLanguageModel() {
-    await unloadQwen3();
     this.qwenLoaded = false;
   }
 

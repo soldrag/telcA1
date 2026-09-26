@@ -4,8 +4,6 @@
  * Supports optional Qwen3 polish via feature flag (disabled by default).
  */
 
-import { FEEDBACK_SCHEMA } from './types.js';
-import { executeQwen3Prompt } from './qwen3Service.js';
 import { buildFeedbackPolishPrompt } from './prompts.js';
 
 const TEMPLATE_BANK = {
@@ -74,24 +72,8 @@ export function assembleDeterministicFeedback({
   return `Die geforderten Inhaltspunkte wurden nur teilweise bearbeitet. Achten Sie zudem auf die formale Gestaltung von Anrede und Grußformel. ${gramText}`;
 }
 
-export async function polishFeedbackWithLLM(templateText = '', qwenEngine = null) {
-  if (!templateText || !qwenEngine) return templateText;
-
-  const prompt = buildFeedbackPolishPrompt(templateText);
-
-  try {
-    const result = await executeQwen3Prompt({
-      prompt,
-      schema: FEEDBACK_SCHEMA,
-      maxTokens: 180,
-      engine: qwenEngine
-    });
-    const candidate = String(result?.feedback || '').trim();
-    return candidate.length >= 20 ? candidate : templateText;
-  } catch (err) {
-    console.warn('[Stage4Feedback] Polish failed, using deterministic template:', err?.message || err);
-    return templateText;
-  }
+export async function polishFeedbackWithLLM(templateText = '') {
+  return templateText;
 }
 
 export async function runStage4Feedback({

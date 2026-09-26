@@ -10,6 +10,7 @@ const MIME_MAP = {
   '.ico': 'image/x-icon',
   '.png': 'image/png',
   '.woff2': 'font/woff2',
+  '.wasm': 'application/wasm',
   '.webmanifest': 'application/manifest+json; charset=UTF-8',
 };
 

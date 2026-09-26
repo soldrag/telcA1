@@ -20,7 +20,12 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
   const loader = useExamLoader({ api, onError: showError });
   const modals = useModalCoordinator();
   const session = useExamSession({ storage });
-  const timer = useExamTimer(25 * 60);
+  const isTimerRunning = screen === 'exam' && !session.isSubmitted && !session.isInspection;
+  const timer = useExamTimer({
+    initialSeconds: 25 * 60,
+    isRunning: isTimerRunning,
+    isSubmitted: session.isSubmitted,
+  });
   const history = useAttemptHistory(loader.activeTestType, storage);
 
   const navigateTo = useCallback((targetScreen) => {

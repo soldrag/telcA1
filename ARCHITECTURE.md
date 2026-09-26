@@ -31,8 +31,8 @@ flowchart TB
             
             subgraph SchreibenEngine["Schreiben Hybrid Grading Engine"]
                 NLP["Linguistic Engine (Topological Field Parser & Valency)"]
-                Embeddings["EmbeddingGemma-300M (ONNX WebAssembly)"]
-                WebLLM["Qwen3-0.6B (WebGPU / WebLLM Arbiter)"]
+                Embeddings["EmbeddingGemma-300M (ONNX WebAssembly / WebGPU)"]
+                MicroRanker["Micro-Ranker (System 1 Decision Engine)"]
             end
         end
         
@@ -158,13 +158,11 @@ flowchart TD
     
     S0 --> S2["Stage 2: Leitpunkte Coverage Analysis"]
     subgraph S2_Details["Leitpunkte Analysis"]
-        Embed["EmbeddingGemma-300M (ONNX WebAssembly)"]
+        Embed["EmbeddingGemma-300M (ONNX WebGPU / Wasm)"]
         Cos["Matryoshka 256d Cosine Similarity"]
-        Arbiter{"Gray Zone ($T_1 \\pm D$)?"}
-        Qwen["Qwen3-0.6B WebLLM (WebGPU Arbiter)"]
-        Embed --> Cos --> Arbiter
-        Arbiter -->|Yes| Qwen
-        Arbiter -->|No| CodeScore["Deterministic Rule Score"]
+        Ranker["Micro-Ranker (System 1 Decision Engine)"]
+        Embed --> Cos --> Ranker
+        Ranker --> CodeScore["Deterministic Rule Score"]
     end
     
     S2 --> S3["Stage 3: Grammar & Linguistic Analysis"]
@@ -192,12 +190,11 @@ In compliance with project standards, natural language evaluation avoids ad-hoc 
 
 ### 5.3 Hardware Runtime Adaptation & Fallback Matrix
 
-| Environment | Embeddings Engine | Arbiter Engine | Mode |
+| Environment | Embeddings Engine | Decision Engine | Mode |
 | :--- | :--- | :--- | :--- |
-| Modern WebGPU (macOS, Windows, iOS 26+) | ONNX Runtime Web (Wasm) | Qwen3-0.6B via WebLLM | **Full Hybrid Mode** |
-| Modern WebGPU / Wasm (System 1 Fast-Path) | Transformers.js (WebGPU/Wasm) | Micro-Ranker (shared EmbeddingGemma 300M q4) | **Micro-Ranker Decision Mode** |
-| WebGPU Unsupported / Older Browser | ONNX Runtime Web (Wasm) | Keyword & Pattern Heuristic | **Embedding + Heuristic Mode** |
-| Low Memory / Wasm Only | Deterministic Keyword Matcher | Deterministic Baseline | **Limited Deterministic Mode** |
+| Modern WebGPU / Wasm (Production Default) | Transformers.js (WebGPU/Wasm) | Micro-Ranker (EmbeddingGemma 300M q4) | **Micro-Ranker Decision Mode (Active)** |
+| WebGPU Unsupported / Older Browser | Transformers.js (Wasm Fallback) | Micro-Ranker (EmbeddingGemma Wasm) | **Micro-Ranker (Wasm Fallback)** |
+| Low Memory / Deterministic Only | Deterministic Keyword Matcher | Deterministic Baseline | **Limited Deterministic Mode** |
 
 Runtime capability is determined strictly via runtime detection (`navigator.gpu` + `requestAdapter()`), avoiding brittle user-agent sniffing.
 
@@ -237,6 +234,7 @@ To support high-throughput, deterministic evaluation without the resource footpr
 - **Project-Level Feature Configuration (`aiConfig.js`)**: Centralizes feature flags controlling active AI backends (`PRIMARY_PROVIDER: 'micro_ranker'`, `ENABLE_GENERATIVE_LLM: false`, `ENABLE_AB_TESTING_UI: false`). Disables heavy WebLLM downloads and replaces manual action buttons with an unobtrusive ranker evaluation mention, presenting students with immediate, clean feedback while preserving full extensibility for developers.
 - **A/B Testing & Comparison Engine (`abTestingService.js`, `SchreibenAbComparisonCard.jsx`, `SchreibenAiControlBar.jsx`)**: Enables comparative evaluation between Generative LLM (Method A) and Micro-Ranker (Method B), measuring point deltas, execution speedup factors, and criterion agreement rates with local telemetry history.
 - **Transparent Decision Inspection & Authentic telc Feedback (`SchreibenRankerDetailsCard.jsx`, `tutorFeedbackResolver.js`)**: Provides a collapsible diagnostic view detailing sentence-level cross-attention matches, confidence ratings, per-aspect verdicts for composite criteria (full points only when all aspects are addressed), the protection note and the sentences not matched to any Leitpunkt. Resolves authentic examiner feedback (`telc Prüfer-Feedback` / `Отзыв экзаменатора telc`) generated deterministically from factual rule contracts, eliminating misleading "AI" branding and preventing score vs diagnostic hint contradictions via compatibility reconciliation (`isCodeCompatibleWithScore`).
+- **Resource Optimization & Memory Leak Prevention (v0.7.23)**: Eliminates CPU churn via Wall-Clock timer sleeping outside active exam screens; routes browser AI inference (Micro-Ranker) into dedicated Web Workers with guaranteed `worker.terminate()` disposal to free GPU VRAM; purges legacy WebLLM/Qwen dependencies (-6 MB build reduction); splits application screens with `React.lazy()`; and enables Brotli/Gzip precompression for `.wasm` binaries.
 
 ### 5.8 CEFR Ranker Policy Architecture & Dependency Inversion (DIP)
 To isolate scoring regulations across CEFR proficiency levels (A1, A2, B1) without tight coupling or regression risks:

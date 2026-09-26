@@ -1,6 +1,6 @@
 {
   "name": "telc-a1-deutsch-lesen",
-  "version": "0.7.22",
+  "version": "0.7.23",
   "license": "MIT",
   "type": "module",
   "description": "Interactive Telc Deutsch A1 Lesen Exam Web Application with realistic tasks, timer, scoring and explanations",
@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
-    "@mlc-ai/web-llm": "^0.2.85",
     "compression": "^1.8.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",

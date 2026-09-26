@@ -4,7 +4,7 @@
  */
 
 import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
-import { isWebGPUSupported } from '../schreiben/grading/modelManager.js';
+import { isWebGPUSupported } from '../../utils/webGpuSupport.js';
 
 export const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 export const EMBEDDING_DIMENSION = 256;

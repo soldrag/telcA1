@@ -9,8 +9,8 @@ import {
 } from '../src/config/version.js';
 
 describe('Application Versioning & Build Metadata', () => {
-  it('exposes semver version matching package.json (0.7.22)', () => {
-    assert.equal(APP_VERSION, '0.7.22');
+  it('exposes semver version matching package.json (0.7.23)', () => {
+    assert.equal(APP_VERSION, '0.7.23');
   });
 
   it('exposes commit hash string or fallback', () => {

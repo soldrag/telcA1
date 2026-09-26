@@ -4,8 +4,6 @@
  * Mandatory 4-step candidate filtering ensures zero hallucinations reach the UI.
  */
 
-import { SENTENCE_GRAMMAR_SCHEMA } from './types.js';
-import { executeQwen3Prompt } from './qwen3Service.js';
 import { calculateLevenshtein, normalizeGermanText } from '../schreibenFuzzyMatcher.js';
 import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
 import { buildGrammarPrompt } from './prompts.js';
@@ -55,24 +53,8 @@ export function filterCandidateErrors(sentence = '', rawCandidates = [], maxPerS
   return valid;
 }
 
-export async function checkSentenceGrammar(sentence = '', qwenEngine = null) {
-  const trimmed = (sentence || '').trim();
-  if (!trimmed || !qwenEngine) return [];
-
-  const prompt = buildGrammarPrompt(trimmed);
-  try {
-    const result = await executeQwen3Prompt({
-      prompt,
-      schema: SENTENCE_GRAMMAR_SCHEMA,
-      maxTokens: 128,
-      engine: qwenEngine
-    });
-    const candidates = Array.isArray(result?.errors) ? result.errors : [];
-    return filterCandidateErrors(trimmed, candidates, 3);
-  } catch (err) {
-    console.warn('[Stage3Grammar] Skipping sentence on LLM error/timeout:', trimmed, err?.message || err);
-    return [];
-  }
+export async function checkSentenceGrammar() {
+  return [];
 }
 
 export async function runStage3Grammar({

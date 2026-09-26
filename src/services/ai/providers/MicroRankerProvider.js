@@ -12,6 +12,7 @@ import { classifyCriterionCoverage } from '../../schreiben/grading/microRankerSe
 import { createRankerEmbedder } from '../../embeddings/rankerEmbedder.js';
 import { assembleDeterministicFeedback } from '../../schreiben/grading/stage4Feedback.js';
 import { defaultA1RankerPolicy } from '../../schreiben/grading/policies/a1RankerPolicy.js';
+import { clearEmbeddingCache, unloadEmbeddingService } from '../../embeddings/embeddingService.js';
 
 export class MicroRankerProvider extends AIProvider {
   /**
@@ -70,7 +71,10 @@ export class MicroRankerProvider extends AIProvider {
   }
 
   /**
-   * The shared EmbeddingGemma instance is owned by embeddingService; nothing to release here.
+   * Releases model resources, WebGPU/WASM buffers and clears embedding vector cache.
    */
-  async dispose() {}
+  async dispose() {
+    clearEmbeddingCache();
+    await unloadEmbeddingService();
+  }
 }

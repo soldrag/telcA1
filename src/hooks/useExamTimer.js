@@ -4,7 +4,12 @@ const DEFAULT_TIME_LIMIT_SECONDS = 25 * 60;
 
 export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
   const configuration = typeof options === 'number' ? { initialSeconds: options } : (options || {});
-  const { initialSeconds = DEFAULT_TIME_LIMIT_SECONDS, onTimeUp = null, isSubmitted = false } = configuration;
+  const {
+    initialSeconds = DEFAULT_TIME_LIMIT_SECONDS,
+    onTimeUp = null,
+    isSubmitted = false,
+    isRunning = true,
+  } = configuration;
 
   const [isTimed, setIsTimed] = useState(true);
   const [totalSeconds, setTotalSeconds] = useState(initialSeconds);
@@ -13,6 +18,9 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
   const [isPaused, setIsPaused] = useState(false);
 
   const timeUpHandlerRef = useRef(onTimeUp);
+  const endTimeRef = useRef(null);
+  const startElapsedRef = useRef(null);
+
   useEffect(() => {
     timeUpHandlerRef.current = onTimeUp;
   }, [onTimeUp]);
@@ -27,8 +35,11 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
     setIsTimed(Boolean(timed));
     const effectiveSecondsLeft = initialSecondsLeft !== undefined ? initialSecondsLeft : targetSeconds;
     setSecondsLeft(effectiveSecondsLeft);
-    setSecondsElapsed(Math.max(0, targetSeconds - effectiveSecondsLeft));
+    const elapsed = Math.max(0, targetSeconds - effectiveSecondsLeft);
+    setSecondsElapsed(elapsed);
     setIsPaused(false);
+    endTimeRef.current = Date.now() + effectiveSecondsLeft * 1000;
+    startElapsedRef.current = Date.now() - elapsed * 1000;
   }, []);
 
   const togglePause = useCallback(() => {
@@ -48,28 +59,63 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
   }, []);
 
   useEffect(() => {
-    if (isSubmitted || isPaused) return;
-
-    if (!isTimed) {
-      const intervalId = setInterval(() => {
-        setSecondsElapsed((prev) => prev + 1);
-      }, 1000);
-      return () => clearInterval(intervalId);
+    if (!isRunning || isSubmitted || isPaused) {
+      endTimeRef.current = null;
+      startElapsedRef.current = null;
+      return;
     }
 
-    const intervalId = setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(intervalId);
-          timeUpHandlerRef.current?.();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    if (!isTimed) {
+      startElapsedRef.current = Date.now() - secondsElapsed * 1000;
+      const syncElapsed = () => {
+        const elapsed = Math.max(0, Math.floor((Date.now() - startElapsedRef.current) / 1000));
+        setSecondsElapsed(elapsed);
+      };
 
-    return () => clearInterval(intervalId);
-  }, [isTimed, isPaused, isSubmitted]);
+      const intervalId = setInterval(syncElapsed, 1000);
+      const handleVisibility = () => {
+        if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+          syncElapsed();
+        }
+      };
+      if (typeof document !== 'undefined') {
+        document.addEventListener('visibilitychange', handleVisibility);
+      }
+      return () => {
+        clearInterval(intervalId);
+        if (typeof document !== 'undefined') {
+          document.removeEventListener('visibilitychange', handleVisibility);
+        }
+      };
+    }
+
+    endTimeRef.current = Date.now() + secondsLeft * 1000;
+    const syncRemaining = () => {
+      const left = Math.max(0, Math.ceil((endTimeRef.current - Date.now()) / 1000));
+      if (left <= 0) {
+        setSecondsLeft(0);
+        timeUpHandlerRef.current?.();
+      } else {
+        setSecondsLeft(left);
+      }
+    };
+
+    const intervalId = setInterval(syncRemaining, 1000);
+    const handleVisibility = () => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        syncRemaining();
+      }
+    };
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', handleVisibility);
+    }
+    return () => {
+      clearInterval(intervalId);
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('visibilitychange', handleVisibility);
+      }
+    };
+  }, [isRunning, isTimed, isPaused, isSubmitted]);
 
   return {
     isTimed,

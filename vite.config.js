@@ -25,6 +25,9 @@ function getVendorChunk(id) {
   if (id.includes('node_modules/lucide-react/')) {
     return 'vendor-icons';
   }
+  if (id.includes('node_modules/@huggingface/transformers/') || id.includes('node_modules/onnxruntime-')) {
+    return 'vendor-ai-runtime';
+  }
   if (id.includes('/server/seeds/') || id.includes('server/seed-data.js')) {
     return 'exam-seeds';
   }
@@ -45,7 +48,7 @@ export default defineConfig({
     i18nContractValidatorPlugin(),
     compression({
       algorithms: ['gzip', 'brotliCompress'],
-      include: /\.(html|css|js|svg|json)$/,
+      include: /\.(html|css|js|svg|json|wasm)$/,
     }),
   ],
   build: {

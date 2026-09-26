@@ -8,20 +8,20 @@ import {
   PROVIDER_IDS,
   LEITPUNKT_COVERAGE_SCHEMA,
   SENTENCE_GRAMMAR_SCHEMA,
-  FEEDBACK_POLISH_SCHEMA
+  FEEDBACK_POLISH_SCHEMA,
 } from '../types.js';
 import { isWebGPUAdapterAvailable } from '../../../utils/webGpuSupport.js';
-import { executeQwen3Prompt, initQwen3 } from '../../schreiben/grading/qwen3Service.js';
 import {
   buildArbiterPrompt,
   buildGrammarPrompt,
-  buildFeedbackPolishPrompt
+  buildFeedbackPolishPrompt,
 } from '../../schreiben/grading/prompts.js';
 import { assembleDeterministicFeedback } from '../../schreiben/grading/stage4Feedback.js';
+import { extractAndParseLLMJson } from '../../schreiben/webLlmJsonRepair.js';
 
 export class ClientWebGpuProvider extends AIProvider {
   constructor(customEngine = null) {
-    super(PROVIDER_IDS.CLIENT_WEBGPU, 'On-Device Modell (WebGPU, Qwen3-0.6B)');
+    super(PROVIDER_IDS.CLIENT_WEBGPU, 'On-Device Modell (WebGPU)');
     this.engine = customEngine;
   }
 
@@ -31,8 +31,27 @@ export class ClientWebGpuProvider extends AIProvider {
   }
 
   async getEngine() {
-    if (this.engine) return this.engine;
-    return await initQwen3();
+    return this.engine;
+  }
+
+  async _executePrompt({ prompt, schema, maxTokens = 128, engine }) {
+    if (!engine?.chat?.completions?.create) {
+      throw new Error('LLM engine not initialized or supported');
+    }
+    const requestOptions = {
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0,
+      max_tokens: maxTokens,
+    };
+    if (schema) {
+      requestOptions.response_format = {
+        type: 'json_object',
+        schema: typeof schema === 'string' ? schema : JSON.stringify(schema),
+      };
+    }
+    const response = await engine.chat.completions.create(requestOptions);
+    const content = response?.choices?.[0]?.message?.content || '';
+    return schema ? extractAndParseLLMJson(content) : content;
   }
 
   async classifyCoverage(lp, relevantSentences) {
@@ -40,11 +59,11 @@ export class ClientWebGpuProvider extends AIProvider {
     const prompt = buildArbiterPrompt(lpLabel, relevantSentences);
     try {
       const activeEngine = await this.getEngine();
-      const parsed = await executeQwen3Prompt({
+      const parsed = await this._executePrompt({
         prompt,
         schema: LEITPUNKT_COVERAGE_SCHEMA,
         maxTokens: 64,
-        engine: activeEngine
+        engine: activeEngine,
       });
       return { coverage: parsed?.coverage || 'fallback' };
     } catch (err) {
@@ -59,11 +78,11 @@ export class ClientWebGpuProvider extends AIProvider {
     const prompt = buildGrammarPrompt(trimmed);
     try {
       const activeEngine = await this.getEngine();
-      const parsed = await executeQwen3Prompt({
+      const parsed = await this._executePrompt({
         prompt,
         schema: SENTENCE_GRAMMAR_SCHEMA,
         maxTokens: 128,
-        engine: activeEngine
+        engine: activeEngine,
       });
       return Array.isArray(parsed?.errors) ? parsed.errors : [];
     } catch (err) {
@@ -77,11 +96,11 @@ export class ClientWebGpuProvider extends AIProvider {
     const prompt = buildFeedbackPolishPrompt(templateText);
     try {
       const activeEngine = await this.getEngine();
-      const parsed = await executeQwen3Prompt({
+      const parsed = await this._executePrompt({
         prompt,
         schema: FEEDBACK_POLISH_SCHEMA,
         maxTokens: 160,
-        engine: activeEngine
+        engine: activeEngine,
       });
       return String(parsed?.feedback || '').trim() || templateText;
     } catch {
@@ -91,16 +110,9 @@ export class ClientWebGpuProvider extends AIProvider {
 
   async dispose() {
     try {
-      if (this.engine) {
-        if (typeof this.engine.unload === 'function') {
-          await this.engine.unload();
-        }
-      } else {
-        const { unloadQwen3 } = await import('../../schreiben/grading/qwen3Service.js');
-        await unloadQwen3();
+      if (this.engine && typeof this.engine.unload === 'function') {
+        await this.engine.unload();
       }
-      const { unloadEmbeddingService } = await import('../../embeddings/embeddingService.js');
-      await unloadEmbeddingService();
     } catch (err) {
       console.warn('[ClientWebGpuProvider] Dispose warning:', err);
     }
