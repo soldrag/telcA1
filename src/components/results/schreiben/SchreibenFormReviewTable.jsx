@@ -33,15 +33,15 @@ function FormRow({ item, t, language }) {
   const StatusIcon = item.is_correct ? Check : X;
   const explanation = item.is_correct ? '' : resolveExplanation(item, language);
   return (
-    <li className="py-3 grid grid-cols-[1.25rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1.25rem_12rem_1fr] lg:grid-cols-[1.25rem_1fr]">
+    <li className="py-3 grid content-start grid-cols-[1.25rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1.25rem_12rem_1fr] lg:grid-cols-[1.25rem_1fr]">
       <StatusIcon
-        className={`w-5 h-5 row-span-2 sm:row-span-1 lg:row-span-2 ${item.is_correct ? 'text-state-success-text' : 'text-state-error-text'}`}
+        className={`w-5 h-5 row-span-2 sm:row-span-1 lg:row-span-1 ${item.is_correct ? 'text-state-success-text' : 'text-state-error-text'}`}
         aria-label={item.is_correct ? t('results.tabCorrect') : t('results.badgeIncorrect')}
       />
       <span lang="de" className="text-sm text-content-secondary">
         {item.question_number} · {item.options_json?.form_label || item.statement}
       </span>
-      <span className="text-[17px] sm:col-start-3 lg:col-start-2">
+      <span className="text-[1.0625rem] sm:col-start-3 lg:col-start-2">
         <AnswerCell item={item} t={t} />
       </span>
       {explanation && <p className="col-start-2 sm:col-start-3 lg:col-start-2 text-sm text-content-muted">{explanation}</p>}
@@ -51,6 +51,7 @@ function FormRow({ item, t, language }) {
 
 /**
  * Schreiben Teil 1 as one table: field — your answer → correct answer.
+ * From 1024 px it runs full width under the letter, the five fields side by side.
  */
 export default function SchreibenFormReviewTable({ items = [] }) {
   const { t, language } = useI18n();
@@ -61,7 +62,7 @@ export default function SchreibenFormReviewTable({ items = [] }) {
       <h3 id="form-review-title" className="text-lg font-bold text-content-primary">
         {t('results.schreibenResult.formTitle', { score, max: items.length })}
       </h3>
-      <ul className="divide-y divide-border-subtle">
+      <ul className="divide-y divide-border-subtle lg:divide-y-0 lg:grid lg:grid-cols-5 lg:gap-x-6">
         {items.map((item) => <FormRow key={item.id} item={item} t={t} language={language} />)}
       </ul>
     </section>

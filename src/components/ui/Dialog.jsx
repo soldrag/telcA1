@@ -12,7 +12,7 @@ function CloseButton({ onClose, label }) {
     <button
       type="button"
       onClick={onClose}
-      className="min-h-[44px] min-w-[44px] -mr-2 -mt-2 flex items-center justify-center rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-raised transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary shrink-0"
+      className="min-h-[2.75rem] min-w-[2.75rem] -mr-2 -mt-2 flex items-center justify-center rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-raised transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary shrink-0"
       aria-label={label}
     >
       <X className="w-5 h-5" />

@@ -6,8 +6,8 @@ import { useCopyToClipboard } from '../../hooks/useCopyToClipboard.js';
 const QrCodeImage = lazy(() => import('./QrCodeImage.jsx'));
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
-const PRIMARY = `min-h-[48px] px-4 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
-const SECONDARY = `min-h-[48px] px-4 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
+const PRIMARY = `min-h-[3rem] px-4 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
+const SECONDARY = `min-h-[3rem] px-4 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
 
 function canUseNativeShare() {
   return typeof navigator !== 'undefined' && typeof navigator.share === 'function';
@@ -45,7 +45,7 @@ function PhoneActions({ url, title, t }) {
 
 function MessengerLinks({ url, t }) {
   const encoded = encodeURIComponent(url);
-  const link = `min-h-[44px] px-3 rounded-xl border border-border-default hover:bg-surface-raised text-sm font-semibold text-content-primary inline-flex items-center ${FOCUS_RING}`;
+  const link = `min-h-[2.75rem] px-3 rounded-xl border border-border-default hover:bg-surface-raised text-sm font-semibold text-content-primary inline-flex items-center ${FOCUS_RING}`;
   return (
     <div className="flex flex-wrap gap-2">
       <a href={`https://t.me/share/url?url=${encoded}`} target="_blank" rel="noopener noreferrer" className={link}>{t('share.telegram')}</a>
@@ -66,7 +66,7 @@ export default function ShareLinkPanel({ url, title, footnote = null }) {
     <div className="space-y-4">
       <div className="flex items-center gap-2 rounded-xl bg-surface-inset border border-border-default p-1.5 pl-3">
         <span className="flex-1 min-w-0 truncate font-mono text-sm text-content-secondary" title={url}>{url.replace(/^https?:\/\//, '')}</span>
-        <CopyButton url={url} className={`hidden sm:inline-flex ${PRIMARY} min-h-[44px]`} />
+        <CopyButton url={url} className={`hidden sm:inline-flex ${PRIMARY} min-h-[2.75rem]`} />
       </div>
       <PhoneActions url={url} title={title} t={t} />
       <div className="hidden sm:flex items-start gap-4">

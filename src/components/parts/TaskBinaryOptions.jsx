@@ -7,7 +7,7 @@ const BINARY_OPTIONS = [
 ];
 
 // Inline: on portrait tablets the two buttons (110×48) sit in one row with the statement.
-const INLINE_CLASS = 'grid grid-cols-2 gap-2 sm:max-lg:w-[228px] sm:max-lg:shrink-0';
+const INLINE_CLASS = 'grid grid-cols-2 gap-2 sm:max-lg:w-[14.25rem] sm:max-lg:shrink-0';
 
 export default function TaskBinaryOptions({ selectedAnswer = '', isSubmitted, onSelectAnswer, questionId, ariaLabel, isInline = false }) {
   return (

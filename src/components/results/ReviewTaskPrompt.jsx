@@ -64,17 +64,17 @@ function ChoiceOptionsView({ options = [], correctAnswer, userAnswer }) {
             }`}
           >
             <div className="flex items-center justify-between font-bold">
-              <span className="font-mono uppercase text-[11px] px-2 py-0.5 rounded bg-surface-card border border-border-default">
+              <span className="font-mono uppercase text-[0.6875rem] px-2 py-0.5 rounded bg-surface-card border border-border-default">
                 [{opt.id.toUpperCase()}] {opt.title}
               </span>
               {isCorrect && (
-                <span className="flex items-center space-x-1 text-[11px] text-state-success font-black">
+                <span className="flex items-center space-x-1 text-[0.6875rem] text-state-success font-black">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>Richtig</span>
                 </span>
               )}
               {isSelected && !isCorrect && (
-                <span className="flex items-center space-x-1 text-[11px] text-state-error font-black">
+                <span className="flex items-center space-x-1 text-[0.6875rem] text-state-error font-black">
                   <XCircle className="w-3.5 h-3.5" />
                   <span>Ihre Wahl</span>
                 </span>
@@ -145,7 +145,7 @@ export default function ReviewTaskPrompt({ item = {} }) {
         <div className="p-3 rounded-xl border border-border-default bg-surface-card flex items-start space-x-2.5">
           <Target className="w-4 h-4 text-action-primary flex-shrink-0 mt-0.5" />
           <div>
-            <span className="text-[11px] font-black uppercase tracking-wider text-content-secondary block">
+            <span className="text-[0.6875rem] font-black uppercase tracking-wider text-content-secondary block">
               {t('results.taskStatement')}:
             </span>
             <span className="text-xs sm:text-sm font-bold text-content-primary leading-snug">

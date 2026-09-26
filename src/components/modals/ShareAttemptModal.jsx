@@ -27,7 +27,7 @@ export default function ShareAttemptModal({ isOpen, attempt, onClose }) {
   if (!attempt) return null;
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} title={t('modals.shareTitle')} description={t('modals.shareDesc')} maxWidth="max-w-[480px]">
+    <Dialog isOpen={isOpen} onClose={onClose} title={t('modals.shareTitle')} description={t('modals.shareDesc')} maxWidth="max-w-[30rem]">
       <div className="space-y-4">
         <div>
           <label htmlFor="student-name-input" className="block text-sm font-semibold text-content-secondary mb-1.5">{t('modals.shareNameLabel')}</label>
@@ -39,7 +39,7 @@ export default function ShareAttemptModal({ isOpen, attempt, onClose }) {
             placeholder={t('modals.shareNamePlaceholder')}
             maxLength={100}
             autoComplete="name"
-            className="w-full min-h-[48px] px-4 rounded-xl bg-surface-card border border-border-default text-content-primary text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+            className="w-full min-h-[3rem] px-4 rounded-xl bg-surface-card border border-border-default text-content-primary text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
           />
         </div>
         <ShareLinkPanel url={shareUrl} title={t('modals.shareTitle')} />

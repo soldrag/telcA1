@@ -48,7 +48,7 @@ export default function SchreibenMoreDetails({ item, selfCheck, t, language, cla
 
   return (
     <details className={`group rounded-2xl bg-surface-card border border-border-default ${className}`}>
-      <summary className="list-none cursor-pointer min-h-[52px] px-4 sm:px-5 flex items-center justify-between gap-3 text-sm font-semibold text-content-primary [&::-webkit-details-marker]:hidden">
+      <summary className="list-none cursor-pointer min-h-[3.25rem] px-4 sm:px-5 flex items-center justify-between gap-3 text-sm font-semibold text-content-primary [&::-webkit-details-marker]:hidden">
         {t('results.schreibenResult.moreDetails')}
         <ChevronDown className="w-4 h-4 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true" />
       </summary>

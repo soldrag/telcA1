@@ -6,9 +6,10 @@ import SchreibenLetterTexts from './SchreibenLetterTexts.jsx';
 import SchreibenMoreDetails from './SchreibenMoreDetails.jsx';
 
 /**
- * Letter review: conclusion and criteria, the texts, then secondary details.
- * Below 1024 px one stream (optionally only the section picked in the Form / Letter switch);
- * from 1024 px a 380 px column (form, criteria, details) next to the two texts.
+ * Letter review: conclusion and criteria, the texts, then the Teil 1 form and secondary details.
+ * Below 1024 px one stream (optionally only the section picked in the Form / Letter switch).
+ * From 1024 px the letter is one row, criteria beside the sticky texts, and the form and details
+ * run full width below it, so neither column is left half empty.
  */
 export default function SchreibenSelfCheck({ item = {}, onScoreChange, formReview = null, visibleSection = null }) {
   const { t, language } = useI18n();
@@ -17,15 +18,16 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange, formRevie
   const onlyIn = (section) => (visibleSection && visibleSection !== section ? 'max-lg:hidden' : '');
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[380px_minmax(0,1fr)] gap-4 lg:gap-6 items-start">
-      <div className="contents lg:flex lg:flex-col lg:gap-6 lg:min-w-0">
-        {formReview && <div className={`order-3 lg:order-none min-w-0 ${onlyIn('form')}`}>{formReview}</div>}
-        <SchreibenLetterVerdict {...shared} className={`order-1 lg:order-none ${onlyIn('letter')}`} />
-        <SchreibenMoreDetails {...shared} className={`order-4 lg:order-none ${onlyIn('letter')}`} />
+    <div className="flex flex-col gap-4 lg:gap-6">
+      {/* The sticky texts stay inside the letter row and never slide over the form below. */}
+      <div className="contents lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-6 lg:items-start">
+        <SchreibenLetterVerdict {...shared} className={`order-1 min-w-0 ${onlyIn('letter')}`} />
+        <div className={`order-2 lg:sticky lg:top-20 min-w-0 ${onlyIn('letter')}`}>
+          <SchreibenLetterTexts {...shared} />
+        </div>
       </div>
-      <div className={`order-2 lg:order-none lg:sticky lg:top-20 min-w-0 ${onlyIn('letter')}`}>
-        <SchreibenLetterTexts {...shared} />
-      </div>
+      {formReview && <div className={`order-3 min-w-0 ${onlyIn('form')}`}>{formReview}</div>}
+      <SchreibenMoreDetails {...shared} className={`order-4 ${onlyIn('letter')}`} />
     </div>
   );
 }

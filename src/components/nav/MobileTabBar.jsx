@@ -11,7 +11,7 @@ function TabButton({ icon: Icon, label, isActive, onClick }) {
       type="button"
       onClick={onClick}
       aria-current={isActive ? 'page' : undefined}
-      className={`min-h-[56px] flex flex-col items-center justify-center gap-0.5 text-xs font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-action-primary ${
+      className={`min-h-[3.5rem] flex flex-col items-center justify-center gap-0.5 text-xs font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-action-primary ${
         isActive ? 'text-action-primary' : 'text-content-secondary'
       }`}
     >
@@ -34,7 +34,7 @@ export default function MobileTabBar({ screen, onNavigateHome, onOpenHistory, th
 
   return (
     <>
-      <div aria-hidden="true" className="sm:hidden h-[calc(56px+env(safe-area-inset-bottom,0px))]" />
+      <div aria-hidden="true" className="sm:hidden h-[calc(3.5rem+env(safe-area-inset-bottom,0px))]" />
       <nav
         aria-label={t('nav.tabBar')}
         className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card border-t border-border-default pb-[env(safe-area-inset-bottom,0px)] grid grid-cols-3"

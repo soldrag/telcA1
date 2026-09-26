@@ -9,8 +9,8 @@ import {
 
 describe('summarizeVariantScores', () => {
   const attempts = [
-    { exam_id: 'e1', test_type: 'lesen', score: 6, total_questions: 15 },
-    { exam_id: 'e1', test_type: 'lesen', score: 11, total_questions: 15 },
+    { exam_id: 'e1', test_type: 'lesen', score: 6, total_questions: 15, created_at: '2026-09-02T10:00:00' },
+    { exam_id: 'e1', test_type: 'lesen', score: 11, total_questions: 15, created_at: '2026-09-01T10:00:00' },
     { exam_id: 'e2', test_type: 'lesen', score: 4, total_questions: 15 },
     { exam_id: 's1', test_type: 'schreiben', score: 14, total_questions: 6 },
   ];
@@ -20,6 +20,10 @@ describe('summarizeVariantScores', () => {
     assert.deepEqual(summary.bestByExamId, { e1: { score: 11, total: 15 }, e2: { score: 4, total: 15 } });
     assert.deepEqual(summary.best, { score: 11, total: 15 });
     assert.equal(summary.attemptsCount, 3);
+  });
+
+  it('counts attempts per variant and keeps the latest date', () => {
+    assert.deepEqual(summarizeVariantScores(attempts, 'lesen').activityByExamId.e1, { count: 2, lastAt: '2026-09-02T10:00:00' });
   });
 
   it('scores Schreiben against 15 points, not its 6 tasks', () => {

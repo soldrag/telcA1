@@ -20,7 +20,7 @@ function HeaderLogo({ onNavigateHome }) {
       type="button"
       onClick={onNavigateHome}
       aria-label={t('header.menu')}
-      className="flex items-center gap-2.5 min-h-[44px] min-w-0 shrink-0 rounded-xl cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+      className="flex items-center gap-2.5 min-h-[2.75rem] min-w-0 shrink-0 rounded-xl cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
     >
       <span className="w-9 h-9 rounded-xl bg-action-primary group-hover:bg-action-primary-hover flex items-center justify-center text-white shrink-0 transition-colors">
         <BookOpen className="w-4 h-4" aria-hidden="true" />

@@ -49,7 +49,7 @@ export default function TeacherReviewBanner({
           <button
             type="button"
             onClick={onExitReview}
-            className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-bold text-content-primary hover:text-state-error bg-surface-card hover:bg-state-error-subtle border border-border-default rounded-xl transition-colors cursor-pointer min-h-[40px]"
+            className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-bold text-content-primary hover:text-state-error bg-surface-card hover:bg-state-error-subtle border border-border-default rounded-xl transition-colors cursor-pointer min-h-[2.5rem]"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>{t('results.exitTeacherReview')}</span>

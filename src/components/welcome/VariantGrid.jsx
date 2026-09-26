@@ -1,6 +1,7 @@
 import React from 'react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { formatExamName, getExamNumber } from '../../utils/examFormat.js';
+import { formatDayMonth } from '../../utils/historyFormat.js';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
 
@@ -10,31 +11,36 @@ function resolveStatus({ best, isAssigned, passScore, t }) {
     return { text: `${best.score}/${best.total}`, tone, showOnMobile: true };
   }
   if (isAssigned) return { text: t('welcome.variants.assigned'), tone: 'text-state-warning-text', showOnMobile: true };
-  return { text: t('welcome.variants.notSolved'), tone: 'text-content-muted', showOnMobile: false };
+  return { text: t('welcome.variants.notSolved'), tone: 'text-content-muted', showOnMobile: false, muted: true };
 }
 
-function VariantCell({ exam, status, onStart, t }) {
+// Phones: 5×2 number squares. From 1024 px: cards with name, best score and last activity.
+function VariantCell({ exam, status, activity, onStart, t, language }) {
   const name = formatExamName(exam.id);
   return (
     <button
       type="button"
       onClick={() => onStart(exam.id)}
       aria-label={`${t('welcome.variants.startAria', { name })}, ${status.text}`}
-      className={`min-h-[52px] rounded-xl bg-surface-card border border-border-default hover:border-border-strong hover:bg-surface-raised flex flex-col items-center justify-center lg:items-start lg:px-3 lg:py-2.5 gap-0.5 min-w-0 cursor-pointer transition-colors ${FOCUS_RING}`}
+      className={`group min-h-[3.25rem] lg:min-h-[6rem] rounded-xl bg-surface-card border border-border-default hover:border-action-primary hover:ring-1 hover:ring-action-primary hover:bg-surface-raised flex flex-col items-center justify-center lg:items-start lg:justify-start lg:px-3 lg:py-3 gap-0.5 min-w-0 cursor-pointer transition-colors ${FOCUS_RING}`}
     >
       <span className="font-semibold text-content-primary">
         <span className="lg:hidden">{getExamNumber(exam.id) || name}</span>
-        <span className="hidden lg:inline text-[13px] whitespace-nowrap">{name}</span>
+        <span className="hidden lg:inline text-sm whitespace-nowrap">{name}</span>
       </span>
-      <span className={`text-xs tabular-nums ${status.tone} ${status.showOnMobile ? '' : 'hidden lg:inline'}`}>{status.text}</span>
+      <span className={`text-xs lg:text-lg lg:font-semibold tabular-nums ${status.tone} ${status.showOnMobile ? '' : 'hidden lg:inline'} ${status.muted ? 'lg:text-sm lg:font-normal' : ''}`}>{status.text}</span>
+      <span className="hidden lg:flex w-full items-center justify-between gap-2 mt-auto text-xs text-content-tertiary">
+        <span className="truncate">{activity ? t('welcome.variants.attemptsLine', { count: activity.count, date: formatDayMonth(activity.lastAt, language) }) : ''}</span>
+        <span className="text-action-primary opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity whitespace-nowrap">{t('welcome.variants.startHint')}</span>
+      </span>
     </button>
   );
 }
 
 export default function VariantGrid({ exams = [], scores = {}, assignedExamIds = [], passScore = 9, onStartVariant }) {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   if (exams.length === 0) return null;
-  const { bestByExamId = {}, best, attemptsCount = 0 } = scores;
+  const { bestByExamId = {}, activityByExamId = {}, best, attemptsCount = 0 } = scores;
 
   return (
     <section aria-labelledby="variants-title" className="space-y-3">
@@ -46,14 +52,16 @@ export default function VariantGrid({ exams = [], scores = {}, assignedExamIds =
           </span>
         )}
       </div>
-      <div className="grid grid-cols-5 gap-2">
+      <div className={`grid grid-cols-5 lg:grid-cols-4 ${exams.length > 4 ? 'xl:grid-cols-5' : ''} gap-2 lg:gap-3`}>
         {exams.map((exam) => (
           <VariantCell
             key={exam.id}
             exam={exam}
             status={resolveStatus({ best: bestByExamId[exam.id], isAssigned: assignedExamIds.includes(exam.id), passScore, t })}
+            activity={activityByExamId[exam.id]}
             onStart={onStartVariant}
             t={t}
+            language={language}
           />
         ))}
       </div>

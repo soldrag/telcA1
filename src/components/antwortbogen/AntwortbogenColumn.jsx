@@ -44,7 +44,7 @@ export default function AntwortbogenColumn({
               key={question.id}
               type="button"
               onClick={() => onSelectQuestion?.(question.question_number - 1, question.id)}
-              className="flex items-center justify-between w-full py-1 px-2 rounded hover:bg-surface-card transition-colors cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-w-[44px] min-h-[44px]"
+              className="flex items-center justify-between w-full py-1 px-2 rounded hover:bg-surface-card transition-colors cursor-pointer text-xs focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-w-[2.75rem] min-h-[2.75rem]"
             >
               <span className="font-mono font-bold text-content-secondary w-5 text-left">
                 {question.question_number}.

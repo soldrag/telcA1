@@ -19,7 +19,7 @@ export default function HeaderSettingsButton({ themeControl }) {
         type="button"
         onClick={open}
         aria-haspopup="dialog"
-        className="hidden sm:inline-flex items-center gap-1.5 min-h-[44px] min-w-[44px] justify-center px-2.5 lg:px-3 rounded-xl text-sm font-semibold text-content-primary hover:bg-surface-raised cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+        className="hidden sm:inline-flex items-center gap-1.5 min-h-[2.75rem] min-w-[2.75rem] justify-center px-2.5 lg:px-3 rounded-xl text-sm font-semibold text-content-primary hover:bg-surface-raised cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
       >
         <Settings className="w-4 h-4 shrink-0" aria-hidden="true" />
         <span className="max-lg:sr-only">{t('nav.settings')}</span>

@@ -27,7 +27,7 @@ function ChoiceButton({ option, isChecked, isFocusable, disabled, onChange, butt
       tabIndex={isFocusable ? 0 : -1}
       disabled={disabled}
       onClick={() => onChange(option.value)}
-      className={`flex items-center gap-3 min-h-[48px] px-4 py-3 rounded-xl border text-left text-base font-semibold transition-colors cursor-pointer disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
+      className={`flex items-center gap-3 min-h-[3rem] px-4 py-3 rounded-xl border text-left text-base font-semibold transition-colors cursor-pointer disabled:cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 ${
         isChecked
           ? 'bg-action-primary border-action-primary text-white'
           : 'bg-surface-card border-border-default text-content-primary hover:border-border-strong hover:bg-surface-raised'

@@ -46,8 +46,8 @@ export default function TestTypeSelector({ testTypes = [], activeTypeId = 'lesen
     ? 'flex items-center gap-1'
     : 'grid grid-cols-4 gap-1 p-1 rounded-2xl bg-surface-inset border border-border-default';
   const buttonClass = isTabs
-    ? 'min-h-[44px] px-3 rounded-lg text-sm transition-colors'
-    : 'min-h-[52px] px-1 rounded-xl flex flex-col items-center justify-center transition-colors';
+    ? 'min-h-[2.75rem] px-3 rounded-lg text-sm transition-colors'
+    : 'min-h-[3.25rem] px-1 rounded-xl flex flex-col items-center justify-center transition-colors';
 
   return (
     <div role="group" aria-label={t('welcome.types.selectModule')} className={containerClass}>

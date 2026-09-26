@@ -33,7 +33,7 @@ export default function ExamHeaderActions({
   return (
     <>
       <div className={`${PAGE_CONTAINER} h-11 lg:h-16 flex items-center gap-2 lg:gap-4`}>
-        <Button variant="ghost" size="sm" onClick={handleExit} title={exitLabel} aria-label={exitLabel} className="min-w-[44px] min-h-[44px] px-2 -ml-2 shrink-0">
+        <Button variant="ghost" size="sm" onClick={handleExit} title={exitLabel} aria-label={exitLabel} className="min-w-[2.75rem] min-h-[2.75rem] px-2 -ml-2 shrink-0">
           <X className="w-5 h-5 2xl:mr-1.5 shrink-0" />
           <span className="hidden 2xl:inline">{exitLabel}</span>
         </Button>
@@ -45,7 +45,7 @@ export default function ExamHeaderActions({
         <div id={EXAM_HEADER_SLOT_ID} className="flex-1 min-w-0 flex items-center gap-2 lg:gap-4" />
 
         {!isInspection && (
-          <Button size="sm" onClick={onSubmitExam} title={t('header.finish')} aria-label={t('header.finish')} className="hidden lg:inline-flex shrink-0 min-h-[44px]">
+          <Button size="sm" onClick={onSubmitExam} title={t('header.finish')} aria-label={t('header.finish')} className="hidden lg:inline-flex shrink-0 min-h-[2.75rem]">
             <CheckCircle2 className="w-4 h-4 mr-1.5 shrink-0" />
             <span>{t('header.finish')}</span>
           </Button>

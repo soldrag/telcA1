@@ -10,14 +10,14 @@ export default function HistoryClearConfirm({ onConfirm, onCancel }) {
       <button
         type="button"
         onClick={onConfirm}
-        className="px-3 py-1.5 bg-state-error text-white font-bold rounded-lg hover:bg-state-error-hover transition-colors min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-state-error"
+        className="px-3 py-1.5 bg-state-error text-white font-bold rounded-lg hover:bg-state-error-hover transition-colors min-h-[2.75rem] cursor-pointer focus-visible:ring-2 focus-visible:ring-state-error"
       >
         {t('history.clearConfirmBtn')}
       </button>
       <button
         type="button"
         onClick={onCancel}
-        className="px-3 py-1.5 text-content-secondary hover:text-content-primary font-medium min-h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary"
+        className="px-3 py-1.5 text-content-secondary hover:text-content-primary font-medium min-h-[2.75rem] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary"
       >
         {t('history.clearCancel')}
       </button>

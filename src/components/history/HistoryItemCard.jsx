@@ -24,7 +24,7 @@ export default function HistoryItemCard({ attempt, onSelect, onShare, compact = 
       role="button"
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(attempt.id); }}
-      className={`w-full text-left transition-all cursor-pointer flex items-center justify-between gap-4 group focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] ${
+      className={`w-full text-left transition-all cursor-pointer flex items-center justify-between gap-4 group focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] ${
         compact
           ? 'p-4 rounded-2xl border border-border-default hover:border-action-primary hover:bg-action-primary-subtle/30'
           : 'p-4 sm:p-6 hover:bg-surface-raised'
@@ -83,7 +83,7 @@ export default function HistoryItemCard({ attempt, onSelect, onShare, compact = 
                 onShare(attempt);
               }}
               title={t('history.shareAttempt')}
-              className="w-10 h-10 rounded-xl bg-surface-card border border-border-default flex items-center justify-center text-content-muted hover:bg-action-primary-subtle hover:text-action-primary hover:border-action-primary-border transition-all cursor-pointer min-h-[40px]"
+              className="w-10 h-10 rounded-xl bg-surface-card border border-border-default flex items-center justify-center text-content-muted hover:bg-action-primary-subtle hover:text-action-primary hover:border-action-primary-border transition-all cursor-pointer min-h-[2.5rem]"
             >
               <Share2 className="w-4 h-4" />
             </button>

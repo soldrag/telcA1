@@ -6,8 +6,8 @@ import IssuedAssignmentsList from './teacher/IssuedAssignmentsList.jsx';
 import TeacherVariantsCatalog from './teacher/TeacherVariantsCatalog.jsx';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
-const PRIMARY = `min-h-[48px] px-4 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold inline-flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
-const SECONDARY = `min-h-[48px] px-4 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
+const PRIMARY = `min-h-[3rem] px-4 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold inline-flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
+const SECONDARY = `min-h-[3rem] px-4 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
 
 function NewAssignmentButton({ onClick, className, t }) {
   return (
@@ -22,7 +22,7 @@ function NewAssignmentButton({ onClick, className, t }) {
 // and settles at the end of the page so the footer stays readable.
 function PhoneNewAssignmentBar({ onClick, t }) {
   return (
-    <div className="sm:hidden sticky bottom-[calc(56px+env(safe-area-inset-bottom,0px))] z-30 -mx-4 px-4 py-2 bg-canvas">
+    <div className="sm:hidden sticky bottom-[calc(3.5rem+env(safe-area-inset-bottom,0px))] z-30 -mx-4 px-4 py-2 bg-canvas">
       <NewAssignmentButton onClick={onClick} className="w-full" t={t} />
     </div>
   );
@@ -41,7 +41,7 @@ export default function TeacherWelcomeView({ examState = {}, actions = {}, onOpe
     <div className="space-y-6 lg:space-y-8">
       <section aria-labelledby="issued-title" className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 id="issued-title" className="text-2xl lg:text-[28px] font-bold text-content-primary">{t('welcome.teacherSpace.issuedTitle')}</h1>
+          <h1 id="issued-title" className="text-2xl lg:text-[1.75rem] font-bold text-content-primary">{t('welcome.teacherSpace.issuedTitle')}</h1>
           <div className="flex gap-2 max-sm:w-full">
             <button type="button" aria-expanded={isReviewInputOpen} onClick={() => setReviewInputOpen((value) => !value)} className={`${SECONDARY} max-sm:w-full`}>
               {t('welcome.teacherSpace.checkByLinkBtn')}

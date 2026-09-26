@@ -3,7 +3,7 @@ import { buildLetterHighlights } from '../../utils/letterHighlights.js';
 import { getCriterionColor } from './criterionColors.js';
 
 const LEITPUNKT_IDS = ['lp1', 'lp2', 'lp3'];
-const TEXT_CLASS = 'text-[17px] leading-[1.6] text-content-primary whitespace-pre-line';
+const TEXT_CLASS = 'text-[1.0625rem] leading-[1.6] text-content-primary whitespace-pre-line';
 
 // Only phrases that actually earned points are marked, so the colours explain the score.
 function collectMarks(diagnosticData, scores) {
@@ -32,7 +32,7 @@ function ViewToggle({ view, onChange, labels }) {
           type="button"
           aria-pressed={view === key}
           onClick={() => onChange(key)}
-          className={`min-h-[44px] rounded-lg text-sm font-semibold cursor-pointer transition-colors ${view === key ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary'}`}
+          className={`min-h-[2.75rem] rounded-lg text-sm font-semibold cursor-pointer transition-colors ${view === key ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary'}`}
         >
           {labels[key]}
         </button>
@@ -42,7 +42,8 @@ function ViewToggle({ view, onChange, labels }) {
 }
 
 /**
- * The candidate's letter and the telc sample: a toggle below 768 px, side by side from 768 px.
+ * The candidate's letter and the telc sample: a toggle below 768 px, side by side from 768 px,
+ * stacked in the narrower review column at 1024–1279 px and side by side again from 1280 px.
  * Credited phrases are marked in the candidate's text.
  */
 export default function SchreibenLetterTexts({ item, selfCheck, t, className = '' }) {
@@ -55,7 +56,7 @@ export default function SchreibenLetterTexts({ item, selfCheck, t, className = '
   const panelClass = (key) => `${view === key ? 'block' : 'hidden'} md:block min-w-0 rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 space-y-2`;
 
   return (
-    <section className={`flex flex-col gap-3 md:grid md:grid-cols-2 md:items-start ${className}`}>
+    <section className={`flex flex-col gap-3 md:grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 md:items-stretch ${className}`}>
       {sample && <ViewToggle view={view} onChange={setView} labels={labels} />}
       <div className={panelClass('user')}>
         <h4 className="hidden md:block text-sm font-semibold text-content-secondary">{labels.user}</h4>

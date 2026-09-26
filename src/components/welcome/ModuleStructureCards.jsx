@@ -24,9 +24,27 @@ const MODULE_STRUCTURES = {
   ],
 };
 
-export default function ModuleStructureCards({ testType = 'lesen' }) {
+// variant="list": one compact line per Teil («Teil 1 (1–5) · Title · sub»), for the desktop side column.
+function StructureList({ cards, t }) {
+  return (
+    <ul className="rounded-2xl bg-surface-card border border-border-default divide-y divide-border-subtle">
+      {cards.map(({ icon: Icon, label, titleKey, subKey }) => (
+        <li key={label} className="px-4 py-3 flex items-start gap-3 text-sm">
+          <Icon className="w-4 h-4 mt-0.5 shrink-0 text-content-tertiary" aria-hidden="true" />
+          <span className="min-w-0">
+            <span className="text-content-primary font-medium">{label} · {t(titleKey)}</span>
+            <span className="block text-content-secondary">{t(subKey)}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default function ModuleStructureCards({ testType = 'lesen', variant = 'cards' }) {
   const { t } = useI18n();
   const cards = MODULE_STRUCTURES[testType] || MODULE_STRUCTURES.lesen;
+  if (variant === 'list') return <StructureList cards={cards} t={t} />;
 
   return (
     <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2">

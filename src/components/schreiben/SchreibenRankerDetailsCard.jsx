@@ -21,14 +21,14 @@ function renderProtectionNote(item, texts, language) {
   const note = texts.protectedTag
     .replace('{verdict}', formatLevelVerdict(item.rankerScore, texts))
     .replace('{points}', formatPoints(resolveItemPoints(item).points, language));
-  return <div className="text-[10px] font-semibold text-content-secondary">{note}</div>;
+  return <div className="text-[0.625rem] font-semibold text-content-secondary">{note}</div>;
 }
 
 function renderUnassigned(sentences, texts) {
   if (!sentences?.length) return null;
   return (
     <div className="p-2.5 rounded-lg border border-dashed border-border-default space-y-1">
-      <div className="text-[10px] font-extrabold uppercase tracking-wider text-content-secondary">{texts.unassignedTitle}</div>
+      <div className="text-[0.625rem] font-extrabold uppercase tracking-wider text-content-secondary">{texts.unassignedTitle}</div>
       {sentences.map((s, i) => <div key={i} className="text-xs italic text-content-primary">«{s}»</div>)}
     </div>
   );
@@ -43,19 +43,19 @@ function renderAspectRow(asp, idx) {
     : (isPart ? 'bg-state-warning-subtle text-state-warning-text border-state-warning-border' : 'bg-surface-raised text-content-muted border-border-default');
 
   return (
-    <div key={idx} className="flex items-center justify-between text-[11px] gap-2 py-0.5">
+    <div key={idx} className="flex items-center justify-between text-[0.6875rem] gap-2 py-0.5">
       <div className="flex items-center space-x-1.5 truncate">
         {isOk ? <CheckCircle2 className="w-3 h-3 text-state-success flex-shrink-0" /> :
          isPart ? <AlertTriangle className="w-3 h-3 text-state-warning flex-shrink-0" /> :
          <XCircle className="w-3 h-3 text-content-muted flex-shrink-0" />}
         <span className="font-semibold text-content-primary truncate">{asp.aspect}</span>
         {asp.matchedSentence && (
-          <span className="italic text-content-secondary truncate text-[10px]">
+          <span className="italic text-content-secondary truncate text-[0.625rem]">
             «{asp.matchedSentence}»
           </span>
         )}
       </div>
-      <span className={`font-mono text-[10px] font-bold px-1.5 py-0.2 rounded border flex-shrink-0 ${badgeCls}`}>
+      <span className={`font-mono text-[0.625rem] font-bold px-1.5 py-0.2 rounded border flex-shrink-0 ${badgeCls}`}>
         {pct}%
       </span>
     </div>
@@ -76,7 +76,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
           <span className="text-xs font-bold text-content-primary">{texts.title}</span>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-action-primary-subtle/50 text-action-primary flex items-center space-x-1">
+          <span className="text-[0.625rem] font-mono font-bold px-2 py-0.5 rounded bg-action-primary-subtle/50 text-action-primary flex items-center space-x-1">
             <Cpu className="w-3 h-3" />
             <span>{texts.modelTag}</span>
           </span>
@@ -85,7 +85,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
       </summary>
 
       <div className="p-3.5 space-y-3 border-t border-border-subtle bg-surface-card">
-        <p className="text-[11px] text-content-secondary leading-relaxed">
+        <p className="text-[0.6875rem] text-content-secondary leading-relaxed">
           {texts.explanation}
         </p>
 
@@ -107,12 +107,12 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                       Punkt {idx + 1}: {item.label || item.id}
                     </span>
                     {item.arbitrated && (
-                      <span className="text-[10px] font-bold text-action-primary px-1.5 py-0.2 rounded bg-action-primary-subtle">
+                      <span className="text-[0.625rem] font-bold text-action-primary px-1.5 py-0.2 rounded bg-action-primary-subtle">
                         {texts.arbitratedTag}
                       </span>
                     )}
                   </div>
-                  <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded ${scoreColor}`}>
+                  <span className={`text-[0.6875rem] font-mono font-bold px-2 py-0.5 rounded ${scoreColor}`}>
                     {formatPoints(points, language)} / {formatPoints(maxPoints, language)} Pkt
                   </span>
                 </div>
@@ -122,7 +122,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                     <span className="font-semibold text-action-primary mr-1">{texts.matchedLabel}</span>
                     <span className="italic">«{matched}»</span>
                     {ranker?.score !== undefined && (
-                      <span className="ml-2 font-mono text-[10px] text-content-muted font-bold">
+                      <span className="ml-2 font-mono text-[0.625rem] text-content-muted font-bold">
                         ({formatRankerVerdict(ranker, texts)})
                       </span>
                     )}
@@ -137,7 +137,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
 
                 {ranker?.isCompound && Array.isArray(ranker.aspects) && ranker.aspects.length > 1 && (
                   <div className="mt-1.5 pt-1.5 border-t border-border-subtle/50 pl-2 border-l-2 border-action-primary/30 space-y-1">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-content-secondary">
+                    <div className="text-[0.625rem] font-extrabold uppercase tracking-wider text-content-secondary">
                       {texts.subAspectsTitle}
                     </div>
                     {ranker.aspects.map((asp, aIdx) => renderAspectRow(asp, aIdx))}

@@ -3,9 +3,9 @@ import { Copy, Check } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
-const PRIMARY = `min-h-[52px] px-5 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
-const SECONDARY = `min-h-[52px] px-5 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
-const LINK = `min-h-[44px] px-1 text-sm text-action-primary hover:text-action-primary-hover cursor-pointer ${FOCUS_RING}`;
+const PRIMARY = `min-h-[3.25rem] px-5 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
+const SECONDARY = `min-h-[3.25rem] px-5 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`;
+const LINK = `min-h-[2.75rem] px-1 text-sm text-action-primary hover:text-action-primary-hover cursor-pointer ${FOCUS_RING}`;
 
 function CopySubmissionButton({ shareUrl, t }) {
   const [copied, setCopied] = useState(false);

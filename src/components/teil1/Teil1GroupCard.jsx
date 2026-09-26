@@ -12,7 +12,7 @@ function TextToggle({ isCollapsed, onToggle }) {
       type="button"
       onClick={onToggle}
       aria-expanded={!isCollapsed}
-      className="sm:hidden ml-auto min-h-[44px] px-2 -mr-2 flex items-center gap-1 text-sm text-action-primary cursor-pointer shrink-0"
+      className="sm:hidden ml-auto min-h-[2.75rem] px-2 -mr-2 flex items-center gap-1 text-sm text-action-primary cursor-pointer shrink-0"
     >
       {isCollapsed ? t('exam.showText') : t('exam.collapseText')}
       <ChevronDown className={`w-4 h-4 transition-transform ${isCollapsed ? '' : 'rotate-180'}`} aria-hidden="true" />

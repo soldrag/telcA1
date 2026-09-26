@@ -17,7 +17,7 @@ export default function HistoryEmptyState({ onStartExam }) {
       <button
         type="button"
         onClick={onStartExam}
-        className="px-6 py-3 bg-action-primary hover:bg-action-primary-hover text-white font-bold rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] cursor-pointer"
+        className="px-6 py-3 bg-action-primary hover:bg-action-primary-hover text-white font-bold rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] cursor-pointer"
       >
         {t('history.startFirstExam')}
       </button>

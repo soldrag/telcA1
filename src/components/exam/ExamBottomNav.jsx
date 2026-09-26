@@ -18,14 +18,14 @@ export default function ExamBottomNav({ pagination = {}, actions = {}, sheet = {
       aria-label={t('exam.navAriaLabel')}
       className={`lg:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card border-t border-border-default pb-[env(safe-area-inset-bottom,0px)] ${isTyping ? 'hidden' : ''}`}
     >
-      <div className="mx-auto w-full sm:max-w-[720px] px-4 sm:px-6 py-2 flex items-center gap-2 sm:gap-3">
+      <div className="mx-auto w-full sm:max-w-[45rem] px-4 sm:px-6 py-2 flex items-center gap-2 sm:gap-3">
         <button
           type="button"
           disabled={activeTeil === 1}
           onClick={actions.onPreviousTeil}
           aria-label={t('exam.navPrevious')}
           title={t('exam.navPrevious')}
-          className={`min-w-[52px] min-h-[52px] px-3 rounded-xl border border-border-default text-content-primary hover:bg-surface-raised disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${NAV_FOCUS_RING}`}
+          className={`min-w-[3.25rem] min-h-[3.25rem] px-3 rounded-xl border border-border-default text-content-primary hover:bg-surface-raised disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${NAV_FOCUS_RING}`}
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="hidden sm:inline font-semibold">{t('exam.navPrevious')}</span>
@@ -34,7 +34,7 @@ export default function ExamBottomNav({ pagination = {}, actions = {}, sheet = {
         <button
           type="button"
           onClick={sheet.onOpen}
-          className={`flex-1 min-h-[52px] rounded-xl text-content-primary hover:bg-surface-raised flex items-center justify-center gap-2 font-semibold cursor-pointer ${NAV_FOCUS_RING}`}
+          className={`flex-1 min-h-[3.25rem] rounded-xl text-content-primary hover:bg-surface-raised flex items-center justify-center gap-2 font-semibold cursor-pointer ${NAV_FOCUS_RING}`}
         >
           <ClipboardList className="w-5 h-5 text-content-secondary" />
           <span className="tabular-nums">{t('exam.sheetButton', { answered: sheet.answered, total: sheet.total })}</span>

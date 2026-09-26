@@ -19,7 +19,7 @@ export default function Teil2WebpageOption({
       aria-checked={isSelected}
       disabled={isSubmitted}
       onClick={() => !isSubmitted && onSelect(option.id)}
-      className={`text-left w-full min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 relative flex flex-col justify-between rounded-xl border p-4 sm:p-6 transition-colors cursor-pointer disabled:cursor-default ${containerClass}`}
+      className={`text-left w-full min-h-[2.75rem] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 relative flex flex-col justify-between rounded-xl border p-4 sm:p-6 transition-colors cursor-pointer disabled:cursor-default ${containerClass}`}
     >
       <div>
         {/* Browser mockup header */}
@@ -28,7 +28,7 @@ export default function Teil2WebpageOption({
             <span className="w-8 h-8 rounded-xl bg-content-primary text-canvas text-xs font-black flex items-center justify-center flex-shrink-0 shadow-xs">
               {option.id.toUpperCase()}
             </span>
-            <span className="text-xs font-mono font-bold text-content-secondary truncate max-w-[200px] sm:max-w-xs bg-surface-inset px-3 py-1 rounded border border-border-subtle">
+            <span className="text-xs font-mono font-bold text-content-secondary truncate max-w-[12.5rem] sm:max-w-xs bg-surface-inset px-3 py-1 rounded border border-border-subtle">
               {option.badge}
             </span>
           </div>
@@ -56,7 +56,7 @@ export default function Teil2WebpageOption({
 
       <div className="mt-5 pt-4 border-t-2 border-border-subtle">
         <div
-          className={`w-full py-3 px-4 rounded-xl flex items-center justify-between text-sm font-black transition-all border-2 min-h-[48px] ${
+          className={`w-full py-3 px-4 rounded-xl flex items-center justify-between text-sm font-black transition-all border-2 min-h-[3rem] ${
             isSelected
               ? 'bg-action-primary border-action-primary-hover text-white shadow-md'
               : 'bg-surface-inset hover:bg-action-primary-subtle text-content-primary border-border-default hover:border-action-primary-border shadow-xs'

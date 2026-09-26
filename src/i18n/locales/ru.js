@@ -55,6 +55,8 @@ export const ru = {
       notSolved: 'не решён',
       assigned: 'ДЗ',
       startAria: '{name}: начать экзамен',
+      attemptsLine: 'попыток: {count} · {date}',
+      startHint: 'Начать →',
     },
     assignments: {
       title: 'От преподавателя',
@@ -82,6 +84,10 @@ export const ru = {
       enterTaskDesc: 'Вставьте ссылку или код задания, чтобы начать назначенную работу.',
       enterTaskPlaceholder: 'Вставьте ссылку или токен (#task=zt1....)',
       enterTaskBtn: 'Открыть задание',
+      emptyTitle: 'Заданий от преподавателя нет',
+      emptyHint: 'Когда преподаватель пришлёт ссылку — откройте её, задание появится здесь.',
+      haveLink: 'Есть ссылка от преподавателя?',
+      openBtn: 'Открыть',
     },
     teacherSpace: {
       copyKeyBtn: 'Скопировать ключ',
@@ -116,8 +122,15 @@ export const ru = {
     recentAttempts: {
       title: 'Последние попытки',
       viewAll: 'Вся история',
-      empty: 'Вы ещё не проходили тесты. Начните первый экзамен!',
+      empty: 'Здесь появятся ваши попытки',
       reviewLink: 'Разбор',
+      deltaAria: '{delta} к прошлой попытке',
+    },
+    progress: {
+      title: 'Прогресс по частям',
+      hint: 'Средний балл за последние попытки · черта — порог сдачи',
+      weakest: 'слабее всего',
+      chartAria: 'Последние попытки: {list}',
     },
     structure: {
       sectionTitle: 'Структура экзамена',
@@ -466,8 +479,8 @@ export const ru = {
     invalidAssignmentLink: 'Не удалось открыть задание: ссылка повреждена или недействительна.',
   },
   footer: {
-    text: 'Симулятор экзамена telc Deutsch A1 / Start Deutsch 1 • 15 баллов • Проходной балл: 60% (9 баллов)',
-    privacy: 'Приложение не собирает и не хранит персональные данные. Весь прогресс и настройки сохраняются локально в вашем браузере.',
+    text: 'Симулятор telc A1',
+    privacy: 'Данные хранятся только в вашем браузере',
     impressum: 'Выходные данные (Impressum)',
     datenschutz: 'Политика конфиденциальности (Datenschutz)',
   },

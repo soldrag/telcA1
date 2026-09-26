@@ -1,36 +1,30 @@
 import React from 'react';
 import { useI18n } from '../i18n/I18nContext.jsx';
 import { getVersionSummary, getVersionTooltip } from '../config/version.js';
+import { PAGE_CONTAINER } from './layout/pageLayout.js';
 
+const LINK_CLASS = 'min-h-[2.75rem] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+
+/**
+ * One quiet line on desktop (name · legal links · privacy note, version on the right), two lines on phones.
+ * Same canvas as the page, so it closes the page instead of starting a new panel.
+ */
 export default function Footer({ onOpenLegalModal }) {
   const { t } = useI18n();
 
   return (
-    <footer className="mt-auto border-t border-border-subtle bg-surface-card py-4 text-center text-xs text-content-tertiary">
-      <p>{t('footer.text')}</p>
-      <div className="mt-2 flex items-center justify-center space-x-4 text-xs">
-        <button
-          type="button"
-          onClick={() => onOpenLegalModal?.('impressum')}
-          className="min-h-[44px] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer"
-        >
-          {t('footer.impressum') || 'Impressum'}
-        </button>
-        <span className="opacity-40">•</span>
-        <button
-          type="button"
-          onClick={() => onOpenLegalModal?.('datenschutz')}
-          className="min-h-[44px] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer"
-        >
-          {t('footer.datenschutz') || 'Datenschutzerklärung'}
-        </button>
-      </div>
-      <p className="mt-1.5 opacity-70">{t('footer.privacy')}</p>
-      <div
-        className="mt-2 inline-block text-[11px] font-mono opacity-40 hover:opacity-90 transition-opacity cursor-default tracking-tight select-all"
-        title={getVersionTooltip()}
-      >
-        {getVersionSummary()}
+    <footer className="mt-auto border-t border-border-subtle bg-bg-canvas text-xs text-content-tertiary">
+      <div className={`${PAGE_CONTAINER} py-2 flex flex-col lg:flex-row items-center lg:justify-between gap-x-6 text-center lg:text-left`}>
+        <p className="flex flex-wrap items-center justify-center gap-x-3">
+          <span className="max-lg:order-2 max-lg:basis-full">{t('footer.text')}</span>
+          <span aria-hidden="true" className="max-lg:hidden">·</span>
+          <button type="button" onClick={() => onOpenLegalModal?.('impressum')} className={LINK_CLASS}>{t('footer.impressum')}</button>
+          <span aria-hidden="true">·</span>
+          <button type="button" onClick={() => onOpenLegalModal?.('datenschutz')} className={LINK_CLASS}>{t('footer.datenschutz')}</button>
+          <span aria-hidden="true" className="max-lg:hidden">·</span>
+          <span className="max-lg:order-3 max-lg:basis-full">{t('footer.privacy')}</span>
+        </p>
+        <span className="font-mono tabular-nums cursor-default select-all" title={getVersionTooltip()}>{getVersionSummary()}</span>
       </div>
     </footer>
   );

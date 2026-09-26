@@ -37,7 +37,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
       <button
         type="button"
         onClick={onToggleExpand}
-        className="w-full text-left p-3.5 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 cursor-pointer select-none min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 overflow-hidden"
+        className="w-full text-left p-3.5 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 cursor-pointer select-none min-h-[2.75rem] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 overflow-hidden"
       >
         <div className="flex items-start sm:items-center space-x-3 min-w-0 flex-1">
           <div className="mt-0.5 sm:mt-0 flex-shrink-0">
@@ -53,11 +53,11 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
               <span className="font-mono font-extrabold text-xs sm:text-sm text-content-primary">
                 Aufgabe {item.question_number}
               </span>
-              <span className="text-[11px] sm:text-xs font-semibold text-content-secondary bg-surface-card px-2 py-0.5 rounded-md border border-border-default">
+              <span className="text-[0.6875rem] sm:text-xs font-semibold text-content-secondary bg-surface-card px-2 py-0.5 rounded-md border border-border-default">
                 Teil {item.teil}
               </span>
               {!isCorrect && (
-                <span className="text-[11px] sm:text-xs font-bold text-state-error-text bg-state-error-muted px-2 py-0.5 rounded-md">
+                <span className="text-[0.6875rem] sm:text-xs font-bold text-state-error-text bg-state-error-muted px-2 py-0.5 rounded-md">
                   {t('results.badgeIncorrect')}
                 </span>
               )}
@@ -81,7 +81,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
               <span className="text-content-tertiary hidden md:inline">{t('results.yourAnswer')}</span>
               {item.user_answer ? (
                 <span
-                  className={`px-2 py-1 rounded-md border max-w-[130px] sm:max-w-[160px] truncate ${
+                  className={`px-2 py-1 rounded-md border max-w-[8.125rem] sm:max-w-[10rem] truncate ${
                     item.is_correct
                       ? 'bg-state-success-muted text-state-success-text border-state-success-border'
                       : 'bg-state-error-muted text-state-error-text border-state-error-border line-through'
@@ -98,7 +98,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
                 <>
                   <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-content-muted shrink-0" />
                   <span 
-                    className="px-2 py-1 rounded-md border bg-state-success text-white border-state-success-hover max-w-[150px] sm:max-w-[200px] truncate"
+                    className="px-2 py-1 rounded-md border bg-state-success text-white border-state-success-hover max-w-[9.375rem] sm:max-w-[12.5rem] truncate"
                     title={item.correct_answer}
                   >
                     {item.correct_answer}

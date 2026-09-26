@@ -20,7 +20,7 @@ export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHis
         onClick={onNavigateHome}
         title={t('header.menu')}
         aria-label={t('header.menu')}
-        className="text-sm font-semibold min-w-[44px] px-2.5 sm:px-3"
+        className="text-sm font-semibold min-w-[2.75rem] px-2.5 sm:px-3"
       >
         <ArrowLeft className="w-4 h-4 sm:mr-1.5 shrink-0" />
         <span className="hidden sm:inline">{t('header.menu')}</span>
@@ -36,7 +36,7 @@ export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHis
         onClick={onOpenHistory}
         title={t('header.history')}
         aria-label={t('header.history')}
-        className="hidden sm:inline-flex text-sm font-semibold border border-border-default min-w-[44px] px-2.5 sm:px-3 whitespace-nowrap"
+        className="hidden sm:inline-flex text-sm font-semibold border border-border-default min-w-[2.75rem] px-2.5 sm:px-3 whitespace-nowrap"
       >
         <History className="w-4 h-4 sm:mr-1.5 shrink-0" />
         <span>{t('header.history')}</span>

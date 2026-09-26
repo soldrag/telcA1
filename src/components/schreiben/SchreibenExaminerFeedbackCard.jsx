@@ -45,7 +45,7 @@ export default function SchreibenExaminerFeedbackCard({ examinerFeedback, feedba
   return (
     <div className="rounded-xl bg-surface-inset p-3 sm:p-4 space-y-2 sm:space-y-3">
       <h4 className="text-sm font-semibold text-content-secondary">{title}</h4>
-      <p className="text-[15px] sm:text-base text-content-primary leading-relaxed">
+      <p className="text-[0.9375rem] sm:text-base text-content-primary leading-relaxed">
         {summary}
         {rendered?.bulletPoints.length > 0 && (
           <FindingsToggle isOpen={isOpen} count={rendered.bulletPoints.length} label={findingsLabel} onToggle={() => setOpen((value) => !value)} />

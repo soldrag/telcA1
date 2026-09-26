@@ -24,7 +24,7 @@ function TeilTabs({ groups, activeTeil, answers, onSelectTeil }) {
             onClick={() => onSelectTeil(group.teil)}
             aria-current={isActive ? 'step' : undefined}
             title={group.sublabel}
-            className={`min-h-[44px] px-3 rounded-lg text-sm whitespace-nowrap transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
+            className={`min-h-[2.75rem] px-3 rounded-lg text-sm whitespace-nowrap transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
               isActive ? 'bg-surface-inset text-content-primary font-semibold' : 'text-content-secondary hover:bg-surface-raised'
             }`}
           >

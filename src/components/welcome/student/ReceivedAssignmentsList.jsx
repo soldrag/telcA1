@@ -37,7 +37,7 @@ function PendingAssignment({ assignment, onOpenTask, t, language }) {
       <button
         type="button"
         onClick={() => onOpenTask?.(assignment.token)}
-        className={`w-full min-h-[48px] rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold cursor-pointer transition-colors ${FOCUS_RING}`}
+        className={`w-full min-h-[3rem] rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold cursor-pointer transition-colors ${FOCUS_RING}`}
       >
         {t('welcome.assignments.start')}
       </button>

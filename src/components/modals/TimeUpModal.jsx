@@ -23,7 +23,7 @@ export default function TimeUpModal({ isOpen, onConfirm }) {
           variant="default"
           size="default"
           onClick={onConfirm}
-          className="w-full py-3 font-bold text-white bg-action-primary hover:bg-action-primary-hover rounded-xl min-h-[44px]"
+          className="w-full py-3 font-bold text-white bg-action-primary hover:bg-action-primary-hover rounded-xl min-h-[2.75rem]"
         >
           {t('modals.timeUpConfirm')}
         </Button>

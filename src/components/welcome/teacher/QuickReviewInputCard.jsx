@@ -30,12 +30,12 @@ export default function QuickReviewInputCard({ onProcessReview }) {
           onChange={(e) => setReviewInput(e.target.value)}
           placeholder={t('welcome.teacherSpace.quickReviewPlaceholder')}
           autoComplete="off"
-          className="flex-1 min-w-0 min-h-[48px] px-4 rounded-xl bg-surface-card border border-border-default text-content-primary text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+          className="flex-1 min-w-0 min-h-[3rem] px-4 rounded-xl bg-surface-card border border-border-default text-content-primary text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
         />
         <button
           type="submit"
           disabled={!reviewInput.trim()}
-          className="min-h-[48px] px-5 rounded-xl bg-action-primary hover:bg-action-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold whitespace-nowrap cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+          className="min-h-[3rem] px-5 rounded-xl bg-action-primary hover:bg-action-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold whitespace-nowrap cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
         >
           {t('welcome.teacherSpace.quickReviewBtn')}
         </button>

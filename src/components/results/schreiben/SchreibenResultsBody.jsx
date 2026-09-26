@@ -18,7 +18,7 @@ function SectionSwitch({ section, onChange, labels }) {
           type="button"
           aria-pressed={section === key}
           onClick={() => onChange(key)}
-          className={`min-h-[44px] rounded-lg text-sm font-semibold tabular-nums cursor-pointer transition-colors ${section === key ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary'}`}
+          className={`min-h-[2.75rem] rounded-lg text-sm font-semibold tabular-nums cursor-pointer transition-colors ${section === key ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary'}`}
         >
           {labels[key]}
         </button>

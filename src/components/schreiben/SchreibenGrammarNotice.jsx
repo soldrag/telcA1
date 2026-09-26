@@ -30,12 +30,12 @@ export default function SchreibenGrammarNotice({ grammarErrors = [], t }) {
               <span className="text-content-muted">➔</span>
               <span className="text-state-success">{err.correction}</span>
             </div>
-            <p className="text-content-secondary text-[11px] leading-snug">{err.explanation}</p>
+            <p className="text-content-secondary text-[0.6875rem] leading-snug">{err.explanation}</p>
           </div>
         ))}
       </div>
 
-      <p className="text-[11px] text-content-muted italic leading-tight">
+      <p className="text-[0.6875rem] text-content-muted italic leading-tight">
         {t('results.linguisticAccuracy.hint')}
       </p>
     </div>

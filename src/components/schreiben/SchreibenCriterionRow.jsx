@@ -10,9 +10,11 @@ const LEVEL_TEXT_CLASS = {
 
 /**
  * One criterion of the letter: tapping it cycles the self-check level (2 → 1 → 0).
+ * A met criterion needs no note (the conclusion and the marked text already quote it);
+ * the note explains only what is missing.
  */
 export default function SchreibenCriterionRow({ criterionId, label, level, badgeText, diagnostic = {}, onCycle, language, cycleHint }) {
-  const tutorNote = resolveTutorCriterionFeedback({
+  const tutorNote = level < 2 && resolveTutorCriterionFeedback({
     criterionId,
     score: level,
     diagnosticCode: diagnostic.diagnosticCode,
@@ -26,7 +28,7 @@ export default function SchreibenCriterionRow({ criterionId, label, level, badge
         type="button"
         onClick={() => onCycle?.(criterionId)}
         title={cycleHint}
-        className="w-full min-h-[44px] px-2 rounded-lg flex items-center justify-between gap-3 text-left hover:bg-surface-raised cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+        className="w-full min-h-[2.75rem] px-2 rounded-lg flex items-center justify-between gap-3 text-left hover:bg-surface-raised cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
       >
         <span className="flex items-center gap-2.5 min-w-0">
           <span aria-hidden="true" className={`w-2.5 h-2.5 rounded-full shrink-0 ${getCriterionColor(criterionId).dot}`} />

@@ -29,7 +29,7 @@ export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrSt
   const refreshAttempts = useCallback(async () => {
     try {
       setHistoryError(null);
-      const attemptsList = await storage.getAttempts({ testType: activeTestType, limit: 3 });
+      const attemptsList = await storage.getAttempts({ testType: activeTestType, limit: 5 });
       setRecentAttempts(attemptsList);
     } catch (error) {
       setHistoryError('errors.loadRecentAttempts');

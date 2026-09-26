@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n/I18nContext.jsx';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard.js';
 import { getOrCreateTeacherKey, setTeacherKey } from '../../services/security/teacherSecurityService.js';
 
-const SMALL_BUTTON = 'min-h-[44px] px-3 rounded-xl text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+const SMALL_BUTTON = 'min-h-[2.75rem] px-3 rounded-xl text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
 
 function KeyEditor({ initialValue, onSave, t }) {
   const [value, setValue] = useState(initialValue);
@@ -16,7 +16,7 @@ function KeyEditor({ initialValue, onSave, t }) {
         onChange={(event) => setValue(event.target.value)}
         aria-label={t('welcome.teacherSpace.keyCardTitle')}
         autoComplete="off"
-        className="flex-1 min-w-0 min-h-[44px] px-3 rounded-xl bg-surface-card border border-border-default text-content-primary font-mono text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+        className="flex-1 min-w-0 min-h-[2.75rem] px-3 rounded-xl bg-surface-card border border-border-default text-content-primary font-mono text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
       />
       <button type="submit" className={`${SMALL_BUTTON} bg-action-primary hover:bg-action-primary-hover text-white`}>{t('welcome.teacherSpace.saveKeyBtn')}</button>
     </form>

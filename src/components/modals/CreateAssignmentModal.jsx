@@ -61,7 +61,7 @@ export default function CreateAssignmentModal({ isOpen, examId, testType = 'lese
 
   const title = readyEntry ? t('modals.createAssignment.readyTitle') : t('modals.createAssignment.title');
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} title={title} maxWidth={readyEntry ? 'max-w-[480px]' : 'max-w-lg'}>
+    <Dialog isOpen={isOpen} onClose={onClose} title={title} maxWidth={readyEntry ? 'max-w-[30rem]' : 'max-w-lg'}>
       {readyEntry
         ? <AssignmentReady url={readyEntry.url} summary={describeIssued(readyEntry, t)} />
         : <AssignmentForm initialExamId={examId} exams={exams} standardMinutes={standardMinutes} isBusy={isBusy} onSubmit={handleSubmit} />}

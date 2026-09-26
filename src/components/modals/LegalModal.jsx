@@ -17,7 +17,7 @@ function LegalTabs({ activeTab, onSelect, t }) {
           role="tab"
           aria-selected={activeTab === tab}
           onClick={() => onSelect(tab)}
-          className={`min-h-[40px] px-3 rounded-lg text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
+          className={`min-h-[2.5rem] px-3 rounded-lg text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
             activeTab === tab ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary hover:text-content-primary'
           }`}
         >

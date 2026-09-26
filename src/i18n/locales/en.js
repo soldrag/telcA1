@@ -55,6 +55,8 @@ export const en = {
       notSolved: 'not solved',
       assigned: 'Task',
       startAria: '{name}: start exam',
+      attemptsLine: 'attempts: {count} · {date}',
+      startHint: 'Start →',
     },
     assignments: {
       title: 'From your teacher',
@@ -82,6 +84,10 @@ export const en = {
       enterTaskDesc: 'Paste the link or task code to begin the assigned exam.',
       enterTaskPlaceholder: 'Paste task link or token (#task=zt1....)',
       enterTaskBtn: 'Open Task',
+      emptyTitle: 'No tasks from your teacher yet',
+      emptyHint: 'When your teacher sends a link, open it: the task will appear here.',
+      haveLink: 'Have a link from your teacher?',
+      openBtn: 'Open',
     },
     teacherSpace: {
       copyKeyBtn: 'Copy Key',
@@ -116,8 +122,15 @@ export const en = {
     recentAttempts: {
       title: 'Recent attempts',
       viewAll: 'All history',
-      empty: 'No completed exams yet. Take your first exam!',
+      empty: 'Your attempts will appear here',
       reviewLink: 'Review',
+      deltaAria: '{delta} compared with the previous attempt',
+    },
+    progress: {
+      title: 'Progress by part',
+      hint: 'Average of recent attempts · the mark is the pass line',
+      weakest: 'weakest',
+      chartAria: 'Last attempts: {list}',
     },
     structure: {
       sectionTitle: 'Module Structure',
@@ -466,8 +479,8 @@ export const en = {
     invalidAssignmentLink: 'Failed to open assignment: link is corrupted or invalid.',
   },
   footer: {
-    text: 'telc Deutsch A1 / Start Deutsch 1 Exam Simulator • 15 points • Passing score: 60% (9 points)',
-    privacy: 'This app does not collect or store any personal data. All progress and settings are saved locally in your browser.',
+    text: 'telc A1 Simulator',
+    privacy: 'Your data stays in this browser',
     impressum: 'Legal Notice (Impressum)',
     datenschutz: 'Privacy Policy (Datenschutz)',
   },

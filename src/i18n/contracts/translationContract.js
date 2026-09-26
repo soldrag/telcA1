@@ -56,6 +56,8 @@ export const TRANSLATION_CONTRACT = {
       notSolved: 'string',
       assigned: 'string',
       startAria: 'string',
+      attemptsLine: 'string',
+      startHint: 'string',
     },
     assignments: {
       title: 'string',
@@ -83,6 +85,10 @@ export const TRANSLATION_CONTRACT = {
       enterTaskDesc: 'string',
       enterTaskPlaceholder: 'string',
       enterTaskBtn: 'string',
+      emptyTitle: 'string',
+      emptyHint: 'string',
+      haveLink: 'string',
+      openBtn: 'string',
     },
     teacherSpace: {
       copyKeyBtn: 'string',
@@ -119,6 +125,13 @@ export const TRANSLATION_CONTRACT = {
       viewAll: 'string',
       empty: 'string',
       reviewLink: 'string',
+      deltaAria: 'string',
+    },
+    progress: {
+      title: 'string',
+      hint: 'string',
+      weakest: 'string',
+      chartAria: 'string',
     },
     structure: {
       sectionTitle: 'string',

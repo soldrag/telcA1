@@ -23,7 +23,7 @@ function VariantCard({ examId, onInspect, onAssign, t }) {
         type="button"
         onClick={() => onAssign(examId)}
         aria-label={t('welcome.teacherSpace.assignVariantLabel', { variant: name })}
-        className={`min-h-[44px] px-3 shrink-0 lg:flex-1 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white text-sm font-semibold cursor-pointer transition-colors ${FOCUS_RING}`}
+        className={`min-h-[2.75rem] px-3 shrink-0 lg:flex-1 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white text-sm font-semibold cursor-pointer transition-colors ${FOCUS_RING}`}
       >
         {t('welcome.teacherSpace.createAssignmentBtn')}
       </button>

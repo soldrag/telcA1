@@ -35,7 +35,7 @@ export default function AnswerSheetSheet({ isOpen, onClose, sheet, onSelectQuest
         <FontSizeControl />
 
         {!isInspection && (
-          <button type="button" onClick={onSubmit} className="w-full min-h-[52px] rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2">
+          <button type="button" onClick={onSubmit} className="w-full min-h-[3.25rem] rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2">
             {submitLabel}
           </button>
         )}

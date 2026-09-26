@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export const NAV_FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
-const PRIMARY = `min-h-[52px] px-5 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold whitespace-nowrap flex items-center gap-2 cursor-pointer ${NAV_FOCUS_RING}`;
+const PRIMARY = `min-h-[3.25rem] px-5 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold whitespace-nowrap flex items-center gap-2 cursor-pointer ${NAV_FOCUS_RING}`;
 
 /**
  * "Next" until the last Teil, then "Finish" (or leave, when a teacher only inspects the variant).

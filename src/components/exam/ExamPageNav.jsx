@@ -21,7 +21,7 @@ export default function ExamPageNav({ pagination = {}, actions = {}, isInspectio
         <button
           type="button"
           onClick={actions.onPreviousTeil}
-          className={`min-h-[52px] px-5 rounded-xl border border-border-default text-content-primary hover:bg-surface-raised font-semibold flex items-center gap-2 cursor-pointer ${NAV_FOCUS_RING}`}
+          className={`min-h-[3.25rem] px-5 rounded-xl border border-border-default text-content-primary hover:bg-surface-raised font-semibold flex items-center gap-2 cursor-pointer ${NAV_FOCUS_RING}`}
         >
           <ArrowLeft className="w-4 h-4" /> {t('exam.navPrevious')} <Kbd>←</Kbd>
         </button>

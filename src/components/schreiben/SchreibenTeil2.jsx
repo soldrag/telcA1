@@ -70,7 +70,7 @@ export default function SchreibenTeil2({
             value={textValue}
             onChange={(e) => updateText(e.target.value)}
             onFocus={() => isPhoneWidth() && setTaskCollapsed(true)}
-            className="w-full p-4 rounded-xl border border-border-default bg-surface-inset text-content-primary font-sans exam-text focus:outline-none focus:border-action-primary focus:bg-surface-card transition-colors disabled:opacity-75 resize-y min-h-[45dvh] sm:min-h-[220px]"
+            className="w-full p-4 rounded-xl border border-border-default bg-surface-inset text-content-primary font-sans exam-text focus:outline-none focus:border-action-primary focus:bg-surface-card transition-colors disabled:opacity-75 resize-y min-h-[45dvh] sm:min-h-[13.75rem]"
           />
           {/* Below 1024 px the umlaut keys and word count stick above the bottom bar, or right above the keyboard while typing. */}
           <div className={`sticky ${isTyping ? 'bottom-0' : 'bottom-[calc(4.25rem+env(safe-area-inset-bottom,0px))]'} lg:static -mx-4 sm:-mx-6 px-4 sm:px-6 py-2 bg-surface-card border-t border-border-subtle lg:border-0 flex items-center justify-between gap-3 lg:pb-0`}>

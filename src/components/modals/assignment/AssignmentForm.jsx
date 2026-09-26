@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
 import { formatExamName } from '../../../utils/examFormat.js';
 
-const FIELD = 'w-full min-h-[48px] px-4 rounded-xl bg-surface-card border border-border-default text-content-primary text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+const FIELD = 'w-full min-h-[3rem] px-4 rounded-xl bg-surface-card border border-border-default text-content-primary text-base sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
 const LABEL = 'block text-sm font-semibold text-content-secondary mb-1.5';
 
 function segmentClass(isActive) {
-  const base = 'min-h-[44px] px-3 rounded-xl border text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+  const base = 'min-h-[2.75rem] px-3 rounded-xl border text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
   return `${base} ${isActive ? 'bg-action-primary text-white border-action-primary' : 'bg-surface-card text-content-primary border-border-default hover:bg-surface-raised'}`;
 }
 
@@ -69,11 +69,11 @@ export default function AssignmentForm({ initialExamId, exams = [], standardMinu
       {exams.length > 1 && <VariantField exams={exams} t={t} {...field('examId')} />}
       <TimeField form={form} update={update} standardMinutes={standardMinutes} t={t} />
       <TextField id="assignment-student" label={t('modals.createAssignment.studentName')} placeholder={t('modals.createAssignment.studentNamePlaceholder')} maxLength={60} autoComplete="off" {...field('studentName')} />
-      <div className="grid grid-cols-1 sm:grid-cols-[180px_minmax(0,1fr)] gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-[11.25rem_minmax(0,1fr)] gap-4">
         <TextField id="assignment-deadline" type="date" label={t('modals.createAssignment.deadline')} {...field('deadline')} />
         <TextField id="assignment-note" label={t('modals.createAssignment.note')} placeholder={t('modals.createAssignment.notePlaceholder')} maxLength={120} {...field('note')} />
       </div>
-      <button type="submit" disabled={isBusy || !form.examId} className="w-full min-h-[52px] rounded-xl bg-action-primary hover:bg-action-primary-hover disabled:opacity-60 text-white font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2">
+      <button type="submit" disabled={isBusy || !form.examId} className="w-full min-h-[3.25rem] rounded-xl bg-action-primary hover:bg-action-primary-hover disabled:opacity-60 text-white font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2">
         {t('modals.createAssignment.createBtn')}
       </button>
     </form>

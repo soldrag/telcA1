@@ -12,10 +12,10 @@ const buttonVariants = {
     success: 'bg-state-success text-white hover:bg-state-success-hover shadow-sm shadow-state-success/30',
   },
   size: {
-    default: 'min-h-[44px] h-11 px-4 py-2.5 text-sm',
-    sm: 'min-h-[44px] px-3 py-2 text-xs',
-    lg: 'min-h-[48px] h-12 px-6 text-base font-bold',
-    icon: 'min-h-[44px] min-w-[44px] h-11 w-11 p-0',
+    default: 'min-h-[2.75rem] h-11 px-4 py-2.5 text-sm',
+    sm: 'min-h-[2.75rem] px-3 py-2 text-xs',
+    lg: 'min-h-[3rem] h-12 px-6 text-base font-bold',
+    icon: 'min-h-[2.75rem] min-w-[2.75rem] h-11 w-11 p-0',
   }
 };
 

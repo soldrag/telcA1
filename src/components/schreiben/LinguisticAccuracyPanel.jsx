@@ -29,9 +29,9 @@ function ScaleBar({ score, t }) {
         {segments.map((s) => (
           <div key={s.band} className={`${BAND_TONES[s.band]} opacity-60`} style={{ width: `${((s.max - s.min) / MAX_SCORE) * 100}%` }} />
         ))}
-        <div className="absolute top-[-3px] h-[14px] w-[3px] rounded bg-content-primary" style={{ left: `calc(${(score / MAX_SCORE) * 100}% - 1.5px)` }} />
+        <div className="absolute top-[-0.1875rem] h-[0.875rem] w-[0.1875rem] rounded bg-content-primary" style={{ left: `calc(${(score / MAX_SCORE) * 100}% - 1.5px)` }} />
       </div>
-      <div className="flex text-[10px] text-content-muted">
+      <div className="flex text-[0.625rem] text-content-muted">
         {segments.map((s) => (
           <span key={s.band} className="truncate" style={{ width: `${((s.max - s.min) / MAX_SCORE) * 100}%` }}>
             {s.min > 0 ? t('results.linguisticAccuracy.bandRange', { min: s.min }) : ''}
@@ -47,7 +47,7 @@ function CategoryBreakdown({ byCategory, t }) {
   return (
     <div className="flex flex-wrap gap-1.5">
       {byCategory.map(({ category, count, weight }) => (
-        <span key={category} className="px-2 py-0.5 rounded-md bg-surface-inset border border-border-subtle text-[11px] text-content-secondary">
+        <span key={category} className="px-2 py-0.5 rounded-md bg-surface-inset border border-border-subtle text-[0.6875rem] text-content-secondary">
           {t('results.linguisticAccuracy.categoryItem', {
             label: t(`results.linguisticAccuracy.categories.${LABELLED_CATEGORIES.has(category) ? category : 'other'}`),
             count,
@@ -88,13 +88,13 @@ export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount 
             <GraduationCap className="w-4 h-4 text-action-primary flex-shrink-0" />
             <span>{t('results.linguisticAccuracy.title')}</span>
           </div>
-          <p className="text-[11px] text-content-muted">{t('results.linguisticAccuracy.notExamScore')}</p>
+          <p className="text-[0.6875rem] text-content-muted">{t('results.linguisticAccuracy.notExamScore')}</p>
         </div>
         <div className="text-right">
           <div className="font-mono text-lg font-bold text-content-primary leading-none">
             {accuracy.score} <span className="text-xs text-content-muted">/ {accuracy.maxScore}</span>
           </div>
-          <div className="text-[11px] font-semibold text-content-secondary">
+          <div className="text-[0.6875rem] font-semibold text-content-secondary">
             {t(`results.linguisticAccuracy.bands.${accuracy.band}`)}
           </div>
         </div>
@@ -102,12 +102,12 @@ export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount 
 
       <ScaleBar score={accuracy.score} t={t} />
 
-      <p className="text-[11px] text-content-secondary">
+      <p className="text-[0.6875rem] text-content-secondary">
         {t('results.linguisticAccuracy.summary', { errors: accuracy.errorCount, words: accuracy.wordCount })}
       </p>
       <CategoryBreakdown byCategory={accuracy.byCategory} t={t} />
 
-      <details className="text-[11px] text-content-muted">
+      <details className="text-[0.6875rem] text-content-muted">
         <summary className="cursor-pointer inline-flex items-center space-x-1 font-semibold text-content-secondary">
           <Info className="w-3.5 h-3.5" />
           <span>{t('results.linguisticAccuracy.howComputed')}</span>

@@ -57,7 +57,7 @@ export default function AssignmentLandingScreen({
               <button
                 type="button"
                 onClick={handleCopyShare}
-                className="w-full py-2.5 px-4 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all min-h-[44px] cursor-pointer shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all min-h-[2.75rem] cursor-pointer shadow-sm"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{copied ? t('modals.shareCopiedBtn') : t('modals.shareCopyBtn')}</span>
@@ -68,7 +68,7 @@ export default function AssignmentLandingScreen({
           <button
             type="button"
             onClick={onExit}
-            className="w-full py-2.5 px-4 rounded-xl border border-border-default hover:bg-surface-raised text-content-secondary font-semibold text-xs transition-colors min-h-[44px] cursor-pointer"
+            className="w-full py-2.5 px-4 rounded-xl border border-border-default hover:bg-surface-raised text-content-secondary font-semibold text-xs transition-colors min-h-[2.75rem] cursor-pointer"
           >
             {t('assignment.exitBtn')}
           </button>
@@ -85,7 +85,7 @@ export default function AssignmentLandingScreen({
             <Send className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-action-primary">
+            <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-action-primary">
               telc A1 Hausaufgabe
             </span>
             <h2 className="text-lg sm:text-xl font-extrabold text-content-primary">
@@ -126,7 +126,7 @@ export default function AssignmentLandingScreen({
 
           {assignmentData.note && (
             <div className="pt-1">
-              <span className="text-content-secondary block text-[11px] mb-0.5">{t('assignment.noteLabel')}:</span>
+              <span className="text-content-secondary block text-[0.6875rem] mb-0.5">{t('assignment.noteLabel')}:</span>
               <p className="text-content-primary font-medium italic bg-surface-card p-2.5 rounded-xl border border-border-default">
                 «{assignmentData.note}»
               </p>
@@ -143,7 +143,7 @@ export default function AssignmentLandingScreen({
           <button
             type="button"
             onClick={onExit}
-            className="flex-1 py-3 px-4 rounded-xl border border-border-default hover:bg-surface-raised text-content-secondary font-bold text-xs sm:text-sm flex items-center justify-center space-x-1.5 min-h-[44px] cursor-pointer"
+            className="flex-1 py-3 px-4 rounded-xl border border-border-default hover:bg-surface-raised text-content-secondary font-bold text-xs sm:text-sm flex items-center justify-center space-x-1.5 min-h-[2.75rem] cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>{t('assignment.exitBtn')}</span>
@@ -152,7 +152,7 @@ export default function AssignmentLandingScreen({
           <button
             type="button"
             onClick={onStart}
-            className="flex-2 py-3 px-6 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 min-h-[44px] cursor-pointer shadow-md"
+            className="flex-2 py-3 px-6 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 min-h-[2.75rem] cursor-pointer shadow-md"
           >
             <span>{t('assignment.startBtn')}</span>
             <ArrowRight className="w-4 h-4" />

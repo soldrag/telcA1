@@ -6,10 +6,12 @@ import { getTestTypeById } from '../../../shared/testTypes.js';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
 
-function ModuleHeading({ module, t }) {
+export function ModuleHeading({ moduleInfo = {} }) {
+  const { t } = useI18n();
+  const module = { ...getTestTypeById(moduleInfo.id || 'lesen'), ...moduleInfo };
   return (
     <div className="space-y-1">
-      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-content-primary">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-content-primary">
         {module.title} · {t(`welcome.moduleSubtitle_${module.id}`)}
       </h1>
       <p className="text-sm sm:text-base text-content-secondary">
@@ -25,10 +27,11 @@ function ModuleHeading({ module, t }) {
   );
 }
 
+// Below 1024 px the structure folds under the start buttons; on desktop it is open in the side column.
 function StructureDetails({ module, t }) {
   return (
-    <details className="group text-sm">
-      <summary className="list-none cursor-pointer text-content-secondary hover:text-content-primary min-h-[44px] inline-flex items-center gap-1.5 [&::-webkit-details-marker]:hidden">
+    <details className="group text-sm lg:hidden">
+      <summary className="list-none cursor-pointer text-content-secondary hover:text-content-primary min-h-[2.75rem] inline-flex items-center gap-1.5 [&::-webkit-details-marker]:hidden">
         {t('welcome.randomCard.structureToggle')}
         <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
       </summary>
@@ -44,12 +47,11 @@ export default function RandomExamCard({ onStartRandomExam, moduleInfo = {} }) {
 
   return (
     <section className="space-y-4">
-      <ModuleHeading module={module} t={t} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <button
           type="button"
           onClick={() => onStartRandomExam({ timed: true })}
-          className={`min-h-[52px] px-6 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`}
+          className={`min-h-[3.25rem] px-6 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-semibold flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`}
         >
           <Play className="w-4 h-4 fill-current shrink-0" />
           {t('welcome.randomCard.startExam', { minutes: module.timeLimitMinutes })}
@@ -57,7 +59,7 @@ export default function RandomExamCard({ onStartRandomExam, moduleInfo = {} }) {
         <button
           type="button"
           onClick={() => onStartRandomExam({ timed: false })}
-          className={`min-h-[52px] px-6 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`}
+          className={`min-h-[3.25rem] px-6 rounded-xl bg-surface-card border border-border-default hover:bg-surface-raised text-content-primary font-semibold whitespace-nowrap cursor-pointer transition-colors ${FOCUS_RING}`}
         >
           {t('welcome.randomCard.practice')}
         </button>

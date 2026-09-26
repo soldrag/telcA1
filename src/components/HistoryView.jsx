@@ -57,7 +57,7 @@ export default function HistoryView({
                 <button
                   type="button"
                   onClick={() => setShowClearConfirm(true)}
-                  className="flex items-center space-x-1 text-xs text-content-secondary hover:text-state-error font-semibold px-3 py-2 rounded-xl hover:bg-state-error-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] cursor-pointer"
+                  className="flex items-center space-x-1 text-xs text-content-secondary hover:text-state-error font-semibold px-3 py-2 rounded-xl hover:bg-state-error-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] cursor-pointer"
                 >
                   <Trash2 className="w-4 h-4" />
                   <span>{t('history.clearHistory')}</span>
@@ -67,7 +67,7 @@ export default function HistoryView({
             <button
               type="button"
               onClick={onRefresh}
-              className="flex items-center space-x-1 text-xs text-action-primary hover:text-action-primary-hover font-semibold px-3 py-2 rounded-xl hover:bg-action-primary-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[44px] cursor-pointer"
+              className="flex items-center space-x-1 text-xs text-action-primary hover:text-action-primary-hover font-semibold px-3 py-2 rounded-xl hover:bg-action-primary-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
               <span>{t('history.refreshBtn')}</span>

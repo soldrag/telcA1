@@ -108,7 +108,7 @@ export default function ExamView({
         <InspectionInfoCard examTitle={examConfig.examTitle} examId={examConfig.examId || questions[0]?.exam_id} />
       )}
 
-      <div className="min-h-[500px] pb-24 lg:pb-0">
+      <div className="min-h-[31.25rem] pb-24 lg:pb-0">
         <ActiveTeilRenderer activeTeil={session.activeTeil} questions={questions} session={session} sessionState={session} />
       </div>
 

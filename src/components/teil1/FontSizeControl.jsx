@@ -7,7 +7,7 @@ const LEVELS = [
   { level: 'large', label: 'A+', titleKey: 'exam.fontSizeLarge' },
   { level: 'xlarge', label: 'A++', titleKey: 'exam.fontSizeExtraLarge' },
 ];
-const BUTTON = 'min-w-[44px] min-h-[44px] px-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+const BUTTON = 'min-w-[2.75rem] min-h-[2.75rem] px-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
 
 // One button that steps through the sizes: fits the single-row desktop exam header.
 function FontSizeCycleButton({ fontSizeLevel, selectFontSizeLevel, t }) {

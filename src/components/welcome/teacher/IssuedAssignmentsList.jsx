@@ -4,7 +4,7 @@ import { useIssuedAssignments } from '../../../hooks/useIssuedAssignments.js';
 import { formatDayMonth } from '../../../utils/historyFormat.js';
 import { describeIssuedAssignment, STATUS_TONE_CLASS } from './issuedStatus.js';
 
-const ACTION = 'min-h-[44px] px-3 rounded-xl text-sm font-semibold text-action-primary hover:bg-action-primary-subtle cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+const ACTION = 'min-h-[2.75rem] px-3 rounded-xl text-sm font-semibold text-action-primary hover:bg-action-primary-subtle cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
 
 function RowAction({ row, entry, onOpenLink, onOpenReview, t }) {
   if (row.latestReviewToken) {

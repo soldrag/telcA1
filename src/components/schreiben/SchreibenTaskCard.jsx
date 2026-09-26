@@ -16,7 +16,7 @@ export default function SchreibenTaskCard({ situation, leitpunkte = [], isCollap
           type="button"
           onClick={onToggle}
           aria-expanded={!isCollapsed}
-          className="sm:hidden min-h-[44px] px-2 -mr-2 flex items-center gap-1 text-sm text-action-primary cursor-pointer"
+          className="sm:hidden min-h-[2.75rem] px-2 -mr-2 flex items-center gap-1 text-sm text-action-primary cursor-pointer"
         >
           {isCollapsed ? t('exam.showTask') : t('exam.collapseText')}
           <ChevronDown className={`w-4 h-4 transition-transform ${isCollapsed ? '' : 'rotate-180'}`} aria-hidden="true" />

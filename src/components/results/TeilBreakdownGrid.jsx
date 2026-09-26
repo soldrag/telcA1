@@ -1,12 +1,7 @@
 import React from 'react';
 import { getTestTypeById } from '../../../shared/testTypes.js';
 import { formatPoints } from '../../utils/formatPoints.js';
-
-const TEIL_TITLES_BY_MODULE = {
-  schreiben: { 1: 'Teil 1: Formular', 2: 'Teil 2: Brief' },
-  hoeren: { 1: 'Teil 1: Gespräche', 2: 'Teil 2: Durchsagen', 3: 'Teil 3: Telefon' },
-  lesen: { 1: 'Teil 1: E-Mails / Briefe', 2: 'Teil 2: Internet / Webseiten', 3: 'Teil 3: Schilder / Aushänge' },
-};
+import { getTeilTitles } from '../../config/teilTitles.js';
 
 function resolveTeils(teilBreakdown, testType) {
   const active = Object.keys(teilBreakdown)
@@ -20,7 +15,7 @@ function resolveTeils(teilBreakdown, testType) {
  * Per-Teil points as compact chips under the total score.
  */
 export default function TeilBreakdownGrid({ teilBreakdown = {}, testType = 'lesen', language }) {
-  const titles = TEIL_TITLES_BY_MODULE[testType] || TEIL_TITLES_BY_MODULE.lesen;
+  const titles = getTeilTitles(testType);
 
   return (
     <ul className="flex flex-wrap gap-2">

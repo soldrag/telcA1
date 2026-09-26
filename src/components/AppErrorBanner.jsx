@@ -20,7 +20,7 @@ export default function AppErrorBanner({ message, onDismiss }) {
           type="button"
           onClick={onDismiss}
           aria-label={t('common.closeError')}
-          className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-state-error hover:bg-state-error-muted rounded-lg transition-colors cursor-pointer ml-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-state-error"
+          className="min-h-[2.75rem] min-w-[2.75rem] inline-flex items-center justify-center text-state-error hover:bg-state-error-muted rounded-lg transition-colors cursor-pointer ml-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-state-error"
         >
           <X className="w-4 h-4" />
         </button>

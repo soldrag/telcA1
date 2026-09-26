@@ -16,7 +16,7 @@ function RoleDropdown({ activeRole, selectRole, t }) {
       <select
         value={activeRole}
         onChange={(event) => selectRole(event.target.value)}
-        className="appearance-none min-h-[44px] pl-3 pr-8 rounded-xl border border-border-default bg-surface-card text-sm font-semibold text-content-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+        className="appearance-none min-h-[2.75rem] pl-3 pr-8 rounded-xl border border-border-default bg-surface-card text-sm font-semibold text-content-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
       >
         {ROLE_OPTIONS.map(({ id }) => <option key={id} value={id}>{t(`welcome.roles.${id}`)}</option>)}
       </select>
@@ -39,7 +39,7 @@ function RoleSegments({ activeRole, selectRole, t }) {
             aria-pressed={isActive}
             aria-label={label}
             title={label}
-            className={`min-h-[40px] min-w-[40px] px-2 lg:px-3 rounded-lg flex items-center justify-center gap-1.5 text-sm whitespace-nowrap cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
+            className={`min-h-[2.5rem] min-w-[2.5rem] px-2 lg:px-3 rounded-lg flex items-center justify-center gap-1.5 text-sm whitespace-nowrap cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
               isActive ? 'bg-surface-card text-content-primary font-semibold shadow-xs' : 'text-content-secondary hover:text-content-primary'
             }`}
           >

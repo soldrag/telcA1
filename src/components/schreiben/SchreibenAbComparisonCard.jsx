@@ -18,7 +18,7 @@ export default function SchreibenAbComparisonCard({ comparison, onClose, languag
             <h4 className="text-xs font-black uppercase tracking-wider text-content-primary">
               {isRu ? 'A/B Сравнение: LLM vs Микро-ранжировщик' : 'A/B-Vergleich: LLM vs. Micro-Ranker'}
             </h4>
-            <span className="text-[11px] text-content-secondary font-medium">
+            <span className="text-[0.6875rem] text-content-secondary font-medium">
               {isRu ? `Согласованность решений: ${agreementRate}%` : `Entscheidungsübereinstimmung: ${agreementRate}%`}
             </span>
           </div>
@@ -35,19 +35,19 @@ export default function SchreibenAbComparisonCard({ comparison, onClose, languag
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
         <div className="p-2.5 rounded-lg bg-surface-inset border border-border-default space-y-1">
-          <div className="text-[10px] uppercase font-bold text-content-secondary flex items-center space-x-1">
+          <div className="text-[0.625rem] uppercase font-bold text-content-secondary flex items-center space-x-1">
             <Cpu className="w-3 h-3 text-action-primary" />
             <span>LLM Qwen3 (A)</span>
           </div>
           <div className="text-base font-extrabold text-content-primary">{pointsA} Pkt</div>
-          <div className="text-[10px] text-content-secondary flex items-center space-x-1">
+          <div className="text-[0.625rem] text-content-secondary flex items-center space-x-1">
             <Clock className="w-3 h-3" />
             <span>{durationMsA} ms</span>
           </div>
         </div>
 
         <div className="p-2.5 rounded-lg bg-action-primary-subtle/30 border border-action-primary-border space-y-1">
-          <div className="text-[10px] uppercase font-bold text-action-primary flex items-center space-x-1">
+          <div className="text-[0.625rem] uppercase font-bold text-action-primary flex items-center space-x-1">
             <Zap className="w-3 h-3 text-action-primary" />
             <span>⚡ Ranker (B)</span>
           </div>
@@ -59,14 +59,14 @@ export default function SchreibenAbComparisonCard({ comparison, onClose, languag
               </span>
             )}
           </div>
-          <div className="text-[10px] text-content-secondary flex items-center space-x-1">
+          <div className="text-[0.625rem] text-content-secondary flex items-center space-x-1">
             <Clock className="w-3 h-3" />
             <span>{durationMsB} ms ({speedupFactor}x)</span>
           </div>
         </div>
 
         <div className="col-span-2 sm:col-span-1 p-2.5 rounded-lg bg-surface-inset border border-border-default space-y-1 flex flex-col justify-center">
-          <div className="text-[10px] uppercase font-bold text-content-secondary">
+          <div className="text-[0.625rem] uppercase font-bold text-content-secondary">
             {isRu ? 'Итог A/B' : 'Ergebnis'}
           </div>
           <div className="text-xs font-bold text-content-primary">
@@ -74,7 +74,7 @@ export default function SchreibenAbComparisonCard({ comparison, onClose, languag
               ? (isRu ? '🎯 100% совпадение' : '🎯 100% Übereinstimmung')
               : (isRu ? `⚠️ Расхождение на ${Math.abs(scoreDelta)} б.` : `⚠️ Differenz: ${Math.abs(scoreDelta)} Pkt`)}
           </div>
-          <div className="text-[10px] text-state-success-text font-medium">
+          <div className="text-[0.625rem] text-state-success-text font-medium">
             {speedupFactor > 1 ? `⚡ В ${speedupFactor} раз быстрее` : 'Gleiches Tempo'}
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function SchreibenAbComparisonCard({ comparison, onClose, languag
         {criteriaComparison.map((c) => (
           <div
             key={c.id}
-            className={`p-2 rounded-lg border text-center text-[11px] font-medium ${
+            className={`p-2 rounded-lg border text-center text-[0.6875rem] font-medium ${
               c.isMatch ? 'border-state-success-border bg-state-success-subtle/20' : 'border-state-warning-border bg-state-warning-subtle/20'
             }`}
           >
@@ -96,7 +96,7 @@ export default function SchreibenAbComparisonCard({ comparison, onClose, languag
                 <AlertCircle className="w-3 h-3 text-state-warning-text" />
               )}
             </div>
-            <div className="text-[10px] text-content-secondary font-mono mt-0.5">
+            <div className="text-[0.625rem] text-content-secondary font-mono mt-0.5">
               A: {c.scoreA} | B: {c.scoreB}
             </div>
           </div>

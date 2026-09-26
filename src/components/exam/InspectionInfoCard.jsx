@@ -17,7 +17,7 @@ export default function InspectionInfoCard({ examTitle, examId }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center space-x-2">
-            <Badge variant="default" className="text-[10px] uppercase font-bold tracking-wider py-0 px-1.5">
+            <Badge variant="default" className="text-[0.625rem] uppercase font-bold tracking-wider py-0 px-1.5">
               {t('exam.inspectionBadge')}
             </Badge>
           </div>

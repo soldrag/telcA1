@@ -55,7 +55,7 @@ export default function AssignmentSubmissionBanner({
           <button
             type="button"
             onClick={onExitAssignment}
-            className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-bold text-content-secondary hover:text-content-primary bg-surface-card hover:bg-surface-raised border border-border-default rounded-xl transition-colors cursor-pointer min-h-[40px]"
+            className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-bold text-content-secondary hover:text-content-primary bg-surface-card hover:bg-surface-raised border border-border-default rounded-xl transition-colors cursor-pointer min-h-[2.5rem]"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>{t('assignment.exitBtn')}</span>
@@ -75,7 +75,7 @@ export default function AssignmentSubmissionBanner({
           <button
             type="button"
             onClick={handleCopy}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all min-h-[44px] cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all min-h-[2.75rem] cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2"
           >
             {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             <span>
