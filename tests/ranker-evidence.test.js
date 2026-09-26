@@ -46,7 +46,8 @@ describe('occupation detector', () => {
     for (const text of ['Ich arbeite als Verkäufer.', 'Ich arbeite bei Siemens.', 'Zwei Personen, Ingenieur.', 'Ich bin Zahnärztin.', 'Wir sind Studenten.', 'Ich studiere Medizin.']) {
       assert.equal(hasOccupation(text), true, text);
     }
-    for (const text of ['Wir sind zwei Personen und arbeiten beide.', 'Wir arbeiten hier.', 'Ich koche gern.', 'Ich habe viel Arbeit.']) {
+    for (const text of ['Wir sind zwei Personen und arbeiten beide.', 'Wir arbeiten hier.', 'Ich koche gern.', 'Ich habe viel Arbeit.',
+      'Wir arbeiten für eine Umweltorganisation, um die Natur zu schützen.', 'Ich arbeite in Berlin.']) {
       assert.equal(hasOccupation(text), false, text);
     }
   });
@@ -97,6 +98,11 @@ describe('Concept domains match a whole word or a compound head, never a substri
     assert.equal(domainOf('haustiere'), domainOf('tier'));
     assert.equal(domainOf('reparaturtermin'), domainOf('termin'));
     assert.equal(domainOf('anmeldung'), domainOf('anmelden'));
+  });
+
+  it('a bare "kommen" is not acceptance of an invitation', () => {
+    for (const word of ['komme', 'kommt']) assert.notEqual(domainOf(word), domainOf('zusage'), word);
+    assert.equal(domainOf('gern'), domainOf('zusage'));
   });
 
   it('ignores substrings and numerals inside unrelated words', () => {

@@ -10,7 +10,8 @@ export const A1_CONCEPT_DOMAINS = Object.freeze({
   tier: ['tier', 'hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
   beruf: ['beruf', 'arbeit', 'job', 'firma', 'büro', 'studen', 'studentin', 'ingenieur', 'ingenieurin', 'arz', 'ärztin', 'lehr',
     'lehrerin', 'verkäuf', 'verkäuferin', 'koch', 'köchin', 'kelln', 'kellnerin', 'friseur', 'friseurin', 'mechanik', 'programmier'],
-  zusage: ['zusag', 'komm', 'gern', 'dabei', 'teilnehm'],
+  // Acceptance needs its own word: a bare "kommen" is also origin ("komme aus") or a companion ("kommt mit").
+  zusage: ['zusag', 'gern', 'dabei', 'teilnehm'],
   anmeld: ['anmeld', 'anmeldung', 'anmelden', 'meld', 'registrier', 'einschreib'],
   grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'buch'],
   ort: ['ort', 'wo', 'adress', 'stadt', 'strass', 'wohn', 'hotel', 'bahn', 'flughaf', 'zimm', 'haus'],

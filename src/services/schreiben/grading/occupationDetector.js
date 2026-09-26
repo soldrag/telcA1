@@ -7,8 +7,9 @@
  */
 
 const WORK_VERBS = new Set(['arbeite', 'arbeitest', 'arbeitet', 'arbeiten', 'jobbe', 'jobbt', 'jobben']);
-// Role ("als Koch") or workplace ("bei Siemens", "im Krankenhaus", "in einer Firma", "für eine Bank").
-const ROLE_MARKERS = new Set(['als', 'bei', 'beim', 'im', 'in', 'für', 'fuer']);
+// Role ("als Koch") or employer/workplace ("bei Siemens", "beim Bäcker", "im Krankenhaus"). "in"/"für" are
+// left out: "in Berlin", "für die Natur" name a place or a cause, not an occupation.
+const ROLE_MARKERS = new Set(['als', 'bei', 'beim', 'im']);
 const STUDY_WORDS = new Set(['studiere', 'studierst', 'studiert', 'studieren', 'studium']);
 const MARKER_WINDOW = 2;
 
