@@ -100,7 +100,8 @@ export async function runSchreibenMicroPipeline({
     closingScore: closing.score,
     wordCount,
     isGibberish,
-    grammarErrors: finalGrammarErrors
+    grammarErrors: finalGrammarErrors,
+    level: question.level
   });
 
   // Stage 4: feedback verbalizer from locked facts

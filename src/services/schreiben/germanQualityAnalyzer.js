@@ -1,22 +1,5 @@
-const COMMON_A1_NOUNS = [
-  'Termin', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag',
-  'August', 'Juli', 'Juni', 'Mai', 'Deutschkurs', 'Kurs', 'Sprachschule',
-  'Arbeit', 'Überstunden', 'Woche', 'Wochen', 'Zeit', 'Frau', 'Herr', 'Damen', 'Herren',
-  'Kosten', 'Gebühr', 'Gebühren', 'Preis', 'Anmeldung', 'Zimmer', 'Hotel', 'Arzt', 'Praxis'
-];
-
-function checkNounCapitalization(rawText = '') {
-  const warnings = [];
-  const words = rawText.split(/\s+/).map(w => w.replace(/[.,!?;:]/g, ''));
-
-  for (const noun of COMMON_A1_NOUNS) {
-    const lowerNoun = noun.toLowerCase();
-    if (words.includes(lowerNoun)) {
-      warnings.push(`„${lowerNoun}“ sollte großgeschrieben werden: „${noun}“`);
-    }
-  }
-  return warnings.slice(0, 3);
-}
+// Noun capitalisation is the grammar engine's letter rule (nounCapitalization, from the level lexicon);
+// this analyzer only rates length and repetition.
 
 function checkRepetitionAndGibberish(words = []) {
   if (words.length === 0) return { isGibberish: true, reason: 'Kein Text' };
@@ -43,7 +26,6 @@ export function analyzeGermanQuality(text = '', targetWords = 30) {
   const rawWords = text.trim() ? text.trim().split(/\s+/).filter(Boolean) : [];
   const wordCount = rawWords.length;
   const { isGibberish, reason } = checkRepetitionAndGibberish(rawWords);
-  const capitalizationWarnings = checkNounCapitalization(text);
 
   let lengthScore = 2;
   if (wordCount < 15) lengthScore = 0;
@@ -52,13 +34,11 @@ export function analyzeGermanQuality(text = '', targetWords = 30) {
   const feedback = [];
   if (reason) feedback.push(reason);
   if (wordCount < 20) feedback.push(`Textlänge (${wordCount} Wörter) liegt unter der Richtlinie von ca. ${targetWords} Wörtern.`);
-  capitalizationWarnings.forEach(w => feedback.push(w));
 
   return {
     wordCount,
     lengthScore,
     isGibberish,
-    capitalizationWarnings,
     feedback
   };
 }

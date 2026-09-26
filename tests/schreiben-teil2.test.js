@@ -39,12 +39,12 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(missing.score, 0);
   });
 
-  it('detects gibberish, spam repetitions and noun capitalization', () => {
+  it('detects gibberish and spam repetitions; noun capitalization comes from the grammar engine', () => {
     const spam = analyzeGermanQuality('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo');
     assert.equal(spam.isGibberish, true);
 
-    const capCheck = analyzeGermanQuality('Ich habe am montag einen termin bei dr. schneider.');
-    assert.equal(capCheck.capitalizationWarnings.length > 0, true);
+    const capCheck = A1.grammar.checkLetter('Ich habe am montag einen termin bei dr. schneider.');
+    assert.ok(capCheck.some((e) => e.code === 'ERR_NOUN_CAPITALIZATION'), 'noun capitalisation is the grammar engine rule');
   });
 
   it('evaluates full sample solution with maximum points', () => {

@@ -60,7 +60,7 @@ export const FEEDBACK_SCHEMA = {
   properties: {
     feedback: {
       type: 'string',
-      description: 'Polite A1 examiner feedback based only on provided facts'
+      description: 'Polite examiner feedback based only on provided facts'
     }
   },
   required: ['feedback'],

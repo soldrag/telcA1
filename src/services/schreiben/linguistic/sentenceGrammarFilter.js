@@ -18,7 +18,7 @@ export function isExactSubstring(sentence = '', candidateSubstring = '') {
   return sentence.includes(trimmedCandidate);
 }
 
-export function isReasonableA1Correction(original = '', correction = '') {
+export function isReasonableCorrection(original = '', correction = '') {
   const origTrimmed = (original || '').trim();
   const corrTrimmed = (correction || '').trim();
 
@@ -59,7 +59,7 @@ export function filterSentenceGrammarCandidates(sentence = '', rawCandidates = [
 
     if (!orig || !corr || seenOriginals.has(orig.toLowerCase())) continue;
     if (!isExactSubstring(sentence, orig)) continue;
-    if (!isReasonableA1Correction(orig, corr)) continue;
+    if (!isReasonableCorrection(orig, corr)) continue;
 
     seenOriginals.add(orig.toLowerCase());
     validErrors.push({

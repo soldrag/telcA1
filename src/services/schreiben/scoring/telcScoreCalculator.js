@@ -12,7 +12,7 @@ export function computeTelcFinalScore({
   wordCount = 0,
   isGibberish = false,
   grammarErrors = [],
-  level = 'A1',
+  level,
 }) {
   const regulation = getSchreibenRegulation(level);
   const score = regulation.scoreTeil2({
