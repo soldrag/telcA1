@@ -6,8 +6,7 @@
  * - a compound criterion with a missing aspect is capped at the partial level (A ∧ B: all aspects needed for full);
  * - gray-zone providers never lower a baseline level ≥ 1 (isProtected records when that floor applied);
  * - the primary ranker is the arbiter: its 'no' verdict overrides the keyword baseline, and a compound
- *   point is capped at partial when the ranker finds any aspect less than fully covered (vetoed or partial:
- *   full needs every aspect)
+ *   point is capped at partial when the ranker vetoed an aspect that only keywords supported
  *   (both only when the level policy trusts the verdict on these sentences, see IRankerPolicy.isVerdictReliable).
  */
 
@@ -42,7 +41,7 @@ export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty,
 function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
   if (!verdict?.isCompound) return false;
   if (verdict.missingAspects?.length > 0) return true;
-  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto || a.coverage !== 'full');
+  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto);
 }
 
 /**
