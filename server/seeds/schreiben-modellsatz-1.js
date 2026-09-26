@@ -4,7 +4,7 @@ export const exam = {
   subtitle: 'Schriftlicher Ausdruck (Teil 1 und 2)',
   description: 'Официальный тренировочный вариант Schreiben telc A1: заполнение гостиничного формуляра и письмо в языковую школу.',
   test_type: 'schreiben',
-  time_limit_minutes: 15,
+  time_limit_minutes: 20,
   total_questions: 6,
   pass_score: 9,
   sort_order: 1

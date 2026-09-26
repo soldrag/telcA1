@@ -31,7 +31,7 @@ export const TEST_TYPES = [
     titleRu: 'Письмо',
     status: 'active',
     totalQuestions: 6,
-    timeLimitMinutes: 15,
+    timeLimitMinutes: 20,
     maxScore: 15,
     passScore: 9,
     partsCount: 2,
