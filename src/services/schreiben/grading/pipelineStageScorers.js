@@ -9,7 +9,6 @@ import { formatCriterionQuery } from './rankerFallbackScorer.js';
 import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { filterCandidateErrors } from './stage3Grammar.js';
-import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
@@ -17,7 +16,7 @@ import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/r
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
-import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
+import { requireLevelPort } from './levelPorts.js';
 import { evaluateCompoundCriterionBaseline } from './compoundBaselineEvaluator.js';
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
@@ -98,7 +97,7 @@ async function scoreCriterionItem(params) {
     const sentences = relSentences.length > 0 ? relSentences : (bodySentences || []);
     const arb = await arbitrateLeitpunkt({
       criterion: crit, sentences, baselineScore: baseScore, provider,
-      embedder: rankerEmbedder, rivalCriteria: criteria.filter((c) => c !== crit),
+      embedder: rankerEmbedder, rivalCriteria: criteria.filter((c) => c !== crit), policy,
     });
     finalScore = arb.score;
     arbitrated = arb.arbitrated;
@@ -125,7 +124,8 @@ async function scoreCriterionItem(params) {
 }
 
 /** policy: the level's ranker policy (lexicon port, coverage thresholds). */
-export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, policy = defaultA1RankerPolicy }) {
+export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, policy }) {
+  requireLevelPort(policy, 'scorePipelineLeitpunkte: policy');
   const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
   const rankerEmbedder = sentenceVectors.some(Boolean)
     ? createRankerEmbedder({ customExtractor, sentenceVectors: buildSentenceVectorMap(bodySentences, sentenceVectors) })
@@ -145,8 +145,9 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
   return { items, totalScore, semanticErrors };
 }
 
-export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider, semanticErrors = [], baselineErrors = [] }) {
-  const ruleErrors = checkGermanA1Grammar(rawText) || [];
+/** grammar: the level's grammar checker (resolveLevelContext) */
+export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider, semanticErrors = [], baselineErrors = [], grammar }) {
+  const ruleErrors = requireLevelPort(grammar, 'collectPipelineGrammarErrors: grammar').checkLetter(rawText) || [];
   const baseMerged = mergeCandidateGrammarErrors(baselineErrors, ruleErrors);
   const initial = mergeCandidateGrammarErrors(baseMerged, semanticErrors);
   if (!provider || provider.id === PROVIDER_IDS.NONE) return initial;

@@ -8,6 +8,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { classifyCriterionCoverage } from '../src/services/schreiben/grading/microRankerService.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 export const TRAP_ESSAY = {
   text: `Hallo Frau Hansen,
@@ -77,9 +80,9 @@ describe('Direct AI Models Evaluation (Trap Letter: Missing Zeitraum)', () => {
 
       // Model B (System 1 Micro-Ranker with Compound Decomposition)
       const t0B = performance.now();
-      const b1 = await classifyCriterionCoverage(TRAP_ESSAY.leitpunkte[0].label, [TRAP_ESSAY.leitpunkte[0].candidateSentence]);
-      const b2 = await classifyCriterionCoverage(TRAP_ESSAY.leitpunkte[1].label, [TRAP_ESSAY.leitpunkte[1].candidateSentence]);
-      const b3 = await classifyCriterionCoverage(TRAP_ESSAY.leitpunkte[2].label, [TRAP_ESSAY.leitpunkte[2].candidateSentence]);
+      const b1 = await classifyCriterionCoverage(TRAP_ESSAY.leitpunkte[0].label, [TRAP_ESSAY.leitpunkte[0].candidateSentence], { policy: A1.policy });
+      const b2 = await classifyCriterionCoverage(TRAP_ESSAY.leitpunkte[1].label, [TRAP_ESSAY.leitpunkte[1].candidateSentence], { policy: A1.policy });
+      const b3 = await classifyCriterionCoverage(TRAP_ESSAY.leitpunkte[2].label, [TRAP_ESSAY.leitpunkte[2].candidateSentence], { policy: A1.policy });
       const dtB = Number((performance.now() - t0B).toFixed(3));
       const ptsB = coverageToTelcPoints(b1.coverage) + coverageToTelcPoints(b2.coverage) + coverageToTelcPoints(b3.coverage);
 

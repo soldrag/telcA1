@@ -6,6 +6,9 @@ import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 import { generateFeedbackSummary } from '../src/services/schreiben/analyzers/feedbackVerbalizer.js';
 import { isConsistentWithFacts } from '../src/services/schreiben/analyzers/feedbackVerbalizer.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Doctor cancellation regression (screenshot case)', () => {
   const question = {
@@ -29,13 +32,13 @@ Artem Smirnov`;
 
   // reglament §6 Teil 2: a declension slip in an appropriate formula is a hint, not a lost point.
   it('recognizes "Sehr geehrte Herr Dr. Schneider" as appropriate anrede with a declension hint', () => {
-    const res = analyzeSalutation('Sehr geehrte Herr Dr. Schneider,\nich muss absagen.', { isFormal: true });
+    const res = analyzeSalutation('Sehr geehrte Herr Dr. Schneider,\nich muss absagen.', { isFormal: true, grammar: A1.grammar });
     assert.equal(res.recognized, true);
     assert.equal(res.score, 2);
     assert.equal(res.diagnosticCode, DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW);
     assert.match(res.correction, /Sehr geehrter Herr/);
 
-    const correct = analyzeSalutation('Sehr geehrter Herr Dr. Schneider,\nich muss absagen.', { isFormal: true });
+    const correct = analyzeSalutation('Sehr geehrter Herr Dr. Schneider,\nich muss absagen.', { isFormal: true, grammar: A1.grammar });
     assert.equal(correct.recognized, true);
     assert.equal(correct.score, 2);
   });

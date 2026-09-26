@@ -3,7 +3,7 @@ import { analyzeClosing } from './closingAnalyzer.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { matchSentenceToCriteria } from './analyzers/semanticTopicMatcher.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
-import { defaultA1RankerPolicy } from './grading/policies/a1RankerPolicy.js';
+import { requireLevelPort } from './grading/levelPorts.js';
 
 function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon }) {
   const assignments = criteria.map(() => []);
@@ -30,14 +30,15 @@ function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon }) {
   return assignments;
 }
 
-/** lexicon: the level's lexicon port (ranker policy `lexicon`). */
-export function segmentUserEssay(rawText = '', criteria = [], { lexicon = defaultA1RankerPolicy.lexicon } = {}) {
+/** @param {{ lexicon: object, grammar: object }} levelContext - the level's lexicon port and grammar checker */
+export function segmentUserEssay(rawText = '', criteria = [], { lexicon, grammar } = {}) {
+  requireLevelPort(lexicon, 'segmentUserEssay: lexicon');
   const text = (rawText || '').trim();
   if (!text) {
     return { anrede: '', closing: '', senderName: '', leitpunkte: [] };
   }
 
-  const salutation = analyzeSalutation(text);
+  const salutation = analyzeSalutation(text, { grammar });
   const closing = analyzeClosing(text);
   const macro = segmentMacroStructure(text);
 

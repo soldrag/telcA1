@@ -6,7 +6,7 @@
 
 import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
-import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
+import { requireLevelPort } from './levelPorts.js';
 
 const REFUSAL_PENALTY = 2;
 const NO_INVERSION = Object.freeze({ isInverted: false });
@@ -30,7 +30,8 @@ function validateEvidenceFrame(sentence, criterion, lexicon) {
 }
 
 /** lexicon: the level's lexicon port (ranker policy `lexicon`). */
-export function assessEvidenceSentences({ sentences = [], criterion = {}, hasAffirmativeEvidence = false, lexicon = defaultA1RankerPolicy.lexicon }) {
+export function assessEvidenceSentences({ sentences = [], criterion = {}, hasAffirmativeEvidence = false, lexicon }) {
+  requireLevelPort(lexicon, 'assessEvidenceSentences: lexicon');
   let penalty = 0;
   const frameErrors = [];
   for (const s of sentences) {

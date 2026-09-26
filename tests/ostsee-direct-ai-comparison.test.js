@@ -16,6 +16,9 @@ import {
   classifyCriterionCoverage,
 } from '../src/services/schreiben/grading/microRankerService.js';
 import { extractAndParseLLMJson } from '../src/services/schreiben/webLlmJsonRepair.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 export const TEST_ESSAY = {
   text: `Sehr geehrte Frau Hansen,
@@ -98,7 +101,7 @@ export async function evaluateWithModelA_LLM(leitpunkt, candidateSentence, custo
  * Evaluates semantic relevance scores and threshold coverage.
  */
 export async function evaluateWithModelB_MicroRanker(leitpunkt, candidateSentence) {
-  const result = await classifyCriterionCoverage(leitpunkt.label, [candidateSentence]);
+  const result = await classifyCriterionCoverage(leitpunkt.label, [candidateSentence], { policy: A1.policy });
   return {
     coverage: result.coverage,
     score: result.score,

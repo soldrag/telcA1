@@ -13,6 +13,9 @@ import {
   allSchreibenEvaluationCases,
   evaluationQuestions
 } from './fixtures/index.js';
+import { resolveLevelContext } from '../../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 function createMockLlmEngine({ coverage = 'full', errors = [] } = {}) {
   return {
@@ -39,6 +42,7 @@ describe('Schreiben Teil 2 AI Pipeline Quality & Safety Suite', () => {
     const criterion = { id: 'lp1', label: 'Deutschkurs im August', keywords: ['kurs', 'august'], requiredMatches: 2 };
     // 1 match out of 2 -> similarity 0.50 (in gray zone around 0.45)
     const res = await scoreSingleLeitpunkt({
+      lexicon: A1.lexicon,
       criterion,
       bodySentences: ['Ich möchte im August Deutsch lernen.'],
       sentenceEmbeddings: [],

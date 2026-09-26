@@ -11,6 +11,9 @@ import {
 } from '../src/services/schreiben/grading/microRankerService.js';
 import { createFixedSimilarityEmbedder } from './helpers/mockRankerEmbedder.js';
 import { defaultA1RankerPolicy } from '../src/services/schreiben/grading/policies/a1RankerPolicy.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 const calibrated = (sim) => defaultA1RankerPolicy.calibrateNeuralScore(sim);
 
@@ -49,17 +52,17 @@ describe('MicroRankerProvider & MicroRankerService Tests', () => {
 
   it('classifyCriterionCoverage correctly categorizes full, partial, and no coverage', async () => {
     const mockEmbedderHigh = createFixedSimilarityEmbedder(0.85);
-    const resHigh = await classifyCriterionCoverage('Termin vereinbaren', ['Können wir einen Termin machen?'], { embedder: mockEmbedderHigh });
+    const resHigh = await classifyCriterionCoverage('Termin vereinbaren', ['Können wir einen Termin machen?'], { embedder: mockEmbedderHigh, policy: A1.policy });
     assert.equal(resHigh.coverage, 'full');
     assert.ok(Math.abs(resHigh.score - calibrated(0.85)) < 1e-6);
 
     const mockEmbedderMid = createFixedSimilarityEmbedder(0.55);
-    const resMid = await classifyCriterionCoverage('Termin vereinbaren', ['Können wir morgen sehen?'], { embedder: mockEmbedderMid });
+    const resMid = await classifyCriterionCoverage('Termin vereinbaren', ['Können wir morgen sehen?'], { embedder: mockEmbedderMid, policy: A1.policy });
     assert.equal(resMid.coverage, 'partial');
     assert.ok(Math.abs(resMid.score - calibrated(0.55)) < 1e-6);
 
     const mockEmbedderLow = createFixedSimilarityEmbedder(0.2);
-    const resLow = await classifyCriterionCoverage('Termin vereinbaren', ['Das Wetter ist schön.'], { embedder: mockEmbedderLow });
+    const resLow = await classifyCriterionCoverage('Termin vereinbaren', ['Das Wetter ist schön.'], { embedder: mockEmbedderLow, policy: A1.policy });
     assert.equal(resLow.coverage, 'no');
     assert.ok(Math.abs(resLow.score - calibrated(0.2)) < 1e-6);
   });
@@ -80,10 +83,10 @@ describe('MicroRankerProvider & MicroRankerService Tests', () => {
   });
 
   it('scoreSentencePair handles empty input gracefully', async () => {
-    const scoreEmpty = await scoreSentencePair('', 'Some sentence');
+    const scoreEmpty = await scoreSentencePair('', 'Some sentence', { policy: A1.policy });
     assert.equal(scoreEmpty, 0);
 
-    const scoreEmptySent = await scoreSentencePair('Some criterion', '');
+    const scoreEmptySent = await scoreSentencePair('Some criterion', '', { policy: A1.policy });
     assert.equal(scoreEmptySent, 0);
   });
 });

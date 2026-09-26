@@ -34,11 +34,12 @@ export function extractBodyText(fullText = '', salutationText = '', closingText 
   return body.trim();
 }
 
-export function runStage0Preprocessing(rawText = '') {
+/** @param {{ grammar: object }} levelContext - the level's grammar checker (resolveLevelContext) */
+export function runStage0Preprocessing(rawText = '', { grammar } = {}) {
   const normalized = normalizeRawText(rawText);
   const wordCount = countWords(normalized);
 
-  const salutation = analyzeSalutation(normalized, { isFormal: true });
+  const salutation = analyzeSalutation(normalized, { isFormal: true, grammar });
   const closing = analyzeClosing(normalized, { isFormal: true });
 
   const bodyText = extractBodyText(

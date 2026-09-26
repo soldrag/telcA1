@@ -13,7 +13,7 @@ import {
 } from './compoundCriterionDecomposer.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { parseSentencePropositions } from '../linguistic/clauseStructureParser.js';
-import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
+import { requireLevelPort } from './levelPorts.js';
 import { cosineSimilarity } from './vectorMath.js';
 import {
   computeFallbackEvidence,
@@ -53,13 +53,14 @@ async function computeNeuralScore(queryText, sentenceText, { embedder, rivalQuer
 /**
  * @param {{ label: string, keywords?: string[], evidence?: string|null }|string} aspect
  * @param {string} sentenceText
- * @param {{ embedder?: object|null, rivalQueries?: string[], policy?: object }} options
+ * @param {{ embedder?: object|null, rivalQueries?: string[], policy: object }} options - policy: the level's ranker policy
  */
 export async function scoreSentencePair(aspect, sentenceText, options = {}) {
   return (await evaluateSentencePair(aspect, sentenceText, options)).score;
 }
 
-async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy = defaultA1RankerPolicy } = {}) {
+async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy } = {}) {
+  requireLevelPort(policy, 'scoreSentencePair: policy');
   const label = String((typeof aspect === 'string' ? aspect : aspect?.label) || '').trim();
   const keywords = typeof aspect === 'string' ? [] : (aspect?.keywords || []);
   const aspectEvidence = typeof aspect === 'string' ? null : (aspect?.evidence || null);
@@ -82,7 +83,7 @@ function expandClauseCandidates(sentence, policy) {
 
 async function evaluateSentenceWithClauses(aspect, sentence, options) {
   let best = { score: 0, vetoed: false };
-  for (const candidate of expandClauseCandidates(sentence, options.policy || defaultA1RankerPolicy)) {
+  for (const candidate of expandClauseCandidates(sentence, options.policy)) {
     const pair = await evaluateSentencePair(aspect, candidate, options);
     if (pair.score > best.score) best = pair;
   }
@@ -118,11 +119,11 @@ function normalizeCandidateSentences(candidateSentences) {
 /**
  * @param {string|{ label?: string, id?: string, keywords?: string[], aspects?: Array }} criterion
  * @param {string|string[]} candidateSentences
- * @param {{ embedder?: object|null, policy?: object, rivalCriteria?: object[] }} options
+ * @param {{ embedder?: object|null, policy: object, rivalCriteria?: object[] }} options - policy: the level's ranker policy
  *   rivalCriteria: the task's other Leitpunkte, used by the competitive gate.
  */
 export async function classifyCriterionCoverage(criterion, candidateSentences, options = {}) {
-  const policy = options.policy || defaultA1RankerPolicy;
+  const policy = requireLevelPort(options.policy, 'classifyCriterionCoverage: policy');
   const embedder = options.embedder || null;
   const critObj = typeof criterion === 'string' ? { label: criterion } : (criterion || {});
   const critLabel = critObj.label || critObj.id || '';

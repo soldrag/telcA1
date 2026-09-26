@@ -4,6 +4,9 @@ import { gradeSchreibenTeil2 } from '../src/services/schreiben/grading/gradingFa
 import { scoreSingleLeitpunkt } from '../src/services/schreiben/grading/stage2Leitpunkte.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { mergeCandidateGrammarErrors } from '../src/services/schreiben/linguistic/sentenceGrammarFilter.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)', () => {
   const sampleQuestion = {
@@ -36,6 +39,7 @@ describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)',
 
     // Borderline gray zone case: 1 out of 2 required matches gives similarity 0.50 (within 0.45 +/- 0.06)
     await scoreSingleLeitpunkt({
+      lexicon: A1.lexicon,
       criterion: { id: 'lp1', label: 'Deutschkurs', keywords: ['kurs', 'deutschkurs'], requiredMatches: 2 },
       bodySentences: ['Ich will einen Kurs machen.'],
       sentenceEmbeddings: [],
@@ -73,6 +77,7 @@ describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)',
 
     // Text with full required matches (2/2) -> similarity 0.75, cleanly outside gray zone (> 0.71)
     const result = await scoreSingleLeitpunkt({
+      lexicon: A1.lexicon,
       criterion: { id: 'lp1', label: 'Deutschkurs', keywords: ['kurs', 'august'], requiredMatches: 2 },
       bodySentences: ['Ich möchte im August einen Kurs besuchen.'],
       sentenceEmbeddings: [],
@@ -87,6 +92,7 @@ describe('Grading LLM Contract Tests (Mock chatCompletion & Safety Invariants)',
 
     // Conversely, text with 0 matches -> similarity 0.20, cleanly outside gray zone (< 0.39)
     const zeroResult = await scoreSingleLeitpunkt({
+      lexicon: A1.lexicon,
       criterion: { id: 'lp1', label: 'Deutschkurs', keywords: ['kurs', 'august'], requiredMatches: 2 },
       bodySentences: ['Das Wetter ist heute sehr schön.'],
       sentenceEmbeddings: [],
@@ -147,6 +153,7 @@ Anna Schmidt`;
 
     // Both keywords "kosten" and "hund" match (2/2), but argument "der Hund" is incompatible with predicate "kosten"
     const result = await scoreSingleLeitpunkt({
+      lexicon: A1.lexicon,
       criterion: criterionWithFrame,
       bodySentences: ['Wie viel kostet der Hund?'],
       sentenceEmbeddings: [],

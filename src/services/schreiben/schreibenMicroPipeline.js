@@ -12,6 +12,7 @@ import {
   runDeterministicBaseline,
   toCriteriaBreakdown
 } from './deterministicBaseline.js';
+import { resolveLevelContext } from './levelContext.js';
 import { mergeCandidateGrammarErrors } from './linguistic/sentenceGrammarFilter.js';
 import { arbitrateSingleLeitpunkt } from './analyzers/leitpunktArbitrator.js';
 import { checkSentenceGrammarMicro } from './analyzers/sentenceGrammarMicroChecker.js';
@@ -68,7 +69,7 @@ export async function runSchreibenMicroPipeline({
 
   // Stages 0-2 baseline: deterministic segmentation, Anrede/Gruß and Leitpunkte scoring
   onProgress?.('Segmentierung und Vorbereitung...');
-  const baseline = runDeterministicBaseline(text, criteria);
+  const baseline = runDeterministicBaseline(text, criteria, resolveLevelContext(question.level));
   const {
     salutation,
     closing,

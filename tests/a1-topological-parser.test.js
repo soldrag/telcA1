@@ -6,6 +6,9 @@ import { segmentMacroStructure } from '../src/services/schreiben/linguistic/macr
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('A1 Topological Field Model & Linguistic Engine', () => {
   describe('Positive syntax cases (No false positives)', () => {
@@ -65,7 +68,7 @@ describe('A1 Topological Field Model & Linguistic Engine', () => {
     });
 
     it('detects masculine adjective declension in salutation "Liebe Herr"', () => {
-      const anrede = analyzeSalutation('Liebe Herr Doktor Schneider,\nich schreibe Ihnen.', { isFormal: true });
+      const anrede = analyzeSalutation('Liebe Herr Doktor Schneider,\nich schreibe Ihnen.', { isFormal: true, grammar: A1.grammar });
       assert.equal(anrede.recognized, true);
       assert.equal(anrede.score, 1); // informal register to a doctor, not the ending
       assert.match(anrede.correction, /Lieber Herr/);

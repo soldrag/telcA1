@@ -64,16 +64,16 @@ export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbite
 
 /**
  * @param {{ criterion: object, sentences: string[], baselineScore: number, provider: object,
- *   embedder?: object|null, rivalCriteria?: object[] }} params
+ *   embedder?: object|null, rivalCriteria?: object[], policy?: object }} params - policy: the task level's ranker policy
  */
-export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [] }) {
+export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [], policy }) {
   if (!sentences?.length || !provider || provider.id === PROVIDER_IDS.NONE) {
     return { score: baselineScore, arbitrated: false, rankerDetails: null };
   }
   try {
-    const rankerIsArbiter = isPrimaryRankerProvider(provider) && provider.canOverruleBaseline(sentences);
+    const rankerIsArbiter = isPrimaryRankerProvider(provider) && provider.canOverruleBaseline(sentences, policy);
     const verdict = isPrimaryRankerProvider(provider)
-      ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria })
+      ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria, policy })
       : await provider.classifyCoverage(criterion, sentences.join(' '));
     return { ...mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter }), rankerDetails: verdict || null };
   } catch (err) {

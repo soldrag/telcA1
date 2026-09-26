@@ -7,7 +7,6 @@ import { analyzeSalutation } from './salutationAnalyzer.js';
 import { analyzeClosing } from './closingAnalyzer.js';
 import { analyzeLeitpunkte } from './leitpunkteAnalyzer.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
-import { checkGermanA1Grammar } from './germanGrammarChecker.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { mergeCandidateGrammarErrors } from './linguistic/sentenceGrammarFilter.js';
@@ -40,14 +39,15 @@ function extractBodySentences(rawText = '', salutation = {}, closing = {}) {
   return splitGermanSentences(body);
 }
 
-export function runDeterministicBaseline(text = '', criteria = []) {
+/** @param {{ policy: object, lexicon: object, grammar: object }} levelContext - resolveLevelContext(question.level) */
+export function runDeterministicBaseline(text = '', criteria = [], levelContext = {}) {
   const trimmed = (text || '').trim();
-  const salutation = analyzeSalutation(trimmed, { isFormal: true });
+  const salutation = analyzeSalutation(trimmed, { isFormal: true, grammar: levelContext.grammar });
   const closing = analyzeClosing(trimmed, { isFormal: true });
-  const segments = segmentUserEssay(trimmed, criteria);
+  const segments = segmentUserEssay(trimmed, criteria, levelContext);
   const bodySentences = extractBodySentences(trimmed, salutation, closing);
-  const leitpunkte = analyzeLeitpunkte(trimmed, criteria, segments);
-  const rawGrammarErrors = checkGermanA1Grammar(trimmed);
+  const leitpunkte = analyzeLeitpunkte(trimmed, criteria, segments, levelContext);
+  const rawGrammarErrors = levelContext.grammar.checkLetter(trimmed);
   const grammarErrors = mergeCandidateGrammarErrors(rawGrammarErrors, leitpunkte.semanticErrors || []);
   const quality = analyzeGermanQuality(trimmed, 30);
 

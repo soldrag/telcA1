@@ -4,6 +4,9 @@ import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipel
 import { runSchreibenMicroPipeline } from '../src/services/schreiben/schreibenMicroPipeline.js';
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
 import { questions as s3Questions } from '../server/seeds/schreiben-modellsatz-3.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Schreiben Arbiter Guardrail & Macro-Segment Grounding', () => {
   const heatingQuestion = s3Questions.find(q => q.id === 's3-q6');
@@ -25,7 +28,7 @@ Alex`;
       { id: 'lp3', label: 'Handwerker / Reparaturtermin', keywords: ['handwerker', 'kommen', 'termin'] },
     ];
 
-    const seg = segmentUserEssay(studentLetter, criteria);
+    const seg = segmentUserEssay(studentLetter, criteria, A1);
     assert.equal(seg.anrede, 'Lieber Herr Meier,');
     assert.match(seg.leitpunkte[0].userSentence, /ich habe ein Problem/i);
     assert.match(seg.leitpunkte[1].userSentence, /Meine Wohnung ist sehr kalt/i);

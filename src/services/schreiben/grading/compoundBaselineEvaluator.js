@@ -1,7 +1,7 @@
 /**
  * Synchronous Baseline Evaluator for Compound Criteria.
  * Evaluates multi-faceted Leitpunkte (e.g. "Personen und Zeitraum") in Stage 0-2 baseline
- * by checking each atomic sub-aspect against A1 concept domains and rubric keywords.
+ * by checking each atomic sub-aspect against the concept domains and rubric keywords.
  * Zero model dependency; strictly conforms to McConnell limits (<= 70 lines).
  */
 
@@ -15,10 +15,11 @@ import {
   computeDeterministicFallbackScore,
 } from './rankerFallbackScorer.js';
 import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
-import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
+import { requireLevelPort } from './levelPorts.js';
 
 /** policy: the level's ranker policy (coverage thresholds and compound aggregation). */
-export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '', { policy = defaultA1RankerPolicy } = {}) {
+export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '', { policy } = {}) {
+  requireLevelPort(policy, 'evaluateCompoundCriterionBaseline: policy');
   const label = criterion.label || criterion.id || '';
   if (!isCompoundCriterion(label)) return null;
 
