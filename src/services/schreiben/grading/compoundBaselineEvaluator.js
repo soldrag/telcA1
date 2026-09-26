@@ -17,6 +17,20 @@ import {
 import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
 import { requireLevelPort } from './levelPorts.js';
 
+/**
+ * A criterion whose rubric declares a detector-provable evidence kind (`criterion.evidence`) is only
+ * supported when the detector or the rubric's own keywords/concepts find it in the text: similarity to
+ * the criterion query alone ("mein Sohn ist krank" next to "Wie lange Sie fehlen") does not state it.
+ * @returns {boolean|null} null when the criterion is compound or declares no evidence kind
+ */
+export function hasDeclaredEvidenceSupport(criterion = {}, evalText = '', { policy } = {}) {
+  requireLevelPort(policy, 'hasDeclaredEvidenceSupport: policy');
+  const label = criterion.label || criterion.id || '';
+  if (!criterion.evidence || isCompoundCriterion(label)) return null;
+  const aspect = { label, keywords: criterion.keywords || [], evidence: criterion.evidence };
+  return policy.classifyScore(computeDeterministicFallbackScore(aspect, evalText, { policy })) !== 'no';
+}
+
 /** policy: the level's ranker policy (coverage thresholds and compound aggregation). */
 export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '', { policy } = {}) {
   requireLevelPort(policy, 'evaluateCompoundCriterionBaseline: policy');

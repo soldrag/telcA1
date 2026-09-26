@@ -17,7 +17,7 @@ import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 import { requireLevelPort } from './levelPorts.js';
-import { evaluateCompoundCriterionBaseline } from './compoundBaselineEvaluator.js';
+import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from './compoundBaselineEvaluator.js';
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
@@ -71,8 +71,10 @@ function calculateBaseScore(effectiveSim, framePenalty) {
   return framePenalty === 1 ? Math.min(rawScore, 1) : rawScore;
 }
 
-// A compound criterion is capped by its weakest aspect (A ∧ B: all aspects needed for full).
-function computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, policy }) {
+// A compound criterion is capped by its weakest aspect (A ∧ B: all aspects needed for full);
+// a criterion with a declared evidence kind needs that evidence or its keywords somewhere in the body.
+function computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, bodySentences, policy }) {
+  if (hasDeclaredEvidenceSupport(crit, bodySentences.join(' '), { policy }) === false) return { baseScore: 0, compoundEval: null, evidenceMissing: true };
   const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
   const compoundEval = evaluateCompoundCriterionBaseline(crit, relSentences.join(' '), { policy });
   if (!compoundEval) return { baseScore, compoundEval };
@@ -85,7 +87,7 @@ async function scoreCriterionItem(params) {
   const { relSentences, effectiveSim, keywordSentences } = await gatherCriterionEvidence(params);
   const hasAffirmativeEvidence = keywordSentences.length > 0;
   const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence, lexicon: policy.lexicon });
-  const { baseScore, compoundEval } = computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, policy });
+  const { baseScore, compoundEval, evidenceMissing = false } = computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, bodySentences, policy });
 
   let finalScore = baseScore;
   let arbitrated = false;
@@ -93,7 +95,8 @@ async function scoreCriterionItem(params) {
   let arbitration = null;
 
   const arbitrationGate = { provider, effectiveSim, framePenalty: frameCheck.penalty, baselineScore: baseScore, isCompound: Boolean(compoundEval) };
-  if (shouldArbitrateLeitpunkt(arbitrationGate)) {
+  // Missing declared evidence is settled by the detector: no provider re-reads it into the text.
+  if (!evidenceMissing && shouldArbitrateLeitpunkt(arbitrationGate)) {
     const sentences = relSentences.length > 0 ? relSentences : (bodySentences || []);
     const arb = await arbitrateLeitpunkt({
       criterion: crit, sentences, baselineScore: baseScore, provider,

@@ -123,3 +123,15 @@ describe('Level policy bounds lexical hints on an unproven counted aspect', asyn
     assert.equal(policy.classifyScore(computeDeterministicFallbackScore(beruf, 'Ich arbeite als Koch.', { policy })), 'full');
   });
 });
+
+describe('Declared evidence gate', async () => {
+  const { hasDeclaredEvidenceSupport } = await import('../src/services/schreiben/grading/compoundBaselineEvaluator.js');
+  const fehlen = { id: 'lp2', label: 'Wie lange Sie fehlen', evidence: 'temporal', keywords: ['tage', 'woche'] };
+
+  it('needs the detector or a rubric keyword, not similarity to the query', () => {
+    assert.equal(hasDeclaredEvidenceSupport(fehlen, 'Ich kann nicht kommen, weil mein Sohn krank ist.', { policy }), false);
+    assert.equal(hasDeclaredEvidenceSupport(fehlen, 'Ich fehle bis Freitag.', { policy }), true);
+    assert.equal(hasDeclaredEvidenceSupport(fehlen, 'Ich bleibe zwei Tage zu Hause.', { policy }), true);
+    assert.equal(hasDeclaredEvidenceSupport({ label: 'Grund' }, 'Hallo.', { policy }), null);
+  });
+});
