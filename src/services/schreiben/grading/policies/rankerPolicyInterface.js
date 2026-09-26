@@ -83,6 +83,17 @@ export class IRankerPolicy {
   }
 
   /**
+   * Upper bound for lexical hints on an aspect whose declared evidence kind (e.g. 'personCount')
+   * the detector did not prove. Identity by default: levels decide whether such an aspect can be full.
+   * @param {string|null} evidenceKind
+   * @param {number} lexical
+   * @returns {number}
+   */
+  capUnprovenLexical(evidenceKind, lexical) {
+    return lexical;
+  }
+
+  /**
    * Whether the neural verdict on these sentences is trustworthy enough to lower a keyword baseline.
    * Levels define what "readable" means (e.g. share of words outside the level lexicon).
    * @param {string[]} sentences

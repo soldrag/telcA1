@@ -66,7 +66,7 @@ async function evaluateSentencePair(aspect, sentenceText, { embedder = null, riv
   const sText = String(sentenceText || '').trim();
   if (!sText || !label) return { score: 0, vetoed: false };
 
-  const { lexical, structured } = computeFallbackEvidence({ label, keywords, evidence: aspectEvidence }, sText);
+  const { lexical, structured } = computeFallbackEvidence({ label, keywords, evidence: aspectEvidence }, sText, { policy });
   const queryText = formatCriterionQuery(label, keywords);
   const { neural, hasVerdict } = await computeNeuralScore(queryText, sText, { embedder, rivalQueries, policy });
   const evidence = { neural, lexical, structured, hasNeural: hasVerdict };

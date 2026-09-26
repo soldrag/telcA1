@@ -30,7 +30,7 @@ export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '',
       ? keywordsByAspect[aspect]
       : (criterion?.keywords || []);
     const evidence = resolveAspectEvidence(criterion, aspect);
-    const score = computeDeterministicFallbackScore({ label: aspect, keywords, evidence }, evalText);
+    const score = computeDeterministicFallbackScore({ label: aspect, keywords, evidence }, evalText, { policy });
     const coverage = policy.classifyScore(score);
     return {
       aspect,

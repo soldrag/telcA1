@@ -93,3 +93,15 @@ describe('Concept domains match a whole word or a compound head, never a substri
     }
   });
 });
+
+describe('Level policy bounds lexical hints on an unproven counted aspect', async () => {
+  const { computeDeterministicFallbackScore } = await import('../src/services/schreiben/grading/rankerFallbackScorer.js');
+  const personen = { label: 'Personen', evidence: 'personCount', keywords: ['personen', 'familie', 'kinder'] };
+
+  it('persons without a number stay partial, a person count is full', () => {
+    const vague = computeDeterministicFallbackScore(personen, 'Wir kommen mit der Familie.', { policy });
+    const counted = computeDeterministicFallbackScore(personen, 'Wir sind zwei Erwachsene und zwei Kinder.', { policy });
+    assert.equal(policy.classifyScore(vague), 'partial');
+    assert.equal(policy.classifyScore(counted), 'full');
+  });
+});

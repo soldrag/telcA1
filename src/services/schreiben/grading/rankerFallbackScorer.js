@@ -51,9 +51,11 @@ function normalizeAspect(aspect) {
  * Deterministic evidence split by trust level: `lexical` (keyword/concept/label overlap) only hints
  * at a topic, `structured` (a recognised calendar expression or person count) proves the aspect is stated.
  * @param {string|{ label: string, keywords?: string[], evidence?: 'temporal'|'personCount'|null }} aspect
+ * @param {string} sentenceText
+ * @param {{ policy?: object }} [context] - the level policy bounds lexical hints on an unproven evidence kind
  * @returns {{ lexical: number, structured: number }}
  */
-export function computeFallbackEvidence(aspect, sentenceText = '') {
+export function computeFallbackEvidence(aspect, sentenceText = '', { policy = null } = {}) {
   const { label, keywords, evidence } = normalizeAspect(aspect);
   const normSent = String(sentenceText).toLowerCase();
   if (!normSent.trim()) return { lexical: 0, structured: 0 };
@@ -62,14 +64,14 @@ export function computeFallbackEvidence(aspect, sentenceText = '') {
   const keywordScore = scoreKeywordCoverage(keywords, sentStems);
   const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, sentStems, normSent);
   const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(label, sentStems);
-  return {
-    lexical: Math.max(keywordScore, labelScore),
-    structured: scoreStructuredAspectEvidence(evidence, normSent),
-  };
+  const lexical = Math.max(keywordScore, labelScore);
+  const structured = scoreStructuredAspectEvidence(evidence, normSent);
+  const boundedLexical = policy && structured === 0 ? policy.capUnprovenLexical(evidence, lexical) : lexical;
+  return { lexical: boundedLexical, structured };
 }
 
-export function computeDeterministicFallbackScore(aspect, sentenceText = '') {
-  const { lexical, structured } = computeFallbackEvidence(aspect, sentenceText);
+export function computeDeterministicFallbackScore(aspect, sentenceText = '', context = {}) {
+  const { lexical, structured } = computeFallbackEvidence(aspect, sentenceText, context);
   return Math.max(lexical, structured);
 }
 

@@ -77,7 +77,6 @@ export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = 
   const structured = scoreStructuredAspectEvidence(evidence, rawSentence);
   if (structured > 0) return structured;
 
-  const scoreCeiling = evidence === EVIDENCE_KINDS.PERSON_COUNT ? 0.48 : 1;
   let maxConceptScore = 0;
   for (const token of aspectTokens) {
     if (evidence === EVIDENCE_KINDS.TEMPORAL && TIME_DIMENSION_WORDS.has(token)) continue;
@@ -88,7 +87,7 @@ export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = 
     if (!domainStems) continue;
     const matches = domainStems.filter((s) => sentenceStems.includes(s));
     if (matches.length > 0) {
-      maxConceptScore = Math.max(maxConceptScore, Math.min(scoreCeiling, 0.6 + matches.length * 0.2));
+      maxConceptScore = Math.max(maxConceptScore, Math.min(1, 0.6 + matches.length * 0.2));
     }
   }
 
