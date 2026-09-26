@@ -323,6 +323,7 @@ For local development or environments requiring a centralized exam catalog:
 - **Express.js API (`server/index.js`)**: Provides REST endpoints for exam definitions, test types, and optional attempt sync.
 - **Database Facade (`server/db.js`)**: Manages SQLite connection lifecycle, applying idempotent schema migrations (`database/migrations.js`) and executing seed validation (`database/seeder.js`).
 - **Seed Aggregator (`server/seed-data.js`)**: A barrel aggregator importing modular exam variants from `server/seeds/`.
+- **Module Rules — single source of truth (`shared/testTypes.js`)**: time limit, task count, max and pass score are module-wide regulation rules (`reglament/telc-a1.md` §3), not variant data. `seed-data.js` passes every exam through `applyModuleRules()`, which overwrites these fields from the module config, so browser, optional server, validator and scoring all see identical values. Seeds carry content only.
 
 ---
 

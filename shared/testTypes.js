@@ -62,3 +62,18 @@ export function getTestTypeById(id) {
 export function isValidTestType(id) {
   return VALID_TEST_TYPES.has(id);
 }
+
+export const MODULE_RULE_FIELDS = ['time_limit_minutes', 'total_questions', 'pass_score', 'max_score'];
+
+// Timing and scoring are module-wide regulation rules, never per-variant data:
+// every variant of a module inherits them from here, whatever its seed declares.
+export function applyModuleRules(exam) {
+  const rules = getTestTypeById(exam.test_type || 'lesen');
+  return {
+    ...exam,
+    time_limit_minutes: rules.timeLimitMinutes,
+    total_questions: rules.totalQuestions,
+    pass_score: rules.passScore,
+    max_score: rules.maxScore,
+  };
+}

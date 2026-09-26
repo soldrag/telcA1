@@ -1,8 +1,11 @@
 import { useCallback, useEffect } from 'react';
 import { getNextBalancedExam } from '../utils/examBalancer.js';
+import { getTestTypeById } from '../../shared/testTypes.js';
 
 function getExamDurationSeconds(details) {
-  return (details?.exam?.time_limit_minutes || 25) * 60;
+  const exam = details?.exam || {};
+  const minutes = exam.time_limit_minutes || getTestTypeById(exam.test_type || 'lesen').timeLimitMinutes;
+  return minutes * 60;
 }
 
 function tryExitSpecialMode(assignmentMode, reviewMode) {

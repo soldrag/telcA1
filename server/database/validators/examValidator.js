@@ -62,8 +62,9 @@ export function validateExamMetadata(exam, questions = []) {
   validateTestTypeAndSort(exam, errors);
 
   if (Array.isArray(questions)) {
+    const isUpcomingModule = getTestTypeById(exam.test_type || 'lesen').status === 'upcoming';
     if (questions.length !== exam.total_questions) {
-      errors.push(
+      (isUpcomingModule ? warnings : errors).push(
         `Question count mismatch in '${exam.id}': exam declares ${exam.total_questions} questions, but found ${questions.length}.`
       );
     }
