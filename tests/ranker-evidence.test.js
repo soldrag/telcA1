@@ -75,3 +75,21 @@ describe('arbitration with the ranker as arbiter', () => {
     assert.equal(mergeArbitrationVerdict(2, verdict).score, 2);
   });
 });
+
+describe('Concept domains match a whole word or a compound head, never a substring', async () => {
+  const { resolveConceptDomain } = await import('../src/services/schreiben/grading/a1ConceptLexicon.js');
+  const domainOf = (word) => resolveConceptDomain(word)?.[0] ?? null;
+
+  it('credits compounds by their head', () => {
+    assert.equal(domainOf('kurskosten'), domainOf('kosten'));
+    assert.equal(domainOf('haustiere'), domainOf('tier'));
+    assert.equal(domainOf('reparaturtermin'), domainOf('termin'));
+    assert.equal(domainOf('anmeldung'), domainOf('anmelden'));
+  });
+
+  it('ignores substrings and numerals inside unrelated words', () => {
+    for (const word of ['hausaufgaben', 'email', 'steuer', 'klavier', 'reservieren', 'sofort', 'antwort', 'vortrag']) {
+      assert.equal(domainOf(word), null, word);
+    }
+  });
+});

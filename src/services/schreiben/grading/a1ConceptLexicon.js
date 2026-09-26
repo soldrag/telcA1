@@ -20,19 +20,30 @@ const A1_CONCEPT_STEM_DOMAINS = {
   person: ['person', 'leut', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
   zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende'],
   preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
-  tier: ['hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
+  tier: ['tier', 'hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
   anmeld: ['anmeld', 'anmeldung', 'anmelden', 'meld', 'registrier', 'einschreib'],
   grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'buch'],
   ort: ['ort', 'wo', 'adress', 'stadt', 'strass', 'wohn', 'hotel', 'bahn', 'flughaf', 'zimm', 'haus'],
 };
 
+const MIN_COMPOUND_HEAD_LENGTH = 4;
+// Numerals and function words are never the head of a compound ("Klavier", "reservieren").
+const CLOSED_CLASS_STEMS = new Set(['zwei', 'drei', 'vier', 'fuenf', 'fünf', 'paar', 'allein', 'alleine',
+  'wann', 'warum', 'weil', 'denn', 'viel']);
+
+// German compounds are right-headed ("Kurskosten" is a kind of Kosten, "Haustiere" of Tier), so a
+// domain stem proves the concept when it is the whole word or its head, never a mere substring ("Steuer").
+function isDomainHead(word, domainStem) {
+  if (word === domainStem) return true;
+  if (CLOSED_CLASS_STEMS.has(domainStem)) return false;
+  return domainStem.length >= MIN_COMPOUND_HEAD_LENGTH && word.endsWith(domainStem);
+}
+
 export function resolveConceptDomain(token = '') {
   const clean = String(token || '').toLowerCase();
-  const stem = stemGermanWord(clean);
-  for (const [domainKey, stems] of Object.entries(A1_CONCEPT_STEM_DOMAINS)) {
-    if (clean.includes(domainKey) || stem.includes(domainKey) || stems.some((s) => s.length >= 3 && (clean.includes(s) || stem.includes(s)))) {
-      return stems;
-    }
+  const forms = [clean, stemGermanWord(clean)];
+  for (const stems of Object.values(A1_CONCEPT_STEM_DOMAINS)) {
+    if (stems.some((s) => forms.some((form) => isDomainHead(form, s)))) return stems;
   }
   return null;
 }
