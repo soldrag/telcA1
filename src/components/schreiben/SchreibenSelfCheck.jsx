@@ -59,9 +59,6 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
     onScoreChange?.(calculatedScore, scores);
   }, [calculatedScore, scores, onScoreChange]);
 
-  const aiButtonLabel = aiLoading
-    ? t('results.aiCheckLoading')
-    : t('results.aiCheckButton');
 
   return (
     <div className="space-y-5 pt-3">
@@ -133,13 +130,8 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
 
         <SchreibenAiControlBar
           aiLoading={aiLoading}
-          aiButtonLabel={aiButtonLabel}
-          handleRunAi={handleRunAi}
           handleRunRankerAi={handleRunRankerAi}
           handleRunAbComparison={handleRunAbComparison}
-          providerId={providerId}
-          aiStatus={aiStatus}
-          language={language}
         />
 
         {abComparison && (

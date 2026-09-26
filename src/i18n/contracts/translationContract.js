@@ -248,6 +248,7 @@ export const TRANSLATION_CONTRACT = {
     aiProviderLimited: 'string',
     aiLimitedNotice: 'string',
     aiDisclaimer: 'string',
+    aiRankerEvaluated: 'string',
     taskAssignment: 'string',
     taskSituation: 'string',
     taskLeitpunkte: 'string',

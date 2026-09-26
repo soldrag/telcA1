@@ -247,6 +247,7 @@ export const en = {
     aiProviderLimited: 'Limited mode: rule-based scoring only',
     aiLimitedNotice: 'Limited mode: rule-based scoring only, no grammar suggestions',
     aiDisclaimer: 'AI can make mistakes. The evaluation is for guidance only and does not replace an official telc examination.',
+    aiRankerEvaluated: 'Evaluated by AI ranker',
     taskAssignment: 'Task Assignment',
     taskSituation: 'Situation',
     taskLeitpunkte: 'Guide Points',
