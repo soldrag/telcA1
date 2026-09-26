@@ -41,9 +41,9 @@ export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '',
   const keywordsByAspect = partitionAspectKeywordsSync(criterion, aspectLabels, { policy });
 
   const aspectResults = aspectLabels.map((aspect) => {
-    const keywords = keywordsByAspect[aspect]?.length > 0
-      ? keywordsByAspect[aspect]
-      : (criterion?.keywords || []);
+    // An aspect no keyword belongs to is judged by its label and concept domain, as in the ranker:
+    // borrowing the sibling's keywords would let "Dank" prove "Zusage".
+    const keywords = keywordsByAspect[aspect] || [];
     const evidence = resolveAspectEvidence(criterion, aspect);
     const score = computeDeterministicFallbackScore({ label: aspect, keywords, evidence }, evalText, { policy });
     const coverage = policy.classifyScore(score);

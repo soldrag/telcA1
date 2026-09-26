@@ -19,13 +19,13 @@ T2_08  none=210i      gray=210i      primary=210i   exp=210 | Semantic Negation 
 T2_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
 T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
-T3_02  none=222       gray=222       primary=122    exp=122 | Trap: Dank without explicit Zusage
+T3_02  none=122       gray=122       primary=122    exp=122 | Trap: Dank without explicit Zusage
 T3_03  none=202       gray=202       primary=202    exp=202 | Missing Begleitperson
 T3_04  none=221       gray=221       primary=220    exp=220 | Missing Mitbringen/Hilfe
 T3_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
 T3_06  none=221       gray=221       primary=221    exp=222 | Severe A1 Typos
 T3_07  none=222       gray=222       primary=222    exp=222 | Hyper-formal in Casual Context
-T3_08  none=20i0      gray=20i0      primary=20i0   exp=100 | Absage (Semantic Negation)
+T3_08  none=10i0      gray=10i0      primary=10i0   exp=100 | Absage (Semantic Negation)
 T3_09  none=121       gray=121       primary=121    exp=--- | Telegraphic Minimal
 T3_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 G1     none=222       gray=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)
@@ -63,4 +63,4 @@ s4-q6:17 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 ex
 s4-q6:18 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
 s4-q6:19 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.
 s4-q6:20 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | 'Wir kommen' names no number of persons: Personen missing, Zeitraum present.
-Changed vs baseline: 1
+Changed vs baseline: 2

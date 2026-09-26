@@ -15,6 +15,7 @@ import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddi
 import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/rankerEmbedder.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
+import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 import { requireLevelPort } from './levelPorts.js';
 import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from './compoundBaselineEvaluator.js';
@@ -76,7 +77,8 @@ function calculateBaseScore(effectiveSim, framePenalty) {
 function computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, bodySentences, policy }) {
   if (hasDeclaredEvidenceSupport(crit, bodySentences.join(' '), { policy }) === false) return { baseScore: 0, compoundEval: null, evidenceMissing: true };
   const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
-  const compoundEval = evaluateCompoundCriterionBaseline(crit, relSentences.join(' '), { policy });
+  const affirmative = relSentences.map((s) => extractAffirmativeText(s, crit, { lexicon: policy.lexicon })).join(' ');
+  const compoundEval = evaluateCompoundCriterionBaseline(crit, affirmative, { policy });
   if (!compoundEval) return { baseScore, compoundEval };
   return { baseScore: Math.min(baseScore, compoundEval.score), compoundEval };
 }
@@ -97,7 +99,9 @@ async function scoreCriterionItem(params) {
   const arbitrationGate = { provider, effectiveSim, framePenalty: frameCheck.penalty, baselineScore: baseScore, isCompound: Boolean(compoundEval) };
   // Missing declared evidence is settled by the detector: no provider re-reads it into the text.
   if (!evidenceMissing && shouldArbitrateLeitpunkt(arbitrationGate)) {
-    const sentences = relSentences.length > 0 ? relSentences : (bodySentences || []);
+    // The arbiter reads what the letter affirms: a refused clause ("ich kann nicht kommen") is not a Zusage.
+    const candidates = relSentences.length > 0 ? relSentences : (bodySentences || []);
+    const sentences = candidates.map((s) => extractAffirmativeText(s, crit, { lexicon: policy.lexicon })).filter(Boolean);
     const arb = await arbitrateLeitpunkt({
       criterion: crit, sentences, baselineScore: baseScore, provider,
       embedder: rankerEmbedder, rivalCriteria: criteria.filter((c) => c !== crit), policy,

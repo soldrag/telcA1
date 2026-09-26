@@ -136,13 +136,13 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
     assert.equal(mergeArbitrationVerdict(2, { coverage: 'partial' }).score, 2);
   });
 
-  it('Fahrradverleih trap letter scores 1 point in the pipeline even with keyword baseline 2', async () => {
+  it('Fahrradverleih trap letter scores 1 point: Dauer borrows no Kosten keywords', async () => {
     const crit = { id: 'lp2', label: 'Dauer und Kosten', aspects: [{ label: 'Dauer', evidence: 'temporal' }, { label: 'Kosten' }], keywords: ['fahrrad', 'mieten', 'kostet'] };
     const body = ['Ich möchte ein Fahrrad mieten.', 'Wie viel kostet das pro Tag?'];
     const res = await scorePipelineLeitpunkte({
       criteria: [crit], bodySentences: body, provider: new MicroRankerProvider({ embedder: null }), customExtractor: false, policy: A1.policy,
     });
-    assert.equal(res.items[0].baselineScore, 2);
+    assert.equal(res.items[0].baselineScore, 1);
     assert.equal(res.items[0].score, 1);
     assert.deepEqual(res.items[0].rankerDetails.missingAspects, ['Dauer']);
   });
