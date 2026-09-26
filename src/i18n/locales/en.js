@@ -194,7 +194,7 @@ export const en = {
     schreibenWordCountTooLong: 'Quite long',
   },
   timer: {
-    readingTime: 'Reading time (25:00)',
+    timeLimit: 'Time limit ({limit})',
     timeRunningOut: 'Time running out!',
     resumeTitle: 'Resume timer',
     pauseTitle: 'Pause timer',

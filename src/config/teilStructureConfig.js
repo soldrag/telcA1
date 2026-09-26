@@ -1,17 +1,17 @@
 import { Mail, Globe, FileText, FileSpreadsheet, Volume2, Radio, Phone } from 'lucide-react';
 
-function getSchreibenGroups(t) {
+function getSchreibenGroups() {
   return [
     {
       teil: 1,
       label: 'Teil 1 (1–5)',
-      sublabel: t?.('welcome.moduleSub_formular') || 'Formular',
+      sublabel: 'Formular',
       icon: FileSpreadsheet,
     },
     {
       teil: 2,
       label: 'Teil 2 (6)',
-      sublabel: t?.('welcome.moduleSub_brief') || 'Brief / E-Mail',
+      sublabel: 'Brief / E-Mail',
       icon: Mail,
     },
   ];
@@ -33,9 +33,9 @@ function getLesenGroups() {
   ];
 }
 
-export function getTeilGroups(questions = [], testType = 'lesen', t = null) {
+export function getTeilGroups(questions = [], testType = 'lesen') {
   const definitions = testType === 'schreiben'
-    ? getSchreibenGroups(t)
+    ? getSchreibenGroups()
     : (testType === 'hoeren' ? getHoerenGroups() : getLesenGroups());
 
   return definitions.map((def) => ({

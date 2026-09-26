@@ -27,7 +27,7 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
           </div>
           <div>
             <div className="text-xs text-content-tertiary font-semibold">
-              {t('timer.readingTime')}
+              {t('timer.timeLimit', { limit: formatTimeDisplay(totalSeconds) })}
             </div>
             <div className="flex items-baseline space-x-2">
               <span className={`text-2xl sm:text-3xl font-black tracking-tight font-mono-num ${

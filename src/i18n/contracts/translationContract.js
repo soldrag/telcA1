@@ -195,7 +195,7 @@ export const TRANSLATION_CONTRACT = {
     schreibenWordCountTooLong: 'string',
   },
   timer: {
-    readingTime: 'string',
+    timeLimit: 'string',
     timeRunningOut: 'string',
     resumeTitle: 'string',
     pauseTitle: 'string',

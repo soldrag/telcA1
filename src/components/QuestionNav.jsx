@@ -31,7 +31,7 @@ export default function QuestionNav({
 }) {
   const { t } = useI18n();
   const resolvedType = testType || questions[0]?.test_type || 'lesen';
-  const teilGroups = getTeilGroups(questions, resolvedType, t);
+  const teilGroups = getTeilGroups(questions, resolvedType);
   const gridColsClass = teilGroups.length === 2 ? 'grid-cols-2' : (teilGroups.length === 1 ? 'grid-cols-1' : 'grid-cols-3');
 
   return (

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Mail, CheckCircle, Lightbulb } from 'lucide-react';
 import SchreibenWordCounter from './SchreibenWordCounter.jsx';
+import SchreibenUmlautBar from './SchreibenUmlautBar.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function SchreibenTeil2({
@@ -11,6 +12,7 @@ export default function SchreibenTeil2({
   isSubmitted = session.isSubmitted || false,
 }) {
   const { t } = useI18n();
+  const essayRef = useRef(null);
   const textValue = answers[question.id] || '';
   const options = typeof question.options_json === 'string'
     ? JSON.parse(question.options_json || '{}')
@@ -23,11 +25,6 @@ export default function SchreibenTeil2({
   const leitpunkte = rawLeitpunkte.map(lp =>
     typeof lp === 'string' ? lp.replace(/\s*\([^)]*\)/g, '').trim() : lp
   );
-
-  const handleCharInsert = (char) => {
-    if (isSubmitted) return;
-    onSelectAnswer(question.id, textValue + char);
-  };
 
   return (
     <div className="space-y-6">
@@ -83,23 +80,18 @@ export default function SchreibenTeil2({
             <label htmlFor={`essay-${question.id}`} className="text-sm font-extrabold text-content-primary">
               Ihre E-Mail:
             </label>
-            <div className="flex items-center space-x-1">
-              {['ä', 'ö', 'ü', 'ß'].map((umlaut) => (
-                <button
-                  key={umlaut}
-                  type="button"
-                  disabled={isSubmitted}
-                  onClick={() => handleCharInsert(umlaut)}
-                  className="w-7 h-7 rounded-lg border border-border-default bg-surface-inset hover:bg-surface-raised font-bold text-xs text-content-primary transition-colors cursor-pointer"
-                >
-                  {umlaut}
-                </button>
-              ))}
-            </div>
+            <SchreibenUmlautBar
+              fieldRef={essayRef}
+              value={textValue}
+              onChange={(text) => onSelectAnswer(question.id, text)}
+              disabled={isSubmitted}
+            />
           </div>
 
           <textarea
+            ref={essayRef}
             id={`essay-${question.id}`}
+            lang="de"
             rows={10}
             disabled={isSubmitted}
             value={textValue}

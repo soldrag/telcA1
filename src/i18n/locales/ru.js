@@ -194,7 +194,7 @@ export const ru = {
     schreibenWordCountTooLong: 'Достаточно много',
   },
   timer: {
-    readingTime: 'Время на чтение (25:00)',
+    timeLimit: 'Лимит времени ({limit})',
     timeRunningOut: 'Осталось мало времени!',
     resumeTitle: 'Продолжить таймер',
     pauseTitle: 'Поставить на паузу',
