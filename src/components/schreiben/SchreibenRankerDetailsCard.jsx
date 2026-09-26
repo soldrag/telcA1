@@ -1,55 +1,37 @@
 import React from 'react';
 import { Search, ChevronDown, CheckCircle2, AlertTriangle, XCircle, Cpu } from 'lucide-react';
+import { RANKER_DETAILS_TEXTS, formatCoverageLabel, formatLevelVerdict } from './schreibenRankerDetailsTexts.js';
+import { scoreCriteriaLevels } from '../../services/schreiben/regulations/index.js';
+import { formatPoints } from '../../utils/formatPoints.js';
 
-const I18N_TEXTS = {
-  ru: {
-    title: 'Детали проверки микро-ранжировщика (System 1)',
-    modelTag: 'EmbeddingGemma 300M (q4)',
-    explanation: 'Семантическое сопоставление пунктов плана с предложениями письма:',
-    matchedLabel: 'Найденное предложение:',
-    noMatch: 'Подходящее предложение в тексте не найдено',
-    subAspectsTitle: 'Составные аспекты (Fuzzy Min-Pooling):',
-    arbitratedTag: '⚡ Решение Micro-Ranker',
-    scoreLabel: 'Балл:',
-    fullCoverage: 'Полное соответствие',
-    partialCoverage: 'Частичное соответствие',
-    noCoverage: 'Не раскрыто',
-    emptyNotice: 'Запустите проверку выше, чтобы увидеть подробный разбор совпадений.',
-  },
-  de: {
-    title: 'Details der Micro-Ranker-Analyse (System 1)',
-    modelTag: 'EmbeddingGemma 300M (q4)',
-    explanation: 'Semantischer Abgleich der Leitpunkte mit den Briefsätzen:',
-    matchedLabel: 'Zugeordneter Satz:',
-    noMatch: 'Kein passender Satz im Text gefunden',
-    subAspectsTitle: 'Teilaspekte (Fuzzy Min-Pooling):',
-    arbitratedTag: '⚡ Micro-Ranker-Entscheidung',
-    scoreLabel: 'Punkte:',
-    fullCoverage: 'Vollständig erfüllt',
-    partialCoverage: 'Teilweise erfüllt',
-    noCoverage: 'Nicht erfüllt',
-    emptyNotice: 'Starten Sie die Prüfung oben, um die genaue Satzanalyse zu sehen.',
-  },
-  en: {
-    title: 'Micro-Ranker Analysis Details (System 1)',
-    modelTag: 'EmbeddingGemma 300M (q4)',
-    explanation: 'Semantic alignment of task points with letter sentences:',
-    matchedLabel: 'Matched sentence:',
-    noMatch: 'No matching sentence found in the text',
-    subAspectsTitle: 'Sub-aspects (Fuzzy Min-Pooling):',
-    arbitratedTag: '⚡ Micro-Ranker Decision',
-    scoreLabel: 'Score:',
-    fullCoverage: 'Fully addressed',
-    partialCoverage: 'Partially addressed',
-    noCoverage: 'Not addressed',
-    emptyNotice: 'Run the check above to inspect sentence-level alignments.',
-  },
-};
+function resolveItemPoints(item) {
+  if (typeof item.points === 'number') return { points: item.points, maxPoints: item.maxPoints };
+  return scoreCriteriaLevels({ lp1: item.score }).leitpunkte[0];
+}
 
-function formatCoverageLabel(cov, texts) {
-  if (cov === 'full') return texts.fullCoverage;
-  if (cov === 'partial') return texts.partialCoverage;
-  return texts.noCoverage;
+// A partial compound verdict carries a clamped placeholder score, not a similarity: show the verdict only.
+function formatRankerVerdict(ranker, texts) {
+  const label = formatCoverageLabel(ranker.coverage, texts);
+  const hasMeaningfulScore = !ranker.isCompound || ranker.coverage === 'full';
+  return hasMeaningfulScore ? `${Math.round(ranker.score * 100)}% ${label}` : label;
+}
+
+function renderProtectionNote(item, texts, language) {
+  if (!item.isProtected) return null;
+  const note = texts.protectedTag
+    .replace('{verdict}', formatLevelVerdict(item.rankerScore, texts))
+    .replace('{points}', formatPoints(resolveItemPoints(item).points, language));
+  return <div className="text-[10px] font-semibold text-content-secondary">{note}</div>;
+}
+
+function renderUnassigned(sentences, texts) {
+  if (!sentences?.length) return null;
+  return (
+    <div className="p-2.5 rounded-lg border border-dashed border-border-default space-y-1">
+      <div className="text-[10px] font-extrabold uppercase tracking-wider text-content-secondary">{texts.unassignedTitle}</div>
+      {sentences.map((s, i) => <div key={i} className="text-xs italic text-content-primary">«{s}»</div>)}
+    </div>
+  );
 }
 
 function renderAspectRow(asp, idx) {
@@ -81,8 +63,9 @@ function renderAspectRow(asp, idx) {
 }
 
 export default function SchreibenRankerDetailsCard({ diagnosticData, language = 'ru' }) {
-  const texts = I18N_TEXTS[language] || I18N_TEXTS.de;
+  const texts = RANKER_DETAILS_TEXTS[language] || RANKER_DETAILS_TEXTS.de;
   const items = diagnosticData?.diagnostic?.items || diagnosticData?.items || [];
+  const unassigned = diagnosticData?.diagnostic?.unassignedSentences;
   if (!items || items.length === 0) return null;
 
   return (
@@ -109,6 +92,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
         <div className="space-y-2.5">
           {items.map((item, idx) => {
             const sc = item.score ?? 0;
+            const { points, maxPoints } = resolveItemPoints(item);
             const ranker = item.rankerDetails;
             const matched = ranker?.matchedSentence || item.matchedSentence;
             const scoreColor = sc === 2
@@ -129,7 +113,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                     )}
                   </div>
                   <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded ${scoreColor}`}>
-                    {sc} / 2 Pkt
+                    {formatPoints(points, language)} / {formatPoints(maxPoints, language)} Pkt
                   </span>
                 </div>
 
@@ -139,7 +123,7 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                     <span className="italic">«{matched}»</span>
                     {ranker?.score !== undefined && (
                       <span className="ml-2 font-mono text-[10px] text-content-muted font-bold">
-                        ({Math.round(ranker.score * 100)}% {formatCoverageLabel(ranker.coverage, texts)})
+                        ({formatRankerVerdict(ranker, texts)})
                       </span>
                     )}
                   </div>
@@ -148,6 +132,8 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                     {texts.noMatch}
                   </div>
                 )}
+
+                {renderProtectionNote(item, texts, language)}
 
                 {ranker?.isCompound && Array.isArray(ranker.aspects) && ranker.aspects.length > 1 && (
                   <div className="mt-1.5 pt-1.5 border-t border-border-subtle/50 pl-2 border-l-2 border-action-primary/30 space-y-1">
@@ -161,6 +147,8 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
             );
           })}
         </div>
+
+        {renderUnassigned(unassigned, texts)}
       </div>
     </details>
   );

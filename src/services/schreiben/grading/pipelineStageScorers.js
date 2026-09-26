@@ -61,7 +61,7 @@ async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceV
 
   const kwSim = kw.score === 2 ? 0.75 : (kw.score === 1 ? 0.50 : 0.20);
   const effectiveSim = Math.max(bestSim, kwSim);
-  return { relSentences, effectiveSim, hasAffirmativeEvidence: kw.relevantSentences.length > 0 };
+  return { relSentences, effectiveSim, keywordSentences: kw.relevantSentences };
 }
 
 function calculateBaseScore(effectiveSim, framePenalty) {
@@ -73,13 +73,15 @@ function calculateBaseScore(effectiveSim, framePenalty) {
 async function scoreCriterionItem(params) {
   const { crit, provider, bodySentences, rankerEmbedder, criteria = [] } = params;
   const lpText = crit.label || crit.id;
-  const { relSentences, effectiveSim, hasAffirmativeEvidence } = await gatherCriterionEvidence(params);
+  const { relSentences, effectiveSim, keywordSentences } = await gatherCriterionEvidence(params);
+  const hasAffirmativeEvidence = keywordSentences.length > 0;
   const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence });
   const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
 
   let finalScore = baseScore;
   let arbitrated = false;
   let rankerDetails = null;
+  let arbitration = null;
 
   if (shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty: frameCheck.penalty })) {
     const sentences = relSentences.length > 0 ? relSentences : (bodySentences || []);
@@ -90,6 +92,7 @@ async function scoreCriterionItem(params) {
     finalScore = arb.score;
     arbitrated = arb.arbitrated;
     rankerDetails = arb.rankerDetails || null;
+    arbitration = { rankerScore: arb.rankerScore, isProtected: Boolean(arb.isProtected) };
   }
 
   const diagnosticCode = resolveLpDiagnosticCode(finalScore, frameCheck.inversionInfo, frameCheck.penalty === 0);
@@ -100,8 +103,11 @@ async function scoreCriterionItem(params) {
     score: finalScore,
     baselineScore: baseScore,
     arbitrated,
+    rankerScore: arbitration?.rankerScore ?? null,
+    isProtected: arbitration?.isProtected ?? false,
     diagnosticCode,
     matchedSentence: rankerDetails?.matchedSentence || relSentences[0] || '',
+    keywordSentences,
     frameErrors: frameCheck.frameErrors,
     rankerDetails,
   };

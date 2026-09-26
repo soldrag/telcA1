@@ -45,21 +45,21 @@ describe('Cross-Provider Invariants & Algorithmic Determinism', () => {
       title: 'Perfect Submission',
       text: `Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule besuchen. Ich habe vier Wochen Zeit und möchte gern am Vormittag lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nMaximilian Becker`,
       expectedAnrede: 2,
-      expectedLP: 6,
+      expectedLP: 9,
       expectedGruss: 2
     },
     {
       title: 'Missing Anrede',
       text: `Ich möchte Deutschkurs im August machen. Ich habe vier Wochen Zeit am Vormittag. Was kostet der Kurs und wie melde ich an?\nMit freundlichen Grüßen\nAnna Müller`,
       expectedAnrede: 0,
-      expectedLP: 6,
+      expectedLP: 9,
       expectedGruss: 2
     },
     {
       title: 'Missing LP3 (Kosten und Anmeldung)',
       text: `Sehr geehrte Damen und Herren,\nich will im August Deutschkurs lernen. Ich habe vier Wochen Zeit vormittags.\nViele Grüße\nJan Schmidt`,
       expectedAnrede: 2,
-      expectedLP: 4,
+      expectedLP: 6,
       expectedGruss: 2
     }
   ];

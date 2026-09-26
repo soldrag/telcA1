@@ -62,7 +62,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(result.points_earned, 10);
     assert.equal(result.is_correct, true);
     assert.equal(result.breakdown.anrede, 2);
-    assert.equal(result.breakdown.leitpunkte, 6);
+    assert.equal(result.breakdown.leitpunkte, 9);
     assert.equal(result.breakdown.gruss, 2);
   });
 

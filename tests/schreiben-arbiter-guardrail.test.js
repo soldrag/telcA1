@@ -34,7 +34,7 @@ Alex`;
     assert.equal(seg.closing, 'Viele Grüße');
   });
 
-  it('Deterministic baseline awards real student letter passing score (6/10) with partial LP1 and LP3', async () => {
+  it('Deterministic baseline awards real student letter passing score (6.5/10) with partial LP1 and LP3', async () => {
     const res = await gradeSchreibenSubmission({
       userText: studentLetter,
       question: heatingQuestion,
@@ -46,7 +46,7 @@ Alex`;
     assert.equal(res.breakdown.items[1].score, 2, 'LP2 (kalt + wohnung) gets 2/2');
     assert.equal(res.breakdown.items[2].score, 1, 'LP3 (kommen matched) gets 1/2');
     assert.equal(res.breakdown.gruss, 1, 'Informal closing Viele Grüße gets 1/2');
-    assert.equal(res.points_earned, 6, 'Total must be 6/10 (Passed)');
+    assert.equal(res.points_earned, 6.5, 'Total must be 1.5 + 3 + 1.5 + KG 0.5 = 6.5/10 (Passed)');
     assert.equal(res.is_correct, true);
   });
 
@@ -70,7 +70,7 @@ Alex`;
     assert.equal(res.breakdown.items[0].score, 1, 'LP1 must NOT be demoted to 0 by LLM "no"');
     assert.equal(res.breakdown.items[1].score, 2, 'LP2 must remain 2');
     assert.equal(res.breakdown.items[2].score, 1, 'LP3 must NOT be demoted to 0 by LLM "no"');
-    assert.equal(res.points_earned, 6, 'Total score must stay at 6/10 (Passed), never dropping to 4');
+    assert.equal(res.points_earned, 6.5, 'Total score must stay at 6.5/10 (Passed), never dropping to 3.5');
     assert.equal(res.is_correct, true);
 
     // Diff summary must record protection against zeroing
@@ -98,7 +98,7 @@ Alex`;
     });
 
     assert.equal(res.breakdown.items[2].score, 2, 'LP3 is upgraded to 2/2');
-    assert.equal(res.points_earned, 7, 'Total score upgraded to 7/10');
+    assert.equal(res.points_earned, 8, 'Total score upgraded to 8/10');
     assert.equal(res.is_correct, true);
 
     const rescued = res.diff_summary.find(d => d.id === 'lp3');
@@ -148,6 +148,6 @@ Alex`;
     assert.equal(result.breakdown.items[0].score, 1, 'LP1 must remain 1');
     assert.equal(result.breakdown.items[1].score, 2, 'LP2 must remain 2');
     assert.equal(result.breakdown.items[2].score, 1, 'LP3 must remain 1');
-    assert.equal(result.final_points, 6, 'Final points must be 6/10');
+    assert.equal(result.final_points, 6.5, 'Final points must be 6.5/10');
   });
 });

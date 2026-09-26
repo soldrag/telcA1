@@ -2,6 +2,10 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeAnswer, matchTextAnswer, evaluateEssay } from '../server/services/schreiben-evaluator.js';
 import { evaluateExamSubmission } from '../server/services/exam-evaluator.js';
+import { questions as modellsatz1 } from '../server/seeds/schreiben-modellsatz-1.js';
+
+// Teil 2 is graded against the task's Leitpunkte; without them there is nothing to grade the content by.
+const seedTeil2 = modellsatz1.find((q) => q.id === 's1-q6');
 
 describe('Schreiben Evaluator & Text Normalization', () => {
   it('normalizes answers by stripping punctuation, trimming and lowercasing', () => {
@@ -41,7 +45,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
   });
 
   it('evaluates essay word count and points', () => {
-    const qEssay = { max_points: 10 };
+    const qEssay = seedTeil2;
     
     // Empty text
     const emptyResult = evaluateEssay('', qEssay);
@@ -49,24 +53,25 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.equal(emptyResult.points_earned, 0);
     assert.equal(emptyResult.is_correct, false);
 
-    // Short text (< 10 words)
+    // Off-task text: no Leitpunkt addressed, only the Anrede counts (KG 0.5)
     const shortResult = evaluateEssay('Sehr geehrte Damen und Herren, ich brauche ein Zimmer.', qEssay);
     assert.equal(shortResult.word_count, 9);
-    assert.equal(shortResult.points_earned, 3);
+    assert.equal(shortResult.points_earned, 0.5);
     assert.equal(shortResult.is_correct, false);
 
-    // Medium text (10-19 words, missing closing and name)
+    // One point touched, no closing: length itself neither adds nor removes points
     const mediumText = 'Sehr geehrte Damen und Herren, ich möchte Deutsch lernen. Bitte antworten Sie mir.';
     const medResult = evaluateEssay(mediumText, qEssay);
     assert.equal(medResult.word_count, 13);
-    assert.equal(medResult.points_earned, 4);
+    assert.ok(medResult.points_earned >= 2 && medResult.points_earned <= 3.5, `got ${medResult.points_earned}`);
     assert.equal(medResult.is_correct, false);
 
-    // Full text (>= 20 words)
+    // Full text
     const fullText = 'Sehr geehrte Damen und Herren, ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs? Mit freundlichen Grüßen\nAnna';
     const fullResult = evaluateEssay(fullText, qEssay);
     assert.equal(fullResult.word_count >= 20, true);
-    assert.equal(fullResult.points_earned, 10);
+    // "Anmeldung" of the compound point 3 is not asked: telc gives 1.5 there (8.5 total); see todo
+    assert.ok(fullResult.points_earned >= 8.5, `got ${fullResult.points_earned}`);
     assert.equal(fullResult.is_correct, true);
   });
 
@@ -81,7 +86,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
         id: 's1-q6',
         teil: 2,
         question_number: 6,
-        options_json: { type: 'essay' },
+        options_json: seedTeil2.options_json,
         correct_answer: 'musterloesung',
       },
     ];
@@ -96,10 +101,10 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     };
 
     const result = evaluateExamSubmission(mockQuestions, answers);
-    assert.equal(result.score, 15);
+    assert.ok(result.score >= 13.5, `got ${result.score}`);
     assert.equal(result.teilBreakdown[1].score, 5);
     assert.equal(result.teilBreakdown[1].total, 5);
-    assert.equal(result.teilBreakdown[2].score, 10);
+    assert.equal(result.teilBreakdown[2].score, result.score - 5);
     assert.equal(result.teilBreakdown[2].total, 10);
   });
 });

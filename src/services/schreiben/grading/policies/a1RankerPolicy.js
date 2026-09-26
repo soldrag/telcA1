@@ -1,7 +1,8 @@
 /**
  * telc Deutsch A1 Ranker Policy Implementation.
  * Implements IRankerPolicy adhering strictly to telc A1 regulations:
- * Priority of communicative intent, tolerant thresholds, min-pooling on compound criteria.
+ * Priority of communicative intent, tolerant thresholds; a compound criterion is full only when every aspect is.
+ * Points are not decided here: see regulations/ (exam regulation per level).
  * Strictly complies with McConnell limits (<= 120 lines, <= 25 lines per function).
  */
 
@@ -15,7 +16,6 @@ export class A1RankerPolicy extends IRankerPolicy {
     // Raw EmbeddingGemma cosine cutoffs (calibrated on labelled A1 letters, v0.7.15):
     // true coverage 0.52–0.79, same-topic hard negatives up to ~0.60.
     this._neuralCutoffs = Object.freeze({ full: 0.70, partial: 0.55 });
-    this._maxPointsPerLeitpunkt = 2;
     // Pass mark 6/10 mirrors is_correct in gradingPipeline; two grammar highlights keep A1 feedback digestible.
     this._feedbackSelection = Object.freeze({
       grammarHighlights: 2,
@@ -30,10 +30,6 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get thresholds() {
     return this._thresholds;
-  }
-
-  get maxPointsPerLeitpunkt() {
-    return this._maxPointsPerLeitpunkt;
   }
 
   get feedbackSelection() {
@@ -100,14 +96,6 @@ export class A1RankerPolicy extends IRankerPolicy {
       return { coverage: 'partial', finalScore: Number(partialVal.toFixed(4)) };
     }
     return { coverage: 'no', finalScore: Number(maxScore.toFixed(4)) };
-  }
-
-  calculateGrammarPenalty(errorsCount = 0) {
-    if (errorsCount >= 8) return 4;
-    if (errorsCount >= 6) return 3;
-    if (errorsCount >= 3) return 2;
-    if (errorsCount >= 1) return 1;
-    return 0;
   }
 }
 

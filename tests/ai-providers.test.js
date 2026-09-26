@@ -129,7 +129,7 @@ describe('AI Providers Contract & Unit Tests', () => {
 
     assert.ok(res.points_earned > 0);
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 2);
+    assert.equal(res.breakdown.leitpunkte, 3);
     assert.equal(res.breakdown.gruss, 2);
   });
 });

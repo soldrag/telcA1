@@ -63,7 +63,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       diagnosticCode: DIAGNOSTIC_CODES.LP_FULFILLED,
       language: 'ru'
     });
-    assert.match(fullRu, /Пункт раскрыт полностью \(2\/2\)/);
+    assert.match(fullRu, /Пункт раскрыт полностью:/);
 
     const missingEn = resolveTutorCriterionFeedback({
       criterionId: 'lp2',
@@ -71,7 +71,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       diagnosticCode: DIAGNOSTIC_CODES.LP_MISSING,
       language: 'en'
     });
-    assert.match(missingEn, /Point missing \(0\/2\)/);
+    assert.match(missingEn, /Point missing:/);
   });
 
   it('resolves salutation and closing notes accurately across languages', () => {
@@ -98,7 +98,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       score: 2,
       language: 'ru'
     });
-    assert.match(fallbackRu, /Пункт раскрыт полностью \(2\/2\)/);
+    assert.match(fallbackRu, /Пункт раскрыт полностью:/);
 
     const fallbackZero = resolveTutorCriterionFeedback({
       criterionId: 'anrede',
@@ -116,7 +116,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       diagnosticCode: DIAGNOSTIC_CODES.LP_MISSING,
       language: 'ru'
     });
-    assert.match(reconciledRu, /Пункт раскрыт полностью \(2\/2\)/);
+    assert.match(reconciledRu, /Пункт раскрыт полностью:/);
     assert.doesNotMatch(reconciledRu, /Пункт не найден/);
 
     // Score is 1, but code was stale LP_MISSING
@@ -126,7 +126,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       diagnosticCode: DIAGNOSTIC_CODES.LP_MISSING,
       language: 'ru'
     });
-    assert.match(partialReconciled, /Пункт раскрыт частично \(1\/2\)/);
+    assert.match(partialReconciled, /Пункт раскрыт частично:/);
     assert.doesNotMatch(partialReconciled, /Пункт не найден/);
 
     // Score is 0, but code was LP_FULFILLED
@@ -136,7 +136,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       diagnosticCode: DIAGNOSTIC_CODES.LP_FULFILLED,
       language: 'de'
     });
-    assert.match(zeroReconciled, /Inhaltspunkt fehlt \(0\/2\)/);
+    assert.match(zeroReconciled, /Inhaltspunkt fehlt:/);
   });
 });
 

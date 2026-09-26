@@ -93,14 +93,13 @@ export async function runSchreibenMicroPipeline({
   const llmGrammarCandidates = await collectSentenceGrammarErrors(bodySentences, llmCaller);
   const finalGrammarErrors = mergeCandidateGrammarErrors(grammarErrors, llmGrammarCandidates);
 
-  const lpTotalScore = resolvedItems.reduce((sum, it) => sum + (it.score ?? 0), 0);
-  const { finalPoints, grammarPenalty } = computeTelcFinalScore({
+  const { finalPoints, score } = computeTelcFinalScore({
+    leitpunktLevels: resolvedItems.map(it => it.score ?? 0),
     salutationScore: salutation.score,
-    leitpunkteScore: lpTotalScore,
     closingScore: closing.score,
     wordCount,
     isGibberish,
-    grammarErrorsCount: finalGrammarErrors.length
+    grammarErrors: finalGrammarErrors
   });
 
   // Stage 4: feedback verbalizer from locked facts
@@ -125,12 +124,11 @@ export async function runSchreibenMicroPipeline({
     }),
     breakdown: {
       anrede: salutation.score,
-      leitpunkte: lpTotalScore,
+      leitpunkte: score.leitpunkte.reduce((sum, lp) => sum + lp.points, 0),
       gruss: closing.score,
-      grammar_penalty: grammarPenalty,
+      kommunikative_gestaltung: score.kg,
       items: resolvedItems
     },
-    grammar_penalty: grammarPenalty,
     grammar_errors: finalGrammarErrors,
     diff_summary: diffSummary,
     arbitration_applied: diffSummary.length > 0,

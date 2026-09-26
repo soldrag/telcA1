@@ -6,8 +6,10 @@
 import { interpolate } from '../../../i18n/interpolate.js';
 import { EXAMINER_PHRASES } from './examinerPhraseBank.js';
 import { formatStudentQuote } from './studentQuoteFormatter.js';
+import { formatPoints } from '../../../utils/formatPoints.js';
 
 const QUOTED_PARAMS = Object.freeze(['quote', 'correction', 'criterion', 'missingAspect']);
+const POINT_PARAMS = Object.freeze(['points', 'maxPoints']);
 
 function resolveBankLanguage(language) {
   return EXAMINER_PHRASES[language] ? language : 'en';
@@ -17,6 +19,9 @@ function formatParams(params = {}, language) {
   const formatted = { ...params };
   for (const key of QUOTED_PARAMS) {
     if (params[key] !== undefined) formatted[key] = formatStudentQuote(params[key], language);
+  }
+  for (const key of POINT_PARAMS) {
+    if (params[key] !== undefined) formatted[key] = formatPoints(params[key], language);
   }
   return formatted;
 }

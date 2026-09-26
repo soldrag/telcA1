@@ -59,14 +59,12 @@ Artem Smirnov`;
     assert.equal(segments.senderName, 'Artem Smirnov');
   });
 
-  it('evaluates overall essay with realistic score of 7/10', () => {
+  it('evaluates overall essay: typical A1 errors do not lower the score (10/10)', () => {
     const result = evaluateTeil2Essay(userText, question);
     assert.equal(result.breakdown.anrede, 2);
-    assert.equal(result.breakdown.leitpunkte, 6);
+    assert.equal(result.breakdown.leitpunkte, 9);
     assert.equal(result.breakdown.gruss, 2);
-    assert.equal(result.breakdown.grammar_penalty, 3);
-    // Base 10 minus 3 points penalty for 6 grammar errors = 7 points!
-    assert.equal(result.points_earned, 7);
+    assert.equal(result.points_earned, 10);
     assert.equal(result.is_correct, true);
     assert.equal(result.grammar_errors.length >= 5, true);
   });
@@ -163,11 +161,10 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('mit freundliche grüßen')), true);
     });
 
-    it('segments and evaluates full tricky text with realistic score 8/10', () => {
+    it('segments and evaluates full tricky text: understandable despite word-order errors (10/10)', () => {
       const res = evaluateTeil2Essay(text4, question);
-      assert.equal(res.points_earned, 8);
-      assert.equal(res.breakdown.leitpunkte, 6);
-      assert.equal(res.breakdown.grammar_penalty, 2);
+      assert.equal(res.points_earned, 10);
+      assert.equal(res.breakdown.leitpunkte, 9);
       assert.equal(res.grammar_errors.length, 5);
       assert.match(res.user_segments.leitpunkte[1].userSentence, /vormittag studieren/i);
     });

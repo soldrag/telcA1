@@ -43,3 +43,19 @@ C5     none=221       gray=221       primary=221    exp=??0 | Test 5: Incomplete
 C6     none=222       gray=222       primary=222    exp=222 | Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting
 C8     none=220       gray=220       primary=220    exp=??0 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
 C9     none=122       gray=122       primary=122    exp=1?? | Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun
+s4-q6:01 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Baseline: all points, formal frame.
+s4-q6:02 none=222       gray=222       primary=221    exp=221 tot=10/10/8.5 exp=8.5 | The letter from the screenshot: 'Haustiere' aspect missing.
+s4-q6:03 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Pets expressed via 'Hund' without the word 'Haustier'.
+s4-q6:04 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=8.5-10 | Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.
+s4-q6:05 none=110       gray=110       primary=110    exp=000 tot=4/4/4 exp=0.5-1 | Perfect greeting/closing, no content. Must not score high.
+s4-q6:06 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Content complete, Anrede missing, closing present.
+s4-q6:07 none=222       gray=222       primary=222    exp=222 tot=9/9/9 exp=9 | Content complete, no Anrede, no Gruß, no name.
+s4-q6:08 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Register mismatch: 'Hallo!' / 'Tschüss' to a stranger. Goethe's model example with 'Hallo!' got 0.5 for KG.
+s4-q6:09 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | Composite point 2 with one aspect missing.
+s4-q6:10 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Many grammar/spelling errors, fully understandable. Must NOT be penalized.
+s4-q6:11 none=122       gray=122       primary=122    exp=000 tot=8.5/8.5/8.5 exp=0.5-5.5 | Adversarial for embeddings: bare keywords, no communicative sentences.
+s4-q6:12 none=010       gray=010       primary=010    exp=000 tot=2/2/2 exp=0.5-1 | Formally correct letter on a different task (birthday invitation). Semantic similarity to 'Grund/Zeitraum' may be non-zero.
+s4-q6:13 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=8.5-10 | No explicit 'ich möchte mieten' - reason only implied by the question about availability.
+s4-q6:14 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=8.5 | Mirror of case 02: pets present, price missing.
+s4-q6:15 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Well over 30 words, extra off-point sentences. Length alone must not add or remove points.
+s4-q6:16 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=7-8.5 | Point 3 present but barely understandable.

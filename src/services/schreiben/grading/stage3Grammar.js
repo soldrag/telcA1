@@ -75,14 +75,6 @@ export async function checkSentenceGrammar(sentence = '', qwenEngine = null) {
   }
 }
 
-export function computeGrammarPenalty(errorCount = 0) {
-  const n = Number(errorCount) || 0;
-  if (n >= 8) return 4;
-  if (n >= 6) return 3;
-  if (n >= 3) return 2;
-  return n >= 1 ? 1 : 0;
-}
-
 export async function runStage3Grammar({
   fullText = '',
   bodySentences = [],
@@ -112,11 +104,8 @@ export async function runStage3Grammar({
     }
   }
 
-  const grammarPenalty = computeGrammarPenalty(mergedErrors.length);
-
   return {
     errors: mergedErrors,
-    grammarPenalty,
     baselineErrorCount: baselineErrors.length,
     qwenCandidateCount: candidateErrors.length
   };

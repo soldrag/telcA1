@@ -79,7 +79,7 @@ describe('Schreiben Teil 2 AI Pipeline Quality & Safety Suite', () => {
 
     // Invariant: LLM cannot strip points when algorithmic criteria matched fully
     assert.equal(res.arbitration_applied, false, 'Score 2 must not be downgraded by LLM');
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
   });
 
   it('Gray-Zone Down-Arbitration: Baseline partial score (1) is adjusted to 0 on "no"', async () => {
@@ -147,7 +147,7 @@ describe('Schreiben Teil 2 AI Pipeline Quality & Safety Suite', () => {
 
     assert.equal(res.points_earned, 10, 'Must gracefully complete with algorithmic baseline 10/10');
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
   });
 });

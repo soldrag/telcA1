@@ -1,5 +1,5 @@
 /**
- * Schreiben Leitpunkte benchmark: benchmark letters + gold letters, graded in three provider modes.
+ * Schreiben Leitpunkte benchmark: benchmark letters + gold letters + regression suites, graded in three provider modes.
  * Diagnostic only — every score change must be explained, never tuned towards expectedLp.
  * Usage: npm run bench:schreiben [-- --save]   (--save overwrites the stored baseline)
  */
@@ -13,6 +13,7 @@ import { createRankerEmbedder } from '../src/services/embeddings/rankerEmbedder.
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import { BENCHMARK_TASKS } from '../tests/fixtures/schreiben-bench/letters.js';
+import { loadRegressionSuites, acceptedRange, leitpunktLevelForPoints } from '../tests/helpers/regressionFixtures.js';
 
 const FIXTURES = new URL('../tests/fixtures/schreiben-bench/', import.meta.url);
 const BASELINE = new URL('baseline.txt', FIXTURES);
@@ -39,7 +40,27 @@ async function loadItems() {
   const letters = BENCHMARK_TASKS.flatMap((t) => t.letters.map((l) => ({ ...l, question: t.question })));
   const gold = JSON.parse(fs.readFileSync(new URL('gold.json', FIXTURES), 'utf8'));
   const goldItems = await Promise.all(gold.map(async (g) => ({ ...g, type: g.title, question: await findSeedQuestion(g.seedQuestionId) })));
-  return [...letters, ...goldItems];
+  return [...letters, ...goldItems, ...(await loadRegressionItems())];
+}
+
+// Regression suites hold official points; the Leitpunkt columns compare coverage levels (accept ranges included).
+function toRegressionItem(suite, tc) {
+  const toLevel = (points) => leitpunktLevelForPoints(suite.regulation, points);
+  const lpRanges = ['lp1', 'lp2', 'lp3'].map((key) => acceptedRange(tc, key).map(toLevel));
+  return {
+    id: `${suite.seedQuestionId}:${tc.id.slice(0, 2)}`,
+    type: tc.title,
+    text: tc.text,
+    question: suite.question,
+    expectedLp: tc.expected.lp.map(toLevel),
+    lpRanges,
+    expectedTotal: acceptedRange(tc, 'total'),
+  };
+}
+
+async function loadRegressionItems() {
+  const suites = await loadRegressionSuites();
+  return suites.flatMap((suite) => suite.cases.map((tc) => toRegressionItem(suite, tc)));
 }
 
 function formatScores(result) {
@@ -48,24 +69,33 @@ function formatScores(result) {
     .join('');
 }
 
-function countMatches(result, expectedLp) {
-  if (!expectedLp) return { hit: 0, total: 0 };
-  const pairs = expectedLp.map((exp, i) => [exp, result.breakdown.items[i]?.score]).filter(([exp]) => exp !== null);
-  return { hit: pairs.filter(([exp, got]) => exp === got).length, total: pairs.length };
+function countMatches(result, item) {
+  if (!item.expectedLp) return { hit: 0, total: 0 };
+  const ranges = item.lpRanges || item.expectedLp.map((exp) => [exp, exp]);
+  const pairs = ranges.map((range, i) => [range, result.breakdown.items[i]?.score]).filter(([[min]]) => min !== null);
+  return { hit: pairs.filter(([[min, max], got]) => got >= min && got <= max).length, total: pairs.length };
+}
+
+function formatTotals(item, totals) {
+  if (!item.expectedTotal) return '';
+  const [min, max] = item.expectedTotal;
+  return ` tot=${totals.join('/')} exp=${min === max ? min : `${min}-${max}`}`;
 }
 
 async function gradeItem(item, modes, extractor, tally) {
   const cells = [];
+  const totals = [];
   for (const [name, provider] of Object.entries(modes)) {
     clearEmbeddingCache();
     const result = await gradeSchreibenSubmission({ userText: item.text, question: item.question, provider, options: { customExtractor: extractor } });
-    const { hit, total } = countMatches(result, item.expectedLp);
+    const { hit, total } = countMatches(result, item);
+    totals.push(result.points_earned);
     tally[name].hit += hit;
     tally[name].total += total;
     cells.push(`${name}=${formatScores(result)}`.padEnd(14));
   }
   const expected = item.expectedLp ? item.expectedLp.map((e) => e ?? '?').join('') : '---';
-  return `${item.id.padEnd(6)} ${cells.join(' ')} exp=${expected} | ${item.type}`;
+  return `${item.id.padEnd(6)} ${cells.join(' ')} exp=${expected}${formatTotals(item, totals)} | ${item.type}`;
 }
 
 function printBaselineDiff(rows) {

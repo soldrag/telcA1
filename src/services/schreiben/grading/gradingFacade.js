@@ -139,26 +139,27 @@ export async function gradeSchreibenTeil2({
     });
 
   // Score Calculation
-  const { finalPoints, grammarPenalty } = computeTelcFinalScore({
+  const { finalPoints, score, regulation } = computeTelcFinalScore({
+    leitpunktLevels: stage2.items.map(it => it.score),
     salutationScore: stage1.anredeScore,
-    leitpunkteScore: stage2.totalScore,
     closingScore: stage1.grussScore,
     wordCount: stage0.wordCount,
     isGibberish: quality.isGibberish,
-    grammarErrorsCount: stage3.errors.length
+    grammarErrors: stage3.errors,
+    level: question.level
   });
 
   return {
     word_count: stage0.wordCount,
     points_earned: finalPoints,
-    max_points: question.max_points || 10,
-    is_correct: finalPoints >= 6,
+    max_points: score.maxPoints,
+    is_correct: finalPoints >= regulation.trainingPassMark,
     is_limited_mode: isLimitedMode,
     breakdown: {
       anrede: stage1.anredeScore,
-      leitpunkte: stage2.totalScore,
+      leitpunkte: score.leitpunkte.reduce((sum, lp) => sum + lp.points, 0),
       gruss: stage1.grussScore,
-      grammar_penalty: grammarPenalty,
+      kommunikative_gestaltung: score.kg,
       items: stage2.items
     },
     criteria_breakdown: {
@@ -170,7 +171,6 @@ export async function gradeSchreibenTeil2({
       items: stage2.items
     },
     grammar_errors: stage3.errors,
-    grammar_penalty: grammarPenalty,
     feedback_summary: stage4.feedback,
     diff_summary: diffSummary,
     user_segments: buildUserSegments(raw, criteria, stage0)

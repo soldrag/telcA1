@@ -24,7 +24,7 @@ const RU = Object.freeze({
   SUMMARY_FRAMING_GRUSS: 'В конце не хватает прощания с подписью.',
   SUMMARY_FRAMING_BOTH: 'Не хватает обращения в начале и прощания с подписью в конце.',
   SUMMARY_FRAMING_FLAWED: 'В обращении или прощании есть неточности.',
-  SUMMARY_GRAMMAR_ERRORS: 'Найдено грамматических ошибок: {count}.',
+  SUMMARY_GRAMMAR_ERRORS: 'Найдено грамматических ошибок: {count}. На балл они не влияют, если смысл понятен.',
   GRAMMAR_CLEAN: 'Грубых грамматических ошибок не найдено.',
 
   ANREDE_PERFECT: 'Обращение {quote} подобрано верно.',
@@ -63,7 +63,7 @@ const EN = Object.freeze({
   SUMMARY_FRAMING_GRUSS: 'A closing with your name is missing at the end.',
   SUMMARY_FRAMING_BOTH: 'Both the salutation at the start and the closing with your name are missing.',
   SUMMARY_FRAMING_FLAWED: 'The salutation or the closing has small form errors.',
-  SUMMARY_GRAMMAR_ERRORS: 'Grammar errors found: {count}.',
+  SUMMARY_GRAMMAR_ERRORS: 'Grammar errors found: {count}. They do not lower the score while the meaning is clear.',
   GRAMMAR_CLEAN: 'No serious grammar errors found.',
 
   ANREDE_PERFECT: 'The salutation {quote} is appropriate.',

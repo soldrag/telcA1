@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckCircle2, XCircle, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import ExpandedExplanationContent from './ExpandedExplanationContent.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { formatPoints } from '../../utils/formatPoints.js';
 
 function resolveCardSubtitle(item) {
   if (item.options_json?.type === 'essay') {
@@ -11,7 +12,7 @@ function resolveCardSubtitle(item) {
 }
 
 export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, onUpdateItemScore }) {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [currentPoints, setCurrentPoints] = React.useState(item.points_earned || 0);
 
   React.useEffect(() => {
@@ -73,7 +74,7 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
             <div className="text-xs font-mono font-bold px-2.5 py-1 rounded-md border border-border-default bg-surface-inset text-content-primary shrink-0">
               <span>{item.word_count || 0} Wörter</span>
               <span className="mx-1.5 text-content-muted">•</span>
-              <span className="text-action-primary font-black">{currentPoints}/{item.max_points || 10} Pkt</span>
+              <span className="text-action-primary font-black">{formatPoints(currentPoints, language)}/{item.max_points || 10} Pkt</span>
             </div>
           ) : (
             <div className="flex items-center flex-wrap gap-1.5 text-xs font-mono font-bold min-w-0">

@@ -4,11 +4,6 @@ import {
 } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 
-function fallbackLeitpunkte(wordCount = 0) {
-  const fallbackScore = wordCount >= 20 ? 6 : (wordCount >= 10 ? 4 : (wordCount >= 5 ? 1 : 0));
-  return { score: fallbackScore, maxScore: 6, items: [] };
-}
-
 export function evaluateTeil2Essay(userAnswer = '', question = {}) {
   const text = (userAnswer || '').trim();
   const criteria = resolveLeitpunktCriteria(question);
@@ -24,15 +19,16 @@ export function evaluateTeil2Essay(userAnswer = '', question = {}) {
     quality
   } = baseline;
 
-  const leitpunkteResult = criteria.length > 0 ? leitpunkte : fallbackLeitpunkte(quality.wordCount);
+  const leitpunkteItems = leitpunkte?.items || [];
 
-  const { finalPoints, grammarPenalty } = computeTelcFinalScore({
+  const { finalPoints, score, regulation } = computeTelcFinalScore({
+    leitpunktLevels: leitpunkteItems.map(it => it.score),
     salutationScore: salutation.score,
-    leitpunkteScore: leitpunkteResult.score,
     closingScore: closing.score,
     wordCount,
     isGibberish,
-    grammarErrorsCount: grammarErrors.length
+    grammarErrors,
+    level: question.level
   });
 
   const feedbackList = [
@@ -46,14 +42,14 @@ export function evaluateTeil2Essay(userAnswer = '', question = {}) {
   return {
     word_count: wordCount,
     points_earned: finalPoints,
-    max_points: question.max_points || 10,
-    is_correct: finalPoints >= 6,
+    max_points: score.maxPoints,
+    is_correct: finalPoints >= regulation.trainingPassMark,
     breakdown: {
       anrede: salutation.score,
-      leitpunkte: leitpunkteResult.score,
+      leitpunkte: score.leitpunkte.reduce((sum, lp) => sum + lp.points, 0),
       gruss: closing.score,
-      grammar_penalty: grammarPenalty,
-      items: leitpunkteResult.items
+      kommunikative_gestaltung: score.kg,
+      items: leitpunkteItems.map((it, i) => ({ ...it, points: score.leitpunkte[i].points, maxPoints: score.leitpunkte[i].maxPoints }))
     },
     grammar_errors: grammarErrors,
     user_segments: segments,

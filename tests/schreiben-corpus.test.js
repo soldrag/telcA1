@@ -47,8 +47,8 @@ Artem Smirnov`;
     assert.equal(res.breakdown.gruss >= 1, true);
     // Grammar errors detected: besuche wollen, Was kosten, syntax nach und, Nomen-Großschreibung
     assert.equal(res.grammar_errors.length >= 3, true);
-    // Realistic score: 6-8 out of 10 (Raw: 1+6+2=9 minus 2 penalty = 7)
-    assert.equal(res.points_earned >= 6 && res.points_earned <= 8, true);
+    // telc A1: all points understandable (9) + KG 0.5 (hybrid salutation); grammar is feedback only
+    assert.equal(res.points_earned, 9.5);
   });
 
   it('Test 2: User Text #1 (Language school, formal greeting, 6 typical errors)', () => {
@@ -60,10 +60,10 @@ Artem Smirnov`;
 
     const res = evaluateTeil2Essay(text, modellsatz1Question);
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.grammar_errors.length >= 5, true);
-    assert.equal(res.points_earned, 7);
+    assert.equal(res.points_earned, 10);
   });
 
   it('Test 3: Modellsatz 2 Doctor cancellation (Strong submission without errors)', () => {
@@ -74,7 +74,7 @@ Max Mustermann`;
 
     const res = evaluateTeil2Essay(text, modellsatz2Question);
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.grammar_errors.length, 0);
     assert.equal(res.points_earned, 10);
@@ -88,11 +88,11 @@ Olga`;
 
     const res = evaluateTeil2Essay(text, modellsatz2Question);
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     // Single name Olga gives 1 point for closing
     assert.equal(res.breakdown.gruss >= 1, true);
     assert.equal(res.grammar_errors.length >= 1, true);
-    assert.equal(res.points_earned >= 7 && res.points_earned <= 9, true);
+    assert.equal(res.points_earned, 9.5);
   });
 
   it('Test 5: Incomplete text (missing Punkt 3 and closing, under word count)', () => {
@@ -114,10 +114,9 @@ Artem Smirnov`;
 
     const res = evaluateTeil2Essay(text, modellsatz1Question);
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.breakdown.grammar_penalty, 2);
-    assert.equal(res.points_earned, 8);
+    assert.equal(res.points_earned, 10);
     assert.equal(res.grammar_errors.length, 5);
 
     // Verify correct mapping across all 3 Leitpunkte despite complex phrasing
@@ -159,8 +158,8 @@ Alex Müller`;
     // Punkt 1 is capped to 1 point due to conversive verb error
     assert.equal(res.breakdown.items[0].score, 1);
     assert.match(res.breakdown.items[0].detail, /mieten.*nicht.*vermieten/i);
-    // Must be penalized and report lexical error
-    assert.ok(res.points_earned <= 8);
+    // Partial point 1 costs 1.5 (3 → 1.5); the lexical error itself is reported, not scored
+    assert.equal(res.points_earned, 8.5);
     assert.ok(res.grammar_errors.some(e => e.code === 'ERR_CONVERSIVE_VERB_DIRECTION'));
   });
 });

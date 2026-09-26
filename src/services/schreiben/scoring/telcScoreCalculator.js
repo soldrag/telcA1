@@ -1,36 +1,31 @@
 /**
- * telc A1 scoring matrix calculator.
- * Form: Salutation (0-2) + Closing (0-2)
- * Content: 3 Leitpunkte (0-2 each = 0-6)
- * Delegates penalty logic to A1RankerPolicy adhering to Clean Architecture.
- * Strictly complies with McConnell limits (<= 45 lines).
+ * Schreiben Teil 2 final score: collects detector evidence and delegates the
+ * points scale to the exam regulation of the task level (see regulations/).
  */
 
-import { defaultA1RankerPolicy } from '../grading/policies/a1RankerPolicy.js';
-
-export function calculateGrammarPenalty(errorsCount = 0) {
-  return defaultA1RankerPolicy.calculateGrammarPenalty(errorsCount);
-}
+import { getSchreibenRegulation } from '../regulations/index.js';
 
 export function computeTelcFinalScore({
+  leitpunktLevels = [],
   salutationScore = 0,
-  leitpunkteScore = 0,
   closingScore = 0,
   wordCount = 0,
   isGibberish = false,
-  grammarErrorsCount = 0
+  grammarErrors = [],
+  level = 'A1',
 }) {
-  if (isGibberish || wordCount === 0) {
-    return { finalPoints: 0, grammarPenalty: 0, rawScore: 0 };
-  }
-
-  let rawScore = salutationScore + leitpunkteScore + closingScore;
-  if (wordCount < 15 && rawScore > 4) {
-    rawScore = Math.min(rawScore, 4);
-  }
-
-  const grammarPenalty = calculateGrammarPenalty(grammarErrorsCount);
-  const finalPoints = Math.max(0, Math.min(10, rawScore - grammarPenalty));
-
-  return { finalPoints, grammarPenalty, rawScore };
+  const regulation = getSchreibenRegulation(level);
+  const score = regulation.scoreTeil2({
+    leitpunktLevels,
+    anrede: salutationScore,
+    gruss: closingScore,
+    grammarErrors,
+    wordCount,
+    isUnratable: isGibberish || wordCount === 0,
+  });
+  return {
+    finalPoints: score.total,
+    score,
+    regulation: { id: regulation.id, trainingPassMark: regulation.trainingPassMark },
+  };
 }

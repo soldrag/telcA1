@@ -199,8 +199,15 @@ Anna Schmidt`;
     const hasMissingPredicate = result.grammar_errors.some(e => e.code === 'ERR_MISSING_PREDICATE_QUESTION');
     assert.equal(hasMissingPredicate, true);
 
-    // Invariant 2: Grammar penalty is deducted
-    assert.equal(result.grammar_penalty >= 1, true);
+    // Invariant 2: telc A1 has no grammar criterion — the errors are feedback only and never change the score
+    const withoutErrors = await gradeSchreibenSubmission({
+      userText: textWithVerblessQuestion,
+      question: { ...questionWithBaseline, grammar_errors: [] },
+      provider: mockGpuProvider,
+      options: { customExtractor: false }
+    });
+    assert.equal(result.points_earned, withoutErrors.points_earned);
+    assert.equal('grammar_penalty' in result, false);
 
     // Invariant 3: Feedback acknowledges the grammar errors, not 'keine wesentlichen Grammatikfehler'
     assert.equal(result.feedback_summary.includes('keine wesentlichen Grammatikfehler gefunden'), false);

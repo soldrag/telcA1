@@ -1,7 +1,7 @@
 /**
  * Compound Criterion Decomposer.
  * Decomposes multi-faceted examination criteria (e.g. "Personen und Zeitraum")
- * into atomic sub-aspects and aggregates their scores using fuzzy min-pooling.
+ * into atomic sub-aspects and aggregates them: full only when every aspect is full, otherwise partial or no.
  * Supports IRankerPolicy injection adhering to DIP.
  * Strictly complies with McConnell limits (<= 110 lines, <= 25 lines per function).
  */

@@ -12,7 +12,13 @@ import {
   getQuestionForCase
 } from './fixtures/index.js';
 
+// Fixture `leitpunkte` expectations are coverage levels (0-2 per point, sum 0-6); points come from the regulation.
+function leitpunktLevelSum(res) {
+  return (res.breakdown.items || []).reduce((sum, it) => sum + (Number(it.score) || 0), 0);
+}
+
 function assertCaseExpectations(res, expected, caseId) {
+  const lpLevels = leitpunktLevelSum(res);
   if (expected.anrede !== undefined) {
     assert.equal(res.breakdown.anrede, expected.anrede, `[${caseId}] Anrede score mismatch`);
   }
@@ -20,16 +26,16 @@ function assertCaseExpectations(res, expected, caseId) {
     assert.equal(res.breakdown.gruss, expected.gruss, `[${caseId}] Gruß score mismatch`);
   }
   if (expected.leitpunkte !== undefined) {
-    assert.equal(res.breakdown.leitpunkte, expected.leitpunkte, `[${caseId}] Leitpunkte score mismatch`);
+    assert.equal(lpLevels, expected.leitpunkte, `[${caseId}] Leitpunkte score mismatch`);
   }
   if (expected.algorithmicLeitpunkte !== undefined) {
-    assert.equal(res.breakdown.leitpunkte, expected.algorithmicLeitpunkte, `[${caseId}] Algorithmic Leitpunkte score mismatch`);
+    assert.equal(lpLevels, expected.algorithmicLeitpunkte, `[${caseId}] Algorithmic Leitpunkte score mismatch`);
   }
   if (expected.minLeitpunkte !== undefined) {
-    assert.ok(res.breakdown.leitpunkte >= expected.minLeitpunkte, `[${caseId}] Leitpunkte below minimum`);
+    assert.ok(lpLevels >= expected.minLeitpunkte, `[${caseId}] Leitpunkte below minimum`);
   }
   if (expected.maxLeitpunkte !== undefined) {
-    assert.ok(res.breakdown.leitpunkte <= expected.maxLeitpunkte, `[${caseId}] Leitpunkte exceeded maximum`);
+    assert.ok(lpLevels <= expected.maxLeitpunkte, `[${caseId}] Leitpunkte exceeded maximum`);
   }
   if (expected.minScore !== undefined) {
     assert.ok(res.points_earned >= expected.minScore, `[${caseId}] Final score below minimum`);

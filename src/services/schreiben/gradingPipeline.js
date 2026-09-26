@@ -1,11 +1,11 @@
 /**
  * Single source of truth for Schreiben Teil 2 grading.
  * Orchestrates Stages 0-4 deterministically; providers execute only micro-tasks.
+ * Detectors produce coverage levels (0/1/2); the exam regulation turns them into points.
  */
 
 import { runStage0Preprocessing } from './grading/stage0Preprocessing.js';
 import { runStage1Scoring } from './grading/stage1SalutationClosing.js';
-import { computeGrammarPenalty } from './grading/stage3Grammar.js';
 import { composePipelineFeedback } from './grading/pipelineFeedback.js';
 import { getRankerPolicy } from './grading/policies/index.js';
 import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
@@ -15,65 +15,71 @@ import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../ai/types.js';
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
+import { collectUnassignedSentences } from './grading/unassignedSentences.js';
+
+function classifyArbitration(it) {
+  if (it.isProtected) return 'protected';
+  return it.score > it.baselineScore ? 'rescued' : 'adjusted';
+}
 
 function buildDiffSummary(items = []) {
   return items
-    .filter((it) => it.arbitrated)
+    .filter((it) => it.arbitrated && (it.isProtected || it.score !== it.baselineScore))
     .map((it) => ({
       id: it.id,
-      change: it.score > it.baselineScore ? 'rescued' : (it.score < it.baselineScore ? 'adjusted' : 'protected'),
+      change: classifyArbitration(it),
       from: it.baselineScore,
       to: it.score,
+      rankerScore: it.rankerScore,
     }));
 }
 
-function assembleGradingResult({
-  stage0,
-  stage1,
-  stage2,
-  errors,
-  grammarPenalty,
-  finalPoints,
-  question,
-  activeProvider,
-  feedbackText,
-  examinerFeedback,
-  diffSummary,
-  userSegments,
-}) {
+function attachPoints(items, score) {
+  return items.map((it, i) => ({
+    ...it,
+    points: score.leitpunkte[i]?.points ?? 0,
+    maxPoints: score.leitpunkte[i]?.maxPoints ?? 0,
+  }));
+}
+
+function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSentences }) {
+  return {
+    scale: regulation.id,
+    anrede: stage1.anredeScore,
+    lp1: items[0]?.score ?? 0,
+    lp2: items[1]?.score ?? 0,
+    lp3: items[2]?.score ?? 0,
+    gruss: stage1.grussScore,
+    kg: score.kg.level,
+    items,
+    diagnostic: { anrede: stage1.anrede, gruss: stage1.gruss, items, unassignedSentences },
+  };
+}
+
+function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments }) {
+  const items = attachPoints(stage2.items, score);
+  const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
   return {
     word_count: stage0.wordCount,
-    points_earned: finalPoints,
-    max_points: question.max_points || 10,
-    is_correct: finalPoints >= 6,
+    points_earned: score.total,
+    max_points: score.maxPoints,
+    is_correct: score.total >= regulation.trainingPassMark,
     is_limited_mode: activeProvider.id === PROVIDER_IDS.NONE,
     provider_id: activeProvider.id,
     provider_name: activeProvider.name,
     breakdown: {
       anrede: stage1.anredeScore,
-      leitpunkte: stage2.totalScore,
+      leitpunkte: items.reduce((sum, it) => sum + it.points, 0),
       gruss: stage1.grussScore,
-      grammar_penalty: grammarPenalty,
-      items: stage2.items,
+      kommunikative_gestaltung: score.kg,
+      items,
     },
-    criteria_breakdown: {
-      anrede: stage1.anredeScore,
-      lp1: stage2.items[0]?.score ?? 0,
-      lp2: stage2.items[1]?.score ?? 0,
-      lp3: stage2.items[2]?.score ?? 0,
-      gruss: stage1.grussScore,
-      items: stage2.items,
-      diagnostic: {
-        anrede: stage1.anrede,
-        gruss: stage1.gruss,
-        items: stage2.items,
-      },
-    },
+    criteria_breakdown: buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSentences }),
     grammar_errors: errors,
-    grammar_penalty: grammarPenalty,
-    feedback_summary: feedbackText,
-    examiner_feedback: examinerFeedback,
+    feedback_summary: feedback.feedbackText,
+    examiner_feedback: feedback.examinerFeedback,
     diff_summary: diffSummary,
+    unassigned_sentences: unassignedSentences,
     user_segments: userSegments,
   };
 }
@@ -123,22 +129,22 @@ export async function gradeSchreibenSubmission({
     semanticErrors: stage2.semanticErrors || [],
     baselineErrors,
   });
-  const grammarPenalty = computeGrammarPenalty(errors.length);
 
-  const { finalPoints } = computeTelcFinalScore({
+  const { finalPoints, score, regulation } = computeTelcFinalScore({
+    leitpunktLevels: stage2.items.map((it) => it.score),
     salutationScore: stage1.anredeScore,
-    leitpunkteScore: stage2.totalScore,
     closingScore: stage1.grussScore,
     wordCount: stage0.wordCount,
     isGibberish: quality.isGibberish,
-    grammarErrorsCount: errors.length,
+    grammarErrors: errors,
+    level: question.level,
   });
 
   onProgress?.('Erstelle Feedback...', 0.9);
-  const { feedbackText, examinerFeedback } = await composePipelineFeedback({
+  const feedback = await composePipelineFeedback({
     context: {
       stage0, stage1, stage2, errors, userSegments, finalPoints,
-      maxPoints: question.max_points || 10, isGibberish: quality.isGibberish,
+      maxPoints: score.maxPoints, isGibberish: quality.isGibberish,
     },
     policy: getRankerPolicy(question.level),
     activeProvider,
@@ -149,17 +155,6 @@ export async function gradeSchreibenSubmission({
 
   onProgress?.('Bewertung abgeschlossen', 1.0);
   return assembleGradingResult({
-    stage0,
-    stage1,
-    stage2,
-    errors,
-    grammarPenalty,
-    finalPoints,
-    question,
-    activeProvider,
-    feedbackText,
-    examinerFeedback,
-    diffSummary,
-    userSegments,
+    stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments,
   });
 }

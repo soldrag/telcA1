@@ -104,7 +104,7 @@ Artem Smirnov`;
       assert.match(lp[0].userSentence, /Montag/i);
       assert.match(lp[1].userSentence, /Chef|Arbeiten/i);
       assert.match(lp[2].userSentence, /Dienstag/i);
-      assert.equal(res.breakdown.leitpunkte, 6);
+      assert.equal(res.breakdown.leitpunkte, 9);
     });
 
     it('detects all 6 real grammatical errors and avoids the false dative hallucination', () => {
@@ -122,8 +122,8 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('rufen sie mich')), false);
       assert.equal(originals.some(o => o.includes('mich')), false);
 
-      // Score: 1 (Anrede) + 6 (LP) + 2 (Gruß) - 3 (Penalty for 6 errors) = 6 points
-      assert.equal(res.points_earned, 6);
+      // telc A1: 3 × 3 (LP) + 0.5 (KG: Anrede with declension typo); grammar is not a separate criterion
+      assert.equal(res.points_earned, 9.5);
       assert.equal(res.is_correct, true);
     });
   });

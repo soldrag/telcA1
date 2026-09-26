@@ -43,7 +43,7 @@ Artem Smirnov`;
     assert.match(segments[1].userSentence, /Überstunden|Arbeit/i);
     assert.match(segments[2].userSentence, /Dienstag|Mittwoch/i);
     assert.equal(res.breakdown.anrede, 1);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
   });
 
@@ -54,7 +54,8 @@ Artem Smirnov`;
     assert.ok(originals.some(o => o.includes('mein termin')), 'missing "mein Termin"');
     assert.ok(originals.some(o => o.includes('antworten sie mich')), 'missing "antworten Sie mich"');
     assert.equal(res.grammar_errors.length >= 5, true);
-    assert.equal(res.points_earned, 6);
+    // Errors are feedback only at A1: 9 (all points) + KG 0.5 (flawed Anrede)
+    assert.equal(res.points_earned, 9.5);
   });
 
   it('client pipeline agrees with server rules-only scoring', async () => {
@@ -102,7 +103,7 @@ Artem Smirnov`;
     const res = await gradeSchreibenTeil2({ userText: text, question, options: { forceLimitedMode: true } });
 
     assert.equal(res.breakdown.anrede, 1);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.items[2].score, 2); // Punkt 3 proposal recognized
     assert.equal(res.breakdown.gruss, 2);
 
@@ -112,7 +113,7 @@ Artem Smirnov`;
     assert.ok(originals.some(o => o.includes('an dienstag')), 'missing an Dienstag');
     assert.ok(originals.some(o => o.includes('wegen die überstunden')), 'missing wegen die Überstunden');
     assert.equal(res.is_correct, true);
-    assert.equal(res.points_earned, 6);
+    assert.equal(res.points_earned, 9.5);
   });
 
   it('correctly handles the second doctor cancellation letter without Punkt 3 segmentation collapse', async () => {
@@ -124,9 +125,9 @@ Viele Grüße,`;
     const res = await gradeSchreibenTeil2({ userText: text, question, options: { forceLimitedMode: true } });
 
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 1); // missing sender name
-    assert.equal(res.points_earned, 7);
+    assert.equal(res.points_earned, 9.5);
 
     // Verify segmentation: Punkt 3 must NOT be empty!
     assert.match(res.user_segments.leitpunkte[0].userSentence, /14:00/);

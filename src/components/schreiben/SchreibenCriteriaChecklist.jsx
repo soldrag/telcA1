@@ -1,6 +1,7 @@
 import React from 'react';
-import { Award, AlertCircle } from 'lucide-react';
-import { resolveTutorCriterionFeedback } from '../../services/schreiben/feedback/tutorFeedbackResolver.js';
+import { Award, Info } from 'lucide-react';
+import SchreibenCriterionRow from './SchreibenCriterionRow.jsx';
+import { formatPoints } from '../../utils/formatPoints.js';
 
 export const CRITERIA_DEFINITIONS = [
   { id: 'anrede', label: 'Passende Anrede (z. B. Sehr geehrte Damen und Herren / Liebe ...)' },
@@ -12,6 +13,10 @@ export const CRITERIA_DEFINITIONS = [
 
 export const CRITERIA_KEYS = ['anrede', 'lp1', 'lp2', 'lp3', 'gruss'];
 
+const LEITPUNKT_IDS = ['lp1', 'lp2', 'lp3'];
+const FRAMING_IDS = ['anrede', 'gruss'];
+const FRAMING_LEVEL_MARK = { 2: '✓', 1: '~', 0: '✗' };
+
 function extractCriterionDiagnostic(critId, diagnosticData) {
   if (!diagnosticData) return {};
   if (critId === 'anrede') {
@@ -20,35 +25,42 @@ function extractCriterionDiagnostic(critId, diagnosticData) {
   if (critId === 'gruss') {
     return diagnosticData.diagnostic?.gruss || diagnosticData.gruss || {};
   }
-  const idx = critId === 'lp1' ? 0 : (critId === 'lp2' ? 1 : 2);
+  const idx = LEITPUNKT_IDS.indexOf(critId);
   const items = diagnosticData.diagnostic?.items || diagnosticData.items || [];
   return items[idx] || diagnosticData[critId] || {};
+}
+
+function translate(t, key, fallback, params) {
+  return t ? (t(`results.schreibenCriteria.${key}`, params) || fallback) : fallback;
 }
 
 export default function SchreibenCriteriaChecklist({
   scores = {},
   onCycleScore,
-  calculatedScore = 0,
-  grammarPenalty = 0,
-  currentErrorsCount = 0,
+  teil2Score,
   diagnosticData = null,
   language = 'de',
   t = null,
 }) {
-  const headerTitle = t ? t('results.schreibenCriteria.title') : 'Kriterien-Checkliste (Selbstbewertung):';
-  const scoreDisplay = t
-    ? t('results.schreibenCriteria.scoreOutOf', { score: calculatedScore })
-    : `${calculatedScore} / 10 Punkte`;
-  const penaltyLabel = t
-    ? t('results.schreibenCriteria.grammarPenalty', { count: currentErrorsCount })
-    : `Abzug: Sprachliche Korrektheit (${currentErrorsCount} Grammatikfehler)`;
+  const fmt = (value) => formatPoints(value, language);
+  const labelOf = (id) => translate(t, id, CRITERIA_DEFINITIONS.find((c) => c.id === id)?.label);
+  const rowProps = (id) => ({
+    criterionId: id,
+    label: labelOf(id),
+    level: Number(scores[id]) || 0,
+    diagnostic: extractCriterionDiagnostic(id, diagnosticData),
+    onCycle: onCycleScore,
+    language,
+  });
+  const { leitpunkte = [], kg = { points: 0, maxPoints: 1 }, total = 0, maxPoints = 10 } = teil2Score || {};
+  const scoreDisplay = translate(t, 'scoreOutOf', `${fmt(total)} / ${fmt(maxPoints)} Punkte`, { score: fmt(total), max: fmt(maxPoints) });
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <div className="text-xs font-extrabold uppercase tracking-wider text-action-primary flex items-center space-x-2">
           <Award className="w-4 h-4" />
-          <span>{headerTitle}</span>
+          <span>{translate(t, 'title', 'Kriterien-Checkliste (Selbstbewertung):')}</span>
         </div>
         <span className="text-xs font-mono font-black px-2.5 py-1 rounded bg-action-primary text-white">
           {scoreDisplay}
@@ -56,65 +68,30 @@ export default function SchreibenCriteriaChecklist({
       </div>
 
       <div className="space-y-2">
-        {CRITERIA_DEFINITIONS.map((crit) => {
-          const sc = scores[crit.id] || 0;
-          const badgeColor = sc === 2
-            ? 'bg-state-success text-white'
-            : (sc === 1 ? 'bg-state-warning text-white' : 'bg-surface-raised text-content-muted');
-          const critLabel = t ? (t(`results.schreibenCriteria.${crit.id}`) || crit.label) : crit.label;
+        {LEITPUNKT_IDS.map((id, idx) => (
+          <SchreibenCriterionRow
+            key={id}
+            {...rowProps(id)}
+            badgeText={`${fmt(leitpunkte[idx]?.points ?? 0)} / ${fmt(leitpunkte[idx]?.maxPoints ?? 3)} Pkt`}
+          />
+        ))}
 
-          const diag = extractCriterionDiagnostic(crit.id, diagnosticData);
-          const tutorNote = resolveTutorCriterionFeedback({
-            criterionId: crit.id,
-            score: sc,
-            diagnosticCode: diag.diagnosticCode,
-            matchedSentence: diag.matchedSentence || diag.text,
-            language,
-          });
-
-          return (
-            <div
-              key={crit.id}
-              className="w-full text-left p-3 rounded-lg border border-border-default bg-surface-card hover:border-action-primary transition-all space-y-1.5"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <button
-                  type="button"
-                  onClick={() => onCycleScore?.(crit.id)}
-                  className="flex-1 text-left cursor-pointer text-xs font-bold hover:text-action-primary transition-colors"
-                >
-                  <span className={sc > 0 ? 'text-content-primary' : 'text-content-muted'}>{critLabel}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onCycleScore?.(crit.id)}
-                  className={`font-mono text-[11px] px-2 py-0.5 rounded font-black transition-colors cursor-pointer flex-shrink-0 ${badgeColor}`}
-                >
-                  {sc} / 2 Pkt
-                </button>
-              </div>
-
-              {tutorNote && (
-                <div className="text-[11px] leading-relaxed text-content-secondary border-t border-border-subtle/50 pt-1.5 flex items-start space-x-1.5">
-                  <span className="text-action-primary font-bold flex-shrink-0">💡</span>
-                  <span>{tutorNote}</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
-
-        {grammarPenalty > 0 && (
-          <div className="flex items-center justify-between p-2.5 rounded-lg border border-state-error-border bg-state-error-subtle/30 text-xs font-bold text-state-error">
-            <div className="flex items-center space-x-2.5">
-              <AlertCircle className="w-4 h-4 text-state-error flex-shrink-0" />
-              <span>{penaltyLabel}</span>
-            </div>
-            <span className="font-mono text-[11px] px-1.5 py-0.5 rounded bg-state-error text-white font-black">
-              -{grammarPenalty} Pkt
+        <div className="p-2.5 rounded-lg border border-border-default bg-surface-inset space-y-2">
+          <div className="flex items-center justify-between text-xs font-bold text-content-primary">
+            <span>{translate(t, 'kg', 'Kommunikative Gestaltung (Anrede + Gruß)')}</span>
+            <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-action-primary text-white font-black">
+              {fmt(kg.points)} / {fmt(kg.maxPoints)} Pkt
             </span>
           </div>
-        )}
+          {FRAMING_IDS.map((id) => (
+            <SchreibenCriterionRow key={id} {...rowProps(id)} badgeText={FRAMING_LEVEL_MARK[Number(scores[id]) || 0]} />
+          ))}
+        </div>
+
+        <div className="flex items-start space-x-2 text-[11px] text-content-secondary px-1">
+          <Info className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+          <span>{translate(t, 'grammarNotScored', 'Grammatik wird nicht separat bewertet: Fehler zählen nur, wenn sie das Verständnis stören.')}</span>
+        </div>
       </div>
     </div>
   );

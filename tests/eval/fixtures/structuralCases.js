@@ -25,7 +25,7 @@ export const structuralCases = [
     title: 'Missing Salutation (Starts immediately with body)',
     examId: 'schreiben-modellsatz-1',
     text: `Ich möchte im August einen Deutschkurs A1 besuchen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?\nViele Grüße\nAnna Müller`,
-    expected: { anrede: 0, leitpunkte: 6, gruss: 2, minScore: 7, maxScore: 8 }
+    expected: { anrede: 0, leitpunkte: 6, gruss: 2, minScore: 9.5, maxScore: 9.5 }
   },
   {
     id: 'case-04-register-mismatch-informal',
@@ -33,7 +33,7 @@ export const structuralCases = [
     title: 'Informal Salutation in Formal Context',
     examId: 'schreiben-modellsatz-2',
     text: `Hallo Frau Dr. Schneider,\nich muss meinen Termin am Montag absagen, weil ich arbeiten muss. Haben Sie am nächsten Dienstag Zeit?\nMit freundlichen Grüßen\nThomas Mann`,
-    expected: { anrede: 1, leitpunkte: 6, gruss: 2, minScore: 8, maxScore: 9 }
+    expected: { anrede: 1, leitpunkte: 6, gruss: 2, minScore: 9.5, maxScore: 9.5 }
   },
   {
     id: 'case-05-salutation-declension-typo',
@@ -49,7 +49,7 @@ export const structuralCases = [
     title: 'Missing Closing Formula and Signature',
     examId: 'schreiben-modellsatz-1',
     text: `Sehr geehrte Damen und Herren,\nich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit am Vormittag. Wie viel kostet der Kurs und wie kann ich mich anmelden?`,
-    expected: { anrede: 2, gruss: 0, maxScore: 8 }
+    expected: { anrede: 2, gruss: 0, maxScore: 9.5 }
   },
   {
     id: 'case-07-closing-without-name',
@@ -57,7 +57,7 @@ export const structuralCases = [
     title: 'Closing Formula Present but Missing Sender Name',
     examId: 'schreiben-modellsatz-1',
     text: `Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs machen. Ich habe vier Wochen Zeit am Vormittag. Wie viel kostet der Kurs?\nMit freundlichen Grüßen`,
-    expected: { anrede: 2, gruss: 1, minScore: 7, maxScore: 9 }
+    expected: { anrede: 2, gruss: 1, minScore: 9.5, maxScore: 9.5 }
   },
   {
     id: 'case-08-name-without-closing',
@@ -65,7 +65,7 @@ export const structuralCases = [
     title: 'Sender Name Present without Closing Formula',
     examId: 'schreiben-modellsatz-2',
     text: `Sehr geehrte Frau Dr. Schneider,\nich muss meinen Termin am Montag absagen, da ich krank bin. Geht Dienstag?\nArtem Smirnov`,
-    expected: { anrede: 2, gruss: 0, minScore: 6, maxScore: 8 }
+    expected: { anrede: 2, gruss: 0, minScore: 6.5, maxScore: 9.5 }
   },
   {
     id: 'case-09-closing-english-comma-trap',

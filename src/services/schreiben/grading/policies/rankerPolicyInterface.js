@@ -40,10 +40,6 @@ export class IRankerPolicy {
     throw new Error('IRankerPolicy.thresholds getter must be implemented');
   }
 
-  get maxPointsPerLeitpunkt() {
-    throw new Error('IRankerPolicy.maxPointsPerLeitpunkt getter must be implemented');
-  }
-
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }
@@ -60,10 +56,6 @@ export class IRankerPolicy {
    */
   calibrateNeuralScore(similarity) {
     return similarity;
-  }
-
-  calculateGrammarPenalty(errorsCount, wordCount) {
-    throw new Error('IRankerPolicy.calculateGrammarPenalty must be implemented');
   }
 
   /**

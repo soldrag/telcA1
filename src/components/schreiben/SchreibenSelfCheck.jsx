@@ -2,14 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { BookCheck, Sparkles, ArrowUpCircle } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
-import SchreibenCriteriaChecklist, { CRITERIA_KEYS } from './SchreibenCriteriaChecklist.jsx';
+import SchreibenCriteriaChecklist from './SchreibenCriteriaChecklist.jsx';
 import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
 import SchreibenAbComparisonCard from './SchreibenAbComparisonCard.jsx';
 import SchreibenRankerDetailsCard from './SchreibenRankerDetailsCard.jsx';
 import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
-import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
+import { scoreCriteriaLevels } from '../../services/schreiben/regulations/index.js';
 import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
 import ReviewTaskPrompt from '../results/ReviewTaskPrompt.jsx';
 
@@ -29,13 +29,6 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
 
   const [scores, setScores] = useState(() => deriveInitialScores(item));
   const [liveGrammarErrors, setLiveGrammarErrors] = useState(grammarErrors);
-
-  const cb = item.criteria_breakdown;
-  const currentErrorsCount = liveGrammarErrors.length;
-  const rawPenalty = liveGrammarErrors !== grammarErrors
-    ? computeGrammarPenalty(currentErrorsCount)
-    : (cb?.grammar_penalty ?? computeGrammarPenalty(currentErrorsCount));
-  const grammarPenalty = Number(rawPenalty) || 0;
 
   const cycleScore = (id) => {
     setScores((prev) => {
@@ -59,8 +52,8 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
     onApplyErrors: handleApplyErrors, t, language,
   });
 
-  const rawSum = CRITERIA_KEYS.reduce((acc, k) => acc + (Number(scores[k]) || 0), 0);
-  const calculatedScore = Math.max(0, rawSum - grammarPenalty);
+  const teil2Score = scoreCriteriaLevels(scores, item.level);
+  const calculatedScore = teil2Score.total;
 
   useEffect(() => {
     onScoreChange?.(calculatedScore, scores);
@@ -132,9 +125,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
         <SchreibenCriteriaChecklist
           scores={scores}
           onCycleScore={cycleScore}
-          calculatedScore={calculatedScore}
-          grammarPenalty={grammarPenalty}
-          currentErrorsCount={currentErrorsCount}
+          teil2Score={teil2Score}
           diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}
           language={language}
           t={t}

@@ -40,7 +40,7 @@ function formatRow(result, idx) {
   const title = testCase.title.slice(0, 32).padEnd(32, ' ');
   const status = pass ? '\x1b[32mPASS\x1b[0m' : '\x1b[31mFAIL\x1b[0m';
   const score = `${res.points_earned}/10`.padStart(5, ' ');
-  const bd = `[A:${res.breakdown.anrede} LP:${res.breakdown.leitpunkte} G:${res.breakdown.gruss} -${res.breakdown.grammar_penalty}]`;
+  const bd = `[A:${res.breakdown.anrede} LP:${res.breakdown.leitpunkte} G:${res.breakdown.gruss} KG:${res.breakdown.kommunikative_gestaltung?.points}]`;
   const time = `${latencyMs}ms`.padStart(7, ' ');
 
   return `| ${num} | ${cat} | ${title} | ${score} | ${bd} | ${status} | ${time} |`;

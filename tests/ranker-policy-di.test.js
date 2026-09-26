@@ -16,10 +16,8 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     const rawPolicy = new IRankerPolicy();
     assert.throws(() => rawPolicy.level, /level getter must be implemented/);
     assert.throws(() => rawPolicy.thresholds, /thresholds getter must be implemented/);
-    assert.throws(() => rawPolicy.maxPointsPerLeitpunkt, /maxPointsPerLeitpunkt getter must be implemented/);
     assert.throws(() => rawPolicy.classifyScore(0.5), /classifyScore must be implemented/);
     assert.throws(() => rawPolicy.aggregateCompound([]), /aggregateCompound must be implemented/);
-    assert.throws(() => rawPolicy.calculateGrammarPenalty(1), /calculateGrammarPenalty must be implemented/);
   });
 
   it('A1RankerPolicy satisfies telc A1 specification and boundary thresholds', () => {
@@ -27,7 +25,6 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     assert.equal(policy.level, 'A1');
     assert.equal(policy.thresholds.full, 0.65);
     assert.equal(policy.thresholds.partial, 0.40);
-    assert.equal(policy.maxPointsPerLeitpunkt, 2);
 
     // Boundary classification checks
     assert.equal(policy.classifyScore(0.65), 'full');
@@ -35,13 +32,6 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     assert.equal(policy.classifyScore(0.40), 'partial');
     assert.equal(policy.classifyScore(0.3999), 'no');
     assert.equal(policy.classifyScore(0.0), 'no');
-
-    // Grammar penalty checks
-    assert.equal(policy.calculateGrammarPenalty(0), 0);
-    assert.equal(policy.calculateGrammarPenalty(1), 1);
-    assert.equal(policy.calculateGrammarPenalty(3), 2);
-    assert.equal(policy.calculateGrammarPenalty(6), 3);
-    assert.equal(policy.calculateGrammarPenalty(8), 4);
   });
 
   it('A1RankerPolicy aggregateCompound handles single, dual, and missing aspects', () => {
@@ -78,7 +68,6 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     class MockStrictPolicy extends IRankerPolicy {
       get level() { return 'Strict_Mock'; }
       get thresholds() { return { full: 0.90, partial: 0.70 }; }
-      get maxPointsPerLeitpunkt() { return 3; }
       classifyScore(score) {
         if (score >= 0.90) return 'full';
         if (score >= 0.70) return 'partial';
@@ -87,7 +76,6 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
       aggregateCompound(results) {
         return { coverage: 'no', isCompound: true, mockStrict: true };
       }
-      calculateGrammarPenalty() { return 5; }
     }
 
     const mockStrict = new MockStrictPolicy();
@@ -117,10 +105,8 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     class DummyA2Policy extends IRankerPolicy {
       get level() { return 'A2'; }
       get thresholds() { return { full: 0.72, partial: 0.50 }; }
-      get maxPointsPerLeitpunkt() { return 3; }
       classifyScore(s) { return s >= 0.72 ? 'full' : (s >= 0.5 ? 'partial' : 'no'); }
       aggregateCompound() { return { coverage: 'partial' }; }
-      calculateGrammarPenalty() { return 0; }
     }
 
     registerRankerPolicy('A2', new DummyA2Policy());

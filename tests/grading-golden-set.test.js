@@ -39,14 +39,13 @@ Maximilian Becker`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.grammar_penalty, 0);
     assert.equal(res.points_earned, 10);
     assert.equal(res.is_correct, true);
   });
 
-  it('2. Modellsatz 1 Typical A1 Submission with typical errors (Score 7-8/10)', async () => {
+  it('2. Modellsatz 1 Typical A1 Submission with typical errors (Score 10/10: understandable A1 errors are not penalized)', async () => {
     const text = `Sehr geehrte Damen und Herren,
 ich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs? Wie kann ich anmelden?
 Mit freundlichen Gruß
@@ -54,10 +53,10 @@ Artem Smirnov`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.grammar_errors.length >= 3, true);
-    assert.equal(res.points_earned >= 7 && res.points_earned <= 8, true);
+    assert.equal(res.points_earned, 10);
   });
 
   it('3. Modellsatz 1 Missing Anrede (Score 0 for Anrede)', async () => {
@@ -67,9 +66,10 @@ Anna Müller`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 0);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.points_earned <= 8, true);
+    assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
+    assert.equal(res.points_earned, 9.5);
   });
 
   it('4. Modellsatz 1 Missing LP3 (Score 0 for LP3)', async () => {
@@ -92,7 +92,8 @@ ich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit am Vor
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.gruss, 0);
-    assert.equal(res.points_earned <= 8, true);
+    assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
+    assert.equal(res.points_earned <= 9.5, true);
   });
 
   it('6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)', async () => {
@@ -103,13 +104,12 @@ Max Mustermann`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.grammar_penalty, 0);
     assert.equal(res.points_earned, 10);
   });
 
-  it('7. Modellsatz 2 Moderate errors with single name (Score 7-9/10)', async () => {
+  it('7. Modellsatz 2 Moderate errors with single name (Score 9.5/10)', async () => {
     const text = `Guten Tag Herr Schneider,
 ich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?
 Viele Grusse
@@ -117,9 +117,10 @@ Olga`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 1); // Single name gives 1
-    assert.equal(res.points_earned >= 7 && res.points_earned <= 9, true);
+    assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
+    assert.equal(res.points_earned, 9.5);
   });
 
   it('8. Modellsatz 2 Informal greeting in formal context (Score 1 for Anrede)', async () => {
@@ -130,11 +131,11 @@ Thomas Mann`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.breakdown.anrede, 1);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
   });
 
-  it('9. Extremely short / incomplete submission (<15 words)', async () => {
+  it('9. Extremely short submission is scored by content only (no length rule at A1)', async () => {
     const text = `Hallo Herr Schneider, ich kann nicht kommen. Danke.`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
@@ -150,7 +151,7 @@ Thomas Mann`;
     assert.equal(res.is_correct, false);
   });
 
-  it('11. Complex syntax with adverbial fronting & Satzklammer (Realistic 7-8/10)', async () => {
+  it('11. Complex syntax with adverbial fronting & Satzklammer (10/10: word order errors are not penalized)', async () => {
     const text = `Sehr geehrte Damen und Herren,
 ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.
 Mit freundliche Grüßen
@@ -158,9 +159,9 @@ Artem Smirnov`;
 
     const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 6);
+    assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.points_earned, 8);
+    assert.equal(res.points_earned, 10);
   });
 
   it('12. Algorithmic determinism: two runs produce identical scores and breakdown', async () => {
@@ -173,7 +174,6 @@ Klara Weber`;
     const run2 = await gradeSchreibenTeil2({ userText: sampleText, question: modellsatz1Question, options });
 
     assert.equal(run1.points_earned, run2.points_earned);
-    assert.equal(run1.grammar_penalty, run2.grammar_penalty);
     assert.deepEqual(run1.criteria_breakdown, run2.criteria_breakdown);
     assert.deepEqual(run1.grammar_errors, run2.grammar_errors);
     assert.equal(run1.feedback_summary, run2.feedback_summary);
