@@ -48,7 +48,12 @@ function toLeitpunktFact(item = {}) {
  */
 export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, userSegments, finalPoints, maxPoints, isGibberish }) {
   return {
-    anrede: { score: stage1.anredeScore, code: stage1.anrede?.diagnosticCode, text: stage1.anrede?.text || userSegments?.anrede || '' },
+    anrede: {
+      score: stage1.anredeScore,
+      code: stage1.anrede?.diagnosticCode,
+      text: stage1.anrede?.text || userSegments?.anrede || '',
+      correction: stage1.anrede?.correction || '',
+    },
     gruss: { score: stage1.grussScore, code: stage1.gruss?.diagnosticCode, text: toClosingQuote(stage1.gruss) },
     items: (stage2.items || []).map(toLeitpunktFact),
     grammarErrors: errors.map(({ original, correction, category, code }) => ({ original, correction, category, code })),

@@ -19,6 +19,9 @@ const TUTOR_MESSAGES = {
 
     ANREDE_PERFECT: 'Обращение подобрано верно и соответствует официальному стилю.',
     ANREDE_MINOR_FLAW: 'Обращение есть, но содержит неточность в падеже, стиле или пунктуации.',
+    ANREDE_REGISTER_MISMATCH: 'Обращение слишком неформальное для официального письма.',
+    ANREDE_DECLENSION_FLAW: 'В обращении допущена ошибка в окончании или падеже.',
+    ANREDE_PUNCTUATION_FLAW: 'В обращении пропущена запятая в конце строки.',
     ANREDE_MISSING: 'В начале письма отсутствует подходящее обращение.',
 
     GRUSS_PERFECT: 'Прощальная формула и имя автора указаны верно.',
@@ -37,6 +40,9 @@ const TUTOR_MESSAGES = {
 
     ANREDE_PERFECT: 'Salutation is appropriate and formally correct.',
     ANREDE_MINOR_FLAW: 'Salutation is present, but has minor case, register, or punctuation flaws.',
+    ANREDE_REGISTER_MISMATCH: 'Salutation is too informal for an official email.',
+    ANREDE_DECLENSION_FLAW: 'Grammatical ending or case error in salutation.',
+    ANREDE_PUNCTUATION_FLAW: 'Missing comma at the end of the salutation.',
     ANREDE_MISSING: 'Missing appropriate salutation at the start of the letter.',
 
     GRUSS_PERFECT: 'Closing formula and sender name are complete and appropriate.',
@@ -55,6 +61,9 @@ const TUTOR_MESSAGES = {
 
     ANREDE_PERFECT: 'Die Anrede ist passend und formal korrekt gewählt.',
     ANREDE_MINOR_FLAW: 'Die Anrede ist vorhanden, weist jedoch kleinere Formfehler auf.',
+    ANREDE_REGISTER_MISMATCH: 'Die Anrede ist für einen formellen Brief zu informell.',
+    ANREDE_DECLENSION_FLAW: 'Die Anrede enthält einen Deklinations- oder Endungsfehler.',
+    ANREDE_PUNCTUATION_FLAW: 'Nach der Anrede fehlt ein Komma.',
     ANREDE_MISSING: 'Es fehlt eine passende Anrede zu Beginn des Briefes.',
 
     GRUSS_PERFECT: 'Grußformel und Name am Schluss sind vollständig und passend.',
@@ -69,7 +78,15 @@ function isCodeCompatibleWithScore(code, score) {
     return ['LP_FULFILLED', 'ANREDE_PERFECT', 'GRUSS_PERFECT'].includes(code);
   }
   if (score === 1) {
-    return ['LP_PARTIAL', 'ANREDE_MINOR_FLAW', 'GRUSS_INCOMPLETE', 'LP_FRAME_VIOLATION'].includes(code);
+    return [
+      'LP_PARTIAL',
+      'ANREDE_MINOR_FLAW',
+      'ANREDE_REGISTER_MISMATCH',
+      'ANREDE_DECLENSION_FLAW',
+      'ANREDE_PUNCTUATION_FLAW',
+      'GRUSS_INCOMPLETE',
+      'LP_FRAME_VIOLATION'
+    ].includes(code);
   }
   return [
     'LP_MISSING',

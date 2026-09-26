@@ -88,6 +88,32 @@ describe('Examiner feedback: descriptor builder (A1 policy)', () => {
     assert.deepEqual(structuredClone(d), d);
   });
 
+  it('informal salutation in formal context yields ANREDE_REGISTER_MISMATCH warning', () => {
+    const facts = perfectFacts({
+      anrede: { score: 1, code: DIAGNOSTIC_CODES.ANREDE_REGISTER_MISMATCH, text: 'Liebe Frau Hansen' },
+      finalPoints: 9.5,
+    });
+    const d = build(facts);
+    const bullet = d.bullets.find((b) => b.category === 'anrede');
+    assert.equal(bullet.code, DIAGNOSTIC_CODES.ANREDE_REGISTER_MISMATCH);
+    assert.equal(bullet.status, 'warning');
+    const ru = renderExaminerFeedback(d, 'ru');
+    assert.match(ru.bulletPoints.find((b) => b.category === 'anrede').text, /слишком неформальное для официального письма/);
+  });
+
+  it('declension error in salutation yields ANREDE_DECLENSION_FLAW with correction', () => {
+    const facts = perfectFacts({
+      anrede: { score: 1, code: DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW, text: 'Sehr geehrte Herr Hansen', correction: 'Sehr geehrter Herr' },
+      finalPoints: 9.5,
+    });
+    const d = build(facts);
+    const bullet = d.bullets.find((b) => b.category === 'anrede');
+    assert.equal(bullet.code, DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW);
+    assert.equal(bullet.params.correction, 'Sehr geehrter Herr');
+    const ru = renderExaminerFeedback(d, 'ru');
+    assert.match(ru.bulletPoints.find((b) => b.category === 'anrede').text, /ошибка в окончании.*Правильно: «Sehr geehrter Herr»/);
+  });
+
   it('IRankerPolicy requires feedbackSelection from each level', () => {
     assert.throws(() => new IRankerPolicy().buildExaminerFeedback({}), /feedbackSelection getter must be implemented/);
   });

@@ -29,6 +29,9 @@ const RU = Object.freeze({
 
   ANREDE_PERFECT: 'Обращение {quote} подобрано верно.',
   ANREDE_MINOR_FLAW: 'Обращение {quote} есть, но проверьте падеж, стиль или запятую.',
+  ANREDE_REGISTER_MISMATCH: 'Обращение {quote} слишком неформальное для официального письма.',
+  ANREDE_DECLENSION_FLAW: 'В обращении {quote} ошибка в окончании. Правильно: {correction}.',
+  ANREDE_PUNCTUATION_FLAW: 'После обращения {quote} пропущена запятая.',
   GRUSS_PERFECT: 'Прощание и подпись оформлены правильно: {quote}.',
   GRUSS_INCOMPLETE: 'Прощание неполное: {quote}. Нужны формула прощания и ваше имя.',
 
@@ -68,6 +71,9 @@ const EN = Object.freeze({
 
   ANREDE_PERFECT: 'The salutation {quote} is appropriate.',
   ANREDE_MINOR_FLAW: 'The salutation {quote} is there, but check its case, register or comma.',
+  ANREDE_REGISTER_MISMATCH: 'The salutation {quote} is too informal for an official email.',
+  ANREDE_DECLENSION_FLAW: 'Ending error in salutation {quote}. Correct form: {correction}.',
+  ANREDE_PUNCTUATION_FLAW: 'Missing comma after the salutation {quote}.',
   GRUSS_PERFECT: 'Closing and signature are correct: {quote}.',
   GRUSS_INCOMPLETE: 'The closing is incomplete: {quote}. Add a closing formula and your name.',
 

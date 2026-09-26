@@ -63,6 +63,7 @@ export function evaluateSalutation(firstLine = '', { isFormalRequired = true } =
       maxScore: 2,
       recognized: true,
       text: line,
+      error: { original: line, correction: misspelled.correction },
       feedback: `Anrede erkannt, aber Deklinationsfehler: korrekt wäre „${misspelled.correction}“.`
     };
   }
@@ -73,6 +74,7 @@ export function evaluateSalutation(firstLine = '', { isFormalRequired = true } =
       maxScore: 2,
       recognized: true,
       text: line,
+      isRegisterMismatch: isFormalRequired,
       feedback: 'Verständliche Anrede, aber stilistischer Register-Mix. Für offizielle E-Mails: „Sehr geehrte Damen und Herren“.'
     };
   }
@@ -83,6 +85,7 @@ export function evaluateSalutation(firstLine = '', { isFormalRequired = true } =
       maxScore: 2,
       recognized: true,
       text: line,
+      isRegisterMismatch: isFormalRequired,
       feedback: isFormalRequired
         ? 'Informelle Anrede erkannt. Bei Institutionen wird „Sehr geehrte Damen und Herren“ erwartet.'
         : 'Passende informelle Anrede.'
