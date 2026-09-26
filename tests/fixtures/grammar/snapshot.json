@@ -15,7 +15,9 @@
     "ERR_CALENDAR_ARTICLE: in Sommer → im Sommer",
     "ERR_SUBJECT_VERB_AGREEMENT: wollen → will",
     "ERR_NUMERAL_PLURAL: 4 Person → 4 Personen",
-    "ERR_CALENDAR_ARTICLE: Von 5. → Vom 5."
+    "ERR_CALENDAR_ARTICLE: Von 5. → Vom 5.",
+    "ERR_PREP_CASE_DAT: Mit freundliche Grüße → Mit freundlichen Grüßen",
+    "ERR_UMLAUT_SPELLING: fur → für"
   ],
   "ostsee/11_keyword_stuffing": [],
   "ostsee/12_off_topic": [],
@@ -32,7 +34,7 @@
     "ERR_PREP_CASE_DAT: mit zwei Kinder → mit zwei Kindern",
     "ERR_CALENDAR_ARTICLE: von 15. Juli → vom 15. Juli",
     "ERR_VERB_VALENCY_AKK: ein kleiner Hund → einen kleinen Hund",
-    "orthography: Hallo Frau Hansen, Ich → Hallo Frau Hansen, ich"
+    "ERR_CAPITAL_AFTER_SALUTATION_COMMA: Hallo Frau Hansen, Ich → Hallo Frau Hansen, ich"
   ],
   "ostsee/18_numeric_dates": [],
   "ostsee/19_route_not_period": [],
@@ -45,7 +47,9 @@
     "ERR_NEBENSATZ_VERB_FINAL: weil ich bin sehr krank → weil ich sehr krank bin",
     "ERR_V2_OVERCROWDED_VORFELD: Bitte Sie schicken → Bitte schicken Sie"
   ],
-  "bench/T1_05": [],
+  "bench/T1_05": [
+    "ERR_NOUN_CAPITALIZATION: tage → Tage"
+  ],
   "bench/T1_06": [],
   "bench/T1_07": [],
   "bench/T1_08": [],
@@ -62,7 +66,9 @@
   ],
   "bench/T2_06": [
     "ERR_MISSING_COPULA_VERB: Wir sint 2 personen → Wir sint 2 personen [Verb: „sind“ fehlt]",
-    "ERR_MISSING_PREDICATE_QUESTION: Wan kan man di vonung sehn? → Wan ist kan man di vonung sehn?"
+    "ERR_MISSING_PREDICATE_QUESTION: Wan kan man di vonung sehn? → Wan ist kan man di vonung sehn?",
+    "ERR_NOUN_CAPITALIZATION: personen → Personen",
+    "ERR_UMLAUT_SPELLING: fur → für"
   ],
   "bench/T2_07": [],
   "bench/T2_08": [],
@@ -79,7 +85,8 @@
   ],
   "bench/T3_06": [
     "ERR_MISSING_COPULA_VERB: Mein man komt mit. → Mein man komt mit [Verb: „ist“ fehlt]",
-    "orthography: Grusse → Grüße"
+    "ERR_NOUN_CAPITALIZATION: dank → Dank",
+    "ERR_UMLAUT_SPELLING: fur, Grusse → für, Grüße"
   ],
   "bench/T3_07": [],
   "bench/T3_08": [],
@@ -99,15 +106,15 @@
   "gold/G6": [],
   "gold/G7": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: kann am montag nicht kommen zu Termin → kann am montag nicht zu Termin kommen",
-    "orthography: montag, mittwoch, fieber → Montag, Mittwoch, Fieber",
-    "orthography: Grusse → Grüße"
+    "ERR_NOUN_CAPITALIZATION: montag, fieber, mittwoch → Montag, Fieber, Mittwoch",
+    "ERR_UMLAUT_SPELLING: Grusse → Grüße"
   ],
   "gold/G8": [],
   "gold/G11": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
     "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
     "ERR_VERB_PREPOSITION: auf den Kurs anmelden → für den Kurs anmelden",
-    "rektion: Mit freundliche Grüßen → Mit freundlichen Grüßen"
+    "ERR_PREP_CASE_DAT: Mit freundliche Grüßen → Mit freundlichen Grüßen"
   ],
   "gold/C2": [
     "ERR_VERB_VALENCY_AKK: ein Deutschkurs → einen Deutschkurs",
@@ -120,8 +127,8 @@
   "gold/C3": [],
   "gold/C4": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: kann am montag nicht kommen zu Termin → kann am montag nicht zu Termin kommen",
-    "orthography: montag, mittwoch, fieber → Montag, Mittwoch, Fieber",
-    "orthography: Grusse → Grüße"
+    "ERR_NOUN_CAPITALIZATION: montag, fieber, mittwoch → Montag, Fieber, Mittwoch",
+    "ERR_UMLAUT_SPELLING: Grusse → Grüße"
   ],
   "gold/C5": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: möchte Deutschkurs machen im August → möchte Deutschkurs im August machen",
@@ -131,7 +138,7 @@
     "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
     "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
     "ERR_VERB_PREPOSITION: auf den Kurs anmelden → für den Kurs anmelden",
-    "rektion: Mit freundliche Grüßen → Mit freundlichen Grüßen"
+    "ERR_PREP_CASE_DAT: Mit freundliche Grüßen → Mit freundlichen Grüßen"
   ],
   "gold/C8": [],
   "gold/C9": [],
@@ -161,7 +168,7 @@
     "ERR_CALENDAR_ARTICLE: in Juli → im Juli"
   ],
   "target/noun_capitalisation": [
-    "orthography: termin → Termin"
+    "ERR_NOUN_CAPITALIZATION: termin → Termin"
   ],
   "target/clean_reflexive": [],
   "target/clean_np_cases": [],
@@ -173,5 +180,22 @@
   "target/clean_coordinator_position_zero": [],
   "target/doubled_subject": [
     "ERR_DOUBLED_SUBJECT: Mein Mann er kommt → Mein Mann kommt"
-  ]
+  ],
+  "target/salutation_agreement": [
+    "ERR_SALUTATION_AGREEMENT: Sehr geehrte Herr → Sehr geehrter Herr"
+  ],
+  "target/salutation_agreement_neuter": [
+    "ERR_SALUTATION_AGREEMENT: Liebe Praxis-Team → Liebes Praxis-Team"
+  ],
+  "target/closing_dative": [
+    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß"
+  ],
+  "target/closing_comma": [
+    "ERR_COMMA_AFTER_CLOSING: Viele Grüße, → Viele Grüße"
+  ],
+  "target/umlaut_spelling": [
+    "ERR_UMLAUT_SPELLING: fur, Grusse → für, Grüße"
+  ],
+  "target/clean_letter_frame": [],
+  "target/clean_transliterated_umlauts": []
 }

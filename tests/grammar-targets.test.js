@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { describeGrammarErrors } from './helpers/grammarSnapshotCorpus.js';
 
-const IMPLEMENTED_STAGE = 4;
+const IMPLEMENTED_STAGE = 5;
 const targets = JSON.parse(readFileSync(new URL('./fixtures/grammar/targets.json', import.meta.url), 'utf8'));
 
 describe('Grammar checker target cases', () => {

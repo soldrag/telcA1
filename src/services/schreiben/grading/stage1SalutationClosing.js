@@ -1,6 +1,6 @@
 /**
  * Stage 1: Anrede & Gruß Scoring (Deterministic, Zero LLM).
- * Evaluates salutation and closing formulas using verified telc A1 rules/regex.
+ * Maps the salutation and closing ratings of the macro segmenter to scores and diagnostic codes.
  */
 
 import { DIAGNOSTIC_CODES } from '../feedback/feedbackContracts.js';
@@ -47,7 +47,6 @@ export function scoreClosing(closing = {}) {
     text: closing?.text || '',
     senderName: closing?.senderName || '',
     hasName: Boolean(closing?.hasName),
-    grammarNote: closing?.grammarNote || null,
     feedback,
     diagnosticCode
   };

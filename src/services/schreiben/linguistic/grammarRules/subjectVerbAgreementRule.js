@@ -22,9 +22,17 @@ function isNominalSubject(phrase) {
   return realizedFeatures(phrase).some((f) => f.case === 'NOM');
 }
 
-function findSubject(analysis, clause) {
+// "… und habe Fieber": a coordinated clause shares the subject of the previous one, so a noun phrase that
+// could also be the object ("Fieber" is NOM or AKK) is not taken as its own subject.
+function isOwnSubject(phrase, sharesSubject) {
+  if (phrase.pronoun) return phrase.pronoun.pos === 'PRON_SUBJ';
+  if (!isNominalSubject(phrase)) return false;
+  return !sharesSubject || realizedFeatures(phrase).every((f) => f.case === 'NOM');
+}
+
+function findSubject(analysis, clause, sharesSubject) {
   return analysis.phrases.find((p) => p.start >= clause.start && p.end <= clause.end && !p.governor && !p.isCalendar
-    && (p.pronoun ? p.pronoun.pos === 'PRON_SUBJ' : isNominalSubject(p)));
+    && isOwnSubject(p, sharesSubject));
 }
 
 function agrees(verbReadings, subjects) {
@@ -35,7 +43,7 @@ function checkClause(analysis, clause, context, previous) {
   const verb = analysis.tokens[clause.finiteIndex];
   const startsWithCoordinator = analysis.tokens[clause.start]?.pos === 'KONJ_COORD';
   if (!verb || (startsWithCoordinator && previous?.finiteIndex === -1)) return null;
-  const subject = findSubject(analysis, clause);
+  const subject = findSubject(analysis, clause, startsWithCoordinator);
   const subjects = subject ? subjectReadings(subject, context.lexicon) : [];
   const verbReadings = context.lexicon.lookup(verb.lower).filter((e) => FINITE_POS.has(e.pos));
   if (!subjects.length || !verbReadings.length || agrees(verbReadings, subjects)) return null;

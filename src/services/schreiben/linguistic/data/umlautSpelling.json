@@ -1,0 +1,6 @@
+{
+  "notes": "Umlaut and eszett spellings. base: the letter without its marks, what a learner types on a foreign keyboard. transliteration: the accepted replacement spelling (ue for ü).",
+  "base": { "ä": "a", "ö": "o", "ü": "u", "ß": "ss" },
+  "transliteration": { "ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss" },
+  "swissEszett": { "ß": "ss" }
+}

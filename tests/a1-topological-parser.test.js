@@ -1,5 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { parseSentenceTopology } from '../src/services/schreiben/linguistic/topologicalFieldParser.js';
 import { segmentMacroStructure } from '../src/services/schreiben/linguistic/macroSegmenter.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
@@ -21,7 +22,8 @@ describe('A1 Topological Field Model & Linguistic Engine', () => {
       const text = 'Sehr geehrte Damen und Herren,\nSie haben mir gestern geschrieben.';
       const macro = segmentMacroStructure(text);
       assert.equal(macro.anrede.recognized, true);
-      assert.equal(macro.commaWarning, null);
+      const codes = checkGermanA1Grammar(text).map((e) => e.code);
+      assert.equal(codes.includes('ERR_CAPITAL_AFTER_SALUTATION_COMMA'), false);
     });
 
     it('does NOT flag "Rufen Sie mich zurück" as a dative error', () => {
@@ -62,10 +64,10 @@ describe('A1 Topological Field Model & Linguistic Engine', () => {
     });
 
     it('detects masculine adjective declension in salutation "Liebe Herr"', () => {
-      const macro = segmentMacroStructure('Liebe Herr Doktor Schneider,\nich schreibe Ihnen.');
-      assert.equal(macro.anrede.recognized, true);
-      assert.equal(macro.anrede.score, 1);
-      assert.match(macro.anrede.error.correction, /Lieber Herr/);
+      const anrede = analyzeSalutation('Liebe Herr Doktor Schneider,\nich schreibe Ihnen.', { isFormal: true });
+      assert.equal(anrede.recognized, true);
+      assert.equal(anrede.score, 1); // informal register to a doctor, not the ending
+      assert.match(anrede.correction, /Lieber Herr/);
     });
   });
 

@@ -30,7 +30,8 @@ Artem Smirnov`;
     assert.equal(closing.hasName, true);
     assert.equal(closing.score, 2);
     assert.equal(closing.senderName, 'Artem Smirnov');
-    assert.match(closing.grammarNote, /Dativ-Hinweis/);
+    const dative = checkGermanA1Grammar(userText).find((e) => e.code === 'ERR_PREP_CASE_DAT' && /Gruß/.test(e.original));
+    assert.match(dative.correction, /freundlichem Gruß/);
   });
 
   it('detects all typical A1 German grammar errors in the user text', () => {
@@ -139,8 +140,8 @@ Artem Smirnov`;
     });
 
     it('provides punctuation hint for comma after closing formula', () => {
-      const closing = analyzeClosing(text3, { isFormal: true });
-      assert.match(closing.grammarNote, /kein Komma/i);
+      const comma = checkGermanA1Grammar(text3).find((e) => e.code === 'ERR_COMMA_AFTER_CLOSING');
+      assert.match(comma.explanation, /kein Komma/i);
     });
   });
 

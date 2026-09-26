@@ -16,5 +16,12 @@
   {"id": "clean_separable_verb", "stage": 3, "text": "Wir bringen einen Salat mit.", "expect": []},
   {"id": "clean_np_with_pp_attribute", "stage": 3, "text": "Das Wetter in Berlin ist sehr schön.", "expect": []},
   {"id": "clean_coordinator_position_zero", "stage": 3, "text": "Aber die Wohnung ist zu teuer.", "expect": []},
-  {"id": "doubled_subject", "stage": 3, "text": "Mein Mann er kommt mit.", "expect": ["Mein Mann kommt"]}
+  {"id": "doubled_subject", "stage": 3, "text": "Mein Mann er kommt mit.", "expect": ["Mein Mann kommt"]},
+  {"id": "salutation_agreement", "stage": 5, "text": "Sehr geehrte Herr Schneider,\nich komme morgen.\nMit freundlichen Grüßen\nAnna", "expect": ["Sehr geehrter Herr"]},
+  {"id": "salutation_agreement_neuter", "stage": 5, "text": "Liebe Praxis-Team,\nich komme morgen.\nViele Grüße\nAnna", "expect": ["Liebes Praxis-Team"]},
+  {"id": "closing_dative", "stage": 5, "text": "Hallo Anna,\nich komme morgen.\nMit freundlichen Gruß\nOlga", "expect": ["freundlichem Gruß"]},
+  {"id": "closing_comma", "stage": 5, "text": "Hallo Anna,\nich komme morgen.\nViele Grüße,\nOlga", "expect": ["Viele Grüße"]},
+  {"id": "umlaut_spelling", "stage": 5, "text": "Hallo Anna,\ndanke fur die Einladung.\nViele Grusse\nOlga", "expect": ["für, Grüße"]},
+  {"id": "clean_letter_frame", "stage": 5, "text": "Sehr geehrte Damen und Herren,\nSie haben mir geschrieben. Vielen Dank.\nViele Grüsse\nOlga Petrova", "expect": []},
+  {"id": "clean_transliterated_umlauts", "stage": 5, "text": "Liebe Anna,\nich komme gerne.\nViele Gruesse\nOlga", "expect": []}
 ]

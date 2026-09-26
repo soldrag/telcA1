@@ -72,7 +72,6 @@ export function evaluateTeil2Essay(userAnswer = '', question = {}) {
   const feedbackList = [
     salutation.feedback,
     closing.feedback,
-    closing.grammarNote,
     ...quality.feedback,
     ...grammarErrors.map(e => `❌ „${e.original}“ ➔ ✅ „${e.correction}“: ${e.explanation}`)
   ].filter(Boolean);

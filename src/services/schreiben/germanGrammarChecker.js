@@ -4,8 +4,6 @@
  * Strictly complies with McConnell limits (<= 150 lines, <= 25 lines per function).
  */
 
-import { checkOrthographyRules } from './rules/orthographyRuleChecker.js';
-import { checkRektionRules } from './rules/rektionRuleChecker.js';
 import { parseSentenceTopology } from './linguistic/topologicalFieldParser.js';
 import { createGrammarEngine } from './linguistic/grammarEngine.js';
 import { A1_GRAMMAR_PROFILE } from './profiles/a1GrammarProfile.js';
@@ -60,16 +58,14 @@ export function checkGermanA1Grammar(text = '') {
   if (!text?.trim()) return [];
 
   const macro = segmentMacroStructure(text);
-  const macroErrors = macro.anrede?.error ? [macro.anrede.error] : [];
-  const sentences = splitGermanSentences(macro.bodyText || text);
-  const sentenceErrors = sentences.flatMap(collectSentenceLinguisticErrors);
+  const bodySentences = splitGermanSentences(macro.bodyText || text);
+  const letterErrors = a1GrammarEngine.checkLetter({ salutation: macro.anrede, closing: macro.closing, bodySentences });
 
-  const allRawErrors = [
-    ...macroErrors,
-    ...sentenceErrors,
-    ...checkRektionRules(text),
-    ...checkOrthographyRules(text),
-  ];
+  return deduplicateGrammarErrors([...bodySentences.flatMap(collectSentenceLinguisticErrors), ...letterErrors]);
+}
 
-  return deduplicateGrammarErrors(allRawErrors);
+/** @returns {object|null} the declension error of a salutation line ("Sehr geehrte Herr"), if any */
+export function findSalutationDeclensionError(salutationLine = '') {
+  return a1GrammarEngine.checkLetter({ salutation: { text: salutationLine } })
+    .find((err) => err.code === 'ERR_SALUTATION_AGREEMENT') || null;
 }

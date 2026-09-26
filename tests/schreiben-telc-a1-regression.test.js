@@ -9,6 +9,9 @@ import { describe, it, before } from 'node:test';
 import assert from 'node:assert/strict';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { loadRegressionSuites, acceptedRange, isWithin } from './helpers/regressionFixtures.js';
+import { calculateLinguisticAccuracy } from '../src/services/schreiben/scoring/linguisticAccuracyScorer.js';
+import { dedupeGrammarErrors } from '../src/services/schreiben/linguistic/grammarErrorDeduper.js';
+import { countLetterBodyWords } from '../src/services/schreiben/scoring/letterBodyWordCounter.js';
 
 const suites = await loadRegressionSuites();
 
@@ -65,6 +68,18 @@ for (const suite of suites) {
         'möchten kommen von 15. Juli bis 25. Juli',
         'will im Sommer mit meine Familie Urlaub machen an der Ostsee',
       ]);
+    });
+
+    it('the learning scale shown in the UI equals the pipeline one, capital "Ich" after the salutation included (17)', () => {
+      const res = results.get('17_screenshot_user_review');
+      if (!res) return;
+      assert.ok(res.grammar_errors.some((e) => e.code === 'ERR_CAPITAL_AFTER_SALUTATION_COMMA'));
+      const shown = calculateLinguisticAccuracy({
+        grammarErrors: dedupeGrammarErrors(res.grammar_errors),
+        wordCount: countLetterBodyWords(suite.cases.find((tc) => tc.id === '17_screenshot_user_review').text),
+      });
+      assert.equal(shown.score, res.linguistic_accuracy.score);
+      assert.equal(shown.errorCount, res.linguistic_accuracy.errorCount);
     });
 
     it('grammar errors never lower the score (10_typical_a1_errors)', () => {

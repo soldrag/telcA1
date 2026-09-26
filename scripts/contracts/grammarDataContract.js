@@ -6,13 +6,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import paradigms from '../../src/services/schreiben/linguistic/data/declensionParadigms.json' with { type: 'json' };
 import lexicon from '../../src/services/schreiben/linguistic/a1Lexicon.json' with { type: 'json' };
+import letterFormulas from '../../src/services/schreiben/linguistic/data/letterFormulas.json' with { type: 'json' };
 import { GRAMMAR_RULES } from '../../src/services/schreiben/linguistic/grammarRules/index.js';
+import { LETTER_RULES } from '../../src/services/schreiben/linguistic/letterRules/index.js';
 import { A1_GRAMMAR_PROFILE } from '../../src/services/schreiben/profiles/a1GrammarProfile.js';
 
 const CASES = ['NOM', 'AKK', 'DAT', 'GEN'];
 const SLOTS = ['m', 'f', 'n', 'pl'];
 const PROFILES = [A1_GRAMMAR_PROFILE];
-const ENGINE_PATHS = ['analysis', 'morphology', 'grammarRules', 'grammarEngine.js'];
+const ENGINE_PATHS = ['analysis', 'morphology', 'grammarRules', 'letter', 'letterRules', 'grammarEngine.js', 'macroSegmenter.js'];
+const REGISTERS = { salutations: ['formal', 'informal'], closings: ['formal', 'semiFormal', 'informal'] };
 
 function validateTable(name, table, errors) {
   for (const c of CASES) for (const s of SLOTS) {
@@ -35,7 +38,18 @@ function validateEntry(word, e, errors) {
 function validateProfiles(errors) {
   for (const profile of PROFILES) {
     for (const id of profile.rules) if (!GRAMMAR_RULES[id]) errors.push(`profile ${profile.level}: unknown rule "${id}"`);
+    for (const id of profile.letterRules || []) if (!LETTER_RULES[id]) errors.push(`profile ${profile.level}: unknown letter rule "${id}"`);
     for (const port of ['lookup', 'findForms', 'tag']) if (typeof profile.lexicon[port] !== 'function') errors.push(`profile ${profile.level}: lexicon port lacks ${port}()`);
+  }
+}
+
+function validateLetterFormulas(errors) {
+  for (const [kind, registers] of Object.entries(REGISTERS)) {
+    for (const formula of letterFormulas[kind] || []) {
+      const name = `letter formula ${kind} "${(formula.words || []).join(' ')}"`;
+      if (!formula.words?.length || formula.words.some((w) => typeof w !== 'string' || w !== w.toLowerCase())) errors.push(`${name}: words must be lower-case strings`);
+      if (!registers.includes(formula.register)) errors.push(`${name}: register "${formula.register}"`);
+    }
   }
 }
 
@@ -55,5 +69,6 @@ export function validateGrammarData(srcDir, errors) {
   validateParadigms(errors);
   for (const [word, entries] of Object.entries(lexicon)) entries.forEach((e) => validateEntry(word, e, errors));
   validateProfiles(errors);
+  validateLetterFormulas(errors);
   validateEngineIsLevelFree(path.join(srcDir, 'services/schreiben/linguistic'), errors);
 }

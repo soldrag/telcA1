@@ -6721,5 +6721,101 @@
       "lemma": "warten",
       "valency": "INTRANS"
     }
+  ],
+  "grüßen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Grüße",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "dank": [
+    {
+      "pos": "NOUN",
+      "lemma": "Dank",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "vielen": [
+    {
+      "pos": "ADJ",
+      "lemma": "viel"
+    }
+  ],
+  "sprachschule": [
+    {
+      "pos": "NOUN",
+      "lemma": "Sprachschule",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "unterricht": [
+    {
+      "pos": "NOUN",
+      "lemma": "Unterricht",
+      "gender": "m",
+      "number": "sg"
+    }
+  ],
+  "gebühr": [
+    {
+      "pos": "NOUN",
+      "lemma": "Gebühr",
+      "gender": "f",
+      "number": "sg",
+      "plural": "Gebühren"
+    }
+  ],
+  "gebühren": [
+    {
+      "pos": "NOUN",
+      "lemma": "Gebühren",
+      "gender": "f",
+      "number": "pl"
+    }
+  ],
+  "preis": [
+    {
+      "pos": "NOUN",
+      "lemma": "Preis",
+      "gender": "m",
+      "number": "sg",
+      "plural": "Preise"
+    }
+  ],
+  "preise": [
+    {
+      "pos": "NOUN",
+      "lemma": "Preise",
+      "gender": "m",
+      "number": "pl"
+    }
+  ],
+  "fieber": [
+    {
+      "pos": "NOUN",
+      "lemma": "Fieber",
+      "gender": "n",
+      "number": "sg"
+    }
+  ],
+  "krankheit": [
+    {
+      "pos": "NOUN",
+      "lemma": "Krankheit",
+      "gender": "f",
+      "number": "sg"
+    }
+  ],
+  "urlaub": [
+    {
+      "pos": "NOUN",
+      "lemma": "Urlaub",
+      "gender": "m",
+      "number": "sg"
+    }
   ]
 }
