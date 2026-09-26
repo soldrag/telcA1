@@ -1,0 +1,190 @@
+{
+  "ostsee/01_ideal": [],
+  "ostsee/02_reference_missing_pets": [],
+  "ostsee/03_pets_synonym": [],
+  "ostsee/04_pets_negation": [],
+  "ostsee/05_frame_only": [
+    "ERR_MISSING_COPULA_VERB: ich heiße Artem. → ich heiße Artem [Verb: „ist“ fehlt]"
+  ],
+  "ostsee/06_no_greeting": [],
+  "ostsee/07_no_frame_at_all": [],
+  "ostsee/08_informal_frame": [],
+  "ostsee/09_zeitraum_missing": [],
+  "ostsee/10_typical_a1_errors": [
+    "ERR_PREP_CASE_DAT: mit meine Familie → mit meiner Familie",
+    "agreement: 4 Person → 4 Personen"
+  ],
+  "ostsee/11_keyword_stuffing": [],
+  "ostsee/12_off_topic": [],
+  "ostsee/13_implicit_reason": [],
+  "ostsee/14_price_missing": [],
+  "ostsee/15_long_with_extras": [],
+  "ostsee/16_unclear_point": [
+    "ERR_MISSING_PREDICATE_QUESTION: Geld wie Nacht? → Geld ist wie Nacht?"
+  ],
+  "ostsee/17_screenshot_user_review": [
+    "ERR_PREP_CASE_DAT: mit meine Familie → mit meiner Familie",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: kommen von 15. Juli bis 25. Juli → von 15. Juli bis 25. Juli kommen",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: möchten kommen von 15 → möchten von 15 kommen",
+    "orthography: Hallo Frau Hansen, Ich → Hallo Frau Hansen, ich"
+  ],
+  "ostsee/18_numeric_dates": [],
+  "ostsee/19_route_not_period": [],
+  "ostsee/20_persons_without_count": [],
+  "bench/T1_01": [],
+  "bench/T1_02": [],
+  "bench/T1_03": [],
+  "bench/T1_04": [
+    "ERR_V2_OVERCROWDED_VORFELD: heute ich kann → heute kann ich",
+    "ERR_MISSING_COPULA_VERB: Ich fehle zwei Tage. → Ich fehle zwei Tage [Verb: „ist“ fehlt]",
+    "ERR_V2_OVERCROWDED_VORFELD: Bitte Sie schicken → Bitte schicken Sie"
+  ],
+  "bench/T1_05": [],
+  "bench/T1_06": [
+    "ERR_MISSING_COPULA_VERB: Ich fehle bis Freitag. → Ich fehle bis Freitag [Verb: „ist“ fehlt]"
+  ],
+  "bench/T1_07": [
+    "ERR_MISSING_COPULA_VERB: Ich fehle drei Tage. → Ich fehle drei Tage [Verb: „ist“ fehlt]"
+  ],
+  "bench/T1_08": [],
+  "bench/T1_09": [],
+  "bench/T1_10": [
+    "ERR_V2_OVERCROWDED_VORFELD: das Wetter in Berlin ist → das Wetter ist in Berlin"
+  ],
+  "bench/T2_01": [
+    "ERR_MISSING_COPULA_VERB: ich interessiere mich sehr für Ihre 2-Zimmer-Wohnung. → ich interessiere mich sehr für Ihre 2-Zimmer-Wohnung [Verb: „ist“ fehlt]"
+  ],
+  "bench/T2_02": [
+    "ERR_MISSING_COPULA_VERB: ich interessiere mich für Ihre Wohnung. → ich interessiere mich für Ihre Wohnung [Verb: „ist“ fehlt]"
+  ],
+  "bench/T2_03": [],
+  "bench/T2_04": [],
+  "bench/T2_05": [
+    "ERR_V2_OVERCROWDED_VORFELD: gestern ich habe → gestern habe ich",
+    "ERR_V2_OVERCROWDED_VORFELD: Wann wir können → Wann können wir",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: können machen einen Termin → können einen Termin machen"
+  ],
+  "bench/T2_06": [
+    "ERR_MISSING_PREDICATE_QUESTION: Wan kan man di vonung sehn? → Wan ist kan man di vonung sehn?"
+  ],
+  "bench/T2_07": [
+    "ERR_MISSING_COPULA_VERB: ich interessiere mich für die Wohnung. → ich interessiere mich für die Wohnung [Verb: „ist“ fehlt]",
+    "rektion: ein Termin → einen Termin"
+  ],
+  "bench/T2_08": [
+    "ERR_V2_OVERCROWDED_VORFELD: Aber die Wohnung ist → Aber ist die Wohnung"
+  ],
+  "bench/T2_09": [
+    "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin ist morgen 14 Uhr?"
+  ],
+  "bench/T2_10": [],
+  "bench/T3_01": [],
+  "bench/T3_02": [
+    "ERR_MISSING_COPULA_VERB: Wir bringen einen Salat mit. → Wir bringen einen Salat mit [Verb: „sind“ fehlt]"
+  ],
+  "bench/T3_03": [],
+  "bench/T3_04": [],
+  "bench/T3_05": [
+    "ERR_V2_OVERCROWDED_VORFELD: Mein Mann er kommt → Mein Mann kommt er"
+  ],
+  "bench/T3_06": [
+    "ERR_MISSING_COPULA_VERB: Mein man komt mit. → Mein man komt mit [Verb: „ist“ fehlt]",
+    "orthography: Grusse → Grüße"
+  ],
+  "bench/T3_07": [],
+  "bench/T3_08": [],
+  "bench/T3_09": [],
+  "bench/T3_10": [],
+  "gold/G1": [],
+  "gold/G2": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
+    "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
+    "rektion: in August → im August",
+    "rektion: ein Deutschkurs → einen Deutschkurs",
+    "rektion: anmelden → mich anmelden",
+    "rektion: Mit freundlichen Gruß → Mit freundlichem Gruß / Mit freundlichen Grüßen"
+  ],
+  "gold/G3": [],
+  "gold/G4": [],
+  "gold/G6": [],
+  "gold/G7": [
+    "orthography: montag, mittwoch, fieber → Montag, Mittwoch, Fieber",
+    "orthography: Grusse → Grüße"
+  ],
+  "gold/G8": [],
+  "gold/G11": [
+    "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
+    "rektion: für August → im August",
+    "rektion: auf den Kurs anmelden → für den Kurs anmelden",
+    "rektion: Mit freundliche Grüßen → Mit freundlichen Grüßen"
+  ],
+  "gold/C2": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
+    "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
+    "rektion: in August → im August",
+    "rektion: ein Deutschkurs → einen Deutschkurs",
+    "rektion: anmelden → mich anmelden",
+    "rektion: Mit freundlichen Gruß → Mit freundlichem Gruß / Mit freundlichen Grüßen"
+  ],
+  "gold/C3": [],
+  "gold/C4": [
+    "orthography: montag, mittwoch, fieber → Montag, Mittwoch, Fieber",
+    "orthography: Grusse → Grüße"
+  ],
+  "gold/C5": [
+    "rektion: Deutschkurs machen → einen Deutschkurs machen"
+  ],
+  "gold/C6": [
+    "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
+    "rektion: für August → im August",
+    "rektion: auf den Kurs anmelden → für den Kurs anmelden",
+    "rektion: Mit freundliche Grüßen → Mit freundlichen Grüßen"
+  ],
+  "gold/C8": [],
+  "gold/C9": [],
+  "target/akk_adjective_np": [],
+  "target/dat_plural_numeral": [],
+  "target/dat_possessive_repeated": [
+    "ERR_PREP_CASE_DAT: mit meine Mutter → mit meiner Mutter",
+    "ERR_PREP_CASE_DAT: mit meine Schwester → mit meiner Schwester"
+  ],
+  "target/dative_pronoun_valency": [
+    "ERR_VERB_VALENCY_DAT: antworten Sie mich → antworten Sie mir"
+  ],
+  "target/akk_new_appointment": [
+    "ERR_ACCUSATIVE_MASCULINE_OBJECT: ein neuer Termin → einen neuen Termin"
+  ],
+  "target/date_contraction": [],
+  "target/ausklammerung_pp": [],
+  "target/month_preposition": [
+    "rektion: in Juli → im Juli"
+  ],
+  "target/noun_capitalisation": [
+    "orthography: termin → Termin"
+  ],
+  "target/clean_reflexive": [
+    "rektion: anmelden → mich anmelden"
+  ],
+  "target/clean_np_cases": [],
+  "target/clean_modal_frame": [],
+  "target/clean_unknown_verb": [
+    "ERR_MISSING_COPULA_VERB: Ich fehle zwei Tage. → Ich fehle zwei Tage [Verb: „ist“ fehlt]"
+  ],
+  "target/clean_reflexive_verb": [
+    "ERR_MISSING_COPULA_VERB: Ich interessiere mich für Ihre Wohnung. → Ich interessiere mich für Ihre Wohnung [Verb: „ist“ fehlt]"
+  ],
+  "target/clean_separable_verb": [
+    "ERR_MISSING_COPULA_VERB: Wir bringen einen Salat mit. → Wir bringen einen Salat mit [Verb: „sind“ fehlt]"
+  ],
+  "target/clean_np_with_pp_attribute": [
+    "ERR_V2_OVERCROWDED_VORFELD: Das Wetter in Berlin ist → Das Wetter ist in Berlin"
+  ],
+  "target/clean_coordinator_position_zero": [
+    "ERR_V2_OVERCROWDED_VORFELD: Aber die Wohnung ist → Aber ist die Wohnung"
+  ],
+  "target/doubled_subject": [
+    "ERR_V2_OVERCROWDED_VORFELD: Mein Mann er kommt → Mein Mann kommt er"
+  ]
+}

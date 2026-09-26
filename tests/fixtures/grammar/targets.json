@@ -1,0 +1,20 @@
+[
+  {"id": "akk_adjective_np", "stage": 2, "text": "Wir haben auch ein kleiner Hund.", "expect": ["einen kleinen Hund"]},
+  {"id": "dat_plural_numeral", "stage": 2, "text": "Wir sind vier Personen mit zwei Kinder.", "expect": ["zwei Kindern"]},
+  {"id": "dat_possessive_repeated", "stage": 2, "text": "Ich fahre mit meine Mutter und mit meine Schwester nach Berlin.", "expect": ["meiner Mutter", "meiner Schwester"]},
+  {"id": "dative_pronoun_valency", "stage": 2, "text": "Bitte antworten Sie mich schnell.", "expect": ["mir"]},
+  {"id": "akk_new_appointment", "stage": 2, "text": "Ich brauche ein neuer Termin.", "expect": ["einen neuen Termin"]},
+  {"id": "date_contraction", "stage": 2, "text": "Wir kommen von 15. Juli bis 25. Juli.", "expect": ["vom 15. Juli", "zum 25. Juli"]},
+  {"id": "ausklammerung_pp", "stage": 3, "text": "Ich will im Sommer Urlaub machen an der Ostsee.", "expect": ["an der Ostsee machen"]},
+  {"id": "month_preposition", "stage": 4, "text": "Ich komme in Juli nach Hamburg.", "expect": ["im Juli"]},
+  {"id": "noun_capitalisation", "stage": 5, "text": "Ich habe am Montag einen termin beim Arzt.", "expect": ["Termin"]},
+  {"id": "clean_reflexive", "stage": 4, "text": "Wie kann man sich für den Kurs anmelden?", "expect": []},
+  {"id": "clean_np_cases", "stage": 0, "text": "Wir haben einen kleinen Hund und kommen mit zwei Kindern.", "expect": []},
+  {"id": "clean_modal_frame", "stage": 0, "text": "Wir möchten vom 15. Juli bis zum 25. Juli an die Ostsee fahren.", "expect": []},
+  {"id": "clean_unknown_verb", "stage": 3, "text": "Ich fehle zwei Tage.", "expect": []},
+  {"id": "clean_reflexive_verb", "stage": 3, "text": "Ich interessiere mich für Ihre Wohnung.", "expect": []},
+  {"id": "clean_separable_verb", "stage": 3, "text": "Wir bringen einen Salat mit.", "expect": []},
+  {"id": "clean_np_with_pp_attribute", "stage": 3, "text": "Das Wetter in Berlin ist sehr schön.", "expect": []},
+  {"id": "clean_coordinator_position_zero", "stage": 3, "text": "Aber die Wohnung ist zu teuer.", "expect": []},
+  {"id": "doubled_subject", "stage": 3, "text": "Mein Mann er kommt mit.", "expect": ["Mein Mann kommt"]}
+]
