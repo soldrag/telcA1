@@ -11,7 +11,7 @@ import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
-import { TEMPORAL_RANGE_REGEX } from './a1ConceptLexicon.js';
+import { hasTemporalExpression } from './temporalRangeDetector.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
 
@@ -65,7 +65,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
 
   const isTemporalCrit = (criterion.label || criterion.id || '').toLowerCase().match(/zeit|dauer|termin|datum/i);
   const rawJoined = affirmative.map(a => a.text).join(' ');
-  if (isTemporalCrit && TEMPORAL_RANGE_REGEX.test(rawJoined)) {
+  if (isTemporalCrit && hasTemporalExpression(rawJoined)) {
     matchedCount += 1;
   }
 
@@ -75,7 +75,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   const relevantSentences = affirmative.filter(({ text }) => {
     const sWords = text.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
     const hasKw = critStems.some(c => sWords.includes(c));
-    const hasTemp = isTemporalCrit && TEMPORAL_RANGE_REGEX.test(text);
+    const hasTemp = isTemporalCrit && hasTemporalExpression(text);
     return hasKw || hasTemp;
   }).map(a => a.sentence);
 

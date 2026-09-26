@@ -1,28 +1,20 @@
 /**
  * A1 Semantic Concept Lexicon.
  * Provides canonical A1 grammar and closed-class concept domain stems.
- * Strictly complies with McConnell limits (<= 85 lines, <= 20 lines per function).
+ * Strictly complies with McConnell limits (<= 100 lines, <= 20 lines per function).
  * Zero ad-hoc entity overfitting (no specific city or test names).
  */
 
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { detectTemporalExpression } from './temporalRangeDetector.js';
+import { hasPersonCount } from './personCountDetector.js';
 
-// Canonical German A1 temporal range, calendar months, seasons, and days of week
-const MONTH_NAMES = 'januar|februar|märz|maerz|april|mai|juni|juli|august|september|oktober|november|dezember';
-const CALENDAR_TOKENS = `${MONTH_NAMES}|sommer|winter|herbst|frühling|fruehling|montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|wochenende`;
-
-export const TEMPORAL_RANGE_REGEX = new RegExp(
-  `\\b(?:vom|von)\\s+(?:\\d{1,2}\\.?\\s*(?:${MONTH_NAMES})?|[a-zäöü]+)\\s*(?:bis|und|-)\\s*(?:zum\\s+)?(?:\\d{1,2}\\.?\\s*(?:${MONTH_NAMES})?|[a-zäöü]+)` +
-  `|\\b(?:für|fuer)\\s+(?:\\d+|ein|eine|einen|zwei|drei|vier|fünf)\\s+(?:tage?|wochen?|monate?)\\b` +
-  `|\\b(?:ab|am|im|in|bis)\\s+(?:\\d{1,2}\\.?\\s+)?(?:${CALENDAR_TOKENS})\\b`,
-  'i'
-);
-
-const QUANTIFIED_DURATION_REGEX = /\b(?:\d+|ein|eine|einen|zwei|drei|vier|fünf|fuenf|sechs|sieben|zehn)\s+(?:tage?|wochen?|monate?)\b/i;
+const TEMPORAL_EVIDENCE_SCORES = Object.freeze({ range: 0.95, point: 0.95, duration: 0.90 });
+const PERSON_COUNT_EVIDENCE_SCORE = 0.9;
 
 const A1_CONCEPT_STEM_DOMAINS = {
-  person: ['person', 'leut', 'wir', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
-  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende', 'vom', 'bis', 'ab'],
+  person: ['person', 'leut', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
+  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende'],
   preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
   tier: ['hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
   grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'anmeld', 'buch'],
@@ -44,6 +36,26 @@ export function getDomainStemsForToken(token = '') {
   return resolveConceptDomain(token) || [stemGermanWord(String(token || '').toLowerCase())];
 }
 
+function isTemporalAspect(aspectTokens = []) {
+  return aspectTokens.some((t) => /zeit|dau|termin|datum|wann|lang/i.test(t));
+}
+
+function isPersonAspect(aspectTokens = []) {
+  return aspectTokens.some((t) => /person|leut|teilnehm|gäst|gast/i.test(t));
+}
+
+/**
+ * Structured evidence for an aspect: a recognised time range/duration/date, or a person count.
+ * Unlike lexical overlap it proves the aspect is stated, so the ranker may trust it as much as a neural hit.
+ */
+export function scoreStructuredAspectEvidence(aspectLabel = '', rawSentence = '') {
+  const tokens = String(aspectLabel).toLowerCase().split(/\s+/);
+  if (!rawSentence) return 0;
+  if (isTemporalAspect(tokens)) return TEMPORAL_EVIDENCE_SCORES[detectTemporalExpression(rawSentence)] || 0;
+  if (isPersonAspect(tokens)) return hasPersonCount(rawSentence) ? PERSON_COUNT_EVIDENCE_SCORE : 0;
+  return 0;
+}
+
 export function scoreAspectConceptOverlap(aspectLabel = '', sentenceStems = [], rawSentence = '') {
   if (!aspectLabel || (sentenceStems.length === 0 && !rawSentence)) return 0;
 
@@ -53,15 +65,9 @@ export function scoreAspectConceptOverlap(aspectLabel = '', sentenceStems = [], 
     .split(/\s+/)
     .filter((w) => w.length > 2);
 
-  const isTimeAspect = aspectTokens.some((t) => /zeit|dau|termin|datum|wann|lang/i.test(t));
-  if (isTimeAspect && rawSentence) {
-    if (TEMPORAL_RANGE_REGEX.test(rawSentence)) {
-      return 0.95;
-    }
-    if (QUANTIFIED_DURATION_REGEX.test(rawSentence)) {
-      return 0.90;
-    }
-  }
+  const isTimeAspect = isTemporalAspect(aspectTokens);
+  const structured = scoreStructuredAspectEvidence(aspectLabel, rawSentence);
+  if (structured > 0) return structured;
 
   let maxConceptScore = 0;
   for (const token of aspectTokens) {

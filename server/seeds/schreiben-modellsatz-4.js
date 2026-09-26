@@ -167,11 +167,11 @@ export const questions = [
             aspects: [
               {
                 label: 'Personen',
-                keywords: ['personen', 'erwachsene', 'kind', 'kinder', 'wir', 'familie']
+                keywords: ['personen', 'erwachsene', 'kind', 'kinder']
               },
               {
                 label: 'Zeitraum',
-                keywords: ['zeitraum', 'woche', 'wochen', 'tage', 'bleiben', 'vom', 'bis', 'juli', 'august', 'juni']
+                keywords: ['zeitraum', 'woche', 'wochen', 'tage', 'bleiben', 'juli', 'august', 'juni']
               }
             ]
           },

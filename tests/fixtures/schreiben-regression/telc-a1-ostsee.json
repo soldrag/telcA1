@@ -142,6 +142,24 @@
       "title": "User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.",
       "text": "Hallo Frau Hansen,\n\nIch will im Sommer mit meine Familie Urlaub machen an der Ostsee. Wir möchten kommen von 15. Juli bis 25. Juli, wir sind vier Personen mit zwei Kinder. Wie viel kostet das Apartment pro Nacht? Wir haben auch ein kleiner Hund. Geht das bei Ihnen?\n\nViele Grüße\nAlex Schmidt",
       "expected": { "lp": [3, 3, 3], "kg": 0.5, "total": 9.5 }
+    },
+    {
+      "id": "18_numeric_dates",
+      "title": "Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte bei Ihnen Urlaub machen. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 15.07. bis 25.07. Was kostet die Wohnung pro Nacht? Darf unser Hund mitkommen?\n\nMit freundlichen Grüßen\nAlex Schmidt",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 }
+    },
+    {
+      "id": "19_route_not_period",
+      "title": "'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte bei Ihnen Urlaub machen. Wir sind zwei Erwachsene und ein Kind. Wir fahren mit dem Zug von Hamburg bis Kiel. Was kostet die Wohnung pro Nacht? Darf unser Hund mitkommen?\n\nMit freundlichen Grüßen\nAlex Schmidt",
+      "expected": { "lp": [3, 1.5, 3], "kg": 1, "total": 8.5 }
+    },
+    {
+      "id": "20_persons_without_count",
+      "title": "'Wir kommen' names no number of persons: Personen missing, Zeitraum present.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte bei Ihnen Urlaub machen. Wir kommen vom 15. bis 25. Juli. Was kostet die Wohnung pro Nacht? Darf unser Hund mitkommen?\n\nMit freundlichen Grüßen\nAlex Schmidt",
+      "expected": { "lp": [3, 1.5, 3], "kg": 1, "total": 8.5 }
     }
   ]
 }

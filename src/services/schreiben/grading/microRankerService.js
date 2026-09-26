@@ -1,6 +1,7 @@
 /**
  * Client-side Micro-Ranker Service (System 1 Decision Model).
- * Scores criterion coverage as max(deterministic fallback, cosine(EmbeddingGemma query, sentence)).
+ * Scores criterion coverage from cosine(EmbeddingGemma query, sentence) plus deterministic evidence,
+ * combined by the policy (combineEvidence): with an embedder the neural verdict leads.
  * The embedder is an injected port (see embeddings/rankerEmbedder.js) — no model is owned here,
  * so the ranker shares the Stage 2 EmbeddingGemma instance and precomputed sentence vectors.
  * Accepts pluggable IRankerPolicy (DIP). Fully static and browser-first.
@@ -11,10 +12,11 @@ import {
   isCompoundCriterion,
 } from './compoundCriterionDecomposer.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
+import { parseSentencePropositions } from '../linguistic/clauseStructureParser.js';
 import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
 import { cosineSimilarity } from './vectorMath.js';
 import {
-  computeDeterministicFallbackScore,
+  computeFallbackEvidence,
   formatCriterionQuery,
   partitionAspectKeywords,
 } from './rankerFallbackScorer.js';
@@ -31,17 +33,19 @@ async function isClaimedByRival(sentVec, ownSim, rivalQueries, embedder) {
 
 // Competitive gate: EmbeddingGemma ranks well but its absolute cosine is not calibrated across
 // criteria, so a sentence only counts for the criterion it is semantically closest to.
+// A sentence claimed by a rival criterion scores 0 here but is not a rejection of this aspect:
+// `hasVerdict` is true only when the embedder actually judged the pair on its own.
 async function computeNeuralScore(queryText, sentenceText, { embedder, rivalQueries = [], policy }) {
-  if (!embedder) return 0;
+  if (!embedder) return { neural: 0, hasVerdict: false };
   try {
     const queryVec = await embedder.embedQuery(`ranker:::${queryText}`, queryText);
     const sentVec = await embedder.embedText(sentenceText);
     const sim = Math.max(0, Math.min(1, cosineSimilarity(queryVec, sentVec)));
-    if (await isClaimedByRival(sentVec, sim, rivalQueries, embedder)) return 0;
-    return policy.calibrateNeuralScore(sim);
+    if (await isClaimedByRival(sentVec, sim, rivalQueries, embedder)) return { neural: 0, hasVerdict: false };
+    return { neural: policy.calibrateNeuralScore(sim), hasVerdict: true };
   } catch (err) {
     console.warn('[MicroRanker] Embedding fallback triggered:', err?.message || err);
-    return 0;
+    return { neural: 0, hasVerdict: false };
   }
 }
 
@@ -50,32 +54,54 @@ async function computeNeuralScore(queryText, sentenceText, { embedder, rivalQuer
  * @param {string} sentenceText
  * @param {{ embedder?: object|null, rivalQueries?: string[], policy?: object }} options
  */
-export async function scoreSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy = defaultA1RankerPolicy } = {}) {
+export async function scoreSentencePair(aspect, sentenceText, options = {}) {
+  return (await evaluateSentencePair(aspect, sentenceText, options)).score;
+}
+
+async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy = defaultA1RankerPolicy } = {}) {
   const label = String((typeof aspect === 'string' ? aspect : aspect?.label) || '').trim();
   const keywords = typeof aspect === 'string' ? [] : (aspect?.keywords || []);
   const sText = String(sentenceText || '').trim();
-  if (!sText || !label) return 0;
+  if (!sText || !label) return { score: 0, vetoed: false };
 
-  const fallbackScore = computeDeterministicFallbackScore(label, sText, keywords);
+  const { lexical, structured } = computeFallbackEvidence(label, sText, keywords);
   const queryText = formatCriterionQuery(label, keywords);
-  const neuralScore = await computeNeuralScore(queryText, sText, { embedder, rivalQueries, policy });
-  return Math.max(fallbackScore, neuralScore);
+  const { neural, hasVerdict } = await computeNeuralScore(queryText, sText, { embedder, rivalQueries, policy });
+  const evidence = { neural, lexical, structured, hasNeural: hasVerdict };
+  return { score: policy.combineEvidence(evidence), vetoed: policy.isLexicalVeto(evidence) };
+}
+
+// A sentence that joins two Leitpunkt aspects ("Wie viel kostet der Kurs und wie kann ich mich anmelden?")
+// dilutes a whole-sentence embedding, so each clause is also judged on its own.
+function expandClauseCandidates(sentence) {
+  const clauses = parseSentencePropositions(sentence).map((p) => p.rawText).filter(Boolean);
+  return clauses.length > 1 ? [sentence, ...clauses] : [sentence];
+}
+
+async function evaluateSentenceWithClauses(aspect, sentence, options) {
+  let best = { score: 0, vetoed: false };
+  for (const candidate of expandClauseCandidates(sentence)) {
+    const pair = await evaluateSentencePair(aspect, candidate, options);
+    if (pair.score > best.score) best = pair;
+  }
+  return best;
 }
 
 async function classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries }) {
-  let bestScore = 0;
+  let best = { score: 0, vetoed: false };
   let bestSentence = '';
 
   for (const s of sentences) {
-    const score = await scoreSentencePair(aspect, s, { embedder, rivalQueries, policy });
-    if (score > bestScore) {
-      bestScore = score;
+    const pair = await evaluateSentenceWithClauses(aspect, s, { embedder, rivalQueries, policy });
+    if (pair.score > best.score) {
+      best = pair;
       bestSentence = s;
     }
   }
 
+  const bestScore = best.score;
   const coverage = policy.classifyScore(bestScore);
-  return { coverage, score: bestScore, matchedSentence: bestSentence };
+  return { coverage, score: bestScore, matchedSentence: bestSentence, rankerVeto: best.vetoed };
 }
 
 function normalizeCandidateSentences(candidateSentences) {

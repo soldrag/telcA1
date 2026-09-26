@@ -20,6 +20,10 @@ function deriveInitialScores(item = {}) {
   return { anrede: Number(cb.anrede) || 0, lp1: getScore('lp1', 0), lp2: getScore('lp2', 1), lp3: getScore('lp3', 2), gruss: Number(cb.gruss) || 0 };
 }
 
+function countWords(text = '') {
+  return String(text || '').split(/\s+/).filter(Boolean).length;
+}
+
 export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
   const { t, language } = useI18n();
   const options = item.options_json || {};
@@ -93,8 +97,8 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
 
       <SchreibenGrammarNotice
         grammarErrors={liveGrammarErrors}
-        linguisticAccuracy={item.linguistic_accuracy}
-        language={language}
+        wordCount={item.linguistic_accuracy?.wordCount ?? countWords(item.user_answer)}
+        t={t}
       />
 
       {segments && (

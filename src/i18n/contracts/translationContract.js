@@ -254,6 +254,18 @@ export const TRANSLATION_CONTRACT = {
     taskLeitpunkte: 'string',
     taskStatement: 'string',
     taskTargetField: 'string',
+    linguisticAccuracy: {
+      title: 'string',
+      noErrors: 'string',
+      hint: 'string',
+      bands: {
+        excellent: 'string',
+        good: 'string',
+        satisfactory: 'string',
+        needs_practice: 'string',
+        unreadable: 'string',
+      },
+    },
     schreibenCriteria: {
       title: 'string',
       scoreOutOf: 'string',

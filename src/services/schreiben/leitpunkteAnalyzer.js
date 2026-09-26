@@ -11,7 +11,7 @@ import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
-import { TEMPORAL_RANGE_REGEX } from './grading/a1ConceptLexicon.js';
+import { hasTemporalExpression } from './grading/temporalRangeDetector.js';
 import { evaluateCompoundCriterionBaseline } from './grading/compoundBaselineEvaluator.js';
 
 function extractStems(str = '') {
@@ -34,7 +34,7 @@ function evaluateStemMatches(textStems = [], criterion = {}, rawText = '') {
   }
 
   const isTemporalCrit = (criterion.label || criterion.id || '').toLowerCase().match(/zeit|dauer|termin|datum/i);
-  if (isTemporalCrit && rawText && TEMPORAL_RANGE_REGEX.test(rawText)) {
+  if (isTemporalCrit && rawText && hasTemporalExpression(rawText)) {
     matchedCount += 1;
   }
 

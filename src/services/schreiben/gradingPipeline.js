@@ -57,6 +57,10 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
   };
 }
 
+function countBodyWords(bodySentences = []) {
+  return bodySentences.join(' ').split(/\s+/).filter(Boolean).length;
+}
+
 function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy }) {
   const items = attachPoints(stage2.items, score);
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
@@ -156,7 +160,7 @@ export async function gradeSchreibenSubmission({
   const diffSummary = buildDiffSummary(stage2.items);
   const linguisticAccuracy = calculateLinguisticAccuracy({
     grammarErrors: errors,
-    wordCount: stage0.wordCount,
+    wordCount: countBodyWords(stage0.bodySentences),
     isGibberish: quality.isGibberish,
   });
 

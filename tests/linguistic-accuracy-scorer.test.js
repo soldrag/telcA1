@@ -10,31 +10,36 @@ describe('Linguistic Accuracy Scorer', () => {
     assert.equal(res.band, 'excellent');
   });
 
-  it('deducts penalties for grammar defects (e.g. 3 errors -> ~7/10)', () => {
+  it('weights defects by category (syntax 1.5, case 1.0, spelling 0.5)', () => {
     const errors = [
-      { code: 'DATIVE_ERROR', severity: 'medium' },
-      { code: 'SATZKLAMMER_ERROR', severity: 'medium' },
-      { code: 'DATIVE_PLURAL_ERROR', severity: 'medium' },
+      { category: 'syntax', code: 'ERR_BROKEN_SATZKLAMMER_MODAL', original: 'möchten kommen von' },
+      { category: 'rektion', code: 'ERR_PREP_CASE_DAT', original: 'mit meine Familie' },
+      { category: 'orthography', original: 'Hallo Frau Hansen, Ich' },
     ];
-    const res = calculateLinguisticAccuracy({ grammarErrors: errors, wordCount: 50 });
+    const res = calculateLinguisticAccuracy({ grammarErrors: errors, wordCount: 30 });
     assert.equal(res.score, 7.0);
-    assert.equal(res.percentage, 70);
-    assert.equal(res.band, 'good');
     assert.equal(res.errorCount, 3);
   });
 
-  it('deducts smaller penalty for minor flaws', () => {
+  it('counts one defect flagged by two analyzers once', () => {
     const errors = [
-      { code: 'TYPO_MINOR', severity: 'minor' },
+      { category: 'syntax', code: 'ERR_BROKEN_SATZKLAMMER_MODAL', original: 'kommen von 15. Juli bis 25. Juli' },
+      { category: 'syntax', code: 'ERR_BROKEN_SATZKLAMMER_MODAL', original: 'möchten kommen von 15' },
     ];
     const res = calculateLinguisticAccuracy({ grammarErrors: errors, wordCount: 30 });
-    assert.equal(res.score, 9.5);
-    assert.equal(res.band, 'excellent');
+    assert.equal(res.errorCount, 1);
+    assert.equal(res.score, 8.5);
+  });
+
+  it('normalises by body length, without inflating short texts', () => {
+    const errors = [{ category: 'rektion', original: 'mit meine Familie' }, { category: 'rektion', original: 'ein kleiner Hund' }];
+    assert.equal(calculateLinguisticAccuracy({ grammarErrors: errors, wordCount: 60 }).score, 9.0);
+    assert.equal(calculateLinguisticAccuracy({ grammarErrors: errors, wordCount: 15 }).score, 8.0);
   });
 
   it('handles empty text or gibberish', () => {
     const res = calculateLinguisticAccuracy({ wordCount: 0 });
     assert.equal(res.score, 0);
-    assert.equal(res.band, 'needs_practice');
+    assert.equal(res.band, 'unreadable');
   });
 });

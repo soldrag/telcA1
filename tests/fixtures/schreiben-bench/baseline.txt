@@ -5,13 +5,13 @@ T1_04  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violatio
 T1_05  none=122       gray=122       primary=122    exp=222 | Severe A1 Typos
 T1_06  none=222       gray=222       primary=222    exp=222 | Informal Salutation
 T1_07  none=220i      gray=220i      primary=220i   exp=220 | Semantic Negation (No HW)
-T1_08  none=122       gray=122       primary=122    exp=022 | Missing Grund
+T1_08  none=122       gray=122       primary=022    exp=022 | Missing Grund
 T1_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
 T1_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 T2_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
 T2_02  none=222       gray=222       primary=212    exp=212 | Trap: Personen without Beruf
-T2_03  none=222       gray=222       primary=222    exp=212 | Trap: Beruf without Personen
-T2_04  none=221       gray=221       primary=221    exp=220 | Missing Besichtigung
+T2_03  none=222       gray=222       primary=212    exp=212 | Trap: Beruf without Personen
+T2_04  none=221       gray=221       primary=220    exp=220 | Missing Besichtigung
 T2_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
 T2_06  none=020       gray=020       primary=020    exp=222 | Severe A1 Typos
 T2_07  none=222       gray=222       primary=222    exp=212 | Informal Salutation
@@ -21,17 +21,17 @@ T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-top
 T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
 T3_02  none=222       gray=222       primary=122    exp=122 | Trap: Dank without explicit Zusage
 T3_03  none=212       gray=212       primary=212    exp=202 | Missing Begleitperson
-T3_04  none=221       gray=221       primary=221    exp=220 | Missing Mitbringen/Hilfe
+T3_04  none=221       gray=221       primary=220    exp=220 | Missing Mitbringen/Hilfe
 T3_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
-T3_06  none=221       gray=221       primary=121    exp=222 | Severe A1 Typos
+T3_06  none=221       gray=221       primary=221    exp=222 | Severe A1 Typos
 T3_07  none=222       gray=222       primary=222    exp=222 | Hyper-formal in Casual Context
-T3_08  none=20i1      gray=20i1      primary=20i1   exp=100 | Absage (Semantic Negation)
+T3_08  none=20i1      gray=20i1      primary=20i0   exp=100 | Absage (Semantic Negation)
 T3_09  none=221       gray=221       primary=221    exp=--- | Telegraphic Minimal
 T3_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 G1     none=222       gray=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)
 G2     none=222       gray=222       primary=222    exp=222 | 2. Modellsatz 1 Typical A1 Submission with typical errors (S
 G3     none=222       gray=222       primary=222    exp=222 | 3. Modellsatz 1 Missing Anrede (Score 0 for Anrede)
-G4     none=221       gray=221       primary=221    exp=??0 | 4. Modellsatz 1 Missing LP3 (Score 0 for LP3)
+G4     none=221       gray=221       primary=220    exp=??0 | 4. Modellsatz 1 Missing LP3 (Score 0 for LP3)
 G6     none=222       gray=222       primary=222    exp=222 | 6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)
 G7     none=222       gray=222       primary=222    exp=222 | 7. Modellsatz 2 Moderate errors with single name (Score 7-9/
 G8     none=222       gray=222       primary=222    exp=222 | 8. Modellsatz 2 Informal greeting in formal context (Score 1
@@ -39,7 +39,7 @@ G11    none=222       gray=222       primary=222    exp=222 | 11. Complex syntax
 C2     none=222       gray=222       primary=222    exp=222 | Test 2: User Text #1 (Language school, formal greeting, 6 ty
 C3     none=222       gray=222       primary=222    exp=222 | Test 3: Modellsatz 2 Doctor cancellation (Strong submission 
 C4     none=222       gray=222       primary=222    exp=222 | Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, s
-C5     none=221       gray=221       primary=221    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
+C5     none=221       gray=221       primary=220    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
 C6     none=222       gray=222       primary=222    exp=222 | Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting
 C8     none=220       gray=220       primary=220    exp=??0 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
 C9     none=122       gray=122       primary=122    exp=1?? | Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun
@@ -59,3 +59,7 @@ s4-q6:13 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=8
 s4-q6:14 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=8.5 | Mirror of case 02: pets present, price missing.
 s4-q6:15 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Well over 30 words, extra off-point sentences. Length alone must not add or remove points.
 s4-q6:16 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=7-8.5 | Point 3 present but barely understandable.
+s4-q6:17 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.
+s4-q6:18 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
+s4-q6:19 none=222       gray=222       primary=212    exp=212 tot=10/10/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.
+s4-q6:20 none=222       gray=222       primary=222    exp=212 tot=10/10/10 exp=8.5 | 'Wir kommen' names no number of persons: Personen missing, Zeitraum present.

@@ -1,52 +1,61 @@
 /**
- * Linguistic Accuracy Scorer (Sprachliche Genauigkeit / A1 -> A2 Transition).
- * Calculates pedagogical language correctness (0–10) based on grammar and syntax defects.
- * Strictly adheres to McConnell limits (<= 65 lines, <= 25 lines per function).
- * Zero interference with official telc A1 regulation points.
+ * Linguistic Accuracy Scorer (Sprachliche Genauigkeit, pedagogical scale 0–10).
+ * Independent of the official exam score: it measures defect density so a learner sees how far the text is
+ * from error-free German. Distinct defects are weighted by how much they disturb understanding and
+ * normalised to a reference length, so a longer letter is not punished for having more words.
  */
 
-const DEFAULT_PENALTY_PER_ERROR = 1.0;
-const MINOR_PENALTY = 0.5;
+import { dedupeGrammarErrors } from './grammarErrorDeduper.js';
 
-function resolveErrorPenalty(error = {}) {
-  const code = String(error.code || error.ruleId || '').toLowerCase();
-  const severity = String(error.severity || '').toLowerCase();
-  if (severity === 'minor' || severity === 'low' || code.includes('minor') || code.includes('typo')) {
-    return MINOR_PENALTY;
-  }
-  return DEFAULT_PENALTY_PER_ERROR;
+const MAX_SCORE = 10;
+// Word order breaks the sentence frame and hinders reading most; spelling slips least.
+const DEFAULT_WEIGHTS = Object.freeze({
+  syntax: 1.5,
+  rektion: 1.0,
+  agreement: 1.0,
+  grammar: 1.0,
+  lexik: 1.0,
+  orthography: 0.5,
+});
+const DEFAULT_WEIGHT = 1.0;
+// Penalties are counted per this many words; shorter texts are not scaled up.
+const REFERENCE_WORD_COUNT = 30;
+
+// Band keys only: labels are presentation and live in the i18n dictionaries (results.linguisticAccuracy.bands).
+const BANDS = [
+  { min: 9.0, band: 'excellent' },
+  { min: 7.0, band: 'good' },
+  { min: 5.0, band: 'satisfactory' },
+  { min: -Infinity, band: 'needs_practice' },
+];
+
+function resolveErrorWeight(error = {}, weights = DEFAULT_WEIGHTS) {
+  const category = String(error.category || '').toLowerCase();
+  return weights[category] ?? DEFAULT_WEIGHT;
 }
 
 function resolveAccuracyBand(score = 0) {
-  if (score >= 9.0) return { band: 'excellent', ru: 'Отличная точность (готов к A2)', de: 'Sehr gut (bereit für A2)' };
-  if (score >= 7.0) return { band: 'good', ru: 'Хорошая точность, мелкие недочеты', de: 'Gut mit leichten Mängeln' };
-  if (score >= 5.0) return { band: 'satisfactory', ru: 'Удовлетворительно, частые дефекты', de: 'Befriedigend' };
-  return { band: 'needs_practice', ru: 'Требуется тренировка грамматики', de: 'Übungsbedarf' };
+  return BANDS.find((b) => score >= b.min).band;
+}
+
+function buildResult({ score, errorCount, wordCount, band = resolveAccuracyBand(score) }) {
+  return { score, maxScore: MAX_SCORE, errorCount, wordCount, percentage: Math.round((score / MAX_SCORE) * 100), band };
 }
 
 /**
- * @param {{ grammarErrors?: Array, wordCount?: number, isGibberish?: boolean }} params
- * @returns {{ score: number, maxScore: number, errorCount: number, percentage: number, band: string, bandRu: string, bandDe: string }}
+ * @param {{ grammarErrors?: Array, wordCount?: number, isGibberish?: boolean, weights?: Record<string, number> }} params
+ *   wordCount: words of the letter body (salutation and closing excluded)
+ * @returns {{ score: number, maxScore: number, errorCount: number, wordCount: number, percentage: number,
+ *   band: 'excellent'|'good'|'satisfactory'|'needs_practice'|'unreadable' }}
  */
-export function calculateLinguisticAccuracy({ grammarErrors = [], wordCount = 0, isGibberish = false } = {}) {
+export function calculateLinguisticAccuracy({ grammarErrors = [], wordCount = 0, isGibberish = false, weights = DEFAULT_WEIGHTS } = {}) {
   if (isGibberish || wordCount === 0) {
-    return { score: 0, maxScore: 10, errorCount: 0, percentage: 0, band: 'needs_practice', bandRu: 'Текст не распознан', bandDe: 'Nicht bewertbar' };
+    return buildResult({ score: 0, errorCount: 0, wordCount, band: 'unreadable' });
   }
 
-  const errors = Array.isArray(grammarErrors) ? grammarErrors : [];
-  const totalPenalty = errors.reduce((sum, err) => sum + resolveErrorPenalty(err), 0);
-  const rawScore = Math.max(0, 10 - totalPenalty);
-  const score = Number(rawScore.toFixed(1));
-  const percentage = Math.round((score / 10) * 100);
-  const { band, ru: bandRu, de: bandDe } = resolveAccuracyBand(score);
-
-  return {
-    score,
-    maxScore: 10,
-    errorCount: errors.length,
-    percentage,
-    band,
-    bandRu,
-    bandDe,
-  };
+  const errors = dedupeGrammarErrors(Array.isArray(grammarErrors) ? grammarErrors : []);
+  const rawPenalty = errors.reduce((sum, err) => sum + resolveErrorWeight(err, weights), 0);
+  const penalty = rawPenalty * (REFERENCE_WORD_COUNT / Math.max(wordCount, REFERENCE_WORD_COUNT));
+  const score = Number(Math.max(0, MAX_SCORE - penalty).toFixed(1));
+  return buildResult({ score, errorCount: errors.length, wordCount });
 }

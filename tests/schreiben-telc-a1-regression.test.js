@@ -18,6 +18,8 @@ const LIMITED_MODE_GAPS = {
   '11_keyword_stuffing': 'bare rubric nouns count as coverage; limited mode has no communicative-action check',
   '12_off_topic': 'LP2: the temporal heuristic credits "am Samstag" as Zeitraum evidence (todo P1 "Эвристика времени")',
   '14_price_missing': 'LP3: pet synonyms (Katze, Tier) are missing from the s4-q6 rubric keywords',
+  '19_route_not_period': 'LP2: keyword count cannot check compound aspects; only the Micro-Ranker caps a vetoed Zeitraum',
+  '20_persons_without_count': 'LP2: keyword count cannot check compound aspects; Personen without a number needs the ranker',
 };
 
 const CONTENT_KEYS = ['lp1', 'lp2', 'lp3', 'total'];

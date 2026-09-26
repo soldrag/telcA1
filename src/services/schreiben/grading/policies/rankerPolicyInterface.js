@@ -59,6 +59,35 @@ export class IRankerPolicy {
   }
 
   /**
+   * Merges neural and deterministic evidence into one policy-scale score.
+   * Default keeps the strongest signal; level policies may bound lexical hints when a neural verdict exists.
+   * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean }} evidence
+   * @returns {number}
+   */
+  combineEvidence({ neural = 0, lexical = 0, structured = 0 } = {}) {
+    return Math.max(neural, lexical, structured);
+  }
+
+  /**
+   * True when the neural verdict rejected a sentence that only keyword overlap supported.
+   * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean }} evidence
+   * @returns {boolean}
+   */
+  isLexicalVeto() {
+    return false;
+  }
+
+  /**
+   * Whether the neural verdict on these sentences is trustworthy enough to lower a keyword baseline.
+   * Levels define what "readable" means (e.g. share of words outside the level lexicon).
+   * @param {string[]} sentences
+   * @returns {boolean}
+   */
+  isVerdictReliable() {
+    return true;
+  }
+
+  /**
    * Level-specific selection rules for the examiner feedback (verdict thresholds, highlight counts).
    * @returns {{ grammarHighlights: number, maxSummarySentences: number, verdict: { excellent: number, good: number } }}
    */

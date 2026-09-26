@@ -4,7 +4,10 @@
  * - micro_ranker is a primary evaluator (all criteria, ~15 ms per sentence);
  * - generative LLM providers stay restricted to gray zones (seconds per call);
  * - a compound criterion with a missing aspect is capped at the partial level (A ∧ B: all aspects needed for full);
- * - a baseline level ≥ 1 is never lowered by the provider (isProtected records when that floor applied).
+ * - gray-zone providers never lower a baseline level ≥ 1 (isProtected records when that floor applied);
+ * - the primary ranker is the arbiter: its 'no' verdict overrides the keyword baseline, and a compound
+ *   point is capped at partial when the ranker vetoed an aspect that only keywords supported
+ *   (both only when the level policy trusts the verdict on these sentences, see IRankerPolicy.isVerdictReliable).
  */
 
 import { isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
@@ -21,14 +24,24 @@ export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty 
   return isPrimaryRankerProvider(provider) || isScoreInGrayZone(effectiveSim);
 }
 
-function hasMissingCompoundAspect(verdict) {
-  return Boolean(verdict?.isCompound && verdict?.missingAspects?.length > 0);
+function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
+  if (!verdict?.isCompound) return false;
+  if (verdict.missingAspects?.length > 0) return true;
+  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto);
 }
 
-export function mergeArbitrationVerdict(baselineScore, verdict) {
+/**
+ * @param {number} baselineScore
+ * @param {object} verdict - provider coverage verdict
+ * @param {{ rankerIsArbiter?: boolean }} [options]
+ */
+export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter = false } = {}) {
   const rawScore = coverageToPoints(verdict?.coverage, baselineScore);
+  if (rankerIsArbiter && verdict?.coverage === 'no') {
+    return { score: rawScore, rankerScore: rawScore, isProtected: false, arbitrated: rawScore !== baselineScore };
+  }
   const { score: guardedScore, isProtected } = applyConfidenceFloor(baselineScore, rawScore);
-  const score = hasMissingCompoundAspect(verdict)
+  const score = hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter)
     ? Math.min(guardedScore, COMPOUND_MISSING_ASPECT_CAP)
     : guardedScore;
   return { score, rankerScore: rawScore, isProtected, arbitrated: score !== baselineScore || isProtected };
@@ -43,10 +56,11 @@ export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, 
     return { score: baselineScore, arbitrated: false, rankerDetails: null };
   }
   try {
+    const rankerIsArbiter = isPrimaryRankerProvider(provider) && provider.canOverruleBaseline(sentences);
     const verdict = isPrimaryRankerProvider(provider)
       ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria })
       : await provider.classifyCoverage(criterion, sentences.join(' '));
-    return { ...mergeArbitrationVerdict(baselineScore, verdict), rankerDetails: verdict || null };
+    return { ...mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter }), rankerDetails: verdict || null };
   } catch (err) {
     console.warn('[LeitpunktArbitration] LP arbitration skipped on error:', err?.message || err);
     return { score: baselineScore, arbitrated: false, rankerDetails: null };

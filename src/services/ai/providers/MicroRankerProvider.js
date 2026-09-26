@@ -52,6 +52,15 @@ export class MicroRankerProvider extends AIProvider {
   }
 
   /**
+   * Whether this ranker's verdict on the sentences may overrule the keyword baseline (level policy decides).
+   * @param {string[]} sentences
+   * @returns {boolean}
+   */
+  canOverruleBaseline(sentences = []) {
+    return this.policy.isVerdictReliable(sentences);
+  }
+
+  /**
    * Micro-task 2: Grammar candidates.
    * Pure System 1: leaves grammar analysis to deterministic linguistic engine.
    * @returns {Promise<Array>}

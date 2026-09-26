@@ -103,7 +103,9 @@ ich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub.`;
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.gruss, 0);
     assert.equal(res.breakdown.items[2].score, 0);
-    assert.equal(res.points_earned <= 5, true);
+    // reglament/telc-a1.md Teil 2: ~30 words is a guide, not a criterion — "im August" + "vier Wochen"
+    // fulfil Zeit/Dauer, so only the missing Punkt 3 and Gruß cost points: 3 + 3 + 0 + 0.5.
+    assert.equal(res.points_earned, 6.5);
   });
 
   it('Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting, wrong prepositions, adjective ending)', () => {

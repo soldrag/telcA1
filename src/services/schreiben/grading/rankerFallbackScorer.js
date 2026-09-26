@@ -2,11 +2,11 @@
  * Deterministic Ranker Fallback Scorer & Query Builder.
  * Offline System 1 scoring (concept lexicon + rubric keyword stems), criterion query
  * formatting for EmbeddingGemma, and keyword-to-aspect partitioning for compound criteria.
- * Strictly complies with McConnell limits (<= 110 lines, <= 25 lines per function).
+ * Strictly complies with McConnell limits (<= 150 lines, <= 25 lines per function).
  */
 
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
-import { scoreAspectConceptOverlap, getDomainStemsForToken } from './a1ConceptLexicon.js';
+import { scoreAspectConceptOverlap, scoreStructuredAspectEvidence, getDomainStemsForToken } from './a1ConceptLexicon.js';
 import { cosineSimilarity } from './vectorMath.js';
 
 const STOP_WORDS = new Set([
@@ -42,15 +42,28 @@ function scoreLabelTokenOverlap(criterionText = '', sentStems = []) {
   return Math.min(1, Math.max(0, (matches.length / critTokens.length) * 1.5));
 }
 
-export function computeDeterministicFallbackScore(criterionText = '', sentenceText = '', keywords = []) {
+/**
+ * Deterministic evidence split by trust level: `lexical` (keyword/concept/label overlap) only hints
+ * at a topic, `structured` (a recognised calendar expression or person count) proves the aspect is stated.
+ * @returns {{ lexical: number, structured: number }}
+ */
+export function computeFallbackEvidence(criterionText = '', sentenceText = '', keywords = []) {
   const normSent = String(sentenceText).toLowerCase();
-  if (!normSent.trim()) return 0;
+  if (!normSent.trim()) return { lexical: 0, structured: 0 };
 
   const sentStems = toStems(normSent);
   const keywordScore = scoreKeywordCoverage(keywords, sentStems);
   const conceptScore = scoreAspectConceptOverlap(String(criterionText).toLowerCase(), sentStems, normSent);
   const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(criterionText, sentStems);
-  return Math.max(keywordScore, labelScore);
+  return {
+    lexical: Math.max(keywordScore, labelScore),
+    structured: scoreStructuredAspectEvidence(criterionText, normSent),
+  };
+}
+
+export function computeDeterministicFallbackScore(criterionText = '', sentenceText = '', keywords = []) {
+  const { lexical, structured } = computeFallbackEvidence(criterionText, sentenceText, keywords);
+  return Math.max(lexical, structured);
 }
 
 export function formatCriterionQuery(label = '', keywords = []) {

@@ -253,6 +253,18 @@ export const en = {
     taskLeitpunkte: 'Guide Points',
     taskStatement: 'Statement / Question',
     taskTargetField: 'Form Field',
+    linguisticAccuracy: {
+      title: 'Linguistic accuracy (A1 → A2)',
+      noErrors: 'No major A1 grammar errors found.',
+      hint: 'The official telc A1 score does not drop for these errors as long as they do not block understanding. At A2/B1 such errors cost points — keep practising accuracy.',
+      bands: {
+        excellent: 'Excellent accuracy (ready for A2)',
+        good: 'Good accuracy, minor slips',
+        satisfactory: 'Satisfactory, frequent errors',
+        needs_practice: 'Grammar needs practice',
+        unreadable: 'Text not recognised',
+      },
+    },
     schreibenCriteria: {
       title: 'telc Grading Criteria (Self-Check):',
       scoreOutOf: '{score} / {max} Points',
