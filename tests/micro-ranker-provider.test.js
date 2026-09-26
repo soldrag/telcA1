@@ -43,10 +43,10 @@ describe('MicroRankerProvider & MicroRankerService Tests', () => {
   });
 
   it('computeDeterministicFallbackScore computes token overlap correctly', () => {
-    const scoreHigh = computeDeterministicFallbackScore('Grund des Schreibens', 'Der Grund für mein Schreiben ist ein Termin');
+    const scoreHigh = computeDeterministicFallbackScore('Grund des Schreibens', 'Der Grund für mein Schreiben ist ein Termin', { policy: A1.policy });
     assert.ok(scoreHigh > 0.5, `Expected score > 0.5, got ${scoreHigh}`);
 
-    const scoreZero = computeDeterministicFallbackScore('Grund des Schreibens', '');
+    const scoreZero = computeDeterministicFallbackScore('Grund des Schreibens', '', { policy: A1.policy });
     assert.equal(scoreZero, 0);
   });
 

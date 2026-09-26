@@ -10,6 +10,7 @@ import { IRankerPolicy } from './rankerPolicyInterface.js';
 import { isKnownWord } from '../../linguistic/a1LexiconService.js';
 import { A1_GRAMMAR_PROFILE } from '../../profiles/a1GrammarProfile.js';
 import { EVIDENCE_KINDS } from '../../linguistic/criterionIntents.js';
+import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -38,6 +39,10 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get level() {
     return this._level;
+  }
+
+  get conceptDomains() {
+    return A1_CONCEPT_DOMAINS;
   }
 
   capUnprovenLexical(evidenceKind, lexical) {

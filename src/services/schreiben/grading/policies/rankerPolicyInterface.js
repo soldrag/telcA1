@@ -45,6 +45,15 @@ export class IRankerPolicy {
     throw new Error('IRankerPolicy.lexicon getter must be implemented');
   }
 
+  /**
+   * Concept domains of the level vocabulary (domain -> stems) for recognising aspect labels.
+   * None by default: aspects are then matched by keywords and label overlap only.
+   * @returns {Record<string, string[]>}
+   */
+  get conceptDomains() {
+    return {};
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }

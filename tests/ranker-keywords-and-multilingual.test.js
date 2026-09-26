@@ -74,11 +74,12 @@ describe('Micro-Ranker: rubric keywords & EmbeddingGemma port', () => {
   it('partitions keywords per aspect: explicit rubric aspects win over inference', async () => {
     const explicit = await partitionAspectKeywords(
       { keywords: ['x'], aspects: [{ label: 'Dauer', keywords: ['tage'] }, { label: 'Kosten', keywords: ['euro'] }] },
-      ['Dauer', 'Kosten']
+      ['Dauer', 'Kosten'],
+      { policy: A1.policy }
     );
     assert.deepEqual(explicit, { Dauer: ['tage'], Kosten: ['euro'] });
 
-    const inferred = await partitionAspectKeywords({ keywords: ['kostet', 'kinder'] }, ['Personen', 'Kosten']);
+    const inferred = await partitionAspectKeywords({ keywords: ['kostet', 'kinder'] }, ['Personen', 'Kosten'], { policy: A1.policy });
     assert.deepEqual(inferred.Kosten, ['kostet']);
     assert.deepEqual(inferred.Personen, ['kinder']);
   });
@@ -184,8 +185,8 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
 describe('Deterministic fallback ignores function words', () => {
   it('does not credit "Sie"/"für" as concept or label overlap', async () => {
     const { computeDeterministicFallbackScore } = await import('../src/services/schreiben/grading/rankerFallbackScorer.js');
-    assert.ok(computeDeterministicFallbackScore({ label: 'Wie lange Sie fehlen', evidence: 'temporal' }, 'Bitte schicken Sie mir die Hausaufgaben.') < 0.4);
-    assert.ok(computeDeterministicFallbackScore({ label: 'Termin für die Besichtigung', evidence: 'temporal' }, 'Ich möchte mein Auto verkaufen für 5000 Euro.') < 0.4);
-    assert.ok(computeDeterministicFallbackScore({ label: 'Termin für die Besichtigung', evidence: 'temporal' }, 'Kann ich die Wohnung am Samstag besichtigen? Wann haben Sie einen Termin?') >= 0.65);
+    assert.ok(computeDeterministicFallbackScore({ label: 'Wie lange Sie fehlen', evidence: 'temporal' }, 'Bitte schicken Sie mir die Hausaufgaben.', { policy: A1.policy }) < 0.4);
+    assert.ok(computeDeterministicFallbackScore({ label: 'Termin für die Besichtigung', evidence: 'temporal' }, 'Ich möchte mein Auto verkaufen für 5000 Euro.', { policy: A1.policy }) < 0.4);
+    assert.ok(computeDeterministicFallbackScore({ label: 'Termin für die Besichtigung', evidence: 'temporal' }, 'Kann ich die Wohnung am Samstag besichtigen? Wann haben Sie einen Termin?', { policy: A1.policy }) >= 0.65);
   });
 });

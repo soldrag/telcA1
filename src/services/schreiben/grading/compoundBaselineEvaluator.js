@@ -24,7 +24,7 @@ export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '',
   if (!isCompoundCriterion(label)) return null;
 
   const aspectLabels = splitCompoundCriterion(label);
-  const keywordsByAspect = partitionAspectKeywordsSync(criterion, aspectLabels);
+  const keywordsByAspect = partitionAspectKeywordsSync(criterion, aspectLabels, { policy });
 
   const aspectResults = aspectLabels.map((aspect) => {
     const keywords = keywordsByAspect[aspect]?.length > 0

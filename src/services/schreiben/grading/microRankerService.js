@@ -131,7 +131,7 @@ export async function classifyCriterionCoverage(criterion, candidateSentences, o
   const rivalQueries = (options.rivalCriteria || []).map((c) => formatCriterionQuery(c.label || c.id, c.keywords));
 
   const aspectLabels = isCompoundCriterion(critLabel) ? splitCompoundCriterion(critLabel) : [critLabel];
-  const keywordsByAspect = await partitionAspectKeywords(critObj, aspectLabels, embedder);
+  const keywordsByAspect = await partitionAspectKeywords(critObj, aspectLabels, { embedder, policy });
 
   if (aspectLabels.length === 1) {
     const aspect = { label: critLabel, keywords: keywordsByAspect[critLabel], evidence: resolveAspectEvidence(critObj, critLabel) };

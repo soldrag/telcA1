@@ -1,8 +1,7 @@
 /**
- * A1 Semantic Concept Lexicon.
- * Provides canonical A1 grammar and closed-class concept domain stems.
- * Strictly complies with McConnell limits (<= 100 lines, <= 20 lines per function).
- * Zero ad-hoc entity overfitting (no specific city or test names).
+ * Concept domain scorer: recognises a rubric aspect in a sentence through the level's concept domains
+ * (stem clusters injected as `domains`, see IRankerPolicy.conceptDomains) and proves declared evidence
+ * kinds with the structured detectors (time expressions, person counts).
  */
 
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
@@ -15,16 +14,6 @@ const PERSON_COUNT_EVIDENCE_SCORE = 0.9;
 // Words that name the time dimension itself: they say a time is asked for, not which one, so on a
 // temporal aspect they must be proven by a time expression, not by time vocabulary.
 const TIME_DIMENSION_WORDS = new Set(['zeit', 'zeitraum', 'dauer', 'dauert']);
-
-const A1_CONCEPT_STEM_DOMAINS = {
-  person: ['person', 'leut', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
-  zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende'],
-  preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
-  tier: ['tier', 'hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
-  anmeld: ['anmeld', 'anmeldung', 'anmelden', 'meld', 'registrier', 'einschreib'],
-  grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'buch'],
-  ort: ['ort', 'wo', 'adress', 'stadt', 'strass', 'wohn', 'hotel', 'bahn', 'flughaf', 'zimm', 'haus'],
-};
 
 const MIN_COMPOUND_HEAD_LENGTH = 4;
 // Numerals and function words are never the head of a compound ("Klavier", "reservieren").
@@ -39,17 +28,18 @@ function isDomainHead(word, domainStem) {
   return domainStem.length >= MIN_COMPOUND_HEAD_LENGTH && word.endsWith(domainStem);
 }
 
-export function resolveConceptDomain(token = '') {
+/** @param {Record<string, string[]>} domains - the level's concept domains */
+export function resolveConceptDomain(token = '', domains = {}) {
   const clean = String(token || '').toLowerCase();
   const forms = [clean, stemGermanWord(clean)];
-  for (const stems of Object.values(A1_CONCEPT_STEM_DOMAINS)) {
+  for (const stems of Object.values(domains)) {
     if (stems.some((s) => forms.some((form) => isDomainHead(form, s)))) return stems;
   }
   return null;
 }
 
-export function getDomainStemsForToken(token = '') {
-  return resolveConceptDomain(token) || [stemGermanWord(String(token || '').toLowerCase())];
+export function getDomainStemsForToken(token = '', domains = {}) {
+  return resolveConceptDomain(token, domains) || [stemGermanWord(String(token || '').toLowerCase())];
 }
 
 /**
@@ -64,8 +54,11 @@ export function scoreStructuredAspectEvidence(evidence, rawSentence = '') {
   return 0;
 }
 
-/** @param {{ label: string, evidence?: string|null }} aspect */
-export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = null } = {}, sentenceStems = [], rawSentence = '') {
+/**
+ * @param {{ label: string, evidence?: string|null }} aspect
+ * @param {{ sentenceStems: string[], rawSentence: string, domains: Record<string, string[]> }} sentence
+ */
+export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = null } = {}, { sentenceStems = [], rawSentence = '', domains = {} } = {}) {
   if (!aspectLabel || (sentenceStems.length === 0 && !rawSentence)) return 0;
 
   const aspectTokens = aspectLabel
@@ -83,7 +76,7 @@ export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = 
 
     // Plain lexical overlap (incl. function words like "Sie"/"für") is scored elsewhere;
     // only genuine concept-domain hits earn the concept bonus.
-    const domainStems = resolveConceptDomain(token);
+    const domainStems = resolveConceptDomain(token, domains);
     if (!domainStems) continue;
     const matches = domainStems.filter((s) => sentenceStems.includes(s));
     if (matches.length > 0) {

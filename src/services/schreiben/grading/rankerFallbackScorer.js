@@ -6,7 +6,8 @@
  */
 
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
-import { scoreAspectConceptOverlap, scoreStructuredAspectEvidence, getDomainStemsForToken } from './a1ConceptLexicon.js';
+import { scoreAspectConceptOverlap, scoreStructuredAspectEvidence, getDomainStemsForToken } from './conceptDomainScorer.js';
+import { requireLevelPort } from './levelPorts.js';
 import { cosineSimilarity } from './vectorMath.js';
 
 const STOP_WORDS = new Set([
@@ -52,21 +53,23 @@ function normalizeAspect(aspect) {
  * at a topic, `structured` (a recognised calendar expression or person count) proves the aspect is stated.
  * @param {string|{ label: string, keywords?: string[], evidence?: 'temporal'|'personCount'|null }} aspect
  * @param {string} sentenceText
- * @param {{ policy?: object }} [context] - the level policy bounds lexical hints on an unproven evidence kind
+ * @param {{ policy: object }} context - the level policy: its concept domains, and the bound for lexical
+ *   hints on an unproven evidence kind
  * @returns {{ lexical: number, structured: number }}
  */
-export function computeFallbackEvidence(aspect, sentenceText = '', { policy = null } = {}) {
+export function computeFallbackEvidence(aspect, sentenceText = '', { policy } = {}) {
+  requireLevelPort(policy, 'computeFallbackEvidence: policy');
   const { label, keywords, evidence } = normalizeAspect(aspect);
   const normSent = String(sentenceText).toLowerCase();
   if (!normSent.trim()) return { lexical: 0, structured: 0 };
 
   const sentStems = toStems(normSent);
   const keywordScore = scoreKeywordCoverage(keywords, sentStems);
-  const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, sentStems, normSent);
+  const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, { sentenceStems: sentStems, rawSentence: normSent, domains: policy.conceptDomains });
   const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(label, sentStems);
   const lexical = Math.max(keywordScore, labelScore);
   const structured = scoreStructuredAspectEvidence(evidence, normSent);
-  const boundedLexical = policy && structured === 0 ? policy.capUnprovenLexical(evidence, lexical) : lexical;
+  const boundedLexical = structured === 0 ? policy.capUnprovenLexical(evidence, lexical) : lexical;
   return { lexical: boundedLexical, structured };
 }
 
@@ -87,10 +90,10 @@ function findExplicitAspectKeywords(criterion, aspectLabel) {
   return Array.isArray(match?.keywords) ? match.keywords : null;
 }
 
-function assignKeywordByLexicon(keyword, aspectLabels) {
+function assignKeywordByLexicon(keyword, aspectLabels, domains) {
   const kwStem = stemGermanWord(String(keyword).toLowerCase());
   return aspectLabels.find((label) =>
-    toStems(label).some((token) => getDomainStemsForToken(token).includes(kwStem))
+    toStems(label).some((token) => getDomainStemsForToken(token, domains).includes(kwStem))
   ) || null;
 }
 
@@ -109,7 +112,9 @@ async function assignKeywordByEmbedding(keyword, aspectLabels, embedder) {
   return best;
 }
 
-export function partitionAspectKeywordsSync(criterion, aspectLabels = []) {
+/** @param {{ policy: object }} context - the level policy (concept domains) */
+export function partitionAspectKeywordsSync(criterion, aspectLabels = [], { policy } = {}) {
+  const domains = requireLevelPort(policy, 'partitionAspectKeywordsSync: policy').conceptDomains;
   const keywords = Array.isArray(criterion?.keywords) ? criterion.keywords : [];
   const result = Object.fromEntries(aspectLabels.map((label) => [label, []]));
   if (aspectLabels.length === 1) {
@@ -124,7 +129,7 @@ export function partitionAspectKeywordsSync(criterion, aspectLabels = []) {
   }
 
   for (const keyword of keywords) {
-    const target = assignKeywordByLexicon(keyword, aspectLabels);
+    const target = assignKeywordByLexicon(keyword, aspectLabels, domains);
     if (target) result[target].push(keyword);
   }
   return result;
@@ -133,10 +138,13 @@ export function partitionAspectKeywordsSync(criterion, aspectLabels = []) {
 /**
  * Distributes rubric keywords across compound sub-aspects.
  * Priority: explicit rubric `aspects[]` -> concept lexicon domain -> embedding proximity.
+ * @param {object} criterion
+ * @param {string[]} aspectLabels
+ * @param {{ embedder?: object|null, policy: object }} context - optional embedder and the level policy
  * @returns {Promise<Record<string, string[]>>}
  */
-export async function partitionAspectKeywords(criterion, aspectLabels = [], embedder = null) {
-  const syncResult = partitionAspectKeywordsSync(criterion, aspectLabels);
+export async function partitionAspectKeywords(criterion, aspectLabels = [], { embedder = null, policy } = {}) {
+  const syncResult = partitionAspectKeywordsSync(criterion, aspectLabels, { policy });
   if (!embedder || aspectLabels.length <= 1) return syncResult;
 
   const keywords = Array.isArray(criterion?.keywords) ? criterion.keywords : [];
