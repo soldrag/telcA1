@@ -20,8 +20,11 @@ export default function WelcomeScreen({
   const currentModule = testTypes.find((item) => item.id === activeTestType) || getTestTypeById(activeTestType);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 animate-fadeIn py-3">
-      <TestTypeSelector testTypes={testTypes} activeTypeId={activeTestType} onSelectType={actions.onSelectTestType} />
+    <div className="space-y-6 animate-fadeIn">
+      {/* From 1024 px the module switch sits in the header as tabs. */}
+      <div className="lg:hidden">
+        <TestTypeSelector testTypes={testTypes} activeTypeId={activeTestType} onSelectType={actions.onSelectTestType} />
+      </div>
       {activeRole === 'student' ? (
         <StudentWelcomeView
           examState={examState}

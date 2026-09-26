@@ -30,7 +30,7 @@ export default function StudentWelcomeView({
   const startVariant = (examId) => onStartExam?.({ timed: true, specificExamId: examId });
 
   return (
-    <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-10 lg:items-start">
+    <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-10 lg:items-start">
       <div className={COLUMN}>
         <div className="order-2 lg:order-none">
           <RandomExamCard onStartRandomExam={onStartRandomExam} moduleInfo={currentModule} />

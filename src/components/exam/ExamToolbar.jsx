@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { EXAM_HEADER_SLOT_ID } from './examHeaderSlot.js';
+import AnswerSheetGrid from './AnswerSheetGrid.jsx';
+import FontSizeControl from '../teil1/FontSizeControl.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 function useHeaderSlot() {
@@ -11,7 +13,7 @@ function useHeaderSlot() {
 
 function TeilTabs({ groups, activeTeil, answers, onSelectTeil }) {
   return (
-    <nav aria-label="Teile" className="hidden lg:flex items-center gap-1 min-w-0">
+    <nav aria-label="Teile" className="flex items-center gap-1 min-w-0">
       {groups.map((group) => {
         const answered = group.questions.filter((q) => answers[q.id]).length;
         const isActive = group.teil === activeTeil;
@@ -26,7 +28,7 @@ function TeilTabs({ groups, activeTeil, answers, onSelectTeil }) {
               isActive ? 'bg-surface-inset text-content-primary font-semibold' : 'text-content-secondary hover:bg-surface-raised'
             }`}
           >
-            Teil {group.teil}<span className="hidden 2xl:inline"> · {group.sublabel}</span> <span className="tabular-nums text-content-tertiary">{answered}/{group.questions.length}</span>
+            Teil {group.teil}<span className="hidden xl:inline"> · {group.sublabel}</span> <span className="tabular-nums text-content-tertiary">{answered}/{group.questions.length}</span>
           </button>
         );
       })}
@@ -44,20 +46,33 @@ function CurrentPosition({ activeTeil, currentQuestion, sublabel }) {
   );
 }
 
-export default function ExamToolbar({ groups, activeTeil, answers, onSelectTeil, currentQuestion, timerSlot }) {
+/**
+ * Desktop navigation in the header: numbered answer strip (many short items) or Teil tabs (few long ones).
+ */
+function DesktopNavigation({ navMode, sheet, activeTeil, onSelectTeil, onSelectQuestion }) {
+  return (
+    <div className="hidden lg:flex min-w-0">
+      {navMode === 'tabs'
+        ? <TeilTabs groups={sheet.groups} activeTeil={activeTeil} answers={sheet.answers} onSelectTeil={onSelectTeil} />
+        : <AnswerSheetGrid {...sheet} layout="strip" onSelect={onSelectQuestion} />}
+    </div>
+  );
+}
+
+export default function ExamToolbar({ navMode = 'strip', sheet, activeTeil, onSelectTeil, onSelectQuestion, currentQuestion, timerSlot }) {
   const slot = useHeaderSlot();
   if (!slot) return null;
-  const activeGroup = groups.find((group) => group.teil === activeTeil);
+  const activeGroup = sheet.groups.find((group) => group.teil === activeTeil);
 
   return createPortal(
     <>
       <CurrentPosition activeTeil={activeTeil} currentQuestion={currentQuestion} sublabel={activeGroup?.sublabel} />
-      <TeilTabs groups={groups} activeTeil={activeTeil} answers={answers} onSelectTeil={onSelectTeil} />
+      <DesktopNavigation navMode={navMode} sheet={sheet} activeTeil={activeTeil} onSelectTeil={onSelectTeil} onSelectQuestion={onSelectQuestion} />
       <div className="ml-auto flex items-center gap-2 shrink-0">
         {timerSlot}
+        <div className="hidden lg:block"><FontSizeControl variant="cycle" /></div>
       </div>
     </>,
     slot,
   );
 }
-

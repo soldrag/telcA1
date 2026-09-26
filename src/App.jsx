@@ -4,6 +4,8 @@ import Footer from './components/Footer.jsx';
 import AppScreens from './components/AppScreens.jsx';
 import AppModals from './components/modals/AppModals.jsx';
 import AppErrorBanner from './components/AppErrorBanner.jsx';
+import MobileTabBar from './components/nav/MobileTabBar.jsx';
+import { PAGE_CONTAINER, SCREEN_COLUMN } from './components/layout/pageLayout.js';
 import { useAppController } from './hooks/useAppController.js';
 import { useTheme } from './hooks/useTheme.js';
 import { buildHeaderConfig, buildScreenProps } from './utils/appPropsBuilder.js';
@@ -23,11 +25,14 @@ export default function App() {
         onDismiss={controller.dismissError}
       />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 min-w-0 overflow-hidden sm:overflow-visible">
-        <AppScreens
-          screen={controller.screen}
-          screenProps={screenProps}
-        />
+      {/* overflow-x-clip (not hidden) keeps sticky bars inside the page working on phones */}
+      <main className={`flex-1 ${PAGE_CONTAINER} py-6 min-w-0 overflow-x-clip`}>
+        <div className={`${SCREEN_COLUMN} space-y-6`}>
+          <AppScreens
+            screen={controller.screen}
+            screenProps={screenProps}
+          />
+        </div>
       </main>
 
       <AppModals
@@ -45,6 +50,13 @@ export default function App() {
       />
 
       <Footer onOpenLegalModal={controller.modals.openLegalModal} />
+
+      <MobileTabBar
+        screen={controller.screen}
+        onNavigateHome={controller.navigateHome}
+        onOpenHistory={controller.openHistory}
+        themeControl={themeControl}
+      />
     </div>
   );
 }

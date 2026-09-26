@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertCircle, X } from 'lucide-react';
 import { useI18n } from '../i18n/I18nContext.jsx';
+import { PAGE_CONTAINER } from './layout/pageLayout.js';
 
 export default function AppErrorBanner({ message, onDismiss }) {
   const { t } = useI18n();
@@ -9,7 +10,7 @@ export default function AppErrorBanner({ message, onDismiss }) {
   const displayMessage = typeof message === 'string' ? t(message) : String(message);
 
   return (
-    <div className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+    <div className={`${PAGE_CONTAINER} pt-4`}>
       <div className="p-4 bg-state-error-subtle border border-state-error-border text-state-error-text text-sm rounded-xl flex items-center justify-between shadow-xs">
         <div className="flex items-center space-x-2.5 min-w-0">
           <AlertCircle className="w-5 h-5 text-state-error shrink-0" />

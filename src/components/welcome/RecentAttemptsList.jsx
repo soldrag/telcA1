@@ -50,7 +50,7 @@ export default function RecentAttemptsList({ recentAttempts = [], onOpenHistory,
       {recentAttempts.length === 0 ? (
         <p className="text-sm text-content-muted py-2">{t('welcome.recentAttempts.empty')}</p>
       ) : (
-        <ul className="rounded-2xl bg-surface-card border border-border-default p-1">
+        <ul className="rounded-2xl bg-surface-card border border-border-default p-1 grid sm:grid-cols-2 lg:grid-cols-1 gap-x-2">
           {recentAttempts.map((attempt) => (
             <RecentAttemptRow key={attempt.id} attempt={attempt} onLoadAttempt={onLoadAttempt} />
           ))}

@@ -1,25 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { X } from 'lucide-react';
 import AnswerSheetGrid from './AnswerSheetGrid.jsx';
 import FontSizeControl from '../teil1/FontSizeControl.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
-
-function useModalDialog(isOpen, onClose) {
-  const dialogRef = useRef(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (isOpen && !dialog.open) dialog.showModal();
-    if (!isOpen && dialog.open) dialog.close();
-  }, [isOpen]);
-
-  const handleBackdropClick = (event) => {
-    if (event.target === dialogRef.current) onClose();
-  };
-
-  return { dialogRef, handleBackdropClick };
-}
+import { useModalDialog } from '../../hooks/useModalDialog.js';
 
 export default function AnswerSheetSheet({ isOpen, onClose, sheet, onSelectQuestion, onSubmit, isInspection }) {
   const { t } = useI18n();
@@ -33,7 +17,7 @@ export default function AnswerSheetSheet({ isOpen, onClose, sheet, onSelectQuest
       aria-labelledby="answer-sheet-title"
       onClose={onClose}
       onClick={handleBackdropClick}
-      className="fixed inset-x-0 bottom-0 top-auto m-0 w-full max-w-none max-h-[85vh] overflow-y-auto p-0 rounded-t-2xl bg-surface-card text-content-primary backdrop:bg-black/40"
+      className="fixed inset-x-0 bottom-0 top-auto m-0 w-full max-w-none max-h-[85dvh] overflow-y-auto p-0 rounded-t-2xl bg-surface-card text-content-primary backdrop:bg-black/40"
     >
       <div className="p-4 pb-[max(1rem,env(safe-area-inset-bottom))] space-y-4 max-w-3xl mx-auto">
         <div className="flex items-center justify-between gap-3">

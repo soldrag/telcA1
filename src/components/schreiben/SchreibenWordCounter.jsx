@@ -24,16 +24,12 @@ export default function SchreibenWordCounter({ text = '', targetWords = 30 }) {
     };
   }
 
+  // Inline so it can share one row with the umlaut keys (above the keyboard on phones).
   return (
-    <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-surface-inset border border-border-default text-xs font-bold">
-      <div className="flex items-center space-x-2 text-content-secondary">
-        <Type className="w-4 h-4 text-action-primary" />
-        <span>
-          {count} / ~{targetWords} Wörter
-        </span>
-      </div>
-
-      <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-extrabold ${statusBadge.className}`}>
+    <div className="flex items-center gap-2 text-sm font-semibold text-content-secondary">
+      <Type className="w-4 h-4 text-action-primary shrink-0" aria-hidden="true" />
+      <span className="tabular-nums whitespace-nowrap">{count} / ~{targetWords}<span className="hidden sm:inline"> Wörter</span></span>
+      <span className={`hidden sm:inline px-2.5 py-0.5 rounded-full border text-xs font-semibold ${statusBadge.className}`}>
         {statusBadge.text}
       </span>
     </div>

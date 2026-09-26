@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { RotateCcw, Trash2, ShieldCheck } from 'lucide-react';
-import HistoryTopNav from './history/HistoryTopNav.jsx';
 import HistoryStatsGrid from './history/HistoryStatsGrid.jsx';
 import HistoryClearConfirm from './history/HistoryClearConfirm.jsx';
 import HistoryListContainer from './history/HistoryListContainer.jsx';
@@ -32,11 +31,12 @@ export default function HistoryView({
   };
 
   return (
-    <div className="min-h-screen min-h-dvh bg-bg-canvas text-content-primary">
-      <div className="h-16 pt-[env(safe-area-inset-top,0px)]" />
-      <HistoryTopNav onBack={onBack} />
-
-      <div className="max-w-4xl mx-auto p-4 sm:p-8 space-y-6">
+    <div className="text-content-primary">
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-content-primary">{t('history.title')}</h1>
+          <p className="text-sm text-content-secondary">{t('history.resultsSubtitle')}</p>
+        </div>
         <HistoryStatsGrid attempts={attempts} />
 
         <div className="bg-state-success-subtle border border-state-success-border rounded-2xl p-4 flex items-center space-x-3 text-xs text-state-success-text">

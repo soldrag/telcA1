@@ -1,10 +1,9 @@
-import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import ExamTimer from './ExamTimer.jsx';
 import ModuleTaskView from './parts/ModuleTaskView.jsx';
 import ExamBottomNav from './exam/ExamBottomNav.jsx';
 import ExamToolbar from './exam/ExamToolbar.jsx';
-import AnswerSheetGrid from './exam/AnswerSheetGrid.jsx';
-import FontSizeControl from './teil1/FontSizeControl.jsx';
+import ExamPageNav from './exam/ExamPageNav.jsx';
 import { QuestionFlagProvider } from './exam/QuestionFlag.jsx';
 import InspectionInfoCard from './exam/InspectionInfoCard.jsx';
 import LesenTeilRenderer from './exam/LesenTeilRenderer.jsx';
@@ -13,8 +12,8 @@ import ExamLoadingSkeleton from './exam/ExamLoadingSkeleton.jsx';
 import { scrollToElement, scrollToTop } from '../utils/scrollService.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 import { useExamFontSize } from '../hooks/useExamFontSize.js';
-import { useVisibleQuestion } from '../hooks/useVisibleQuestion.js';
-import { getTeilGroups } from '../config/teilStructureConfig.js';
+import { useAnswerSheet } from '../hooks/useAnswerSheet.js';
+import { useExamHotkeys } from '../hooks/useExamHotkeys.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
 
 const AnswerSheetSheet = lazy(() => import('./exam/AnswerSheetSheet.jsx'));
@@ -23,6 +22,9 @@ const TEIL_RENDERERS = {
   lesen: LesenTeilRenderer,
   schreiben: SchreibenTeilRenderer,
 };
+
+// Desktop header navigation: a numbered strip for many short items, Teil tabs for a form plus one letter.
+const HEADER_NAV_BY_MODULE = { schreiben: 'tabs' };
 
 function getMaxTeile(questions = [], testType = 'lesen') {
   if (questions.length > 0) {
@@ -48,30 +50,6 @@ function useExamScrollSync(session, maxTeile) {
   }, [session.activeTeil]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
-function useAnswerSheet(questions, session, testType) {
-  const [isSheetOpen, setSheetOpen] = useState(false);
-  const groups = useMemo(() => getTeilGroups(questions, testType), [questions, testType]);
-  const teilIds = questions.filter((q) => q.teil === session.activeTeil).map((q) => String(q.id));
-  const visibleId = useVisibleQuestion(teilIds);
-  const currentQuestion = questions.find((q) => String(q.id) === visibleId);
-
-  const selectQuestion = (question) => {
-    setSheetOpen(false);
-    session.selectTeil(question.teil);
-    session.jumpToQuestion(questions.indexOf(question), question.id);
-  };
-
-  const sheet = {
-    groups,
-    answers: session.answers || {},
-    flags: session.flags || {},
-    currentQuestionId: currentQuestion?.id,
-    answered: session.answeredCount ?? 0,
-    total: questions.length,
-  };
-  return { sheet, currentQuestion, isSheetOpen, setSheetOpen, selectQuestion };
-}
-
 export default function ExamView({
   examConfig = {},
   session = {},
@@ -91,6 +69,7 @@ export default function ExamView({
   const [hasOpenedSheet, setHasOpenedSheet] = useState(false);
   useExamFontSize();
   useExamScrollSync(session, maxTeile);
+  useExamHotkeys({ questions, currentQuestion: answerSheet.currentQuestion, session, maxTeile, onSelectQuestion: answerSheet.selectQuestion });
 
   if (isLoading || questions.length === 0) {
     return <ExamLoadingSkeleton />;
@@ -98,15 +77,23 @@ export default function ExamView({
 
   const openSheet = () => { setHasOpenedSheet(true); answerSheet.setSheetOpen(true); };
   const submitFromSheet = () => { answerSheet.setSheetOpen(false); onOpenSubmitConfirm?.(); };
+  const pagination = { activeTeil: session.activeTeil, maxTeile };
+  const navActions = {
+    onPreviousTeil: session.previousTeil,
+    onNextTeil: () => session.nextTeil(maxTeile),
+    onSubmit: onOpenSubmitConfirm,
+    onExit: onExitInspection,
+  };
   const flagState = { flags: session.flags || {}, toggleFlag: session.toggleFlag, isSubmitted: session.isSubmitted };
 
   return (
     <QuestionFlagProvider value={flagState}>
       <ExamToolbar
-        groups={answerSheet.sheet.groups}
+        navMode={HEADER_NAV_BY_MODULE[resolvedTestType] || 'strip'}
+        sheet={answerSheet.sheet}
         activeTeil={session.activeTeil}
-        answers={answerSheet.sheet.answers}
         onSelectTeil={session.selectTeil}
+        onSelectQuestion={answerSheet.selectQuestion}
         currentQuestion={answerSheet.currentQuestion}
         timerSlot={isInspection ? null : <ExamTimer timer={timer} isSubmitted={session.isSubmitted} />}
       />
@@ -121,23 +108,14 @@ export default function ExamView({
         <InspectionInfoCard examTitle={examConfig.examTitle} examId={examConfig.examId || questions[0]?.exam_id} />
       )}
 
-      <div className="hidden lg:flex items-center justify-between gap-4">
-        <AnswerSheetGrid {...answerSheet.sheet} layout="strip" onSelect={answerSheet.selectQuestion} />
-        <FontSizeControl />
-      </div>
-
-      <div className="min-h-[500px] pb-24">
+      <div className="min-h-[500px] pb-24 lg:pb-0">
         <ActiveTeilRenderer activeTeil={session.activeTeil} questions={questions} session={session} sessionState={session} />
       </div>
 
+      <ExamPageNav pagination={pagination} actions={navActions} isInspection={isInspection} showHotkeysHint={resolvedTestType === 'lesen'} />
       <ExamBottomNav
-        pagination={{ activeTeil: session.activeTeil, maxTeile }}
-        actions={{
-          onPreviousTeil: session.previousTeil,
-          onNextTeil: () => session.nextTeil(maxTeile),
-          onSubmit: onOpenSubmitConfirm,
-          onExit: onExitInspection,
-        }}
+        pagination={pagination}
+        actions={navActions}
         sheet={{ onOpen: openSheet, answered: answerSheet.sheet.answered, total: answerSheet.sheet.total }}
         isInspection={isInspection}
       />

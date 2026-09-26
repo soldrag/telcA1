@@ -29,7 +29,15 @@ export function buildHeaderConfig(controller) {
       activeModuleTitle: currentModule.title,
       activeModulePoints: currentModule.maxScore || 15,
     },
-    user: { userShortId: 'local' },
+    modules: {
+      testTypes: controller.testTypes,
+      activeTestType: controller.activeTestType,
+      onSelectTestType: controller.changeTestType,
+    },
+    exam: {
+      examId: controller.examData?.exam?.id || controller.examData?.questions?.[0]?.exam_id || '',
+      moduleTitle: currentModule.title,
+    },
   };
 }
 

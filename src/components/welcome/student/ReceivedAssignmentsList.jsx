@@ -78,7 +78,7 @@ export default function ReceivedAssignmentsList({ assignments = [], onOpenTask }
   return (
     <section aria-labelledby="received-assignments-title" className="space-y-2">
       <h2 id="received-assignments-title" className="text-sm font-medium text-content-secondary">{t('welcome.assignments.title')}</h2>
-      <ul className="space-y-2">
+      <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 items-start">
         {assignments.slice(0, VISIBLE_LIMIT).map((assignment) => {
           const Row = assignment.submittedAt ? SubmittedAssignment : PendingAssignment;
           return <Row key={assignment.assignmentId} assignment={assignment} onOpenTask={onOpenTask} t={t} language={language} />;

@@ -20,11 +20,11 @@ function VariantCell({ exam, status, onStart, t }) {
       type="button"
       onClick={() => onStart(exam.id)}
       aria-label={`${t('welcome.variants.startAria', { name })}, ${status.text}`}
-      className={`min-h-[52px] rounded-xl bg-surface-card border border-border-default hover:border-border-strong hover:bg-surface-raised flex flex-col items-center justify-center lg:items-start lg:px-4 lg:py-3 gap-0.5 cursor-pointer transition-colors ${FOCUS_RING}`}
+      className={`min-h-[52px] rounded-xl bg-surface-card border border-border-default hover:border-border-strong hover:bg-surface-raised flex flex-col items-center justify-center lg:items-start lg:px-3 lg:py-2.5 gap-0.5 min-w-0 cursor-pointer transition-colors ${FOCUS_RING}`}
     >
       <span className="font-semibold text-content-primary">
         <span className="lg:hidden">{getExamNumber(exam.id) || name}</span>
-        <span className="hidden lg:inline">{name}</span>
+        <span className="hidden lg:inline text-[13px] whitespace-nowrap">{name}</span>
       </span>
       <span className={`text-xs tabular-nums ${status.tone} ${status.showOnMobile ? '' : 'hidden lg:inline'}`}>{status.text}</span>
     </button>
@@ -46,7 +46,7 @@ export default function VariantGrid({ exams = [], scores = {}, assignedExamIds =
           </span>
         )}
       </div>
-      <div className="grid grid-cols-5 lg:grid-cols-2 gap-2">
+      <div className="grid grid-cols-5 gap-2">
         {exams.map((exam) => (
           <VariantCell
             key={exam.id}

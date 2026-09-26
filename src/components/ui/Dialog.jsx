@@ -25,7 +25,7 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
       <div 
         className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
@@ -36,7 +36,8 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
         role="dialog"
         aria-modal="true"
         className={cn(
-          'relative w-full max-h-[calc(100dvh-2rem)] flex flex-col bg-surface-card rounded-3xl border border-border-default shadow-2xl overflow-hidden z-10 transition-all p-6 sm:p-7 overscroll-contain',
+          // Phones get a bottom sheet (thumb reach, safe area); larger screens a centred window.
+          'relative w-full max-h-[calc(100dvh-2rem)] flex flex-col bg-surface-card rounded-t-3xl sm:rounded-3xl border border-border-default shadow-2xl overflow-hidden z-10 transition-all p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:p-7 overscroll-contain',
           maxWidth
         )}
       >

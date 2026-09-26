@@ -9,8 +9,8 @@ export default function Teil1QuestionItem({
   onSelectAnswer,
 }) {
   return (
-    <div id={`question-${question.id}`} className="scroll-mt-24 space-y-3">
-      <p lang="de" className="flex items-start gap-3 exam-text font-semibold text-content-primary">
+    <div id={`question-${question.id}`} className="scroll-mt-24 flex flex-col gap-3 sm:max-lg:flex-row sm:max-lg:items-center sm:max-lg:gap-4">
+      <p lang="de" className="flex items-start gap-3 exam-text font-semibold text-content-primary sm:max-lg:flex-1">
         <span className="shrink-0 w-7 h-7 mt-0.5 rounded-lg bg-surface-inset text-content-secondary text-sm font-semibold flex items-center justify-center">
           {question.question_number}
         </span>
@@ -22,6 +22,7 @@ export default function Teil1QuestionItem({
         selectedAnswer={currentAnswer}
         isSubmitted={isSubmitted}
         onSelectAnswer={onSelectAnswer}
+        isInline
         ariaLabel={`${question.question_number}. ${question.statement}`}
       />
     </div>

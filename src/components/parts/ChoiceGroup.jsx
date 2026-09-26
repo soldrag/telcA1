@@ -14,7 +14,10 @@ function moveSelection(event, { options, value, onChange, buttonsRef }) {
   buttonsRef.current[nextIndex]?.focus();
 }
 
-function ChoiceButton({ option, isChecked, isFocusable, disabled, onChange, buttonRef }) {
+// Compact (tablet row next to the statement): marker and check make way for the label.
+const TABLET_HIDDEN = 'sm:max-lg:hidden';
+
+function ChoiceButton({ option, isChecked, isFocusable, disabled, onChange, buttonRef, isCompact }) {
   return (
     <button
       ref={buttonRef}
@@ -31,20 +34,23 @@ function ChoiceButton({ option, isChecked, isFocusable, disabled, onChange, butt
       }`}
     >
       {option.marker && (
-        <span className={`w-7 h-7 shrink-0 rounded-lg flex items-center justify-center text-sm font-semibold ${
+        <span className={`w-7 h-7 shrink-0 rounded-lg flex items-center justify-center text-sm font-semibold ${isCompact ? TABLET_HIDDEN : ''} ${
           isChecked ? 'bg-white/20 text-white' : 'bg-surface-inset text-content-secondary'
         }`}>
           {option.marker}
         </span>
       )}
-      <span className="flex-1 leading-snug">{option.label}</span>
-      {isChecked && <Check className="w-5 h-5 shrink-0" aria-hidden="true" />}
+      <span className={`flex-1 leading-snug ${isCompact ? 'sm:max-lg:text-center' : ''}`}>{option.label}</span>
+      {option.hotkey && !disabled && (
+        <kbd aria-hidden="true" className="hidden lg:inline px-1.5 rounded border border-current text-xs font-sans font-normal opacity-50">{option.hotkey}</kbd>
+      )}
+      {isChecked && <Check className={`w-5 h-5 shrink-0 ${isCompact ? TABLET_HIDDEN : ''}`} aria-hidden="true" />}
     </button>
   );
 }
 
 // Selection stays neutral until results exist: colour must never hint at correctness mid-exam.
-export default function ChoiceGroup({ options, value, onChange, disabled = false, ariaLabel, className = 'grid grid-cols-2 gap-2' }) {
+export default function ChoiceGroup({ options, value, onChange, disabled = false, ariaLabel, className = 'grid grid-cols-2 gap-2', isCompact = false }) {
   const buttonsRef = useRef([]);
   const hasValue = options.some((option) => option.value === value);
 
@@ -63,6 +69,7 @@ export default function ChoiceGroup({ options, value, onChange, disabled = false
           isFocusable={hasValue ? option.value === value : index === 0}
           disabled={disabled}
           onChange={onChange}
+          isCompact={isCompact}
           buttonRef={(element) => { buttonsRef.current[index] = element; }}
         />
       ))}
