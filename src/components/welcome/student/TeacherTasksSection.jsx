@@ -3,6 +3,8 @@ import { ChevronDown } from 'lucide-react';
 import ReceivedAssignmentsList from './ReceivedAssignmentsList.jsx';
 import EnterTaskCard from './EnterTaskCard.jsx';
 import Section from '../../layout/Section.jsx';
+import OtherModulesHint from '../OtherModulesHint.jsx';
+import { getTestTypeById } from '../../../../shared/testTypes.js';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
 
 function LinkField({ onOpenTask, t }) {
@@ -17,27 +19,39 @@ function LinkField({ onOpenTask, t }) {
   );
 }
 
+function EmptyText({ testType, hasElsewhere, t }) {
+  if (hasElsewhere) {
+    return <p className="text-sm text-content-secondary">{t('welcome.assignments.noneInModule', { module: getTestTypeById(testType).title })}</p>;
+  }
+  return (
+    <div className="space-y-1">
+      <p className="text-sm font-semibold text-content-primary">{t('welcome.studentSpace.emptyTitle')}</p>
+      <p className="text-sm text-content-secondary">{t('welcome.studentSpace.emptyHint')}</p>
+    </div>
+  );
+}
+
 /**
- * «From the teacher»: received tasks as rows of one card with the link field folded at its foot,
- * or, with none yet, where tasks come from and the field at hand.
+ * «From the teacher»: the open module's received tasks as rows of one card, a chip per other module
+ * that has some, and the link field folded at its foot; with none, where tasks come from and the field at hand.
  */
-export default function TeacherTasksSection({ assignments = [], onOpenTask, className = '' }) {
+export default function TeacherTasksSection({ assignments = [], elsewhere = [], testType = 'lesen', onSelectTestType, onOpenTask, className = '' }) {
   const { t } = useI18n();
   const hasTasks = assignments.length > 0;
+  const hint = <OtherModulesHint elsewhere={elsewhere} onSelectTestType={onSelectTestType} />;
 
   return (
     <Section id="teacher-tasks-title" title={t('welcome.assignments.title')} className={className} bodyClassName="gap-3">
       {hasTasks ? (
         <>
           <ReceivedAssignmentsList assignments={assignments} onOpenTask={onOpenTask} />
+          {hint}
           <LinkField onOpenTask={onOpenTask} t={t} />
         </>
       ) : (
         <>
-          <div className="space-y-1">
-            <p className="text-sm font-semibold text-content-primary">{t('welcome.studentSpace.emptyTitle')}</p>
-            <p className="text-sm text-content-secondary">{t('welcome.studentSpace.emptyHint')}</p>
-          </div>
+          <EmptyText testType={testType} hasElsewhere={elsewhere.length > 0} t={t} />
+          {hint}
           <div className="mt-auto"><EnterTaskCard onOpenTask={onOpenTask} compact /></div>
         </>
       )}

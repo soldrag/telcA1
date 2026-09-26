@@ -28,7 +28,7 @@ export function describeIssuedAssignment(entry, t, language) {
   const submissions = entry.submissions || [];
   return {
     student: entry.studentName || submissions[0]?.studentName || t('welcome.teacherSpace.noStudentName'),
-    variant: `${getTestTypeById(entry.testType).title} · ${formatExamName(entry.examId)}`,
+    variant: formatExamName(entry.examId),
     status: describeStatus(entry, t, language),
     latestReviewToken: submissions[0]?.reviewToken || null,
   };

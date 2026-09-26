@@ -60,6 +60,8 @@ export const ru = {
       startHint: 'Начать →',
     },
     assignments: {
+      otherModules: 'В других модулях:',
+      noneInModule: 'По {module} заданий нет',
       title: 'От преподавателя',
       start: 'Начать задание',
       submitted: 'Отправлено · {date}',
@@ -106,6 +108,7 @@ export const ru = {
       newAssignmentBtn: 'Новое задание',
       checkByLinkBtn: 'Проверить результат по ссылке',
       issuedEmpty: 'Здесь появятся задания, которые вы выдадите. Выберите вариант ниже и нажмите «Выдать».',
+      issuedEmptyModule: 'По {module} вы ещё не выдавали заданий. Выберите вариант ниже и нажмите «Выдать».',
       colStudent: 'Ученик',
       colVariant: 'Вариант',
       colIssued: 'Выдано',

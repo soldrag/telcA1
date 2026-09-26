@@ -61,6 +61,8 @@ export const TRANSLATION_CONTRACT = {
       startHint: 'string',
     },
     assignments: {
+      otherModules: 'string',
+      noneInModule: 'string',
       title: 'string',
       start: 'string',
       submitted: 'string',
@@ -107,6 +109,7 @@ export const TRANSLATION_CONTRACT = {
       newAssignmentBtn: 'string',
       checkByLinkBtn: 'string',
       issuedEmpty: 'string',
+      issuedEmptyModule: 'string',
       colStudent: 'string',
       colVariant: 'string',
       colIssued: 'string',

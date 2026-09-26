@@ -14,9 +14,9 @@ function describeAssignment(assignment, t) {
     .join(' · ');
 }
 
+// The card lists the open module only, so the row names just the variant.
 function AssignmentTitle({ assignment }) {
-  const module = getTestTypeById(assignment.testType || 'lesen');
-  return <div className="font-semibold text-content-primary">{module.title} · {formatExamName(assignment.examId)}</div>;
+  return <div lang="de" className="font-semibold text-content-primary">{formatExamName(assignment.examId)}</div>;
 }
 
 function PendingAssignment({ assignment, onOpenTask, t, language }) {

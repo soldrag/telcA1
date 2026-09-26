@@ -51,7 +51,7 @@ export default function VariantGrid({ exams = [], scores = {}, assignedExamIds =
 
   return (
     <Section id="variants-title" title={t('welcome.variants.title')} action={summary} frame="desktop" className={className}>
-      <div className={`grid grid-cols-5 lg:grid-cols-4 ${exams.length > 4 ? 'xl:grid-cols-5' : ''} gap-2 lg:gap-3 lg:my-auto`}>
+      <div className="grid grid-cols-5 gap-2 lg:gap-3">
         {exams.map((exam) => (
           <VariantCell
             key={exam.id}

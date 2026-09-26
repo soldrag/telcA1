@@ -60,6 +60,8 @@ export const en = {
       startHint: 'Start →',
     },
     assignments: {
+      otherModules: 'In other modules:',
+      noneInModule: 'No assignments for {module}',
       title: 'From your teacher',
       start: 'Start task',
       submitted: 'Submitted · {date}',
@@ -106,6 +108,7 @@ export const en = {
       newAssignmentBtn: 'New assignment',
       checkByLinkBtn: 'Check a result link',
       issuedEmpty: 'Assignments you issue will appear here. Pick a variant below and press «Assign».',
+      issuedEmptyModule: 'You have not issued {module} assignments yet. Pick a variant below and press «Assign».',
       colStudent: 'Student',
       colVariant: 'Variant',
       colIssued: 'Issued',

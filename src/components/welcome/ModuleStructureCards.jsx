@@ -24,17 +24,19 @@ const MODULE_STRUCTURES = {
   ],
 };
 
-// variant="list": one line per Teil («Teil 1 (1–5) · Title · sub») that share the height of the
-// desktop side column's frame.
-function StructureList({ cards, t }) {
+const STRIP_COLS = { 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3' };
+
+// variant="strip": the desktop briefing under the module heading — one frame, a cell per Teil side by side.
+function StructureStrip({ cards, t, className }) {
   return (
-    <ul className="flex-1 flex flex-col divide-y divide-border-subtle">
+    <ul className={`grid ${STRIP_COLS[cards.length] || 'lg:grid-cols-3'} rounded-2xl bg-surface-card border border-border-default divide-x divide-border-subtle ${className}`}>
       {cards.map(({ icon: Icon, label, titleKey, subKey }) => (
-        <li key={label} className="flex-1 px-6 py-3 flex items-center gap-3 text-sm">
-          <Icon className="w-4 h-4 shrink-0 text-content-tertiary" aria-hidden="true" />
-          <span className="min-w-0">
-            <span className="text-content-primary font-medium">{label} · {t(titleKey)}</span>
-            <span className="block text-content-secondary">{t(subKey)}</span>
+        <li key={label} className="px-6 py-4 flex items-start gap-3 min-w-0">
+          <Icon className="w-5 h-5 mt-0.5 shrink-0 text-content-tertiary" aria-hidden="true" />
+          <span className="min-w-0 space-y-0.5">
+            <span className="block text-xs font-semibold text-action-primary">{label}</span>
+            <span className="block font-semibold text-content-primary">{t(titleKey)}</span>
+            <span className="block text-sm text-content-secondary">{t(subKey)}</span>
           </span>
         </li>
       ))}
@@ -42,10 +44,10 @@ function StructureList({ cards, t }) {
   );
 }
 
-export default function ModuleStructureCards({ testType = 'lesen', variant = 'cards' }) {
+export default function ModuleStructureCards({ testType = 'lesen', variant = 'cards', className = '' }) {
   const { t } = useI18n();
   const cards = MODULE_STRUCTURES[testType] || MODULE_STRUCTURES.lesen;
-  if (variant === 'list') return <StructureList cards={cards} t={t} />;
+  if (variant === 'strip') return <StructureStrip cards={cards} t={t} className={className} />;
 
   return (
     <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2">

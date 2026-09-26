@@ -3,6 +3,9 @@ import { useI18n } from '../../../i18n/I18nContext.jsx';
 import { useIssuedAssignments } from '../../../hooks/useIssuedAssignments.js';
 import { formatDayMonth } from '../../../utils/historyFormat.js';
 import { describeIssuedAssignment, STATUS_TONE_CLASS } from './issuedStatus.js';
+import { splitByModule } from '../../../utils/moduleSplit.js';
+import { getTestTypeById } from '../../../../shared/testTypes.js';
+import OtherModulesHint from '../OtherModulesHint.jsx';
 
 const ACTION = 'min-h-[2.75rem] px-3 rounded-xl text-sm font-semibold text-action-primary hover:bg-action-primary-subtle cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
 
@@ -66,20 +69,31 @@ function IssuedCards({ rows, t, language, ...handlers }) {
 }
 
 /**
- * Assignments issued from this browser (localStorage `telc_issued`) with the results that came back.
+ * Assignments issued from this browser (localStorage `telc_issued`) for the open module, with the
+ * results that came back; the other modules' ones stay one chip away.
  */
-export default function IssuedAssignmentsList({ onOpenLink, onOpenReview }) {
+export default function IssuedAssignmentsList({ testType = 'lesen', onSelectTestType, onOpenLink, onOpenReview }) {
   const { t, language } = useI18n();
-  const issued = useIssuedAssignments();
-  if (issued.length === 0) {
-    return <p className="rounded-2xl border border-dashed border-border-default p-5 text-content-secondary">{t('welcome.teacherSpace.issuedEmpty')}</p>;
+  const { current, elsewhere } = splitByModule(useIssuedAssignments(), testType);
+  const hint = <OtherModulesHint elsewhere={elsewhere} onSelectTestType={onSelectTestType} />;
+  if (current.length === 0) {
+    const text = elsewhere.length
+      ? t('welcome.teacherSpace.issuedEmptyModule', { module: getTestTypeById(testType).title })
+      : t('welcome.teacherSpace.issuedEmpty');
+    return (
+      <div className="space-y-3">
+        <p className="rounded-2xl border border-dashed border-border-default p-5 text-content-secondary">{text}</p>
+        {hint}
+      </div>
+    );
   }
-  const rows = issued.map((entry) => ({ entry, row: describeIssuedAssignment(entry, t, language) }));
+  const rows = current.map((entry) => ({ entry, row: describeIssuedAssignment(entry, t, language) }));
   const shared = { rows, t, language, onOpenLink, onOpenReview };
   return (
-    <>
+    <div className="space-y-3">
       <IssuedTable {...shared} />
       <IssuedCards {...shared} />
-    </>
+      {hint}
+    </div>
   );
 }
