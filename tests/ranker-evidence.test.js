@@ -135,3 +135,15 @@ describe('Declared evidence gate', async () => {
     assert.equal(hasDeclaredEvidenceSupport({ label: 'Grund' }, 'Hallo.', { policy }), null);
   });
 });
+
+describe('Keyword stem match guarded by word class', async () => {
+  const { findMatchedKeywords } = await import('../src/services/schreiben/linguistic/keywordStemMatcher.js');
+  const words = (text) => text.split(/\s+/);
+
+  it('a verb does not match a noun keyword with the same stem, a noun or an unknown word does', () => {
+    assert.deepEqual(findMatchedKeywords(['wohnung'], words('Ich wohne in Berlin.'), policy.lexicon), []);
+    assert.deepEqual(findMatchedKeywords(['wohnung'], words('Ist die Wohnung frei?'), policy.lexicon), ['wohnung']);
+    assert.deepEqual(findMatchedKeywords(['anmelden'], words('Wie kann ich mich anmelden?'), policy.lexicon), ['anmelden']);
+    assert.deepEqual(findMatchedKeywords(['wohnung'], words('ich möchte die wohnung mieten'), policy.lexicon), ['wohnung']);
+  });
+});

@@ -8,6 +8,7 @@ import { SIMILARITY_T2, SIMILARITY_T1, GRAY_ZONE_DELTA } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
@@ -52,20 +53,8 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexi
   const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
   const affirmative = collectAffirmativeEvidence(sentences, criterion, lexicon);
 
-  const allWords = affirmative
-    .map(a => a.text)
-    .join(' ')
-    .toLowerCase()
-    .split(/\s+/)
-    .map(w => stemGermanWord(w))
-    .filter(s => s && s.length >= 2);
-
-  let matchedCount = 0;
-  for (const cStem of critStems) {
-    if (allWords.includes(cStem)) {
-      matchedCount += 1;
-    }
-  }
+  const allWords = affirmative.map(a => a.text).join(' ').split(/\s+/);
+  let matchedCount = findMatchedKeywords(rawKeywords, allWords, lexicon).length;
 
   const isTemporalCrit = hasTemporalEvidence(criterion);
   const rawJoined = affirmative.map(a => a.text).join(' ');
@@ -77,8 +66,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexi
   const threshold = Math.min(req, Math.max(1, critStems.length));
 
   const relevantSentences = affirmative.filter(({ text }) => {
-    const sWords = text.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
-    const hasKw = critStems.some(c => sWords.includes(c));
+    const hasKw = findMatchedKeywords(rawKeywords, text.split(/\s+/), lexicon).length > 0;
     const hasTemp = isTemporalCrit && hasTemporalExpression(text);
     return hasKw || hasTemp;
   }).map(a => a.sentence);

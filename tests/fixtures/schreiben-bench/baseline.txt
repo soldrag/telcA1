@@ -47,7 +47,7 @@ s4-q6:01 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=1
 s4-q6:02 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=8.5 | The letter from the screenshot: 'Haustiere' aspect missing.
 s4-q6:03 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Pets expressed via 'Hund' without the word 'Haustier'.
 s4-q6:04 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=8.5-10 | Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.
-s4-q6:05 none=100       gray=100       primary=100    exp=000 tot=2.5/2.5/2.5 exp=0.5-1 | Perfect greeting/closing, no content. Must not score high.
+s4-q6:05 none=000       gray=000       primary=000    exp=000 tot=1/1/1 exp=0.5-1 | Perfect greeting/closing, no content. Must not score high.
 s4-q6:06 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Content complete, Anrede missing, closing present.
 s4-q6:07 none=222       gray=222       primary=222    exp=222 tot=9/9/9 exp=9 | Content complete, no Anrede, no Gruß, no name.
 s4-q6:08 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Register mismatch: 'Hallo!' / 'Tschüss' to a stranger. Goethe's model example with 'Hallo!' got 0.5 for KG.
@@ -63,4 +63,4 @@ s4-q6:17 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 ex
 s4-q6:18 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
 s4-q6:19 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.
 s4-q6:20 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | 'Wir kommen' names no number of persons: Personen missing, Zeitraum present.
-Changed vs baseline: 3
+Changed vs baseline: 1

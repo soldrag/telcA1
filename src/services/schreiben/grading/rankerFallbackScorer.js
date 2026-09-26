@@ -8,6 +8,7 @@
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { scoreAspectConceptOverlap, scoreStructuredAspectEvidence, getDomainStemsForToken } from './conceptDomainScorer.js';
 import { requireLevelPort } from './levelPorts.js';
+import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
 import { cosineSimilarity } from './vectorMath.js';
 
 const STOP_WORDS = new Set([
@@ -26,10 +27,11 @@ function toStems(text = '') {
     .map((w) => stemGermanWord(w));
 }
 
-function scoreKeywordCoverage(keywords = [], sentStems = []) {
-  const kwStems = [...new Set(keywords.map((k) => stemGermanWord(String(k).toLowerCase())))];
+function scoreKeywordCoverage(keywords = [], sentence = '', lexicon) {
+  const stemOf = (k) => stemGermanWord(String(k).toLowerCase());
+  const kwStems = [...new Set(keywords.map(stemOf))];
   if (kwStems.length === 0) return 0;
-  const matched = kwStems.filter((s) => sentStems.includes(s)).length;
+  const matched = new Set(findMatchedKeywords(keywords, sentence.split(/\s+/), lexicon).map(stemOf)).size;
   if (matched === 0) return 0;
   return Math.min(1, 0.4 + 0.5 * (matched / kwStems.length) + 0.1 * (matched - 1));
 }
@@ -64,7 +66,7 @@ export function computeFallbackEvidence(aspect, sentenceText = '', { policy } = 
   if (!normSent.trim()) return { lexical: 0, structured: 0 };
 
   const sentStems = toStems(normSent);
-  const keywordScore = scoreKeywordCoverage(keywords, sentStems);
+  const keywordScore = scoreKeywordCoverage(keywords, normSent, policy.lexicon);
   const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, { sentenceStems: sentStems, rawSentence: normSent, domains: policy.conceptDomains });
   const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(label, sentStems);
   const lexical = Math.max(keywordScore, labelScore);
