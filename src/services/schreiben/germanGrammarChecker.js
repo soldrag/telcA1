@@ -5,8 +5,6 @@
  */
 
 import { checkOrthographyRules } from './rules/orthographyRuleChecker.js';
-import { checkAgreementRules } from './rules/agreementRuleChecker.js';
-import { checkSyntaxRules } from './rules/syntaxRuleChecker.js';
 import { checkRektionRules } from './rules/rektionRuleChecker.js';
 import { parseSentenceTopology } from './linguistic/topologicalFieldParser.js';
 import { validateCaseAndValency } from './linguistic/caseValencyValidator.js';
@@ -20,7 +18,7 @@ const a1GrammarEngine = createGrammarEngine(A1_GRAMMAR_PROFILE);
 
 function collectSentenceLinguisticErrors(sentence) {
   const errors = [];
-  const topoResult = parseSentenceTopology(sentence);
+  const topoResult = parseSentenceTopology(sentence, A1_GRAMMAR_PROFILE.policy);
   if (topoResult.errors?.length > 0) {
     errors.push(...topoResult.errors);
   }
@@ -72,8 +70,6 @@ export function checkGermanA1Grammar(text = '') {
   const allRawErrors = [
     ...macroErrors,
     ...sentenceErrors,
-    ...checkAgreementRules(text),
-    ...checkSyntaxRules(text),
     ...checkRektionRules(text),
     ...checkOrthographyRules(text),
   ];

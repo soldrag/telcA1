@@ -85,6 +85,18 @@ function mergeStackedTemporalPPs(constituents = []) {
   return merged;
 }
 
+/** A PP right after a noun phrase is its attribute: "das Wetter in Berlin" is one constituent. */
+function mergePostnominalPPs(constituents = []) {
+  return constituents.reduce((merged, curr) => {
+    const prev = merged[merged.length - 1];
+    if (prev?.type === 'NP' && curr.type === 'PP') {
+      merged[merged.length - 1] = { ...prev, tokens: [...prev.tokens, ...curr.tokens], rawText: `${prev.rawText} ${curr.rawText}` };
+      return merged;
+    }
+    return [...merged, curr];
+  }, []);
+}
+
 export function estimateVorfeldConstituents(tokens = []) {
   const constituents = [];
   let i = 0;
@@ -133,5 +145,5 @@ export function estimateVorfeldConstituents(tokens = []) {
     i++;
   }
 
-  return mergeStackedTemporalPPs(constituents);
+  return mergePostnominalPPs(mergeStackedTemporalPPs(constituents));
 }

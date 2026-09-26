@@ -4,9 +4,11 @@
  * Strictly complies with McConnell limits (<= 180 lines, <= 25 lines per function).
  */
 
-import { tagTokens } from './a1LexiconService.js';
+import { tagTokens, lookupWord } from './a1LexiconService.js';
 import { estimateVorfeldConstituents } from './vorfeldChunker.js';
 import { checkVerblessClause } from './verblessClauseChecker.js';
+import { checkVorfeldOrder } from './vorfeldOrderChecker.js';
+import { checkSubordinateVerbFinal } from './subordinateClauseChecker.js';
 
 function splitIntoWords(clauseStr = '') {
   return clauseStr
@@ -16,79 +18,56 @@ function splitIntoWords(clauseStr = '') {
     .filter(Boolean);
 }
 
-function checkV2AndInversion(constituents = [], finVerb = {}, mittelfeld = []) {
-  const errors = [];
-  if (constituents.length > 1) {
-    const firstConst = constituents[0].rawText;
-    const restBeforeVerb = constituents.slice(1).map(c => c.rawText).join(' ');
-    errors.push({
-      category: 'syntax',
-      code: 'ERR_V2_OVERCROWDED_VORFELD',
-      original: `${firstConst} ${restBeforeVerb} ${finVerb.raw}`,
-      correction: `${firstConst} ${finVerb.raw} ${restBeforeVerb}`,
-      explanation: `Verbzweitstellung verletzt: Nach der Angabe „${firstConst}“ steht das konjugierte Verb an Position 2: „${firstConst} ${finVerb.raw} ${restBeforeVerb}“`
-    });
-    return errors;
-  }
-
-  if (constituents.length === 1 && (constituents[0].type === 'PP' || constituents[0].type === 'ADVP')) {
-    const hasSubj = mittelfeld.some(t => t.pos === 'PRON_SUBJ' || t.pos === 'NOUN');
-    if (!hasSubj) {
-      errors.push({
-        category: 'syntax',
-        code: 'ERR_MISSING_SUBJECT_INVERSION',
-        original: `${constituents[0].rawText} ${finVerb.raw}`,
-        correction: `${constituents[0].rawText} ${finVerb.raw} [Subjekt]`,
-        explanation: `Inversion: Nach „${constituents[0].rawText} ${finVerb.raw}“ fehlt das Subjekt im Mittelfeld.`
-      });
-    }
-  }
-  return errors;
-}
-
-function isIllegalNachfeld(afterTokens = []) {
+/**
+ * Ausklammerung: prepositional phrases after the right bracket are colloquially accepted; a level policy
+ * with `strictSatzklammer` flags anything after it, as beginner courses teach the bracket.
+ */
+function isIllegalNachfeld(afterTokens = [], policy = {}) {
   if (afterTokens.length === 0) return false;
-  const constituents = estimateVorfeldConstituents(afterTokens);
-  return constituents.some(c => c.type !== 'PP');
+  if (policy.strictSatzklammer) return true;
+  return estimateVorfeldConstituents(afterTokens).some((c) => c.type !== 'PP');
 }
 
-function checkSatzklammer(finVerb = {}, mittelfeld = []) {
-  const errors = [];
-  if (mittelfeld.length === 0) return errors;
-
-  if (finVerb.valency === 'MODAL') {
-    const infIdx = mittelfeld.findIndex((t, i) => t.pos === 'VERB_INF' && i < mittelfeld.length - 1);
-    if (infIdx !== -1 && isIllegalNachfeld(mittelfeld.slice(infIdx + 1))) {
-      const infToken = mittelfeld[infIdx];
-      const after = mittelfeld.slice(infIdx + 1).map(t => t.raw).join(' ');
-      errors.push({
-        category: 'syntax',
-        code: 'ERR_BROKEN_SATZKLAMMER_MODAL',
-        original: `${infToken.raw} ${after}`,
-        correction: `${after} ${infToken.raw}`,
-        explanation: `Satzklammer verletzt: Bei Modalverben („${finVerb.raw}“) steht der Infinitiv am Satzende: „... ${after} ${infToken.raw}“`
-      });
-    }
-  } else if (finVerb.valency === 'SEP' && finVerb.baseVerb) {
-    const pfxIdx = mittelfeld.findIndex((t, i) => t.pos === 'VERB_PREFIX' && i < mittelfeld.length - 1);
-    if (pfxIdx !== -1 && isIllegalNachfeld(mittelfeld.slice(pfxIdx + 1))) {
-      const pfx = mittelfeld[pfxIdx];
-      const after = mittelfeld.slice(pfxIdx + 1).map(t => t.raw).join(' ');
-      errors.push({
-        category: 'syntax',
-        code: 'ERR_BROKEN_SATZKLAMMER_PREFIX',
-        original: `${pfx.raw} ${after}`,
-        correction: `${after} ${pfx.raw}`,
-        explanation: `Satzklammer verletzt: Die trennbare Vorsilbe „${pfx.raw}“ gehört ans Satzende: „... ${after} ${pfx.raw}“`
-      });
-    }
-  }
-  return errors;
+/** The whole bracket is quoted, from the finite verb to the clause end, so the learner sees both parts. */
+function buildBracketError({ finVerb, mittelfeld, closerIdx, code, explanation }) {
+  const words = mittelfeld.map((t) => t.raw);
+  const closer = words[closerIdx];
+  const reordered = [...words.slice(0, closerIdx), ...words.slice(closerIdx + 1), closer];
+  return {
+    category: 'syntax',
+    code,
+    original: [finVerb.raw, ...words].join(' '),
+    correction: [finVerb.raw, ...reordered].join(' '),
+    explanation: explanation(closer, reordered.slice(0, -1).join(' ')),
+  };
 }
 
-function parseClause(tokens = [], isCoordinated = false, precedingSubject = null, rawText = '', inSubordinateScope = false) {
+function findBracketCloser(finVerb, mittelfeld) {
+  if (finVerb.valency === 'MODAL') return { pos: 'VERB_INF', code: 'ERR_BROKEN_SATZKLAMMER_MODAL' };
+  if (finVerb.valency === 'SEP' && finVerb.baseVerb) return { pos: 'VERB_PREFIX', code: 'ERR_BROKEN_SATZKLAMMER_PREFIX' };
+  return null;
+}
+
+const BRACKET_EXPLANATIONS = {
+  ERR_BROKEN_SATZKLAMMER_MODAL: (finVerb) => (closer, rest) => `Satzklammer verletzt: Bei Modalverben („${finVerb.raw}“) steht der Infinitiv am Satzende: „... ${rest} ${closer}“`,
+  ERR_BROKEN_SATZKLAMMER_PREFIX: () => (closer, rest) => `Satzklammer verletzt: Die trennbare Vorsilbe „${closer}“ gehört ans Satzende: „... ${rest} ${closer}“`,
+};
+
+function checkSatzklammer(finVerb = {}, mittelfeld = [], policy = {}) {
+  const closer = findBracketCloser(finVerb, mittelfeld);
+  if (!closer || mittelfeld.length === 0) return [];
+  const closerIdx = mittelfeld.findIndex((t, i) => t.pos === closer.pos && i < mittelfeld.length - 1);
+  if (closerIdx === -1 || !isIllegalNachfeld(mittelfeld.slice(closerIdx + 1), policy)) return [];
+  return [buildBracketError({ finVerb, mittelfeld, closerIdx, code: closer.code, explanation: BRACKET_EXPLANATIONS[closer.code](finVerb) })];
+}
+
+/**
+ * @param {Array} tokens - tagged clause tokens
+ * @param {{ isCoordinated: boolean, precedingSubject: object|null, rawText: string, inSubordinateScope: boolean, policy: object }} ctx
+ */
+function parseClause(tokens = [], { isCoordinated = false, precedingSubject = null, rawText = '', inSubordinateScope = false, policy = {} } = {}) {
   if (tokens[0]?.pos === 'KONJ_SUB' || /^(weil|dass|wenn|ob)$/i.test(tokens[0]?.raw || '')) {
-    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: [] };
+    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: checkSubordinateVerbFinal(tokens, { lookup: lookupWord }) };
   }
 
   const finVerbIdx = tokens.findIndex(t => t.pos === 'VERB_FIN' || t.pos === 'VERB_MOD');
@@ -116,19 +95,19 @@ function parseClause(tokens = [], isCoordinated = false, precedingSubject = null
   if (isCoordinated && vorfeldTokens.length === 0 && precedingSubject) {
     const agreesPerson = !finVerb.person || finVerb.person.includes(precedingSubject.person?.[0] ?? 0);
     if (agreesPerson) {
-      const skErrors = checkSatzklammer(finVerb, mittelfeldTokens);
+      const skErrors = checkSatzklammer(finVerb, mittelfeldTokens, policy);
       return { type: 'V2_COORDINATED_ELLIPSIS', finVerb, vorfeld: [], mittelfeld: mittelfeldTokens, errors: skErrors };
     }
   }
 
   if (finVerbIdx === 0) {
-    const skErrors = checkSatzklammer(finVerb, mittelfeldTokens);
+    const skErrors = checkSatzklammer(finVerb, mittelfeldTokens, policy);
     return { type: 'V1_QUESTION_OR_IMP', finVerb, vorfeld: [], mittelfeld: mittelfeldTokens, errors: skErrors };
   }
 
   const constituents = estimateVorfeldConstituents(vorfeldTokens);
-  const v2Errors = checkV2AndInversion(constituents, finVerb, mittelfeldTokens);
-  const skErrors = checkSatzklammer(finVerb, mittelfeldTokens);
+  const v2Errors = checkVorfeldOrder(constituents, finVerb, mittelfeldTokens);
+  const skErrors = checkSatzklammer(finVerb, mittelfeldTokens, policy);
 
   return {
     type: 'V2_STATEMENT',
@@ -140,7 +119,11 @@ function parseClause(tokens = [], isCoordinated = false, precedingSubject = null
   };
 }
 
-export function parseSentenceTopology(sentenceStr = '') {
+/**
+ * @param {string} sentenceStr
+ * @param {{ strictSatzklammer?: boolean }} [policy] - level policy from the grammar profile
+ */
+export function parseSentenceTopology(sentenceStr = '', policy = {}) {
   const clean = sentenceStr.trim();
   if (!clean) return { clauses: [], errors: [] };
 
@@ -156,7 +139,7 @@ export function parseSentenceTopology(sentenceStr = '') {
     if (!clauseText) continue;
 
     const words = splitIntoWords(clauseText);
-    const isCoordinated = i > 0 && /^(und|aber|oder|denn)\b/i.test(words[0]);
+    const isCoordinated = /^(und|aber|oder|denn|sondern)$/i.test(words[0] || '');
     const coordWord = isCoordinated ? words[0].toLowerCase() : '';
     const activeWords = isCoordinated ? words.slice(1) : words;
 
@@ -165,7 +148,7 @@ export function parseSentenceTopology(sentenceStr = '') {
     }
 
     const tagged = tagTokens(activeWords);
-    const parsed = parseClause(tagged, isCoordinated, lastSubject, clauseText, inSubordinateScope);
+    const parsed = parseClause(tagged, { isCoordinated, precedingSubject: lastSubject, rawText: clauseText, inSubordinateScope, policy });
 
     if (parsed.type === 'SUBORDINATE_CLAUSE') {
       inSubordinateScope = true;

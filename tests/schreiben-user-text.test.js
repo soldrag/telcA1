@@ -87,7 +87,7 @@ Artem Smirnov`;
 
       // 1. W-Frage word order
       assert.equal(originals.some(o => o.includes('wie viel der kurs kostet')), true);
-      assert.equal(originals.some(o => o.includes('und wie ich kann')), true);
+      assert.equal(originals.some(o => o.includes('wie ich kann')), true);
 
       // 2. Modal bracket
       assert.equal(originals.some(o => o.includes('möchte lernen vormittags')), true);

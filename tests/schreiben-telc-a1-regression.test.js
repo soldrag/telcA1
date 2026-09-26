@@ -59,8 +59,12 @@ for (const suite of suites) {
     it('one defect flagged by two analyzers is listed once (17_screenshot_user_review)', () => {
       const res = results.get('17_screenshot_user_review');
       if (!res) return;
+      // Two distinct bracket defects, each listed once with its whole bracket.
       const satzklammer = res.grammar_errors.filter((e) => e.code === 'ERR_BROKEN_SATZKLAMMER_MODAL');
-      assert.equal(satzklammer.length, 1);
+      assert.deepEqual(satzklammer.map((e) => e.original).sort(), [
+        'möchten kommen von 15. Juli bis 25. Juli',
+        'will im Sommer mit meine Familie Urlaub machen an der Ostsee',
+      ]);
     });
 
     it('grammar errors never lower the score (10_typical_a1_errors)', () => {

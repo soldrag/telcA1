@@ -7,9 +7,11 @@ import { lookupWord, findWordForms, tagTokens } from '../linguistic/a1LexiconSer
 export const A1_GRAMMAR_PROFILE = Object.freeze({
   level: 'A1',
   lexicon: Object.freeze({ lookup: lookupWord, findForms: findWordForms, tag: tagTokens }),
-  rules: Object.freeze(['nounPhraseCase', 'calendarArticle', 'numeralPlural', 'countability']),
+  rules: Object.freeze(['nounPhraseCase', 'calendarArticle', 'numeralPlural', 'countability', 'subjectVerbAgreement', 'measurePhraseOrder']),
   policy: Object.freeze({
     // Everyday A1 German uses the dative after genitive prepositions ("wegen dem Termin"); not an error here.
     acceptedPrepositionCases: Object.freeze({ GEN: ['DAT'] }),
+    // A1 courses teach the sentence bracket strictly: nothing follows the infinitive ("an der Ostsee machen").
+    strictSatzklammer: true,
   }),
 });

@@ -13,6 +13,7 @@
   "ostsee/10_typical_a1_errors": [
     "ERR_PREP_CASE_DAT: mit meine Familie → mit meiner Familie",
     "ERR_CALENDAR_ARTICLE: in Sommer → im Sommer",
+    "ERR_SUBJECT_VERB_AGREEMENT: wollen → will",
     "ERR_NUMERAL_PLURAL: 4 Person → 4 Personen",
     "ERR_CALENDAR_ARTICLE: Von 5. → Vom 5."
   ],
@@ -25,12 +26,12 @@
     "ERR_MISSING_PREDICATE_QUESTION: Geld wie Nacht? → Geld ist wie Nacht?"
   ],
   "ostsee/17_screenshot_user_review": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: will im Sommer mit meine Familie Urlaub machen an der Ostsee → will im Sommer mit meine Familie Urlaub an der Ostsee machen",
     "ERR_PREP_CASE_DAT: mit meine Familie → mit meiner Familie",
-    "ERR_BROKEN_SATZKLAMMER_MODAL: kommen von 15. Juli bis 25. Juli → von 15. Juli bis 25. Juli kommen",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: möchten kommen von 15. Juli bis 25. Juli → möchten von 15. Juli bis 25. Juli kommen",
     "ERR_PREP_CASE_DAT: mit zwei Kinder → mit zwei Kindern",
     "ERR_CALENDAR_ARTICLE: von 15. Juli → vom 15. Juli",
     "ERR_VERB_VALENCY_AKK: ein kleiner Hund → einen kleinen Hund",
-    "ERR_BROKEN_SATZKLAMMER_MODAL: möchten kommen von 15 → möchten von 15 kommen",
     "orthography: Hallo Frau Hansen, Ich → Hallo Frau Hansen, ich"
   ],
   "ostsee/18_numeric_dates": [],
@@ -41,6 +42,7 @@
   "bench/T1_03": [],
   "bench/T1_04": [
     "ERR_V2_OVERCROWDED_VORFELD: heute ich kann → heute kann ich",
+    "ERR_NEBENSATZ_VERB_FINAL: weil ich bin sehr krank → weil ich sehr krank bin",
     "ERR_V2_OVERCROWDED_VORFELD: Bitte Sie schicken → Bitte schicken Sie"
   ],
   "bench/T1_05": [],
@@ -48,9 +50,7 @@
   "bench/T1_07": [],
   "bench/T1_08": [],
   "bench/T1_09": [],
-  "bench/T1_10": [
-    "ERR_V2_OVERCROWDED_VORFELD: das Wetter in Berlin ist → das Wetter ist in Berlin"
-  ],
+  "bench/T1_10": [],
   "bench/T2_01": [],
   "bench/T2_02": [],
   "bench/T2_03": [],
@@ -65,9 +65,7 @@
     "ERR_MISSING_PREDICATE_QUESTION: Wan kan man di vonung sehn? → Wan ist kan man di vonung sehn?"
   ],
   "bench/T2_07": [],
-  "bench/T2_08": [
-    "ERR_V2_OVERCROWDED_VORFELD: Aber die Wohnung ist → Aber ist die Wohnung"
-  ],
+  "bench/T2_08": [],
   "bench/T2_09": [
     "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin ist morgen 14 Uhr?"
   ],
@@ -77,7 +75,7 @@
   "bench/T3_03": [],
   "bench/T3_04": [],
   "bench/T3_05": [
-    "ERR_V2_OVERCROWDED_VORFELD: Mein Mann er kommt → Mein Mann kommt er"
+    "ERR_DOUBLED_SUBJECT: Mein Mann er kommt → Mein Mann kommt"
   ],
   "bench/T3_06": [
     "ERR_MISSING_COPULA_VERB: Mein man komt mit. → Mein man komt mit [Verb: „ist“ fehlt]",
@@ -91,15 +89,16 @@
   "gold/G2": [
     "ERR_VERB_VALENCY_AKK: ein Deutschkurs → einen Deutschkurs",
     "ERR_CALENDAR_ARTICLE: in August → im August",
-    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß",
     "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
     "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
+    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß",
     "rektion: anmelden → mich anmelden"
   ],
   "gold/G3": [],
   "gold/G4": [],
   "gold/G6": [],
   "gold/G7": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: kann am montag nicht kommen zu Termin → kann am montag nicht zu Termin kommen",
     "orthography: montag, mittwoch, fieber → Montag, Mittwoch, Fieber",
     "orthography: Grusse → Grüße"
   ],
@@ -114,17 +113,19 @@
   "gold/C2": [
     "ERR_VERB_VALENCY_AKK: ein Deutschkurs → einen Deutschkurs",
     "ERR_CALENDAR_ARTICLE: in August → im August",
-    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß",
     "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
     "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
+    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß",
     "rektion: anmelden → mich anmelden"
   ],
   "gold/C3": [],
   "gold/C4": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: kann am montag nicht kommen zu Termin → kann am montag nicht zu Termin kommen",
     "orthography: montag, mittwoch, fieber → Montag, Mittwoch, Fieber",
     "orthography: Grusse → Grüße"
   ],
   "gold/C5": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: möchte Deutschkurs machen im August → möchte Deutschkurs im August machen",
     "rektion: Deutschkurs machen → einen Deutschkurs machen"
   ],
   "gold/C6": [
@@ -155,7 +156,9 @@
   "target/date_contraction": [
     "ERR_CALENDAR_ARTICLE: von 15. Juli → vom 15. Juli"
   ],
-  "target/ausklammerung_pp": [],
+  "target/ausklammerung_pp": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: will im Sommer Urlaub machen an der Ostsee → will im Sommer Urlaub an der Ostsee machen"
+  ],
   "target/month_preposition": [
     "ERR_CALENDAR_ARTICLE: in Juli → im Juli"
   ],
@@ -170,13 +173,9 @@
   "target/clean_unknown_verb": [],
   "target/clean_reflexive_verb": [],
   "target/clean_separable_verb": [],
-  "target/clean_np_with_pp_attribute": [
-    "ERR_V2_OVERCROWDED_VORFELD: Das Wetter in Berlin ist → Das Wetter ist in Berlin"
-  ],
-  "target/clean_coordinator_position_zero": [
-    "ERR_V2_OVERCROWDED_VORFELD: Aber die Wohnung ist → Aber ist die Wohnung"
-  ],
+  "target/clean_np_with_pp_attribute": [],
+  "target/clean_coordinator_position_zero": [],
   "target/doubled_subject": [
-    "ERR_V2_OVERCROWDED_VORFELD: Mein Mann er kommt → Mein Mann kommt er"
+    "ERR_DOUBLED_SUBJECT: Mein Mann er kommt → Mein Mann kommt"
   ]
 }
