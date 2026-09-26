@@ -1,16 +1,18 @@
 /**
  * Concept domain scorer: recognises a rubric aspect in a sentence through the level's concept domains
  * (stem clusters injected as `domains`, see IRankerPolicy.conceptDomains) and proves declared evidence
- * kinds with the structured detectors (time expressions, person counts).
+ * kinds with the structured detectors (time expressions, person counts, occupations).
  */
 
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { detectTemporalExpression } from './temporalRangeDetector.js';
 import { hasPersonCount } from './personCountDetector.js';
+import { hasOccupation } from './occupationDetector.js';
 import { EVIDENCE_KINDS } from '../linguistic/criterionIntents.js';
 
 const TEMPORAL_EVIDENCE_SCORES = Object.freeze({ range: 0.95, point: 0.95, duration: 0.90 });
 const PERSON_COUNT_EVIDENCE_SCORE = 0.9;
+const OCCUPATION_EVIDENCE_SCORE = 0.9;
 // Words that name the time dimension itself: they say a time is asked for, not which one, so on a
 // temporal aspect they must be proven by a time expression, not by time vocabulary.
 const TIME_DIMENSION_WORDS = new Set(['zeit', 'zeitraum', 'dauer', 'dauert']);
@@ -43,14 +45,15 @@ export function getDomainStemsForToken(token = '', domains = {}) {
 }
 
 /**
- * Structured evidence for an aspect: a recognised time range/duration/date, or a person count.
+ * Structured evidence for an aspect: a recognised time range/duration/date, a person count or an occupation.
  * Unlike lexical overlap it proves the aspect is stated, so the ranker may trust it as much as a neural hit.
- * @param {'temporal'|'personCount'|null} evidence - the kind the rubric declares for the aspect
+ * @param {'temporal'|'personCount'|'occupation'|null} evidence - the kind the rubric declares for the aspect
  */
 export function scoreStructuredAspectEvidence(evidence, rawSentence = '') {
   if (!rawSentence) return 0;
   if (evidence === EVIDENCE_KINDS.TEMPORAL) return TEMPORAL_EVIDENCE_SCORES[detectTemporalExpression(rawSentence)] || 0;
   if (evidence === EVIDENCE_KINDS.PERSON_COUNT) return hasPersonCount(rawSentence) ? PERSON_COUNT_EVIDENCE_SCORE : 0;
+  if (evidence === EVIDENCE_KINDS.OCCUPATION) return hasOccupation(rawSentence) ? OCCUPATION_EVIDENCE_SCORE : 0;
   return 0;
 }
 

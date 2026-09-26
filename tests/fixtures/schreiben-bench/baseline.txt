@@ -11,11 +11,11 @@ T1_10  none=000       gray=000       primary=000    exp=000 | Completely Off-top
 T2_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
 T2_02  none=212       gray=212       primary=212    exp=212 | Trap: Personen without Beruf
 T2_03  none=212       gray=212       primary=212    exp=212 | Trap: Beruf without Personen
-T2_04  none=221       gray=221       primary=210    exp=220 | Missing Besichtigung
+T2_04  none=221       gray=221       primary=220    exp=220 | Missing Besichtigung
 T2_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
 T2_06  none=020       gray=020       primary=020    exp=222 | Severe A1 Typos
-T2_07  none=222       gray=222       primary=222    exp=212 | Informal Salutation
-T2_08  none=220i      gray=220i      primary=220i   exp=210 | Semantic Negation (Too expensive)
+T2_07  none=212       gray=212       primary=212    exp=212 | Informal Salutation
+T2_08  none=210i      gray=210i      primary=210i   exp=210 | Semantic Negation (Too expensive)
 T2_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
 T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard

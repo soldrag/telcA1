@@ -2,6 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { detectTemporalExpression } from '../src/services/schreiben/grading/temporalRangeDetector.js';
 import { hasPersonCount } from '../src/services/schreiben/grading/personCountDetector.js';
+import { hasOccupation } from '../src/services/schreiben/grading/occupationDetector.js';
 import { defaultA1RankerPolicy as policy } from '../src/services/schreiben/grading/policies/a1RankerPolicy.js';
 import { mergeArbitrationVerdict } from '../src/services/schreiben/grading/leitpunktArbitration.js';
 
@@ -37,6 +38,17 @@ describe('person count detector', () => {
     assert.equal(hasPersonCount('Wir sind vier Personen mit zwei Kinder.'), true);
     assert.equal(hasPersonCount('Ich komme allein.'), true);
     assert.equal(hasPersonCount('Wir kommen vom 15. bis 25. Juli.'), false);
+  });
+});
+
+describe('occupation detector', () => {
+  it('needs an occupation, a role or a workplace, not just the verb "arbeiten"', () => {
+    for (const text of ['Ich arbeite als Verkäufer.', 'Ich arbeite bei Siemens.', 'Zwei Personen, Ingenieur.', 'Ich bin Zahnärztin.', 'Wir sind Studenten.', 'Ich studiere Medizin.']) {
+      assert.equal(hasOccupation(text), true, text);
+    }
+    for (const text of ['Wir sind zwei Personen und arbeiten beide.', 'Wir arbeiten hier.', 'Ich koche gern.', 'Ich habe viel Arbeit.']) {
+      assert.equal(hasOccupation(text), false, text);
+    }
   });
 });
 
@@ -103,5 +115,11 @@ describe('Level policy bounds lexical hints on an unproven counted aspect', asyn
     const counted = computeDeterministicFallbackScore(personen, 'Wir sind zwei Erwachsene und zwei Kinder.', { policy });
     assert.equal(policy.classifyScore(vague), 'partial');
     assert.equal(policy.classifyScore(counted), 'full');
+  });
+
+  it('working without naming the occupation stays partial for Beruf', () => {
+    const beruf = { label: 'Beruf', evidence: 'occupation', keywords: ['beruf', 'arbeit'] };
+    assert.equal(policy.classifyScore(computeDeterministicFallbackScore(beruf, 'Wir arbeiten beide.', { policy })), 'partial');
+    assert.equal(policy.classifyScore(computeDeterministicFallbackScore(beruf, 'Ich arbeite als Koch.', { policy })), 'full');
   });
 });

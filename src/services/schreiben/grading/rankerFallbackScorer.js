@@ -51,7 +51,7 @@ function normalizeAspect(aspect) {
 /**
  * Deterministic evidence split by trust level: `lexical` (keyword/concept/label overlap) only hints
  * at a topic, `structured` (a recognised calendar expression or person count) proves the aspect is stated.
- * @param {string|{ label: string, keywords?: string[], evidence?: 'temporal'|'personCount'|null }} aspect
+ * @param {string|{ label: string, keywords?: string[], evidence?: 'temporal'|'personCount'|'occupation'|null }} aspect
  * @param {string} sentenceText
  * @param {{ policy: object }} context - the level policy: its concept domains, and the bound for lexical
  *   hints on an unproven evidence kind

@@ -26,9 +26,9 @@ export class A1RankerPolicy extends IRankerPolicy {
     // EmbeddingGemma reads typo-heavy A1 text ("ich binn ser krangk") as noise while an examiner still
     // understands it and must not deduct. Clean letters measure 0.05–0.20 words outside the A1 lexicon, typo-heavy 0.40+.
     this._maxUnknownWordRatio = 0.3;
-    // An A1 task asking "how many persons" is only partly answered by "wir" / "mit meiner Familie":
-    // without a number the Personen aspect stays partial (regression case 20).
-    this._countedEvidenceKinds = new Set([EVIDENCE_KINDS.PERSON_COUNT]);
+    // Aspects that ask for a specific fact stay partial on topic words alone: "wir" / "mit meiner Familie"
+    // answers "how many persons" only partly (regression case 20), "wir arbeiten beide" names no occupation.
+    this._specificEvidenceKinds = new Set([EVIDENCE_KINDS.PERSON_COUNT, EVIDENCE_KINDS.OCCUPATION]);
     // Pass mark 6/10 mirrors is_correct in gradingPipeline; two grammar highlights keep A1 feedback digestible.
     this._feedbackSelection = Object.freeze({
       grammarHighlights: 2,
@@ -46,7 +46,7 @@ export class A1RankerPolicy extends IRankerPolicy {
   }
 
   capUnprovenLexical(evidenceKind, lexical) {
-    return this._countedEvidenceKinds.has(evidenceKind) ? Math.min(lexical, this._thresholds.partial) : lexical;
+    return this._specificEvidenceKinds.has(evidenceKind) ? Math.min(lexical, this._thresholds.partial) : lexical;
   }
 
   get thresholds() {
