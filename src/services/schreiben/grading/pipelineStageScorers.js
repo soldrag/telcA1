@@ -32,8 +32,8 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
   }
 }
 
-async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments, lexicon }) {
-  const kw = evaluateCriterionKeywords(bodySentences, crit, { lexicon });
+async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments, policy }) {
+  const kw = evaluateCriterionKeywords(bodySentences, crit, { lexicon: policy.lexicon });
   let bestSim = 0;
   const relSentences = [...kw.relevantSentences];
 
@@ -72,36 +72,29 @@ function calculateBaseScore(effectiveSim, framePenalty) {
   return framePenalty === 1 ? Math.min(rawScore, 1) : rawScore;
 }
 
-function computeCriterionBaseScore(crit, effectiveSim, frameCheck, relSentences) {
-  let baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
-  let adjustedSim = effectiveSim;
-  const evalText = relSentences.join(' ');
-  const compoundEval = evaluateCompoundCriterionBaseline(crit, evalText);
-  if (compoundEval) {
-    baseScore = Math.min(baseScore, compoundEval.score);
-    if (baseScore === 1 && adjustedSim >= SIMILARITY_T2) {
-      adjustedSim = SIMILARITY_T1;
-    } else if (baseScore === 0) {
-      adjustedSim = 0.20;
-    }
-  }
-  return { baseScore, compoundEval, effectiveSim: adjustedSim };
+// A compound criterion is capped by its weakest aspect (A ∧ B: all aspects needed for full).
+function computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, policy }) {
+  const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
+  const compoundEval = evaluateCompoundCriterionBaseline(crit, relSentences.join(' '), { policy });
+  if (!compoundEval) return { baseScore, compoundEval };
+  return { baseScore: Math.min(baseScore, compoundEval.score), compoundEval };
 }
 
 async function scoreCriterionItem(params) {
-  const { crit, provider, bodySentences, rankerEmbedder, criteria = [], lexicon } = params;
+  const { crit, provider, bodySentences, rankerEmbedder, criteria = [], policy } = params;
   const lpText = crit.label || crit.id;
-  const { relSentences, effectiveSim: rawSim, keywordSentences } = await gatherCriterionEvidence(params);
+  const { relSentences, effectiveSim, keywordSentences } = await gatherCriterionEvidence(params);
   const hasAffirmativeEvidence = keywordSentences.length > 0;
-  const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence, lexicon });
-  const { baseScore, compoundEval, effectiveSim } = computeCriterionBaseScore(crit, rawSim, frameCheck, relSentences);
+  const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence, lexicon: policy.lexicon });
+  const { baseScore, compoundEval } = computeCriterionBaseScore(crit, { effectiveSim, frameCheck, relSentences, policy });
 
   let finalScore = baseScore;
   let arbitrated = false;
   let rankerDetails = compoundEval?.rankerDetails || null;
   let arbitration = null;
 
-  if (shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty: frameCheck.penalty })) {
+  const arbitrationGate = { provider, effectiveSim, framePenalty: frameCheck.penalty, baselineScore: baseScore, isCompound: Boolean(compoundEval) };
+  if (shouldArbitrateLeitpunkt(arbitrationGate)) {
     const sentences = relSentences.length > 0 ? relSentences : (bodySentences || []);
     const arb = await arbitrateLeitpunkt({
       criterion: crit, sentences, baselineScore: baseScore, provider,
@@ -131,8 +124,8 @@ async function scoreCriterionItem(params) {
   };
 }
 
-/** lexicon: the level's lexicon port (ranker policy `lexicon`). */
-export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, lexicon = defaultA1RankerPolicy.lexicon }) {
+/** policy: the level's ranker policy (lexicon port, coverage thresholds). */
+export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, policy = defaultA1RankerPolicy }) {
   const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
   const rankerEmbedder = sentenceVectors.some(Boolean)
     ? createRankerEmbedder({ customExtractor, sentenceVectors: buildSentenceVectorMap(bodySentences, sentenceVectors) })
@@ -142,7 +135,7 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
 
   for (let idx = 0; idx < criteria.length; idx++) {
     const scoredItem = await scoreCriterionItem({
-      crit: criteria[idx], critIdx: idx, bodySentences, sentenceVectors, customExtractor, provider, userSegments, rankerEmbedder, criteria, lexicon
+      crit: criteria[idx], critIdx: idx, bodySentences, sentenceVectors, customExtractor, provider, userSegments, rankerEmbedder, criteria, policy
     });
     items.push(scoredItem);
     if (scoredItem.frameErrors?.length > 0) semanticErrors.push(...scoredItem.frameErrors);

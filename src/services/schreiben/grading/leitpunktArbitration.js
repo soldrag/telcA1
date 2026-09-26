@@ -6,11 +6,13 @@
  * - a compound criterion with a missing aspect is capped at the partial level (A ∧ B: all aspects needed for full);
  * - gray-zone providers never lower a baseline level ≥ 1 (isProtected records when that floor applied);
  * - the primary ranker is the arbiter: its 'no' verdict overrides the keyword baseline, and a compound
- *   point is capped at partial when the ranker vetoed an aspect that only keywords supported
+ *   point is capped at partial when the ranker finds any aspect less than fully covered (vetoed or partial:
+ *   full needs every aspect)
  *   (both only when the level policy trusts the verdict on these sentences, see IRankerPolicy.isVerdictReliable).
  */
 
 import { isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
+import { SIMILARITY_T2 } from './types.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 
 const COMPOUND_MISSING_ASPECT_CAP = 1;
@@ -19,9 +21,22 @@ export function isPrimaryRankerProvider(provider) {
   return provider?.id === PROVIDER_IDS.MICRO_RANKER;
 }
 
-export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty }) {
+// Whether a gray-zone provider has anything to decide. For a compound criterion the keyword aspects
+// settle a missing aspect (0), while a full similarity capped at partial means the aspects disagree.
+function isBaselineUndecided({ effectiveSim, baselineScore, isCompound }) {
+  if (!isCompound) return isScoreInGrayZone(effectiveSim);
+  if (baselineScore === 0) return false;
+  if (baselineScore === 1 && effectiveSim >= SIMILARITY_T2) return true;
+  return isScoreInGrayZone(effectiveSim);
+}
+
+/**
+ * @param {{ provider: object, effectiveSim: number, framePenalty: number,
+ *   baselineScore?: number, isCompound?: boolean }} params
+ */
+export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty, baselineScore, isCompound = false }) {
   if (!provider || provider.id === PROVIDER_IDS.NONE || framePenalty > 0) return false;
-  return isPrimaryRankerProvider(provider) || isScoreInGrayZone(effectiveSim);
+  return isPrimaryRankerProvider(provider) || isBaselineUndecided({ effectiveSim, baselineScore, isCompound });
 }
 
 function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {

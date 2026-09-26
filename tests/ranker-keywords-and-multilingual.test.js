@@ -117,6 +117,20 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
     assert.equal(shouldArbitrateLeitpunkt({ provider: ranker, effectiveSim: 0.95, framePenalty: 2 }), false);
   });
 
+  it('a gray-zone provider reviews a compound point only while its aspects disagree', () => {
+    const llm = { id: PROVIDER_IDS.CLIENT_WEBGPU };
+    const gate = (baselineScore, effectiveSim) => shouldArbitrateLeitpunkt({ provider: llm, effectiveSim, framePenalty: 0, baselineScore, isCompound: true });
+    assert.equal(gate(1, 0.95), true, 'full similarity capped at partial by a missing aspect');
+    assert.equal(gate(0, 0.66), false, 'keywords settle a missing aspect');
+    assert.equal(gate(2, 0.95), false, 'every aspect covered, similarity outside the gray zone');
+  });
+
+  it('the arbiter ranker caps a compound point at partial when an aspect is only partly covered', () => {
+    const verdict = { coverage: 'partial', isCompound: true, missingAspects: [], aspects: [{ coverage: 'full' }, { coverage: 'partial' }] };
+    assert.equal(mergeArbitrationVerdict(2, verdict, { rankerIsArbiter: true }).score, 1);
+    assert.equal(mergeArbitrationVerdict(2, verdict, { rankerIsArbiter: false }).score, 2);
+  });
+
   it('caps a compound verdict with a missing aspect at 1 point despite baseline 2', () => {
     const verdict = { coverage: 'partial', isCompound: true, missingAspects: ['Dauer'] };
     assert.equal(mergeArbitrationVerdict(2, verdict).score, 1);

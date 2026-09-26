@@ -106,7 +106,8 @@ export async function gradeSchreibenSubmission({
   const quality = analyzeGermanQuality(raw, 30);
   const stage1 = runStage1Scoring(stage0);
 
-  const { lexicon } = getRankerPolicy(question.level);
+  const levelPolicy = getRankerPolicy(question.level);
+  const { lexicon } = levelPolicy;
   const seg = segmentUserEssay(raw, criteria, { lexicon });
   const userSegments = {
     anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
@@ -123,7 +124,7 @@ export async function gradeSchreibenSubmission({
     provider: activeProvider,
     customExtractor,
     userSegments,
-    lexicon,
+    policy: levelPolicy,
   });
 
   onProgress?.('Grammatikprüfung...', 0.7);
@@ -152,7 +153,7 @@ export async function gradeSchreibenSubmission({
       stage0, stage1, stage2, errors, userSegments, finalPoints,
       maxPoints: score.maxPoints, isGibberish: quality.isGibberish,
     },
-    policy: getRankerPolicy(question.level),
+    policy: levelPolicy,
     activeProvider,
     enableLlmPolish: options.enableLlmPolish,
   });

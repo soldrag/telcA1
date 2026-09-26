@@ -17,7 +17,8 @@ import {
 import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
 import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
 
-export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '') {
+/** policy: the level's ranker policy (coverage thresholds and compound aggregation). */
+export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '', { policy = defaultA1RankerPolicy } = {}) {
   const label = criterion.label || criterion.id || '';
   if (!isCompoundCriterion(label)) return null;
 
@@ -30,16 +31,16 @@ export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '')
       : (criterion?.keywords || []);
     const evidence = resolveAspectEvidence(criterion, aspect);
     const score = computeDeterministicFallbackScore({ label: aspect, keywords, evidence }, evalText);
-    const coverage = defaultA1RankerPolicy.classifyScore(score);
+    const coverage = policy.classifyScore(score);
     return {
       aspect,
       coverage,
       score: Number(score.toFixed(4)),
-      matchedSentence: score >= defaultA1RankerPolicy.thresholds.partial ? evalText : '',
+      matchedSentence: score >= policy.thresholds.partial ? evalText : '',
     };
   });
 
-  const aggregated = aggregateCompoundResults(aspectResults, defaultA1RankerPolicy);
+  const aggregated = aggregateCompoundResults(aspectResults, policy);
   const score = aggregated.coverage === 'full' ? 2 : (aggregated.coverage === 'partial' ? 1 : 0);
 
   return {
