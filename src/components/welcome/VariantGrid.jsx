@@ -29,9 +29,9 @@ function VariantCell({ exam, status, activity, onStart, t, language }) {
         <span className="hidden lg:inline text-sm whitespace-nowrap">{name}</span>
       </span>
       <span className={`text-xs lg:text-lg lg:font-semibold tabular-nums ${status.tone} ${status.showOnMobile ? '' : 'hidden lg:inline'} ${status.muted ? 'lg:text-sm lg:font-normal' : ''}`}>{status.text}</span>
-      <span className="hidden lg:flex w-full items-center justify-between gap-2 mt-auto text-xs text-content-tertiary">
-        <span className="truncate">{activity ? t('welcome.variants.attemptsLine', { count: activity.count, date: formatDayMonth(activity.lastAt, language) }) : ''}</span>
-        <span className="text-action-primary opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity whitespace-nowrap">{t('welcome.variants.startHint')}</span>
+      <span className="hidden lg:block w-full mt-auto text-xs text-content-tertiary whitespace-nowrap">
+        <span className="group-hover:hidden group-focus-visible:hidden">{activity ? t('welcome.variants.attemptsLine', { count: activity.count, date: formatDayMonth(activity.lastAt, language) }) : ''}</span>
+        <span className="hidden group-hover:inline group-focus-visible:inline text-action-primary">{t('welcome.variants.startHint')}</span>
       </span>
     </button>
   );
