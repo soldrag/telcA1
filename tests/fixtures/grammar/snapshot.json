@@ -91,8 +91,8 @@
     "ERR_CALENDAR_ARTICLE: in August → im August",
     "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
     "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
-    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß",
-    "rektion: anmelden → mich anmelden"
+    "ERR_REFLEXIVE_PRONOUN_MISSING: anmelden → mich anmelden",
+    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß"
   ],
   "gold/G3": [],
   "gold/G4": [],
@@ -106,8 +106,7 @@
   "gold/G11": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
     "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
-    "rektion: für August → im August",
-    "rektion: auf den Kurs anmelden → für den Kurs anmelden",
+    "ERR_VERB_PREPOSITION: auf den Kurs anmelden → für den Kurs anmelden",
     "rektion: Mit freundliche Grüßen → Mit freundlichen Grüßen"
   ],
   "gold/C2": [
@@ -115,8 +114,8 @@
     "ERR_CALENDAR_ARTICLE: in August → im August",
     "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
     "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
-    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß",
-    "rektion: anmelden → mich anmelden"
+    "ERR_REFLEXIVE_PRONOUN_MISSING: anmelden → mich anmelden",
+    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß"
   ],
   "gold/C3": [],
   "gold/C4": [
@@ -126,13 +125,12 @@
   ],
   "gold/C5": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: möchte Deutschkurs machen im August → möchte Deutschkurs im August machen",
-    "rektion: Deutschkurs machen → einen Deutschkurs machen"
+    "ERR_MISSING_ARTICLE: Deutschkurs machen → einen Deutschkurs machen"
   ],
   "gold/C6": [
     "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
     "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
-    "rektion: für August → im August",
-    "rektion: auf den Kurs anmelden → für den Kurs anmelden",
+    "ERR_VERB_PREPOSITION: auf den Kurs anmelden → für den Kurs anmelden",
     "rektion: Mit freundliche Grüßen → Mit freundlichen Grüßen"
   ],
   "gold/C8": [],
@@ -165,9 +163,7 @@
   "target/noun_capitalisation": [
     "orthography: termin → Termin"
   ],
-  "target/clean_reflexive": [
-    "rektion: anmelden → mich anmelden"
-  ],
+  "target/clean_reflexive": [],
   "target/clean_np_cases": [],
   "target/clean_modal_frame": [],
   "target/clean_unknown_verb": [],

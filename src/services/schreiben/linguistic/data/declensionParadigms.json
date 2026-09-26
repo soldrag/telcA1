@@ -53,6 +53,7 @@
     }
   },
   "adjectiveEndingCandidates": ["em", "en", "er", "es", "e"],
+  "reflexivePronouns": { "1:sg": "mich", "2:sg": "dich", "3:sg": "sich", "1:pl": "uns", "2:pl": "euch", "3:pl": "sich" },
   "massQuantifierStems": ["viel", "wenig"],
   "degreeParticles": ["zu"],
   "cardinals": ["zwei", "drei", "vier", "fünf", "fuenf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "zwoelf", "zwanzig", "hundert"],

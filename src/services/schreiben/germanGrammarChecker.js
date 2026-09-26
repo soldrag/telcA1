@@ -7,10 +7,8 @@
 import { checkOrthographyRules } from './rules/orthographyRuleChecker.js';
 import { checkRektionRules } from './rules/rektionRuleChecker.js';
 import { parseSentenceTopology } from './linguistic/topologicalFieldParser.js';
-import { validateCaseAndValency } from './linguistic/caseValencyValidator.js';
 import { createGrammarEngine } from './linguistic/grammarEngine.js';
 import { A1_GRAMMAR_PROFILE } from './profiles/a1GrammarProfile.js';
-import { tagTokens } from './linguistic/a1LexiconService.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 
@@ -24,8 +22,7 @@ function collectSentenceLinguisticErrors(sentence) {
   }
 
   const words = sentence.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
-  const tagged = tagTokens(words);
-  errors.push(...validateCaseAndValency(tagged), ...a1GrammarEngine.checkSentence(words));
+  errors.push(...a1GrammarEngine.checkSentence(words));
   return errors;
 }
 

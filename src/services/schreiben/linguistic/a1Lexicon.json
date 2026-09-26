@@ -3809,7 +3809,12 @@
       "pos": "VERB_INF",
       "lemma": "anmelden",
       "valency": "SEP",
-      "baseVerb": "melden"
+      "baseVerb": "melden",
+      "reflexive": true,
+      "prepObject": [
+        "für",
+        "zu"
+      ]
     }
   ],
   "angemeldet": [
@@ -3817,7 +3822,12 @@
       "pos": "VERB_PART",
       "lemma": "anmelden",
       "valency": "SEP",
-      "baseVerb": "melden"
+      "baseVerb": "melden",
+      "reflexive": true,
+      "prepObject": [
+        "für",
+        "zu"
+      ]
     }
   ],
   "freihaben": [
@@ -3834,7 +3844,8 @@
       "lemma": "Termin",
       "gender": "m",
       "number": "sg",
-      "plural": "Termine"
+      "plural": "Termine",
+      "countable": true
     }
   ],
   "termine": [
@@ -3867,7 +3878,8 @@
       "lemma": "Kurs",
       "gender": "m",
       "number": "sg",
-      "plural": "Kurse"
+      "plural": "Kurse",
+      "countable": true
     }
   ],
   "kurse": [
@@ -3883,7 +3895,8 @@
       "pos": "NOUN",
       "lemma": "Deutschkurs",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "countable": true
     }
   ],
   "sprachkurs": [
@@ -3891,7 +3904,8 @@
       "pos": "NOUN",
       "lemma": "Sprachkurs",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "countable": true
     }
   ],
   "chef": [
@@ -4138,7 +4152,8 @@
       "lemma": "Zimmer",
       "gender": "n",
       "number": "sg",
-      "category": "rental_object"
+      "category": "rental_object",
+      "countable": true
     }
   ],
   "reservierung": [
@@ -4154,7 +4169,8 @@
       "pos": "NOUN",
       "lemma": "Ticket",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "countable": true
     }
   ],
   "geld": [
@@ -4394,7 +4410,8 @@
       "gender": "f",
       "number": "sg",
       "category": "rental_object",
-      "plural": "Wohnungen"
+      "plural": "Wohnungen",
+      "countable": true
     }
   ],
   "stadt": [
@@ -4434,7 +4451,8 @@
       "pos": "NOUN",
       "lemma": "Auto",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "countable": true
     }
   ],
   "haus": [
@@ -4442,7 +4460,8 @@
       "pos": "NOUN",
       "lemma": "Haus",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "countable": true
     }
   ],
   "kind": [
@@ -4847,7 +4866,8 @@
       "gender": "f",
       "number": "sg",
       "category": "rental_object",
-      "plural": "Ferienwohnungen"
+      "plural": "Ferienwohnungen",
+      "countable": true
     }
   ],
   "ferienwohnungen": [
@@ -4875,7 +4895,8 @@
       "gender": "m",
       "number": "sg",
       "category": "pet",
-      "plural": "Hunde"
+      "plural": "Hunde",
+      "countable": true
     }
   ],
   "hunde": [
@@ -4913,7 +4934,8 @@
       "gender": "f",
       "number": "sg",
       "category": "pet",
-      "plural": "Katzen"
+      "plural": "Katzen",
+      "countable": true
     }
   ],
   "katzen": [
@@ -5332,7 +5354,8 @@
       "lemma": "Apartment",
       "gender": "n",
       "number": "sg",
-      "plural": "Apartments"
+      "plural": "Apartments",
+      "countable": true
     }
   ],
   "apartments": [
@@ -6111,6 +6134,12 @@
         3
       ],
       "number": "pl"
+    },
+    {
+      "pos": "NOUN",
+      "lemma": "Fragen",
+      "gender": "f",
+      "number": "pl"
     }
   ],
   "frage": [
@@ -6123,6 +6152,14 @@
         1
       ],
       "number": "sg"
+    },
+    {
+      "pos": "NOUN",
+      "lemma": "Frage",
+      "gender": "f",
+      "number": "sg",
+      "plural": "Fragen",
+      "countable": true
     }
   ],
   "fragst": [

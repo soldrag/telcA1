@@ -150,7 +150,7 @@ ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier W
 Mit freundliche Grüßen
 Artem Smirnov`;
 
-    it('detects all 5 syntax, preposition, and declension errors', () => {
+    it('detects the syntax, preposition and declension errors', () => {
       const errors = checkGermanA1Grammar(text4);
       const originals = errors.map(e => e.original.toLowerCase());
 
@@ -165,7 +165,9 @@ Artem Smirnov`;
       const res = evaluateTeil2Essay(text4, question);
       assert.equal(res.points_earned, 10);
       assert.equal(res.breakdown.leitpunkte, 9);
-      assert.equal(res.grammar_errors.length, 5);
+      // "einen Deutschkurs für August" is correct German, so it is no longer flagged.
+
+      assert.equal(res.grammar_errors.length, 4);
       assert.match(res.user_segments.leitpunkte[1].userSentence, /vormittag studieren/i);
     });
   });

@@ -119,7 +119,9 @@ Artem Smirnov`;
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.points_earned, 10);
-    assert.equal(res.grammar_errors.length, 5);
+    // "einen Deutschkurs für August" is correct German, so it is no longer flagged.
+
+    assert.equal(res.grammar_errors.length, 4);
 
     // Verify correct mapping across all 3 Leitpunkte despite complex phrasing
     assert.match(res.user_segments.leitpunkte[0].userSentence, /deutschkurs für august/i);

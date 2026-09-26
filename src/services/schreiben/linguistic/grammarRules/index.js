@@ -5,7 +5,10 @@ import { numeralPluralRule } from './numeralPluralRule.js';
 import { countabilityRule } from './countabilityRule.js';
 import { subjectVerbAgreementRule } from './subjectVerbAgreementRule.js';
 import { measurePhraseOrderRule } from './measurePhraseOrderRule.js';
+import { verbFrameRule } from './verbFrameRule.js';
+import { determinerlessCountNounRule } from './determinerlessCountNounRule.js';
 
-const RULES = [nounPhraseCaseRule, calendarArticleRule, numeralPluralRule, countabilityRule, subjectVerbAgreementRule, measurePhraseOrderRule];
+const RULES = [nounPhraseCaseRule, calendarArticleRule, numeralPluralRule, countabilityRule, subjectVerbAgreementRule, measurePhraseOrderRule,
+  verbFrameRule, determinerlessCountNounRule];
 
 export const GRAMMAR_RULES = Object.freeze(Object.fromEntries(RULES.map((rule) => [rule.id, rule])));
