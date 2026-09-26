@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Mail } from 'lucide-react';
 import Teil1GroupCard from './teil1/Teil1GroupCard.jsx';
 import { useI18n } from '../i18n/I18nContext.jsx';
@@ -30,6 +30,7 @@ function Teil1Banner() {
           <p className="text-xs text-content-tertiary mt-0.5">
             {t('exam.instructionsPart1')}
           </p>
+          <p className="text-xs text-content-tertiary mt-1">{t('exam.part1Tip')}</p>
         </div>
       </div>
     </div>
@@ -58,7 +59,6 @@ export default function Teil1({
   onSelectAnswer,
   isSubmitted,
 }) {
-  const [fontSizeLevel, setFontSizeLevel] = useState('normal');
   const groupedByText = groupQuestionsByText(questions);
 
   return (
@@ -73,8 +73,6 @@ export default function Teil1({
           answers={answers}
           isSubmitted={isSubmitted}
           onSelectAnswer={onSelectAnswer}
-          fontSizeLevel={fontSizeLevel}
-          setFontSizeLevel={setFontSizeLevel}
         />
       ))}
     </div>

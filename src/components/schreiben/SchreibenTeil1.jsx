@@ -36,7 +36,7 @@ export default function SchreibenTeil1({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div className="lg:col-span-6 sticky lg:top-4">
+        <div className="lg:col-span-6 lg:sticky lg:top-20">
           <SchreibenSituationCard question={primaryQuestion} />
         </div>
 

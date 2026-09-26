@@ -14,13 +14,13 @@ export default function SchreibenSituationCard({ question, className = '' }) {
       </div>
 
       {question.situation && (
-        <p className="text-sm sm:text-base font-semibold text-content-secondary leading-snug">
+        <p lang="de" className="exam-text font-semibold text-content-secondary">
           {question.situation}
         </p>
       )}
 
       {question.context_body && (
-        <div className="p-4 sm:p-5 bg-surface-inset rounded-xl border border-border-default text-base font-medium text-content-primary leading-relaxed whitespace-pre-line">
+        <div lang="de" className="p-4 sm:p-5 bg-surface-inset rounded-xl border border-border-default exam-reading text-content-primary whitespace-pre-line">
           {question.context_body}
         </div>
       )}

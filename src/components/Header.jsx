@@ -26,8 +26,6 @@ export default function Header({
     onExitInspection,
   } = navigation;
   const {
-    answeredCount = 0,
-    totalQuestions = 0,
     activeModuleTitle = '',
     activeModulePoints = 0,
   } = stats;
@@ -40,6 +38,22 @@ export default function Header({
       onNavigateHome?.();
     }
   };
+
+  if (screen === 'exam') {
+    return (
+      <header className="app-header border-b border-border-default sticky top-0 z-50 shadow-xs transition-colors">
+        <ExamHeaderActions
+          onNavigateHome={onNavigateHome}
+          onSubmitExam={onSubmitExam}
+          isInspection={isInspection}
+          onExitInspection={onExitInspection}
+        >
+          <LanguageSelector />
+          {themeControl && <ThemeToggle theme={theme} toggleTheme={toggleTheme} isDark={isDark} />}
+        </ExamHeaderActions>
+      </header>
+    );
+  }
 
   return (
     <header className="app-header border-b border-border-default sticky top-0 z-50 shadow-xs transition-colors">
@@ -72,17 +86,6 @@ export default function Header({
 
         <div className="flex items-center space-x-1 sm:space-x-3 shrink-0">
           <div className="flex items-center space-x-1 sm:space-x-2">
-            {screen === 'exam' && (
-              <ExamHeaderActions
-                onNavigateHome={onNavigateHome}
-                onSubmitExam={onSubmitExam}
-                answeredCount={answeredCount}
-                totalQuestions={totalQuestions}
-                isInspection={isInspection}
-                onExitInspection={onExitInspection}
-              />
-            )}
-
             {screen === 'results' && (
               <ResultsHeaderActions
                 onNavigateHome={onNavigateHome}
@@ -90,7 +93,7 @@ export default function Header({
               />
             )}
 
-            {screen !== 'exam' && screen !== 'results' && (
+            {screen !== 'results' && (
               <DefaultHeaderActions
                 screen={screen}
                 onNavigateHome={onNavigateHome}

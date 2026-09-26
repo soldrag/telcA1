@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { submitExamAnswers } from '../services/api.js';
 import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
+import { useQuestionFlags } from './useQuestionFlags.js';
 
 function createAttemptRecord({ resultData, examId, answers, timeSpent }) {
   return {
@@ -29,6 +30,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
   const [results, setResults] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
   const [isInspection, setIsInspection] = useState(false);
+  const { flags, toggleFlag, clearFlags } = useQuestionFlags();
 
   const resetSession = useCallback(() => {
     setAnswers({});
@@ -37,7 +39,8 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     setIsSubmitted(false);
     setResults(null);
     setIsInspection(false);
-  }, []);
+    clearFlags();
+  }, [clearFlags]);
 
   const selectAnswer = useCallback((questionId, value) => {
     if (isSubmitted) return;
@@ -157,6 +160,8 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
   return {
     answers,
     answeredCount: Object.keys(answers).length,
+    flags,
+    toggleFlag,
     activeTeil,
     activeQuestionIndex,
     isSubmitted,

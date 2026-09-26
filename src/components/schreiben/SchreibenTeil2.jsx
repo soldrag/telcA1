@@ -48,12 +48,12 @@ export default function SchreibenTeil2({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-20">
           <div className="bg-surface-card rounded-2xl border-2 border-border-default p-5 sm:p-6 shadow-sm space-y-4">
             <div className="text-xs font-bold uppercase tracking-wider text-action-primary">
               Aufgabenstellung
             </div>
-            <p className="text-sm sm:text-base font-bold text-content-primary leading-snug">
+            <p lang="de" className="exam-text font-semibold text-content-primary">
               {question.situation}
             </p>
 
@@ -63,7 +63,7 @@ export default function SchreibenTeil2({
               </div>
               <div className="space-y-2">
                 {leitpunkte.map((lp, idx) => (
-                  <div key={idx} className="flex items-start space-x-2.5 p-2.5 bg-surface-inset rounded-xl border border-border-default text-xs sm:text-sm font-medium text-content-primary">
+                  <div key={idx} className="flex items-start space-x-2.5 p-2.5 bg-surface-inset rounded-xl border border-border-default exam-text text-content-primary" lang="de">
                     <span className="w-5 h-5 rounded-full bg-action-primary text-white text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
@@ -97,7 +97,7 @@ export default function SchreibenTeil2({
             value={textValue}
             onChange={(e) => onSelectAnswer(question.id, e.target.value)}
             placeholder=""
-            className="w-full p-4 rounded-xl border-2 border-border-default bg-surface-inset text-content-primary font-sans text-sm sm:text-base placeholder:text-content-muted leading-relaxed focus:outline-none focus:border-action-primary focus:bg-surface-card transition-colors disabled:opacity-75 resize-y min-h-[220px]"
+            className="w-full p-4 rounded-xl border-2 border-border-default bg-surface-inset text-content-primary font-sans exam-text placeholder:text-content-muted focus:outline-none focus:border-action-primary focus:bg-surface-card transition-colors disabled:opacity-75 resize-y min-h-[220px]"
           />
 
           <SchreibenWordCounter text={textValue} targetWords={30} />

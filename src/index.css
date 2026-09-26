@@ -98,7 +98,7 @@
   html, body {
     width: 100%;
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: clip;
     background-color: var(--bg-canvas);
     color: var(--content-primary);
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -151,3 +151,12 @@ footer {
   background: var(--scrollbar-thumb-hover);
 }
 
+
+/* Exam reading text: one size for all Teile, scaled by the global A/A+/A++ control. */
+@layer components {
+  :root { --exam-font-size: 17px; }
+  :root[data-exam-font='large'] { --exam-font-size: 20px; }
+  :root[data-exam-font='xlarge'] { --exam-font-size: 24px; }
+  .exam-text { font-size: var(--exam-font-size); line-height: 1.6; }
+  .exam-reading { font-size: var(--exam-font-size); line-height: 1.6; max-width: 65ch; }
+}

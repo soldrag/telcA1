@@ -9,14 +9,17 @@ export default function Teil2WebpageOption({
 }) {
   const { t } = useI18n();
   const containerClass = isSelected
-    ? 'border-action-primary bg-action-primary-subtle/70 shadow-lg ring-2 ring-action-primary/30 scale-[1.01]'
-    : 'border-border-default hover:border-border-strong bg-surface-card hover:bg-surface-raised shadow-xs';
+    ? 'border-action-primary ring-2 ring-action-primary bg-surface-card'
+    : 'border-border-default hover:border-border-strong bg-surface-card hover:bg-surface-raised';
 
   return (
     <button
       type="button"
+      role="radio"
+      aria-checked={isSelected}
+      disabled={isSubmitted}
       onClick={() => !isSubmitted && onSelect(option.id)}
-      className={`text-left w-full min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 relative flex flex-col justify-between rounded-2xl border-2 p-4 sm:p-6 transition-all cursor-pointer ${containerClass}`}
+      className={`text-left w-full min-h-[44px] focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 relative flex flex-col justify-between rounded-xl border p-4 sm:p-6 transition-colors cursor-pointer disabled:cursor-default ${containerClass}`}
     >
       <div>
         {/* Browser mockup header */}
@@ -36,11 +39,11 @@ export default function Teil2WebpageOption({
           </div>
         </div>
 
-        <h4 className="text-base sm:text-lg font-black text-content-primary hover:text-action-primary transition-colors">
+        <h4 lang="de" className="exam-text font-semibold text-content-primary">
           {option.title}
         </h4>
 
-        <p className="mt-2 text-sm sm:text-base text-content-secondary leading-relaxed font-normal">
+        <p lang="de" className="mt-2 exam-text text-content-secondary">
           {option.text}
         </p>
 

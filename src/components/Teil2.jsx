@@ -1,4 +1,5 @@
 import React from 'react';
+import { QuestionFlagButton } from './exam/QuestionFlag.jsx';
 import { Globe } from 'lucide-react';
 import Teil2WebpageOption from './teil2/Teil2WebpageOption.jsx';
 import { useI18n } from '../i18n/I18nContext.jsx';
@@ -42,8 +43,6 @@ export default function Teil2({
   onSelectAnswer,
   isSubmitted,
 }) {
-  const { t } = useI18n();
-
   return (
     <div className="space-y-8">
       <Teil2Banner />
@@ -52,38 +51,23 @@ export default function Teil2({
         {questions.map((question) => {
           const currentAnswer = answers[question.id];
           const options = question.options_json || [];
-          const isAnswered = Boolean(currentAnswer);
+          const situationId = `situation-${question.id}`;
 
           return (
-            <div
+            <section
               key={question.id}
               id={`question-${question.id}`}
-              className="bg-surface-card rounded-3xl border-2 border-border-default overflow-hidden shadow-md"
+              className="scroll-mt-24 bg-surface-card rounded-2xl border border-border-default overflow-hidden"
             >
-              <div className="bg-surface-inset border-b-2 border-border-default p-4 sm:p-6">
-                <div className="flex items-start space-x-4">
-                  <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-action-primary text-white font-black text-sm flex items-center justify-center shadow-sm mt-0.5">
-                    {question.question_number}
-                  </span>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-action-primary bg-surface-card px-3 py-1 rounded border border-border-default shadow-xs">
-                        Situation {question.question_number}
-                      </span>
-                      {isAnswered && (
-                        <span className="text-xs font-extrabold text-action-primary bg-action-primary-subtle px-3 py-1 rounded-full border border-action-primary-border shadow-xs">
-                          {t('exam.part2Selected', { answer: String(currentAnswer).toUpperCase() })}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-base sm:text-lg font-bold text-content-primary mt-2 leading-snug">
-                      {question.situation}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <p id={situationId} lang="de" className="flex items-start gap-3 p-4 sm:p-6 border-b border-border-default exam-text font-semibold text-content-primary">
+                <span className="shrink-0 w-7 h-7 mt-0.5 rounded-lg bg-surface-inset text-content-secondary text-sm font-semibold flex items-center justify-center">
+                  {question.question_number}
+                </span>
+                <span className="flex-1">{question.situation}</span>
+                <QuestionFlagButton questionId={question.id} />
+              </p>
 
-              <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div role="radiogroup" aria-labelledby={situationId} className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {options.map((option) => (
                   <Teil2WebpageOption
                     key={option.id}
@@ -94,7 +78,7 @@ export default function Teil2({
                   />
                 ))}
               </div>
-            </div>
+            </section>
           );
         })}
       </div>

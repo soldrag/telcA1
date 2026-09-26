@@ -83,14 +83,14 @@ graph TD
     ViewSelector -->|results| ResultsView["ResultsView.jsx (Scorecard & Review)"]
     ViewSelector -->|history| HistoryView["HistoryView.jsx (Local Attempt Stats)"]
     
-    ExamView --> ExamTimer["ExamTimer.jsx"]
-    ExamView --> QuestionNav["QuestionNav.jsx"]
+    ExamView --> ExamToolbar["ExamToolbar.jsx (portal into Header slot: Teile, timer, font size)"]
+    ExamToolbar --> ExamTimer["ExamTimer.jsx (inline, aria-live at 5/1 min)"]
     ExamView --> ActiveModule{Exam Module}
     
     ActiveModule -->|Lesen Teil 1| Teil1["Teil1.jsx (Reading Texts)"]
     ActiveModule -->|Lesen Teil 2| Teil2["Teil2.jsx (Web Ads a/b)"]
     ActiveModule -->|Lesen Teil 3| Teil3["Teil3.jsx (Public Notices)"]
-    ExamView --> Antwortbogen["Antwortbogen.jsx (Digital S10 Sheet)"]
+    ExamView --> AnswerSheet["AnswerSheetGrid.jsx (Antwortbogen strip; lazy bottom sheet on mobile)"]
 ```
 
 ### 3.3 Interface Contracts & Contract Guard

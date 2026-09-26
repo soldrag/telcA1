@@ -45,6 +45,7 @@ export default function SchreibenFormField({
       <input
         id={`input-${questionId}`}
         type="text"
+        lang="de"
         disabled={disabled}
         value={value}
         onChange={(e) => onChange(questionId, e.target.value)}

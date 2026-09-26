@@ -42,7 +42,7 @@ describe('i18n Translation Contract Validation', () => {
 
   it('fails validation when a template placeholder is missing', () => {
     const brokenPlaceholderLocale = JSON.parse(JSON.stringify(en));
-    brokenPlaceholderLocale.header.answeredProgress = 'Answered static';
+    brokenPlaceholderLocale.exam.sheetButton = 'Sheet static';
 
     const result = validateLocaleAgainstContract(brokenPlaceholderLocale, TRANSLATION_CONTRACT, 'broken_placeholder');
     assert.equal(result.isValid, false);

@@ -1,65 +1,37 @@
 import React from 'react';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import { Button } from '../ui/Button.jsx';
-import { Badge } from '../ui/Badge.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { EXAM_HEADER_SLOT_ID } from '../exam/examHeaderSlot.js';
 
 export default function ExamHeaderActions({
   onNavigateHome,
   onSubmitExam,
-  answeredCount,
-  totalQuestions,
   isInspection = false,
   onExitInspection,
+  children,
 }) {
   const { t } = useI18n();
-
-  if (isInspection) {
-    return (
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={onExitInspection || onNavigateHome}
-        title={t('header.exitInspection')}
-        aria-label={t('header.exitInspection')}
-        className="text-xs sm:text-sm font-semibold min-w-[44px] px-2.5 sm:px-3"
-      >
-        <ArrowLeft className="w-4 h-4 sm:mr-1.5 shrink-0" />
-        <span className="hidden sm:inline">{t('header.exitInspection')}</span>
-      </Button>
-    );
-  }
+  const exitLabel = isInspection ? t('header.exitInspection') : t('header.exitExam');
+  const handleExit = isInspection ? (onExitInspection || onNavigateHome) : onNavigateHome;
 
   return (
-    <>
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={onNavigateHome}
-        title={t('header.menu')}
-        aria-label={t('header.menu')}
-        className="text-xs sm:text-sm font-semibold min-w-[44px] px-2.5 sm:px-3"
-      >
-        <ArrowLeft className="w-4 h-4 sm:mr-1.5 shrink-0" />
-        <span className="hidden sm:inline">{t('header.menu')}</span>
+    <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center gap-2 sm:gap-3">
+      <Button variant="ghost" size="sm" onClick={handleExit} title={exitLabel} aria-label={exitLabel} className="min-w-[44px] px-2.5 shrink-0">
+        <X className="w-5 h-5 lg:mr-1.5 shrink-0" />
+        <span className="hidden lg:inline">{exitLabel}</span>
       </Button>
 
-      <Badge variant="secondary" className="px-3 py-1.5 hidden md:inline-flex text-xs font-bold text-content-secondary">
-        {t('header.answeredProgress', { answered: answeredCount, total: totalQuestions })}
-      </Badge>
+      <div id={EXAM_HEADER_SLOT_ID} className="flex-1 min-w-0 flex items-center gap-2 sm:gap-4" />
 
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={onSubmitExam}
-        title={t('header.finish')}
-        aria-label={t('header.finish')}
-        className="text-xs sm:text-sm font-bold border border-border-default hover:border-action-primary min-w-[44px] px-2.5 sm:px-3"
-      >
-        <CheckCircle2 className="w-4 h-4 sm:mr-1.5 text-content-tertiary shrink-0" />
-        <span className="hidden sm:inline">{t('header.finish')} </span>
-        <span className="tabular-nums">({answeredCount}/{totalQuestions})</span>
-      </Button>
-    </>
+      {!isInspection && (
+        <Button size="sm" onClick={onSubmitExam} title={t('header.finish')} aria-label={t('header.finish')} className="hidden sm:inline-flex shrink-0">
+          <CheckCircle2 className="w-4 h-4 mr-1.5 shrink-0" />
+          <span>{t('header.finish')}</span>
+        </Button>
+      )}
+
+      <div className="hidden lg:flex items-center gap-1.5 shrink-0">{children}</div>
+    </div>
   );
 }
