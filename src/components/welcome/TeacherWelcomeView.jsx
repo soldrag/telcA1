@@ -1,23 +1,18 @@
 import React from 'react';
-import TestTypeSelector from './TestTypeSelector.jsx';
 import TeacherKeyCard from './teacher/TeacherKeyCard.jsx';
 import QuickReviewInputCard from './teacher/QuickReviewInputCard.jsx';
 import TeacherVariantsCatalog from './teacher/TeacherVariantsCatalog.jsx';
 
 export default function TeacherWelcomeView({
+  title,
   examState = {},
   actions = {},
   onOpenCreateAssignment,
   onProcessReview,
 }) {
-  const {
-    exams = [],
-    testTypes = [],
-    activeTestType = 'lesen',
-  } = examState;
+  const { exams = [] } = examState;
 
   const {
-    onSelectTestType,
     onSelectExam,
     onStartExam,
     onInspectExam,
@@ -25,11 +20,7 @@ export default function TeacherWelcomeView({
 
   return (
     <div className="space-y-6">
-      <TestTypeSelector
-        testTypes={testTypes}
-        activeTypeId={activeTestType}
-        onSelectType={onSelectTestType}
-      />
+      <h1 className="sr-only">{title}</h1>
 
       <TeacherKeyCard />
 

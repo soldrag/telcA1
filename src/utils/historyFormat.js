@@ -39,6 +39,13 @@ export function formatAttemptDateShort(isoString, lang = 'ru') {
   });
 }
 
+export function formatDayMonth(isoString, lang = 'ru') {
+  if (!isoString) return '';
+  const dateValue = isoString.endsWith('Z') ? isoString : `${isoString}Z`;
+  const locale = lang === 'en' ? 'en-US' : 'ru-RU';
+  return new Date(dateValue).toLocaleDateString(locale, { day: 'numeric', month: 'short' });
+}
+
 export function pluralizeAttempts(count = 0, lang = 'en') {
   const safeCount = Math.max(0, count || 0);
   return `${safeCount} ${safeCount === 1 ? 'attempt' : 'attempts'}`;

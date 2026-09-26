@@ -67,7 +67,9 @@ The React presentation layer strictly follows the **Screen Orchestrator** patter
   - `useAppController`: Global route/view coordinator, modal coordinator, and theme manager.
   - `useExamSession`: Active exam state, question answers, timer synchronization, and completion triggers.
   - `useExamLoader`: Dynamic loading and hydration of exam variants (Lesen, Schreiben, Stubs).
-  - `useAssignmentMode`: Teacher-generated assignments, token parsing, and anti-tamper lockout validation.
+  - `useAssignmentMode`: Teacher-generated assignments, token parsing, and anti-tamper lockout validation. Every opened `#task=` link is also kept in `localStorage['telc_assignments']` (`services/storage/receivedAssignmentsStorage.js`) with its score after submission, so the home screen lists received assignments after the hash is gone.
+  - `useWelcomeRole`: Student/teacher role (`localStorage['telc_welcome_role']`), switched in the header and read by `WelcomeScreen`; instances stay in sync through a window event.
+  - Home scores (`utils/attemptStats.js`): best score per variant from attempt history, always against the module `maxScore` from `shared/testTypes.js` (Schreiben: 15 points over 6 tasks), never against the task count.
   - `useSchreibenAiChecker`: Orchestrates the asynchronous multi-stage evaluation pipeline.
 
 ### 3.2 Component Hierarchy

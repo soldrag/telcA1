@@ -41,6 +41,7 @@ function buildWelcomeProps(controller) {
       activeTestType: controller.activeTestType,
       currentExamId: controller.currentExamId,
       recentAttempts: controller.history.recentAttempts,
+      attempts: controller.history.historyAttempts,
     },
     navigation: { onOpenHistory: controller.openHistory },
     actions: {

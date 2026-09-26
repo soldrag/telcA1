@@ -78,9 +78,9 @@ export default function Header({
                 {activeModuleTitle} ({activeModulePoints} Punkte)
               </span>
             </div>
-            <h1 className="text-xs sm:text-lg font-extrabold text-content-primary leading-tight truncate">
+            <span className="hidden sm:block text-lg font-bold text-content-primary leading-tight truncate">
               {t('header.simulatorTitle')}
-            </h1>
+            </span>
           </div>
         </div>
 

@@ -1,37 +1,39 @@
 import React from 'react';
 import { GraduationCap, Briefcase } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { useWelcomeRole } from '../../hooks/useWelcomeRole.js';
 
-export default function RoleSelector({ activeRole = 'student', onRoleChange }) {
+const ROLE_OPTIONS = [
+  { id: 'student', icon: GraduationCap },
+  { id: 'teacher', icon: Briefcase },
+];
+
+export default function RoleSelector() {
   const { t } = useI18n();
+  const { activeRole, selectRole } = useWelcomeRole();
 
   return (
-    <div className="flex items-center justify-center p-1 bg-surface-inset rounded-2xl border border-border-default max-w-md mx-auto">
-      <button
-        type="button"
-        onClick={() => onRoleChange('student')}
-        className={`flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] cursor-pointer ${
-          activeRole === 'student'
-            ? 'bg-surface-card text-action-primary shadow-sm border border-border-default'
-            : 'text-content-secondary hover:text-content-primary'
-        }`}
-      >
-        <GraduationCap className="w-4 h-4" />
-        <span>{t('welcome.roles.student')}</span>
-      </button>
-
-      <button
-        type="button"
-        onClick={() => onRoleChange('teacher')}
-        className={`flex-1 flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all min-h-[44px] cursor-pointer ${
-          activeRole === 'teacher'
-            ? 'bg-surface-card text-action-primary shadow-sm border border-border-default'
-            : 'text-content-secondary hover:text-content-primary'
-        }`}
-      >
-        <Briefcase className="w-4 h-4" />
-        <span>{t('welcome.roles.teacher')}</span>
-      </button>
+    <div role="group" aria-label={t('welcome.roles.label')} className="flex items-center gap-0.5 p-0.5 bg-surface-inset rounded-xl border border-border-default shrink-0">
+      {ROLE_OPTIONS.map(({ id, icon: Icon }) => {
+        const isActive = activeRole === id;
+        const label = t(`welcome.roles.${id}`);
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => selectRole(id)}
+            aria-pressed={isActive}
+            aria-label={label}
+            title={label}
+            className={`min-h-[40px] min-w-[40px] px-2 lg:px-3 rounded-lg flex items-center justify-center gap-1.5 text-sm whitespace-nowrap cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${
+              isActive ? 'bg-surface-card text-content-primary font-semibold shadow-xs' : 'text-content-secondary hover:text-content-primary'
+            }`}
+          >
+            <Icon className="w-4 h-4 shrink-0" />
+            <span className="hidden lg:inline">{label}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

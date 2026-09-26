@@ -9,6 +9,7 @@ import {
   recordAssignmentStarted,
   recordAssignmentSubmitted,
 } from '../services/storage/assignmentLockoutStorage.js';
+import { saveReceivedAssignment, recordReceivedAssignmentResult } from '../services/storage/receivedAssignmentsStorage.js';
 import { calculateAssignmentTimerState } from '../services/assignment/assignmentTimerService.js';
 import { createSessionTelemetryTracker } from '../services/telemetry/sessionTelemetryTracker.js';
 import { buildShareUrl } from '../services/shareTokenService.js';
@@ -42,6 +43,7 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
     }
 
     setAssignmentData(decoded);
+    saveReceivedAssignment(decoded, token);
     const existingState = getAssignmentState(decoded.assignmentId);
     setLockoutState(existingState);
 
@@ -114,6 +116,7 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
       telemetry,
     });
     setLockoutState(submitted);
+    recordReceivedAssignmentResult(assignmentData.assignmentId, attempt);
     return shareUrl;
   }, [assignmentData]);
 

@@ -27,27 +27,19 @@ const MODULE_STRUCTURES = {
 export default function ModuleStructureCards({ testType = 'lesen' }) {
   const { t } = useI18n();
   const cards = MODULE_STRUCTURES[testType] || MODULE_STRUCTURES.lesen;
-  const gridColsClass = cards.length === 2 ? 'sm:grid-cols-2' : (cards.length === 4 ? 'sm:grid-cols-4' : 'sm:grid-cols-3');
 
   return (
-    <div className={`grid grid-cols-1 ${gridColsClass} gap-3 mt-7 pt-5 border-t border-white/10 relative z-10`}>
-      {cards.map((card, cardIndex) => {
-        const Icon = card.icon;
-        return (
-          <div key={cardIndex} className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-            <div className="flex items-center space-x-2 text-sky-200 text-xs font-bold uppercase">
-              <Icon className="w-4 h-4" />
-              <span>{card.label}</span>
-            </div>
-            <div className="text-xs sm:text-sm font-bold text-white mt-1">
-              {t(card.titleKey)}
-            </div>
-            <div className="text-xs text-white/80 mt-0.5">
-              {t(card.subKey)}
-            </div>
+    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+      {cards.map(({ icon: Icon, label, titleKey, subKey }) => (
+        <li key={label} className="rounded-xl bg-surface-inset p-3">
+          <div className="flex items-center gap-2 text-content-secondary text-sm font-medium">
+            <Icon className="w-4 h-4 shrink-0" />
+            <span>{label}</span>
           </div>
-        );
-      })}
-    </div>
+          <div className="text-sm font-semibold text-content-primary mt-1">{t(titleKey)}</div>
+          <div className="text-sm text-content-secondary">{t(subKey)}</div>
+        </li>
+      ))}
+    </ul>
   );
 }
