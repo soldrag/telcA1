@@ -42,7 +42,7 @@ export const BENCHMARK_TASKS = [
         rubric: {
           leitpunkte_criteria: [
             { id: 'lp1', label: 'Grund des Schreibens', intent: 'REASON_EXPLANATION', keywords: ['wohnung', 'anzeige', 'mieten', 'interessiere'], requiredMatches: 1 },
-            { id: 'lp2', label: 'Personen und Beruf', intent: 'GENERAL', aspects: [{ label: 'Personen', evidence: 'personCount' }, { label: 'Beruf' }], keywords: ['personen', 'person', 'frau', 'mann', 'beruf', 'arbeit', 'ingenieur', 'arzt'], requiredMatches: 1 },
+            { id: 'lp2', label: 'Personen und Beruf', intent: 'GENERAL', aspects: [{ label: 'Personen', evidence: 'personCount' }, { label: 'Beruf', evidence: 'occupation' }], keywords: ['personen', 'person', 'frau', 'mann', 'beruf', 'arbeit', 'ingenieur', 'arzt'], requiredMatches: 1 },
             { id: 'lp3', label: 'Termin für die Besichtigung', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['termin', 'besichtigung', 'besichtigen', 'sehen', 'samstag'], requiredMatches: 1 },
           ],
         },

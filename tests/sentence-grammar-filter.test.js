@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   isExactSubstring,
-  isReasonableA1Correction,
+  isReasonableCorrection,
   filterSentenceGrammarCandidates,
   mergeCandidateGrammarErrors
 } from '../src/services/schreiben/linguistic/sentenceGrammarFilter.js';
@@ -19,16 +19,16 @@ describe('Sentence Grammar Filter & Anti-Hallucination Guard', () => {
 
   it('validates reasonable A1 corrections and rejects complete rewrites', () => {
     // Valid small corrections
-    assert.equal(isReasonableA1Correction('kosten', 'kostet'), true);
-    assert.equal(isReasonableA1Correction('ein Kurs', 'einen Kurs'), true);
-    assert.equal(isReasonableA1Correction('vier Woche', 'vier Wochen'), true);
+    assert.equal(isReasonableCorrection('kosten', 'kostet'), true);
+    assert.equal(isReasonableCorrection('ein Kurs', 'einen Kurs'), true);
+    assert.equal(isReasonableCorrection('vier Woche', 'vier Wochen'), true);
 
     // Identical
-    assert.equal(isReasonableA1Correction('kosten', 'kosten'), false);
+    assert.equal(isReasonableCorrection('kosten', 'kosten'), false);
 
     // Completely rewritten sentence
     assert.equal(
-      isReasonableA1Correction('lernen vormittags', 'Ich würde gerne jeden Vormittag an Ihrem Unterricht teilnehmen'),
+      isReasonableCorrection('lernen vormittags', 'Ich würde gerne jeden Vormittag an Ihrem Unterricht teilnehmen'),
       false
     );
   });

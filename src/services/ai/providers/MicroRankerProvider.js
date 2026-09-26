@@ -37,27 +37,29 @@ export class MicroRankerProvider extends AIProvider {
    * Micro-task 1: Classify Leitpunkt coverage.
    * @param {string|object} lp - Leitpunkt criterion (label, keywords, optional aspects)
    * @param {string|string[]} relevantSentences - Candidate sentences
-   * @param {{ embedder?: object|null, rivalCriteria?: object[] }} context - Per-run embedder with precomputed
-   *   sentence vectors, plus the task's other Leitpunkte for the competitive gate
+   * @param {{ embedder?: object|null, rivalCriteria?: object[], policy?: object }} context - Per-run embedder with
+   *   precomputed sentence vectors, the task's other Leitpunkte for the competitive gate, and the task level's policy
    * @returns {Promise<{coverage: 'full'|'partial'|'no', score?: number}>}
    */
   async classifyCoverage(lp, relevantSentences, context = {}) {
     const embedder = context.embedder !== undefined ? context.embedder : this.embedder;
+    const policy = context.policy || this.policy;
     try {
-      return await classifyCriterionCoverage(lp, relevantSentences, { embedder, policy: this.policy, rivalCriteria: context.rivalCriteria });
+      return await classifyCriterionCoverage(lp, relevantSentences, { embedder, policy, rivalCriteria: context.rivalCriteria });
     } catch (err) {
       console.warn('[MicroRankerProvider] Neural scoring error, using System 1 deterministic analyzer:', err?.message || err);
-      return classifyCriterionCoverage(lp, relevantSentences, { embedder: null, policy: this.policy });
+      return classifyCriterionCoverage(lp, relevantSentences, { embedder: null, policy });
     }
   }
 
   /**
    * Whether this ranker's verdict on the sentences may overrule the keyword baseline (level policy decides).
    * @param {string[]} sentences
+   * @param {object} [policy] - the task level's policy; the provider's own otherwise
    * @returns {boolean}
    */
-  canOverruleBaseline(sentences = []) {
-    return this.policy.isVerdictReliable(sentences);
+  canOverruleBaseline(sentences = [], policy = this.policy) {
+    return policy.isVerdictReliable(sentences);
   }
 
   /**

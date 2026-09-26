@@ -8,12 +8,13 @@ import { SIMILARITY_T2, SIMILARITY_T1, GRAY_ZONE_DELTA } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { hasTemporalExpression } from './temporalRangeDetector.js';
 import { hasTemporalEvidence } from '../linguistic/criterionIntents.js';
-import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
+import { requireLevelPort } from './levelPorts.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
 
@@ -43,28 +44,17 @@ function collectAffirmativeEvidence(sentences, criterion, lexicon) {
     .filter(evidence => evidence.text);
 }
 
-/** @param {{ lexicon?: object }} context - the level's lexicon port (ranker policy `lexicon`) */
-export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexicon = defaultA1RankerPolicy.lexicon } = {}) {
+/** @param {{ lexicon: object }} context - the level's lexicon port (ranker policy `lexicon`) */
+export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexicon } = {}) {
+  requireLevelPort(lexicon, 'evaluateCriterionKeywords: lexicon');
   const rawKeywords = criterion.keywords || [];
   if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };
 
   const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
   const affirmative = collectAffirmativeEvidence(sentences, criterion, lexicon);
 
-  const allWords = affirmative
-    .map(a => a.text)
-    .join(' ')
-    .toLowerCase()
-    .split(/\s+/)
-    .map(w => stemGermanWord(w))
-    .filter(s => s && s.length >= 2);
-
-  let matchedCount = 0;
-  for (const cStem of critStems) {
-    if (allWords.includes(cStem)) {
-      matchedCount += 1;
-    }
-  }
+  const allWords = affirmative.map(a => a.text).join(' ').split(/\s+/);
+  let matchedCount = findMatchedKeywords(rawKeywords, allWords, lexicon).length;
 
   const isTemporalCrit = hasTemporalEvidence(criterion);
   const rawJoined = affirmative.map(a => a.text).join(' ');
@@ -76,8 +66,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexi
   const threshold = Math.min(req, Math.max(1, critStems.length));
 
   const relevantSentences = affirmative.filter(({ text }) => {
-    const sWords = text.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
-    const hasKw = critStems.some(c => sWords.includes(c));
+    const hasKw = findMatchedKeywords(rawKeywords, text.split(/\s+/), lexicon).length > 0;
     const hasTemp = isTemporalCrit && hasTemporalExpression(text);
     return hasKw || hasTemp;
   }).map(a => a.sentence);
@@ -92,7 +81,7 @@ export async function scoreSingleLeitpunkt({
   sentenceEmbeddings = [],
   embedder = null,
   qwenEngine = null,
-  lexicon = defaultA1RankerPolicy.lexicon
+  lexicon
 }) {
   const lpText = criterion.label || criterion.id;
   const kwEval = evaluateCriterionKeywords(bodySentences, criterion, { lexicon });
@@ -155,7 +144,8 @@ export async function scoreSingleLeitpunkt({
   };
 }
 
-export async function runStage2Leitpunkte({ criteria = [], bodySentences = [], embedder = null, qwenEngine = null }) {
+/** lexicon: the level's lexicon port (resolveLevelContext) */
+export async function runStage2Leitpunkte({ criteria = [], bodySentences = [], embedder = null, qwenEngine = null, lexicon }) {
   let sentenceEmbeddings = [];
   if (embedder && bodySentences.length > 0) {
     sentenceEmbeddings = await Promise.all(bodySentences.map(s => getEmbedding(s, false, embedder)));
@@ -164,7 +154,7 @@ export async function runStage2Leitpunkte({ criteria = [], bodySentences = [], e
   const items = [];
   let totalScore = 0;
   for (const crit of criteria) {
-    const scored = await scoreSingleLeitpunkt({ criterion: crit, bodySentences, sentenceEmbeddings, embedder, qwenEngine });
+    const scored = await scoreSingleLeitpunkt({ criterion: crit, bodySentences, sentenceEmbeddings, embedder, qwenEngine, lexicon });
     items.push(scored);
     totalScore += scored.score;
   }

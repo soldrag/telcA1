@@ -4,18 +4,21 @@ import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.
 import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { analyzeGermanQuality } from '../src/services/schreiben/germanQualityAnalyzer.js';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Schreiben Teil 2 Essay Evaluator', () => {
   it('analyzes salutations accurately', () => {
-    const formal = analyzeSalutation('Sehr geehrte Damen und Herren,\nich brauche Hilfe.');
+    const formal = analyzeSalutation('Sehr geehrte Damen und Herren,\nich brauche Hilfe.', { grammar: A1.grammar });
     assert.equal(formal.recognized, true);
     assert.equal(formal.score, 2);
 
-    const informal = analyzeSalutation('Hallo Peter,\nwie geht es dir?', { isFormal: true });
+    const informal = analyzeSalutation('Hallo Peter,\nwie geht es dir?', { isFormal: true, grammar: A1.grammar });
     assert.equal(informal.recognized, true);
     assert.equal(informal.score, 1);
 
-    const missing = analyzeSalutation('Ich möchte einen Kurs machen.');
+    const missing = analyzeSalutation('Ich möchte einen Kurs machen.', { grammar: A1.grammar });
     assert.equal(missing.recognized, false);
     assert.equal(missing.score, 0);
   });
@@ -36,12 +39,12 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(missing.score, 0);
   });
 
-  it('detects gibberish, spam repetitions and noun capitalization', () => {
+  it('detects gibberish and spam repetitions; noun capitalization comes from the grammar engine', () => {
     const spam = analyzeGermanQuality('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo');
     assert.equal(spam.isGibberish, true);
 
-    const capCheck = analyzeGermanQuality('Ich habe am montag einen termin bei dr. schneider.');
-    assert.equal(capCheck.capitalizationWarnings.length > 0, true);
+    const capCheck = A1.grammar.checkLetter('Ich habe am montag einen termin bei dr. schneider.');
+    assert.ok(capCheck.some((e) => e.code === 'ERR_NOUN_CAPITALIZATION'), 'noun capitalisation is the grammar engine rule');
   });
 
   it('evaluates full sample solution with maximum points', () => {

@@ -9,6 +9,8 @@
 import { IRankerPolicy } from './rankerPolicyInterface.js';
 import { isKnownWord } from '../../linguistic/a1LexiconService.js';
 import { A1_GRAMMAR_PROFILE } from '../../profiles/a1GrammarProfile.js';
+import { EVIDENCE_KINDS } from '../../linguistic/criterionIntents.js';
+import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -24,6 +26,9 @@ export class A1RankerPolicy extends IRankerPolicy {
     // EmbeddingGemma reads typo-heavy A1 text ("ich binn ser krangk") as noise while an examiner still
     // understands it and must not deduct. Clean letters measure 0.05–0.20 words outside the A1 lexicon, typo-heavy 0.40+.
     this._maxUnknownWordRatio = 0.3;
+    // Aspects that ask for a specific fact stay partial on topic words alone: "wir" / "mit meiner Familie"
+    // answers "how many persons" only partly (regression case 20), "wir arbeiten beide" names no occupation.
+    this._specificEvidenceKinds = new Set([EVIDENCE_KINDS.PERSON_COUNT, EVIDENCE_KINDS.OCCUPATION]);
     // Pass mark 6/10 mirrors is_correct in gradingPipeline; two grammar highlights keep A1 feedback digestible.
     this._feedbackSelection = Object.freeze({
       grammarHighlights: 2,
@@ -34,6 +39,14 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get level() {
     return this._level;
+  }
+
+  get conceptDomains() {
+    return A1_CONCEPT_DOMAINS;
+  }
+
+  capUnprovenLexical(evidenceKind, lexical) {
+    return this._specificEvidenceKinds.has(evidenceKind) ? Math.min(lexical, this._thresholds.partial) : lexical;
   }
 
   get thresholds() {

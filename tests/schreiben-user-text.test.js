@@ -4,6 +4,9 @@ import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Real User Text Examination (Artem Smirnov Email)', () => {
   const userText = `Sehr geehrte Damen und Herren,
@@ -48,7 +51,7 @@ Artem Smirnov`;
 
   it('segments the user text accurately into the 3 Leitpunkte, Anrede and Closing', () => {
     const criteria = question.options_json.rubric.leitpunkte_criteria;
-    const segments = segmentUserEssay(userText, criteria);
+    const segments = segmentUserEssay(userText, criteria, A1);
 
     assert.equal(segments.anrede, 'Sehr geehrte Damen und Herren,');
     assert.match(segments.leitpunkte[0].userSentence, /deutschkurs/i);
@@ -123,7 +126,7 @@ Artem Smirnov`;
     });
 
     it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', () => {
-      const segments = segmentUserEssay(text3, rubricCriteria);
+      const segments = segmentUserEssay(text3, rubricCriteria, A1);
 
       assert.equal(segments.anrede, 'Sehr geehrte Damen und Herren,');
       // Punkt 1 has the Grund

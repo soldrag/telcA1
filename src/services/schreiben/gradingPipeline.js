@@ -7,7 +7,7 @@
 import { runStage0Preprocessing } from './grading/stage0Preprocessing.js';
 import { runStage1Scoring } from './grading/stage1SalutationClosing.js';
 import { composePipelineFeedback } from './grading/pipelineFeedback.js';
-import { getRankerPolicy } from './grading/policies/index.js';
+import { resolveLevelContext } from './levelContext.js';
 import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { calculateLinguisticAccuracy } from './scoring/linguisticAccuracyScorer.js';
@@ -95,7 +95,8 @@ export async function gradeSchreibenSubmission({
   options = {},
   onProgress = null,
 }) {
-  const stage0 = runStage0Preprocessing(userText);
+  const levelContext = resolveLevelContext(question.level);
+  const stage0 = runStage0Preprocessing(userText, levelContext);
   const raw = stage0.rawText;
   const criteria = resolveLeitpunktCriteria(question);
   const activeProvider = provider || (options.forceLimitedMode
@@ -106,8 +107,8 @@ export async function gradeSchreibenSubmission({
   const quality = analyzeGermanQuality(raw, 30);
   const stage1 = runStage1Scoring(stage0);
 
-  const { lexicon } = getRankerPolicy(question.level);
-  const seg = segmentUserEssay(raw, criteria, { lexicon });
+  const levelPolicy = levelContext.policy;
+  const seg = segmentUserEssay(raw, criteria, levelContext);
   const userSegments = {
     anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
     closing: stage0.closing.recognized ? stage0.closing.text : (seg.closing || ''),
@@ -123,7 +124,7 @@ export async function gradeSchreibenSubmission({
     provider: activeProvider,
     customExtractor,
     userSegments,
-    lexicon,
+    policy: levelPolicy,
   });
 
   onProgress?.('Grammatikprüfung...', 0.7);
@@ -134,6 +135,7 @@ export async function gradeSchreibenSubmission({
     provider: activeProvider,
     semanticErrors: stage2.semanticErrors || [],
     baselineErrors,
+    grammar: levelContext.grammar,
   });
 
   const { finalPoints, score, regulation } = computeTelcFinalScore({
@@ -152,7 +154,7 @@ export async function gradeSchreibenSubmission({
       stage0, stage1, stage2, errors, userSegments, finalPoints,
       maxPoints: score.maxPoints, isGibberish: quality.isGibberish,
     },
-    policy: getRankerPolicy(question.level),
+    policy: levelPolicy,
     activeProvider,
     enableLlmPolish: options.enableLlmPolish,
   });

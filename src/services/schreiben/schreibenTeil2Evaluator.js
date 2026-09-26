@@ -3,7 +3,7 @@ import {
   runDeterministicBaseline
 } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
-import { defaultA1RankerPolicy } from './grading/policies/a1RankerPolicy.js';
+import { resolveLevelContext } from './levelContext.js';
 import { assembleDeterministicFeedback } from './grading/stage4Feedback.js';
 
 function buildBaselineExaminerFacts({ salutation, closing, segments, leitpunkteItems, grammarErrors, finalPoints, maxPoints, wordCount, isGibberish }) {
@@ -45,7 +45,8 @@ function buildBaselineExaminerFacts({ salutation, closing, segments, leitpunkteI
 export function evaluateTeil2Essay(userAnswer = '', question = {}) {
   const text = (userAnswer || '').trim();
   const criteria = resolveLeitpunktCriteria(question);
-  const baseline = runDeterministicBaseline(text, criteria);
+  const levelContext = resolveLevelContext(question.level);
+  const baseline = runDeterministicBaseline(text, criteria, levelContext);
   const {
     salutation,
     closing,
@@ -88,7 +89,7 @@ export function evaluateTeil2Essay(userAnswer = '', question = {}) {
     isGibberish,
   });
 
-  const examinerFeedback = defaultA1RankerPolicy.buildExaminerFeedback(examinerFacts);
+  const examinerFeedback = levelContext.policy.buildExaminerFeedback(examinerFacts);
   const feedbackSummary = assembleDeterministicFeedback({
     anredeScore: salutation.score,
     lpScore: leitpunkte.score,

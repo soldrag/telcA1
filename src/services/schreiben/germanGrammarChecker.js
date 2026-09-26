@@ -1,10 +1,10 @@
 /**
- * telc A1 grammar checker: the level-independent orchestrator bound to the A1 grammar profile.
+ * telc A1 grammar checker binding (tests and tools): the grading paths take the checker of the
+ * task's level from resolveLevelContext(question.level).
  */
-import { createGrammarChecker } from './linguistic/grammarCheckOrchestrator.js';
-import { A1_GRAMMAR_PROFILE } from './profiles/a1GrammarProfile.js';
+import { resolveLevelContext } from './levelContext.js';
 
-const a1GrammarChecker = createGrammarChecker(A1_GRAMMAR_PROFILE);
+const a1GrammarChecker = resolveLevelContext('A1').grammar;
 
 /** @returns {Array<{ original: string, correction: string, category: string, code?: string, explanation: string }>} */
 export function checkGermanA1Grammar(text = '') {

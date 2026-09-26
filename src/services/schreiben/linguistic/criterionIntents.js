@@ -13,8 +13,8 @@ export const INTENT_TYPES = Object.freeze({
   GENERAL: 'GENERAL'
 });
 
-// Evidence a detector can prove from the sentence form: a calendar expression or a person count.
-export const EVIDENCE_KINDS = Object.freeze({ TEMPORAL: 'temporal', PERSON_COUNT: 'personCount' });
+// Evidence a detector can prove from the sentence form: a calendar expression, a person count or an occupation.
+export const EVIDENCE_KINDS = Object.freeze({ TEMPORAL: 'temporal', PERSON_COUNT: 'personCount', OCCUPATION: 'occupation' });
 
 // Speech acts addressed to the reader: a question or an imperative is their natural form.
 const ADDRESSEE_REQUEST_INTENTS = new Set([
@@ -40,7 +40,7 @@ function findDeclaredAspect(criterion, aspectLabel) {
 
 /**
  * Evidence kind for one aspect of a criterion: the aspect's own declaration, else the criterion's.
- * @returns {'temporal'|'personCount'|null}
+ * @returns {'temporal'|'personCount'|'occupation'|null}
  */
 export function resolveAspectEvidence(criterion = {}, aspectLabel = '') {
   return findDeclaredAspect(criterion, aspectLabel)?.evidence || criterion?.evidence || null;

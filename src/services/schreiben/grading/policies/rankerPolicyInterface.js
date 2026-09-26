@@ -45,6 +45,15 @@ export class IRankerPolicy {
     throw new Error('IRankerPolicy.lexicon getter must be implemented');
   }
 
+  /**
+   * Concept domains of the level vocabulary (domain -> stems) for recognising aspect labels.
+   * None by default: aspects are then matched by keywords and label overlap only.
+   * @returns {Record<string, string[]>}
+   */
+  get conceptDomains() {
+    return {};
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }
@@ -80,6 +89,17 @@ export class IRankerPolicy {
    */
   isLexicalVeto() {
     return false;
+  }
+
+  /**
+   * Upper bound for lexical hints on an aspect whose declared evidence kind (e.g. 'personCount')
+   * the detector did not prove. Identity by default: levels decide whether such an aspect can be full.
+   * @param {string|null} evidenceKind
+   * @param {number} lexical
+   * @returns {number}
+   */
+  capUnprovenLexical(evidenceKind, lexical) {
+    return lexical;
   }
 
   /**

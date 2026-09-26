@@ -13,10 +13,7 @@ import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
 import { hasTemporalExpression } from './grading/temporalRangeDetector.js';
 import { evaluateCompoundCriterionBaseline } from './grading/compoundBaselineEvaluator.js';
 import { hasTemporalEvidence } from './linguistic/criterionIntents.js';
-import { defaultA1RankerPolicy } from './grading/policies/a1RankerPolicy.js';
-
-// The deterministic baseline runs on the default level policy, like the rest of the baseline path.
-const { lexicon } = defaultA1RankerPolicy;
+import { requireLevelPort } from './grading/levelPorts.js';
 
 function extractStems(str = '') {
   return str
@@ -54,7 +51,7 @@ function evaluateStemMatches(textStems = [], criterion = {}, rawText = '') {
   return { score: 0, matched: false, detail: 'Inhaltspunkt nicht gefunden' };
 }
 
-function evaluateFrameConstraints(targetSentence = '', criterion = {}) {
+function evaluateFrameConstraints(targetSentence = '', criterion = {}, lexicon) {
   const sentences = splitGermanSentences(targetSentence);
   const evalSentences = sentences.length > 0 ? sentences : [targetSentence];
 
@@ -78,7 +75,7 @@ function evaluateFrameConstraints(targetSentence = '', criterion = {}) {
   return { isValid: allErrors.length === 0, errors: allErrors, maxPenalty };
 }
 
-function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', criterion = {}) {
+function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', { criterion = {}, lexicon, policy }) {
   const evalText = targetSentence || fullText;
   if (!evalText) {
     return { score: 0, matched: false, detail: 'Inhaltspunkt nicht gefunden', diagnosticCode: 'LP_MISSING', frameErrors: [] };
@@ -93,7 +90,7 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
   const stems = extractStems(evalText);
   const stemResult = evaluateStemMatches(stems, criterion, evalText);
 
-  const frameResult = evaluateFrameConstraints(evalText, criterion);
+  const frameResult = evaluateFrameConstraints(evalText, criterion, lexicon);
   let finalScore = stemResult.score;
   let detail = stemResult.detail;
 
@@ -107,7 +104,7 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
   }
 
   let rankerDetails = null;
-  const compoundEval = evaluateCompoundCriterionBaseline(criterion, evalText);
+  const compoundEval = evaluateCompoundCriterionBaseline(criterion, evalText, { policy });
   if (compoundEval) {
     finalScore = Math.min(finalScore, compoundEval.score);
     rankerDetails = compoundEval.rankerDetails;
@@ -127,7 +124,10 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
   };
 }
 
-export function analyzeLeitpunkte(text = '', criteria = [], segments = null) {
+/** @param {{ lexicon: object, policy: object }} levelContext - the level's lexicon port and ranker policy */
+export function analyzeLeitpunkte(text = '', criteria = [], segments = null, { lexicon, policy } = {}) {
+  requireLevelPort(lexicon, 'analyzeLeitpunkte: lexicon');
+  requireLevelPort(policy, 'analyzeLeitpunkte: policy');
   let totalScore = 0;
   const semanticErrors = [];
 
@@ -135,7 +135,7 @@ export function analyzeLeitpunkte(text = '', criteria = [], segments = null) {
     const assigned = segments?.leitpunkte?.[index]?.userSentence;
     const targetSentence = (assigned && assigned !== 'Kein Satz im Text gefunden') ? assigned : '';
 
-    const evalRes = evaluateCriterionWithGrounding(targetSentence, segments ? '' : text, criterion);
+    const evalRes = evaluateCriterionWithGrounding(targetSentence, segments ? '' : text, { criterion, lexicon, policy });
     totalScore += evalRes.score;
 
     if (evalRes.frameErrors?.length > 0) {

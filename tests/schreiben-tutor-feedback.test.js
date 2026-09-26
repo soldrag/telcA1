@@ -4,6 +4,9 @@ import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackCon
 import { resolveTutorCriterionFeedback } from '../src/services/schreiben/feedback/tutorFeedbackResolver.js';
 import { analyzeLeitpunkte } from '../src/services/schreiben/leitpunkteAnalyzer.js';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
   it('resolves localized explanations in Russian, English, and German for inverted defect', () => {
@@ -175,7 +178,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen\n' +
       'Max Mustermann';
 
-    const result = analyzeLeitpunkte(text, heatingCriteria);
+    const result = analyzeLeitpunkte(text, heatingCriteria, null, A1);
     const lp1 = result.items[0];
     const lp3 = result.items[2];
 
@@ -194,7 +197,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen\n' +
       'Max Mustermann';
 
-    const result = analyzeLeitpunkte(text, heatingCriteria);
+    const result = analyzeLeitpunkte(text, heatingCriteria, null, A1);
     assert.equal(result.items[0].score, 2);
     assert.equal(result.items[0].diagnosticCode, DIAGNOSTIC_CODES.LP_FULFILLED);
     assert.equal(result.items[1].score, 2);

@@ -18,6 +18,7 @@ import {
 import { buildScreenProps } from '../src/utils/appPropsBuilder.js';
 import { validateGrammarData } from './contracts/grammarDataContract.js';
 import { validateRubrics } from './contracts/rubricContract.js';
+import { validateEngineIsLevelFree } from './contracts/levelFreeEngineContract.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -110,7 +111,8 @@ async function runVerification() {
 
   validateScreenProps(errors);
   scanDirectoryForContractCalls(errors);
-  validateGrammarData(SRC_DIR, errors);
+  validateGrammarData(errors);
+  validateEngineIsLevelFree(path.join(SRC_DIR, 'services/schreiben'), errors);
   await validateRubrics(path.resolve(__dirname, '../server/seeds'), errors);
 
   if (errors.length > 0) {

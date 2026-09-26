@@ -72,7 +72,7 @@ describe('Stage 2 Adversarial Semantic Inversion Protection', () => {
       'Bitte kommen Sie nicht vorbei.'
     ];
 
-    const res = await runStage2Leitpunkte({ criteria, bodySentences: adversarialBody });
+    const res = await runStage2Leitpunkte({ criteria, bodySentences: adversarialBody, lexicon: A1_GRAMMAR_PROFILE.lexicon });
     assert.equal(res.totalScore, 0);
     assert.equal(res.items[0].score, 0);
     assert.equal(res.items[1].score, 0);

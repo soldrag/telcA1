@@ -5,7 +5,7 @@
  */
 
 import { calculateLevenshtein, normalizeGermanText } from '../schreibenFuzzyMatcher.js';
-import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
+import { requireLevelPort } from './levelPorts.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 import { buildGrammarPrompt } from './prompts.js';
 
@@ -61,10 +61,11 @@ export async function checkSentenceGrammar() {
 export async function runStage3Grammar({
   fullText = '',
   bodySentences = [],
-  qwenEngine = null
+  qwenEngine = null,
+  grammar
 }) {
-  // 1. Algorithmic baseline rules (zero LLM)
-  const baselineErrors = checkGermanA1Grammar(fullText);
+  // 1. Algorithmic baseline rules of the level's grammar profile (zero LLM)
+  const baselineErrors = requireLevelPort(grammar, 'runStage3Grammar: grammar').checkLetter(fullText);
 
   // 2. Qwen3 micro-proposals (per sentence) with strict filter
   let candidateErrors = [];

@@ -5,6 +5,7 @@ import {
   isCompoundCriterion,
   aggregateCompoundResults,
 } from '../src/services/schreiben/grading/compoundCriterionDecomposer.js';
+import { defaultA1RankerPolicy as policy } from '../src/services/schreiben/grading/policies/a1RankerPolicy.js';
 
 describe('Compound Criterion Decomposer & Aggregator Tests', () => {
   it('correctly splits criteria on German conjunctions und, sowie, and slash', () => {
@@ -27,7 +28,7 @@ describe('Compound Criterion Decomposer & Aggregator Tests', () => {
       { aspect: 'Personen', score: 0.95, coverage: 'full', matchedSentence: 'Wir sind vier Personen.' },
       { aspect: 'Zeitraum', score: 0.90, coverage: 'full', matchedSentence: 'Wir kommen im Juli.' },
     ];
-    const res = aggregateCompoundResults(aspectResults);
+    const res = aggregateCompoundResults(aspectResults, policy);
     assert.equal(res.coverage, 'full');
     assert.equal(res.isCompound, true);
     assert.deepEqual(res.fulfilledAspects, ['Personen', 'Zeitraum']);
@@ -39,7 +40,7 @@ describe('Compound Criterion Decomposer & Aggregator Tests', () => {
       { aspect: 'Personen', score: 0.95, coverage: 'full', matchedSentence: 'Meine Frau und Kinder kommen mit.' },
       { aspect: 'Zeitraum', score: 0.05, coverage: 'no', matchedSentence: '' },
     ];
-    const res = aggregateCompoundResults(aspectResults);
+    const res = aggregateCompoundResults(aspectResults, policy);
     assert.equal(res.coverage, 'partial');
     assert.equal(res.isCompound, true);
     assert.deepEqual(res.fulfilledAspects, ['Personen']);
@@ -51,7 +52,7 @@ describe('Compound Criterion Decomposer & Aggregator Tests', () => {
       { aspect: 'Personen', score: 0.1, coverage: 'no', matchedSentence: '' },
       { aspect: 'Zeitraum', score: 0.0, coverage: 'no', matchedSentence: '' },
     ];
-    const res = aggregateCompoundResults(aspectResults);
+    const res = aggregateCompoundResults(aspectResults, policy);
     assert.equal(res.coverage, 'no');
     assert.deepEqual(res.missingAspects, ['Personen', 'Zeitraum']);
     assert.deepEqual(res.fulfilledAspects, []);

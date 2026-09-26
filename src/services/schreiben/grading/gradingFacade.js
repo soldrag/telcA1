@@ -14,9 +14,10 @@ import { resolveLeitpunktCriteria } from '../deterministicBaseline.js';
 import { computeTelcFinalScore } from '../scoring/telcScoreCalculator.js';
 import { analyzeGermanQuality } from '../germanQualityAnalyzer.js';
 import { segmentUserEssay } from '../schreibenTextSegmenter.js';
+import { resolveLevelContext } from '../levelContext.js';
 
-function buildUserSegments(rawText, criteria, stage0) {
-  const seg = segmentUserEssay(rawText, criteria);
+function buildUserSegments(rawText, criteria, { stage0, levelContext }) {
+  const seg = segmentUserEssay(rawText, criteria, levelContext);
   return {
     anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
     closing: stage0.closing.recognized ? stage0.closing.text : (seg.closing || ''),
@@ -55,7 +56,8 @@ export async function gradeSchreibenTeil2({
 
   // Stage 0 & 1: Deterministic preprocessing and salutation (0 MB models)
   onProgress?.('Vorverarbeitung und Textanalyse...', 0.05);
-  const stage0 = runStage0Preprocessing(raw);
+  const levelContext = resolveLevelContext(question.level);
+  const stage0 = runStage0Preprocessing(raw, levelContext);
   const quality = analyzeGermanQuality(raw, 30);
 
   onProgress?.('Bewertung von Anrede und Gruß...', 0.1);
@@ -83,7 +85,8 @@ export async function gradeSchreibenTeil2({
       criteria,
       bodySentences: stage0.bodySentences,
       embedder,
-      qwenEngine: options.qwenEngine || null
+      qwenEngine: options.qwenEngine || null,
+      lexicon: levelContext.lexicon
     });
 
     // Free EmbeddingGemma immediately to reclaim ~300-500MB before loading LLM!
@@ -109,7 +112,8 @@ export async function gradeSchreibenTeil2({
     stage3 = await runStage3Grammar({
       fullText: raw,
       bodySentences: stage0.bodySentences,
-      qwenEngine
+      qwenEngine,
+      grammar: levelContext.grammar
     });
 
     onProgress?.('Erstelle Prüfer-Feedback...', 0.9);
@@ -173,6 +177,6 @@ export async function gradeSchreibenTeil2({
     grammar_errors: stage3.errors,
     feedback_summary: stage4.feedback,
     diff_summary: diffSummary,
-    user_segments: buildUserSegments(raw, criteria, stage0)
+    user_segments: buildUserSegments(raw, criteria, { stage0, levelContext })
   };
 }

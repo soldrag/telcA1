@@ -11,6 +11,7 @@
  */
 
 import { isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
+import { SIMILARITY_T2 } from './types.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 
 const COMPOUND_MISSING_ASPECT_CAP = 1;
@@ -19,15 +20,28 @@ export function isPrimaryRankerProvider(provider) {
   return provider?.id === PROVIDER_IDS.MICRO_RANKER;
 }
 
-export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty }) {
+// Whether a gray-zone provider has anything to decide. For a compound criterion the keyword aspects
+// settle a missing aspect (0), while a full similarity capped at partial means the aspects disagree.
+function isBaselineUndecided({ effectiveSim, baselineScore, isCompound }) {
+  if (!isCompound) return isScoreInGrayZone(effectiveSim);
+  if (baselineScore === 0) return false;
+  if (baselineScore === 1 && effectiveSim >= SIMILARITY_T2) return true;
+  return isScoreInGrayZone(effectiveSim);
+}
+
+/**
+ * @param {{ provider: object, effectiveSim: number, framePenalty: number,
+ *   baselineScore?: number, isCompound?: boolean }} params
+ */
+export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty, baselineScore, isCompound = false }) {
   if (!provider || provider.id === PROVIDER_IDS.NONE || framePenalty > 0) return false;
-  return isPrimaryRankerProvider(provider) || isScoreInGrayZone(effectiveSim);
+  return isPrimaryRankerProvider(provider) || isBaselineUndecided({ effectiveSim, baselineScore, isCompound });
 }
 
 function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
   if (!verdict?.isCompound) return false;
   if (verdict.missingAspects?.length > 0) return true;
-  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto || a.coverage !== 'full');
+  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto);
 }
 
 /**
@@ -49,16 +63,16 @@ export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbite
 
 /**
  * @param {{ criterion: object, sentences: string[], baselineScore: number, provider: object,
- *   embedder?: object|null, rivalCriteria?: object[] }} params
+ *   embedder?: object|null, rivalCriteria?: object[], policy?: object }} params - policy: the task level's ranker policy
  */
-export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [] }) {
+export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [], policy }) {
   if (!sentences?.length || !provider || provider.id === PROVIDER_IDS.NONE) {
     return { score: baselineScore, arbitrated: false, rankerDetails: null };
   }
   try {
-    const rankerIsArbiter = isPrimaryRankerProvider(provider) && provider.canOverruleBaseline(sentences);
+    const rankerIsArbiter = isPrimaryRankerProvider(provider) && provider.canOverruleBaseline(sentences, policy);
     const verdict = isPrimaryRankerProvider(provider)
-      ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria })
+      ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria, policy })
       : await provider.classifyCoverage(criterion, sentences.join(' '));
     return { ...mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter }), rankerDetails: verdict || null };
   } catch (err) {

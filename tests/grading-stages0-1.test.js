@@ -2,6 +2,9 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { runStage0Preprocessing, normalizeRawText, countWords } from '../src/services/schreiben/grading/stage0Preprocessing.js';
 import { runStage1Scoring } from '../src/services/schreiben/grading/stage1SalutationClosing.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const A1 = resolveLevelContext('A1');
 
 describe('Stage 0 Preprocessing & Stage 1 Formula Scoring (Zero Models)', () => {
   it('normalizes raw text, strips CRLF and computes word counts accurately', () => {
@@ -17,7 +20,7 @@ ich will einen Kurs im August buchen. Wann beginnt er?
 Mit freundlichen Grüßen
 Max Mustermann`;
 
-    const stage0 = runStage0Preprocessing(text);
+    const stage0 = runStage0Preprocessing(text, A1);
     assert.equal(stage0.salutation.recognized, true);
     assert.match(stage0.salutation.text, /Sehr geehrte Damen und Herren/);
     assert.equal(stage0.closing.recognized, true);
@@ -32,7 +35,7 @@ Max Mustermann`;
     const stage0 = runStage0Preprocessing(`Sehr geehrte Frau Dr. Schneider,
 ich kann leider nicht kommen.
 Mit freundlichen Grüßen
-Erika Musterfrau`);
+Erika Musterfrau`, A1);
     const stage1 = runStage1Scoring(stage0);
 
     assert.equal(stage1.anredeScore, 2);
@@ -45,7 +48,7 @@ Erika Musterfrau`);
     const stage0 = runStage0Preprocessing(`Hallo Herr Dr. Schneider,
 ich kann nicht kommen.
 Viele Grüße
-Anna`);
+Anna`, A1);
     const stage1 = runStage1Scoring(stage0);
 
     assert.equal(stage1.anredeScore, 1);
@@ -53,7 +56,7 @@ Anna`);
   });
 
   it('Stage 1 awards 0 points when salutation or closing is missing', () => {
-    const stage0 = runStage0Preprocessing(`Ich habe keine Zeit am Montag.`);
+    const stage0 = runStage0Preprocessing(`Ich habe keine Zeit am Montag.`, A1);
     const stage1 = runStage1Scoring(stage0);
 
     assert.equal(stage1.anredeScore, 0);

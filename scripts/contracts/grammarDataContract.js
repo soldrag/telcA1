@@ -1,9 +1,7 @@
 /**
- * Grammar engine contracts: paradigm and lexicon data shape, level profiles naming existing rules,
- * and engine modules free of level knowledge (no A1 lexicon imports, no level names in code).
+ * Grammar engine contracts: paradigm and lexicon data shape, level profiles naming existing rules.
+ * Engine modules free of level knowledge: levelFreeEngineContract.js.
  */
-import fs from 'node:fs';
-import path from 'node:path';
 import paradigms from '../../src/services/schreiben/linguistic/data/declensionParadigms.json' with { type: 'json' };
 import lexicon from '../../src/services/schreiben/linguistic/a1Lexicon.json' with { type: 'json' };
 import letterFormulas from '../../src/services/schreiben/linguistic/data/letterFormulas.json' with { type: 'json' };
@@ -14,10 +12,6 @@ import { A1_GRAMMAR_PROFILE } from '../../src/services/schreiben/profiles/a1Gram
 const CASES = ['NOM', 'AKK', 'DAT', 'GEN'];
 const SLOTS = ['m', 'f', 'n', 'pl'];
 const PROFILES = [A1_GRAMMAR_PROFILE];
-const ENGINE_PATHS = ['analysis', 'morphology', 'grammarRules', 'letter', 'letterRules', 'grammarEngine.js', 'grammarCheckOrchestrator.js',
-  'grammarErrorDeduper.js', 'macroSegmenter.js', 'sentenceTokenizer.js', 'topologicalFieldParser.js', 'vorfeldChunker.js', 'vorfeldOrderChecker.js',
-  'subordinateClauseChecker.js', 'verblessClauseChecker.js', 'clauseStructureParser.js', 'criterionIntents.js', 'sentenceMood.js',
-  'semanticIntentMatcher.js', 'semanticPolarityValidator.js'];
 const REGISTERS = { salutations: ['formal', 'informal'], closings: ['formal', 'semiFormal', 'informal'] };
 
 function validateTable(name, table, errors) {
@@ -58,22 +52,9 @@ function validateLetterFormulas(errors) {
   }
 }
 
-function listFiles(target) {
-  if (!fs.statSync(target).isDirectory()) return [target];
-  return fs.readdirSync(target).flatMap((f) => listFiles(path.join(target, f)));
-}
-
-function validateEngineIsLevelFree(linguisticDir, errors) {
-  for (const file of ENGINE_PATHS.flatMap((p) => listFiles(path.join(linguisticDir, p)))) {
-    const code = fs.readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
-    if (/a1Lexicon|a1GrammarProfile|\b[AB][12](?:_|\b)/.test(code)) errors.push(`engine module ${path.basename(file)} references a level; move it to a profile`);
-  }
-}
-
-export function validateGrammarData(srcDir, errors) {
+export function validateGrammarData(errors) {
   validateParadigms(errors);
   for (const [word, entries] of Object.entries(lexicon)) entries.forEach((e) => validateEntry(word, e, errors));
   validateProfiles(errors);
   validateLetterFormulas(errors);
-  validateEngineIsLevelFree(path.join(srcDir, 'services/schreiben/linguistic'), errors);
 }

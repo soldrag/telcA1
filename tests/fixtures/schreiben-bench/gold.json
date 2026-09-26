@@ -28,9 +28,10 @@
     "expectedLp": [
       2,
       2,
-      2
+      1
     ],
-    "text": "Ich möchte im August einen Deutschkurs A1 besuchen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?\nViele Grüße\nAnna Müller"
+    "text": "Ich möchte im August einen Deutschkurs A1 besuchen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?\nViele Grüße\nAnna Müller",
+    "note": "Leitpunkt 3 asks for Kursgebühren und Anmeldung; the letter asks only for the price, so the compound point is partial."
   },
   {
     "id": "G4",

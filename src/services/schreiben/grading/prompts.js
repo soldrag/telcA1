@@ -8,7 +8,7 @@
  * Includes 3 balanced examples: 1 full, 1 partial, 1 no to eliminate bias towards "full".
  */
 export function buildLeitpunktArbiterPrompt(lpLabel = '', relevantSentences = '') {
-  return `You are checking a German A1 exam letter task point. Answer strictly in JSON.
+  return `You are checking a task point of a German exam letter. Answer strictly in JSON.
 
 Examples:
 Task point: "Neuer Terminvorschlag"
@@ -45,7 +45,7 @@ export const buildLeitpunktPrompt = buildLeitpunktArbiterPrompt;
  * Evaluated sentence by sentence with strict exact-substring requirement.
  */
 export function buildSentenceGrammarPrompt(sentence = '') {
-  return `You are a German grammar checker for level A1. Answer strictly in JSON.
+  return `You are a German grammar checker for learner letters. Answer strictly in JSON.
 
 Examples:
 Sentence: "Ich möchte ein Deutschkurs machen."
@@ -72,11 +72,11 @@ export const buildGrammarPrompt = buildSentenceGrammarPrompt;
  * Enforces strict fact-locking: never alter scores or invent new errors.
  */
 export function buildFeedbackPolishPrompt(factsText = '') {
-  return `You are a friendly German A1 examiner.
+  return `You are a friendly German exam examiner.
 The FACTS below are the ONLY source of truth. Never add, invent or contradict them.
 
 Rules:
-- Write exactly 2 short sentences in simple German (level A1) based ONLY on these facts.
+- Write exactly 2 short sentences in simple German based ONLY on these facts.
 - If a task point is marked "fully addressed" in the facts, you must NOT tell the student to answer or fix that point.
 - You may mention a task point as missing ONLY if the facts show it as "missing" (0/2).
 - If the facts say "No grammar errors found", do not mention any grammar problem.
