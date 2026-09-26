@@ -1,24 +1,15 @@
 /**
- * Semantic Intent & Proposition Matcher for German A1 Schreiben.
+ * Semantic Intent & Proposition Matcher for German Schreiben.
  * Matches structural clause propositions against Leitpunkt criteria contracts.
  * Strictly adheres to McConnell limits (<= 150 lines, <= 25 lines per function).
  */
 
 import { parseSentencePropositions } from './clauseStructureParser.js';
-// The intent matcher is still A1-bound (label-based intents, stage 7 of the grammar plan); it is the one
-// place that picks the A1 lexicon for clause parsing on the semantic side.
-import { A1_GRAMMAR_PROFILE } from '../profiles/a1GrammarProfile.js';
+import { INTENT_TYPES, resolveCriterionIntent } from './criterionIntents.js';
 import { buildRequestTargets, isTargetAction, isTargetNoun } from './criterionRequestTargets.js';
 import { detectTargetRefusal } from './criterionRefusalDetector.js';
 
-export const INTENT_TYPES = {
-  DEFECT_REPORT: 'DEFECT_REPORT',
-  ACTION_REQUEST: 'ACTION_REQUEST',
-  APPOINTMENT_CANCEL: 'APPOINTMENT_CANCEL',
-  APPOINTMENT_PROPOSAL: 'APPOINTMENT_PROPOSAL',
-  REASON_EXPLANATION: 'REASON_EXPLANATION',
-  GENERAL: 'GENERAL'
-};
+export { INTENT_TYPES };
 
 // Negations that express a speech act instead of refusing it. A defect is reported by negating
 // the function ("funktioniert nicht"), never by negating the problem ("kein Problem"); a cancellation
@@ -30,20 +21,9 @@ export const INTENT_POLARITY = Object.freeze({
   [INTENT_TYPES.REASON_EXPLANATION]: { contentNegations: ANY_NEGATION },
   [INTENT_TYPES.ACTION_REQUEST]: { contentNegations: [] },
   [INTENT_TYPES.APPOINTMENT_PROPOSAL]: { contentNegations: [] },
+  [INTENT_TYPES.INFORMATION_REQUEST]: { contentNegations: [] },
   [INTENT_TYPES.GENERAL]: { contentNegations: [] }
 });
-
-export function inferCriterionIntent(criterion = {}) {
-  const text = `${criterion.label || ''} ${(criterion.keywords || []).join(' ')}`.toLowerCase();
-  if (/absag|stornier|nicht\s+kommen|absage/i.test(text)) return INTENT_TYPES.APPOINTMENT_CANCEL;
-  if (/handwerker|techniker|reparier|reparatur|hilfe|bitten|schick/i.test(text)) return INTENT_TYPES.ACTION_REQUEST;
-  if (/heizung|kaputt|problem|kalt|wasser|strom|licht/i.test(text)) return INTENT_TYPES.DEFECT_REPORT;
-  if (/neuer?\s+termin|terminvorschlag|neue\s+zeit|zeit|wann\s+haben|passt/i.test(text) || (text.includes('termin') && /dienstag|mittwoch|donnerstag|freitag|nächste/i.test(text))) {
-    return INTENT_TYPES.APPOINTMENT_PROPOSAL;
-  }
-  if (/warum|grund|überstunden|arbeit|krank/i.test(text)) return INTENT_TYPES.REASON_EXPLANATION;
-  return INTENT_TYPES.GENERAL;
-}
 
 function evaluateDefectPolarity(clauseProps) {
   const { polarity, arguments: args } = clauseProps;
@@ -114,18 +94,22 @@ export function matchPropositionToIntent(clauseProps, { intentType, targets = ne
   return evaluateIntentMatch(clauseProps, intentType, targets);
 }
 
-export function classifySentenceClauses(sentence = '', criterion = {}) {
-  const intentType = inferCriterionIntent(criterion);
+/**
+ * @param {string} sentence
+ * @param {{ criterion: object, lexicon: object }} context - the rubric criterion and the level's lexicon port
+ */
+export function classifySentenceClauses(sentence = '', { criterion = {}, lexicon } = {}) {
+  const intentType = resolveCriterionIntent(criterion);
   const targets = buildRequestTargets(criterion);
-  const clauses = parseSentencePropositions(sentence, { lexicon: A1_GRAMMAR_PROFILE.lexicon }).map((c) => ({
+  const clauses = parseSentencePropositions(sentence, { lexicon }).map((c) => ({
     text: c.rawText,
     ...matchPropositionToIntent(c, { intentType, targets })
   }));
   return { intentType, clauses };
 }
 
-export function evaluateSentenceAgainstCriterion(sentence = '', criterion = {}) {
-  const { intentType, clauses } = classifySentenceClauses(sentence, criterion);
+export function evaluateSentenceAgainstCriterion(sentence = '', context = {}) {
+  const { intentType, clauses } = classifySentenceClauses(sentence, context);
   if (clauses.length === 0) return { isInverted: false, isMatch: false };
   const lastRefusal = clauses.filter((c) => c.isInverted).pop();
   return {

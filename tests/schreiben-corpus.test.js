@@ -8,9 +8,9 @@ describe('Schreiben Teil 2 Benchmark Corpus (Gold Standard)', () => {
     options_json: {
       rubric: {
         leitpunkte_criteria: [
-          { id: 'lp1', label: 'Grund', keywords: ['deutschkurs', 'kurs', 'a1', 'machen', 'august'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Zeit/Dauer', keywords: ['wochen', 'zeit', 'vormittag', 'lernen'], requiredMatches: 2 },
-          { id: 'lp3', label: 'Kosten/Anmeldung', keywords: ['kosten', 'kostet', 'anmelden', 'anmeldung', 'informationen', 'wie viel'], requiredMatches: 2 }
+          { id: 'lp1', label: 'Grund', intent: 'REASON_EXPLANATION', keywords: ['deutschkurs', 'kurs', 'a1', 'machen', 'august'], requiredMatches: 2 },
+          { id: 'lp2', label: 'Zeit/Dauer', intent: 'GENERAL', evidence: 'temporal', keywords: ['wochen', 'zeit', 'vormittag', 'lernen'], requiredMatches: 2 },
+          { id: 'lp3', label: 'Kosten/Anmeldung', intent: 'INFORMATION_REQUEST', keywords: ['kosten', 'kostet', 'anmelden', 'anmeldung', 'informationen', 'wie viel'], requiredMatches: 2 }
         ]
       }
     }
@@ -20,9 +20,9 @@ describe('Schreiben Teil 2 Benchmark Corpus (Gold Standard)', () => {
     options_json: {
       rubric: {
         leitpunkte_criteria: [
-          { id: 'lp1', label: 'Termin absagen', keywords: ['termin', 'absagen', 'montag', 'nicht kommen'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Grund', keywords: ['krank', 'fieber', 'überstunden', 'arbeit', 'arbeiten'], requiredMatches: 1 },
-          { id: 'lp3', label: 'Neuer Termin', keywords: ['dienstag', 'mittwoch', 'woche', 'verschieben', 'neuer termin'], requiredMatches: 1 }
+          { id: 'lp1', label: 'Termin absagen', intent: 'APPOINTMENT_CANCEL', keywords: ['termin', 'absagen', 'montag', 'nicht kommen'], requiredMatches: 2 },
+          { id: 'lp2', label: 'Grund', intent: 'REASON_EXPLANATION', keywords: ['krank', 'fieber', 'überstunden', 'arbeit', 'arbeiten'], requiredMatches: 1 },
+          { id: 'lp3', label: 'Neuer Termin', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'mittwoch', 'woche', 'verschieben', 'neuer termin'], requiredMatches: 1 }
         ]
       }
     }

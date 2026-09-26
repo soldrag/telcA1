@@ -17,6 +17,7 @@ import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/r
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
+import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
@@ -30,8 +31,8 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
   }
 }
 
-async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments }) {
-  const kw = evaluateCriterionKeywords(bodySentences, crit);
+async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments, lexicon }) {
+  const kw = evaluateCriterionKeywords(bodySentences, crit, { lexicon });
   let bestSim = 0;
   const relSentences = [...kw.relevantSentences];
 
@@ -71,11 +72,11 @@ function calculateBaseScore(effectiveSim, framePenalty) {
 }
 
 async function scoreCriterionItem(params) {
-  const { crit, provider, bodySentences, rankerEmbedder, criteria = [] } = params;
+  const { crit, provider, bodySentences, rankerEmbedder, criteria = [], lexicon } = params;
   const lpText = crit.label || crit.id;
   const { relSentences, effectiveSim, keywordSentences } = await gatherCriterionEvidence(params);
   const hasAffirmativeEvidence = keywordSentences.length > 0;
-  const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence });
+  const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence, lexicon });
   const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
 
   let finalScore = baseScore;
@@ -113,7 +114,8 @@ async function scoreCriterionItem(params) {
   };
 }
 
-export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null }) {
+/** lexicon: the level's lexicon port (ranker policy `lexicon`). */
+export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, lexicon = defaultA1RankerPolicy.lexicon }) {
   const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
   const rankerEmbedder = sentenceVectors.some(Boolean)
     ? createRankerEmbedder({ customExtractor, sentenceVectors: buildSentenceVectorMap(bodySentences, sentenceVectors) })
@@ -123,7 +125,7 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
 
   for (let idx = 0; idx < criteria.length; idx++) {
     const scoredItem = await scoreCriterionItem({
-      crit: criteria[idx], critIdx: idx, bodySentences, sentenceVectors, customExtractor, provider, userSegments, rankerEmbedder, criteria
+      crit: criteria[idx], critIdx: idx, bodySentences, sentenceVectors, customExtractor, provider, userSegments, rankerEmbedder, criteria, lexicon
     });
     items.push(scoredItem);
     if (scoredItem.frameErrors?.length > 0) semanticErrors.push(...scoredItem.frameErrors);

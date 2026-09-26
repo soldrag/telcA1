@@ -5,7 +5,7 @@ import { defaultA1RankerPolicy } from '../src/services/schreiben/grading/policie
 
 describe('Ranking Rules Generalization Tests (Zero Task Overfitting)', () => {
   it('generalizes to Fahrradverleih task (Compound: Dauer und Kosten)', async () => {
-    const criterion = 'Dauer und Kosten';
+    const criterion = { label: 'Dauer und Kosten', aspects: [{ label: 'Dauer', evidence: 'temporal' }, { label: 'Kosten' }] };
 
     // Letter 1: Both aspects present
     const resFull = await classifyCriterionCoverage(

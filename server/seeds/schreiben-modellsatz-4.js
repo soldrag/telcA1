@@ -149,6 +149,7 @@ export const questions = [
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
+            intent: 'REASON_EXPLANATION',
             keywords: ['ferienwohnung', 'wohnung', 'urlaub', 'mieten', 'buchen', 'reservieren', 'ostsee', 'juli'],
             requiredMatches: 2,
             conversive_rules: [
@@ -162,15 +163,18 @@ export const questions = [
           {
             id: 'lp2',
             label: 'Personen und Zeitraum',
+            intent: 'GENERAL',
             keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'bleiben', 'juli', 'august', 'juni', 'personen', 'vom', 'bis', 'tage', 'zeitraum'],
             requiredMatches: 2,
             aspects: [
               {
                 label: 'Personen',
+                evidence: 'personCount',
                 keywords: ['personen', 'erwachsene', 'kind', 'kinder']
               },
               {
                 label: 'Zeitraum',
+                evidence: 'temporal',
                 keywords: ['zeitraum', 'woche', 'wochen', 'tage', 'bleiben', 'juli', 'august', 'juni']
               }
             ]
@@ -178,6 +182,7 @@ export const questions = [
           {
             id: 'lp3',
             label: 'Preis und Haustiere',
+            intent: 'INFORMATION_REQUEST',
             keywords: ['kosten', 'kostet', 'preis', 'hund', 'hunde', 'haustiere', 'katze', 'erlaubt'],
             requiredMatches: 2,
             aspects: [

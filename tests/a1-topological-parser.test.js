@@ -79,9 +79,9 @@ describe('A1 Topological Field Model & Linguistic Engine', () => {
         type: 'essay',
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Termin absagen', keywords: ['montag', '14', 'keine zeit', 'absagen', 'termin'] },
-            { id: 'lp2', label: 'Grund (Arbeit/Chef)', keywords: ['chef', 'arbeiten', 'arbeit'] },
-            { id: 'lp3', label: 'Neuer Termin', keywords: ['dienstag', 'neuer termin', 'termin', 'rufen'] }
+            { id: 'lp1', label: 'Termin absagen', intent: 'APPOINTMENT_CANCEL', keywords: ['montag', '14', 'keine zeit', 'absagen', 'termin'] },
+            { id: 'lp2', label: 'Grund (Arbeit/Chef)', intent: 'REASON_EXPLANATION', keywords: ['chef', 'arbeiten', 'arbeit'] },
+            { id: 'lp3', label: 'Neuer Termin', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'neuer termin', 'termin', 'rufen'] }
           ]
         }
       }

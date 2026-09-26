@@ -20,6 +20,7 @@ const MATERIALIEN = { id: 'lp3', label: 'Materialien für den Sprachkurs', keywo
 const OSTSEE_LP2 = {
   id: 'lp2',
   label: 'Personen und Zeitraum',
+  aspects: [{ label: 'Personen', evidence: 'personCount' }, { label: 'Zeitraum', evidence: 'temporal' }],
   keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'juli', 'august', 'personen', 'tage', 'zeitraum'],
 };
 
@@ -123,7 +124,7 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
   });
 
   it('Fahrradverleih trap letter scores 1 point in the pipeline even with keyword baseline 2', async () => {
-    const crit = { id: 'lp2', label: 'Dauer und Kosten', keywords: ['fahrrad', 'mieten', 'kostet'] };
+    const crit = { id: 'lp2', label: 'Dauer und Kosten', aspects: [{ label: 'Dauer', evidence: 'temporal' }, { label: 'Kosten' }], keywords: ['fahrrad', 'mieten', 'kostet'] };
     const body = ['Ich möchte ein Fahrrad mieten.', 'Wie viel kostet das pro Tag?'];
     const res = await scorePipelineLeitpunkte({
       criteria: [crit], bodySentences: body, provider: new MicroRankerProvider({ embedder: null }), customExtractor: false,
@@ -166,8 +167,8 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
 describe('Deterministic fallback ignores function words', () => {
   it('does not credit "Sie"/"für" as concept or label overlap', async () => {
     const { computeDeterministicFallbackScore } = await import('../src/services/schreiben/grading/rankerFallbackScorer.js');
-    assert.ok(computeDeterministicFallbackScore('Wie lange Sie fehlen', 'Bitte schicken Sie mir die Hausaufgaben.') < 0.4);
-    assert.ok(computeDeterministicFallbackScore('Termin für die Besichtigung', 'Ich möchte mein Auto verkaufen für 5000 Euro.') < 0.4);
-    assert.ok(computeDeterministicFallbackScore('Termin für die Besichtigung', 'Kann ich die Wohnung am Samstag besichtigen? Wann haben Sie einen Termin?') >= 0.65);
+    assert.ok(computeDeterministicFallbackScore({ label: 'Wie lange Sie fehlen', evidence: 'temporal' }, 'Bitte schicken Sie mir die Hausaufgaben.') < 0.4);
+    assert.ok(computeDeterministicFallbackScore({ label: 'Termin für die Besichtigung', evidence: 'temporal' }, 'Ich möchte mein Auto verkaufen für 5000 Euro.') < 0.4);
+    assert.ok(computeDeterministicFallbackScore({ label: 'Termin für die Besichtigung', evidence: 'temporal' }, 'Kann ich die Wohnung am Samstag besichtigen? Wann haben Sie einen Termin?') >= 0.65);
   });
 });

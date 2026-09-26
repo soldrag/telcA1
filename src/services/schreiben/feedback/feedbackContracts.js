@@ -3,7 +3,7 @@
  * Clean Architecture & McConnell limits: <= 80 lines, immutable frozen constants.
  */
 
-import { INTENT_TYPES } from '../linguistic/semanticIntentMatcher.js';
+import { INTENT_TYPES } from '../linguistic/criterionIntents.js';
 
 export const DIAGNOSTIC_CODES = Object.freeze({
   LP_FULFILLED: 'LP_FULFILLED',

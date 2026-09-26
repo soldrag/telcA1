@@ -149,18 +149,22 @@ export const questions = [
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
+            intent: 'APPOINTMENT_CANCEL',
             keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
             label: 'Warum können Sie nicht kommen',
+            intent: 'REASON_EXPLANATION',
             keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'],
             requiredMatches: 1
           },
           {
             id: 'lp3',
             label: 'Neuer Terminvorschlag',
+            intent: 'APPOINTMENT_PROPOSAL',
+            evidence: 'temporal',
             keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit'],
             requiredMatches: 2
           }

@@ -14,9 +14,9 @@ describe('Doctor cancellation regression (screenshot case)', () => {
       type: 'essay',
       rubric: {
         leitpunkte_criteria: [
-          { id: 'lp1', label: 'Grund für Ihr Schreiben (Termin am Montag absagen)', keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Warum (Überstunden oder Arbeit)', keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'], requiredMatches: 1 },
-          { id: 'lp3', label: 'Neuer Terminvorschlag (Dienstag oder Mittwoch)', keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'], requiredMatches: 2 }
+          { id: 'lp1', label: 'Grund für Ihr Schreiben (Termin am Montag absagen)', intent: 'APPOINTMENT_CANCEL', keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'], requiredMatches: 2 },
+          { id: 'lp2', label: 'Warum (Überstunden oder Arbeit)', intent: 'REASON_EXPLANATION', keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'], requiredMatches: 1 },
+          { id: 'lp3', label: 'Neuer Terminvorschlag (Dienstag oder Mittwoch)', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'], requiredMatches: 2 }
         ]
       }
     }

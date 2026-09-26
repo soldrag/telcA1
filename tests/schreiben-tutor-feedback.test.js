@@ -145,18 +145,23 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
     {
       id: 'lp1',
       label: 'Grund für das Schreiben (Heizung kaputt)',
+      intent: 'DEFECT_REPORT',
       keywords: ['heizung', 'kaputt', 'kalt', 'warm', 'funktionieren'],
       requiredMatches: 2
     },
     {
       id: 'lp2',
       label: 'Wann Sie zu Hause sind',
+      intent: 'GENERAL',
+      evidence: 'temporal',
       keywords: ['zeit', 'zu hause', 'uhr', 'vormittag', 'nachmittag', 'termin'],
       requiredMatches: 1
     },
     {
       id: 'lp3',
       label: 'Handwerker / Reparaturtermin bitten',
+      intent: 'ACTION_REQUEST',
+      aspects: [{ label: 'Handwerker' }, { label: 'Reparaturtermin bitten', evidence: 'temporal' }],
       keywords: ['handwerker', 'techniker', 'kommen', 'reparieren', 'bitten'],
       requiredMatches: 1
     }

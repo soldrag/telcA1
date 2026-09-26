@@ -8,9 +8,9 @@ describe('Grading Golden Set (10-15 Reference Letters, Algorithmic Determinism)'
     options_json: {
       rubric: {
         leitpunkte_criteria: [
-          { id: 'lp1', label: 'Grund für das Schreiben (Deutschkurs)', keywords: ['deutschkurs', 'kurs', 'a1', 'machen', 'august'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Zeit und Dauer (Vormittag, 4 Wochen)', keywords: ['wochen', 'zeit', 'vormittag', 'lernen', 'stunden'], requiredMatches: 2 },
-          { id: 'lp3', label: 'Kosten und Anmeldung', keywords: ['kosten', 'kostet', 'anmelden', 'anmeldung', 'informationen', 'wie viel'], requiredMatches: 2 }
+          { id: 'lp1', label: 'Grund für das Schreiben (Deutschkurs)', intent: 'REASON_EXPLANATION', keywords: ['deutschkurs', 'kurs', 'a1', 'machen', 'august'], requiredMatches: 2 },
+          { id: 'lp2', label: 'Zeit und Dauer (Vormittag, 4 Wochen)', intent: 'GENERAL', evidence: 'temporal', keywords: ['wochen', 'zeit', 'vormittag', 'lernen', 'stunden'], requiredMatches: 2 },
+          { id: 'lp3', label: 'Kosten und Anmeldung', intent: 'INFORMATION_REQUEST', keywords: ['kosten', 'kostet', 'anmelden', 'anmeldung', 'informationen', 'wie viel'], requiredMatches: 2 }
         ]
       }
     }
@@ -21,9 +21,9 @@ describe('Grading Golden Set (10-15 Reference Letters, Algorithmic Determinism)'
     options_json: {
       rubric: {
         leitpunkte_criteria: [
-          { id: 'lp1', label: 'Termin absagen', keywords: ['termin', 'absagen', 'montag', 'nicht kommen'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Grund für die Absage', keywords: ['krank', 'fieber', 'überstunden', 'arbeit', 'arbeiten'], requiredMatches: 1 },
-          { id: 'lp3', label: 'Neuer Termin', keywords: ['dienstag', 'mittwoch', 'woche', 'verschieben', 'neuer termin'], requiredMatches: 1 }
+          { id: 'lp1', label: 'Termin absagen', intent: 'APPOINTMENT_CANCEL', keywords: ['termin', 'absagen', 'montag', 'nicht kommen'], requiredMatches: 2 },
+          { id: 'lp2', label: 'Grund für die Absage', intent: 'REASON_EXPLANATION', keywords: ['krank', 'fieber', 'überstunden', 'arbeit', 'arbeiten'], requiredMatches: 1 },
+          { id: 'lp3', label: 'Neuer Termin', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'mittwoch', 'woche', 'verschieben', 'neuer termin'], requiredMatches: 1 }
         ]
       }
     }

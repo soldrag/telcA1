@@ -3,6 +3,8 @@
  * Matches user sentences to exam Leitpunkte using German stem clusters.
  */
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { isAddresseeDirected } from '../linguistic/sentenceMood.js';
+import { resolveCriterionIntent, isAddresseeRequestIntent } from '../linguistic/criterionIntents.js';
 
 function extractStems(str = '') {
   return (str || '')
@@ -40,21 +42,25 @@ function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false
     }
   }
 
-  const isProposalOrInquiry = labelStems.some(s => ['vorschlag', 'terminvorschlag', 'frag', 'bitt', 'kost', 'preis', 'gebühr', 'anmeld'].includes(s));
-  if (isQuestion && isProposalOrInquiry) {
+  if (isQuestion && isAddresseeRequestIntent(resolveCriterionIntent(crit))) {
     score += 1;
   }
 
   return { score, matchesCount, totalKeywords: Math.max(1, rawKeywords.length) };
 }
 
-export function matchSentenceToCriteria(sentence = '', criteria = []) {
+/**
+ * @param {string} sentence
+ * @param {object[]} criteria - rubric Leitpunkte
+ * @param {{ lexicon: object }} context - the level's lexicon port
+ */
+export function matchSentenceToCriteria(sentence = '', criteria = [], { lexicon } = {}) {
   if (!sentence || !Array.isArray(criteria) || criteria.length === 0) {
     return { bestIdx: -1, score: 0 };
   }
 
   const clean = sentence.trim();
-  const isQuestion = clean.endsWith('?') || /^(haben sie|können wir|kann ich|geht es|passt es|wie viel|wann|wo|was)\b/i.test(clean);
+  const isQuestion = isAddresseeDirected(clean, { lexicon });
   const sentenceStems = extractStems(clean);
 
   const scoredList = criteria.map((crit, idx) => {

@@ -4,42 +4,43 @@
  * vector matching can pull unrelated or partially negated sentences into the evidence.
  */
 
-import { tagTokens } from '../linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
+import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
 
 const REFUSAL_PENALTY = 2;
 const NO_INVERSION = Object.freeze({ isInverted: false });
 
-function findRefusal(sentences, criterion) {
+function findRefusal(sentences, criterion, lexicon) {
   let refusal = NO_INVERSION;
   for (const s of sentences) {
-    const pol = detectSemanticInversion(s, criterion);
+    const pol = detectSemanticInversion(s, criterion, { lexicon });
     if (pol.isInverted) refusal = pol;
   }
   return refusal;
 }
 
-function validateEvidenceFrame(sentence, criterion) {
+function validateEvidenceFrame(sentence, criterion, lexicon) {
   const words = sentence.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
   return validateSentenceFrame({
-    taggedTokens: tagTokens(words),
+    taggedTokens: lexicon.tag(words),
     conversiveRules: criterion.conversive_rules || [],
     semanticSlots: criterion.semantic_slots || []
   });
 }
 
-export function assessEvidenceSentences({ sentences = [], criterion = {}, hasAffirmativeEvidence = false }) {
+/** lexicon: the level's lexicon port (ranker policy `lexicon`). */
+export function assessEvidenceSentences({ sentences = [], criterion = {}, hasAffirmativeEvidence = false, lexicon = defaultA1RankerPolicy.lexicon }) {
   let penalty = 0;
   const frameErrors = [];
   for (const s of sentences) {
-    const res = validateEvidenceFrame(s, criterion);
+    const res = validateEvidenceFrame(s, criterion, lexicon);
     if (!res.isValid) {
       penalty = Math.max(penalty, res.maxPenalty);
       frameErrors.push(...res.errors);
     }
   }
-  const inversionInfo = hasAffirmativeEvidence ? NO_INVERSION : findRefusal(sentences, criterion);
+  const inversionInfo = hasAffirmativeEvidence ? NO_INVERSION : findRefusal(sentences, criterion, lexicon);
   if (inversionInfo.isInverted) penalty = Math.max(penalty, REFUSAL_PENALTY);
   return { penalty, frameErrors, inversionInfo };
 }

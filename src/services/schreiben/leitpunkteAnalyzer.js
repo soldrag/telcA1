@@ -6,13 +6,17 @@
  */
 
 import { stemGermanWord } from './linguistic/germanStemmer.js';
-import { tagTokens } from './linguistic/a1LexiconService.js';
 import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
 import { hasTemporalExpression } from './grading/temporalRangeDetector.js';
 import { evaluateCompoundCriterionBaseline } from './grading/compoundBaselineEvaluator.js';
+import { hasTemporalEvidence } from './linguistic/criterionIntents.js';
+import { defaultA1RankerPolicy } from './grading/policies/a1RankerPolicy.js';
+
+// The deterministic baseline runs on the default level policy, like the rest of the baseline path.
+const { lexicon } = defaultA1RankerPolicy;
 
 function extractStems(str = '') {
   return str
@@ -33,7 +37,7 @@ function evaluateStemMatches(textStems = [], criterion = {}, rawText = '') {
     }
   }
 
-  const isTemporalCrit = (criterion.label || criterion.id || '').toLowerCase().match(/zeit|dauer|termin|datum/i);
+  const isTemporalCrit = hasTemporalEvidence(criterion);
   if (isTemporalCrit && rawText && hasTemporalExpression(rawText)) {
     matchedCount += 1;
   }
@@ -59,7 +63,7 @@ function evaluateFrameConstraints(targetSentence = '', criterion = {}) {
 
   for (const s of evalSentences) {
     const words = s.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
-    const tagged = tagTokens(words);
+    const tagged = lexicon.tag(words);
     const res = validateSentenceFrame({
       taggedTokens: tagged,
       conversiveRules: criterion.conversive_rules || [],
@@ -80,7 +84,7 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
     return { score: 0, matched: false, detail: 'Inhaltspunkt nicht gefunden', diagnosticCode: 'LP_MISSING', frameErrors: [] };
   }
 
-  const inversion = detectSemanticInversion(evalText, criterion);
+  const inversion = detectSemanticInversion(evalText, criterion, { lexicon });
   if (inversion.isInverted) {
     const diagnosticCode = resolveLpDiagnosticCode(0, inversion, true);
     return { score: 0, matched: false, detail: 'Inhaltspunkt invertiert oder abgelehnt', diagnosticCode, frameErrors: [] };

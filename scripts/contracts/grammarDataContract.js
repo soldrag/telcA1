@@ -16,7 +16,8 @@ const SLOTS = ['m', 'f', 'n', 'pl'];
 const PROFILES = [A1_GRAMMAR_PROFILE];
 const ENGINE_PATHS = ['analysis', 'morphology', 'grammarRules', 'letter', 'letterRules', 'grammarEngine.js', 'grammarCheckOrchestrator.js',
   'grammarErrorDeduper.js', 'macroSegmenter.js', 'sentenceTokenizer.js', 'topologicalFieldParser.js', 'vorfeldChunker.js', 'vorfeldOrderChecker.js',
-  'subordinateClauseChecker.js', 'verblessClauseChecker.js', 'clauseStructureParser.js'];
+  'subordinateClauseChecker.js', 'verblessClauseChecker.js', 'clauseStructureParser.js', 'criterionIntents.js', 'sentenceMood.js',
+  'semanticIntentMatcher.js', 'semanticPolarityValidator.js'];
 const REGISTERS = { salutations: ['formal', 'informal'], closings: ['formal', 'semiFormal', 'informal'] };
 
 function validateTable(name, table, errors) {
@@ -65,7 +66,7 @@ function listFiles(target) {
 function validateEngineIsLevelFree(linguisticDir, errors) {
   for (const file of ENGINE_PATHS.flatMap((p) => listFiles(path.join(linguisticDir, p)))) {
     const code = fs.readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
-    if (/a1Lexicon|\bA[12]\b|\bB[12]\b/.test(code)) errors.push(`engine module ${path.basename(file)} references a level; move it to a profile`);
+    if (/a1Lexicon|a1GrammarProfile|\b[AB][12](?:_|\b)/.test(code)) errors.push(`engine module ${path.basename(file)} references a level; move it to a profile`);
   }
 }
 

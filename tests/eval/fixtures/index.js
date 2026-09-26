@@ -16,18 +16,22 @@ export const evaluationQuestions = {
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
+            intent: 'REASON_EXPLANATION',
             keywords: ['deutschkurs', 'kurs', 'a1', 'sprachschule', 'august', 'besuchen', 'machen'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
             label: 'Wann und wie lange',
+            intent: 'GENERAL',
+            evidence: 'temporal',
             keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin', 'lernen'],
             requiredMatches: 2
           },
           {
             id: 'lp3',
             label: 'Frage nach den Kurskosten und Anmeldung',
+            intent: 'INFORMATION_REQUEST',
             keywords: ['kosten', 'kostet', 'gebühr', 'gebühren', 'preis', 'anmelden', 'anmeldung', 'wie viel'],
             requiredMatches: 2
           }
@@ -44,18 +48,22 @@ export const evaluationQuestions = {
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
+            intent: 'APPOINTMENT_CANCEL',
             keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'],
             requiredMatches: 2
           },
           {
             id: 'lp2',
             label: 'Warum können Sie nicht kommen',
+            intent: 'REASON_EXPLANATION',
             keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'],
             requiredMatches: 1
           },
           {
             id: 'lp3',
             label: 'Neuer Terminvorschlag',
+            intent: 'APPOINTMENT_PROPOSAL',
+            evidence: 'temporal',
             keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'],
             requiredMatches: 2
           }

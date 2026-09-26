@@ -20,6 +20,7 @@ import {
   formatCriterionQuery,
   partitionAspectKeywords,
 } from './rankerFallbackScorer.js';
+import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
 
 export { computeDeterministicFallbackScore } from './rankerFallbackScorer.js';
 
@@ -50,7 +51,7 @@ async function computeNeuralScore(queryText, sentenceText, { embedder, rivalQuer
 }
 
 /**
- * @param {{ label: string, keywords?: string[] }|string} aspect
+ * @param {{ label: string, keywords?: string[], evidence?: string|null }|string} aspect
  * @param {string} sentenceText
  * @param {{ embedder?: object|null, rivalQueries?: string[], policy?: object }} options
  */
@@ -61,10 +62,11 @@ export async function scoreSentencePair(aspect, sentenceText, options = {}) {
 async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy = defaultA1RankerPolicy } = {}) {
   const label = String((typeof aspect === 'string' ? aspect : aspect?.label) || '').trim();
   const keywords = typeof aspect === 'string' ? [] : (aspect?.keywords || []);
+  const aspectEvidence = typeof aspect === 'string' ? null : (aspect?.evidence || null);
   const sText = String(sentenceText || '').trim();
   if (!sText || !label) return { score: 0, vetoed: false };
 
-  const { lexical, structured } = computeFallbackEvidence(label, sText, keywords);
+  const { lexical, structured } = computeFallbackEvidence({ label, keywords, evidence: aspectEvidence }, sText);
   const queryText = formatCriterionQuery(label, keywords);
   const { neural, hasVerdict } = await computeNeuralScore(queryText, sText, { embedder, rivalQueries, policy });
   const evidence = { neural, lexical, structured, hasNeural: hasVerdict };
@@ -131,13 +133,13 @@ export async function classifyCriterionCoverage(criterion, candidateSentences, o
   const keywordsByAspect = await partitionAspectKeywords(critObj, aspectLabels, embedder);
 
   if (aspectLabels.length === 1) {
-    const aspect = { label: critLabel, keywords: keywordsByAspect[critLabel] };
+    const aspect = { label: critLabel, keywords: keywordsByAspect[critLabel], evidence: resolveAspectEvidence(critObj, critLabel) };
     return classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries });
   }
 
   const aspectResults = [];
   for (const label of aspectLabels) {
-    const aspect = { label, keywords: keywordsByAspect[label] };
+    const aspect = { label, keywords: keywordsByAspect[label], evidence: resolveAspectEvidence(critObj, label) };
     const res = await classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries });
     aspectResults.push({ aspect: label, ...res });
   }

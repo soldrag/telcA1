@@ -4,6 +4,7 @@ import { detectSemanticInversion } from '../src/services/schreiben/linguistic/se
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
+import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 import { questions as s2Questions } from '../server/seeds/schreiben-modellsatz-2.js';
 import { questions as s3Questions } from '../server/seeds/schreiben-modellsatz-3.js';
@@ -13,7 +14,7 @@ const criteriaOf = (qs, id) => qs.find((q) => q.id === id).options_json.rubric.l
 const [cancelReason, cancelWhy, newAppointment] = criteriaOf(s2Questions, 's2-q6');
 const [defectReason, , craftsman] = criteriaOf(s3Questions, 's3-q6');
 const [, , priceAndPets] = criteriaOf(s4Questions, 's4-q6');
-const companion = { id: 'lp2', label: 'Begleitperson', keywords: ['bruder', 'schwester', 'freundin', 'mann', 'kinder'] };
+const companion = { id: 'lp2', label: 'Begleitperson', intent: 'GENERAL', evidence: 'personCount', keywords: ['bruder', 'schwester', 'freundin', 'mann', 'kinder'] };
 
 // Every sentence is maximally similar to every Leitpunkt: vector matching pulls all of them into the evidence.
 const uniformExtractor = async () => ({ data: Float32Array.from({ length: 8 }, () => 1) });
@@ -28,7 +29,7 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
   ];
   for (const [criterion, sentence, reason] of refusals) {
     it(`"${sentence}" refuses "${criterion.label}"`, () => {
-      const res = detectSemanticInversion(sentence, criterion);
+      const res = detectSemanticInversion(sentence, criterion, A1_GRAMMAR_PROFILE);
       assert.equal(res.isInverted, true);
       assert.equal(res.reason, reason);
     });
@@ -44,7 +45,7 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
   ];
   for (const [criterion, sentence] of contentNegations) {
     it(`"${sentence}" does not refuse "${criterion.label}"`, () => {
-      assert.equal(detectSemanticInversion(sentence, criterion).isInverted, false);
+      assert.equal(detectSemanticInversion(sentence, criterion, A1_GRAMMAR_PROFILE).isInverted, false);
     });
   }
 });

@@ -3,12 +3,13 @@ import { analyzeClosing } from './closingAnalyzer.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { matchSentenceToCriteria } from './analyzers/semanticTopicMatcher.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
+import { defaultA1RankerPolicy } from './grading/policies/a1RankerPolicy.js';
 
-function assignSentencesToCriteria(sentences = [], criteria = []) {
+function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon }) {
   const assignments = criteria.map(() => []);
   if (sentences.length === 0 || criteria.length === 0) return assignments;
 
-  const rawMatches = sentences.map(s => matchSentenceToCriteria(s, criteria));
+  const rawMatches = sentences.map(s => matchSentenceToCriteria(s, criteria, { lexicon }));
   const hasAnyMatch = rawMatches.some(m => m.bestIdx !== -1 && m.score > 0);
 
   if (!hasAnyMatch) {
@@ -29,7 +30,8 @@ function assignSentencesToCriteria(sentences = [], criteria = []) {
   return assignments;
 }
 
-export function segmentUserEssay(rawText = '', criteria = []) {
+/** lexicon: the level's lexicon port (ranker policy `lexicon`). */
+export function segmentUserEssay(rawText = '', criteria = [], { lexicon = defaultA1RankerPolicy.lexicon } = {}) {
   const text = (rawText || '').trim();
   if (!text) {
     return { anrede: '', closing: '', senderName: '', leitpunkte: [] };
@@ -53,7 +55,7 @@ export function segmentUserEssay(rawText = '', criteria = []) {
   }
 
   const sentences = splitGermanSentences(body);
-  const assignments = assignSentencesToCriteria(sentences, criteria);
+  const assignments = assignSentencesToCriteria(sentences, { criteria, lexicon });
 
   const leitpunkteMatches = criteria.map((crit, idx) => {
     const matchedSentences = assignments[idx] || [];

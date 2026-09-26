@@ -106,7 +106,8 @@ export async function gradeSchreibenSubmission({
   const quality = analyzeGermanQuality(raw, 30);
   const stage1 = runStage1Scoring(stage0);
 
-  const seg = segmentUserEssay(raw, criteria);
+  const { lexicon } = getRankerPolicy(question.level);
+  const seg = segmentUserEssay(raw, criteria, { lexicon });
   const userSegments = {
     anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
     closing: stage0.closing.recognized ? stage0.closing.text : (seg.closing || ''),
@@ -122,6 +123,7 @@ export async function gradeSchreibenSubmission({
     provider: activeProvider,
     customExtractor,
     userSegments,
+    lexicon,
   });
 
   onProgress?.('Grammatikprüfung...', 0.7);

@@ -12,6 +12,8 @@ import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { hasTemporalExpression } from './temporalRangeDetector.js';
+import { hasTemporalEvidence } from '../linguistic/criterionIntents.js';
+import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
 
@@ -35,18 +37,19 @@ export function applyConfidenceFloor(baselineScore = 0, rawScore = 0) {
   return { score: guardedScore, isProtected };
 }
 
-function collectAffirmativeEvidence(sentences, criterion) {
+function collectAffirmativeEvidence(sentences, criterion, lexicon) {
   return sentences
-    .map(sentence => ({ sentence, text: extractAffirmativeText(sentence, criterion) }))
+    .map(sentence => ({ sentence, text: extractAffirmativeText(sentence, criterion, { lexicon }) }))
     .filter(evidence => evidence.text);
 }
 
-export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
+/** @param {{ lexicon?: object }} context - the level's lexicon port (ranker policy `lexicon`) */
+export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexicon = defaultA1RankerPolicy.lexicon } = {}) {
   const rawKeywords = criterion.keywords || [];
   if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };
 
   const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
-  const affirmative = collectAffirmativeEvidence(sentences, criterion);
+  const affirmative = collectAffirmativeEvidence(sentences, criterion, lexicon);
 
   const allWords = affirmative
     .map(a => a.text)
@@ -63,7 +66,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
     }
   }
 
-  const isTemporalCrit = (criterion.label || criterion.id || '').toLowerCase().match(/zeit|dauer|termin|datum/i);
+  const isTemporalCrit = hasTemporalEvidence(criterion);
   const rawJoined = affirmative.map(a => a.text).join(' ');
   if (isTemporalCrit && hasTemporalExpression(rawJoined)) {
     matchedCount += 1;
@@ -88,10 +91,11 @@ export async function scoreSingleLeitpunkt({
   bodySentences = [],
   sentenceEmbeddings = [],
   embedder = null,
-  qwenEngine = null
+  qwenEngine = null,
+  lexicon = defaultA1RankerPolicy.lexicon
 }) {
   const lpText = criterion.label || criterion.id;
-  const kwEval = evaluateCriterionKeywords(bodySentences, criterion);
+  const kwEval = evaluateCriterionKeywords(bodySentences, criterion, { lexicon });
 
   let bestSim = 0;
   let relevantSentencesList = [...kwEval.relevantSentences];
@@ -116,7 +120,7 @@ export async function scoreSingleLeitpunkt({
   const inGrayZone = isScoreInGrayZone(effectiveSim);
 
   const { penalty: framePenalty } = assessEvidenceSentences({
-    sentences: relevantSentencesList, criterion, hasAffirmativeEvidence: kwEval.relevantSentences.length > 0
+    sentences: relevantSentencesList, criterion, hasAffirmativeEvidence: kwEval.relevantSentences.length > 0, lexicon
   });
   let finalScore = baselineScore;
   let arbitrated = false;

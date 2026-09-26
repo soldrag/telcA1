@@ -8,9 +8,13 @@
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { detectTemporalExpression } from './temporalRangeDetector.js';
 import { hasPersonCount } from './personCountDetector.js';
+import { EVIDENCE_KINDS } from '../linguistic/criterionIntents.js';
 
 const TEMPORAL_EVIDENCE_SCORES = Object.freeze({ range: 0.95, point: 0.95, duration: 0.90 });
 const PERSON_COUNT_EVIDENCE_SCORE = 0.9;
+// Words that name the time dimension itself: they say a time is asked for, not which one, so on a
+// temporal aspect they must be proven by a time expression, not by time vocabulary.
+const TIME_DIMENSION_WORDS = new Set(['zeit', 'zeitraum', 'dauer', 'dauert']);
 
 const A1_CONCEPT_STEM_DOMAINS = {
   person: ['person', 'leut', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
@@ -36,27 +40,20 @@ export function getDomainStemsForToken(token = '') {
   return resolveConceptDomain(token) || [stemGermanWord(String(token || '').toLowerCase())];
 }
 
-function isTemporalAspect(aspectTokens = []) {
-  return aspectTokens.some((t) => /zeit|dau|termin|datum|wann|lang/i.test(t));
-}
-
-function isPersonAspect(aspectTokens = []) {
-  return aspectTokens.some((t) => /person|leut|teilnehm|gäst|gast/i.test(t));
-}
-
 /**
  * Structured evidence for an aspect: a recognised time range/duration/date, or a person count.
  * Unlike lexical overlap it proves the aspect is stated, so the ranker may trust it as much as a neural hit.
+ * @param {'temporal'|'personCount'|null} evidence - the kind the rubric declares for the aspect
  */
-export function scoreStructuredAspectEvidence(aspectLabel = '', rawSentence = '') {
-  const tokens = String(aspectLabel).toLowerCase().split(/\s+/);
+export function scoreStructuredAspectEvidence(evidence, rawSentence = '') {
   if (!rawSentence) return 0;
-  if (isTemporalAspect(tokens)) return TEMPORAL_EVIDENCE_SCORES[detectTemporalExpression(rawSentence)] || 0;
-  if (isPersonAspect(tokens)) return hasPersonCount(rawSentence) ? PERSON_COUNT_EVIDENCE_SCORE : 0;
+  if (evidence === EVIDENCE_KINDS.TEMPORAL) return TEMPORAL_EVIDENCE_SCORES[detectTemporalExpression(rawSentence)] || 0;
+  if (evidence === EVIDENCE_KINDS.PERSON_COUNT) return hasPersonCount(rawSentence) ? PERSON_COUNT_EVIDENCE_SCORE : 0;
   return 0;
 }
 
-export function scoreAspectConceptOverlap(aspectLabel = '', sentenceStems = [], rawSentence = '') {
+/** @param {{ label: string, evidence?: string|null }} aspect */
+export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = null } = {}, sentenceStems = [], rawSentence = '') {
   if (!aspectLabel || (sentenceStems.length === 0 && !rawSentence)) return 0;
 
   const aspectTokens = aspectLabel
@@ -65,13 +62,12 @@ export function scoreAspectConceptOverlap(aspectLabel = '', sentenceStems = [], 
     .split(/\s+/)
     .filter((w) => w.length > 2);
 
-  const isTimeAspect = isTemporalAspect(aspectTokens);
-  const structured = scoreStructuredAspectEvidence(aspectLabel, rawSentence);
+  const structured = scoreStructuredAspectEvidence(evidence, rawSentence);
   if (structured > 0) return structured;
 
   let maxConceptScore = 0;
   for (const token of aspectTokens) {
-    if (isTimeAspect && /zeit|dau/i.test(token)) continue;
+    if (evidence === EVIDENCE_KINDS.TEMPORAL && TIME_DIMENSION_WORDS.has(token)) continue;
 
     // Plain lexical overlap (incl. function words like "Sie"/"für") is scored elsewhere;
     // only genuine concept-domain hits earn the concept bonus.

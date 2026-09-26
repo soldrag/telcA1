@@ -13,9 +13,9 @@ export const BENCHMARK_TASKS = [
       options_json: {
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Grund für Ihr Schreiben', keywords: ['krank', 'arzt', 'fieber', 'kopfschmerz', 'termin'], requiredMatches: 1 },
-            { id: 'lp2', label: 'Wie lange Sie fehlen', keywords: ['tage', 'woche', 'freitag', 'montag', 'dauer'], requiredMatches: 1 },
-            { id: 'lp3', label: 'Hausaufgaben', keywords: ['hausaufgabe', 'hausaufgaben', 'schicken', 'senden', 'aufgabe'], requiredMatches: 1 },
+            { id: 'lp1', label: 'Grund für Ihr Schreiben', intent: 'REASON_EXPLANATION', keywords: ['krank', 'arzt', 'fieber', 'kopfschmerz', 'termin'], requiredMatches: 1 },
+            { id: 'lp2', label: 'Wie lange Sie fehlen', intent: 'GENERAL', evidence: 'temporal', keywords: ['tage', 'woche', 'freitag', 'montag', 'dauer'], requiredMatches: 1 },
+            { id: 'lp3', label: 'Hausaufgaben', intent: 'ACTION_REQUEST', keywords: ['hausaufgabe', 'hausaufgaben', 'schicken', 'senden', 'aufgabe'], requiredMatches: 1 },
           ],
         },
       },
@@ -41,9 +41,9 @@ export const BENCHMARK_TASKS = [
       options_json: {
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Grund des Schreibens', keywords: ['wohnung', 'anzeige', 'mieten', 'interessiere'], requiredMatches: 1 },
-            { id: 'lp2', label: 'Personen und Beruf', keywords: ['personen', 'person', 'frau', 'mann', 'beruf', 'arbeit', 'ingenieur', 'arzt'], requiredMatches: 1 },
-            { id: 'lp3', label: 'Termin für die Besichtigung', keywords: ['termin', 'besichtigung', 'besichtigen', 'sehen', 'samstag'], requiredMatches: 1 },
+            { id: 'lp1', label: 'Grund des Schreibens', intent: 'REASON_EXPLANATION', keywords: ['wohnung', 'anzeige', 'mieten', 'interessiere'], requiredMatches: 1 },
+            { id: 'lp2', label: 'Personen und Beruf', intent: 'GENERAL', aspects: [{ label: 'Personen', evidence: 'personCount' }, { label: 'Beruf' }], keywords: ['personen', 'person', 'frau', 'mann', 'beruf', 'arbeit', 'ingenieur', 'arzt'], requiredMatches: 1 },
+            { id: 'lp3', label: 'Termin für die Besichtigung', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['termin', 'besichtigung', 'besichtigen', 'sehen', 'samstag'], requiredMatches: 1 },
           ],
         },
       },
@@ -69,9 +69,9 @@ export const BENCHMARK_TASKS = [
       options_json: {
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Dank und Zusage', keywords: ['dank', 'danke', 'einladung', 'komme', 'gern'], requiredMatches: 1 },
-            { id: 'lp2', label: 'Begleitperson', keywords: ['mann', 'freund', 'schwester', 'kind', 'mit'], requiredMatches: 1 },
-            { id: 'lp3', label: 'Mitbringen oder Hilfe', keywords: ['mitbringen', 'kuchen', 'salat', 'getränk', 'wein', 'hilfe'], requiredMatches: 1 },
+            { id: 'lp1', label: 'Dank und Zusage', intent: 'GENERAL', keywords: ['dank', 'danke', 'einladung', 'komme', 'gern'], requiredMatches: 1 },
+            { id: 'lp2', label: 'Begleitperson', intent: 'GENERAL', evidence: 'personCount', keywords: ['mann', 'freund', 'schwester', 'kind', 'mit'], requiredMatches: 1 },
+            { id: 'lp3', label: 'Mitbringen oder Hilfe', intent: 'ACTION_REQUEST', keywords: ['mitbringen', 'kuchen', 'salat', 'getränk', 'wein', 'hilfe'], requiredMatches: 1 },
           ],
         },
       },

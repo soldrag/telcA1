@@ -14,6 +14,7 @@ import {
   partitionAspectKeywordsSync,
   computeDeterministicFallbackScore,
 } from './rankerFallbackScorer.js';
+import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
 import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
 
 export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '') {
@@ -27,7 +28,8 @@ export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '')
     const keywords = keywordsByAspect[aspect]?.length > 0
       ? keywordsByAspect[aspect]
       : (criterion?.keywords || []);
-    const score = computeDeterministicFallbackScore(aspect, evalText, keywords);
+    const evidence = resolveAspectEvidence(criterion, aspect);
+    const score = computeDeterministicFallbackScore({ label: aspect, keywords, evidence }, evalText);
     const coverage = defaultA1RankerPolicy.classifyScore(score);
     return {
       aspect,
