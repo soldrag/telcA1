@@ -160,6 +160,12 @@
       "title": "'Wir kommen' names no number of persons: Personen missing, Zeitraum present.",
       "text": "Sehr geehrte Frau Hansen,\n\nich möchte bei Ihnen Urlaub machen. Wir kommen vom 15. bis 25. Juli. Was kostet die Wohnung pro Nacht? Darf unser Hund mitkommen?\n\nMit freundlichen Grüßen\nAlex Schmidt",
       "expected": { "lp": [3, 1.5, 3], "kg": 1, "total": 8.5 }
+    },
+    {
+      "id": "21_price_adjective_question",
+      "title": "'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 0.5, as in 17.",
+      "text": "Hallo Frau Hansen,\n\nich suche eine Ferienwohnung an der Ostsee für Urlaub.\nWir sind vier Personen im August.\nIst die Wohnung billig?\n\nViele Grüße\nAlex Schmidt",
+      "expected": { "lp": [3, 3, 1.5], "kg": 0.5, "total": 8 }
     }
   ]
 }

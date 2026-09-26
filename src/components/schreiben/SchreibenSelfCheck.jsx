@@ -120,7 +120,13 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
                   <span className="font-extrabold text-action-primary">
                     Punkt {lp.index}{lpTitle ? ` (${lpTitle})` : ''}:{' '}
                   </span>
-                  <span className="text-content-primary">{lp.userSentence}</span>
+                  {lp.sentences?.length > 0 ? (
+                    <ul className="mt-0.5 space-y-0.5 text-content-primary">
+                      {lp.sentences.map((s, i) => <li key={i}>«{s}»</li>)}
+                    </ul>
+                  ) : (
+                    <span className="text-content-primary">{lp.userSentence}</span>
+                  )}
                 </div>
               );
             })}

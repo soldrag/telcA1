@@ -19,6 +19,7 @@ import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 import { requireLevelPort } from './levelPorts.js';
 import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from './compoundBaselineEvaluator.js';
+import { hasAspectConceptEvidence } from './aspectConceptEvidence.js';
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
@@ -35,7 +36,11 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
 async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments, policy }) {
   const kw = evaluateCriterionKeywords(bodySentences, crit, { lexicon: policy.lexicon });
   let bestSim = 0;
-  const relSentences = [...kw.relevantSentences];
+  // A sentence stating an aspect through the level's concept domains ("billig" → Preis) is evidence
+  // like a rubric keyword; the compound evaluator still caps the criterion by its weakest aspect.
+  const conceptSentences = bodySentences.filter((s) => !kw.relevantSentences.includes(s)
+    && hasAspectConceptEvidence(crit, extractAffirmativeText(s, crit, { lexicon: policy.lexicon }), { policy }));
+  const relSentences = [...kw.relevantSentences, ...conceptSentences];
 
   const assigned = userSegments?.leitpunkte?.[critIdx]?.userSentence;
   const segSentences = userSegments?.leitpunkte?.[critIdx]?.sentences
@@ -61,9 +66,10 @@ async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceV
     }
   }
 
-  const kwSim = kw.score === 2 ? 0.75 : (kw.score === 1 ? 0.50 : 0.20);
+  const kwScore = Math.max(kw.score, conceptSentences.length > 0 ? 1 : 0);
+  const kwSim = kwScore === 2 ? 0.75 : (kwScore === 1 ? 0.50 : 0.20);
   const effectiveSim = Math.max(bestSim, kwSim);
-  return { relSentences, effectiveSim, keywordSentences: kw.relevantSentences };
+  return { relSentences, effectiveSim, keywordSentences: [...kw.relevantSentences, ...conceptSentences] };
 }
 
 function calculateBaseScore(effectiveSim, framePenalty) {

@@ -5,6 +5,10 @@
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { isAddresseeDirected } from '../linguistic/sentenceMood.js';
 import { resolveCriterionIntent, isAddresseeRequestIntent } from '../linguistic/criterionIntents.js';
+import { hasAspectConceptEvidence } from '../grading/aspectConceptEvidence.js';
+import { requireLevelPort } from '../grading/levelPorts.js';
+
+const KEYWORD_WEIGHT = 2;
 
 function extractStems(str = '') {
   return (str || '')
@@ -14,7 +18,7 @@ function extractStems(str = '') {
     .filter(s => s && s.length >= 2);
 }
 
-function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false) {
+function computeCriterionScore(sentenceStems = [], crit = {}, { isQuestion = false, hasConcept = false } = {}) {
   const rawKeywords = crit.keywords || [];
   let score = 0;
   let matchesCount = 0;
@@ -23,13 +27,13 @@ function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false
     const kwStems = extractStems(kw);
     if (kwStems.length === 1) {
       if (sentenceStems.includes(kwStems[0])) {
-        score += 2;
+        score += KEYWORD_WEIGHT;
         matchesCount += 1;
       }
     } else if (kwStems.length > 1) {
       const allPresent = kwStems.every(st => sentenceStems.includes(st));
       if (allPresent) {
-        score += 2;
+        score += KEYWORD_WEIGHT;
         matchesCount += 1;
       }
     }
@@ -42,6 +46,12 @@ function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false
     }
   }
 
+  // A concept-domain hit on an aspect ("billig" → Preis) weighs like one rubric keyword.
+  if (hasConcept) {
+    score += KEYWORD_WEIGHT;
+    matchesCount += 1;
+  }
+
   if (isQuestion && isAddresseeRequestIntent(resolveCriterionIntent(crit))) {
     score += 1;
   }
@@ -52,9 +62,10 @@ function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false
 /**
  * @param {string} sentence
  * @param {object[]} criteria - rubric Leitpunkte
- * @param {{ lexicon: object }} context - the level's lexicon port
+ * @param {{ lexicon: object, policy: object }} context - the level's lexicon port and ranker policy (concept domains)
  */
-export function matchSentenceToCriteria(sentence = '', criteria = [], { lexicon } = {}) {
+export function matchSentenceToCriteria(sentence = '', criteria = [], { lexicon, policy } = {}) {
+  requireLevelPort(policy, 'matchSentenceToCriteria: policy');
   if (!sentence || !Array.isArray(criteria) || criteria.length === 0) {
     return { bestIdx: -1, score: 0 };
   }
@@ -64,7 +75,8 @@ export function matchSentenceToCriteria(sentence = '', criteria = [], { lexicon 
   const sentenceStems = extractStems(clean);
 
   const scoredList = criteria.map((crit, idx) => {
-    const evalRes = computeCriterionScore(sentenceStems, crit, isQuestion);
+    const hasConcept = hasAspectConceptEvidence(crit, clean, { policy });
+    const evalRes = computeCriterionScore(sentenceStems, crit, { isQuestion, hasConcept });
     return { idx, ...evalRes };
   });
 

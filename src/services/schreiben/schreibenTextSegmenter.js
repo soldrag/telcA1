@@ -5,11 +5,11 @@ import { matchSentenceToCriteria } from './analyzers/semanticTopicMatcher.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 import { requireLevelPort } from './grading/levelPorts.js';
 
-function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon }) {
+function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon, policy }) {
   const assignments = criteria.map(() => []);
   if (sentences.length === 0 || criteria.length === 0) return assignments;
 
-  const rawMatches = sentences.map(s => matchSentenceToCriteria(s, criteria, { lexicon }));
+  const rawMatches = sentences.map(s => matchSentenceToCriteria(s, criteria, { lexicon, policy }));
   const hasAnyMatch = rawMatches.some(m => m.bestIdx !== -1 && m.score > 0);
 
   if (!hasAnyMatch) {
@@ -30,8 +30,8 @@ function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon }) {
   return assignments;
 }
 
-/** @param {{ lexicon: object, grammar: object }} levelContext - the level's lexicon port and grammar checker */
-export function segmentUserEssay(rawText = '', criteria = [], { lexicon, grammar } = {}) {
+/** @param {{ lexicon: object, grammar: object, policy: object }} levelContext - the level's lexicon port, grammar checker and ranker policy */
+export function segmentUserEssay(rawText = '', criteria = [], { lexicon, grammar, policy } = {}) {
   requireLevelPort(lexicon, 'segmentUserEssay: lexicon');
   const text = (rawText || '').trim();
   if (!text) {
@@ -56,7 +56,7 @@ export function segmentUserEssay(rawText = '', criteria = [], { lexicon, grammar
   }
 
   const sentences = splitGermanSentences(body);
-  const assignments = assignSentencesToCriteria(sentences, { criteria, lexicon });
+  const assignments = assignSentencesToCriteria(sentences, { criteria, lexicon, policy });
 
   const leitpunkteMatches = criteria.map((crit, idx) => {
     const matchedSentences = assignments[idx] || [];

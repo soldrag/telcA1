@@ -6,7 +6,8 @@
 export const A1_CONCEPT_DOMAINS = Object.freeze({
   person: ['person', 'leut', 'mann', 'frau', 'kind', 'famili', 'freund', 'kolleg', 'erwachsen', 'gast', 'begleit', 'drei', 'zwei', 'vier', 'fuenf', 'fünf', 'allein', 'alleine', 'paar'],
   zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende'],
-  preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
+  // No bare "viel": it is "Vielen Dank"/"viele Fragen"; "Wie viel kostet …" is proven by "kost".
+  preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut'],
   tier: ['tier', 'hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
   beruf: ['beruf', 'arbeit', 'job', 'firma', 'büro', 'studen', 'studentin', 'ingenieur', 'ingenieurin', 'arz', 'ärztin', 'lehr',
     'lehrerin', 'verkäuf', 'verkäuferin', 'koch', 'köchin', 'kelln', 'kellnerin', 'friseur', 'friseurin', 'mechanik', 'programmier'],
