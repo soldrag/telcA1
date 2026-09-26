@@ -46,7 +46,7 @@ function computeCriterionScore(sentenceStems = [], crit = {}, isQuestion = false
     score += 1;
   }
 
-  return { score, matchesCount };
+  return { score, matchesCount, totalKeywords: Math.max(1, rawKeywords.length) };
 }
 
 /**
@@ -74,7 +74,7 @@ export function matchSentenceToCriteria(sentence = '', criteria = [], { lexicon 
   }
 
   const topCandidates = scoredList.filter(s => s.score === maxScore);
-  topCandidates.sort((a, b) => b.matchesCount - a.matchesCount || a.idx - b.idx);
+  topCandidates.sort((a, b) => (b.matchesCount / b.totalKeywords) - (a.matchesCount / a.totalKeywords) || a.idx - b.idx);
 
   return { bestIdx: topCandidates[0].idx, score: maxScore };
 }

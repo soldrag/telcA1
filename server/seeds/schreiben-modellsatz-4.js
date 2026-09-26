@@ -192,7 +192,7 @@ export const questions = [
               },
               {
                 label: 'Haustiere',
-                keywords: ['hund', 'hunde', 'haustiere', 'erlaubt', 'katze', 'mitbringen']
+                keywords: ['hund', 'hunde', 'haustiere', 'erlaubt', 'katze', 'tier', 'tiere', 'mitbringen']
               }
             ],
             semantic_slots: [
