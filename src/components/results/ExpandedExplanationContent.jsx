@@ -1,9 +1,10 @@
 import React from 'react';
-import { HelpCircle, BookOpen } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { seedData } from '../../../server/seed-data.js';
 import SchreibenSelfCheck from '../schreiben/SchreibenSelfCheck.jsx';
 import ReviewTaskPrompt from './ReviewTaskPrompt.jsx';
+import VocabularyList from './VocabularyList.jsx';
 
 const questionLookup = new Map((seedData?.questions || []).map(q => [q.id, q]));
 
@@ -12,14 +13,6 @@ function resolveExplanation(item, language, live) {
     return item.explanation_ru || live?.explanation_ru || item.explanation_en || live?.explanation_en || item.explanation_de;
   }
   return item.explanation_en || live?.explanation_en || item.explanation_de || live?.explanation_de || item.explanation_ru;
-}
-
-function resolveWordTranslation(entry, language, liveNotes) {
-  if (!entry) return '';
-  const liveEntry = liveNotes?.find(n => n.word === entry.word);
-  const en = entry.translation_en || liveEntry?.translation_en;
-  const ru = entry.translation_ru || entry.translation || liveEntry?.translation_ru || liveEntry?.translation;
-  return language === 'ru' ? (ru || en || '') : (en || ru || '');
 }
 
 function PedagogicalFeedback({ item, explanation, vocabularyList, language, live, t }) {
@@ -48,23 +41,7 @@ function PedagogicalFeedback({ item, explanation, vocabularyList, language, live
         </div>
       )}
 
-      {vocabularyList && vocabularyList.length > 0 && (
-        <div className="bg-surface-inset rounded-xl p-3 border border-border-default">
-          <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-content-secondary mb-2">
-            <BookOpen className="w-4 h-4 text-action-primary" />
-            <span>{t('results.usefulWords')}</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-            {vocabularyList.map((entry, index) => (
-              <div key={index} className="bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle text-xs">
-                <span className="font-bold text-content-primary">{entry.word}</span>
-                <span className="text-content-muted mx-1">—</span>
-                <span className="text-content-secondary">{resolveWordTranslation(entry, language, live?.vocabulary_notes)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      <VocabularyList entries={vocabularyList} liveNotes={live?.vocabulary_notes} language={language} title={t('results.usefulWords')} />
     </>
   );
 }
@@ -81,26 +58,7 @@ export default function ExpandedExplanationContent({ item, onScoreChange }) {
   return (
     <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-border-default bg-surface-card rounded-b-2xl space-y-4">
       {isEssay ? (
-        <>
-          <SchreibenSelfCheck item={item} onScoreChange={onScoreChange} />
-          {vocabularyList && vocabularyList.length > 0 && (
-            <div className="bg-surface-inset rounded-xl p-3 border border-border-default">
-              <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-content-secondary mb-2">
-                <BookOpen className="w-4 h-4 text-action-primary" />
-                <span>{t('results.usefulWords')}</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                {vocabularyList.map((entry, index) => (
-                  <div key={index} className="bg-surface-card px-3 py-1.5 rounded-lg border border-border-subtle text-xs">
-                    <span className="font-bold text-content-primary">{entry.word}</span>
-                    <span className="text-content-muted mx-1">—</span>
-                    <span className="text-content-secondary">{resolveWordTranslation(entry, language, live?.vocabulary_notes)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </>
+        <SchreibenSelfCheck item={item} onScoreChange={onScoreChange} />
       ) : (
         <>
           <ReviewTaskPrompt item={item} />

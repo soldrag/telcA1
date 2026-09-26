@@ -1,194 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { BookCheck, Sparkles, ArrowUpCircle } from 'lucide-react';
+import React from 'react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
-import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
-import LinguisticAccuracyPanel from './LinguisticAccuracyPanel.jsx';
-import SchreibenCriteriaChecklist from './SchreibenCriteriaChecklist.jsx';
-import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
-import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
-import SchreibenAbComparisonCard from './SchreibenAbComparisonCard.jsx';
-import SchreibenRankerDetailsCard from './SchreibenRankerDetailsCard.jsx';
-import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
-import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
-import { scoreCriteriaLevels } from '../../services/schreiben/regulations/index.js';
-import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
-import { dedupeGrammarErrors } from '../../services/schreiben/linguistic/grammarErrorDeduper.js';
-import { countLetterBodyWords } from '../../services/schreiben/scoring/letterBodyWordCounter.js';
-import ReviewTaskPrompt from '../results/ReviewTaskPrompt.jsx';
+import { useSchreibenSelfCheck } from '../../hooks/useSchreibenSelfCheck.js';
+import SchreibenLetterVerdict from './SchreibenLetterVerdict.jsx';
+import SchreibenLetterTexts from './SchreibenLetterTexts.jsx';
+import SchreibenMoreDetails from './SchreibenMoreDetails.jsx';
 
-function deriveInitialScores(item = {}) {
-  const cb = item.criteria_breakdown;
-  if (!cb) return { anrede: 2, lp1: 2, lp2: 2, lp3: 2, gruss: 2 };
-  const getScore = (key, idx) => Number(cb[key] ?? cb.items?.[idx]?.score) || 0;
-  return { anrede: Number(cb.anrede) || 0, lp1: getScore('lp1', 0), lp2: getScore('lp2', 1), lp3: getScore('lp3', 2), gruss: Number(cb.gruss) || 0 };
-}
-
-export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
+/**
+ * Letter review: conclusion and criteria, the texts, then secondary details.
+ * Phones read it in that order (with the optional form review before the details);
+ * desktops keep the texts in a sticky right column.
+ */
+export default function SchreibenSelfCheck({ item = {}, onScoreChange, formReview = null }) {
   const { t, language } = useI18n();
-  const options = item.options_json || {};
-  const leitpunkteTitles = options.leitpunkte
-    || item.leitpunkte
-    || options.rubric?.leitpunkte_criteria?.map((c) => c.label)
-    || item.criteria?.map((c) => c.label)
-    || [];
-  const sampleSolution = options.sample_solution || item.clue_quote;
-  const grammarErrors = item.grammar_errors || [];
-  const segments = item.user_segments;
-
-  const [scores, setScores] = useState(() => deriveInitialScores(item));
-  const [liveGrammarErrors, setLiveGrammarErrors] = useState(() => dedupeGrammarErrors(grammarErrors));
-
-  const cycleScore = (id) => {
-    setScores((prev) => {
-      const current = Number(prev[id]) || 0;
-      const next = current === 2 ? 1 : (current === 1 ? 0 : 2);
-      return { ...prev, [id]: next };
-    });
-  };
-
-  const handleApplyScores = useCallback((nextScores) => setScores(nextScores), []);
-  const handleApplyErrors = useCallback((nextErrors) => {
-    setLiveGrammarErrors((prev) => mergeCandidateGrammarErrors(grammarErrors, nextErrors));
-  }, [grammarErrors]);
-
-  const {
-    aiLoading, aiStatus, aiDiffSummary, feedbackSummary, examinerFeedback,
-    liveCriteriaBreakdown, abComparison, closeAbComparison,
-    handleRunAi, handleRunRankerAi, handleRunAbComparison, providerId,
-  } = useSchreibenAiChecker({
-    item, scores, onApplyScores: handleApplyScores,
-    onApplyErrors: handleApplyErrors, t, language,
-  });
-
-  const teil2Score = scoreCriteriaLevels(scores, item.level);
-  const calculatedScore = teil2Score.total;
-
-  useEffect(() => {
-    onScoreChange?.(calculatedScore, scores);
-  }, [calculatedScore, scores, onScoreChange]);
-
+  const selfCheck = useSchreibenSelfCheck({ item, onScoreChange, t, language });
+  const shared = { item, selfCheck, t, language };
 
   return (
-    <div className="space-y-5 pt-3">
-      <ReviewTaskPrompt item={item} />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl border border-border-default bg-surface-inset space-y-2">
-          <div className="text-xs font-black uppercase tracking-wider text-action-primary flex items-center justify-between">
-            <span>Ihr eingereichter Text</span>
-            <span className="text-content-secondary font-mono">{item.word_count || 0} Wörter</span>
-          </div>
-          <div className="text-sm font-sans text-content-primary whitespace-pre-line leading-relaxed">
-            {item.user_answer || <span className="italic text-content-muted">Kein Text eingereicht</span>}
-          </div>
-        </div>
-
-        <div className="p-4 rounded-xl border border-state-success-border bg-state-success-subtle/30 space-y-2">
-          <div className="text-xs font-black uppercase tracking-wider text-state-success-text flex items-center space-x-1.5">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>telc A1 Musterlösung (Beispiel)</span>
-          </div>
-          <div className="text-sm font-sans text-content-primary whitespace-pre-line leading-relaxed font-medium">
-            {sampleSolution}
-          </div>
-        </div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 items-start">
+      <div className="contents lg:flex lg:flex-col lg:gap-6 lg:min-w-0">
+        {formReview && <div className="order-3 lg:order-none min-w-0">{formReview}</div>}
+        <SchreibenLetterVerdict {...shared} className="order-1 lg:order-none" />
+        <SchreibenMoreDetails {...shared} className="order-4 lg:order-none" />
       </div>
-
-      <LinguisticAccuracyPanel
-        grammarErrors={liveGrammarErrors}
-        wordCount={countLetterBodyWords(item.user_answer)}
-        level={item.level}
-        t={t}
-      />
-      <SchreibenGrammarNotice grammarErrors={liveGrammarErrors} t={t} />
-
-      {segments && (
-        <div className="p-3.5 rounded-xl border border-border-default bg-surface-card space-y-2">
-          <div className="text-xs font-bold uppercase tracking-wider text-content-secondary flex items-center space-x-1.5">
-            <BookCheck className="w-3.5 h-3.5 text-action-primary" />
-            <span>Ihr Text aufgeteilt nach telc Kriterien:</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-            <div className="p-2 rounded-lg bg-surface-inset border border-border-subtle">
-              <span className="font-extrabold text-action-primary">Anrede: </span>
-              <span className="text-content-primary">{segments.anrede || <span className="text-content-muted italic">Keine</span>}</span>
-            </div>
-            {segments.leitpunkte.map((lp, idx) => {
-              const lpTitle = options.leitpunkte?.[lp.index - 1] || lp.label;
-              return (
-                <div key={idx} className="p-2 rounded-lg bg-surface-inset border border-border-subtle">
-                  <span className="font-extrabold text-action-primary">
-                    Punkt {lp.index}{lpTitle ? ` (${lpTitle})` : ''}:{' '}
-                  </span>
-                  {lp.sentences?.length > 0 ? (
-                    <ul className="mt-0.5 space-y-0.5 text-content-primary">
-                      {lp.sentences.map((s, i) => <li key={i}>«{s}»</li>)}
-                    </ul>
-                  ) : (
-                    <span className="text-content-primary">{lp.userSentence}</span>
-                  )}
-                </div>
-              );
-            })}
-            <div className="p-2 rounded-lg bg-surface-inset border border-border-subtle">
-              <span className="font-extrabold text-action-primary">Grußformel & Name: </span>
-              <span className="text-content-primary">{segments.closing} {segments.senderName}</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="p-4 rounded-xl border-2 border-action-primary-border bg-action-primary-subtle/30 space-y-3">
-        <SchreibenCriteriaChecklist
-          scores={scores}
-          onCycleScore={cycleScore}
-          teil2Score={teil2Score}
-          diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}
-          leitpunkteTitles={leitpunkteTitles}
-          language={language}
-          t={t}
-        />
-
-        <SchreibenAiControlBar
-          aiLoading={aiLoading}
-          handleRunRankerAi={handleRunRankerAi}
-          handleRunAbComparison={handleRunAbComparison}
-        />
-
-        {abComparison && (
-          <SchreibenAbComparisonCard
-            comparison={abComparison}
-            onClose={closeAbComparison}
-            language={language}
-          />
-        )}
-
-        {aiDiffSummary.length > 0 && (
-          <div className="mt-2 space-y-1">
-            {aiDiffSummary.map((d, i) => (
-              <div key={i} className="flex items-center space-x-2 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border border-action-primary-border bg-action-primary-subtle/20">
-                <ArrowUpCircle className="w-3.5 h-3.5 text-action-primary flex-shrink-0" />
-                <span className="text-content-primary">
-                  {formatDiffEntry(d, language, item)}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <SchreibenExaminerFeedbackCard
-          examinerFeedback={examinerFeedback}
-          feedbackSummary={feedbackSummary}
-          language={language}
-        />
-
-        <SchreibenRankerDetailsCard
-          diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}
-          language={language}
-        />
-
-        <SchreibenAiDisclaimer />
-      </div>
+      <SchreibenLetterTexts {...shared} className="order-2 lg:order-none lg:sticky lg:top-20 min-w-0" />
     </div>
   );
 }

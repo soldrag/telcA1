@@ -59,25 +59,39 @@ function CategoryBreakdown({ byCategory, t }) {
   );
 }
 
+// telc grades task fulfilment: a letter that covers no Leitpunkt has no accuracy worth rating.
+function NotRatedPanel({ t }) {
+  return (
+    <div className="p-4 rounded-xl border border-border-subtle bg-surface-inset space-y-1">
+      <div className="flex items-center gap-2 text-sm font-semibold text-content-muted">
+        <GraduationCap className="w-4 h-4 shrink-0" aria-hidden="true" />
+        <span>{t('results.linguisticAccuracy.title')}</span>
+      </div>
+      <p className="text-sm text-content-muted">{t('results.linguisticAccuracy.notRated')}</p>
+    </div>
+  );
+}
+
 /**
  * Pedagogical accuracy scale, kept visibly apart from the telc exam score it does not affect.
  * @param {{ grammarErrors: Array, wordCount: number, level?: string, t: Function }} props - wordCount: words of the letter body
  */
-export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount = 0, level, t }) {
+export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount = 0, level, contentMissing = false, t }) {
+  if (contentMissing) return <NotRatedPanel t={t} />;
   const accuracy = calculateLinguisticAccuracy({ grammarErrors, wordCount, weights: getGrammarProfile(level).accuracyWeights });
 
   return (
     <div className="p-4 rounded-xl border border-border-default bg-surface-card space-y-3">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="space-y-0.5">
-          <div className="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-content-secondary">
+          <div className="flex items-center space-x-2 text-sm font-semibold text-content-secondary">
             <GraduationCap className="w-4 h-4 text-action-primary flex-shrink-0" />
             <span>{t('results.linguisticAccuracy.title')}</span>
           </div>
           <p className="text-[11px] text-content-muted">{t('results.linguisticAccuracy.notExamScore')}</p>
         </div>
         <div className="text-right">
-          <div className="font-mono text-lg font-black text-content-primary leading-none">
+          <div className="font-mono text-lg font-bold text-content-primary leading-none">
             {accuracy.score} <span className="text-xs text-content-muted">/ {accuracy.maxScore}</span>
           </div>
           <div className="text-[11px] font-semibold text-content-secondary">

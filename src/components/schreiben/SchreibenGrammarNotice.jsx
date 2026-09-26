@@ -8,7 +8,7 @@ import { AlertCircle, CheckCircle2 } from 'lucide-react';
 export default function SchreibenGrammarNotice({ grammarErrors = [], t }) {
   if (grammarErrors.length === 0) {
     return (
-      <div className="p-3.5 rounded-xl border border-state-success-border bg-state-success-subtle/20 flex items-center space-x-2 text-xs font-bold text-state-success-text">
+      <div className="p-3.5 rounded-xl border border-state-success-border bg-state-success-subtle/20 flex items-center space-x-2 text-sm font-semibold text-state-success-text">
         <CheckCircle2 className="w-4 h-4 text-state-success flex-shrink-0" />
         <span>{t('results.linguisticAccuracy.noErrors')}</span>
       </div>
@@ -17,7 +17,7 @@ export default function SchreibenGrammarNotice({ grammarErrors = [], t }) {
 
   return (
     <div className="p-4 rounded-xl border border-state-warning-border bg-state-warning-subtle/20 space-y-3">
-      <div className="flex items-center space-x-2 text-state-warning-text font-bold text-xs uppercase tracking-wider">
+      <div className="flex items-center space-x-2 text-state-warning-text font-semibold text-sm">
         <AlertCircle className="w-4 h-4 text-state-warning flex-shrink-0" />
         <span>{t('results.linguisticAccuracy.errorsTitle', { count: grammarErrors.length })}</span>
       </div>

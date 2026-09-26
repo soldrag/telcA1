@@ -79,22 +79,26 @@ export default function ResultsReviewCard({ item, isExpanded, onToggleExpand, on
           ) : (
             <div className="flex items-center flex-wrap gap-1.5 text-xs font-mono font-bold min-w-0">
               <span className="text-content-tertiary hidden md:inline">{t('results.yourAnswer')}</span>
-              <span 
-                className={`px-2 py-1 rounded-md border uppercase max-w-[130px] sm:max-w-[160px] truncate ${
-                  item.is_correct
-                    ? 'bg-state-success-muted text-state-success-text border-state-success-border'
-                    : 'bg-state-error-muted text-state-error-text border-state-error-border line-through'
-                }`}
-                title={item.user_answer || t('results.noAnswer')}
-              >
-                {item.user_answer || t('results.noAnswer')}
-              </span>
+              {item.user_answer ? (
+                <span
+                  className={`px-2 py-1 rounded-md border max-w-[130px] sm:max-w-[160px] truncate ${
+                    item.is_correct
+                      ? 'bg-state-success-muted text-state-success-text border-state-success-border'
+                      : 'bg-state-error-muted text-state-error-text border-state-error-border line-through'
+                  }`}
+                  title={item.user_answer}
+                >
+                  {item.user_answer}
+                </span>
+              ) : (
+                <span className="px-1 font-sans font-normal text-content-muted">{t('results.noAnswer')}</span>
+              )}
 
               {!item.is_correct && (
                 <>
                   <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-content-muted shrink-0" />
                   <span 
-                    className="px-2 py-1 rounded-md border bg-state-success text-white border-state-success-hover uppercase max-w-[150px] sm:max-w-[200px] truncate"
+                    className="px-2 py-1 rounded-md border bg-state-success text-white border-state-success-hover max-w-[150px] sm:max-w-[200px] truncate"
                     title={item.correct_answer}
                   >
                     {item.correct_answer}

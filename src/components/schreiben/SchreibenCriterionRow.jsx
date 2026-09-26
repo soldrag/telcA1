@@ -1,13 +1,17 @@
 import React from 'react';
 import { resolveTutorCriterionFeedback } from '../../services/schreiben/feedback/tutorFeedbackResolver.js';
+import { getCriterionColor } from './criterionColors.js';
 
-const LEVEL_BADGE_CLASS = {
-  2: 'bg-state-success text-white',
-  1: 'bg-state-warning text-white',
-  0: 'bg-surface-raised text-content-muted',
+const LEVEL_TEXT_CLASS = {
+  2: 'text-state-success-text',
+  1: 'text-state-warning-text',
+  0: 'text-state-error-text',
 };
 
-export default function SchreibenCriterionRow({ criterionId, label, level, badgeText, diagnostic = {}, onCycle, language }) {
+/**
+ * One criterion of the letter: tapping it cycles the self-check level (2 → 1 → 0).
+ */
+export default function SchreibenCriterionRow({ criterionId, label, level, badgeText, diagnostic = {}, onCycle, language, cycleHint }) {
   const tutorNote = resolveTutorCriterionFeedback({
     criterionId,
     score: level,
@@ -17,30 +21,24 @@ export default function SchreibenCriterionRow({ criterionId, label, level, badge
   });
 
   return (
-    <div className="w-full text-left p-3 rounded-lg border border-border-default bg-surface-card hover:border-action-primary transition-all space-y-1.5">
-      <div className="flex items-center justify-between gap-2">
-        <button
-          type="button"
-          onClick={() => onCycle?.(criterionId)}
-          className="flex-1 text-left cursor-pointer text-xs font-bold hover:text-action-primary transition-colors"
-        >
-          <span className={level > 0 ? 'text-content-primary' : 'text-content-muted'}>{label}</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => onCycle?.(criterionId)}
-          className={`font-mono text-[11px] px-2 py-0.5 rounded font-black transition-colors cursor-pointer flex-shrink-0 ${LEVEL_BADGE_CLASS[level] || LEVEL_BADGE_CLASS[0]}`}
-        >
+    <li className="py-1">
+      <button
+        type="button"
+        onClick={() => onCycle?.(criterionId)}
+        title={cycleHint}
+        className="w-full min-h-[44px] px-2 rounded-lg flex items-center justify-between gap-3 text-left hover:bg-surface-raised cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+      >
+        <span className="flex items-center gap-2.5 min-w-0">
+          <span aria-hidden="true" className={`w-2.5 h-2.5 rounded-full shrink-0 ${getCriterionColor(criterionId).dot}`} />
+          <span className="text-sm font-medium text-content-primary">{label}</span>
+        </span>
+        <span className={`text-sm font-semibold tabular-nums shrink-0 ${LEVEL_TEXT_CLASS[level] || LEVEL_TEXT_CLASS[0]}`}>
           {badgeText}
-        </button>
-      </div>
-
+        </span>
+      </button>
       {tutorNote && (
-        <div className="text-[11px] leading-relaxed text-content-secondary border-t border-border-subtle/50 pt-1.5 flex items-start space-x-1.5">
-          <span className="text-action-primary font-bold flex-shrink-0">💡</span>
-          <span>{tutorNote}</span>
-        </div>
+        <p className="pl-7 pr-2 pb-1 text-sm leading-relaxed text-content-secondary">{tutorNote}</p>
       )}
-    </div>
+    </li>
   );
 }
