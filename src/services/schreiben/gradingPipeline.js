@@ -11,6 +11,7 @@ import { getRankerPolicy } from './grading/policies/index.js';
 import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { calculateLinguisticAccuracy } from './scoring/linguisticAccuracyScorer.js';
+import { getGrammarProfile } from './profiles/index.js';
 import { countLetterBodyWords } from './scoring/letterBodyWordCounter.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
@@ -159,6 +160,7 @@ export async function gradeSchreibenSubmission({
     grammarErrors: errors,
     wordCount: countLetterBodyWords(userText),
     isGibberish: quality.isGibberish,
+    weights: getGrammarProfile(question.level).accuracyWeights,
   });
 
   onProgress?.('Bewertung abgeschlossen', 1.0);

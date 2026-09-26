@@ -8,6 +8,7 @@
 
 import { IRankerPolicy } from './rankerPolicyInterface.js';
 import { isKnownWord } from '../../linguistic/a1LexiconService.js';
+import { A1_GRAMMAR_PROFILE } from '../../profiles/a1GrammarProfile.js';
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -37,6 +38,10 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get thresholds() {
     return this._thresholds;
+  }
+
+  get lexicon() {
+    return A1_GRAMMAR_PROFILE.lexicon;
   }
 
   get feedbackSelection() {

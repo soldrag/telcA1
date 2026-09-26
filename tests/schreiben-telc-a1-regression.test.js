@@ -12,6 +12,9 @@ import { loadRegressionSuites, acceptedRange, isWithin } from './helpers/regress
 import { calculateLinguisticAccuracy } from '../src/services/schreiben/scoring/linguisticAccuracyScorer.js';
 import { dedupeGrammarErrors } from '../src/services/schreiben/linguistic/grammarErrorDeduper.js';
 import { countLetterBodyWords } from '../src/services/schreiben/scoring/letterBodyWordCounter.js';
+import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
+
+const weights = A1_GRAMMAR_PROFILE.accuracyWeights;
 
 const suites = await loadRegressionSuites();
 
@@ -74,7 +77,7 @@ for (const suite of suites) {
       const res = results.get('17_screenshot_user_review');
       if (!res) return;
       assert.ok(res.grammar_errors.some((e) => e.code === 'ERR_CAPITAL_AFTER_SALUTATION_COMMA'));
-      const shown = calculateLinguisticAccuracy({
+      const shown = calculateLinguisticAccuracy({ weights,
         grammarErrors: dedupeGrammarErrors(res.grammar_errors),
         wordCount: countLetterBodyWords(suite.cases.find((tc) => tc.id === '17_screenshot_user_review').text),
       });

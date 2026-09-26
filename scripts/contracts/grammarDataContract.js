@@ -14,7 +14,9 @@ import { A1_GRAMMAR_PROFILE } from '../../src/services/schreiben/profiles/a1Gram
 const CASES = ['NOM', 'AKK', 'DAT', 'GEN'];
 const SLOTS = ['m', 'f', 'n', 'pl'];
 const PROFILES = [A1_GRAMMAR_PROFILE];
-const ENGINE_PATHS = ['analysis', 'morphology', 'grammarRules', 'letter', 'letterRules', 'grammarEngine.js', 'macroSegmenter.js'];
+const ENGINE_PATHS = ['analysis', 'morphology', 'grammarRules', 'letter', 'letterRules', 'grammarEngine.js', 'grammarCheckOrchestrator.js',
+  'grammarErrorDeduper.js', 'macroSegmenter.js', 'sentenceTokenizer.js', 'topologicalFieldParser.js', 'vorfeldChunker.js', 'vorfeldOrderChecker.js',
+  'subordinateClauseChecker.js', 'verblessClauseChecker.js', 'clauseStructureParser.js'];
 const REGISTERS = { salutations: ['formal', 'informal'], closings: ['formal', 'semiFormal', 'informal'] };
 
 function validateTable(name, table, errors) {
@@ -40,6 +42,8 @@ function validateProfiles(errors) {
     for (const id of profile.rules) if (!GRAMMAR_RULES[id]) errors.push(`profile ${profile.level}: unknown rule "${id}"`);
     for (const id of profile.letterRules || []) if (!LETTER_RULES[id]) errors.push(`profile ${profile.level}: unknown letter rule "${id}"`);
     for (const port of ['lookup', 'findForms', 'tag']) if (typeof profile.lexicon[port] !== 'function') errors.push(`profile ${profile.level}: lexicon port lacks ${port}()`);
+    for (const [category, weight] of Object.entries(profile.accuracyWeights || {})) if (!(weight > 0)) errors.push(`profile ${profile.level}: accuracy weight ${category}`);
+    if (!profile.accuracyWeights) errors.push(`profile ${profile.level}: no accuracyWeights`);
   }
 }
 

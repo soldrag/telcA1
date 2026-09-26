@@ -68,6 +68,7 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     class MockStrictPolicy extends IRankerPolicy {
       get level() { return 'Strict_Mock'; }
       get thresholds() { return { full: 0.90, partial: 0.70 }; }
+      get lexicon() { return defaultA1RankerPolicy.lexicon; }
       classifyScore(score) {
         if (score >= 0.90) return 'full';
         if (score >= 0.70) return 'partial';

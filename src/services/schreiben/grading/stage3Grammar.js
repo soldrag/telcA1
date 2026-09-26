@@ -6,6 +6,7 @@
 
 import { calculateLevenshtein, normalizeGermanText } from '../schreibenFuzzyMatcher.js';
 import { checkGermanA1Grammar } from '../germanGrammarChecker.js';
+import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 import { buildGrammarPrompt } from './prompts.js';
 
 export { buildGrammarPrompt };
@@ -74,20 +75,9 @@ export async function runStage3Grammar({
     candidateErrors = errorLists.flat();
   }
 
-  // 3. Deduplicate and merge
-  const seen = new Set(baselineErrors.map(e => e.original.toLowerCase().trim()));
-  const mergedErrors = [...baselineErrors];
-
-  for (const cand of candidateErrors) {
-    const key = cand.original.toLowerCase().trim();
-    if (key && !seen.has(key)) {
-      seen.add(key);
-      mergedErrors.push(cand);
-    }
-  }
-
+  // 3. Merge through the shared deduper: each defect is listed once
   return {
-    errors: mergedErrors,
+    errors: mergeCandidateGrammarErrors(baselineErrors, candidateErrors),
     baselineErrorCount: baselineErrors.length,
     qwenCandidateCount: candidateErrors.length
   };

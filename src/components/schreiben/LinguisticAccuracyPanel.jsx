@@ -5,6 +5,7 @@ import {
   ACCURACY_BAND_THRESHOLDS,
   ACCURACY_REFERENCE_WORD_COUNT,
 } from '../../services/schreiben/scoring/linguisticAccuracyScorer.js';
+import { getGrammarProfile } from '../../services/schreiben/profiles/index.js';
 
 const BAND_TONES = {
   excellent: 'bg-state-success',
@@ -60,10 +61,10 @@ function CategoryBreakdown({ byCategory, t }) {
 
 /**
  * Pedagogical accuracy scale, kept visibly apart from the telc exam score it does not affect.
- * @param {{ grammarErrors: Array, wordCount: number, t: Function }} props - wordCount: words of the letter body
+ * @param {{ grammarErrors: Array, wordCount: number, level?: string, t: Function }} props - wordCount: words of the letter body
  */
-export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount = 0, t }) {
-  const accuracy = calculateLinguisticAccuracy({ grammarErrors, wordCount });
+export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount = 0, level, t }) {
+  const accuracy = calculateLinguisticAccuracy({ grammarErrors, wordCount, weights: getGrammarProfile(level).accuracyWeights });
 
   return (
     <div className="p-4 rounded-xl border border-border-default bg-surface-card space-y-3">

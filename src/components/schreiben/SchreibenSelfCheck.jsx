@@ -97,6 +97,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
       <LinguisticAccuracyPanel
         grammarErrors={liveGrammarErrors}
         wordCount={countLetterBodyWords(item.user_answer)}
+        level={item.level}
         t={t}
       />
       <SchreibenGrammarNotice grammarErrors={liveGrammarErrors} t={t} />

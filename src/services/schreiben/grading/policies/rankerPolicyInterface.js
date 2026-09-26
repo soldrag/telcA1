@@ -40,6 +40,11 @@ export class IRankerPolicy {
     throw new Error('IRankerPolicy.thresholds getter must be implemented');
   }
 
+  /** Lexicon port of the level ({ lookup, findForms, tag }) for clause parsing. */
+  get lexicon() {
+    throw new Error('IRankerPolicy.lexicon getter must be implemented');
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }

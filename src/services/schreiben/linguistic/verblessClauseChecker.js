@@ -1,5 +1,5 @@
 /**
- * Generic Verbless Clause & Missing Predicate Checker for German A1.
+ * Generic verbless clause & missing predicate checker for German sentences.
  * Detects questions and declarative clauses lacking a finite verb.
  * Strictly complies with McConnell limits (<= 120 lines, <= 20 lines per function).
  */

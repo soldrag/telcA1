@@ -4,17 +4,33 @@
  * are one broken Satzklammer), and a learner must not pay twice for it.
  */
 
-const MIN_SHARED_TOKENS = 2;
+const MIN_OVERLAP_TOKENS = 2;
 
 function toTokens(text = '') {
   return String(text).toLowerCase().split(/[^a-zäöüß0-9]+/).filter(Boolean);
 }
 
+const sameTokens = (a, b) => a.length === b.length && a.every((t, i) => t === b[i]);
+
+function containsSequence(outer, inner) {
+  return inner.length > 0 && outer.some((_, i) => sameTokens(outer.slice(i, i + inner.length), inner));
+}
+
+// The end of one span is the start of the other: "möchten kommen von 15" / "kommen von 15. Juli".
+function overlapsAtEdge(a, b) {
+  for (let n = Math.min(a.length, b.length) - 1; n >= MIN_OVERLAP_TOKENS; n -= 1) {
+    if (sameTokens(a.slice(-n), b.slice(0, n)) || sameTokens(b.slice(-n), a.slice(0, n))) return true;
+  }
+  return false;
+}
+
+// One defect = the same kind of finding over overlapping text. Sharing words is not enough:
+// "mit meine Mutter" and "mit meine Schwester" are two defects.
 function describeSameDefect(a, b) {
   if ((a.code || a.category) !== (b.code || b.category)) return false;
   const tokensA = toTokens(a.original);
-  const tokensB = new Set(toTokens(b.original));
-  return tokensA.filter((t) => tokensB.has(t)).length >= MIN_SHARED_TOKENS;
+  const tokensB = toTokens(b.original);
+  return containsSequence(tokensA, tokensB) || containsSequence(tokensB, tokensA) || overlapsAtEdge(tokensA, tokensB);
 }
 
 /**

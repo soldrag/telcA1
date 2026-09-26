@@ -5,16 +5,17 @@ import { parseSentenceTopology } from '../src/services/schreiben/linguistic/topo
 import { segmentMacroStructure } from '../src/services/schreiben/linguistic/macroSegmenter.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
 
 describe('A1 Topological Field Model & Linguistic Engine', () => {
   describe('Positive syntax cases (No false positives)', () => {
     it('accepts NP constituent in Vorfeld without V2 errors', () => {
-      const res = parseSentenceTopology('Mein Chef hat keine Zeit.');
+      const res = parseSentenceTopology('Mein Chef hat keine Zeit.', A1_GRAMMAR_PROFILE);
       assert.equal(res.errors.length, 0);
     });
 
     it('accepts coordinated subject-ellipsis across "und"', () => {
-      const res = parseSentenceTopology('Leider muss ich länger arbeiten und kann nicht kommen.');
+      const res = parseSentenceTopology('Leider muss ich länger arbeiten und kann nicht kommen.', A1_GRAMMAR_PROFILE);
       assert.equal(res.errors.length, 0);
     });
 
@@ -36,14 +37,14 @@ describe('A1 Topological Field Model & Linguistic Engine', () => {
 
   describe('Negative syntax and grammar cases (Proper detection)', () => {
     it('detects V2 violation with temporal complex in Vorfeld', () => {
-      const res = parseSentenceTopology('am Montag um 14 Uhr ich habe keine Zeit');
+      const res = parseSentenceTopology('am Montag um 14 Uhr ich habe keine Zeit', A1_GRAMMAR_PROFILE);
       assert.equal(res.errors.length, 1);
       assert.equal(res.errors[0].code, 'ERR_V2_OVERCROWDED_VORFELD');
       assert.match(res.errors[0].correction, /am Montag um 14 Uhr habe ich/);
     });
 
     it('detects broken Satzklammer with modal verb', () => {
-      const res = parseSentenceTopology('Können wir machen ein neuer Termin am Dienstag?');
+      const res = parseSentenceTopology('Können wir machen ein neuer Termin am Dienstag?', A1_GRAMMAR_PROFILE);
       assert.equal(res.errors.length, 1);
       assert.equal(res.errors[0].code, 'ERR_BROKEN_SATZKLAMMER_MODAL');
       assert.match(res.errors[0].correction, /ein neuer Termin am Dienstag machen/);

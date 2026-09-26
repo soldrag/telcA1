@@ -1,5 +1,5 @@
 /**
- * Vorfeld Constituent Chunker for German A1 sentences.
+ * Vorfeld constituent chunker for German sentences.
  * Chunks Noun Phrases (NP), Prepositional Phrases (PP), and Adverbs into discrete constituents.
  * Strictly complies with McConnell limits (<= 150 lines, <= 25 lines per function).
  */

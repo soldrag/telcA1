@@ -5,6 +5,9 @@
  */
 
 import { parseSentencePropositions } from './clauseStructureParser.js';
+// The intent matcher is still A1-bound (label-based intents, stage 7 of the grammar plan); it is the one
+// place that picks the A1 lexicon for clause parsing on the semantic side.
+import { A1_GRAMMAR_PROFILE } from '../profiles/a1GrammarProfile.js';
 import { buildRequestTargets, isTargetAction, isTargetNoun } from './criterionRequestTargets.js';
 import { detectTargetRefusal } from './criterionRefusalDetector.js';
 
@@ -114,7 +117,7 @@ export function matchPropositionToIntent(clauseProps, { intentType, targets = ne
 export function classifySentenceClauses(sentence = '', criterion = {}) {
   const intentType = inferCriterionIntent(criterion);
   const targets = buildRequestTargets(criterion);
-  const clauses = parseSentencePropositions(sentence).map((c) => ({
+  const clauses = parseSentencePropositions(sentence, { lexicon: A1_GRAMMAR_PROFILE.lexicon }).map((c) => ({
     text: c.rawText,
     ...matchPropositionToIntent(c, { intentType, targets })
   }));

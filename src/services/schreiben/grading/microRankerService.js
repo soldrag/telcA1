@@ -73,14 +73,14 @@ async function evaluateSentencePair(aspect, sentenceText, { embedder = null, riv
 
 // A sentence that joins two Leitpunkt aspects ("Wie viel kostet der Kurs und wie kann ich mich anmelden?")
 // dilutes a whole-sentence embedding, so each clause is also judged on its own.
-function expandClauseCandidates(sentence) {
-  const clauses = parseSentencePropositions(sentence).map((p) => p.rawText).filter(Boolean);
+function expandClauseCandidates(sentence, policy) {
+  const clauses = parseSentencePropositions(sentence, { lexicon: policy.lexicon }).map((p) => p.rawText).filter(Boolean);
   return clauses.length > 1 ? [sentence, ...clauses] : [sentence];
 }
 
 async function evaluateSentenceWithClauses(aspect, sentence, options) {
   let best = { score: 0, vetoed: false };
-  for (const candidate of expandClauseCandidates(sentence)) {
+  for (const candidate of expandClauseCandidates(sentence, options.policy || defaultA1RankerPolicy)) {
     const pair = await evaluateSentencePair(aspect, candidate, options);
     if (pair.score > best.score) best = pair;
   }

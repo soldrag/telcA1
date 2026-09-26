@@ -8,15 +8,7 @@
 import { dedupeGrammarErrors } from '../linguistic/grammarErrorDeduper.js';
 
 const MAX_SCORE = 10;
-// Word order breaks the sentence frame and hinders reading most; spelling slips least.
-const DEFAULT_WEIGHTS = Object.freeze({
-  syntax: 1.5,
-  rektion: 1.0,
-  agreement: 1.0,
-  grammar: 1.0,
-  lexik: 1.0,
-  orthography: 0.5,
-});
+// Category weights are level data (grammar profile `accuracyWeights`); a category without a weight counts 1.
 const DEFAULT_WEIGHT = 1.0;
 // Penalties are counted per this many words; shorter texts are not scaled up.
 const REFERENCE_WORD_COUNT = 30;
@@ -29,7 +21,7 @@ const BANDS = [
   { min: -Infinity, band: 'needs_practice' },
 ];
 
-function resolveErrorWeight(error = {}, weights = DEFAULT_WEIGHTS) {
+function resolveErrorWeight(error = {}, weights = {}) {
   const category = String(error.category || '').toLowerCase();
   return weights[category] ?? DEFAULT_WEIGHT;
 }
@@ -58,12 +50,12 @@ function buildResult({ score, errorCount, wordCount, band = resolveAccuracyBand(
 
 /**
  * @param {{ grammarErrors?: Array, wordCount?: number, isGibberish?: boolean, weights?: Record<string, number> }} params
- *   wordCount: words of the letter body (salutation and closing excluded)
+ *   wordCount: words of the letter body (salutation and closing excluded); weights: the level profile's accuracyWeights
  * @returns {{ score: number, maxScore: number, errorCount: number, wordCount: number, percentage: number,
  *   band: 'excellent'|'good'|'satisfactory'|'needs_practice'|'unreadable',
  *   byCategory: Array<{ category: string, count: number, weight: number }> }}
  */
-export function calculateLinguisticAccuracy({ grammarErrors = [], wordCount = 0, isGibberish = false, weights = DEFAULT_WEIGHTS } = {}) {
+export function calculateLinguisticAccuracy({ grammarErrors = [], wordCount = 0, isGibberish = false, weights = {} } = {}) {
   if (isGibberish || wordCount === 0) {
     return buildResult({ score: 0, errorCount: 0, wordCount, band: 'unreadable' });
   }

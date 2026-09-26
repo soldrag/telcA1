@@ -88,8 +88,9 @@ export function parseClauseStructure(clause) {
   };
 }
 
-export function parseSentencePropositions(sentenceStr = '') {
+/** @param {{ lexicon: object }} context - the level profile's lexicon port */
+export function parseSentencePropositions(sentenceStr = '', { lexicon } = {}) {
   if (!sentenceStr || typeof sentenceStr !== 'string') return [];
-  const topology = parseSentenceTopology(sentenceStr);
+  const topology = parseSentenceTopology(sentenceStr, { lexicon });
   return (topology.clauses || []).map(clause => parseClauseStructure(clause));
 }

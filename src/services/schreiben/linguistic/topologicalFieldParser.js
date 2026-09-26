@@ -1,10 +1,10 @@
 /**
- * German A1 Topological Field Parser (Topologisches Feldermodell).
+ * Topological field parser (Topologisches Feldermodell), level-independent: the vocabulary comes from the
+ * injected lexicon port, tolerances from the level policy.
  * Validates V2 word order, subject-verb inversion, and Satzklammer brackets.
  * Strictly complies with McConnell limits (<= 180 lines, <= 25 lines per function).
  */
 
-import { tagTokens, lookupWord } from './a1LexiconService.js';
 import { estimateVorfeldConstituents } from './vorfeldChunker.js';
 import { checkVerblessClause } from './verblessClauseChecker.js';
 import { checkVorfeldOrder } from './vorfeldOrderChecker.js';
@@ -63,11 +63,11 @@ function checkSatzklammer(finVerb = {}, mittelfeld = [], policy = {}) {
 
 /**
  * @param {Array} tokens - tagged clause tokens
- * @param {{ isCoordinated: boolean, precedingSubject: object|null, rawText: string, inSubordinateScope: boolean, policy: object }} ctx
+ * @param {{ isCoordinated: boolean, precedingSubject: object|null, rawText: string, inSubordinateScope: boolean, lexicon: object, policy: object }} ctx
  */
-function parseClause(tokens = [], { isCoordinated = false, precedingSubject = null, rawText = '', inSubordinateScope = false, policy = {} } = {}) {
+function parseClause(tokens = [], { isCoordinated = false, precedingSubject = null, rawText = '', inSubordinateScope = false, lexicon, policy = {} } = {}) {
   if (tokens[0]?.pos === 'KONJ_SUB' || /^(weil|dass|wenn|ob)$/i.test(tokens[0]?.raw || '')) {
-    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: checkSubordinateVerbFinal(tokens, { lookup: lookupWord }) };
+    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: checkSubordinateVerbFinal(tokens, { lookup: lexicon.lookup }) };
   }
 
   const finVerbIdx = tokens.findIndex(t => t.pos === 'VERB_FIN' || t.pos === 'VERB_MOD');
@@ -123,7 +123,12 @@ function parseClause(tokens = [], { isCoordinated = false, precedingSubject = nu
  * @param {string} sentenceStr
  * @param {{ strictSatzklammer?: boolean }} [policy] - level policy from the grammar profile
  */
-export function parseSentenceTopology(sentenceStr = '', policy = {}) {
+/**
+ * @param {string} sentenceStr
+ * @param {{ lexicon: { tag: Function, lookup: Function }, policy?: object }} context - the level profile's lexicon port and policy
+ */
+export function parseSentenceTopology(sentenceStr = '', { lexicon, policy = {} } = {}) {
+  if (!lexicon) throw new TypeError('parseSentenceTopology needs a lexicon port');
   const clean = sentenceStr.trim();
   if (!clean) return { clauses: [], errors: [] };
 
@@ -147,8 +152,8 @@ export function parseSentenceTopology(sentenceStr = '', policy = {}) {
       inSubordinateScope = false;
     }
 
-    const tagged = tagTokens(activeWords);
-    const parsed = parseClause(tagged, { isCoordinated, precedingSubject: lastSubject, rawText: clauseText, inSubordinateScope, policy });
+    const tagged = lexicon.tag(activeWords);
+    const parsed = parseClause(tagged, { isCoordinated, precedingSubject: lastSubject, rawText: clauseText, inSubordinateScope, lexicon, policy });
 
     if (parsed.type === 'SUBORDINATE_CLAUSE') {
       inSubordinateScope = true;
