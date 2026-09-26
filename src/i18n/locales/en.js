@@ -260,6 +260,7 @@ export const en = {
       lp1: 'Guide point 1 clearly addressed',
       lp2: 'Guide point 2 clearly addressed',
       lp3: 'Guide point 3 clearly addressed',
+      lpTemplate: 'Point {index}: {title}',
       gruss: 'Appropriate closing formula and signature',
       kg: 'Kommunikative Gestaltung: salutation and closing',
       grammarNotScored: 'Grammar is not scored separately: errors lower a point only when they block understanding.',

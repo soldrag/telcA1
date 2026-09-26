@@ -34,24 +34,46 @@ function translate(t, key, fallback, params) {
   return t ? (t(`results.schreibenCriteria.${key}`, params) || fallback) : fallback;
 }
 
+function resolveLpTitle(idx, diag, titles) {
+  const raw = titles?.[idx] || diag?.label || diag?.title || '';
+  return typeof raw === 'string' ? raw.replace(/^\d+[\.\)]\s*/, '').trim() : '';
+}
+
+function resolveCriterionLabel(id, idx, diag, titles, t, language) {
+  if (LEITPUNKT_IDS.includes(id)) {
+    const title = resolveLpTitle(idx, diag, titles);
+    if (title) {
+      if (t) {
+        return t('results.schreibenCriteria.lpTemplate', { index: idx + 1, title });
+      }
+      const prefix = language === 'ru' ? 'Пункт' : (language === 'en' ? 'Point' : 'Punkt');
+      return `${prefix} ${idx + 1}: ${title}`;
+    }
+  }
+  return translate(t, id, CRITERIA_DEFINITIONS.find((c) => c.id === id)?.label);
+}
+
 export default function SchreibenCriteriaChecklist({
   scores = {},
   onCycleScore,
   teil2Score,
   diagnosticData = null,
+  leitpunkteTitles = [],
   language = 'de',
   t = null,
 }) {
   const fmt = (value) => formatPoints(value, language);
-  const labelOf = (id) => translate(t, id, CRITERIA_DEFINITIONS.find((c) => c.id === id)?.label);
-  const rowProps = (id) => ({
-    criterionId: id,
-    label: labelOf(id),
-    level: Number(scores[id]) || 0,
-    diagnostic: extractCriterionDiagnostic(id, diagnosticData),
-    onCycle: onCycleScore,
-    language,
-  });
+  const rowProps = (id, idx) => {
+    const diag = extractCriterionDiagnostic(id, diagnosticData);
+    return {
+      criterionId: id,
+      label: resolveCriterionLabel(id, idx, diag, leitpunkteTitles, t, language),
+      level: Number(scores[id]) || 0,
+      diagnostic: diag,
+      onCycle: onCycleScore,
+      language,
+    };
+  };
   const { leitpunkte = [], kg = { points: 0, maxPoints: 1 }, total = 0, maxPoints = 10 } = teil2Score || {};
   const scoreDisplay = translate(t, 'scoreOutOf', `${fmt(total)} / ${fmt(maxPoints)} Punkte`, { score: fmt(total), max: fmt(maxPoints) });
 
@@ -71,7 +93,7 @@ export default function SchreibenCriteriaChecklist({
         {LEITPUNKT_IDS.map((id, idx) => (
           <SchreibenCriterionRow
             key={id}
-            {...rowProps(id)}
+            {...rowProps(id, idx)}
             badgeText={`${fmt(leitpunkte[idx]?.points ?? 0)} / ${fmt(leitpunkte[idx]?.maxPoints ?? 3)} Pkt`}
           />
         ))}
@@ -84,7 +106,7 @@ export default function SchreibenCriteriaChecklist({
             </span>
           </div>
           {FRAMING_IDS.map((id) => (
-            <SchreibenCriterionRow key={id} {...rowProps(id)} badgeText={FRAMING_LEVEL_MARK[Number(scores[id]) || 0]} />
+            <SchreibenCriterionRow key={id} {...rowProps(id, -1)} badgeText={FRAMING_LEVEL_MARK[Number(scores[id]) || 0]} />
           ))}
         </div>
 

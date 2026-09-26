@@ -23,6 +23,11 @@ function deriveInitialScores(item = {}) {
 export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
   const { t, language } = useI18n();
   const options = item.options_json || {};
+  const leitpunkteTitles = options.leitpunkte
+    || item.leitpunkte
+    || options.rubric?.leitpunkte_criteria?.map((c) => c.label)
+    || item.criteria?.map((c) => c.label)
+    || [];
   const sampleSolution = options.sample_solution || item.clue_quote;
   const grammarErrors = item.grammar_errors || [];
   const segments = item.user_segments;
@@ -124,6 +129,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
           onCycleScore={cycleScore}
           teil2Score={teil2Score}
           diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}
+          leitpunkteTitles={leitpunkteTitles}
           language={language}
           t={t}
         />
@@ -148,7 +154,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
               <div key={i} className="flex items-center space-x-2 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border border-action-primary-border bg-action-primary-subtle/20">
                 <ArrowUpCircle className="w-3.5 h-3.5 text-action-primary flex-shrink-0" />
                 <span className="text-content-primary">
-                  {formatDiffEntry(d, language)}
+                  {formatDiffEntry(d, language, item)}
                 </span>
               </div>
             ))}

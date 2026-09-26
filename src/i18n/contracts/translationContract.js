@@ -261,6 +261,7 @@ export const TRANSLATION_CONTRACT = {
       lp1: 'string',
       lp2: 'string',
       lp3: 'string',
+      lpTemplate: 'string',
       gruss: 'string',
       kg: 'string',
       grammarNotScored: 'string',
