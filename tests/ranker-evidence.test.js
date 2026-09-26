@@ -21,6 +21,15 @@ describe('temporal expression detector', () => {
     assert.equal(detectTemporalExpression('Wir bleiben zwei Wochen.'), 'duration');
     assert.equal(detectTemporalExpression('Wir kommen im Juli.'), 'point');
   });
+
+  it('reads clock times and relative day adverbs as points, not the noun "Morgen" or a price', () => {
+    for (const text of ['Können Sie bitte morgen kommen?', 'Morgen habe ich Zeit.', 'Ich bin ab 18 Uhr zu Hause.', 'Um zehn Uhr passt es.']) {
+      assert.equal(detectTemporalExpression(text), 'point', text);
+    }
+    for (const text of ['Guten Morgen, Frau Müller.', 'Ich wünsche Ihnen einen schönen Morgen.', 'Meine Uhr ist kaputt.', 'Das kostet um die 50 Euro.']) {
+      assert.equal(detectTemporalExpression(text), null, text);
+    }
+  });
 });
 
 describe('person count detector', () => {
