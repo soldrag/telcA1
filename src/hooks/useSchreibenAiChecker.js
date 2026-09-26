@@ -18,7 +18,7 @@ export function useSchreibenAiChecker({
 }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiStatus, setAiStatus] = useState(() => (
-    item.examiner_feedback
+    item.examiner_feedback && item.provider_id === PROVIDER_IDS.MICRO_RANKER
       ? (language === 'ru' ? '⚡ Оценка выполнена микро-ранжировщиком (System 1)' : '⚡ Bewertung durch Micro-Ranker (System 1) abgeschlossen')
       : ''
   ));

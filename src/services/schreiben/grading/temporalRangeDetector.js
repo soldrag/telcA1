@@ -11,15 +11,16 @@
 const MONTHS = new Set(['januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august',
   'september', 'oktober', 'november', 'dezember']);
 const CALENDAR_ANCHORS = new Set([...MONTHS, 'sommer', 'winter', 'herbst', 'frühling', 'fruehling',
-  'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende', 'ostern', 'weihnachten']);
+  'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende', 'ostern', 'weihnachten',
+  'morgen', 'heute', 'übermorgen', 'uebermorgen', 'uhr']);
 const NUMERAL_WORDS = new Set(['ein', 'eine', 'einen', 'zwei', 'drei', 'vier', 'fünf', 'fuenf', 'sechs', 'sieben',
   'acht', 'neun', 'zehn', 'elf', 'zwölf', 'zwoelf', 'vierzehn', 'zwanzig', 'dreißig']);
 const ORDINAL_ROOTS = ['erst', 'zweit', 'dritt', 'viert', 'fünf', 'fuenf', 'sechs', 'sieb', 'acht', 'neun',
   'zehn', 'elf', 'zwölf', 'zwoelf', 'zwanzig', 'dreißig', 'dreissig'];
-const TIME_UNITS = new Set(['tag', 'tage', 'tagen', 'woche', 'wochen', 'monat', 'monate', 'monaten', 'nacht', 'nächte', 'naechte']);
+const TIME_UNITS = new Set(['tag', 'tage', 'tagen', 'woche', 'wochen', 'monat', 'monate', 'monaten', 'nacht', 'nächte', 'naechte', 'stunde', 'stunden']);
 const RANGE_CONNECTORS = new Set(['bis', '-', '–']);
 const RANGE_FILLERS = new Set(['zum', 'zur', 'den', 'dem']);
-const POINT_PREPOSITIONS = new Set(['ab', 'am', 'im', 'in', 'bis', 'seit', 'vom', 'von']);
+const POINT_PREPOSITIONS = new Set(['ab', 'am', 'im', 'in', 'bis', 'seit', 'vom', 'von', 'um']);
 const BOUNDARY_WINDOW = 3;
 
 function tokenize(text = '') {
@@ -77,8 +78,10 @@ function hasDuration(tokens) {
 }
 
 function hasCalendarPoint(tokens) {
-  return tokens.some((token, i) => POINT_PREPOSITIONS.has(token)
+  const hasPrepPoint = tokens.some((token, i) => POINT_PREPOSITIONS.has(token)
     && tokens.slice(i + 1, i + 1 + BOUNDARY_WINDOW).some((t) => CALENDAR_ANCHORS.has(t) || isNumericDate(t)));
+  const hasRelativeDay = tokens.some((t) => ['morgen', 'heute', 'übermorgen', 'uebermorgen'].includes(t));
+  return hasPrepPoint || hasRelativeDay;
 }
 
 /**

@@ -21,7 +21,8 @@ const A1_CONCEPT_STEM_DOMAINS = {
   zeit: ['zeit', 'zeitraum', 'dauer', 'datum', 'termin', 'anreis', 'abreis', 'ankunft', 'abfahrt', 'wann', 'woche', 'monat', 'vormittag', 'nachmittag', 'abend', 'tag', 'januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember', 'sommer', 'winter', 'herbst', 'frühling', 'fruehling', 'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende'],
   preis: ['preis', 'kost', 'kosten', 'euro', 'bezahl', 'zahl', 'teu', 'billig', 'guenst', 'günst', 'gebühr', 'gebuehr', 'miet', 'kaut', 'viel'],
   tier: ['hausti', 'ti', 'hund', 'katz', 'vogel', 'mitbring', 'mitkomm'],
-  grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'anmeld', 'buch'],
+  anmeld: ['anmeld', 'anmeldung', 'anmelden', 'meld', 'registrier', 'einschreib'],
+  grund: ['grund', 'warum', 'weil', 'denn', 'moecht', 'woll', 'interess', 'urlaub', 'reis', 'besuch', 'einlad', 'feie', 'krank', 'absag', 'buch'],
   ort: ['ort', 'wo', 'adress', 'stadt', 'strass', 'wohn', 'hotel', 'bahn', 'flughaf', 'zimm', 'haus'],
 };
 
@@ -29,7 +30,7 @@ export function resolveConceptDomain(token = '') {
   const clean = String(token || '').toLowerCase();
   const stem = stemGermanWord(clean);
   for (const [domainKey, stems] of Object.entries(A1_CONCEPT_STEM_DOMAINS)) {
-    if (clean.includes(domainKey) || stem.includes(domainKey) || stems.includes(clean) || stems.includes(stem)) {
+    if (clean.includes(domainKey) || stem.includes(domainKey) || stems.some((s) => s.length >= 3 && (clean.includes(s) || stem.includes(s)))) {
       return stems;
     }
   }
@@ -65,6 +66,7 @@ export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = 
   const structured = scoreStructuredAspectEvidence(evidence, rawSentence);
   if (structured > 0) return structured;
 
+  const scoreCeiling = evidence === EVIDENCE_KINDS.PERSON_COUNT ? 0.48 : 1;
   let maxConceptScore = 0;
   for (const token of aspectTokens) {
     if (evidence === EVIDENCE_KINDS.TEMPORAL && TIME_DIMENSION_WORDS.has(token)) continue;
@@ -75,7 +77,7 @@ export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = 
     if (!domainStems) continue;
     const matches = domainStems.filter((s) => sentenceStems.includes(s));
     if (matches.length > 0) {
-      maxConceptScore = Math.max(maxConceptScore, Math.min(1, 0.6 + matches.length * 0.2));
+      maxConceptScore = Math.max(maxConceptScore, Math.min(scoreCeiling, 0.6 + matches.length * 0.2));
     }
   }
 

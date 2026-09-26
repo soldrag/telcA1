@@ -27,7 +27,7 @@ export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty 
 function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
   if (!verdict?.isCompound) return false;
   if (verdict.missingAspects?.length > 0) return true;
-  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto);
+  return rankerIsArbiter && (verdict.aspects || []).some((a) => a.rankerVeto || a.coverage !== 'full');
 }
 
 /**

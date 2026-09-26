@@ -18,6 +18,7 @@ import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 import { defaultA1RankerPolicy } from './policies/a1RankerPolicy.js';
+import { evaluateCompoundCriterionBaseline } from './compoundBaselineEvaluator.js';
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
@@ -71,17 +72,33 @@ function calculateBaseScore(effectiveSim, framePenalty) {
   return framePenalty === 1 ? Math.min(rawScore, 1) : rawScore;
 }
 
+function computeCriterionBaseScore(crit, effectiveSim, frameCheck, relSentences) {
+  let baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
+  let adjustedSim = effectiveSim;
+  const evalText = relSentences.join(' ');
+  const compoundEval = evaluateCompoundCriterionBaseline(crit, evalText);
+  if (compoundEval) {
+    baseScore = Math.min(baseScore, compoundEval.score);
+    if (baseScore === 1 && adjustedSim >= SIMILARITY_T2) {
+      adjustedSim = SIMILARITY_T1;
+    } else if (baseScore === 0) {
+      adjustedSim = 0.20;
+    }
+  }
+  return { baseScore, compoundEval, effectiveSim: adjustedSim };
+}
+
 async function scoreCriterionItem(params) {
   const { crit, provider, bodySentences, rankerEmbedder, criteria = [], lexicon } = params;
   const lpText = crit.label || crit.id;
-  const { relSentences, effectiveSim, keywordSentences } = await gatherCriterionEvidence(params);
+  const { relSentences, effectiveSim: rawSim, keywordSentences } = await gatherCriterionEvidence(params);
   const hasAffirmativeEvidence = keywordSentences.length > 0;
   const frameCheck = assessEvidenceSentences({ sentences: relSentences, criterion: crit, hasAffirmativeEvidence, lexicon });
-  const baseScore = calculateBaseScore(effectiveSim, frameCheck.penalty);
+  const { baseScore, compoundEval, effectiveSim } = computeCriterionBaseScore(crit, rawSim, frameCheck, relSentences);
 
   let finalScore = baseScore;
   let arbitrated = false;
-  let rankerDetails = null;
+  let rankerDetails = compoundEval?.rankerDetails || null;
   let arbitration = null;
 
   if (shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty: frameCheck.penalty })) {
@@ -92,7 +109,7 @@ async function scoreCriterionItem(params) {
     });
     finalScore = arb.score;
     arbitrated = arb.arbitrated;
-    rankerDetails = arb.rankerDetails || null;
+    rankerDetails = arb.rankerDetails || rankerDetails;
     arbitration = { rankerScore: arb.rankerScore, isProtected: Boolean(arb.isProtected) };
   }
 

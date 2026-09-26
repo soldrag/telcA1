@@ -150,7 +150,7 @@ export const questions = [
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
             intent: 'REASON_EXPLANATION',
-            keywords: ['ferienwohnung', 'wohnung', 'urlaub', 'mieten', 'buchen', 'reservieren', 'ostsee', 'juli'],
+            keywords: ['ferienwohnung', 'wohnung', 'urlaub', 'mieten', 'buchen', 'reservieren', 'ostsee', 'sommer'],
             requiredMatches: 2,
             conversive_rules: [
               {
@@ -164,13 +164,13 @@ export const questions = [
             id: 'lp2',
             label: 'Personen und Zeitraum',
             intent: 'GENERAL',
-            keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'bleiben', 'juli', 'august', 'juni', 'personen', 'vom', 'bis', 'tage', 'zeitraum'],
+            keywords: ['familie', 'erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'bleiben', 'juli', 'august', 'juni', 'personen', 'vom', 'bis', 'tage', 'zeitraum'],
             requiredMatches: 2,
             aspects: [
               {
                 label: 'Personen',
                 evidence: 'personCount',
-                keywords: ['personen', 'erwachsene', 'kind', 'kinder']
+                keywords: ['personen', 'familie', 'erwachsene', 'kind', 'kinder']
               },
               {
                 label: 'Zeitraum',
@@ -192,7 +192,7 @@ export const questions = [
               },
               {
                 label: 'Haustiere',
-                keywords: ['hund', 'hunde', 'haustiere', 'erlaubt', 'katze', 'tier', 'tiere', 'mitbringen']
+                keywords: ['hund', 'hunde', 'haustiere', 'erlaubt', 'katze', 'mitbringen']
               }
             ],
             semantic_slots: [
