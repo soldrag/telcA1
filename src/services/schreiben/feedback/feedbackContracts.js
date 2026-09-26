@@ -3,6 +3,8 @@
  * Clean Architecture & McConnell limits: <= 80 lines, immutable frozen constants.
  */
 
+import { INTENT_TYPES } from '../linguistic/semanticIntentMatcher.js';
+
 export const DIAGNOSTIC_CODES = Object.freeze({
   LP_FULFILLED: 'LP_FULFILLED',
   LP_PARTIAL: 'LP_PARTIAL',
@@ -58,9 +60,7 @@ export const DIAGNOSTIC_STATUSES = Object.freeze({
 export function resolveLpDiagnosticCode(score = 0, inversion = {}, frameValid = true) {
   if (inversion?.isInverted) {
     if (inversion.reason === 'inverted_problem') return DIAGNOSTIC_CODES.LP_INVERTED_DEFECT;
-    if (['negated_entity', 'negated_action'].includes(inversion.reason)) {
-      return DIAGNOSTIC_CODES.LP_INVERTED_REQUEST;
-    }
+    if (inversion.intentType === INTENT_TYPES.ACTION_REQUEST) return DIAGNOSTIC_CODES.LP_INVERTED_REQUEST;
     return DIAGNOSTIC_CODES.LP_INVERTED_GENERAL;
   }
   if (!frameValid) return DIAGNOSTIC_CODES.LP_FRAME_VIOLATION;

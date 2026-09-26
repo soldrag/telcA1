@@ -161,7 +161,7 @@ export const questions = [
           {
             id: 'lp3',
             label: 'Neuer Terminvorschlag',
-            keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'],
+            keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit'],
             requiredMatches: 2
           }
         ]

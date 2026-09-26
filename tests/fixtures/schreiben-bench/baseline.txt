@@ -15,7 +15,7 @@ T2_04  none=221       gray=221       primary=221    exp=220 | Missing Besichtigu
 T2_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
 T2_06  none=020       gray=020       primary=020    exp=222 | Severe A1 Typos
 T2_07  none=222       gray=222       primary=222    exp=212 | Informal Salutation
-T2_08  none=222       gray=222       primary=222    exp=210 | Semantic Negation (Too expensive)
+T2_08  none=220i      gray=220i      primary=220i   exp=210 | Semantic Negation (Too expensive)
 T2_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
 T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
@@ -25,7 +25,7 @@ T3_04  none=221       gray=221       primary=221    exp=220 | Missing Mitbringen
 T3_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
 T3_06  none=221       gray=221       primary=121    exp=222 | Severe A1 Typos
 T3_07  none=222       gray=222       primary=222    exp=222 | Hyper-formal in Casual Context
-T3_08  none=221       gray=221       primary=221    exp=100 | Absage (Semantic Negation)
+T3_08  none=20i1      gray=20i1      primary=20i1   exp=100 | Absage (Semantic Negation)
 T3_09  none=221       gray=221       primary=221    exp=--- | Telegraphic Minimal
 T3_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 G1     none=222       gray=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)

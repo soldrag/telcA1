@@ -6,6 +6,7 @@
 
 import { parseSentencePropositions } from './clauseStructureParser.js';
 import { buildRequestTargets, isTargetAction, isTargetNoun } from './criterionRequestTargets.js';
+import { detectTargetRefusal } from './criterionRefusalDetector.js';
 
 export const INTENT_TYPES = {
   DEFECT_REPORT: 'DEFECT_REPORT',
@@ -15,6 +16,19 @@ export const INTENT_TYPES = {
   REASON_EXPLANATION: 'REASON_EXPLANATION',
   GENERAL: 'GENERAL'
 };
+
+// Negations that express a speech act instead of refusing it. A defect is reported by negating
+// the function ("funktioniert nicht"), never by negating the problem ("kein Problem"); a cancellation
+// or a reason is carried by any negation ("kann nicht kommen", "habe keine Zeit").
+const ANY_NEGATION = Object.freeze(['negated_entity', 'negated_action', 'negated_participant']);
+export const INTENT_POLARITY = Object.freeze({
+  [INTENT_TYPES.DEFECT_REPORT]: { contentNegations: ['negated_action', 'negated_participant'] },
+  [INTENT_TYPES.APPOINTMENT_CANCEL]: { contentNegations: ANY_NEGATION },
+  [INTENT_TYPES.REASON_EXPLANATION]: { contentNegations: ANY_NEGATION },
+  [INTENT_TYPES.ACTION_REQUEST]: { contentNegations: [] },
+  [INTENT_TYPES.APPOINTMENT_PROPOSAL]: { contentNegations: [] },
+  [INTENT_TYPES.GENERAL]: { contentNegations: [] }
+});
 
 export function inferCriterionIntent(criterion = {}) {
   const text = `${criterion.label || ''} ${(criterion.keywords || []).join(' ')}`.toLowerCase();
@@ -44,16 +58,9 @@ function evaluateDefectPolarity(clauseProps) {
 }
 
 function evaluateRequestPolarity(clauseProps, targets) {
-  const { polarity, predicateCore, arguments: args } = clauseProps;
-  const hasTargetAction = isTargetAction(predicateCore, targets);
-  if (polarity.negatedNouns.some(n => isTargetNoun(n, targets))) {
-    return { isMatch: false, isInverted: true, reason: 'negated_entity' };
-  }
-  if (polarity.negatedActions.length > 0 && hasTargetAction) {
-    return { isMatch: false, isInverted: true, reason: 'negated_action' };
-  }
+  const { predicateCore, arguments: args } = clauseProps;
   const hasTargetEntity = args.objects.some(o => isTargetNoun(o, targets));
-  return { isMatch: hasTargetEntity || hasTargetAction, isInverted: false };
+  return { isMatch: hasTargetEntity || isTargetAction(predicateCore, targets), isInverted: false };
 }
 
 function evaluateCancellationPolarity(clauseProps) {
@@ -82,7 +89,7 @@ function evaluateProposalPolarity(clauseProps) {
   return { isMatch: false, isInverted: false };
 }
 
-export function matchPropositionToIntent(clauseProps, { intentType, targets = new Set() } = {}) {
+function evaluateIntentMatch(clauseProps, intentType, targets) {
   switch (intentType) {
     case INTENT_TYPES.DEFECT_REPORT:
       return evaluateDefectPolarity(clauseProps);
@@ -97,26 +104,31 @@ export function matchPropositionToIntent(clauseProps, { intentType, targets = ne
   }
 }
 
-export function evaluateSentenceAgainstCriterion(sentence = '', criterion = {}) {
-  const clauses = parseSentencePropositions(sentence);
-  if (clauses.length === 0) return { isInverted: false, isMatch: false };
+export function matchPropositionToIntent(clauseProps, { intentType, targets = new Set() } = {}) {
+  const refusal = detectTargetRefusal(clauseProps, targets);
+  const isContent = INTENT_POLARITY[intentType]?.contentNegations.includes(refusal.reason);
+  if (refusal.isRefusal && !isContent) return { isMatch: false, isInverted: true, reason: refusal.reason };
+  return evaluateIntentMatch(clauseProps, intentType, targets);
+}
 
+export function classifySentenceClauses(sentence = '', criterion = {}) {
   const intentType = inferCriterionIntent(criterion);
   const targets = buildRequestTargets(criterion);
-  let isInverted = false;
-  let inversionReason = null;
-  let isMatch = false;
+  const clauses = parseSentencePropositions(sentence).map((c) => ({
+    text: c.rawText,
+    ...matchPropositionToIntent(c, { intentType, targets })
+  }));
+  return { intentType, clauses };
+}
 
-  for (const c of clauses) {
-    const res = matchPropositionToIntent(c, { intentType, targets });
-    if (res.isInverted) {
-      isInverted = true;
-      inversionReason = res.reason;
-    }
-    if (res.isMatch) {
-      isMatch = true;
-    }
-  }
-
-  return { isInverted, reason: inversionReason, isMatch, intentType };
+export function evaluateSentenceAgainstCriterion(sentence = '', criterion = {}) {
+  const { intentType, clauses } = classifySentenceClauses(sentence, criterion);
+  if (clauses.length === 0) return { isInverted: false, isMatch: false };
+  const lastRefusal = clauses.filter((c) => c.isInverted).pop();
+  return {
+    isInverted: Boolean(lastRefusal),
+    reason: lastRefusal?.reason ?? null,
+    isMatch: clauses.some((c) => c.isMatch),
+    intentType
+  };
 }

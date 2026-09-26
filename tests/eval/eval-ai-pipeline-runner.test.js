@@ -70,7 +70,7 @@ describe('Schreiben Teil 2 AI Pipeline Quality & Safety Suite', () => {
 
   it('Safety Invariant: Baseline full score (2) is protected from LLM downgrade', async () => {
     const maliciousCaller = async () => JSON.stringify({ coverage: 'no' });
-    const tc = allSchreibenEvaluationCases.find(c => c.id === 'case-10-negation-trap');
+    const tc = allSchreibenEvaluationCases.find(c => c.id === 'case-12-reverse-order');
     const res = await runSchreibenMicroPipeline({
       userText: tc.text,
       question: modellsatz1Q,

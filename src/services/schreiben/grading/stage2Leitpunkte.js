@@ -8,7 +8,7 @@ import { SIMILARITY_T2, SIMILARITY_T1, GRAY_ZONE_DELTA } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
 import { stemGermanWord } from '../linguistic/germanStemmer.js';
-import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
+import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { TEMPORAL_RANGE_REGEX } from './a1ConceptLexicon.js';
@@ -35,14 +35,21 @@ export function applyConfidenceFloor(baselineScore = 0, rawScore = 0) {
   return { score: guardedScore, isProtected };
 }
 
+function collectAffirmativeEvidence(sentences, criterion) {
+  return sentences
+    .map(sentence => ({ sentence, text: extractAffirmativeText(sentence, criterion) }))
+    .filter(evidence => evidence.text);
+}
+
 export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   const rawKeywords = criterion.keywords || [];
   if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };
 
   const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
-  const affirmativeSentences = sentences.filter(s => !detectSemanticInversion(s, criterion).isInverted);
+  const affirmative = collectAffirmativeEvidence(sentences, criterion);
 
-  const allWords = affirmativeSentences
+  const allWords = affirmative
+    .map(a => a.text)
     .join(' ')
     .toLowerCase()
     .split(/\s+/)
@@ -57,7 +64,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   }
 
   const isTemporalCrit = (criterion.label || criterion.id || '').toLowerCase().match(/zeit|dauer|termin|datum/i);
-  const rawJoined = affirmativeSentences.join(' ');
+  const rawJoined = affirmative.map(a => a.text).join(' ');
   if (isTemporalCrit && TEMPORAL_RANGE_REGEX.test(rawJoined)) {
     matchedCount += 1;
   }
@@ -65,12 +72,12 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}) {
   const req = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
   const threshold = Math.min(req, Math.max(1, critStems.length));
 
-  const relevantSentences = affirmativeSentences.filter(s => {
-    const sWords = s.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
+  const relevantSentences = affirmative.filter(({ text }) => {
+    const sWords = text.toLowerCase().split(/\s+/).map(w => stemGermanWord(w));
     const hasKw = critStems.some(c => sWords.includes(c));
-    const hasTemp = isTemporalCrit && TEMPORAL_RANGE_REGEX.test(s);
+    const hasTemp = isTemporalCrit && TEMPORAL_RANGE_REGEX.test(text);
     return hasKw || hasTemp;
-  });
+  }).map(a => a.sentence);
 
   const kwScore = matchedCount >= threshold ? 2 : (matchedCount > 0 ? 1 : 0);
   return { matchedCount, score: kwScore, relevantSentences };

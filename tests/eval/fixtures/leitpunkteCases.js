@@ -9,7 +9,7 @@ export const leitpunkteCases = [
     title: 'Negation Trap (Negating guide points rather than fulfilling)',
     examId: 'schreiben-modellsatz-1',
     text: `Sehr geehrte Damen und Herren,\nich will keinen Deutschkurs im August machen. Ich habe keine Zeit für vier Wochen. Ich frage nicht nach Kosten.\nMit freundlichen Grüßen\nMax Müller`,
-    expected: { anrede: 2, gruss: 2, algorithmicLeitpunkte: 6, aiMaxLeitpunkte: 2, minScore: 6 }
+    expected: { anrede: 2, gruss: 2, maxLeitpunkte: 2, aiMaxLeitpunkte: 2, minScore: 6 }
   },
   {
     id: 'case-11-condensed-single-sentence',
