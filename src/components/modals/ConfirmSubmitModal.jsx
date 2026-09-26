@@ -17,12 +17,12 @@ export default function ConfirmSubmitModal({
   const unansweredCount = totalQuestions - answeredCount;
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose}>
+    <Dialog isOpen={isOpen} onClose={onClose} labelledBy="confirm-submit-title">
       <div className="w-12 h-12 rounded-2xl bg-state-warning-subtle text-state-warning flex items-center justify-center mb-4 border border-state-warning-border">
         <AlertCircle className="w-6 h-6" />
       </div>
 
-      <h3 className="text-xl font-bold text-content-primary">
+      <h3 id="confirm-submit-title" className="text-xl font-bold text-content-primary">
         {t('modals.submitTitle')}
       </h3>
 

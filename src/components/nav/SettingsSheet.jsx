@@ -1,7 +1,10 @@
-import React from 'react';
-import { X, Sun, Moon, Laptop } from 'lucide-react';
+import React, { lazy, Suspense } from 'react';
+import { Sun, Moon, Laptop } from 'lucide-react';
+import { Dialog } from '../ui/Dialog.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
-import { useModalDialog } from '../../hooks/useModalDialog.js';
+import { useWelcomeRole } from '../../hooks/useWelcomeRole.js';
+
+const TeacherKeySection = lazy(() => import('./TeacherKeySection.jsx'));
 
 const THEME_OPTIONS = [
   { id: 'light', icon: Sun, labelKey: 'header.themeLight' },
@@ -24,27 +27,16 @@ function OptionGroup({ label, children }) {
 }
 
 /**
- * Phone settings (language, theme) — on larger screens these live in the header.
+ * Settings: language and theme (in the header from 640 px), plus the teacher key for teachers.
+ * A bottom sheet on phones, a centred window from 640 px.
  */
 export default function SettingsSheet({ isOpen, onClose, themeControl = {} }) {
   const { t, language, setLanguage, supportedLanguages = ['en', 'ru'] } = useI18n();
-  const { dialogRef, handleBackdropClick } = useModalDialog(isOpen, onClose);
+  const { activeRole } = useWelcomeRole();
 
   return (
-    <dialog
-      ref={dialogRef}
-      aria-labelledby="settings-title"
-      onClose={onClose}
-      onClick={handleBackdropClick}
-      className="fixed inset-x-0 bottom-0 top-auto m-0 w-full max-w-none max-h-[85dvh] overflow-y-auto p-0 rounded-t-3xl bg-surface-card text-content-primary backdrop:bg-black/40"
-    >
-      <div className="p-4 pb-[max(1rem,env(safe-area-inset-bottom))] space-y-6">
-        <div className="flex items-center justify-between gap-3">
-          <h2 id="settings-title" className="text-lg font-semibold">{t('settings.title')}</h2>
-          <button type="button" onClick={onClose} aria-label={t('common.close')} className="w-11 h-11 rounded-xl flex items-center justify-center hover:bg-surface-raised cursor-pointer">
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+    <Dialog isOpen={isOpen} onClose={onClose} title={t('settings.title')} maxWidth="max-w-[480px]">
+      <div className="space-y-6">
         <OptionGroup label={t('settings.language')}>
           {supportedLanguages.map((code) => (
             <button key={code} type="button" aria-pressed={language === code} onClick={() => setLanguage(code)} className={optionClass(language === code)}>
@@ -60,7 +52,8 @@ export default function SettingsSheet({ isOpen, onClose, themeControl = {} }) {
             </button>
           ))}
         </OptionGroup>
+        {activeRole === 'teacher' && <Suspense fallback={null}><TeacherKeySection /></Suspense>}
       </div>
-    </dialog>
+    </Dialog>
   );
 }

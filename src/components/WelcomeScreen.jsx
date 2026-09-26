@@ -2,7 +2,6 @@ import React from 'react';
 import TestTypeSelector from './welcome/TestTypeSelector.jsx';
 import StudentWelcomeView from './welcome/StudentWelcomeView.jsx';
 import TeacherWelcomeView from './welcome/TeacherWelcomeView.jsx';
-import { useI18n } from '../i18n/I18nContext.jsx';
 import { useWelcomeRole } from '../hooks/useWelcomeRole.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
 
@@ -14,7 +13,6 @@ export default function WelcomeScreen({
   onProcessReview,
   onOpenTask,
 }) {
-  const { t } = useI18n();
   const { activeRole } = useWelcomeRole();
   const { testTypes = [], activeTestType = 'lesen' } = examState;
   const currentModule = testTypes.find((item) => item.id === activeTestType) || getTestTypeById(activeTestType);
@@ -35,7 +33,6 @@ export default function WelcomeScreen({
         />
       ) : (
         <TeacherWelcomeView
-          title={t('welcome.roles.teacher')}
           examState={examState}
           actions={actions}
           onOpenCreateAssignment={onOpenCreateAssignment}

@@ -43,7 +43,7 @@ function ActionButtons({ mistakesCount, onRetakeMistakes, onResetExam, onShareRe
 // Phones: the two main actions sit in a bottom bar, in thumb reach.
 function PhoneActionBar(props) {
   return (
-    <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card/95 backdrop-blur-md border-t border-border-default pb-[env(safe-area-inset-bottom,0px)]">
+    <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card border-t border-border-default pb-[env(safe-area-inset-bottom,0px)]">
       <div className="px-4 py-2 grid grid-cols-[1fr_auto] gap-2 text-sm">
         <ActionButtons {...props} shareLabel={props.t('results.shareShort')} />
       </div>

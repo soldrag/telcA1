@@ -8,12 +8,12 @@ export default function ConfirmLeaveModal({ isOpen, onClose, onConfirm }) {
   const { t } = useI18n();
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose}>
+    <Dialog isOpen={isOpen} onClose={onClose} labelledBy="confirm-leave-title">
       <div className="w-12 h-12 rounded-2xl bg-state-error-subtle text-state-error flex items-center justify-center mb-4 border border-state-error-border">
         <AlertTriangle className="w-6 h-6" />
       </div>
 
-      <h3 className="text-xl font-bold text-content-primary">
+      <h3 id="confirm-leave-title" className="text-xl font-bold text-content-primary">
         {t('modals.leaveTitle')}
       </h3>
       <p className="text-sm text-content-secondary mt-2 leading-relaxed">

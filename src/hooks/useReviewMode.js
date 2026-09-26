@@ -10,6 +10,7 @@ import {
   verifyAssignmentSignature,
   setTeacherKey,
 } from '../services/security/teacherSecurityService.js';
+import { recordIssuedSubmission } from '../services/storage/issuedAssignmentsStorage.js';
 
 function prepareReviewResults(decoded) {
   const resultData = submitLocalExamAnswers(decoded.examId, {
@@ -21,6 +22,17 @@ function prepareReviewResults(decoded) {
     results: resultData,
     answers: decoded.answers,
   };
+}
+
+// A result for an assignment issued from this browser updates its row in «Issued assignments».
+function recordSubmission(decoded, results, token) {
+  recordIssuedSubmission(decoded.assignmentId, {
+    studentName: decoded.studentName || null,
+    score: results?.score ?? null,
+    maxScore: results?.maxScore ?? null,
+    submittedAt: decoded.createdAt || null,
+    reviewToken: token,
+  });
 }
 
 async function evaluateSignature(decoded, teacherKey) {
@@ -85,6 +97,7 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
 
       const reviewPayload = prepareReviewResults(decoded);
       sessionRef.current?.loadPastAttempt(reviewPayload);
+      recordSubmission(decoded, reviewPayload.results, token);
 
       setDecodedAttempt(decoded);
       const verificationStatus = await evaluateSignature(decoded, getStoredTeacherKey());

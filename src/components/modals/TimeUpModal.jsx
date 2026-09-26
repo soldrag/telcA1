@@ -8,13 +8,13 @@ export default function TimeUpModal({ isOpen, onConfirm }) {
   const { t } = useI18n();
 
   return (
-    <Dialog isOpen={isOpen} onClose={onConfirm} maxWidth="max-w-md">
+    <Dialog isOpen={isOpen} onClose={onConfirm} maxWidth="max-w-md" labelledBy="time-up-title">
       <div className="space-y-5 text-center">
         <div className="w-14 h-14 bg-state-warning-subtle text-state-warning rounded-full flex items-center justify-center mx-auto border border-state-warning-border">
           <Clock className="w-7 h-7" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-xl font-black text-content-primary">{t('modals.timeUpTitle')}</h3>
+          <h3 id="time-up-title" className="text-xl font-black text-content-primary">{t('modals.timeUpTitle')}</h3>
           <p className="text-sm text-content-secondary leading-relaxed">
             {t('modals.timeUpDesc')}
           </p>

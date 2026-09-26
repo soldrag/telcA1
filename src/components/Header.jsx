@@ -65,7 +65,7 @@ export default function Header({ navigation = {}, stats = {}, modules = {}, exam
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2 shrink-0">
           {screen === 'results'
             ? <ResultsHeaderActions onNavigateHome={onNavigateHome} onResetExam={onResetExam} />
-            : <DefaultHeaderActions screen={screen} onNavigateHome={onNavigateHome} onOpenHistory={onOpenHistory} />}
+            : <DefaultHeaderActions screen={screen} onNavigateHome={onNavigateHome} onOpenHistory={onOpenHistory} themeControl={themeControl} />}
           <div className="hidden sm:flex items-center gap-1.5 pl-2 ml-1 border-l border-border-subtle">
             <LanguageSelector />
             <ThemeToggle theme={themeControl.theme} toggleTheme={themeControl.toggleTheme} isDark={themeControl.isDark} />

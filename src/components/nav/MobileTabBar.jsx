@@ -37,7 +37,7 @@ export default function MobileTabBar({ screen, onNavigateHome, onOpenHistory, th
       <div aria-hidden="true" className="sm:hidden h-[calc(56px+env(safe-area-inset-bottom,0px))]" />
       <nav
         aria-label={t('nav.tabBar')}
-        className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card/95 backdrop-blur-md border-t border-border-default pb-[env(safe-area-inset-bottom,0px)] grid grid-cols-3"
+        className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card border-t border-border-default pb-[env(safe-area-inset-bottom,0px)] grid grid-cols-3"
       >
         <TabButton icon={Home} label={t('nav.home')} isActive={screen === 'welcome' && !isSettingsOpen} onClick={onNavigateHome} />
         <TabButton icon={History} label={t('nav.history')} isActive={screen === 'history' && !isSettingsOpen} onClick={onOpenHistory} />

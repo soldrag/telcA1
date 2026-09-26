@@ -61,9 +61,12 @@ function buildWelcomeProps(controller) {
       onLoadAttempt: controller.loadSavedAttempt,
       onShareAttempt: controller.modals.openShareModal,
     },
-    onOpenCreateAssignment: (examId) => controller.modals.openAssignmentModal({
-      examId,
-      testType: controller.activeTestType,
+    // Without an exam the form offers the variant list; with an issued entry it reopens «Link is ready».
+    onOpenCreateAssignment: (examId = null, issued = null) => controller.modals.openAssignmentModal({
+      examId: issued?.examId || examId,
+      testType: issued?.testType || controller.activeTestType,
+      exams: controller.exams,
+      issued,
     }),
     onProcessReview: (token) => controller.reviewMode.processReviewToken(token),
     onOpenTask: (token) => controller.assignmentMode.processToken(token),

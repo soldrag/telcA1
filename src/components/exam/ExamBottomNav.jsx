@@ -16,7 +16,7 @@ export default function ExamBottomNav({ pagination = {}, actions = {}, sheet = {
   return (
     <nav
       aria-label={t('exam.navAriaLabel')}
-      className={`lg:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card/95 backdrop-blur-md border-t border-border-default pb-[env(safe-area-inset-bottom,0px)] ${isTyping ? 'hidden' : ''}`}
+      className={`lg:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card border-t border-border-default pb-[env(safe-area-inset-bottom,0px)] ${isTyping ? 'hidden' : ''}`}
     >
       <div className="mx-auto w-full sm:max-w-[720px] px-4 sm:px-6 py-2 flex items-center gap-2 sm:gap-3">
         <button

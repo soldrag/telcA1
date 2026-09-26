@@ -2,11 +2,15 @@ import React from 'react';
 import { ArrowLeft, History } from 'lucide-react';
 import { Button } from '../ui/Button.jsx';
 import RoleSelector from '../welcome/RoleSelector.jsx';
+import HeaderSettingsButton from '../nav/HeaderSettingsButton.jsx';
+import { useWelcomeRole } from '../../hooks/useWelcomeRole.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
-// On phones History lives in the bottom tab bar, so the header button starts at 640 px.
-export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHistory }) {
+// On phones History and Settings live in the bottom tab bar, so the header buttons start at 640 px.
+// Settings shows up for teachers, whose key lives there.
+export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHistory, themeControl }) {
   const { t } = useI18n();
+  const { activeRole } = useWelcomeRole();
 
   if (screen === 'history') {
     return (
@@ -37,6 +41,7 @@ export default function DefaultHeaderActions({ screen, onNavigateHome, onOpenHis
         <History className="w-4 h-4 sm:mr-1.5 shrink-0" />
         <span>{t('header.history')}</span>
       </Button>
+      {screen === 'welcome' && activeRole === 'teacher' && <HeaderSettingsButton themeControl={themeControl} />}
       {screen === 'welcome' && <RoleSelector />}
     </>
   );

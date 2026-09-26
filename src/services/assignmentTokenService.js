@@ -12,6 +12,10 @@ function generateAssignmentId() {
   return `asg_${ts}_${rand}`;
 }
 
+function isIsoDay(value) {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
+}
+
 function mapRawToAssignment(data) {
   return {
     assignmentId: data.aid,
@@ -21,18 +25,21 @@ function mapRawToAssignment(data) {
     teacherName: data.tname ? String(data.tname).trim() : null,
     studentName: data.sname ? String(data.sname).trim() : null,
     note: data.note ? String(data.note).trim().slice(0, 200) : null,
+    deadline: isIsoDay(data.due) ? data.due : null,
     createdAt: data.dt || null,
     signature: data.sig || null,
   };
 }
 
-export async function encodeAssignmentToken({
+// The deadline is a reminder for the student, not part of the signed exam conditions.
+async function createAssignmentPayload({
   examId,
   testType = 'lesen',
   timeLimitSeconds = 0,
   teacherName,
   studentName,
   note,
+  deadline,
   teacherKey,
 } = {}) {
   if (!examId) throw new Error('Assignment must specify an examId');
@@ -41,13 +48,12 @@ export async function encodeAssignmentToken({
   const aid = generateAssignmentId();
   const created = new Date().toISOString();
   const limit = Math.max(0, Number(timeLimitSeconds) || 0);
-
   const sig = await signAssignmentPayload(
     { aid, eid: examId, created, limit, student: studentName },
     teacherKey
   );
 
-  const payload = {
+  return {
     v: 1,
     aid,
     eid: examId,
@@ -56,13 +62,19 @@ export async function encodeAssignmentToken({
     tname: teacherName ? String(teacherName).trim().slice(0, 60) : undefined,
     sname: studentName ? String(studentName).trim().slice(0, 60) : undefined,
     note: note ? String(note).trim().slice(0, 200) : undefined,
+    due: isIsoDay(deadline) ? deadline : undefined,
     dt: created,
     sig,
   };
+}
 
-  const serialized = JSON.stringify(payload);
-  const compressed = await compressStringToBase64Url(serialized);
+async function compressPayload(payload) {
+  const compressed = await compressStringToBase64Url(JSON.stringify(payload));
   return `${TASK_TOKEN_PREFIX}${compressed}`;
+}
+
+export async function encodeAssignmentToken(config = {}) {
+  return compressPayload(await createAssignmentPayload(config));
 }
 
 export async function decodeAssignmentToken(token) {
@@ -88,17 +100,23 @@ export async function decodeAssignmentToken(token) {
   }
 }
 
-export async function buildAssignmentUrl({
-  assignmentConfig,
-  originAndPath,
-} = {}) {
-  const token = await encodeAssignmentToken(assignmentConfig);
-  const base = originAndPath || (
-    typeof window !== 'undefined'
-      ? `${window.location.origin}${window.location.pathname}`
-      : 'http://localhost'
-  );
-  return `${base}#task=${token}`;
+function resolveBaseUrl(originAndPath) {
+  if (originAndPath) return originAndPath;
+  return typeof window !== 'undefined'
+    ? `${window.location.origin}${window.location.pathname}`
+    : 'http://localhost';
+}
+
+/** Signs a new assignment and returns its id together with the link for the student. */
+export async function createAssignmentLink({ assignmentConfig, originAndPath } = {}) {
+  const payload = await createAssignmentPayload(assignmentConfig);
+  const token = await compressPayload(payload);
+  return { assignmentId: payload.aid, url: `${resolveBaseUrl(originAndPath)}#task=${token}` };
+}
+
+export async function buildAssignmentUrl(options = {}) {
+  const { url } = await createAssignmentLink(options);
+  return url;
 }
 
 export function parseAssignmentTokenFromUrl(targetUrl) {

@@ -190,7 +190,7 @@ async function runE2E() {
 
     // 7. Confirm submit dialog
     const confirmClicked = await cdp.evalJs(`(() => {
-      const dialog = document.querySelector('[role="dialog"]');
+      const dialog = document.querySelector('dialog[open], [role="dialog"]');
       if (dialog) {
         const dialogBtns = Array.from(dialog.querySelectorAll('button'));
         const confirmBtn = dialogBtns.find(b =>
