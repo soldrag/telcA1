@@ -25,7 +25,7 @@ function HighlightedLetter({ text, marks }) {
 
 function ViewToggle({ view, onChange, labels }) {
   return (
-    <div className="lg:hidden grid grid-cols-2 gap-1 p-1 rounded-xl bg-surface-inset">
+    <div className="md:hidden grid grid-cols-2 gap-1 p-1 rounded-xl bg-surface-inset">
       {['user', 'sample'].map((key) => (
         <button
           key={key}
@@ -42,7 +42,8 @@ function ViewToggle({ view, onChange, labels }) {
 }
 
 /**
- * The candidate's letter next to the telc sample (a toggle on phones), with credited phrases marked.
+ * The candidate's letter and the telc sample: a toggle below 768 px, side by side from 768 px.
+ * Credited phrases are marked in the candidate's text.
  */
 export default function SchreibenLetterTexts({ item, selfCheck, t, className = '' }) {
   const [view, setView] = useState('user');
@@ -51,13 +52,13 @@ export default function SchreibenLetterTexts({ item, selfCheck, t, className = '
     user: t('results.schreibenResult.yourText', { count: item.word_count || 0 }),
     sample: t('results.schreibenResult.sampleText'),
   };
-  const panelClass = (key) => `${view === key ? 'block' : 'hidden'} lg:block rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 space-y-2`;
+  const panelClass = (key) => `${view === key ? 'block' : 'hidden'} md:block min-w-0 rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 space-y-2`;
 
   return (
-    <section className={`flex flex-col gap-3 ${className}`}>
+    <section className={`flex flex-col gap-3 md:grid md:grid-cols-2 md:items-start ${className}`}>
       {sample && <ViewToggle view={view} onChange={setView} labels={labels} />}
       <div className={panelClass('user')}>
-        <h4 className="hidden lg:block text-sm font-semibold text-content-secondary">{labels.user}</h4>
+        <h4 className="hidden md:block text-sm font-semibold text-content-secondary">{labels.user}</h4>
         <div lang="de" className={TEXT_CLASS}>
           {item.user_answer
             ? <HighlightedLetter text={item.user_answer} marks={collectMarks(selfCheck.diagnosticData, selfCheck.scores)} />
@@ -66,7 +67,7 @@ export default function SchreibenLetterTexts({ item, selfCheck, t, className = '
       </div>
       {sample && (
         <div className={panelClass('sample')}>
-          <h4 className="hidden lg:block text-sm font-semibold text-content-secondary">{labels.sample}</h4>
+          <h4 className="hidden md:block text-sm font-semibold text-content-secondary">{labels.sample}</h4>
           <div lang="de" className={TEXT_CLASS}>{sample}</div>
         </div>
       )}

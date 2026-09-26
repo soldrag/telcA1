@@ -46,7 +46,7 @@ export default function ResultsView({
   );
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn max-sm:pb-24">
       {isAssignment && shareSubmissionUrl && (
         <AssignmentSubmissionBanner
           studentName={assignmentSubmission?.assignmentData?.studentName || null}
@@ -64,7 +64,7 @@ export default function ResultsView({
         />
       )}
 
-      <ResultsHeroCard results={results} actions={actions} />
+      <ResultsHeroCard results={results} actions={actions} teilChipsFromLg={isSchreiben} />
 
       {isSchreiben ? (
         <SchreibenResultsBody reviewItems={results.reviewItems} onUpdateItemScore={onUpdateItemScore} />

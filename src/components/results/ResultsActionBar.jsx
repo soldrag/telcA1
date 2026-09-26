@@ -26,22 +26,44 @@ function CopySubmissionButton({ shareUrl, t }) {
   );
 }
 
-function StudentActions({ mistakesCount, onRetakeMistakes, onResetExam, onShareResult, onOpenHistory, t }) {
+function ActionButtons({ mistakesCount, onRetakeMistakes, onResetExam, onShareResult, shareLabel, t }) {
+  const hasMistakes = mistakesCount > 0 && onRetakeMistakes;
+  return (
+    <>
+      {hasMistakes ? (
+        <button type="button" onClick={onRetakeMistakes} className={PRIMARY}>{t('results.reviewMistakes', { count: mistakesCount })}</button>
+      ) : (
+        onResetExam && <button type="button" onClick={onResetExam} className={PRIMARY}>{t('results.retakeExam')}</button>
+      )}
+      {onShareResult && <button type="button" onClick={onShareResult} className={SECONDARY}>{shareLabel}</button>}
+    </>
+  );
+}
+
+// Phones: the two main actions sit in a bottom bar, in thumb reach.
+function PhoneActionBar(props) {
+  return (
+    <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-surface-card/95 backdrop-blur-md border-t border-border-default pb-[env(safe-area-inset-bottom,0px)]">
+      <div className="px-4 py-2 grid grid-cols-[1fr_auto] gap-2 text-sm">
+        <ActionButtons {...props} shareLabel={props.t('results.shareShort')} />
+      </div>
+    </div>
+  );
+}
+
+function StudentActions(props) {
+  const { mistakesCount, onRetakeMistakes, onResetExam, onOpenHistory, t } = props;
   const hasMistakes = mistakesCount > 0 && onRetakeMistakes;
   return (
     <div className="space-y-1">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        {hasMistakes ? (
-          <button type="button" onClick={onRetakeMistakes} className={PRIMARY}>{t('results.reviewMistakes', { count: mistakesCount })}</button>
-        ) : (
-          onResetExam && <button type="button" onClick={onResetExam} className={PRIMARY}>{t('results.retakeExam')}</button>
-        )}
-        {onShareResult && <button type="button" onClick={onShareResult} className={SECONDARY}>{t('results.shareResult')}</button>}
+      <div className="hidden sm:grid sm:grid-cols-2 gap-2">
+        <ActionButtons {...props} shareLabel={t('results.shareResult')} />
       </div>
       <div className="flex flex-wrap gap-x-5">
         {hasMistakes && onResetExam && <button type="button" onClick={onResetExam} className={LINK}>{t('results.retakeExam')}</button>}
         {onOpenHistory && <button type="button" onClick={onOpenHistory} className={LINK}>{t('results.viewHistory')}</button>}
       </div>
+      <PhoneActionBar {...props} />
     </div>
   );
 }

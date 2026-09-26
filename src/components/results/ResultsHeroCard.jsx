@@ -20,10 +20,15 @@ function resolveScoreFacts(results) {
   return { module, maxScore, passScore, passed };
 }
 
+// Phones put the status next to the score; from 1024 px it heads the threshold bar.
+function StatusText({ passed, className, text }) {
+  return <p className={`font-semibold ${passed ? 'text-state-success-text' : 'text-state-error-text'} ${className}`}>{text}</p>;
+}
+
 /**
  * Result header: total score, pass status with the threshold bar, per-Teil points and the main actions.
  */
-export default function ResultsHeroCard({ results, actions = null }) {
+export default function ResultsHeroCard({ results, actions = null, teilChipsFromLg = false }) {
   const { t, language } = useI18n();
   const { module, maxScore, passScore, passed } = resolveScoreFacts(results);
   const examName = formatExamName(results.exam?.id || results.exam?.title);
@@ -31,20 +36,21 @@ export default function ResultsHeroCard({ results, actions = null }) {
 
   return (
     <section aria-labelledby="results-score" className="rounded-2xl bg-surface-card border border-border-default p-4 sm:p-6 space-y-4">
-      <div className="flex flex-col lg:flex-row lg:items-end gap-4 lg:gap-8">
+      <div className="flex flex-col lg:flex-row lg:items-end gap-3 lg:gap-8">
         <div className="space-y-1 shrink-0">
           <p lang="de" className="text-sm text-content-muted">
             {module.title} · {examName} · {formatDuration(results.timeSpentSeconds)}
           </p>
-          <p id="results-score" className="text-5xl font-bold tracking-tight text-content-primary leading-none tabular-nums">
-            {formatPoints(results.score, language)}
-            <span className="text-2xl font-semibold text-content-muted"> / {maxScore}</span>
-          </p>
+          <div className="flex items-baseline justify-between gap-3">
+            <p id="results-score" className="text-5xl font-bold tracking-tight text-content-primary leading-none tabular-nums">
+              {formatPoints(results.score, language)}
+              <span className="text-2xl font-semibold text-content-muted"> / {maxScore}</span>
+            </p>
+            <StatusText passed={passed} className="lg:hidden text-sm text-right" text={t(statusKey, { pass: passScore, max: maxScore })} />
+          </div>
         </div>
         <div className="flex-1 min-w-0 space-y-2 lg:pb-1">
-          <p className={`text-base font-semibold ${passed ? 'text-state-success-text' : 'text-state-error-text'}`}>
-            {t(statusKey, { pass: passScore, max: maxScore })}
-          </p>
+          <StatusText passed={passed} className="hidden lg:block text-base" text={t(statusKey, { pass: passScore, max: maxScore })} />
           <ScoreThresholdBar
             score={Number(results.score) || 0}
             passScore={passScore}
@@ -55,7 +61,9 @@ export default function ResultsHeroCard({ results, actions = null }) {
         </div>
         {actions && <div className="lg:shrink-0">{actions}</div>}
       </div>
-      <TeilBreakdownGrid teilBreakdown={results.teilBreakdown} testType={module.id} language={language} />
+      <div className={teilChipsFromLg ? 'max-lg:hidden' : ''}>
+        <TeilBreakdownGrid teilBreakdown={results.teilBreakdown} testType={module.id} language={language} />
+      </div>
     </section>
   );
 }

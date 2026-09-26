@@ -20,8 +20,8 @@ export default function SchreibenLetterVerdict({ item, selfCheck, t, language, c
   const fmt = (value) => formatPoints(value, language);
 
   return (
-    <section aria-labelledby="letter-verdict-title" className={`rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 space-y-4 ${className}`}>
-      <h3 id="letter-verdict-title" className="text-lg font-bold text-content-primary">
+    <section aria-labelledby="letter-verdict-title" className={`rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 space-y-4 max-lg:[&>h3+*]:!mt-0 ${className}`}>
+      <h3 id="letter-verdict-title" className="max-lg:sr-only text-lg font-bold text-content-primary">
         {t('results.schreibenResult.letterTitle', { score: fmt(teil2Score.total), max: fmt(teil2Score.maxPoints) })}
       </h3>
       <SchreibenExaminerFeedbackCard
@@ -29,6 +29,7 @@ export default function SchreibenLetterVerdict({ item, selfCheck, t, language, c
         feedbackSummary={ai.feedbackSummary}
         language={language}
         title={t('results.schreibenResult.verdictTitle')}
+        findingsLabel={t('results.schreibenResult.findings')}
       />
       <SchreibenCriteriaChecklist
         scores={scores}

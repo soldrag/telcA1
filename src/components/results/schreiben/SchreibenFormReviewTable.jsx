@@ -8,9 +8,11 @@ function resolveExplanation(item, language) {
     : item.explanation_en || item.explanation_ru;
 }
 
-// Answer keys are stored normalised to lower case; form entries (names, places, nouns) start with a capital.
+// Answer keys are stored lower-case with "|" between accepted spellings: show the first one,
+// capitalised like a form entry (names, places, nouns).
 function formatFormAnswer(value = '') {
-  return value ? value.charAt(0).toLocaleUpperCase('de-DE') + value.slice(1) : value;
+  const [first = ''] = String(value).split('|');
+  return first ? first.charAt(0).toLocaleUpperCase('de-DE') + first.slice(1) : first;
 }
 
 function AnswerCell({ item, t }) {
@@ -31,18 +33,18 @@ function FormRow({ item, t, language }) {
   const StatusIcon = item.is_correct ? Check : X;
   const explanation = item.is_correct ? '' : resolveExplanation(item, language);
   return (
-    <li className="py-3 grid grid-cols-[1.25rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1.25rem_12rem_1fr]">
+    <li className="py-3 grid grid-cols-[1.25rem_1fr] gap-x-3 gap-y-1 sm:grid-cols-[1.25rem_12rem_1fr] lg:grid-cols-[1.25rem_1fr]">
       <StatusIcon
-        className={`w-5 h-5 row-span-2 sm:row-span-1 ${item.is_correct ? 'text-state-success-text' : 'text-state-error-text'}`}
+        className={`w-5 h-5 row-span-2 sm:row-span-1 lg:row-span-2 ${item.is_correct ? 'text-state-success-text' : 'text-state-error-text'}`}
         aria-label={item.is_correct ? t('results.tabCorrect') : t('results.badgeIncorrect')}
       />
       <span lang="de" className="text-sm text-content-secondary">
         {item.question_number} · {item.options_json?.form_label || item.statement}
       </span>
-      <span className="text-[17px] sm:col-start-3">
+      <span className="text-[17px] sm:col-start-3 lg:col-start-2">
         <AnswerCell item={item} t={t} />
       </span>
-      {explanation && <p className="col-start-2 sm:col-start-3 text-sm text-content-muted">{explanation}</p>}
+      {explanation && <p className="col-start-2 sm:col-start-3 lg:col-start-2 text-sm text-content-muted">{explanation}</p>}
     </li>
   );
 }
