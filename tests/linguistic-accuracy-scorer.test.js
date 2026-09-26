@@ -42,4 +42,18 @@ describe('Linguistic Accuracy Scorer', () => {
     assert.equal(res.score, 0);
     assert.equal(res.band, 'unreadable');
   });
+
+  it('breaks the penalty down by category, heaviest first', () => {
+    const errors = [
+      { category: 'orthography', original: 'Hallo Frau Hansen, Ich' },
+      { category: 'syntax', code: 'ERR_BROKEN_SATZKLAMMER_MODAL', original: 'möchten kommen von' },
+      { category: 'rektion', code: 'ERR_PREP_CASE_DAT', original: 'mit meine Familie' },
+    ];
+    const res = calculateLinguisticAccuracy({ grammarErrors: errors, wordCount: 45 });
+    assert.deepEqual(res.byCategory, [
+      { category: 'syntax', count: 1, weight: 1.5 },
+      { category: 'rektion', count: 1, weight: 1.0 },
+      { category: 'orthography', count: 1, weight: 0.5 },
+    ]);
+  });
 });

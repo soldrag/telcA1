@@ -38,15 +38,30 @@ function resolveAccuracyBand(score = 0) {
   return BANDS.find((b) => score >= b.min).band;
 }
 
-function buildResult({ score, errorCount, wordCount, band = resolveAccuracyBand(score) }) {
-  return { score, maxScore: MAX_SCORE, errorCount, wordCount, percentage: Math.round((score / MAX_SCORE) * 100), band };
+/** Lower bounds of the bands, highest first — for scale legends in the UI. */
+export const ACCURACY_BAND_THRESHOLDS = Object.freeze(BANDS.filter((b) => Number.isFinite(b.min)).map(({ band, min }) => ({ band, min })));
+export const ACCURACY_REFERENCE_WORD_COUNT = REFERENCE_WORD_COUNT;
+
+function summarizeByCategory(errors, weights) {
+  const summary = new Map();
+  errors.forEach((err) => {
+    const category = String(err.category || 'other').toLowerCase();
+    const entry = summary.get(category) || { category, count: 0, weight: resolveErrorWeight(err, weights) };
+    summary.set(category, { ...entry, count: entry.count + 1 });
+  });
+  return [...summary.values()].sort((a, b) => b.count * b.weight - a.count * a.weight);
+}
+
+function buildResult({ score, errorCount, wordCount, band = resolveAccuracyBand(score), byCategory = [] }) {
+  return { score, maxScore: MAX_SCORE, errorCount, wordCount, percentage: Math.round((score / MAX_SCORE) * 100), band, byCategory };
 }
 
 /**
  * @param {{ grammarErrors?: Array, wordCount?: number, isGibberish?: boolean, weights?: Record<string, number> }} params
  *   wordCount: words of the letter body (salutation and closing excluded)
  * @returns {{ score: number, maxScore: number, errorCount: number, wordCount: number, percentage: number,
- *   band: 'excellent'|'good'|'satisfactory'|'needs_practice'|'unreadable' }}
+ *   band: 'excellent'|'good'|'satisfactory'|'needs_practice'|'unreadable',
+ *   byCategory: Array<{ category: string, count: number, weight: number }> }}
  */
 export function calculateLinguisticAccuracy({ grammarErrors = [], wordCount = 0, isGibberish = false, weights = DEFAULT_WEIGHTS } = {}) {
   if (isGibberish || wordCount === 0) {
@@ -57,5 +72,5 @@ export function calculateLinguisticAccuracy({ grammarErrors = [], wordCount = 0,
   const rawPenalty = errors.reduce((sum, err) => sum + resolveErrorWeight(err, weights), 0);
   const penalty = rawPenalty * (REFERENCE_WORD_COUNT / Math.max(wordCount, REFERENCE_WORD_COUNT));
   const score = Number(Math.max(0, MAX_SCORE - penalty).toFixed(1));
-  return buildResult({ score, errorCount: errors.length, wordCount });
+  return buildResult({ score, errorCount: errors.length, wordCount, byCategory: summarizeByCategory(errors, weights) });
 }

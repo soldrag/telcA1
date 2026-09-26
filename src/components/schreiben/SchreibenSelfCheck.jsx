@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { BookCheck, Sparkles, ArrowUpCircle } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
+import LinguisticAccuracyPanel from './LinguisticAccuracyPanel.jsx';
 import SchreibenCriteriaChecklist from './SchreibenCriteriaChecklist.jsx';
 import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
@@ -93,11 +94,12 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
         </div>
       </div>
 
-      <SchreibenGrammarNotice
+      <LinguisticAccuracyPanel
         grammarErrors={liveGrammarErrors}
         wordCount={countLetterBodyWords(item.user_answer)}
         t={t}
       />
+      <SchreibenGrammarNotice grammarErrors={liveGrammarErrors} t={t} />
 
       {segments && (
         <div className="p-3.5 rounded-xl border border-border-default bg-surface-card space-y-2">
