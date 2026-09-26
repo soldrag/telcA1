@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
 import { runSchreibenMicroPipeline } from '../src/services/schreiben/schreibenMicroPipeline.js';
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
+import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 import { generateFeedbackSummary } from '../src/services/schreiben/analyzers/feedbackVerbalizer.js';
 import { isConsistentWithFacts } from '../src/services/schreiben/analyzers/feedbackVerbalizer.js';
 
@@ -26,10 +27,13 @@ ich muss leider absagen mein Termin am Montag um 14:00 Uhr. Ich kann nicht komme
 Mit freundlichen Gruß
 Artem Smirnov`;
 
-  it('recognizes "Sehr geehrte Herr Dr. Schneider" as anrede (score 1, declension error)', () => {
+  // reglament §6 Teil 2: a declension slip in an appropriate formula is a hint, not a lost point.
+  it('recognizes "Sehr geehrte Herr Dr. Schneider" as appropriate anrede with a declension hint', () => {
     const res = analyzeSalutation('Sehr geehrte Herr Dr. Schneider,\nich muss absagen.', { isFormal: true });
     assert.equal(res.recognized, true);
-    assert.equal(res.score, 1);
+    assert.equal(res.score, 2);
+    assert.equal(res.diagnosticCode, DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW);
+    assert.match(res.correction, /Sehr geehrter Herr/);
 
     const correct = analyzeSalutation('Sehr geehrter Herr Dr. Schneider,\nich muss absagen.', { isFormal: true });
     assert.equal(correct.recognized, true);
@@ -42,7 +46,7 @@ Artem Smirnov`;
     assert.match(segments[0].userSentence, /absagen/i);
     assert.match(segments[1].userSentence, /Überstunden|Arbeit/i);
     assert.match(segments[2].userSentence, /Dienstag|Mittwoch/i);
-    assert.equal(res.breakdown.anrede, 1);
+    assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
   });
@@ -54,15 +58,15 @@ Artem Smirnov`;
     assert.ok(originals.some(o => o.includes('mein termin')), 'missing "mein Termin"');
     assert.ok(originals.some(o => o.includes('antworten sie mich')), 'missing "antworten Sie mich"');
     assert.equal(res.grammar_errors.length >= 5, true);
-    // Errors are feedback only at A1: 9 (all points) + KG 0.5 (flawed Anrede)
-    assert.equal(res.points_earned, 9.5);
+    // Errors are feedback only at A1, the declined Anrede included: 9 + KG 1
+    assert.equal(res.points_earned, 10);
   });
 
   it('client pipeline agrees with server rules-only scoring', async () => {
     const serverResult = evaluateTeil2Essay(studentText, question);
     const clientResult = await runSchreibenMicroPipeline({ userText: studentText, question, llmCaller: null });
     assert.equal(clientResult.final_points, serverResult.points_earned);
-    assert.equal(clientResult.criteria_breakdown.anrede, 1);
+    assert.equal(clientResult.criteria_breakdown.anrede, 2);
     assert.match(clientResult.user_segments.leitpunkte[0].userSentence, /absagen/i);
   });
 
@@ -102,7 +106,7 @@ Artem Smirnov`;
     const { gradeSchreibenTeil2 } = await import('../src/services/schreiben/grading/index.js');
     const res = await gradeSchreibenTeil2({ userText: text, question, options: { forceLimitedMode: true } });
 
-    assert.equal(res.breakdown.anrede, 1);
+    assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.items[2].score, 2); // Punkt 3 proposal recognized
     assert.equal(res.breakdown.gruss, 2);
@@ -113,7 +117,7 @@ Artem Smirnov`;
     assert.ok(originals.some(o => o.includes('an dienstag')), 'missing an Dienstag');
     assert.ok(originals.some(o => o.includes('wegen die überstunden')), 'missing wegen die Überstunden');
     assert.equal(res.is_correct, true);
-    assert.equal(res.points_earned, 9.5);
+    assert.equal(res.points_earned, 10);
   });
 
   it('correctly handles the second doctor cancellation letter without Punkt 3 segmentation collapse', async () => {

@@ -3,9 +3,9 @@ import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 import { DIAGNOSTIC_CODES } from './feedback/feedbackContracts.js';
 
 function resolveSalutationDiagnostic({ score = 0, error = null, isRegisterMismatch = false }) {
-  if (score >= 2) return DIAGNOSTIC_CODES.ANREDE_PERFECT;
   if (score <= 0) return DIAGNOSTIC_CODES.ANREDE_MISSING;
   if (error) return DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW;
+  if (score >= 2) return DIAGNOSTIC_CODES.ANREDE_PERFECT;
   if (isRegisterMismatch) return DIAGNOSTIC_CODES.ANREDE_REGISTER_MISMATCH;
   return DIAGNOSTIC_CODES.ANREDE_MINOR_FLAW;
 }
@@ -24,10 +24,10 @@ export function analyzeSalutation(text = '', options = {}) {
     const isRegisterMismatch = macro.anrede.register === 'informal' && isFormalRequired;
     const diagnosticCode = resolveSalutationDiagnostic({ score, error, isRegisterMismatch });
 
-    const feedback = score >= 2
-      ? 'Die Anrede ist passend und formal korrekt.'
-      : (error
-        ? `Anrede erkannt, aber Deklinationsfehler: korrekt wäre „${error.correction}“.`
+    const feedback = error
+      ? `Anrede passend, aber mit Deklinationsfehler: korrekt wäre „${error.correction}“.`
+      : (score >= 2
+        ? 'Die Anrede ist passend und formal korrekt.'
         : 'Die Anrede ist vorhanden, weist jedoch stilistische oder formale Mängel auf.');
 
     return {

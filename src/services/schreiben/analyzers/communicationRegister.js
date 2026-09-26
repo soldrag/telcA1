@@ -59,7 +59,7 @@ export function evaluateSalutation(firstLine = '', { isFormalRequired = true } =
   const misspelled = MISSPELLED_FORMAL_SALUTATIONS.find(p => p.regex.test(line));
   if (misspelled) {
     return {
-      score: 1,
+      score: 2,
       maxScore: 2,
       recognized: true,
       text: line,

@@ -58,6 +58,7 @@ function parseSalutation(line = '', isFormalRequired = true) {
   const hasGreeting = SALUTATION_ROOTS.some(r => lower.startsWith(r));
   if (!hasGreeting) return { recognized: false, score: 0, text: '', register: 'none' };
 
+  // A declension slip in an appropriate formula is still appropriate (reglament §6 Teil 2): it is a hint, not a point.
   let score = 2;
   let register = 'informal';
   let error = null;
@@ -65,21 +66,18 @@ function parseSalutation(line = '', isFormalRequired = true) {
   if (lower.startsWith('sehr geehrt') || lower.startsWith('guten tag')) {
     register = 'formal';
     if (/\bsehr\s+geehrte\s+herr\b/i.test(lower)) {
-      score = 1;
       error = { original: 'Sehr geehrte Herr', correction: 'Sehr geehrter Herr', explanation: 'Deklination: Maskulin erfordert „-er“' };
     } else if (/\bsehr\s+geehrter\s+frau\b/i.test(lower)) {
-      score = 1;
       error = { original: 'Sehr geehrter Frau', correction: 'Sehr geehrte Frau', explanation: 'Deklination: Feminin erfordert „-e“' };
     } else if (/\bsehr\s+geehrte\s+(?:praxis-?team|team|ärzteteam)\b/i.test(lower)) {
-      score = 1;
       error = { original: 'Sehr geehrte Praxis-Team', correction: 'Sehr geehrtes Praxis-Team', explanation: 'Deklination: Neutrum erfordert „-es“' };
     }
   } else {
     register = 'informal';
     if (/\bliebe\s+herr\b/i.test(lower)) {
-      score = 1;
       error = { original: 'Liebe Herr', correction: 'Lieber Herr', explanation: 'Deklination: Maskulin erfordert „Lieber Herr“' };
-    } else if (isFormalRequired) {
+    }
+    if (isFormalRequired) {
       score = 1; // Informal greeting used in formal context
     }
   }
