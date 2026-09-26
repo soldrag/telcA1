@@ -27,6 +27,7 @@ Thumbs.db
 
 # Agent & editor configs
 .gemini/
+.claude/
 
 # Local SSL certificates & keys
 certs/*.pem

@@ -1,0 +1,96 @@
+import { describe, it, before } from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  ISchreibenRegulation,
+  TelcA1Regulation,
+  telcA1Regulation,
+  getSchreibenRegulation,
+  registerSchreibenRegulation,
+  scoreCriteriaLevels,
+} from '../src/services/schreiben/regulations/index.js';
+import { loadRegressionSuites, leitpunktLevelForPoints } from './helpers/regressionFixtures.js';
+
+const score = (evidence) => telcA1Regulation.scoreTeil2(evidence);
+
+describe('telc A1 Schreiben Teil 2 regulation (reglament/telc-a1.md §6)', () => {
+  it('maps Leitpunkt levels to 3 / 1.5 / 0 points', () => {
+    const res = score({ leitpunktLevels: [2, 1, 0], anrede: 2, gruss: 2 });
+    assert.deepEqual(res.leitpunkte.map((lp) => lp.points), [3, 1.5, 0]);
+    assert.ok(res.leitpunkte.every((lp) => lp.maxPoints === 3));
+    assert.equal(res.maxPoints, 10);
+  });
+
+  it('rates Kommunikative Gestaltung: 1 appropriate, 0.5 atypical or one missing, 0 both missing', () => {
+    const kg = (anrede, gruss) => score({ leitpunktLevels: [], anrede, gruss }).kg.points;
+    assert.equal(kg(2, 2), 1);
+    assert.equal(kg(1, 2), 0.5, 'Hallo! to a stranger');
+    assert.equal(kg(0, 2), 0.5, 'no Anrede');
+    assert.equal(kg(2, 0), 0.5, 'no Gruß');
+    assert.equal(kg(1, 0), 0.5, 'Hallo! + Tschüss');
+    assert.equal(kg(0, 0), 0);
+  });
+
+  it('frame without content scores at most 1', () => {
+    assert.equal(score({ leitpunktLevels: [0, 0, 0], anrede: 2, gruss: 2 }).total, 1);
+  });
+
+  it('an ideal frame with one covered point is 4, not 6 as on the old 5 × 2 scale', () => {
+    assert.equal(score({ leitpunktLevels: [2, 0, 0], anrede: 2, gruss: 2 }).total, 4);
+  });
+
+  it('grammar errors and length never change the score', () => {
+    const base = { leitpunktLevels: [2, 2, 1], anrede: 2, gruss: 1 };
+    const clean = score(base).total;
+    assert.equal(score({ ...base, grammarErrors: new Array(12).fill({}), wordCount: 9 }).total, clean);
+    assert.equal(score({ ...base, wordCount: 120 }).total, clean);
+  });
+
+  it('an unratable text (gibberish or empty) scores 0', () => {
+    assert.equal(score({ leitpunktLevels: [2, 2, 2], anrede: 2, gruss: 2, isUnratable: true }).total, 0);
+  });
+
+  it('scores stored criteria levels ({anrede, lp1..3, gruss}) the same way', () => {
+    const res = scoreCriteriaLevels({ anrede: 2, lp1: 2, lp2: 2, lp3: 1, gruss: 2 });
+    assert.equal(res.total, 8.5);
+  });
+});
+
+describe('Schreiben regulation registry', () => {
+  it('falls back to telc A1 for an unregistered level', () => {
+    assert.equal(getSchreibenRegulation('C2').id, 'telc-a1');
+    assert.equal(getSchreibenRegulation().id, 'telc-a1');
+  });
+
+  it('accepts only ISchreibenRegulation implementations', () => {
+    assert.throws(() => registerSchreibenRegulation('A2', { scoreTeil2() {} }), TypeError);
+    class DummyA2 extends ISchreibenRegulation {
+      get id() { return 'dummy-a2'; }
+      get level() { return 'A2'; }
+    }
+    registerSchreibenRegulation('A2', new DummyA2());
+    assert.equal(getSchreibenRegulation('a2').id, 'dummy-a2');
+  });
+
+  it('base interface enforces the contract', () => {
+    const raw = new ISchreibenRegulation();
+    assert.throws(() => raw.id, /id getter must be implemented/);
+    assert.throws(() => raw.scoreTeil2({}), /scoreTeil2 must be implemented/);
+    assert.ok(new TelcA1Regulation() instanceof ISchreibenRegulation);
+  });
+});
+
+describe('Regression fixtures are consistent with their regulation', () => {
+  let suites = [];
+  before(async () => { suites = await loadRegressionSuites(); });
+
+  it('every expected total equals the regulation score of the expected levels', () => {
+    for (const suite of suites) {
+      for (const tc of suite.cases) {
+        const levels = tc.expected.lp.map((points) => leitpunktLevelForPoints(suite.regulation, points));
+        assert.ok(levels.every((l) => l !== undefined), `${tc.id}: Leitpunkt points off the regulation scale`);
+        const lpSum = suite.regulation.scoreTeil2({ leitpunktLevels: levels }).leitpunkte.reduce((s, lp) => s + lp.points, 0);
+        assert.equal(lpSum + tc.expected.kg, tc.expected.total, `${suite.file} ${tc.id}`);
+      }
+    }
+  });
+});

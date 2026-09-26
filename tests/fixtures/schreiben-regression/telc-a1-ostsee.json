@@ -1,0 +1,141 @@
+{
+  "regulation": "telc-a1",
+  "seedQuestionId": "s4-q6",
+  "source": "reglament/telc-a1.md §6; external review of the Ostsee letter (2026-09-26)",
+  "notes": [
+    "Points are on the official telc scale: Leitpunkt 3 / 1.5 / 0, Kommunikative Gestaltung 1 / 0.5 / 0, max 10.",
+    "Task and rubric come from the seed question; the fixture holds letters and expectations only.",
+    "judgmentCall cases have no official ruling: 'accept' gives the acceptable range (inclusive) per key."
+  ],
+  "cases": [
+    {
+      "id": "01_ideal",
+      "title": "Baseline: all points, formal frame.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte Ihre Ferienwohnung im Sommer mieten. Wir sind vier Personen, zwei Erwachsene und zwei Kinder. Wir kommen vom 5. bis 12. Juli. Was kostet die Wohnung pro Nacht? Sind Haustiere erlaubt?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 }
+    },
+    {
+      "id": "02_reference_missing_pets",
+      "title": "The letter from the screenshot: 'Haustiere' aspect missing.",
+      "text": "Sehr geehrte Frau Hansen,\n\nwir möchten im Juli mit der Familie an die Ostsee kommen. Wir sind vier Personen. Ist Ihre Ferienwohnung frei? Was kostet sie pro Nacht?\n\nVielen Dank!\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 1.5], "kg": 1, "total": 8.5 }
+    },
+    {
+      "id": "03_pets_synonym",
+      "title": "Pets expressed via 'Hund' without the word 'Haustier'.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte im August Ihre Ferienwohnung mieten. Wir sind drei Personen und bleiben eine Woche. Wie viel kostet die Woche? Wir haben einen Hund. Darf er mitkommen?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 }
+    },
+    {
+      "id": "04_pets_negation",
+      "title": "Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.",
+      "text": "Sehr geehrte Frau Hansen,\n\nwir möchten im Juli Urlaub in Ihrer Ferienwohnung machen. Wir sind zwei Erwachsene und ein Kind, vom 1. bis 10. Juli. Was kostet die Wohnung? Wir haben keine Haustiere.\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 },
+      "judgmentCall": true,
+      "accept": {
+        "lp3": [1.5, 3],
+        "total": [8.5, 10]
+      }
+    },
+    {
+      "id": "05_frame_only",
+      "title": "Perfect greeting/closing, no content. Must not score high.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich heiße Artem. Ich wohne in Berlin.\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [0, 0, 0], "kg": 1, "total": 1 },
+      "judgmentCall": true,
+      "accept": {
+        "kg": [0.5, 1],
+        "total": [0.5, 1]
+      }
+    },
+    {
+      "id": "06_no_greeting",
+      "title": "Content complete, Anrede missing, closing present.",
+      "text": "ich möchte im Sommer Ihre Ferienwohnung mieten. Wir sind vier Personen, vom 3. bis 17. Juli. Was kostet die Wohnung pro Nacht? Dürfen wir unsere Katze mitbringen?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 0.5, "total": 9.5 }
+    },
+    {
+      "id": "07_no_frame_at_all",
+      "title": "Content complete, no Anrede, no Gruß, no name.",
+      "text": "Ich möchte im Sommer Ihre Ferienwohnung mieten. Wir sind vier Personen, vom 3. bis 17. Juli. Was kostet die Wohnung pro Nacht? Sind Haustiere erlaubt?",
+      "expected": { "lp": [3, 3, 3], "kg": 0, "total": 9 }
+    },
+    {
+      "id": "08_informal_frame",
+      "title": "Register mismatch: 'Hallo!' / 'Tschüss' to a stranger. Goethe's model example with 'Hallo!' got 0.5 for KG.",
+      "text": "Hallo!\n\nich möchte im Juli Ihre Ferienwohnung mieten. Wir sind vier Personen, zwei Wochen. Was kostet die Wohnung? Sind Haustiere okay?\n\nTschüss\nArtem",
+      "expected": { "lp": [3, 3, 3], "kg": 0.5, "total": 9.5 }
+    },
+    {
+      "id": "09_zeitraum_missing",
+      "title": "Composite point 2 with one aspect missing.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte Ihre Ferienwohnung mieten. Wir sind fünf Personen. Was kostet die Wohnung pro Nacht? Sind Haustiere erlaubt?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 1.5, 3], "kg": 1, "total": 8.5 },
+      "note": "'im Sommer' from the task prompt is not repeated here, so no time info at all."
+    },
+    {
+      "id": "10_typical_a1_errors",
+      "title": "Many grammar/spelling errors, fully understandable. Must NOT be penalized.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich wollen mit meine Familie in Sommer in Ihre Wohnung kommen. Wir sind 4 Person, 2 Kinder. Von 5. bis 12. Juli. Wieviel kostet die Wohnung fur ein Nacht? Darf mein Katze mitkommen?\n\nMit freundliche Grüße\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 }
+    },
+    {
+      "id": "11_keyword_stuffing",
+      "title": "Adversarial for embeddings: bare keywords, no communicative sentences.",
+      "text": "Sehr geehrte Frau Hansen,\n\nFerienwohnung. Personen. Zeitraum. Preis. Haustiere.\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [0, 0, 0], "kg": 1, "total": 1 },
+      "judgmentCall": true,
+      "accept": {
+        "lp1": [0, 1.5],
+        "lp2": [0, 1.5],
+        "lp3": [0, 1.5],
+        "total": [0.5, 5.5]
+      }
+    },
+    {
+      "id": "12_off_topic",
+      "title": "Formally correct letter on a different task (birthday invitation). Semantic similarity to 'Grund/Zeitraum' may be non-zero.",
+      "text": "Liebe Frau Hansen,\n\nich habe am Samstag Geburtstag. Die Party ist um 18 Uhr bei mir zu Hause. Kommen Sie?\n\nViele Grüße\nArtem",
+      "expected": { "lp": [0, 0, 0], "kg": 1, "total": 1 },
+      "judgmentCall": true,
+      "accept": {
+        "kg": [0.5, 1],
+        "total": [0.5, 1]
+      }
+    },
+    {
+      "id": "13_implicit_reason",
+      "title": "No explicit 'ich möchte mieten' - reason only implied by the question about availability.",
+      "text": "Sehr geehrte Frau Hansen,\n\nist Ihre Ferienwohnung vom 10. bis 20. Juli frei? Wir sind vier Personen. Was kostet sie? Dürfen wir einen Hund mitbringen?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 },
+      "judgmentCall": true,
+      "accept": {
+        "lp1": [1.5, 3],
+        "total": [8.5, 10]
+      }
+    },
+    {
+      "id": "14_price_missing",
+      "title": "Mirror of case 02: pets present, price missing.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte im Juli Ihre Ferienwohnung mieten. Wir sind zwei Personen, eine Woche. Wir haben eine Katze. Ist das ein Problem?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 1.5], "kg": 1, "total": 8.5 }
+    },
+    {
+      "id": "15_long_with_extras",
+      "title": "Well over 30 words, extra off-point sentences. Length alone must not add or remove points.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte im Sommer mit meiner Familie Urlaub an der Ostsee machen. Ich möchte Ihre Ferienwohnung mieten. Wir sind vier Personen: mein Mann, ich und zwei Kinder. Wir kommen vom 14. bis 28. Juli. Die Kinder schwimmen gern. Ist der Strand nah? Was kostet die Wohnung pro Nacht? Gibt es einen Parkplatz? Wir haben einen kleinen Hund. Darf er mitkommen?\n\nVielen Dank!\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 }
+    },
+    {
+      "id": "16_unclear_point",
+      "title": "Point 3 present but barely understandable.",
+      "text": "Sehr geehrte Frau Hansen,\n\nich möchte im Juli Ihre Ferienwohnung mieten. Wir sind vier Personen, zwei Wochen. Geld wie Nacht? Tier auch haben ja?\n\nMit freundlichen Grüßen\nArtem Petrov",
+      "expected": { "lp": [3, 3, 1.5], "kg": 1, "total": 8.5 },
+      "judgmentCall": true,
+      "accept": {
+        "lp3": [0, 1.5],
+        "total": [7, 8.5]
+      }
+    }
+  ]
+}
