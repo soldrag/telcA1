@@ -44,28 +44,5 @@ export function checkAgreementRules(text = '') {
     });
   }
 
-  // Plural after numerals: e.g. "vier Woche" -> "vier Wochen"
-  const pluralMap = {
-    woche: 'Wochen',
-    tag: 'Tage',
-    monat: 'Monate',
-    jahr: 'Jahre',
-    stunde: 'Stunden',
-    person: 'Personen',
-    kind: 'Kinder'
-  };
-  const numRegex = /\b(\d{1,2}|zwei|drei|vier|f[üu]nf|sechs|sieben|acht|neun|zehn|viele|mehrere)\s+(woche|tag|monat|jahr|stunde|person|kind)\b/i;
-  const pluralMatch = text.match(numRegex);
-  if (pluralMatch) {
-    const [full, num, noun] = pluralMatch;
-    const correctPlural = pluralMap[noun.toLowerCase()] || `${noun}n`;
-    errors.push({
-      original: full,
-      correction: `${num} ${correctPlural}`,
-      category: 'agreement',
-      explanation: `Plural nach Zahlen: Nach „${num}“ steht der Plural: „${num} ${correctPlural}“ (nicht „${full}“)`
-    });
-  }
-
   return errors;
 }

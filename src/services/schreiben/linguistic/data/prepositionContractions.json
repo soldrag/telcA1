@@ -1,0 +1,13 @@
+{
+  "contractions": {
+    "am": { "preposition": "an", "article": "dem" },
+    "ans": { "preposition": "an", "article": "das" },
+    "beim": { "preposition": "bei", "article": "dem" },
+    "im": { "preposition": "in", "article": "dem" },
+    "ins": { "preposition": "in", "article": "das" },
+    "vom": { "preposition": "von", "article": "dem" },
+    "zum": { "preposition": "zu", "article": "dem" },
+    "zur": { "preposition": "zu", "article": "der" }
+  },
+  "calendarNamesTakeArticle": ["an", "in"]
+}

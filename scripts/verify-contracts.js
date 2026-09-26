@@ -16,6 +16,7 @@ import {
   screenContracts,
 } from '../src/contracts/index.js';
 import { buildScreenProps } from '../src/utils/appPropsBuilder.js';
+import { validateGrammarData } from './contracts/grammarDataContract.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -108,6 +109,7 @@ function runVerification() {
 
   validateScreenProps(errors);
   scanDirectoryForContractCalls(errors);
+  validateGrammarData(SRC_DIR, errors);
 
   if (errors.length > 0) {
     console.error('\n❌ BUILD FAILED: Contract Violations Detected:');

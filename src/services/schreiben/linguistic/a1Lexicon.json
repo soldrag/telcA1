@@ -1561,147 +1561,189 @@
     {
       "pos": "NOUN",
       "lemma": "Montag",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "dienstag": [
     {
       "pos": "NOUN",
       "lemma": "Dienstag",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "mittwoch": [
     {
       "pos": "NOUN",
       "lemma": "Mittwoch",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "donnerstag": [
     {
       "pos": "NOUN",
       "lemma": "Donnerstag",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "freitag": [
     {
       "pos": "NOUN",
       "lemma": "Freitag",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "samstag": [
     {
       "pos": "NOUN",
       "lemma": "Samstag",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "sonntag": [
     {
       "pos": "NOUN",
       "lemma": "Sonntag",
-      "gender": "m"
+      "gender": "m",
+      "category": "weekday",
+      "number": "sg"
     }
   ],
   "wochenende": [
     {
       "pos": "NOUN",
       "lemma": "Wochenende",
-      "gender": "m"
+      "gender": "n",
+      "category": "daytime",
+      "number": "sg"
     }
   ],
   "januar": [
     {
       "pos": "NOUN",
       "lemma": "Januar",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "februar": [
     {
       "pos": "NOUN",
       "lemma": "Februar",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "märz": [
     {
       "pos": "NOUN",
       "lemma": "März",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "maerz": [
     {
       "pos": "NOUN",
       "lemma": "Maerz",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "april": [
     {
       "pos": "NOUN",
       "lemma": "April",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "mai": [
     {
       "pos": "NOUN",
       "lemma": "Mai",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "juni": [
     {
       "pos": "NOUN",
       "lemma": "Juni",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "juli": [
     {
       "pos": "NOUN",
       "lemma": "Juli",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "august": [
     {
       "pos": "NOUN",
       "lemma": "August",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "september": [
     {
       "pos": "NOUN",
       "lemma": "September",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "oktober": [
     {
       "pos": "NOUN",
       "lemma": "Oktober",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "november": [
     {
       "pos": "NOUN",
       "lemma": "November",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "dezember": [
     {
       "pos": "NOUN",
       "lemma": "Dezember",
-      "gender": "m"
+      "gender": "m",
+      "category": "month",
+      "number": "sg"
     }
   ],
   "uhr": [
@@ -1716,7 +1758,9 @@
       "pos": "NOUN",
       "lemma": "Stunde",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Stunden",
+      "category": "duration"
     }
   ],
   "stunden": [
@@ -1724,7 +1768,8 @@
       "pos": "NOUN",
       "lemma": "Stunden",
       "gender": "f",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "tag": [
@@ -1732,7 +1777,9 @@
       "pos": "NOUN",
       "lemma": "Tag",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Tage",
+      "category": "duration"
     }
   ],
   "tage": [
@@ -1740,7 +1787,8 @@
       "pos": "NOUN",
       "lemma": "Tage",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "tagen": [
@@ -1748,7 +1796,8 @@
       "pos": "NOUN",
       "lemma": "Tagen",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "woche": [
@@ -1756,7 +1805,9 @@
       "pos": "NOUN",
       "lemma": "Woche",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Wochen",
+      "category": "duration"
     }
   ],
   "wochen": [
@@ -1764,7 +1815,8 @@
       "pos": "NOUN",
       "lemma": "Wochen",
       "gender": "f",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "monat": [
@@ -1772,7 +1824,9 @@
       "pos": "NOUN",
       "lemma": "Monat",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Monate",
+      "category": "duration"
     }
   ],
   "monate": [
@@ -1780,7 +1834,8 @@
       "pos": "NOUN",
       "lemma": "Monate",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "monaten": [
@@ -1788,7 +1843,8 @@
       "pos": "NOUN",
       "lemma": "Monaten",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "jahr": [
@@ -1796,7 +1852,9 @@
       "pos": "NOUN",
       "lemma": "Jahr",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Jahre",
+      "category": "duration"
     }
   ],
   "jahre": [
@@ -1804,7 +1862,8 @@
       "pos": "NOUN",
       "lemma": "Jahre",
       "gender": "n",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "jahren": [
@@ -1812,7 +1871,8 @@
       "pos": "NOUN",
       "lemma": "Jahren",
       "gender": "n",
-      "number": "pl"
+      "number": "pl",
+      "category": "duration"
     }
   ],
   "zeit": [
@@ -2930,7 +2990,8 @@
     {
       "pos": "VERB_INF",
       "lemma": "sagen",
-      "valency": "TRANS"
+      "valency": "TRANS",
+      "ditransitive": true
     },
     {
       "pos": "VERB_FIN",
@@ -2940,7 +3001,8 @@
         1,
         3
       ],
-      "number": "pl"
+      "number": "pl",
+      "ditransitive": true
     }
   ],
   "sage": [
@@ -2951,7 +3013,8 @@
       "person": [
         1
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "sagst": [
@@ -2962,7 +3025,8 @@
       "person": [
         2
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "sagt": [
@@ -2973,14 +3037,16 @@
       "person": [
         3
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "gesagt": [
     {
       "pos": "VERB_PART",
       "lemma": "sagen",
-      "valency": "TRANS"
+      "valency": "TRANS",
+      "ditransitive": true
     }
   ],
   "absagen": [
@@ -3360,7 +3426,8 @@
     {
       "pos": "VERB_INF",
       "lemma": "schreiben",
-      "valency": "TRANS"
+      "valency": "TRANS",
+      "ditransitive": true
     },
     {
       "pos": "VERB_FIN",
@@ -3370,7 +3437,8 @@
         1,
         3
       ],
-      "number": "pl"
+      "number": "pl",
+      "ditransitive": true
     }
   ],
   "schreibe": [
@@ -3381,7 +3449,8 @@
       "person": [
         1
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "schreibst": [
@@ -3392,7 +3461,8 @@
       "person": [
         2
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "schreibt": [
@@ -3403,14 +3473,16 @@
       "person": [
         3
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "geschrieben": [
     {
       "pos": "VERB_PART",
       "lemma": "schreiben",
-      "valency": "TRANS"
+      "valency": "TRANS",
+      "ditransitive": true
     }
   ],
   "lernen": [
@@ -3634,7 +3706,8 @@
     {
       "pos": "VERB_INF",
       "lemma": "geben",
-      "valency": "TRANS"
+      "valency": "TRANS",
+      "ditransitive": true
     },
     {
       "pos": "VERB_FIN",
@@ -3644,7 +3717,8 @@
         1,
         3
       ],
-      "number": "pl"
+      "number": "pl",
+      "ditransitive": true
     }
   ],
   "gebe": [
@@ -3655,7 +3729,8 @@
       "person": [
         1
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "gibst": [
@@ -3666,7 +3741,8 @@
       "person": [
         2
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "gibt": [
@@ -3677,14 +3753,16 @@
       "person": [
         3
       ],
-      "number": "sg"
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "gegeben": [
     {
       "pos": "VERB_PART",
       "lemma": "geben",
-      "valency": "TRANS"
+      "valency": "TRANS",
+      "ditransitive": true
     }
   ],
   "stornieren": [
@@ -3755,7 +3833,8 @@
       "pos": "NOUN",
       "lemma": "Termin",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Termine"
     }
   ],
   "termine": [
@@ -3787,7 +3866,8 @@
       "pos": "NOUN",
       "lemma": "Kurs",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Kurse"
     }
   ],
   "kurse": [
@@ -3836,7 +3916,8 @@
       "lemma": "Arbeit",
       "gender": "f",
       "number": "sg",
-      "isUncountable": true
+      "isUncountable": true,
+      "plural": "Arbeiten"
     }
   ],
   "überstunde": [
@@ -3844,7 +3925,8 @@
       "pos": "NOUN",
       "lemma": "Überstunde",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Überstunden"
     }
   ],
   "überstunden": [
@@ -3915,16 +3997,21 @@
       "lemma": "Herr",
       "gender": "m",
       "number": "sg",
-      "isTitle": true
+      "isTitle": true,
+      "weakMasculine": true,
+      "plural": "Herren",
+      "obliqueForm": "Herrn"
     }
   ],
   "herrn": [
     {
       "pos": "NOUN",
-      "lemma": "Herrn",
+      "lemma": "Herr",
       "gender": "m",
       "number": "sg",
-      "isTitle": true
+      "isTitle": true,
+      "weakMasculine": true,
+      "obliqueForm": "Herrn"
     }
   ],
   "herren": [
@@ -3941,7 +4028,8 @@
       "lemma": "Frau",
       "gender": "f",
       "number": "sg",
-      "isTitle": true
+      "isTitle": true,
+      "plural": "Frauen"
     }
   ],
   "frauen": [
@@ -3965,7 +4053,10 @@
       "pos": "NOUN",
       "lemma": "Kollege",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "weakMasculine": true,
+      "plural": "Kollegen",
+      "obliqueForm": "Kollegen"
     }
   ],
   "kollegen": [
@@ -3974,6 +4065,14 @@
       "lemma": "Kollegen",
       "gender": "m",
       "number": "pl"
+    },
+    {
+      "pos": "NOUN",
+      "lemma": "Kollege",
+      "gender": "m",
+      "number": "sg",
+      "weakMasculine": true,
+      "obliqueForm": "Kollegen"
     }
   ],
   "kollegin": [
@@ -4088,7 +4187,8 @@
       "pos": "NOUN",
       "lemma": "Information",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Informationen"
     }
   ],
   "informationen": [
@@ -4128,7 +4228,8 @@
       "pos": "NOUN",
       "lemma": "Gruß",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Grüße"
     }
   ],
   "gruss": [
@@ -4160,7 +4261,9 @@
       "pos": "NOUN",
       "lemma": "Name",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "weakMasculine": true,
+      "obliqueForm": "Namen"
     }
   ],
   "bus": [
@@ -4184,7 +4287,8 @@
       "pos": "NOUN",
       "lemma": "Freund",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Freunde"
     }
   ],
   "freunde": [
@@ -4289,7 +4393,8 @@
       "lemma": "Wohnung",
       "gender": "f",
       "number": "sg",
-      "category": "rental_object"
+      "category": "rental_object",
+      "plural": "Wohnungen"
     }
   ],
   "stadt": [
@@ -4345,7 +4450,8 @@
       "pos": "NOUN",
       "lemma": "Kind",
       "gender": "n",
-      "number": "sg"
+      "number": "sg",
+      "plural": "Kinder"
     }
   ],
   "kinder": [
@@ -4740,7 +4846,8 @@
       "lemma": "Ferienwohnung",
       "gender": "f",
       "number": "sg",
-      "category": "rental_object"
+      "category": "rental_object",
+      "plural": "Ferienwohnungen"
     }
   ],
   "ferienwohnungen": [
@@ -4767,7 +4874,8 @@
       "lemma": "Hund",
       "gender": "m",
       "number": "sg",
-      "category": "pet"
+      "category": "pet",
+      "plural": "Hunde"
     }
   ],
   "hunde": [
@@ -4785,7 +4893,8 @@
       "lemma": "Haustier",
       "gender": "n",
       "number": "sg",
-      "category": "pet"
+      "category": "pet",
+      "plural": "Haustiere"
     }
   ],
   "haustiere": [
@@ -4803,7 +4912,8 @@
       "lemma": "Katze",
       "gender": "f",
       "number": "sg",
-      "category": "pet"
+      "category": "pet",
+      "plural": "Katzen"
     }
   ],
   "katzen": [
@@ -4819,7 +4929,6 @@
     {
       "pos": "NOUN",
       "lemma": "Erwachsene",
-      "gender": "pl",
       "number": "pl",
       "category": "person",
       "case": [
@@ -4832,7 +4941,6 @@
     {
       "pos": "NOUN",
       "lemma": "Erwachsene",
-      "gender": "pl",
       "number": "pl",
       "category": "person",
       "case": [
@@ -4903,7 +5011,10 @@
       "pos": "VERB_FIN",
       "lemma": "bleiben",
       "valency": "INTRANS",
-      "person": [1, 3],
+      "person": [
+        1,
+        3
+      ],
       "number": "pl"
     }
   ],
@@ -4912,7 +5023,9 @@
       "pos": "VERB_FIN",
       "lemma": "bleiben",
       "valency": "INTRANS",
-      "person": [1],
+      "person": [
+        1
+      ],
       "number": "sg"
     }
   ],
@@ -4921,7 +5034,9 @@
       "pos": "VERB_FIN",
       "lemma": "bleiben",
       "valency": "INTRANS",
-      "person": [3],
+      "person": [
+        3
+      ],
       "number": "sg"
     }
   ],
@@ -4935,7 +5050,10 @@
       "pos": "VERB_FIN",
       "lemma": "wohnen",
       "valency": "INTRANS",
-      "person": [1, 3],
+      "person": [
+        1,
+        3
+      ],
       "number": "pl"
     }
   ],
@@ -4944,7 +5062,9 @@
       "pos": "VERB_FIN",
       "lemma": "wohnen",
       "valency": "INTRANS",
-      "person": [1],
+      "person": [
+        1
+      ],
       "number": "sg"
     }
   ],
@@ -4953,7 +5073,9 @@
       "pos": "VERB_FIN",
       "lemma": "wohnen",
       "valency": "INTRANS",
-      "person": [3],
+      "person": [
+        3
+      ],
       "number": "sg"
     }
   ],
@@ -4969,7 +5091,10 @@
       "lemma": "zahlen",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [1, 3],
+      "person": [
+        1,
+        3
+      ],
       "number": "pl"
     }
   ],
@@ -4979,7 +5104,9 @@
       "lemma": "zahlen",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [3],
+      "person": [
+        3
+      ],
       "number": "sg"
     }
   ],
@@ -4995,7 +5122,10 @@
       "lemma": "bezahlen",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [1, 3],
+      "person": [
+        1,
+        3
+      ],
       "number": "pl"
     }
   ],
@@ -5005,7 +5135,9 @@
       "lemma": "bezahlen",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [3],
+      "person": [
+        3
+      ],
       "number": "sg"
     }
   ],
@@ -5014,15 +5146,20 @@
       "pos": "VERB_INF",
       "lemma": "schicken",
       "valency": "TRANS",
-      "objCase": "AKK"
+      "objCase": "AKK",
+      "ditransitive": true
     },
     {
       "pos": "VERB_FIN",
       "lemma": "schicken",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [1, 3],
-      "number": "pl"
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl",
+      "ditransitive": true
     }
   ],
   "schicke": [
@@ -5031,8 +5168,11 @@
       "lemma": "schicken",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [1],
-      "number": "sg"
+      "person": [
+        1
+      ],
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "schickst": [
@@ -5041,8 +5181,11 @@
       "lemma": "schicken",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [2],
-      "number": "sg"
+      "person": [
+        2
+      ],
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "schickt": [
@@ -5051,8 +5194,11 @@
       "lemma": "schicken",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [3],
-      "number": "sg"
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "geschickt": [
@@ -5060,7 +5206,8 @@
       "pos": "VERB_PART",
       "lemma": "schicken",
       "valency": "TRANS",
-      "objCase": "AKK"
+      "objCase": "AKK",
+      "ditransitive": true
     }
   ],
   "senden": [
@@ -5068,15 +5215,20 @@
       "pos": "VERB_INF",
       "lemma": "senden",
       "valency": "TRANS",
-      "objCase": "AKK"
+      "objCase": "AKK",
+      "ditransitive": true
     },
     {
       "pos": "VERB_FIN",
       "lemma": "senden",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [1, 3],
-      "number": "pl"
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl",
+      "ditransitive": true
     }
   ],
   "sende": [
@@ -5085,8 +5237,11 @@
       "lemma": "senden",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [1],
-      "number": "sg"
+      "person": [
+        1
+      ],
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "sendest": [
@@ -5095,8 +5250,11 @@
       "lemma": "senden",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [2],
-      "number": "sg"
+      "person": [
+        2
+      ],
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "sendet": [
@@ -5105,8 +5263,11 @@
       "lemma": "senden",
       "valency": "TRANS",
       "objCase": "AKK",
-      "person": [3],
-      "number": "sg"
+      "person": [
+        3
+      ],
+      "number": "sg",
+      "ditransitive": true
     }
   ],
   "gesendet": [
@@ -5114,7 +5275,1414 @@
       "pos": "VERB_PART",
       "lemma": "senden",
       "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true
+    }
+  ],
+  "person": [
+    {
+      "pos": "NOUN",
+      "lemma": "Person",
+      "gender": "f",
+      "number": "sg",
+      "category": "person",
+      "plural": "Personen"
+    }
+  ],
+  "personen": [
+    {
+      "pos": "NOUN",
+      "lemma": "Personen",
+      "gender": "f",
+      "number": "pl",
+      "category": "person"
+    }
+  ],
+  "nacht": [
+    {
+      "pos": "NOUN",
+      "lemma": "Nacht",
+      "gender": "f",
+      "number": "sg",
+      "plural": "Nächte",
+      "category": "duration"
+    }
+  ],
+  "nächte": [
+    {
+      "pos": "NOUN",
+      "lemma": "Nächte",
+      "gender": "f",
+      "number": "pl",
+      "category": "duration"
+    }
+  ],
+  "naechte": [
+    {
+      "pos": "NOUN",
+      "lemma": "Nächte",
+      "gender": "f",
+      "number": "pl",
+      "category": "duration"
+    }
+  ],
+  "apartment": [
+    {
+      "pos": "NOUN",
+      "lemma": "Apartment",
+      "gender": "n",
+      "number": "sg",
+      "plural": "Apartments"
+    }
+  ],
+  "apartments": [
+    {
+      "pos": "NOUN",
+      "lemma": "Apartments",
+      "gender": "n",
+      "number": "pl"
+    }
+  ],
+  "sommer": [
+    {
+      "pos": "NOUN",
+      "lemma": "Sommer",
+      "gender": "m",
+      "number": "sg",
+      "category": "season"
+    }
+  ],
+  "winter": [
+    {
+      "pos": "NOUN",
+      "lemma": "Winter",
+      "gender": "m",
+      "number": "sg",
+      "category": "season"
+    }
+  ],
+  "herbst": [
+    {
+      "pos": "NOUN",
+      "lemma": "Herbst",
+      "gender": "m",
+      "number": "sg",
+      "category": "season"
+    }
+  ],
+  "frühling": [
+    {
+      "pos": "NOUN",
+      "lemma": "Frühling",
+      "gender": "m",
+      "number": "sg",
+      "category": "season"
+    }
+  ],
+  "fruehling": [
+    {
+      "pos": "NOUN",
+      "lemma": "Frühling",
+      "gender": "m",
+      "number": "sg",
+      "category": "season"
+    }
+  ],
+  "abend": [
+    {
+      "pos": "NOUN",
+      "lemma": "Abend",
+      "gender": "m",
+      "number": "sg",
+      "category": "daytime"
+    }
+  ],
+  "vormittag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Vormittag",
+      "gender": "m",
+      "number": "sg",
+      "category": "daytime"
+    }
+  ],
+  "nachmittag": [
+    {
+      "pos": "NOUN",
+      "lemma": "Nachmittag",
+      "gender": "m",
+      "number": "sg",
+      "category": "daytime"
+    }
+  ],
+  "besuchen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "besuchen",
+      "valency": "TRANS",
       "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besuchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "besuche": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besuchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "besuchst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besuchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "besucht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besuchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    },
+    {
+      "pos": "VERB_PART",
+      "lemma": "besuchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "buchen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "buchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "buchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "buche": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "buchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "buchst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "buchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "bucht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "buchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gebucht": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "buchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "kaufen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "kaufen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kaufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "kaufe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kaufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "kaufst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kaufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "kauft": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "kaufen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gekauft": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "kaufen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "suchen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "suchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "suchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "suche": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "suchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "suchst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "suchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "sucht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "suchen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gesucht": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "suchen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "finden": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "finden",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "finden",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "finde": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "finden",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "findest": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "finden",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "findet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "finden",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gefunden": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "finden",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "sehen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "sehen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sehen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "sehe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sehen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "siehst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sehen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "sieht": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "sehen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gesehen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "sehen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "treffen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "treffen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "treffen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "treffe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "treffen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "triffst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "treffen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "trifft": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "treffen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "getroffen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "treffen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "nehmen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "nehmen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "nehmen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "nehme": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "nehmen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "nimmst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "nehmen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "nimmt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "nehmen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "genommen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "nehmen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "bekommen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "bekommen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bekommen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "bekomme": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bekommen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "bekommst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bekommen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "bekommt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bekommen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "reservieren": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "reservieren",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reservieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "reserviere": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reservieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "reservierst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reservieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "reserviert": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reservieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    },
+    {
+      "pos": "VERB_PART",
+      "lemma": "reservieren",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "besichtigen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "besichtigen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besichtigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "besichtige": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besichtigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "besichtigst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besichtigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "besichtigt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "besichtigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    },
+    {
+      "pos": "VERB_PART",
+      "lemma": "besichtigen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "fragen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "fragen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fragen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "frage": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fragen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "fragst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fragen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "fragt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fragen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gefragt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "fragen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "essen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "essen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "essen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "esse": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "essen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "isst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "essen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gegessen": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "essen",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "trinken": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "trinken",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "trinken",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "trinke": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "trinken",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "trinkst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "trinken",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "trinkt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "trinken",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "getrunken": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "trinken",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "interessieren": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "interessieren",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "interessieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "interessiere": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "interessieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "interessierst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "interessieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "interessiert": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "interessieren",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    },
+    {
+      "pos": "VERB_PART",
+      "lemma": "interessieren",
+      "valency": "TRANS",
+      "objCase": "AKK"
+    }
+  ],
+  "bringen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "bringen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bringen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "bringe": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bringen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "bringst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bringen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "bringt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "bringen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gebracht": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "bringen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true
+    }
+  ],
+  "zeigen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "zeigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "zeigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "zeige": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "zeigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "zeigst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "zeigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "zeigt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "zeigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true,
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gezeigt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "zeigen",
+      "valency": "TRANS",
+      "objCase": "AKK",
+      "ditransitive": true
+    }
+  ],
+  "fehlen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "fehlen",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fehlen",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "fehle": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fehlen",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "fehlst": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fehlen",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "fehlt": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "fehlen",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gefehlt": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "fehlen",
+      "valency": "INTRANS"
+    }
+  ],
+  "übernachten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "übernachten",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "übernachten",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "übernachte": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "übernachten",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "übernachtest": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "übernachten",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "übernachtet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "übernachten",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    },
+    {
+      "pos": "VERB_PART",
+      "lemma": "übernachten",
+      "valency": "INTRANS"
+    }
+  ],
+  "reisen": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "reisen",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reisen",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "reise": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reisen",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "reist": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "reisen",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gereist": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "reisen",
+      "valency": "INTRANS"
+    }
+  ],
+  "warten": [
+    {
+      "pos": "VERB_INF",
+      "lemma": "warten",
+      "valency": "INTRANS"
+    },
+    {
+      "pos": "VERB_FIN",
+      "lemma": "warten",
+      "valency": "INTRANS",
+      "person": [
+        1,
+        3
+      ],
+      "number": "pl"
+    }
+  ],
+  "warte": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "warten",
+      "valency": "INTRANS",
+      "person": [
+        1
+      ],
+      "number": "sg"
+    }
+  ],
+  "wartest": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "warten",
+      "valency": "INTRANS",
+      "person": [
+        2
+      ],
+      "number": "sg"
+    }
+  ],
+  "wartet": [
+    {
+      "pos": "VERB_FIN",
+      "lemma": "warten",
+      "valency": "INTRANS",
+      "person": [
+        3
+      ],
+      "number": "sg"
+    }
+  ],
+  "gewartet": [
+    {
+      "pos": "VERB_PART",
+      "lemma": "warten",
+      "valency": "INTRANS"
     }
   ]
 }

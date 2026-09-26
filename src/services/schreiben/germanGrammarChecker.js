@@ -10,9 +10,13 @@ import { checkSyntaxRules } from './rules/syntaxRuleChecker.js';
 import { checkRektionRules } from './rules/rektionRuleChecker.js';
 import { parseSentenceTopology } from './linguistic/topologicalFieldParser.js';
 import { validateCaseAndValency } from './linguistic/caseValencyValidator.js';
+import { createGrammarEngine } from './linguistic/grammarEngine.js';
+import { A1_GRAMMAR_PROFILE } from './profiles/a1GrammarProfile.js';
 import { tagTokens } from './linguistic/a1LexiconService.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
+
+const a1GrammarEngine = createGrammarEngine(A1_GRAMMAR_PROFILE);
 
 function collectSentenceLinguisticErrors(sentence) {
   const errors = [];
@@ -23,10 +27,7 @@ function collectSentenceLinguisticErrors(sentence) {
 
   const words = sentence.trim().replace(/[.,!?;:]+$/, '').split(/\s+/).filter(Boolean);
   const tagged = tagTokens(words);
-  const caseErrors = validateCaseAndValency(tagged);
-  if (caseErrors.length > 0) {
-    errors.push(...caseErrors);
-  }
+  errors.push(...validateCaseAndValency(tagged), ...a1GrammarEngine.checkSentence(words));
   return errors;
 }
 

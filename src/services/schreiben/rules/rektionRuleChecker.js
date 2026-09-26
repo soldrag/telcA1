@@ -4,11 +4,9 @@
  */
 
 const MONTHS = ['januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember'];
-const COPULAS = ['ist', 'bin', 'bist', 'sind', 'war', 'waren', 'seid'];
-const DATIVE_PREPS = ['zu', 'mit', 'bei', 'nach', 'von', 'aus', 'seit'];
 
 function checkMonthPreposition(text) {
-  const monthRegex = new RegExp(`\\b(in|für)\\s+(${MONTHS.join('|')})\\b`, 'i');
+  const monthRegex = new RegExp(`\\b(für)\\s+(${MONTHS.join('|')})\\b`, 'i');
   const monthMatch = text.match(monthRegex);
   if (!monthMatch) return [];
   const month = monthMatch[2];
@@ -18,18 +16,6 @@ function checkMonthPreposition(text) {
     correction: `im ${capitalized}`,
     category: 'rektion',
     explanation: `Zeitangaben mit Monaten stehen mit „im“: „im ${capitalized}“ (nicht „${monthMatch[0]}“)`
-  }];
-}
-
-function checkMasculineAkkusativ(text) {
-  const match = text.match(/\bein\s+(deutschkurs|kurs|termin|ausweis)\b/i);
-  if (!match) return [];
-  const noun = match[1].charAt(0).toUpperCase() + match[1].slice(1);
-  return [{
-    original: `ein ${match[1]}`,
-    correction: `einen ${noun}`,
-    category: 'rektion',
-    explanation: `Maskuline Nomen im Akkusativ benötigen „einen“: „einen ${noun}“ (nicht „ein ${match[1]}“)`
   }];
 }
 
@@ -70,47 +56,6 @@ function checkAnmeldenPreposition(text) {
   }];
 }
 
-function checkDativeIndirectObject(text) {
-  const match = text.match(/\b(antworten|helfen|danken|schreiben|telefonieren)\s+(sie|du|ich|er|sie|wir|ihr)\s+(mich|dich)\b/i);
-  if (!match) return [];
-  const [, verb, person, acc] = match;
-  const dative = acc.toLowerCase() === 'mich' ? 'mir' : 'dir';
-  return [{
-    original: match[0],
-    correction: `${verb} ${person} ${dative}`,
-    category: 'rektion',
-    explanation: `Der indirekte Gegenstand steht im Dativ: „${verb} ${person} ${dative}“ (nicht „${match[0]}“)`
-  }];
-}
-
-function checkPossessiveDeclension(text) {
-  const match = text.match(/\b(mein|dein|kein)\s+(Termin|Kurs|Zimmer|Ticket|Ausweis|Urlaub)\b/i);
-  if (!match) return [];
-  const matchIndex = match.index || 0;
-  const before = text.slice(0, matchIndex);
-  const after = text.slice(matchIndex + match[0].length);
-  const prevWord = ((before.match(/\S+\s*$/) || [''])[0]).replace(/[.,!?;:]/g, '').trim().toLowerCase();
-  const nextWord = ((after.match(/^\s*\S+/) || [''])[0]).replace(/[.,!?;:]/g, '').trim().toLowerCase();
-  if (matchIndex === 0 || COPULAS.includes(prevWord) || COPULAS.includes(nextWord)) return [];
-
-  const poss = match[1];
-  const noun = match[2].charAt(0).toUpperCase() + match[2].slice(1);
-  if (DATIVE_PREPS.includes(prevWord)) {
-    return [{
-      original: `${prevWord} ${match[0]}`,
-      correction: `${prevWord} ${poss}em ${noun}`,
-      category: 'rektion',
-      explanation: `Dativ nach Präposition „${prevWord}“: Das maskuline Possessivpronomen erhält im Dativ die Endung „-em“: „${prevWord} ${poss}em ${noun}“ (nicht „${prevWord} ${match[0]}“).`
-    }];
-  }
-  return [{
-    original: match[0],
-    correction: `${poss}en ${noun}`,
-    category: 'rektion',
-    explanation: `Maskulines Nomen im Akkusativ: Das Possessivpronomen erhält die Endung „-en“: „${poss}en ${noun}“ (nicht „${match[0]}“).`
-  }];
-}
-
 function checkWeekdayPreposition(text) {
   const match = text.match(/\ban\s+(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag)\b/i);
   if (!match) return [];
@@ -120,18 +65,6 @@ function checkWeekdayPreposition(text) {
     correction: `am ${day}`,
     category: 'rektion',
     explanation: `Falsche Präposition bei Wochentagen: Bei Tagen der Woche verwendet man „am“ (an + dem): „am ${day}“ (nicht „${match[0]}“).`
-  }];
-}
-
-function checkWegenPreposition(text) {
-  const match = text.match(/\bwegen\s+die\s+([A-ZÄÖÜa-zäöüß]+)\b/i);
-  if (!match) return [];
-  const noun = match[1];
-  return [{
-    original: match[0],
-    correction: `wegen der ${noun}`,
-    category: 'rektion',
-    explanation: `Kasus nach der Präposition „wegen“: „wegen“ verlangt den Genitiv (oder Dativ): „wegen der ${noun}“ (nicht „${match[0]}“).`
   }];
 }
 
@@ -161,14 +94,10 @@ function checkClosingDative(text) {
 export function checkRektionRules(text = '') {
   return [
     ...checkMonthPreposition(text),
-    ...checkMasculineAkkusativ(text),
     ...checkMissingArticle(text),
     ...checkReflexiveAnmelden(text),
     ...checkAnmeldenPreposition(text),
-    ...checkDativeIndirectObject(text),
-    ...checkPossessiveDeclension(text),
     ...checkWeekdayPreposition(text),
-    ...checkWegenPreposition(text),
     ...checkClosingDative(text),
   ];
 }

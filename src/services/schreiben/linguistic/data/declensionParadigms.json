@@ -1,0 +1,63 @@
+{
+  "determiners": {
+    "definite": {
+      "adjectiveDeclension": "weak",
+      "stems": { "d": "d" },
+      "forms": {
+        "NOM": { "m": "er", "f": "ie", "n": "as", "pl": "ie" },
+        "AKK": { "m": "en", "f": "ie", "n": "as", "pl": "ie" },
+        "DAT": { "m": "em", "f": "er", "n": "em", "pl": "en" },
+        "GEN": { "m": "es", "f": "er", "n": "es", "pl": "er" }
+      }
+    },
+    "demonstrative": {
+      "adjectiveDeclension": "weak",
+      "stems": { "dies": "dies", "jed": "jed", "welch": "welch" },
+      "forms": {
+        "NOM": { "m": "er", "f": "e", "n": "es", "pl": "e" },
+        "AKK": { "m": "en", "f": "e", "n": "es", "pl": "e" },
+        "DAT": { "m": "em", "f": "er", "n": "em", "pl": "en" },
+        "GEN": { "m": "es", "f": "er", "n": "es", "pl": "er" }
+      }
+    },
+    "possessive": {
+      "adjectiveDeclension": "mixed",
+      "stems": { "ein": "ein", "kein": "kein", "mein": "mein", "dein": "dein", "sein": "sein", "ihr": "ihr", "unser": "unser", "euer": "eur" },
+      "singularOnly": ["ein"],
+      "forms": {
+        "NOM": { "m": "", "f": "e", "n": "", "pl": "e" },
+        "AKK": { "m": "en", "f": "e", "n": "", "pl": "e" },
+        "DAT": { "m": "em", "f": "er", "n": "em", "pl": "en" },
+        "GEN": { "m": "es", "f": "er", "n": "es", "pl": "er" }
+      }
+    }
+  },
+  "adjectiveEndings": {
+    "weak": {
+      "NOM": { "m": "e", "f": "e", "n": "e", "pl": "en" },
+      "AKK": { "m": "en", "f": "e", "n": "e", "pl": "en" },
+      "DAT": { "m": "en", "f": "en", "n": "en", "pl": "en" },
+      "GEN": { "m": "en", "f": "en", "n": "en", "pl": "en" }
+    },
+    "mixed": {
+      "NOM": { "m": "er", "f": "e", "n": "es", "pl": "en" },
+      "AKK": { "m": "en", "f": "e", "n": "es", "pl": "en" },
+      "DAT": { "m": "en", "f": "en", "n": "en", "pl": "en" },
+      "GEN": { "m": "en", "f": "en", "n": "en", "pl": "en" }
+    },
+    "strong": {
+      "NOM": { "m": "er", "f": "e", "n": "es", "pl": "e" },
+      "AKK": { "m": "en", "f": "e", "n": "es", "pl": "e" },
+      "DAT": { "m": "em", "f": "er", "n": "em", "pl": "en" },
+      "GEN": { "m": "en", "f": "er", "n": "en", "pl": "er" }
+    }
+  },
+  "adjectiveEndingCandidates": ["em", "en", "er", "es", "e"],
+  "massQuantifierStems": ["viel", "wenig"],
+  "degreeParticles": ["zu"],
+  "cardinals": ["zwei", "drei", "vier", "fünf", "fuenf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "zwoelf", "zwanzig", "hundert"],
+  "noun": {
+    "dativePluralSuffix": "n",
+    "dativePluralExemptEndings": ["n", "s"]
+  }
+}

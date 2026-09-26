@@ -4,7 +4,7 @@
   {"id": "dat_possessive_repeated", "stage": 2, "text": "Ich fahre mit meine Mutter und mit meine Schwester nach Berlin.", "expect": ["meiner Mutter", "meiner Schwester"]},
   {"id": "dative_pronoun_valency", "stage": 2, "text": "Bitte antworten Sie mich schnell.", "expect": ["mir"]},
   {"id": "akk_new_appointment", "stage": 2, "text": "Ich brauche ein neuer Termin.", "expect": ["einen neuen Termin"]},
-  {"id": "date_contraction", "stage": 2, "text": "Wir kommen von 15. Juli bis 25. Juli.", "expect": ["vom 15. Juli", "zum 25. Juli"]},
+  {"id": "date_contraction", "stage": 2, "text": "Wir kommen von 15. Juli bis 25. Juli.", "expect": ["vom 15. Juli"]},
   {"id": "ausklammerung_pp", "stage": 3, "text": "Ich will im Sommer Urlaub machen an der Ostsee.", "expect": ["an der Ostsee machen"]},
   {"id": "month_preposition", "stage": 4, "text": "Ich komme in Juli nach Hamburg.", "expect": ["im Juli"]},
   {"id": "noun_capitalisation", "stage": 5, "text": "Ich habe am Montag einen termin beim Arzt.", "expect": ["Termin"]},

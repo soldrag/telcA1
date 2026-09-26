@@ -13,6 +13,11 @@ export function lookupWord(word = '') {
   return LEXICON[clean] || [];
 }
 
+/** @returns {string[]} words with at least one entry matching the predicate */
+export function findWordForms(predicate) {
+  return Object.keys(LEXICON).filter((word) => LEXICON[word].some(predicate));
+}
+
 export function isKnownWord(word = '') {
   return lookupWord(word).length > 0;
 }
@@ -32,7 +37,7 @@ function resolveVerbHomonymy(candidates = [], prevToken = null, nextToken = null
   // Inverted questions, imperatives, or V2 after fronted adverbs/particles: "Können wir...", "Bitte rufen Sie...", "Leider kann ich..."
   const prevLower = (prevToken?.raw || prevToken?.lemma || '').toLowerCase().replace(/^[.,!?;:]+|[.,!?;:]+$/g, '');
   const isPoliteIntro = prevToken && ['bitte', 'leider', 'vielleicht', 'jetzt', 'dann', 'zuerst', 'heute', 'morgen'].includes(prevLower);
-  const isFrontedAdverbOrPart = prevToken && (prevToken.pos === 'ADV' || prevToken.pos === 'PART' || isPoliteIntro);
+  const isFrontedAdverbOrPart = prevToken && (prevToken.pos === 'ADV' || prevToken.pos === 'PART' || prevToken.pos === 'INTERROG' || isPoliteIntro);
 
   if (!prevToken || (isFrontedAdverbOrPart && nextToken && nextToken.pos === 'PRON_SUBJ')) {
     return candidates.find(c => c.pos === 'VERB_FIN' || c.pos === 'VERB_MOD') || null;
