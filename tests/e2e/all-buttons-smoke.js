@@ -117,7 +117,7 @@ async function runSmoke() {
     }
     console.log('✔ AssignmentLandingScreen loaded in real DOM!');
 
-    // 3. Click "Start Assignment" / "Начать выполнение" button
+    // 3. Click "Start Assignment" button
     console.log('🖱 Clicking Start Assignment button...');
     const clickResult = await send('Runtime.evaluate', {
       expression: `(() => {

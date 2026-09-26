@@ -27,6 +27,7 @@ RUN npm ci --omit=dev
 
 COPY shared/ ./shared/
 COPY server/ ./server/
+COPY src/config/ ./src/config/
 COPY src/services/ ./src/services/
 COPY src/utils/ ./src/utils/
 COPY certs/ ./certs/

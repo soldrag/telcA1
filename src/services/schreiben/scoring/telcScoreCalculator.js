@@ -2,22 +2,14 @@
  * telc A1 scoring matrix calculator.
  * Form: Salutation (0-2) + Closing (0-2)
  * Content: 3 Leitpunkte (0-2 each = 0-6)
- *
- * telc A1 official linguistic penalty guidelines:
- * Orthography (Groß-/Kleinschreibung) is penalized more mildly than severe syntax/comprehension breakdown.
- * Grammar penalty:
- * 1-2 errors: -1
- * 3-5 errors: -2
- * 6-7 errors: -3
- * 8+ errors: -4
+ * Delegates penalty logic to A1RankerPolicy adhering to Clean Architecture.
+ * Strictly complies with McConnell limits (<= 45 lines).
  */
 
+import { defaultA1RankerPolicy } from '../grading/policies/a1RankerPolicy.js';
+
 export function calculateGrammarPenalty(errorsCount = 0) {
-  if (errorsCount >= 8) return 4;
-  if (errorsCount >= 6) return 3;
-  if (errorsCount >= 3) return 2;
-  if (errorsCount >= 1) return 1;
-  return 0;
+  return defaultA1RankerPolicy.calculateGrammarPenalty(errorsCount);
 }
 
 export function computeTelcFinalScore({

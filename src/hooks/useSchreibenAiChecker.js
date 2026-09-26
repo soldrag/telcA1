@@ -3,7 +3,8 @@ import { gradeSchreibenSubmission } from '../services/schreiben/gradingPipeline.
 import { gradeSchreibenWithWorker, isWorkerSupported } from '../services/schreiben/grading/gradingWorkerClient.js';
 import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../services/ai/types.js';
-import { mergeCandidateGrammarErrors } from '../services/schreiben/linguistic/sentenceGrammarFilter.js';
+import { applyAiGradingResult } from './schreibenAiResultApplier.js';
+import { compareGradingResults } from '../services/schreiben/grading/abTestingService.js';
 
 const CRITERION_LABELS = {
   anrede: 'Anrede',
@@ -33,7 +34,7 @@ export function useSchreibenAiChecker({
   onApplyScores,
   onApplyErrors,
   t,
-  language
+  language,
 }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiStatus, setAiStatus] = useState('');
@@ -41,88 +42,112 @@ export function useSchreibenAiChecker({
   const [feedbackSummary, setFeedbackSummary] = useState('');
   const [activeProvider, setActiveProvider] = useState(null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
+  const [abComparison, setAbComparison] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
-    aiProviderRegistry.getActiveProvider().then(p => {
+    aiProviderRegistry.getActiveProvider().then((p) => {
       if (isMounted) setActiveProvider(p);
     });
     return () => { isMounted = false; };
   }, []);
+
+  const runEvaluationForProvider = useCallback(async (targetProvider = null, progressPrefix = '') => {
+    const provider = targetProvider || await aiProviderRegistry.getActiveProvider();
+    setActiveProvider(provider);
+    const onProg = (text) => setAiStatus(progressPrefix ? `${progressPrefix}: ${text}` : text);
+
+    if (!targetProvider && provider.id === PROVIDER_IDS.CLIENT_WEBGPU && isWorkerSupported()) {
+      return await gradeSchreibenWithWorker({
+        userText: item.user_answer,
+        question: item,
+        onProgress: onProg,
+      });
+    }
+    return await gradeSchreibenSubmission({
+      userText: item.user_answer,
+      question: item,
+      provider,
+      onProgress: onProg,
+    });
+  }, [item]);
+
+  const applyResult = useCallback((res) => {
+    applyAiGradingResult({
+      aiResult: res,
+      item,
+      scores,
+      onApplyScores,
+      onApplyErrors,
+      setAiDiffSummary,
+      setFeedbackSummary,
+      setLiveCriteriaBreakdown,
+      setAiStatus,
+      language,
+    });
+  }, [item, scores, onApplyScores, onApplyErrors, language]);
 
   const handleRunAi = useCallback(async () => {
     setAiLoading(true);
     setAiStatus(t('results.aiCheckLoading'));
     setAiDiffSummary([]);
     setFeedbackSummary('');
-
     try {
-      const provider = await aiProviderRegistry.getActiveProvider();
-      setActiveProvider(provider);
-
-      let aiResult;
-      if (provider.id === PROVIDER_IDS.CLIENT_WEBGPU && isWorkerSupported()) {
-        aiResult = await gradeSchreibenWithWorker({
-          userText: item.user_answer,
-          question: item,
-          onProgress: (text) => setAiStatus(text)
-        });
-      } else {
-        aiResult = await gradeSchreibenSubmission({
-          userText: item.user_answer,
-          question: item,
-          provider,
-          onProgress: (text) => setAiStatus(text)
-        });
-      }
-
-      if (aiResult?.criteria_breakdown) {
-        const rawCb = aiResult.criteria_breakdown;
-        const normalizedScores = {
-          anrede: Number(rawCb.anrede) || 0,
-          lp1: Number(rawCb.lp1) || 0,
-          lp2: Number(rawCb.lp2) || 0,
-          lp3: Number(rawCb.lp3) || 0,
-          gruss: Number(rawCb.gruss) || 0,
-        };
-        const hasScoreChanged = Object.keys(normalizedScores).some(
-          k => normalizedScores[k] !== scores[k]
-        );
-        onApplyScores(normalizedScores);
-
-        if (Array.isArray(aiResult.grammar_errors)) {
-          const baselineErrors = Array.isArray(item.grammar_errors) ? item.grammar_errors : [];
-          const mergedErrors = mergeCandidateGrammarErrors(baselineErrors, aiResult.grammar_errors);
-          onApplyErrors(mergedErrors);
-        }
-        if (Array.isArray(aiResult.diff_summary) && aiResult.diff_summary.length > 0) {
-          setAiDiffSummary(aiResult.diff_summary);
-        }
-        if (aiResult.feedback_summary) {
-          setFeedbackSummary(aiResult.feedback_summary);
-        }
-        setLiveCriteriaBreakdown(aiResult.criteria_breakdown);
-
-        if (aiResult.is_limited_mode) {
-          setAiStatus(language === 'ru'
-            ? '✅ Выполнена правиловая оценка (ограниченный режим)'
-            : '✅ Regelbasierte Bewertung abgeschlossen (Eingeschränkter Modus)');
-        } else if (hasScoreChanged) {
-          setAiStatus(language === 'ru'
-            ? '✅ Нейросеть обновила баллы и список ошибок'
-            : '✅ KI hat Kriterien und Hinweise aktualisiert');
-        } else {
-          setAiStatus(language === 'ru'
-            ? '✅ Нейросеть подтвердила правильность баллов'
-            : '✅ KI hat den Text geprüft: Bewertung bestätigt');
-        }
-      }
+      const res = await runEvaluationForProvider(null);
+      applyResult(res);
     } catch (err) {
       setAiStatus(err.message || (language === 'ru' ? 'Ошибка проверки' : 'Fehler bei der Analyse'));
     } finally {
       setAiLoading(false);
     }
-  }, [item, scores, onApplyScores, onApplyErrors, t, language]);
+  }, [runEvaluationForProvider, applyResult, t, language]);
+
+  const handleRunRankerAi = useCallback(async () => {
+    setAiLoading(true);
+    setAiStatus(language === 'ru' ? 'Запуск микро-ранжировщика...' : 'Lade Micro-Ranker...');
+    setAiDiffSummary([]);
+    setFeedbackSummary('');
+    try {
+      const ranker = aiProviderRegistry.getProvider(PROVIDER_IDS.MICRO_RANKER);
+      const res = await runEvaluationForProvider(ranker);
+      applyResult(res);
+    } catch (err) {
+      setAiStatus(err.message || (language === 'ru' ? 'Ошибка ранжировщика' : 'Fehler beim Ranker'));
+    } finally {
+      setAiLoading(false);
+    }
+  }, [runEvaluationForProvider, applyResult, language]);
+
+  const handleRunAbComparison = useCallback(async () => {
+    setAiLoading(true);
+    setAiDiffSummary([]);
+    setFeedbackSummary('');
+    try {
+      const t0 = performance.now();
+      const standardProvider = await aiProviderRegistry.getActiveProvider();
+      const resA = await runEvaluationForProvider(standardProvider, 'A: Standard');
+      const durA = Math.round(performance.now() - t0);
+
+      const t1 = performance.now();
+      const ranker = aiProviderRegistry.getProvider(PROVIDER_IDS.MICRO_RANKER);
+      const resB = await runEvaluationForProvider(ranker, 'B: Ranker');
+      const durB = Math.round(performance.now() - t1);
+
+      const comp = compareGradingResults(resA, resB, {
+        durationMsA: durA,
+        durationMsB: durB,
+        providerAId: standardProvider.id,
+        providerBId: ranker.id,
+      });
+      setAbComparison(comp);
+      applyResult(resB);
+      setAiStatus(language === 'ru' ? '✅ A/B сравнение успешно выполнено' : '✅ A/B-Vergleich abgeschlossen');
+    } catch (err) {
+      setAiStatus(err.message || (language === 'ru' ? 'Ошибка A/B теста' : 'Fehler beim A/B-Test'));
+    } finally {
+      setAiLoading(false);
+    }
+  }, [runEvaluationForProvider, applyResult, language]);
 
   return {
     aiLoading,
@@ -130,9 +155,13 @@ export function useSchreibenAiChecker({
     aiDiffSummary,
     feedbackSummary,
     liveCriteriaBreakdown,
+    abComparison,
+    closeAbComparison: () => setAbComparison(null),
     handleRunAi,
+    handleRunRankerAi,
+    handleRunAbComparison,
     activeProvider,
     providerId: activeProvider?.id || PROVIDER_IDS.NONE,
-    isLimitedMode: activeProvider?.id === PROVIDER_IDS.NONE
+    isLimitedMode: activeProvider?.id === PROVIDER_IDS.NONE,
   };
 }

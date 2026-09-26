@@ -3,7 +3,9 @@
  * Extracts sentence embeddings scoring and candidate error gathering from the main pipeline orchestrator.
  */
 
-import { evaluateCriterionKeywords, isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
+import { evaluateCriterionKeywords } from './stage2Leitpunkte.js';
+import { arbitrateLeitpunkt, shouldArbitrateLeitpunkt } from './leitpunktArbitration.js';
+import { formatCriterionQuery } from './rankerFallbackScorer.js';
 import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { filterCandidateErrors } from './stage3Grammar.js';
@@ -13,24 +15,10 @@ import { validateSentenceFrame } from '../linguistic/semanticFrameValidator.js';
 import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
+import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/rankerEmbedder.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
-
-async function arbitrateLeitpunkt(criterion, relevantSentences, baselineScore, provider) {
-  if (!relevantSentences || !provider || provider.id === PROVIDER_IDS.NONE) {
-    return { score: baselineScore, arbitrated: false };
-  }
-  try {
-    const res = await provider.classifyCoverage(criterion, relevantSentences);
-    const rawScore = coverageToPoints(res?.coverage, baselineScore);
-    const { score: guardedScore, isProtected } = applyConfidenceFloor(baselineScore, rawScore);
-    return { score: guardedScore, arbitrated: guardedScore !== baselineScore || isProtected };
-  } catch (err) {
-    console.warn('[PipelineStageScorers] LP arbitration skipped on error:', err?.message || err);
-    return { score: baselineScore, arbitrated: false };
-  }
-}
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
@@ -78,13 +66,16 @@ async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceV
   const assigned = userSegments?.leitpunkte?.[critIdx]?.userSentence;
   const segSentences = userSegments?.leitpunkte?.[critIdx]?.sentences
     || (assigned && assigned !== 'Kein Satz im Text gefunden' ? splitGermanSentences(assigned) : []);
-  for (const s of segSentences) {
-    if (!relSentences.includes(s)) relSentences.push(s);
+  for (const s of [...segSentences].reverse()) {
+    const idx = relSentences.indexOf(s);
+    if (idx > -1) relSentences.splice(idx, 1);
+    relSentences.unshift(s);
   }
 
   if (sentenceVectors.length > 0) {
     try {
-      const lpVec = await getCachedLpEmbedding(crit.id, crit.label || crit.id, customExtractor);
+      const lpQuery = formatCriterionQuery(crit.label || crit.id, crit.keywords);
+      const lpVec = await getCachedLpEmbedding(crit.id, lpQuery, customExtractor);
       bodySentences.forEach((s, i) => {
         const sVec = sentenceVectors[i];
         const sim = sVec && lpVec ? cosineSimilarity(lpVec, sVec) : 0;
@@ -108,7 +99,7 @@ function calculateBaseScore(effectiveSim, framePenalty) {
 }
 
 async function scoreCriterionItem(params) {
-  const { crit, provider } = params;
+  const { crit, provider, bodySentences, rankerEmbedder, criteria = [] } = params;
   const lpText = crit.label || crit.id;
   const { relSentences, effectiveSim } = await gatherCriterionEvidence(params);
   const frameCheck = checkRelevantSentencesFrame(relSentences, crit);
@@ -116,10 +107,17 @@ async function scoreCriterionItem(params) {
 
   let finalScore = baseScore;
   let arbitrated = false;
-  if (isScoreInGrayZone(effectiveSim) && frameCheck.penalty === 0) {
-    const arb = await arbitrateLeitpunkt(crit, relSentences.join(' '), baseScore, provider);
+  let rankerDetails = null;
+
+  if (shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty: frameCheck.penalty })) {
+    const sentences = relSentences.length > 0 ? relSentences : (bodySentences || []);
+    const arb = await arbitrateLeitpunkt({
+      criterion: crit, sentences, baselineScore: baseScore, provider,
+      embedder: rankerEmbedder, rivalCriteria: criteria.filter((c) => c !== crit),
+    });
     finalScore = arb.score;
     arbitrated = arb.arbitrated;
+    rankerDetails = arb.rankerDetails || null;
   }
 
   const diagnosticCode = resolveLpDiagnosticCode(finalScore, frameCheck.inversionInfo, frameCheck.penalty === 0);
@@ -131,50 +129,33 @@ async function scoreCriterionItem(params) {
     baselineScore: baseScore,
     arbitrated,
     diagnosticCode,
-    matchedSentence: relSentences[0] || '',
-    frameErrors: frameCheck.frameErrors
+    matchedSentence: rankerDetails?.matchedSentence || relSentences[0] || '',
+    frameErrors: frameCheck.frameErrors,
+    rankerDetails,
   };
 }
 
-export async function scorePipelineLeitpunkte({
-  criteria,
-  bodySentences,
-  provider,
-  customExtractor,
-  userSegments = null,
-}) {
+export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null }) {
   const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
+  const rankerEmbedder = sentenceVectors.some(Boolean)
+    ? createRankerEmbedder({ customExtractor, sentenceVectors: buildSentenceVectorMap(bodySentences, sentenceVectors) })
+    : null;
   const items = [];
   const semanticErrors = [];
 
   for (let idx = 0; idx < criteria.length; idx++) {
-    const crit = criteria[idx];
     const scoredItem = await scoreCriterionItem({
-      crit,
-      critIdx: idx,
-      bodySentences,
-      sentenceVectors,
-      customExtractor,
-      provider,
-      userSegments,
+      crit: criteria[idx], critIdx: idx, bodySentences, sentenceVectors, customExtractor, provider, userSegments, rankerEmbedder, criteria
     });
     items.push(scoredItem);
-    if (scoredItem.frameErrors?.length > 0) {
-      semanticErrors.push(...scoredItem.frameErrors);
-    }
+    if (scoredItem.frameErrors?.length > 0) semanticErrors.push(...scoredItem.frameErrors);
   }
 
   const totalScore = items.reduce((sum, it) => sum + (Number(it.score) || 0), 0);
   return { items, totalScore, semanticErrors };
 }
 
-export async function collectPipelineGrammarErrors({
-  rawText,
-  bodySentences,
-  provider,
-  semanticErrors = [],
-  baselineErrors = []
-}) {
+export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider, semanticErrors = [], baselineErrors = [] }) {
   const ruleErrors = checkGermanA1Grammar(rawText) || [];
   const baseMerged = mergeCandidateGrammarErrors(baselineErrors, ruleErrors);
   const initial = mergeCandidateGrammarErrors(baseMerged, semanticErrors);
@@ -184,8 +165,7 @@ export async function collectPipelineGrammarErrors({
   for (const s of bodySentences.slice(0, 5)) {
     try {
       const rawCandidates = await provider.proposeGrammarCandidates(s);
-      const filtered = filterCandidateErrors(s, rawCandidates, 2);
-      candidateList.push(...filtered);
+      candidateList.push(...filterCandidateErrors(s, rawCandidates, 2));
     } catch (err) {
       console.warn('[PipelineStageScorers] Candidate grammar check skipped for sentence:', err?.message || err);
     }

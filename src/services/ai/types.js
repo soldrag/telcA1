@@ -5,6 +5,7 @@
 export const PROVIDER_IDS = {
   WINDOW_AI: 'window_ai',
   CLIENT_WEBGPU: 'client_webgpu',
+  MICRO_RANKER: 'micro_ranker',
   NONE: 'none',
 };
 

@@ -8,7 +8,9 @@ import { PROVIDER_IDS } from './types.js';
 import { NoneProvider } from './providers/NoneProvider.js';
 import { WindowAiProvider } from './providers/WindowAiProvider.js';
 import { ClientWebGpuProvider } from './providers/ClientWebGpuProvider.js';
+import { MicroRankerProvider } from './providers/MicroRankerProvider.js';
 import { isWebGPUSupported } from '../../utils/webGpuSupport.js';
+import { getPrimaryAiProviderId, isGenerativeLlmEnabled } from '../../config/aiConfig.js';
 
 const STORAGE_OVERRIDE_KEY = 'telc_ai_provider_override';
 
@@ -34,6 +36,7 @@ export class AIProviderRegistry {
   initializeDefaults() {
     this.register(new WindowAiProvider());
     this.register(new ClientWebGpuProvider());
+    this.register(new MicroRankerProvider());
     this.register(new NoneProvider());
   }
 
@@ -70,7 +73,13 @@ export class AIProviderRegistry {
     }
 
     let selected = null;
-    const priority = [PROVIDER_IDS.WINDOW_AI, PROVIDER_IDS.CLIENT_WEBGPU, PROVIDER_IDS.NONE];
+    const primaryId = getPrimaryAiProviderId();
+    const priority = [primaryId];
+    if (isGenerativeLlmEnabled()) {
+      priority.push(PROVIDER_IDS.WINDOW_AI, PROVIDER_IDS.CLIENT_WEBGPU);
+    }
+    priority.push(PROVIDER_IDS.NONE);
+
     for (const id of priority) {
       const p = this.providers.get(id);
       if (p) {

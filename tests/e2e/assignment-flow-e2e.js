@@ -261,8 +261,8 @@ async function runE2E() {
     })()`);
     console.log('Copy button feedback active:', copyFeedback);
 
-    // 10. Test expanding question card ("Разбор") - ensure NO blank screen or crash!
-    console.log('Testing question explanation expansion (Разбор)...');
+    // 10. Test expanding question card ("Explanation") - ensure NO blank screen or crash!
+    console.log('Testing question explanation expansion (Explanation)...');
     const expandResult = await cdp.evalJs(`(() => {
       const cards = Array.from(document.querySelectorAll('button')).filter(b =>
         b.innerText.includes('Aufgabe 1') || b.innerText.includes('Aufgabe')

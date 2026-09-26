@@ -107,6 +107,37 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
     });
     assert.match(fallbackZero, /Es fehlt eine passende Anrede/);
   });
+
+  it('reconciles contradictory diagnostic code when score does not match code', () => {
+    // Score is 2, but code was stale LP_MISSING
+    const reconciledRu = resolveTutorCriterionFeedback({
+      criterionId: 'lp3',
+      score: 2,
+      diagnosticCode: DIAGNOSTIC_CODES.LP_MISSING,
+      language: 'ru'
+    });
+    assert.match(reconciledRu, /Пункт раскрыт полностью \(2\/2\)/);
+    assert.doesNotMatch(reconciledRu, /Пункт не найден/);
+
+    // Score is 1, but code was stale LP_MISSING
+    const partialReconciled = resolveTutorCriterionFeedback({
+      criterionId: 'lp2',
+      score: 1,
+      diagnosticCode: DIAGNOSTIC_CODES.LP_MISSING,
+      language: 'ru'
+    });
+    assert.match(partialReconciled, /Пункт раскрыт частично \(1\/2\)/);
+    assert.doesNotMatch(partialReconciled, /Пункт не найден/);
+
+    // Score is 0, but code was LP_FULFILLED
+    const zeroReconciled = resolveTutorCriterionFeedback({
+      criterionId: 'lp1',
+      score: 0,
+      diagnosticCode: DIAGNOSTIC_CODES.LP_FULFILLED,
+      language: 'de'
+    });
+    assert.match(zeroReconciled, /Inhaltspunkt fehlt \(0\/2\)/);
+  });
 });
 
 describe('Linguistic Engine Diagnostic Grounding Integration', () => {

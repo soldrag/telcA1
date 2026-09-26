@@ -162,7 +162,7 @@ export const questions = [
           {
             id: 'lp2',
             label: 'Personen und Zeitraum',
-            keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'bleiben', 'juli', 'personen'],
+            keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'bleiben', 'juli', 'august', 'juni', 'personen', 'vom', 'bis', 'tage', 'zeitraum'],
             requiredMatches: 2
           },
           {

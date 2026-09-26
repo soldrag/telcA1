@@ -29,6 +29,19 @@ export default function SchreibenAiStatusBadge({ providerId, language = 'de' }) 
     );
   }
 
+  if (providerId === PROVIDER_IDS.MICRO_RANKER) {
+    return (
+      <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+        <span className="w-2 h-2 rounded-full bg-cyan-500 flex-shrink-0" />
+        <span>
+          {language === 'ru'
+            ? '⚡ Микро-ранжировщик (System 1)'
+            : '⚡ Micro-Ranker (System 1)'}
+        </span>
+      </div>
+    );
+  }
+
   // Fallback: limited mode / rule-based
   return (
     <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">

@@ -11,6 +11,7 @@ import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
+import { TEMPORAL_RANGE_REGEX } from './grading/a1ConceptLexicon.js';
 
 function extractStems(str = '') {
   return str
@@ -20,7 +21,7 @@ function extractStems(str = '') {
     .filter(s => s && s.length >= 3);
 }
 
-function evaluateStemMatches(textStems = [], criterion = {}) {
+function evaluateStemMatches(textStems = [], criterion = {}, rawText = '') {
   const rawKeywords = criterion.keywords || [];
   const critStems = rawKeywords.map(k => stemGermanWord(k));
 
@@ -29,6 +30,11 @@ function evaluateStemMatches(textStems = [], criterion = {}) {
     if (textStems.includes(cStem)) {
       matchedCount += 1;
     }
+  }
+
+  const isTemporalCrit = (criterion.label || criterion.id || '').toLowerCase().match(/zeit|dauer|termin|datum/i);
+  if (isTemporalCrit && rawText && TEMPORAL_RANGE_REGEX.test(rawText)) {
+    matchedCount += 1;
   }
 
   const req = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
@@ -80,7 +86,7 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', crit
   }
 
   const stems = extractStems(evalText);
-  const stemResult = evaluateStemMatches(stems, criterion);
+  const stemResult = evaluateStemMatches(stems, criterion, evalText);
 
   const frameResult = evaluateFrameConstraints(evalText, criterion);
   let finalScore = stemResult.score;

@@ -63,6 +63,26 @@ const TUTOR_MESSAGES = {
   }
 };
 
+function isCodeCompatibleWithScore(code, score) {
+  if (!code) return false;
+  if (score >= 2) {
+    return ['LP_FULFILLED', 'ANREDE_PERFECT', 'GRUSS_PERFECT'].includes(code);
+  }
+  if (score === 1) {
+    return ['LP_PARTIAL', 'ANREDE_MINOR_FLAW', 'GRUSS_INCOMPLETE', 'LP_FRAME_VIOLATION'].includes(code);
+  }
+  return [
+    'LP_MISSING',
+    'LP_INVERTED_DEFECT',
+    'LP_INVERTED_REQUEST',
+    'LP_INVERTED_CANCEL',
+    'LP_INVERTED_GENERAL',
+    'LP_FRAME_VIOLATION',
+    'ANREDE_MISSING',
+    'GRUSS_MISSING'
+  ].includes(code);
+}
+
 function resolveFallbackByScore(criterionId, score, langDict) {
   if (criterionId === 'anrede') {
     return score >= 2 ? langDict.ANREDE_PERFECT : (score === 1 ? langDict.ANREDE_MINOR_FLAW : langDict.ANREDE_MISSING);
@@ -83,11 +103,12 @@ export function resolveTutorCriterionFeedback({
   const langKey = TUTOR_MESSAGES[language] ? language : 'de';
   const langDict = TUTOR_MESSAGES[langKey];
 
-  let baseNote = (diagnosticCode && langDict[diagnosticCode])
+  const isCompatible = diagnosticCode && isCodeCompatibleWithScore(diagnosticCode, score);
+  let baseNote = (isCompatible && langDict[diagnosticCode])
     ? langDict[diagnosticCode]
     : resolveFallbackByScore(criterionId, score, langDict);
 
-  if (matchedSentence && typeof matchedSentence === 'string' && matchedSentence.length <= 60 && diagnosticCode?.startsWith('LP_INVERTED')) {
+  if (matchedSentence && typeof matchedSentence === 'string' && matchedSentence.length <= 60 && diagnosticCode?.startsWith('LP_INVERTED') && score === 0) {
     const quote = matchedSentence.trim().replace(/[.,!?;:]+$/, '');
     const quoteSuffix = langKey === 'ru' ? ` («${quote}»)` : ` ("${quote}")`;
     baseNote = `${baseNote}${quoteSuffix}`;

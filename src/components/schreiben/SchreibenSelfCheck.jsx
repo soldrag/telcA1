@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BookCheck, Sparkles, Cpu, ArrowUpCircle } from 'lucide-react';
+import { BookCheck, Sparkles, ArrowUpCircle, ClipboardCheck } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
 import SchreibenCriteriaChecklist, { CRITERIA_KEYS } from './SchreibenCriteriaChecklist.jsx';
-import SchreibenAiStatusBadge from './SchreibenAiStatusBadge.jsx';
 import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
+import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
+import SchreibenAbComparisonCard from './SchreibenAbComparisonCard.jsx';
+import SchreibenRankerDetailsCard from './SchreibenRankerDetailsCard.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
 import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
@@ -48,20 +50,12 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
   }, [grammarErrors]);
 
   const {
-    aiLoading,
-    aiStatus,
-    aiDiffSummary,
-    feedbackSummary,
-    liveCriteriaBreakdown,
-    handleRunAi,
-    providerId,
+    aiLoading, aiStatus, aiDiffSummary, feedbackSummary,
+    liveCriteriaBreakdown, abComparison, closeAbComparison,
+    handleRunAi, handleRunRankerAi, handleRunAbComparison, providerId,
   } = useSchreibenAiChecker({
-    item,
-    scores,
-    onApplyScores: handleApplyScores,
-    onApplyErrors: handleApplyErrors,
-    t,
-    language,
+    item, scores, onApplyScores: handleApplyScores,
+    onApplyErrors: handleApplyErrors, t, language,
   });
 
   const rawSum = CRITERIA_KEYS.reduce((acc, k) => acc + (Number(scores[k]) || 0), 0);
@@ -145,26 +139,24 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
           t={t}
         />
 
-        {/* Adaptive Client AI Assistant - Available on all devices */}
-        <div className="pt-2 border-t border-border-subtle flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              disabled={aiLoading}
-              onClick={handleRunAi}
-              className="px-3.5 py-2 rounded-xl bg-action-primary hover:bg-action-primary-hover text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition-all shadow-xs disabled:opacity-50 cursor-pointer min-h-[40px]"
-            >
-              <Cpu className="w-4 h-4" />
-              <span>{aiButtonLabel}</span>
-            </button>
-            <SchreibenAiStatusBadge providerId={providerId} language={language} />
-          </div>
-          {aiStatus && (
-            <span className="text-[11px] font-semibold text-content-primary px-3 py-1.5 rounded-lg bg-surface-card border border-border-default leading-tight">
-              {aiStatus}
-            </span>
-          )}
-        </div>
+        <SchreibenAiControlBar
+          aiLoading={aiLoading}
+          aiButtonLabel={aiButtonLabel}
+          handleRunAi={handleRunAi}
+          handleRunRankerAi={handleRunRankerAi}
+          handleRunAbComparison={handleRunAbComparison}
+          providerId={providerId}
+          aiStatus={aiStatus}
+          language={language}
+        />
+
+        {abComparison && (
+          <SchreibenAbComparisonCard
+            comparison={abComparison}
+            onClose={closeAbComparison}
+            language={language}
+          />
+        )}
 
         {aiDiffSummary.length > 0 && (
           <div className="mt-2 space-y-1">
@@ -182,14 +174,19 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
         {feedbackSummary && (
           <div className="mt-2.5 p-3 rounded-lg border border-state-success-border bg-state-success-subtle/20 space-y-1">
             <div className="text-xs font-black uppercase tracking-wider text-state-success-text flex items-center space-x-1.5">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{language === 'ru' ? 'Отзыв экзаменатора (ИИ)' : 'Prüfer-Feedback'}</span>
+              <ClipboardCheck className="w-3.5 h-3.5" />
+              <span>{language === 'ru' ? 'Отзыв экзаменатора telc' : (language === 'en' ? 'telc Examiner Feedback' : 'telc Prüfer-Feedback')}</span>
             </div>
             <p className="text-xs text-content-primary leading-relaxed">
               {feedbackSummary}
             </p>
           </div>
         )}
+
+        <SchreibenRankerDetailsCard
+          diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}
+          language={language}
+        />
 
         <SchreibenAiDisclaimer />
       </div>

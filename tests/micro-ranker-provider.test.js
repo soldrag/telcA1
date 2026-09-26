@@ -1,0 +1,89 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  MicroRankerProvider,
+  PROVIDER_IDS,
+} from '../src/services/ai/index.js';
+import {
+  scoreSentencePair,
+  classifyCriterionCoverage,
+  computeDeterministicFallbackScore,
+} from '../src/services/schreiben/grading/microRankerService.js';
+import { createFixedSimilarityEmbedder } from './helpers/mockRankerEmbedder.js';
+import { defaultA1RankerPolicy } from '../src/services/schreiben/grading/policies/a1RankerPolicy.js';
+
+const calibrated = (sim) => defaultA1RankerPolicy.calibrateNeuralScore(sim);
+
+describe('MicroRankerProvider & MicroRankerService Tests', () => {
+  it('MicroRankerProvider enforces AIProvider contract and default ID', () => {
+    const provider = new MicroRankerProvider({ embedder: null });
+    assert.equal(provider.id, PROVIDER_IDS.MICRO_RANKER);
+    assert.ok(provider.name.includes('Micro-Ranker'));
+  });
+
+  it('proposeGrammarCandidates returns empty array (System 1 delegates to linguistic engine)', async () => {
+    const provider = new MicroRankerProvider({ embedder: null });
+    const candidates = await provider.proposeGrammarCandidates('Ich gehe heute ins Kino.');
+    assert.deepEqual(candidates, []);
+  });
+
+  it('polishFeedback produces authentic deterministic telc feedback', async () => {
+    const provider = new MicroRankerProvider({ embedder: null });
+    const feedback = await provider.polishFeedback({
+      anredeScore: 2,
+      lpScore: 6,
+      grussScore: 2,
+      grammarErrorCount: 0,
+    });
+    assert.ok(feedback.includes('Die Anrede ist passend'));
+    assert.ok(feedback.includes('vollständig bearbeitet'));
+  });
+
+  it('computeDeterministicFallbackScore computes token overlap correctly', () => {
+    const scoreHigh = computeDeterministicFallbackScore('Grund des Schreibens', 'Der Grund für mein Schreiben ist ein Termin');
+    assert.ok(scoreHigh > 0.5, `Expected score > 0.5, got ${scoreHigh}`);
+
+    const scoreZero = computeDeterministicFallbackScore('Grund des Schreibens', '');
+    assert.equal(scoreZero, 0);
+  });
+
+  it('classifyCriterionCoverage correctly categorizes full, partial, and no coverage', async () => {
+    const mockEmbedderHigh = createFixedSimilarityEmbedder(0.85);
+    const resHigh = await classifyCriterionCoverage('Termin vereinbaren', ['Können wir einen Termin machen?'], { embedder: mockEmbedderHigh });
+    assert.equal(resHigh.coverage, 'full');
+    assert.ok(Math.abs(resHigh.score - calibrated(0.85)) < 1e-6);
+
+    const mockEmbedderMid = createFixedSimilarityEmbedder(0.55);
+    const resMid = await classifyCriterionCoverage('Termin vereinbaren', ['Können wir morgen sehen?'], { embedder: mockEmbedderMid });
+    assert.equal(resMid.coverage, 'partial');
+    assert.ok(Math.abs(resMid.score - calibrated(0.55)) < 1e-6);
+
+    const mockEmbedderLow = createFixedSimilarityEmbedder(0.2);
+    const resLow = await classifyCriterionCoverage('Termin vereinbaren', ['Das Wetter ist schön.'], { embedder: mockEmbedderLow });
+    assert.equal(resLow.coverage, 'no');
+    assert.ok(Math.abs(resLow.score - calibrated(0.2)) < 1e-6);
+  });
+
+  it('MicroRankerProvider classifyCoverage integrates pipeline correctly', async () => {
+    const provider = new MicroRankerProvider({ embedder: createFixedSimilarityEmbedder(0.92) });
+
+    const result = await provider.classifyCoverage({ label: 'Treffpunkt vorschlagen' }, 'Treffen wir uns am Bahnhof?');
+    assert.equal(result.coverage, 'full');
+    assert.ok(Math.abs(result.score - calibrated(0.92)) < 1e-6);
+  });
+
+  it('MicroRankerProvider falls back to deterministic scoring when embedder fails', async () => {
+    const failing = { embedQuery: async () => { throw new Error('offline'); }, embedText: async () => [] };
+    const provider = new MicroRankerProvider({ embedder: failing });
+    const result = await provider.classifyCoverage('Grund des Schreibens', ['Der Grund für mein Schreiben ist ein Termin.']);
+    assert.ok(['full', 'partial'].includes(result.coverage));
+  });
+
+  it('scoreSentencePair handles empty input gracefully', async () => {
+    const scoreEmpty = await scoreSentencePair('', 'Some sentence');
+    assert.equal(scoreEmpty, 0);
+
+    const scoreEmptySent = await scoreSentencePair('Some criterion', '');
+    assert.equal(scoreEmptySent, 0);
+  });
+});
