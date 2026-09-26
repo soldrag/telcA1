@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BookCheck, Sparkles, ArrowUpCircle, ClipboardCheck } from 'lucide-react';
+import { BookCheck, Sparkles, ArrowUpCircle } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
 import SchreibenCriteriaChecklist, { CRITERIA_KEYS } from './SchreibenCriteriaChecklist.jsx';
@@ -7,6 +7,7 @@ import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
 import SchreibenAbComparisonCard from './SchreibenAbComparisonCard.jsx';
 import SchreibenRankerDetailsCard from './SchreibenRankerDetailsCard.jsx';
+import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { computeGrammarPenalty } from '../../services/schreiben/grading/stage3Grammar.js';
 import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
@@ -50,7 +51,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
   }, [grammarErrors]);
 
   const {
-    aiLoading, aiStatus, aiDiffSummary, feedbackSummary,
+    aiLoading, aiStatus, aiDiffSummary, feedbackSummary, examinerFeedback,
     liveCriteriaBreakdown, abComparison, closeAbComparison,
     handleRunAi, handleRunRankerAi, handleRunAbComparison, providerId,
   } = useSchreibenAiChecker({
@@ -171,17 +172,11 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
           </div>
         )}
 
-        {feedbackSummary && (
-          <div className="mt-2.5 p-3 rounded-lg border border-state-success-border bg-state-success-subtle/20 space-y-1">
-            <div className="text-xs font-black uppercase tracking-wider text-state-success-text flex items-center space-x-1.5">
-              <ClipboardCheck className="w-3.5 h-3.5" />
-              <span>{language === 'ru' ? 'Отзыв экзаменатора telc' : (language === 'en' ? 'telc Examiner Feedback' : 'telc Prüfer-Feedback')}</span>
-            </div>
-            <p className="text-xs text-content-primary leading-relaxed">
-              {feedbackSummary}
-            </p>
-          </div>
-        )}
+        <SchreibenExaminerFeedbackCard
+          examinerFeedback={examinerFeedback}
+          feedbackSummary={feedbackSummary}
+          language={language}
+        />
 
         <SchreibenRankerDetailsCard
           diagnosticData={liveCriteriaBreakdown || item.criteria_breakdown || item.breakdown}

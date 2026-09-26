@@ -6,7 +6,8 @@
 import { runStage0Preprocessing } from './grading/stage0Preprocessing.js';
 import { runStage1Scoring } from './grading/stage1SalutationClosing.js';
 import { computeGrammarPenalty } from './grading/stage3Grammar.js';
-import { assembleDeterministicFeedback } from './grading/stage4Feedback.js';
+import { composePipelineFeedback } from './grading/pipelineFeedback.js';
+import { getRankerPolicy } from './grading/policies/index.js';
 import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
@@ -14,27 +15,6 @@ import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../ai/types.js';
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
-
-function buildFeedbackFacts(stage1, stage2, errors) {
-  return {
-    anredeScore: stage1.anredeScore,
-    lpScore: stage2.totalScore,
-    grussScore: stage1.grussScore,
-    grammarErrorCount: errors.length,
-  };
-}
-
-async function resolveFeedbackText(facts, activeProvider, enableLlmPolish) {
-  let feedbackText = assembleDeterministicFeedback(facts);
-  if (enableLlmPolish && activeProvider.id !== PROVIDER_IDS.NONE) {
-    try {
-      feedbackText = await activeProvider.polishFeedback(facts);
-    } catch (err) {
-      console.warn('[GradingPipeline] Feedback polish skipped:', err?.message || err);
-    }
-  }
-  return feedbackText;
-}
 
 function buildDiffSummary(items = []) {
   return items
@@ -57,6 +37,7 @@ function assembleGradingResult({
   question,
   activeProvider,
   feedbackText,
+  examinerFeedback,
   diffSummary,
   userSegments,
 }) {
@@ -91,6 +72,7 @@ function assembleGradingResult({
     grammar_errors: errors,
     grammar_penalty: grammarPenalty,
     feedback_summary: feedbackText,
+    examiner_feedback: examinerFeedback,
     diff_summary: diffSummary,
     user_segments: userSegments,
   };
@@ -143,10 +125,6 @@ export async function gradeSchreibenSubmission({
   });
   const grammarPenalty = computeGrammarPenalty(errors.length);
 
-  onProgress?.('Erstelle Feedback...', 0.9);
-  const facts = buildFeedbackFacts(stage1, stage2, errors);
-  const feedbackText = await resolveFeedbackText(facts, activeProvider, options.enableLlmPolish);
-
   const { finalPoints } = computeTelcFinalScore({
     salutationScore: stage1.anredeScore,
     leitpunkteScore: stage2.totalScore,
@@ -154,6 +132,17 @@ export async function gradeSchreibenSubmission({
     wordCount: stage0.wordCount,
     isGibberish: quality.isGibberish,
     grammarErrorsCount: errors.length,
+  });
+
+  onProgress?.('Erstelle Feedback...', 0.9);
+  const { feedbackText, examinerFeedback } = await composePipelineFeedback({
+    context: {
+      stage0, stage1, stage2, errors, userSegments, finalPoints,
+      maxPoints: question.max_points || 10, isGibberish: quality.isGibberish,
+    },
+    policy: getRankerPolicy(question.level),
+    activeProvider,
+    enableLlmPolish: options.enableLlmPolish,
   });
 
   const diffSummary = buildDiffSummary(stage2.items);
@@ -169,6 +158,7 @@ export async function gradeSchreibenSubmission({
     question,
     activeProvider,
     feedbackText,
+    examinerFeedback,
     diffSummary,
     userSegments,
   });

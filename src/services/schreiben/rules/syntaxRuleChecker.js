@@ -13,6 +13,7 @@ function checkUndAberOrder(text) {
     original: full,
     correction: `${conj} ${subj} ${modal} ${middle.trim()} ${infinitive}`,
     category: 'syntax',
+    code: 'ERR_V2_AFTER_CONJUNCTION',
     explanation: `Wortstellung nach „${conj}“: „${conj}“ verbindet Hauptsätze (Position 0). Das konjugierte Verb steht an Position 2: „${conj} ${subj} ${modal} ${middle.trim()} ${infinitive}“`
   }];
 }
@@ -26,6 +27,7 @@ function checkSubordinateOrder(text) {
     original: full,
     correction: `${conj} ${subj} ${cleanRest} ${modal}`,
     category: 'syntax',
+    code: 'ERR_NEBENSATZ_VERB_FINAL',
     explanation: `Wortstellung im Nebensatz mit „${conj}“: Das konjugierte Verb steht am Ende des Nebensatzes: „${conj} ${subj} ${cleanRest} ${modal}“ (nicht „${full}“).`
   }];
 }
@@ -39,6 +41,7 @@ function checkWFrageOrder(text) {
       original: full.trim(),
       correction: `${wWord} ${verb} ${art} ${noun}?`,
       category: 'syntax',
+      code: 'ERR_V2_W_QUESTION',
       explanation: `Wortstellung in der W-Frage: Das Verb steht auf Position 2 direkt nach dem Fragewort: „${wWord} ${verb} ${art} ${noun}?“`
     });
   }
@@ -50,6 +53,7 @@ function checkWFrageOrder(text) {
       original: full.trim(),
       correction: `${prefix}${wWord} ${verb} ${pronoun}`,
       category: 'syntax',
+      code: 'ERR_V2_W_QUESTION',
       explanation: `Wortstellung in der Frage: Das Verb steht auf Position 2 nach dem Fragewort: „${prefix}${wWord} ${verb} ${pronoun}“`
     });
   }
@@ -64,6 +68,7 @@ function checkAdverbialVorfeld(text) {
     original: full.trim(),
     correction: `${adv} ${verb} ${subj}`,
     category: 'syntax',
+    code: 'ERR_V2_ADVERBIAL_VORFELD',
     explanation: `Verbzweitstellung im Hauptsatz: Nach einer Angabe an Position 1 („${adv}“) steht das konjugierte Verb an Position 2 vor dem Subjekt: „${adv} ${verb} ${subj}“`
   }];
 }
@@ -81,6 +86,7 @@ function checkModalSatzklammer(text) {
     original: full.trim(),
     correction: `${modal} ${rest.trim()} ${verb}`,
     category: 'syntax',
+    code: 'ERR_BROKEN_SATZKLAMMER_MODAL',
     explanation: `Satzklammer bei Modalverben: Der Infinitiv gehört ans Satzende: „${modal} ${rest.trim()} ${verb}“`
   }];
 }
@@ -93,6 +99,7 @@ function checkQuantityDuration(text) {
     original: full,
     correction: `${num} ${unit} Zeit`,
     category: 'syntax',
+    code: 'ERR_QUANTITY_ORDER',
     explanation: `Wortstellung: Die Mengenangabe steht vor dem Nomen: „${num} ${unit} Zeit“`
   }];
 }

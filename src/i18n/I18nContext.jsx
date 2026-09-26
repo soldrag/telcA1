@@ -7,6 +7,7 @@ import {
   SUPPORTED_LANGUAGES,
   DEFAULT_LANGUAGE,
 } from './languageDetector.js';
+import { interpolate } from './interpolate.js';
 
 const LOCALES = { en, ru };
 
@@ -23,18 +24,6 @@ const I18nContext = createContext({
 function resolveKeyPath(dict, path) {
   if (!dict || typeof dict !== 'object' || !path) return undefined;
   return path.split('.').reduce((acc, segment) => acc?.[segment], dict);
-}
-
-/**
- * Replaces `{param}` placeholders with values.
- */
-function interpolate(template, params) {
-  if (typeof template !== 'string') return template ?? '';
-  if (!params || typeof params !== 'object') return template;
-
-  return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (match, paramName) => {
-    return params[paramName] !== undefined ? String(params[paramName]) : match;
-  });
 }
 
 export function I18nProvider({ children }) {

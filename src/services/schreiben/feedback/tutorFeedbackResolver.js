@@ -4,7 +4,7 @@
  * Clean Architecture & McConnell limits: <= 120 lines, <= 25 lines per function.
  */
 
-import { DIAGNOSTIC_CODES } from './feedbackContracts.js';
+import { formatStudentQuote } from './studentQuoteFormatter.js';
 
 const TUTOR_MESSAGES = {
   ru: {
@@ -109,9 +109,7 @@ export function resolveTutorCriterionFeedback({
     : resolveFallbackByScore(criterionId, score, langDict);
 
   if (matchedSentence && typeof matchedSentence === 'string' && matchedSentence.length <= 60 && diagnosticCode?.startsWith('LP_INVERTED') && score === 0) {
-    const quote = matchedSentence.trim().replace(/[.,!?;:]+$/, '');
-    const quoteSuffix = langKey === 'ru' ? ` («${quote}»)` : ` ("${quote}")`;
-    baseNote = `${baseNote}${quoteSuffix}`;
+    baseNote = `${baseNote} (${formatStudentQuote(matchedSentence, langKey)})`;
   }
 
   return baseNote;

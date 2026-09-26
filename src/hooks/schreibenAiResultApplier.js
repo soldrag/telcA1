@@ -13,6 +13,7 @@ export function applyAiGradingResult({
   onApplyErrors,
   setAiDiffSummary,
   setFeedbackSummary,
+  setExaminerFeedback,
   setLiveCriteriaBreakdown,
   setAiStatus,
   language,
@@ -42,6 +43,7 @@ export function applyAiGradingResult({
   if (aiResult.feedback_summary) {
     setFeedbackSummary?.(aiResult.feedback_summary);
   }
+  setExaminerFeedback?.(aiResult.examiner_feedback || null);
   setLiveCriteriaBreakdown?.(aiResult.criteria_breakdown);
 
   updateStatusMessage(aiResult, hasScoreChanged, setAiStatus, language);

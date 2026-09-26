@@ -40,6 +40,7 @@ export function useSchreibenAiChecker({
   const [aiStatus, setAiStatus] = useState('');
   const [aiDiffSummary, setAiDiffSummary] = useState([]);
   const [feedbackSummary, setFeedbackSummary] = useState('');
+  const [examinerFeedback, setExaminerFeedback] = useState(null);
   const [activeProvider, setActiveProvider] = useState(null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
   const [abComparison, setAbComparison] = useState(null);
@@ -81,6 +82,7 @@ export function useSchreibenAiChecker({
       onApplyErrors,
       setAiDiffSummary,
       setFeedbackSummary,
+      setExaminerFeedback,
       setLiveCriteriaBreakdown,
       setAiStatus,
       language,
@@ -92,6 +94,7 @@ export function useSchreibenAiChecker({
     setAiStatus(t('results.aiCheckLoading'));
     setAiDiffSummary([]);
     setFeedbackSummary('');
+    setExaminerFeedback(null);
     try {
       const res = await runEvaluationForProvider(null);
       applyResult(res);
@@ -107,6 +110,7 @@ export function useSchreibenAiChecker({
     setAiStatus(language === 'ru' ? 'Запуск микро-ранжировщика...' : 'Lade Micro-Ranker...');
     setAiDiffSummary([]);
     setFeedbackSummary('');
+    setExaminerFeedback(null);
     try {
       const ranker = aiProviderRegistry.getProvider(PROVIDER_IDS.MICRO_RANKER);
       const res = await runEvaluationForProvider(ranker);
@@ -122,6 +126,7 @@ export function useSchreibenAiChecker({
     setAiLoading(true);
     setAiDiffSummary([]);
     setFeedbackSummary('');
+    setExaminerFeedback(null);
     try {
       const t0 = performance.now();
       const standardProvider = await aiProviderRegistry.getActiveProvider();
@@ -154,6 +159,7 @@ export function useSchreibenAiChecker({
     aiStatus,
     aiDiffSummary,
     feedbackSummary,
+    examinerFeedback,
     liveCriteriaBreakdown,
     abComparison,
     closeAbComparison: () => setAbComparison(null),

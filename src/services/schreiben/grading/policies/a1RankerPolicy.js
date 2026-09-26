@@ -2,7 +2,7 @@
  * telc Deutsch A1 Ranker Policy Implementation.
  * Implements IRankerPolicy adhering strictly to telc A1 regulations:
  * Priority of communicative intent, tolerant thresholds, min-pooling on compound criteria.
- * Strictly complies with McConnell limits (<= 110 lines, <= 25 lines per function).
+ * Strictly complies with McConnell limits (<= 120 lines, <= 25 lines per function).
  */
 
 import { IRankerPolicy } from './rankerPolicyInterface.js';
@@ -16,6 +16,12 @@ export class A1RankerPolicy extends IRankerPolicy {
     // true coverage 0.52–0.79, same-topic hard negatives up to ~0.60.
     this._neuralCutoffs = Object.freeze({ full: 0.70, partial: 0.55 });
     this._maxPointsPerLeitpunkt = 2;
+    // Pass mark 6/10 mirrors is_correct in gradingPipeline; two grammar highlights keep A1 feedback digestible.
+    this._feedbackSelection = Object.freeze({
+      grammarHighlights: 2,
+      maxSummarySentences: 4,
+      verdict: Object.freeze({ excellent: 9, good: 6 }),
+    });
   }
 
   get level() {
@@ -28,6 +34,10 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get maxPointsPerLeitpunkt() {
     return this._maxPointsPerLeitpunkt;
+  }
+
+  get feedbackSelection() {
+    return this._feedbackSelection;
   }
 
   classifyScore(rawScore = 0) {

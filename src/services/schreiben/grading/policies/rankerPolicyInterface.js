@@ -1,8 +1,10 @@
 /**
  * Abstract Interface Contract for CEFR Ranker Policies (DIP).
  * All CEFR level-specific regulations (A1, A2, B1) implement this contract.
- * Strictly adheres to McConnell limits (<= 60 lines, <= 15 lines per function).
+ * Strictly adheres to McConnell limits (<= 90 lines, <= 15 lines per function).
  */
+
+import { buildExaminerFeedbackDescriptor } from '../../feedback/examinerFeedbackBuilder.js';
 
 /**
  * @typedef {Object} CoverageThresholds
@@ -62,5 +64,22 @@ export class IRankerPolicy {
 
   calculateGrammarPenalty(errorsCount, wordCount) {
     throw new Error('IRankerPolicy.calculateGrammarPenalty must be implemented');
+  }
+
+  /**
+   * Level-specific selection rules for the examiner feedback (verdict thresholds, highlight counts).
+   * @returns {{ grammarHighlights: number, maxSummarySentences: number, verdict: { excellent: number, good: number } }}
+   */
+  get feedbackSelection() {
+    throw new Error('IRankerPolicy.feedbackSelection getter must be implemented');
+  }
+
+  /**
+   * Builds the language-neutral examiner feedback descriptor for this level.
+   * @param {object} facts - Locked grading facts (see buildExaminerFeedbackFacts in grading/pipelineFeedback.js)
+   * @returns {{ version: number, summary: Array, bullets: Array }}
+   */
+  buildExaminerFeedback(facts) {
+    return buildExaminerFeedbackDescriptor(facts, this.feedbackSelection);
   }
 }
