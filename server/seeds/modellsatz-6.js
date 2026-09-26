@@ -3,9 +3,6 @@ export const exam = {
   title: 'telc Deutsch A1 — Modellsatz 6',
   subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
   description: 'Шестой официальный тренировочный вариант экзамена telc Deutsch A1 / Start Deutsch 1. Темы: поездка в аэропорт, детский сад, бытовые услуги, транспортные билеты и городские правила.',
-  time_limit_minutes: 25,
-  total_questions: 15,
-  pass_score: 9,
 };
 
 export const questions = [

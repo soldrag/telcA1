@@ -2,10 +2,7 @@ export const exam = {
   id: 'modellsatz-1',
   title: 'telc Deutsch A1 — Modellsatz 1',
   subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
-  description: 'Полная эмуляция официального экзамена telc Deutsch A1 / Start Deutsch 1. 15 заданий, лимит времени 25 минут, проходной балл 9 из 15 (60%).',
-  time_limit_minutes: 25,
-  total_questions: 15,
-  pass_score: 9,
+  description: 'Полная эмуляция официального экзамена telc Deutsch A1 / Start Deutsch 1.',
 };
 
 export const questions = [

@@ -3,9 +3,6 @@ export const exam = {
   title: 'telc Deutsch A1 — Modellsatz 5',
   subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
   description: 'Пятый официальный тренировочный вариант экзамена telc Deutsch A1 / Start Deutsch 1. Темы: блошиный рынок, языковые курсы в VHS, ремонт техники, спорт и правила в общественных местах.',
-  time_limit_minutes: 25,
-  total_questions: 15,
-  pass_score: 9,
 };
 
 export const questions = [

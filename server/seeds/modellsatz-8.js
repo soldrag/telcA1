@@ -3,9 +3,6 @@ export const exam = {
   title: 'telc Deutsch A1 — Modellsatz 8',
   subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
   description: 'Восьмой официальный тренировочный вариант экзамена telc Deutsch A1 / Start Deutsch 1. Темы: велопрогулка, спортивный клуб, услуги химчистки, доставка цветов и правила в общественных зонах.',
-  time_limit_minutes: 25,
-  total_questions: 15,
-  pass_score: 9,
 };
 
 export const questions = [

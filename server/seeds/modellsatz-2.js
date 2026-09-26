@@ -3,9 +3,6 @@ export const exam = {
   title: 'telc Deutsch A1 — Modellsatz 2',
   subtitle: 'Leseverstehen (Teil 1, 2 und 3)',
   description: 'Второй официальный вариант экзамена telc Deutsch A1 с новыми аутентичными текстами, вывесками и интернет-объявлениями.',
-  time_limit_minutes: 25,
-  total_questions: 15,
-  pass_score: 9,
 };
 
 export const questions = [
