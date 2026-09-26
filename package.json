@@ -14,6 +14,7 @@
     "test:e2e:assignment": "node tests/e2e/assignment-flow-e2e.js",
     "test:e2e:mobile": "node tests/e2e/mobile-layout.test.js",
     "test:eval": "node --test tests/eval/*.test.js",
+    "bench:schreiben": "node scripts/bench-schreiben-leitpunkte.mjs",
     "eval:schreiben": "node tests/eval/eval-scorecard-reporter.js",
     "validate:seeds": "node server/database/validate-seeds.js",
     "prebuild": "npm run verify:contracts && npm run test",

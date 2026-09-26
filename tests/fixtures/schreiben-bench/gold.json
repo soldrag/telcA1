@@ -1,0 +1,167 @@
+[
+  {
+    "id": "G1",
+    "title": "1. Modellsatz 1 Perfect Submission (Score 10/10)",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule besuchen. Ich habe vier Wochen Zeit und möchte gern am Vormittag lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nMaximilian Becker"
+  },
+  {
+    "id": "G2",
+    "title": "2. Modellsatz 1 Typical A1 Submission with typical errors (S",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs? Wie kann ich anmelden?\nMit freundlichen Gruß\nArtem Smirnov"
+  },
+  {
+    "id": "G3",
+    "title": "3. Modellsatz 1 Missing Anrede (Score 0 for Anrede)",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Ich möchte im August einen Deutschkurs A1 besuchen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?\nViele Grüße\nAnna Müller"
+  },
+  {
+    "id": "G4",
+    "title": "4. Modellsatz 1 Missing LP3 (Score 0 for LP3)",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      null,
+      null,
+      0
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit.\nMit freundlichen Grüßen\nSarah Meyer"
+  },
+  {
+    "id": "G6",
+    "title": "6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)",
+    "seedQuestionId": "s2-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Frau Dr. Schneider,\nich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?\nMit freundlichen Grüßen\nMax Mustermann"
+  },
+  {
+    "id": "G7",
+    "title": "7. Modellsatz 2 Moderate errors with single name (Score 7-9/",
+    "seedQuestionId": "s2-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Guten Tag Herr Schneider,\nich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?\nViele Grusse\nOlga"
+  },
+  {
+    "id": "G8",
+    "title": "8. Modellsatz 2 Informal greeting in formal context (Score 1",
+    "seedQuestionId": "s2-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Hallo Herr Schneider,\nich kann am Montag leider nicht kommen. Ich bin krank. Können wir den Termin verschieben?\nMit freundlichen Grüßen\nThomas Mann"
+  },
+  {
+    "id": "G11",
+    "title": "11. Complex syntax with adverbial fronting & Satzklammer (Re",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.\nMit freundliche Grüßen\nArtem Smirnov"
+  },
+  {
+    "id": "C2",
+    "title": "Test 2: User Text #1 (Language school, formal greeting, 6 ty",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs?\nWie kann ich anmelden?\nMit freundlichen Gruß\nArtem Smirnov"
+  },
+  {
+    "id": "C3",
+    "title": "Test 3: Modellsatz 2 Doctor cancellation (Strong submission ",
+    "seedQuestionId": "s2-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Frau Dr. Schneider,\nich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?\nMit freundlichen Grüßen\nMax Mustermann"
+  },
+  {
+    "id": "C4",
+    "title": "Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, s",
+    "seedQuestionId": "s2-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Guten Tag Herr Schneider,\nich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?\nViele Grusse\nOlga"
+  },
+  {
+    "id": "C5",
+    "title": "Test 5: Incomplete text (missing Punkt 3 and closing, under ",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      null,
+      null,
+      0
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub."
+  },
+  {
+    "id": "C6",
+    "title": "Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting",
+    "seedQuestionId": "s1-q6",
+    "expectedLp": [
+      2,
+      2,
+      2
+    ],
+    "text": "Sehr geehrte Damen und Herren,\nich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.\nMit freundliche Grüßen\nArtem Smirnov"
+  },
+  {
+    "id": "C8",
+    "title": "Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste",
+    "seedQuestionId": "s4-q6",
+    "expectedLp": [
+      null,
+      null,
+      0
+    ],
+    "text": "Sehr geehrte Frau Hansen,\nich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?\nMit freundlichen Grüßen\nAlex Müller"
+  },
+  {
+    "id": "C9",
+    "title": "Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun",
+    "seedQuestionId": "s4-q6",
+    "expectedLp": [
+      1,
+      null,
+      null
+    ],
+    "text": "Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung vermieten. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 10. bis zum 17. Juli. Wie viel kostet die Wohnung? Ist ein Hund erlaubt?\nMit freundlichen Grüßen\nAlex Müller"
+  }
+]
