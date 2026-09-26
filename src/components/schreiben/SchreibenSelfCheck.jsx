@@ -11,6 +11,8 @@ import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
 import { useSchreibenAiChecker, formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { scoreCriteriaLevels } from '../../services/schreiben/regulations/index.js';
 import { mergeCandidateGrammarErrors } from '../../services/schreiben/linguistic/sentenceGrammarFilter.js';
+import { dedupeGrammarErrors } from '../../services/schreiben/linguistic/grammarErrorDeduper.js';
+import { countLetterBodyWords } from '../../services/schreiben/scoring/letterBodyWordCounter.js';
 import ReviewTaskPrompt from '../results/ReviewTaskPrompt.jsx';
 
 function deriveInitialScores(item = {}) {
@@ -18,10 +20,6 @@ function deriveInitialScores(item = {}) {
   if (!cb) return { anrede: 2, lp1: 2, lp2: 2, lp3: 2, gruss: 2 };
   const getScore = (key, idx) => Number(cb[key] ?? cb.items?.[idx]?.score) || 0;
   return { anrede: Number(cb.anrede) || 0, lp1: getScore('lp1', 0), lp2: getScore('lp2', 1), lp3: getScore('lp3', 2), gruss: Number(cb.gruss) || 0 };
-}
-
-function countWords(text = '') {
-  return String(text || '').split(/\s+/).filter(Boolean).length;
 }
 
 export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
@@ -37,7 +35,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
   const segments = item.user_segments;
 
   const [scores, setScores] = useState(() => deriveInitialScores(item));
-  const [liveGrammarErrors, setLiveGrammarErrors] = useState(grammarErrors);
+  const [liveGrammarErrors, setLiveGrammarErrors] = useState(() => dedupeGrammarErrors(grammarErrors));
 
   const cycleScore = (id) => {
     setScores((prev) => {
@@ -97,7 +95,7 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange }) {
 
       <SchreibenGrammarNotice
         grammarErrors={liveGrammarErrors}
-        wordCount={item.linguistic_accuracy?.wordCount ?? countWords(item.user_answer)}
+        wordCount={countLetterBodyWords(item.user_answer)}
         t={t}
       />
 

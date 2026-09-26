@@ -5,7 +5,7 @@
  * normalised to a reference length, so a longer letter is not punished for having more words.
  */
 
-import { dedupeGrammarErrors } from './grammarErrorDeduper.js';
+import { dedupeGrammarErrors } from '../linguistic/grammarErrorDeduper.js';
 
 const MAX_SCORE = 10;
 // Word order breaks the sentence frame and hinders reading most; spelling slips least.

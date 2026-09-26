@@ -10,6 +10,7 @@ import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
 import { checkGermanA1Grammar } from './germanGrammarChecker.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
+import { mergeCandidateGrammarErrors } from './linguistic/sentenceGrammarFilter.js';
 
 export function resolveLeitpunktCriteria(question = {}) {
   const options = typeof question.options_json === 'string'
@@ -47,7 +48,7 @@ export function runDeterministicBaseline(text = '', criteria = []) {
   const bodySentences = extractBodySentences(trimmed, salutation, closing);
   const leitpunkte = analyzeLeitpunkte(trimmed, criteria, segments);
   const rawGrammarErrors = checkGermanA1Grammar(trimmed);
-  const grammarErrors = [...rawGrammarErrors, ...(leitpunkte.semanticErrors || [])];
+  const grammarErrors = mergeCandidateGrammarErrors(rawGrammarErrors, leitpunkte.semanticErrors || []);
   const quality = analyzeGermanQuality(trimmed, 30);
 
   return {

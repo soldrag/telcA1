@@ -11,6 +11,7 @@ import { getRankerPolicy } from './grading/policies/index.js';
 import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { calculateLinguisticAccuracy } from './scoring/linguisticAccuracyScorer.js';
+import { countLetterBodyWords } from './scoring/letterBodyWordCounter.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
@@ -55,10 +56,6 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
     items,
     diagnostic: { anrede: stage1.anrede, gruss: stage1.gruss, items, unassignedSentences },
   };
-}
-
-function countBodyWords(bodySentences = []) {
-  return bodySentences.join(' ').split(/\s+/).filter(Boolean).length;
 }
 
 function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy }) {
@@ -160,7 +157,7 @@ export async function gradeSchreibenSubmission({
   const diffSummary = buildDiffSummary(stage2.items);
   const linguisticAccuracy = calculateLinguisticAccuracy({
     grammarErrors: errors,
-    wordCount: countBodyWords(stage0.bodySentences),
+    wordCount: countLetterBodyWords(userText),
     isGibberish: quality.isGibberish,
   });
 

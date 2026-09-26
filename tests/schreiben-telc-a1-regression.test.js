@@ -56,6 +56,13 @@ for (const suite of suites) {
       });
     }
 
+    it('one defect flagged by two analyzers is listed once (17_screenshot_user_review)', () => {
+      const res = results.get('17_screenshot_user_review');
+      if (!res) return;
+      const satzklammer = res.grammar_errors.filter((e) => e.code === 'ERR_BROKEN_SATZKLAMMER_MODAL');
+      assert.equal(satzklammer.length, 1);
+    });
+
     it('grammar errors never lower the score (10_typical_a1_errors)', () => {
       const res = results.get('10_typical_a1_errors');
       assert.ok(res.grammar_errors.length > 0, 'the letter is expected to carry flagged A1 errors');

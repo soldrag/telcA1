@@ -6,6 +6,7 @@
  * 3. Max errors cap per sentence and deduplication
  */
 import { calculateLevenshtein, normalizeGermanText } from '../schreibenFuzzyMatcher.js';
+import { dedupeGrammarErrors } from './grammarErrorDeduper.js';
 
 const MAX_WORD_COUNT = 4;
 const MAX_ABS_LENGTH_DIFF = 18;
@@ -93,5 +94,5 @@ export function mergeCandidateGrammarErrors(baselineErrors = [], candidateErrors
     }
   }
 
-  return merged;
+  return dedupeGrammarErrors(merged);
 }
