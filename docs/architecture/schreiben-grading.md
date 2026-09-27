@@ -35,7 +35,7 @@ flowchart TD
 | 3 | `grading/pipelineStageScorers.collectPipelineGrammarErrors` → [linguistic engine](linguistic-engine.md) | grammar errors (feedback only) |
 | 4 | `grading/stage4Feedback.js`, `grading/pipelineFeedback.js`, `regulations/` | points, examiner feedback |
 
-**Entry points:** `gradingPipeline.gradeSchreibenSubmission` (full pipeline) and the rules-only `evaluateTeil2Essay` (`deterministicBaseline.runDeterministicBaseline`). A Web Worker bridge exists (`grading/gradingWorkerClient.gradeSchreibenWithWorker`, terminated after use), but the results screen (`useSchreibenAiChecker`) runs the Micro-Ranker on the main thread: inside the worker `MicroRankerProvider.isAvailable()` sees no `window` and the registry would pick the limited mode (open issue in todo).
+**Entry points:** `gradingPipeline.gradeSchreibenSubmission` (full pipeline) and the rules-only `evaluateTeil2Essay` (`deterministicBaseline.runDeterministicBaseline`). The results screen (`useSchreibenAiChecker`) grades through the Web Worker bridge `grading/gradingWorkerClient.gradeSchreibenWithWorker`: the provider is chosen on the main thread, where the `telc_ai_provider_override` in localStorage is readable, and reaches the worker only as the fact `forceLimitedMode`; inside the worker the Micro-Ranker counts as available (`WorkerGlobalScope`) and runs the model off the main thread. The worker is terminated after every grading; its timeout counts idle time between progress messages, so the first model download is not cut off. Without `Worker` the pipeline runs directly; if the worker fails, grading falls back to the limited mode.
 
 Every entry point first awaits the lexicon data (`levelContext.lexicon.load()`), because the noun and verb dictionaries are a lazily loaded asset.
 
@@ -138,7 +138,7 @@ A pedagogical 0–10 score **independent of the telc score** (`scoring/linguisti
 
 ## Runtime modes
 
-Capability is detected at run time, never by user agent: the embedder picks WebGPU when `navigator.gpu` exists (`utils/webGpuSupport.isWebGPUSupported`); the adapter probe `isWebGPUAdapterAvailable` (`requestAdapter()`) exists but is not wired in yet (open issue in todo).
+Capability is detected at run time, never by user agent: the embedder picks WebGPU only when `navigator.gpu.requestAdapter()` grants an adapter (`utils/webGpuSupport.isWebGPUAdapterAvailable`, on the main thread and in the worker), otherwise WASM.
 
 | Environment | Embeddings | Mode |
 |---|---|---|

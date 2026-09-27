@@ -25,11 +25,12 @@ export class MicroRankerProvider extends AIProvider {
   }
 
   /**
-   * Available in modern browsers (WebGPU or WASM), or anywhere in deterministic-only mode.
+   * Available in a browser — on the main thread or inside the grading worker (WebGPU or WASM) —
+   * or anywhere in deterministic-only mode.
    * @returns {Promise<boolean>}
    */
   async isAvailable() {
-    return this.embedder === null || typeof window !== 'undefined';
+    return this.embedder === null || typeof window !== 'undefined' || typeof WorkerGlobalScope !== 'undefined';
   }
 
   /**

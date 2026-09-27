@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { gradeSchreibenSubmission } from '../services/schreiben/gradingPipeline.js';
-import { gradeSchreibenWithWorker, isWorkerSupported } from '../services/schreiben/grading/gradingWorkerClient.js';
+import { gradeSchreibenWithWorker } from '../services/schreiben/grading/gradingWorkerClient.js';
 import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../services/ai/types.js';
 import { applyAiGradingResult } from './schreibenAiResultApplier.js';
@@ -12,7 +11,6 @@ export function useSchreibenAiChecker({
   scores,
   onApplyScores,
   onApplyErrors,
-  t,
   language,
 }) {
   const [aiLoading, setAiLoading] = useState(false);
@@ -35,24 +33,16 @@ export function useSchreibenAiChecker({
     return () => { isMounted = false; };
   }, []);
 
-  const runEvaluationForProvider = useCallback(async (targetProvider = null, progressPrefix = '') => {
-    const provider = targetProvider || await aiProviderRegistry.getActiveProvider();
+  // The provider is chosen here, where the developer override in localStorage is readable; the worker
+  // gets only the resulting fact and runs the model off the main thread (CLAUDE.md §11).
+  const gradeInBackground = useCallback(async () => {
+    const provider = await aiProviderRegistry.getActiveProvider();
     setActiveProvider(provider);
-    const onProg = (text) => setAiStatus(progressPrefix ? `${progressPrefix}: ${text}` : text);
-
-    const isBrowserAi = provider.id === PROVIDER_IDS.MICRO_RANKER;
-    if (!targetProvider && isBrowserAi && isWorkerSupported()) {
-      return await gradeSchreibenWithWorker({
-        userText: item.user_answer,
-        question: item,
-        onProgress: onProg,
-      });
-    }
-    return await gradeSchreibenSubmission({
+    return gradeSchreibenWithWorker({
       userText: item.user_answer,
       question: item,
-      provider,
-      onProgress: onProg,
+      options: { forceLimitedMode: provider.id === PROVIDER_IDS.NONE },
+      onProgress: (text) => setAiStatus(text),
     });
   }, [item]);
 
@@ -72,44 +62,26 @@ export function useSchreibenAiChecker({
     });
   }, [item, scores, onApplyScores, onApplyErrors, language]);
 
-  const handleRunAi = useCallback(async () => {
-    setAiLoading(true);
-    setAiStatus(t('results.aiCheckLoading'));
-    setAiDiffSummary([]);
-    setFeedbackSummary('');
-    setExaminerFeedback(null);
-    try {
-      const res = await runEvaluationForProvider(null);
-      applyResult(res);
-    } catch (err) {
-      setAiStatus(err.message || (language === 'ru' ? 'Ошибка проверки' : 'Fehler bei der Analyse'));
-    } finally {
-      setAiLoading(false);
-    }
-  }, [runEvaluationForProvider, applyResult, t, language]);
-
-  const handleRunRankerAi = useCallback(async () => {
+  const runGrading = useCallback(async () => {
     setAiLoading(true);
     setAiStatus(language === 'ru' ? 'Запуск микро-ранжировщика...' : 'Lade Micro-Ranker...');
     setAiDiffSummary([]);
     setFeedbackSummary('');
     setExaminerFeedback(null);
     try {
-      const ranker = aiProviderRegistry.getProvider(PROVIDER_IDS.MICRO_RANKER);
-      const res = await runEvaluationForProvider(ranker);
-      applyResult(res);
+      applyResult(await gradeInBackground());
     } catch (err) {
       setAiStatus(err.message || (language === 'ru' ? 'Ошибка ранжировщика' : 'Fehler beim Ranker'));
     } finally {
       setAiLoading(false);
     }
-  }, [runEvaluationForProvider, applyResult, language]);
+  }, [gradeInBackground, applyResult, language]);
 
   useEffect(() => {
     if (!item?.examiner_feedback && item?.user_answer && !aiLoading) {
-      handleRunRankerAi();
+      runGrading();
     }
-  }, [item?.examiner_feedback, item?.user_answer, handleRunRankerAi]);
+  }, [item?.examiner_feedback, item?.user_answer, runGrading]);
 
   return {
     aiLoading,
@@ -118,8 +90,6 @@ export function useSchreibenAiChecker({
     feedbackSummary,
     examinerFeedback,
     liveCriteriaBreakdown,
-    handleRunAi,
-    handleRunRankerAi,
     activeProvider,
     providerId: activeProvider?.id || PROVIDER_IDS.NONE,
     isLimitedMode: activeProvider?.id === PROVIDER_IDS.NONE,

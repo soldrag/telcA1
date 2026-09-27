@@ -1,36 +1,18 @@
 /**
- * Runtime Feature Detection for WebGPU / NPU (Platform API Compliance).
- * Strictly complies with Rule 9: relies on navigator.gpu + requestAdapter(),
- * never on user-agent sniffing or outdated training knowledge.
+ * Runtime Feature Detection for WebGPU (Platform API Compliance, CLAUDE.md §9).
+ * Relies on navigator.gpu + requestAdapter(), never on user-agent sniffing: a browser that exposes
+ * navigator.gpu without a usable adapter must take the WASM path. Works on the main thread and in workers.
  */
 
-let cachedAdapterAvailable = null;
-
-export async function isWebGPUAdapterAvailable() {
-  if (typeof navigator === 'undefined' || !navigator.gpu) {
-    cachedAdapterAvailable = false;
-    return false;
-  }
-  if (cachedAdapterAvailable !== null) {
-    return cachedAdapterAvailable;
-  }
+/**
+ * @param {Navigator|undefined} nav - the environment's navigator (WorkerNavigator inside a worker)
+ * @returns {Promise<boolean>}
+ */
+export async function isWebGPUAdapterAvailable(nav = globalThis.navigator) {
+  if (typeof nav?.gpu?.requestAdapter !== 'function') return false;
   try {
-    if (typeof navigator.gpu.requestAdapter === 'function') {
-      const adapter = await navigator.gpu.requestAdapter();
-      cachedAdapterAvailable = Boolean(adapter);
-      return cachedAdapterAvailable;
-    }
-    cachedAdapterAvailable = true;
-    return true;
+    return Boolean(await nav.gpu.requestAdapter());
   } catch {
-    cachedAdapterAvailable = false;
     return false;
   }
-}
-
-export function isWebGPUSupported() {
-  if (cachedAdapterAvailable !== null) {
-    return cachedAdapterAvailable;
-  }
-  return typeof navigator !== 'undefined' && Boolean(navigator.gpu);
 }

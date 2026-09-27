@@ -2,6 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { AIProvider } from '../src/services/ai/AIProvider.js';
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
+import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
 import { AIProviderRegistry } from '../src/services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
@@ -30,6 +31,17 @@ describe('AI Providers Contract & Unit Tests', () => {
     const active = await registry.detectBestAvailableProvider();
     assert.equal(active.id, PROVIDER_IDS.NONE);
     assert.equal(registry.getProvider('unknown').id, PROVIDER_IDS.NONE);
+  });
+
+  it('MicroRankerProvider is available inside a browser worker, where there is no window', async () => {
+    const ranker = new MicroRankerProvider({ embedder: { embed: async () => [] } });
+    assert.equal(await ranker.isAvailable(), false);
+    globalThis.WorkerGlobalScope = function WorkerGlobalScope() {};
+    try {
+      assert.equal(await ranker.isAvailable(), true);
+    } finally {
+      delete globalThis.WorkerGlobalScope;
+    }
   });
 
   it('Pipeline degrades gracefully when provider throws or times out mid-grading', async () => {

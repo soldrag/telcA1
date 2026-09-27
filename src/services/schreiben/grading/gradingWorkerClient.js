@@ -40,16 +40,22 @@ export function gradeInWorker({
 
     const requestId = 'req_' + Math.random().toString(36).slice(2, 9);
 
-    timer = setTimeout(() => {
-      cleanup();
-      reject(new Error('Bewertung im Hintergrund-Thread hat das Zeitlimit überschritten'));
-    }, timeoutMs);
+    // Idle timeout: the first model download outlasts any fixed limit but keeps reporting progress.
+    const armTimer = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        cleanup();
+        reject(new Error('Bewertung im Hintergrund-Thread hat das Zeitlimit überschritten'));
+      }, timeoutMs);
+    };
+    armTimer();
 
     worker.onmessage = (event) => {
       const { id, type, text, progress, result, error } = event.data || {};
       if (id !== requestId) return;
 
       if (type === 'PROGRESS') {
+        armTimer();
         onProgress?.(text, progress);
       } else if (type === 'SUCCESS') {
         cleanup();

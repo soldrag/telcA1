@@ -4,7 +4,7 @@
  */
 
 import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
-import { isWebGPUSupported } from '../../utils/webGpuSupport.js';
+import { isWebGPUAdapterAvailable } from '../../utils/webGpuSupport.js';
 
 export const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 export const EMBEDDING_DIMENSION = 256;
@@ -22,8 +22,8 @@ export function formatEmbeddingPrompt(text = '', isQuery = false) {
   return `${prefix}${String(text || '').trim()}`;
 }
 
-export function getDeviceTarget() {
-  return isWebGPUSupported() ? 'webgpu' : 'wasm';
+async function getDeviceTarget() {
+  return await isWebGPUAdapterAvailable() ? 'webgpu' : 'wasm';
 }
 
 export async function initEmbeddingService(onProgress = null) {
@@ -42,7 +42,7 @@ export async function initEmbeddingService(onProgress = null) {
       env.useBrowserCache = true;
     }
 
-    const device = getDeviceTarget();
+    const device = await getDeviceTarget();
     extractorInstance = await pipeline('feature-extraction', EMBEDDING_MODEL_ID, {
       device,
       dtype: 'q4',
