@@ -1,6 +1,7 @@
 import React from 'react';
 import { QuestionFlagButton } from '../exam/QuestionFlag.jsx';
 import Teil3NoticeCard from './Teil3NoticeCard.jsx';
+import { SPAN } from '../layout/pageLayout.js';
 import TaskBinaryOptions from '../parts/TaskBinaryOptions.jsx';
 
 export default function Teil3QuestionCard({
@@ -13,14 +14,16 @@ export default function Teil3QuestionCard({
     <section
       id={`question-${question.id}`}
       aria-label={`${question.question_number}. ${question.title || 'Hinweisschild'}`}
-      className="scroll-mt-24 bg-surface-card rounded-2xl border border-border-default overflow-hidden grid grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-border-default"
+      className="scroll-mt-24 bg-surface-card rounded-2xl border border-border-default overflow-hidden grid grid-cols-1 lg:grid-cols-12 lg:divide-x lg:divide-border-default"
     >
+      {/* The same 7/5 split as the Teil 1 text and questions, so the divider stays on one line across parts. */}
       <Teil3NoticeCard
+        className={SPAN.wide}
         contextHeader={question.context_header}
         contextBody={question.context_body}
       />
 
-      <div className="p-4 sm:p-6 flex flex-col justify-center gap-4 sm:max-lg:flex-row sm:max-lg:items-center sm:max-lg:gap-4">
+      <div className={`${SPAN.narrow} p-4 sm:p-6 flex flex-col justify-center gap-4 sm:max-lg:flex-row sm:max-lg:items-center sm:max-lg:gap-4`}>
         <p lang="de" className="flex items-start gap-3 exam-text font-semibold text-content-primary sm:max-lg:flex-1">
           <span className="shrink-0 w-7 h-7 mt-0.5 rounded-lg bg-surface-inset text-content-secondary text-sm font-semibold flex items-center justify-center">
             {question.question_number}

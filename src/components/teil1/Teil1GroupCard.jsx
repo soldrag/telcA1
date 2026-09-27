@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Teil1TextCard from './Teil1TextCard.jsx';
 import Teil1QuestionItem from './Teil1QuestionItem.jsx';
+import { SPAN } from '../layout/pageLayout.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 // Phones only: once the reader has answered, a long text can fold away so the questions fit on screen.
@@ -44,7 +45,7 @@ export default function Teil1GroupCard({
       <div className="grid grid-cols-1 lg:grid-cols-12 lg:divide-x lg:divide-border-default items-start">
         <Teil1TextCard headerText={group.header} bodyText={group.body} isCollapsed={isTextCollapsed} />
 
-        <div className="lg:col-span-5 p-4 sm:p-6 space-y-6">
+        <div className={`${SPAN.narrow} p-4 sm:p-6 space-y-6`}>
           {group.items.map((question) => (
             <Teil1QuestionItem
               key={question.id}

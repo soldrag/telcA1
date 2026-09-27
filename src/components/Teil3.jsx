@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileText } from 'lucide-react';
 import Teil3QuestionCard from './teil3/Teil3QuestionCard.jsx';
+import { PAGE_STACK } from './layout/pageLayout.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 function Teil3Banner() {
@@ -43,10 +44,10 @@ export default function Teil3({
   isSubmitted,
 }) {
   return (
-    <div className="space-y-8">
+    <div className={PAGE_STACK}>
       <Teil3Banner />
 
-      <div className="space-y-8">
+      <div className={PAGE_STACK}>
         {questions.map((question) => (
           <Teil3QuestionCard
             key={question.id}

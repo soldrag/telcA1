@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail } from 'lucide-react';
 import Teil1GroupCard from './teil1/Teil1GroupCard.jsx';
+import { PAGE_STACK } from './layout/pageLayout.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 function Teil1Banner() {
@@ -62,7 +63,7 @@ export default function Teil1({
   const groupedByText = groupQuestionsByText(questions);
 
   return (
-    <div className="space-y-8">
+    <div className={PAGE_STACK}>
       <Teil1Banner />
 
       {Object.values(groupedByText).map((group, groupIndex) => (

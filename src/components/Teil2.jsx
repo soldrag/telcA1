@@ -2,6 +2,7 @@ import React from 'react';
 import { QuestionFlagButton } from './exam/QuestionFlag.jsx';
 import { Globe } from 'lucide-react';
 import Teil2WebpageOption from './teil2/Teil2WebpageOption.jsx';
+import { PAGE_STACK } from './layout/pageLayout.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 function Teil2Banner() {
@@ -44,10 +45,10 @@ export default function Teil2({
   isSubmitted,
 }) {
   return (
-    <div className="space-y-8">
+    <div className={PAGE_STACK}>
       <Teil2Banner />
 
-      <div className="space-y-8">
+      <div className={PAGE_STACK}>
         {questions.map((question) => {
           const currentAnswer = answers[question.id];
           const options = question.options_json || [];
