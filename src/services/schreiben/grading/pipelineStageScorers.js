@@ -20,6 +20,7 @@ import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 import { requireLevelPort } from './levelPorts.js';
 import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from './compoundBaselineEvaluator.js';
 import { hasAspectConceptEvidence } from './aspectConceptEvidence.js';
+import { isClaimedByRival } from './rivalEvidence.js';
 
 async function computeSentenceVectors(bodySentences, customExtractor) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
@@ -33,13 +34,15 @@ async function computeSentenceVectors(bodySentences, customExtractor) {
   }
 }
 
-async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments, policy }) {
-  const kw = evaluateCriterionKeywords(bodySentences, crit, { lexicon: policy.lexicon });
+async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceVectors, customExtractor, userSegments, criteria = [], policy }) {
+  const kw = evaluateCriterionKeywords(bodySentences, crit, { lexicon: policy.lexicon, rivalCriteria: criteria });
   let bestSim = 0;
   // A sentence stating an aspect through the level's concept domains ("billig" → Preis) is evidence
   // like a rubric keyword; the compound evaluator still caps the criterion by its weakest aspect.
+  const lexicon = policy.lexicon;
   const conceptSentences = bodySentences.filter((s) => !kw.relevantSentences.includes(s)
-    && hasAspectConceptEvidence(crit, extractAffirmativeText(s, crit, { lexicon: policy.lexicon }), { policy }));
+    && !isClaimedByRival(s, { criterion: crit, rivalCriteria: criteria, lexicon })
+    && hasAspectConceptEvidence(crit, extractAffirmativeText(s, crit, { lexicon }), { policy }));
   const relSentences = [...kw.relevantSentences, ...conceptSentences];
 
   const assigned = userSegments?.leitpunkte?.[critIdx]?.userSentence;

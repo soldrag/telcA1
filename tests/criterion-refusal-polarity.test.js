@@ -74,9 +74,7 @@ describe('Refusal weighed the same across a comma and a full stop', () => {
     assert.equal(item.diagnosticCode, DIAGNOSTIC_CODES.LP_INVERTED_GENERAL);
   });
 
-  it('a refusal is not outweighed by the date of the cancelled appointment', {
-    todo: 'stage2 temporal heuristic counts "am Montag" of the cancelled appointment as new-appointment evidence (todo P1)',
-  }, async () => {
+  it('a refusal is not outweighed by the date of the cancelled appointment', async () => {
     const item = await gradeLetter('ich muss meinen Termin am Montag absagen. Ich muss lange arbeiten.', 'Ich brauche keinen neuen Termin.');
     assert.equal(item.score, 0);
   });

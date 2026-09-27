@@ -7,7 +7,6 @@
 import { SIMILARITY_T2, SIMILARITY_T1, GRAY_ZONE_DELTA } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
-import { stemGermanWord } from '../linguistic/germanStemmer.js';
 import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
@@ -15,6 +14,7 @@ import { assessEvidenceSentences } from './criterionPolarityGate.js';
 import { hasTemporalExpression } from './temporalRangeDetector.js';
 import { hasTemporalEvidence } from '../linguistic/criterionIntents.js';
 import { requireLevelPort } from './levelPorts.js';
+import { isClaimedByRival, keywordThreshold } from './rivalEvidence.js';
 
 export { buildArbiterPrompt, arbitrateGrayZone };
 
@@ -44,33 +44,32 @@ function collectAffirmativeEvidence(sentences, criterion, lexicon) {
     .filter(evidence => evidence.text);
 }
 
-/** @param {{ lexicon: object }} context - the level's lexicon port (ranker policy `lexicon`) */
-export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexicon } = {}) {
+function isTemporalEvidence(text, criterion, context) {
+  return hasTemporalExpression(text) && !isClaimedByRival(text, { criterion, ...context });
+}
+
+/**
+ * @param {{ lexicon: object, rivalCriteria?: object[] }} context - the level's lexicon port (ranker policy
+ *   `lexicon`) and the task's other Leitpunkte, which claim the dates they name
+ */
+export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexicon, rivalCriteria = [] } = {}) {
   requireLevelPort(lexicon, 'evaluateCriterionKeywords: lexicon');
   const rawKeywords = criterion.keywords || [];
   if (rawKeywords.length === 0) return { matchedCount: 0, score: 0, relevantSentences: [] };
 
-  const critStems = rawKeywords.map(k => stemGermanWord(k.toLowerCase()));
   const affirmative = collectAffirmativeEvidence(sentences, criterion, lexicon);
-
   const allWords = affirmative.map(a => a.text).join(' ').split(/\s+/);
   let matchedCount = findMatchedKeywords(rawKeywords, allWords, lexicon).length;
 
   const isTemporalCrit = hasTemporalEvidence(criterion);
-  const rawJoined = affirmative.map(a => a.text).join(' ');
-  if (isTemporalCrit && hasTemporalExpression(rawJoined)) {
-    matchedCount += 1;
-  }
+  const hasTemp = (text) => isTemporalCrit && isTemporalEvidence(text, criterion, { rivalCriteria, lexicon });
+  if (affirmative.some(({ text }) => hasTemp(text))) matchedCount += 1;
 
-  const req = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
-  const threshold = Math.min(req, Math.max(1, critStems.length));
+  const relevantSentences = affirmative
+    .filter(({ text }) => findMatchedKeywords(rawKeywords, text.split(/\s+/), lexicon).length > 0 || hasTemp(text))
+    .map(a => a.sentence);
 
-  const relevantSentences = affirmative.filter(({ text }) => {
-    const hasKw = findMatchedKeywords(rawKeywords, text.split(/\s+/), lexicon).length > 0;
-    const hasTemp = isTemporalCrit && hasTemporalExpression(text);
-    return hasKw || hasTemp;
-  }).map(a => a.sentence);
-
+  const threshold = keywordThreshold(criterion);
   const kwScore = matchedCount >= threshold ? 2 : (matchedCount > 0 ? 1 : 0);
   return { matchedCount, score: kwScore, relevantSentences };
 }
@@ -81,10 +80,11 @@ export async function scoreSingleLeitpunkt({
   sentenceEmbeddings = [],
   embedder = null,
   qwenEngine = null,
-  lexicon
+  lexicon,
+  rivalCriteria = []
 }) {
   const lpText = criterion.label || criterion.id;
-  const kwEval = evaluateCriterionKeywords(bodySentences, criterion, { lexicon });
+  const kwEval = evaluateCriterionKeywords(bodySentences, criterion, { lexicon, rivalCriteria });
 
   let bestSim = 0;
   let relevantSentencesList = [...kwEval.relevantSentences];
@@ -154,7 +154,7 @@ export async function runStage2Leitpunkte({ criteria = [], bodySentences = [], e
   const items = [];
   let totalScore = 0;
   for (const crit of criteria) {
-    const scored = await scoreSingleLeitpunkt({ criterion: crit, bodySentences, sentenceEmbeddings, embedder, qwenEngine, lexicon });
+    const scored = await scoreSingleLeitpunkt({ criterion: crit, bodySentences, sentenceEmbeddings, embedder, qwenEngine, lexicon, rivalCriteria: criteria });
     items.push(scored);
     totalScore += scored.score;
   }
