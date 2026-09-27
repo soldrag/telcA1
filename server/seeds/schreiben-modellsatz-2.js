@@ -127,6 +127,7 @@ export const questions = [
     id: 's2-q6',
     exam_id: 'schreiben-modellsatz-2',
     teil: 2,
+    level: 'A1',
     question_number: 6,
     title: 'Teil 2 • Terminabsage beim Arzt',
     situation: 'Sie haben am Montag um 14:00 Uhr einen Termin in der Praxis Dr. Schneider. Sie können aber nicht kommen. Schreiben Sie eine E-Mail an die Arztpraxis.',

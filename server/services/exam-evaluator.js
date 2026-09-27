@@ -45,6 +45,7 @@ export function gradeQuestion(question, answers = {}) {
   return {
     id: question.id,
     teil: question.teil,
+    level: question.level,
     question_number: question.question_number,
     title: question.title,
     situation: question.situation,

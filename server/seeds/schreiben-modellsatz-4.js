@@ -127,6 +127,7 @@ export const questions = [
     id: 's4-q6',
     exam_id: 'schreiben-modellsatz-4',
     teil: 2,
+    level: 'A1',
     question_number: 6,
     title: 'Teil 2 • Buchungsanfrage Ferienwohnung Ostsee',
     situation: 'Sie möchten im Sommer mit Ihrer Familie Urlaub an der Ostsee machen. Schreiben Sie eine E-Mail an Frau Hansen (Ferienwohnung „Meeresbrise“).',

@@ -96,12 +96,11 @@ describe('CEFR Ranker Policy & Dependency Injection (DIP) Tests', () => {
     assert.equal(providerRes.coverage, 'partial');
   });
 
-  it('Policy registry manages registration and fallback gracefully', () => {
+  it('Policy registry resolves a missing level as a legacy A1 task and rejects an unregistered one', () => {
     const defaultPol = getRankerPolicy('A1');
     assert.equal(defaultPol.level, 'A1');
-
-    const unknownPol = getRankerPolicy('UNKNOWN_LEVEL');
-    assert.equal(unknownPol.level, 'A1');
+    assert.equal(getRankerPolicy().level, 'A1');
+    assert.throws(() => getRankerPolicy('UNKNOWN_LEVEL'), RangeError);
 
     class DummyA2Policy extends IRankerPolicy {
       get level() { return 'A2'; }

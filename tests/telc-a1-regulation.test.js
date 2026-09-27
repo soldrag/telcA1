@@ -56,9 +56,9 @@ describe('telc A1 Schreiben Teil 2 regulation (reglament/telc-a1.md §6)', () =>
 });
 
 describe('Schreiben regulation registry', () => {
-  it('falls back to telc A1 for an unregistered level', () => {
-    assert.equal(getSchreibenRegulation('C2').id, 'telc-a1');
+  it('a task without level is a legacy telc A1 task; an unregistered level is an error', () => {
     assert.equal(getSchreibenRegulation().id, 'telc-a1');
+    assert.throws(() => getSchreibenRegulation('C2'), RangeError);
   });
 
   it('accepts only ISchreibenRegulation implementations', () => {

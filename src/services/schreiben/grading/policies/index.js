@@ -6,6 +6,7 @@
 
 import { IRankerPolicy } from './rankerPolicyInterface.js';
 import { A1RankerPolicy, defaultA1RankerPolicy } from './a1RankerPolicy.js';
+import { resolveTaskLevel } from '../../taskLevel.js';
 
 export { IRankerPolicy, A1RankerPolicy, defaultA1RankerPolicy };
 
@@ -26,17 +27,10 @@ export function registerRankerPolicy(level, policyInstance) {
 }
 
 /**
- * Retrieves the ranker policy for a given CEFR level.
- * Falls back to defaultA1RankerPolicy if level is not registered yet.
- * @param {string} [level='A1']
+ * @param {string} [level] - the task level; a missing level is a legacy A1 task (taskLevel.js)
  * @returns {IRankerPolicy}
+ * @throws {RangeError} for a level without a registered policy
  */
-export function getRankerPolicy(level = 'A1') {
-  const normLevel = String(level || 'A1').toUpperCase().trim();
-  const policy = POLICY_REGISTRY.get(normLevel);
-  if (policy) {
-    return policy;
-  }
-  console.warn(`[CefrPolicyRegistry] Policy for level "${normLevel}" not yet registered. Using A1 policy fallback.`);
-  return defaultA1RankerPolicy;
+export function getRankerPolicy(level) {
+  return POLICY_REGISTRY.get(resolveTaskLevel(level, POLICY_REGISTRY, 'getRankerPolicy'));
 }

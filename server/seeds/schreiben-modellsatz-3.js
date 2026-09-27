@@ -127,6 +127,7 @@ export const questions = [
     id: 's3-q6',
     exam_id: 'schreiben-modellsatz-3',
     teil: 2,
+    level: 'A1',
     question_number: 6,
     title: 'Teil 2 • Heizungsausfall in der Wohnung',
     situation: 'In Ihrer Wohnung ist die Heizung kaputt. Es ist sehr kalt. Schreiben Sie eine E-Mail an Ihren Vermieter, Herrn Meier.',

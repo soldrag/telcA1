@@ -12,6 +12,7 @@ const LEVEL_MODULES = [
   'regulations/',
   'linguistic/a1LexiconService.js',
   'germanGrammarChecker.js',
+  'taskLevel.js',
 ];
 // a1Lexicon, a1RankerPolicy, defaultA1…, A1_GRAMMAR_PROFILE, TelcA1…, and a bare level name 'A1'/'B2'.
 const LEVEL_REFERENCE = /a1[A-Z]|A1[A-Z_]|\b[AB][12]\b/;

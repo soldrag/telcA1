@@ -20,7 +20,7 @@ function buildLevelContext(level) {
 }
 
 /**
- * @param {string} [level] - CEFR level of the task (question.level); unregistered levels use the registry default
+ * @param {string} [level] - CEFR level of the task (question.level); missing = legacy A1, unregistered = RangeError
  * @returns {{ level: string, policy: object, lexicon: object, grammar: { checkLetter: Function, findSalutationDeclensionError: Function } }}
  */
 export function resolveLevelContext(level) {

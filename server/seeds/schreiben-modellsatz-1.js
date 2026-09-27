@@ -127,6 +127,7 @@ export const questions = [
     id: 's1-q6',
     exam_id: 'schreiben-modellsatz-1',
     teil: 2,
+    level: 'A1',
     question_number: 6,
     title: 'Teil 2 • E-Mail an eine Sprachschule',
     situation: 'Sie möchten im August einen Deutschkurs an der Sprachschule „Aktiv“ in München besuchen. Schreiben Sie eine kurze E-Mail an die Schule.',
