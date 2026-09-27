@@ -11,7 +11,7 @@ export default function HistoryListContainer({
   onShareAttempt,
 }) {
   return (
-    <div className="bg-surface-card rounded-3xl border border-border-default shadow-xs overflow-hidden">
+    <div>
       {loading ? (
         <HistoryLoadingSkeleton />
       ) : attempts.length === 0 ? (

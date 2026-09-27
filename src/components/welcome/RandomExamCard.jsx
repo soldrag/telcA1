@@ -3,6 +3,7 @@ import { ChevronDown, Play } from 'lucide-react';
 import ModuleStructureCards from './ModuleStructureCards.jsx';
 import Section from '../layout/Section.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { PAGE_TITLE, PAGE_LEAD } from '../layout/typography.js';
 import { getTestTypeById } from '../../../shared/testTypes.js';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
@@ -12,10 +13,10 @@ export function ModuleHeading({ moduleInfo = {} }) {
   const module = { ...getTestTypeById(moduleInfo.id || 'lesen'), ...moduleInfo };
   return (
     <div className="space-y-1">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-content-primary">
+      <h1 className={PAGE_TITLE}>
         {module.title} · {t(`welcome.moduleSubtitle_${module.id}`)}
       </h1>
-      <p className="text-sm sm:text-base text-content-secondary">
+      <p className={PAGE_LEAD}>
         {t('welcome.moduleSummary', {
           parts: module.partsCount,
           total: module.totalQuestions,

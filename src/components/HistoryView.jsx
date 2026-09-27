@@ -3,7 +3,12 @@ import { RotateCcw, Trash2, ShieldCheck } from 'lucide-react';
 import HistoryStatsGrid from './history/HistoryStatsGrid.jsx';
 import HistoryClearConfirm from './history/HistoryClearConfirm.jsx';
 import HistoryListContainer from './history/HistoryListContainer.jsx';
+import Section from './layout/Section.jsx';
+import { PAGE_STACK } from './layout/pageLayout.js';
+import { PAGE_TITLE, PAGE_LEAD } from './layout/typography.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
+
+const QUIET_BUTTON = 'flex items-center gap-1 text-xs font-semibold px-3 py-2 rounded-xl transition-colors min-h-[2.75rem] cursor-pointer focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
 
 export default function HistoryView({
   navigation = {},
@@ -30,51 +35,38 @@ export default function HistoryView({
     setShowClearConfirm(false);
   };
 
+  const listActions = (
+    <div className="flex items-center gap-2">
+      {attempts.length > 0 && (showClearConfirm ? (
+        <HistoryClearConfirm onConfirm={handleConfirmClear} onCancel={() => setShowClearConfirm(false)} />
+      ) : (
+        <button type="button" onClick={() => setShowClearConfirm(true)} className={`${QUIET_BUTTON} text-content-secondary hover:text-state-error hover:bg-state-error-subtle`}>
+          <Trash2 className="w-4 h-4" aria-hidden="true" />
+          <span>{t('history.clearHistory')}</span>
+        </button>
+      ))}
+      <button type="button" onClick={onRefresh} className={`${QUIET_BUTTON} text-action-primary hover:text-action-primary-hover hover:bg-action-primary-subtle`}>
+        <RotateCcw className="w-4 h-4" aria-hidden="true" />
+        <span>{t('history.refreshBtn')}</span>
+      </button>
+    </div>
+  );
+
   return (
-    <div className="text-content-primary">
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-content-primary">{t('history.title')}</h1>
-          <p className="text-sm text-content-secondary">{t('history.resultsSubtitle')}</p>
+    <div className={`${PAGE_STACK} lg:pt-4 text-content-primary`}>
+      <div className="flex flex-col gap-5">
+        <div className="space-y-1">
+          <h1 className={PAGE_TITLE}>{t('history.title')}</h1>
+          {/* Where the data lives is part of what the page is, so it reads as the lead, not as an alert. */}
+          <p className={`${PAGE_LEAD} flex items-center gap-2`}>
+            <ShieldCheck className="w-4 h-4 shrink-0 text-state-success" aria-hidden="true" />
+            <span>{t('history.storageDisclaimer')}</span>
+          </p>
         </div>
         <HistoryStatsGrid attempts={attempts} />
+      </div>
 
-        <div className="bg-state-success-subtle border border-state-success-border rounded-2xl p-4 flex items-center space-x-3 text-xs text-state-success-text">
-          <ShieldCheck className="w-4 h-4 text-state-success flex-shrink-0" />
-          <span>{t('history.storageDisclaimer')}</span>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-          <h2 className="text-xl font-bold text-content-primary">{t('history.testsHistoryTitle')}</h2>
-          <div className="flex items-center space-x-2">
-            {attempts.length > 0 && (
-              showClearConfirm ? (
-                <HistoryClearConfirm
-                  onConfirm={handleConfirmClear}
-                  onCancel={() => setShowClearConfirm(false)}
-                />
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setShowClearConfirm(true)}
-                  className="flex items-center space-x-1 text-xs text-content-secondary hover:text-state-error font-semibold px-3 py-2 rounded-xl hover:bg-state-error-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] cursor-pointer"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  <span>{t('history.clearHistory')}</span>
-                </button>
-              )
-            )}
-            <button
-              type="button"
-              onClick={onRefresh}
-              className="flex items-center space-x-1 text-xs text-action-primary hover:text-action-primary-hover font-semibold px-3 py-2 rounded-xl hover:bg-action-primary-subtle transition-colors focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] cursor-pointer"
-            >
-              <RotateCcw className="w-4 h-4" />
-              <span>{t('history.refreshBtn')}</span>
-            </button>
-          </div>
-        </div>
-
+      <Section id="history-list-title" title={t('history.testsHistoryTitle')} action={listActions} padding="flush" bodyClassName="overflow-hidden">
         <HistoryListContainer
           loading={loading}
           attempts={attempts}
@@ -82,7 +74,7 @@ export default function HistoryView({
           onStartExam={onStartExam}
           onShareAttempt={onShareAttempt}
         />
-      </div>
+      </Section>
     </div>
   );
 }

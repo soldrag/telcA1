@@ -389,7 +389,6 @@ export const TRANSLATION_CONTRACT = {
     passedBadge: 'string',
     failedBadge: 'string',
     avgTime: 'string',
-    resultsSubtitle: 'string',
     duration: 'string',
     backToMenu: 'string',
     emptyTitle: 'string',
