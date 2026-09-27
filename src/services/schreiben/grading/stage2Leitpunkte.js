@@ -8,6 +8,7 @@ import { SIMILARITY_T2, SIMILARITY_T1, GRAY_ZONE_DELTA } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { getEmbedding } from './embeddingGemmaService.js';
 import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
+import { countMatchedConcepts } from '../linguistic/keywordConcepts.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { buildArbiterPrompt, arbitrateGrayZone } from './stage2Arbitration.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
@@ -59,7 +60,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexi
 
   const affirmative = collectAffirmativeEvidence(sentences, criterion, lexicon);
   const allWords = affirmative.map(a => a.text).join(' ').split(/\s+/);
-  let matchedCount = findMatchedKeywords(rawKeywords, allWords, lexicon).length;
+  let matchedCount = countMatchedConcepts(rawKeywords, allWords, lexicon);
 
   const isTemporalCrit = hasTemporalEvidence(criterion);
   const hasTemp = (text) => isTemporalCrit && isTemporalEvidence(text, criterion, { rivalCriteria, lexicon });
@@ -69,7 +70,7 @@ export function evaluateCriterionKeywords(sentences = [], criterion = {}, { lexi
     .filter(({ text }) => findMatchedKeywords(rawKeywords, text.split(/\s+/), lexicon).length > 0 || hasTemp(text))
     .map(a => a.sentence);
 
-  const threshold = keywordThreshold(criterion);
+  const threshold = keywordThreshold(criterion, lexicon);
   const kwScore = matchedCount >= threshold ? 2 : (matchedCount > 0 ? 1 : 0);
   return { matchedCount, score: kwScore, relevantSentences };
 }

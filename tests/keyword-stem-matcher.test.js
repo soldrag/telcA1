@@ -27,3 +27,21 @@ describe('A correctly spelt word is not read as a similar-sounding keyword', () 
     });
   }
 });
+
+describe('A separable verb keyword matches its split form (Satzklammer)', () => {
+  const stub = {
+    lookup: (w) => ({ zumachen: [{ pos: 'VERB_INF', lemma: 'zumachen', valency: 'SEP', baseVerb: 'machen' }] })[w] || null,
+  };
+  const matchSep = (text) => findMatchedKeywords(['zumachen'], words(text), stub);
+
+  it('matches the base verb with the prefix closing the clause', () => {
+    assert.deepEqual(matchSep('Wann macht der Laden zu?'), ['zumachen']);
+    assert.deepEqual(matchSep('Ich mache das Fenster morgen zu.'), ['zumachen']);
+    assert.deepEqual(matchSep('Bitte zumachen.'), ['zumachen']);
+  });
+
+  it('does not match a preposition inside the clause or a prefix in the next clause', () => {
+    assert.deepEqual(matchSep('Ich mache das zu Hause.'), []);
+    assert.deepEqual(matchSep('Ich mache das, zu spät.'), []);
+  });
+});

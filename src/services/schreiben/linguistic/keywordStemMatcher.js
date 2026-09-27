@@ -41,14 +41,45 @@ function matchesPhraseAt(parts, tokens, start, lexicon) {
   return parts.every((part, offset) => tokens[start + offset] && matchesToken(part, tokens[start + offset], lexicon));
 }
 
+// A separable verb keyword ("anmelden": SEP, baseVerb "melden") splits in a main clause: the base verb
+// is finite and the prefix closes the clause (Satzklammer) — "Wie melde ich mich an?".
+function separableVerbParts(keyword, lexicon) {
+  const entry = (lexicon.lookup(keyword) || []).find((e) => e.valency === 'SEP' && e.baseVerb);
+  if (!entry || !keyword.endsWith(entry.baseVerb)) return null;
+  return { prefix: keyword.slice(0, keyword.length - entry.baseVerb.length), baseStem: stemGermanWord(entry.baseVerb) };
+}
+
+function isClauseFinal(tokens, index) {
+  return index === tokens.length - 1 || tokens[index].closesClause;
+}
+
+function matchesSeparatedVerb({ prefix, baseStem }, tokens) {
+  return tokens.some((token, verbAt) => token.stem === baseStem && tokens.slice(verbAt + 1).some((later, offset) => {
+    const at = verbAt + 1 + offset;
+    return later.w === prefix && isClauseFinal(tokens, at) && !tokens.slice(verbAt, at).some((t) => t.closesClause);
+  }));
+}
+
+function toTokens(words) {
+  return words.map((raw) => ({ w: cleanWord(raw), closesClause: /[.,!?;:]$/.test(String(raw)) }))
+    .filter((t) => t.w)
+    .map((t) => ({ ...t, stem: stemGermanWord(t.w) }));
+}
+
+function matchesKeyword(keyword, tokens, lexicon) {
+  const parts = cleanWord(keyword).split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return false;
+  if (tokens.some((_, start) => matchesPhraseAt(parts, tokens, start, lexicon))) return true;
+  const separable = parts.length === 1 ? separableVerbParts(parts[0], lexicon) : null;
+  return Boolean(separable) && matchesSeparatedVerb(separable, tokens);
+}
+
 /**
  * Keywords (lower-case rubric words or phrases) found in the given words by stem and compatible word class.
+ * Words keep their punctuation: it marks clause ends for separated verb prefixes.
  * @returns {string[]} the matched keywords
  */
 export function findMatchedKeywords(keywords = [], words = [], lexicon) {
-  const tokens = words.map(cleanWord).filter(Boolean).map((w) => ({ w, stem: stemGermanWord(w) }));
-  return keywords.filter((keyword) => {
-    const parts = cleanWord(keyword).split(/\s+/).filter(Boolean);
-    return parts.length > 0 && tokens.some((_, start) => matchesPhraseAt(parts, tokens, start, lexicon));
-  });
+  const tokens = toTokens(words);
+  return keywords.filter((keyword) => matchesKeyword(keyword, tokens, lexicon));
 }

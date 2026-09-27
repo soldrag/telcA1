@@ -5,17 +5,22 @@
  */
 
 import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
+import { countMatchedConcepts, groupKeywordConcepts } from '../linguistic/keywordConcepts.js';
 
-/** Keyword matches a criterion needs for full keyword coverage. */
-export function keywordThreshold(criterion = {}) {
-  const keywordCount = (criterion.keywords || []).length;
+/**
+ * Distinct keyword concepts a criterion needs for full keyword coverage: `requiredMatches`, capped by
+ * the number of concepts the rubric lists ("kosten"/"kostet" is one).
+ * @param {{ lookup: Function }} lexicon - the level's lexicon port
+ */
+export function keywordThreshold(criterion = {}, lexicon) {
+  const conceptCount = groupKeywordConcepts(criterion.keywords || [], lexicon).length;
   const required = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
-  return Math.min(required, Math.max(1, keywordCount));
+  return Math.min(required, Math.max(1, conceptCount));
 }
 
 function isFullKeywordEvidence(criterion, words, lexicon) {
   const keywords = criterion.keywords || [];
-  return keywords.length > 0 && findMatchedKeywords(keywords, words, lexicon).length >= keywordThreshold(criterion);
+  return keywords.length > 0 && countMatchedConcepts(keywords, words, lexicon) >= keywordThreshold(criterion, lexicon);
 }
 
 /**

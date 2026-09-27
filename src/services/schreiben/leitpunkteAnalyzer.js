@@ -5,7 +5,8 @@
  * Strictly complies with McConnell limits (<= 150 lines, <= 25 lines per function).
  */
 
-import { stemGermanWord } from './linguistic/germanStemmer.js';
+import { countMatchedConcepts } from './linguistic/keywordConcepts.js';
+import { keywordThreshold } from './grading/rivalEvidence.js';
 import { validateSentenceFrame } from './linguistic/semanticFrameValidator.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { detectSemanticInversion } from './linguistic/semanticPolarityValidator.js';
@@ -15,34 +16,12 @@ import { evaluateCompoundCriterionBaseline } from './grading/compoundBaselineEva
 import { hasTemporalEvidence } from './linguistic/criterionIntents.js';
 import { requireLevelPort } from './grading/levelPorts.js';
 
-function extractStems(str = '') {
-  return str
-    .toLowerCase()
-    .split(/\s+/)
-    .map(w => stemGermanWord(w))
-    .filter(s => s && s.length >= 3);
-}
+function evaluateKeywordConcepts(text = '', criterion = {}, lexicon) {
+  const keywords = criterion.keywords || [];
+  let matchedCount = countMatchedConcepts(keywords, text.split(/\s+/), lexicon);
+  if (hasTemporalEvidence(criterion) && text && hasTemporalExpression(text)) matchedCount += 1;
 
-function evaluateStemMatches(textStems = [], criterion = {}, rawText = '') {
-  const rawKeywords = criterion.keywords || [];
-  const critStems = rawKeywords.map(k => stemGermanWord(k));
-
-  let matchedCount = 0;
-  for (const cStem of critStems) {
-    if (textStems.includes(cStem)) {
-      matchedCount += 1;
-    }
-  }
-
-  const isTemporalCrit = hasTemporalEvidence(criterion);
-  if (isTemporalCrit && rawText && hasTemporalExpression(rawText)) {
-    matchedCount += 1;
-  }
-
-  const req = criterion.requiredMatches !== undefined ? criterion.requiredMatches : 2;
-  const threshold = Math.min(req, Math.max(1, critStems.length));
-
-  if (matchedCount >= threshold) {
+  if (matchedCount >= keywordThreshold(criterion, lexicon)) {
     return { score: 2, matched: true, detail: 'Inhaltspunkt ausreichend bearbeitet' };
   }
   if (matchedCount > 0) {
@@ -87,8 +66,7 @@ function evaluateCriterionWithGrounding(targetSentence = '', fullText = '', { cr
     return { score: 0, matched: false, detail: 'Inhaltspunkt invertiert oder abgelehnt', diagnosticCode, frameErrors: [] };
   }
 
-  const stems = extractStems(evalText);
-  const stemResult = evaluateStemMatches(stems, criterion, evalText);
+  const stemResult = evaluateKeywordConcepts(evalText, criterion, lexicon);
 
   const frameResult = evaluateFrameConstraints(evalText, criterion, lexicon);
   let finalScore = stemResult.score;
