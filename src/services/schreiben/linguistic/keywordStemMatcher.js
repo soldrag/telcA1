@@ -32,15 +32,23 @@ function cleanWord(word) {
   return String(word || '').toLowerCase().replace(/[.,!?;:()«»"„“]/g, '');
 }
 
+function matchesToken(keywordWord, token, lexicon) {
+  return token.stem === stemGermanWord(keywordWord) && areWordClassesCompatible(keywordWord, token.w, lexicon);
+}
+
+// A phrase keyword ("nächste woche") needs its words in a row, each matched like a single keyword.
+function matchesPhraseAt(parts, tokens, start, lexicon) {
+  return parts.every((part, offset) => tokens[start + offset] && matchesToken(part, tokens[start + offset], lexicon));
+}
+
 /**
- * Keywords (lower-case rubric words) found in the given words by stem and compatible word class.
+ * Keywords (lower-case rubric words or phrases) found in the given words by stem and compatible word class.
  * @returns {string[]} the matched keywords
  */
 export function findMatchedKeywords(keywords = [], words = [], lexicon) {
   const tokens = words.map(cleanWord).filter(Boolean).map((w) => ({ w, stem: stemGermanWord(w) }));
   return keywords.filter((keyword) => {
-    const kw = cleanWord(keyword);
-    const kwStem = stemGermanWord(kw);
-    return tokens.some(({ w, stem }) => stem === kwStem && areWordClassesCompatible(kw, w, lexicon));
+    const parts = cleanWord(keyword).split(/\s+/).filter(Boolean);
+    return parts.length > 0 && tokens.some((_, start) => matchesPhraseAt(parts, tokens, start, lexicon));
   });
 }
