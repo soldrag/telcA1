@@ -2,6 +2,7 @@ import React from 'react';
 import { Eye } from 'lucide-react';
 import { formatExamName, sortExamsNumerically } from '../../../utils/examFormat.js';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
+import Section from '../../layout/Section.jsx';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
 
@@ -49,13 +50,12 @@ export default function TeacherVariantsCatalog({ exams = [], onSelectExam, onSta
   };
 
   return (
-    <section aria-labelledby="teacher-catalog-title" className="space-y-3">
-      <h2 id="teacher-catalog-title" className="text-xl font-bold text-content-primary">{t('welcome.teacherSpace.catalogTitle')}</h2>
+    <Section id="teacher-catalog-title" title={t('welcome.teacherSpace.catalogTitle')} frame="none">
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 lg:gap-3">
         {sortExamsNumerically(exams).map((exam) => (
           <VariantCard key={exam.id} examId={exam.id} onInspect={handleInspect} onAssign={handleAssign} t={t} />
         ))}
       </ul>
-    </section>
+    </Section>
   );
 }
