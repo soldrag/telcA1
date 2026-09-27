@@ -2,10 +2,10 @@ T1_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
 T1_02  none=202       gray=202       primary=202    exp=202 | Missing Zeitraum
 T1_03  none=220       gray=220       primary=220    exp=220 | Missing Hausaufgaben
 T1_04  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violation
-T1_05  none=122       gray=122       primary=122    exp=222 | Severe A1 Typos
+T1_05  none=222       gray=222       primary=222    exp=222 | Severe A1 Typos
 T1_06  none=222       gray=222       primary=222    exp=222 | Informal Salutation
 T1_07  none=220i      gray=220i      primary=220i   exp=220 | Semantic Negation (No HW)
-T1_08  none=122       gray=122       primary=022    exp=022 | Missing Grund
+T1_08  none=122       gray=022       primary=022    exp=022 | Missing Grund
 T1_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
 T1_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 T2_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
@@ -13,7 +13,7 @@ T2_02  none=212       gray=212       primary=212    exp=212 | Trap: Personen wit
 T2_03  none=212       gray=212       primary=212    exp=212 | Trap: Beruf without Personen
 T2_04  none=220       gray=220       primary=220    exp=220 | Missing Besichtigung
 T2_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
-T2_06  none=020       gray=020       primary=020    exp=222 | Severe A1 Typos
+T2_06  none=222       gray=222       primary=222    exp=222 | Severe A1 Typos
 T2_07  none=212       gray=212       primary=212    exp=212 | Informal Salutation
 T2_08  none=210i      gray=210i      primary=210i   exp=210 | Semantic Negation (Too expensive)
 T2_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
@@ -21,11 +21,11 @@ T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-top
 T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
 T3_02  none=122       gray=122       primary=122    exp=122 | Trap: Dank without explicit Zusage
 T3_03  none=202       gray=202       primary=202    exp=202 | Missing Begleitperson
-T3_04  none=221       gray=221       primary=220    exp=220 | Missing Mitbringen/Hilfe
+T3_04  none=221       gray=220       primary=220    exp=220 | Missing Mitbringen/Hilfe
 T3_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
-T3_06  none=221       gray=221       primary=221    exp=222 | Severe A1 Typos
+T3_06  none=222       gray=222       primary=222    exp=222 | Severe A1 Typos
 T3_07  none=222       gray=222       primary=222    exp=222 | Hyper-formal in Casual Context
-T3_08  none=10i0      gray=10i0      primary=10i0   exp=100 | Absage (Semantic Negation)
+T3_08  none=10i1      gray=10i0      primary=10i0   exp=100 | Absage (Semantic Negation)
 T3_09  none=121       gray=121       primary=121    exp=--- | Telegraphic Minimal
 T3_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 G1     none=222       gray=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)
