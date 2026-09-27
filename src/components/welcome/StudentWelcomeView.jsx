@@ -9,7 +9,8 @@ import { summarizeVariantScores } from '../../utils/attemptStats.js';
 import { summarizeModuleProgress } from '../../utils/moduleProgress.js';
 import { getReceivedAssignments } from '../../services/storage/receivedAssignmentsStorage.js';
 import { splitByModule } from '../../utils/moduleSplit.js';
-import { BAND, PAGE_STACK, SPAN } from '../layout/pageLayout.js';
+import Band from '../layout/Band.jsx';
+import { PAGE_STACK, SPAN } from '../layout/pageLayout.js';
 
 function collectAssignedExamIds(assignments, testType) {
   return assignments
@@ -45,7 +46,7 @@ export default function StudentWelcomeView({
         <ModuleHeading moduleInfo={currentModule} />
         <ModuleStructureCards testType={activeTestType} variant="strip" className="max-lg:hidden" />
       </div>
-      <div className={BAND}>
+      <Band>
         <RandomExamCard onStartRandomExam={onStartRandomExam} moduleInfo={currentModule} className={`order-1 lg:order-none ${SPAN.main}`} />
         <TeacherTasksSection
           assignments={tasks.current}
@@ -55,11 +56,11 @@ export default function StudentWelcomeView({
           onOpenTask={onOpenTask}
           className={`order-2 lg:order-none ${SPAN.side}`}
         />
-      </div>
-      <div className={BAND}>
+      </Band>
+      <Band>
         <ModuleProgressCard progress={progress} testType={activeTestType} className={`order-3 lg:order-none ${SPAN.main}`} />
         <RecentAttemptsList recentAttempts={recentAttempts} onOpenHistory={navigation.onOpenHistory} onLoadAttempt={onLoadAttempt} className={`order-5 lg:order-none ${SPAN.side}`} />
-      </div>
+      </Band>
       <VariantGrid
         exams={exams}
         scores={scores}

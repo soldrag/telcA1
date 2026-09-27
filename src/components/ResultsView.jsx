@@ -5,7 +5,8 @@ import ResultsReviewList from './results/ResultsReviewList.jsx';
 import SchreibenResultsBody from './results/schreiben/SchreibenResultsBody.jsx';
 import TeacherReviewBanner from './results/TeacherReviewBanner.jsx';
 import AssignmentSubmissionBanner from './results/AssignmentSubmissionBanner.jsx';
-import { PAGE_STACK, BAND, SPAN } from './layout/pageLayout.js';
+import Band from './layout/Band.jsx';
+import { PAGE_STACK, SPAN } from './layout/pageLayout.js';
 
 // The actions block beside the score is bare on phones (its buttons live in the bottom bar there)
 // and a card of the same height as the score from 1024 px.
@@ -70,10 +71,10 @@ export default function ResultsView({
         />
       )}
 
-      <div className={BAND}>
+      <Band>
         <ResultsHeroCard results={results} teilChipsFromLg={isSchreiben} className={hasActions ? SPAN.main : SPAN.full} />
         {hasActions && <div className={ACTIONS_BLOCK}>{actions}</div>}
-      </div>
+      </Band>
 
       {isSchreiben ? (
         <SchreibenResultsBody reviewItems={results.reviewItems} onUpdateItemScore={onUpdateItemScore} />

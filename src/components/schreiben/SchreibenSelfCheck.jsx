@@ -4,7 +4,8 @@ import { useSchreibenSelfCheck } from '../../hooks/useSchreibenSelfCheck.js';
 import SchreibenLetterVerdict from './SchreibenLetterVerdict.jsx';
 import SchreibenLetterTexts from './SchreibenLetterTexts.jsx';
 import SchreibenMoreDetails from './SchreibenMoreDetails.jsx';
-import { BAND_TOP, SPAN } from '../layout/pageLayout.js';
+import Band from '../layout/Band.jsx';
+import { SPAN } from '../layout/pageLayout.js';
 
 /**
  * Letter review: conclusion and criteria, the texts, the Teil 1 form and secondary details.
@@ -21,12 +22,12 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange, formRevie
   return (
     <div className="flex flex-col gap-4 lg:gap-10">
       {/* The sticky texts stay inside the letter row and never slide over the form below. */}
-      <div className={BAND_TOP}>
+      <Band align="start">
         <SchreibenLetterVerdict {...shared} className={`order-1 min-w-0 ${SPAN.narrow} ${onlyIn('letter')}`} />
         <div className={`order-2 lg:sticky lg:top-20 min-w-0 ${SPAN.wide} ${onlyIn('letter')}`}>
           <SchreibenLetterTexts {...shared} />
         </div>
-      </div>
+      </Band>
       {/* Teil 1 is read first on desktop: the parts keep the exam order. */}
       {formReview && <div className={`order-3 lg:-order-1 min-w-0 ${onlyIn('form')}`}>{formReview}</div>}
       <SchreibenMoreDetails {...shared} className={`order-4 ${onlyIn('letter')}`} />
