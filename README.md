@@ -1,95 +1,67 @@
 # telc Deutsch A1 (Start Deutsch 1) — Exam Simulator
 
-A modern, browser-first web application for **telc Deutsch A1 / Start Deutsch 1** exam preparation. It features realistic simulation of the official exam environment, authentic tasks, an interactive answer sheet, and an intelligent in-browser grading engine.
+A browser-first web app for **telc Deutsch A1 / Start Deutsch 1** preparation: realistic exam screens, authentic tasks, an answer sheet, and a grading engine that runs entirely in the browser. It is a static site on **GitHub Pages** — no server, no account.
 
-Runs entirely as a static web app on **GitHub Pages** — no server or account required.
-
----
-
-## ✨ Key Features
-
-- **Authentic Exam Simulation**:
-  - **Lesen (Reading)**: 15 questions across 3 authentic parts (personal emails, classified ads, public signs) with official scoring (9/15 to pass) and realistic trap questions (*Fallen*).
-  - **Schreiben (Writing)**: Authentic registration form (Teil 1) and short email correspondence (Teil 2).
-  - **Interactive Antwortbogen (S10)**: Faithful digital bubble sheet with auto-scoring and mistake review mode.
-  - **Official Exam Timer**: 25-minute countdown with visual alerts and auto-submission.
-- **In-Browser Hybrid AI Grader (Schreiben Teil 2)**:
-  - Evaluates German essays directly in the client browser using WebGPU / ONNX models and deterministic linguistic analysis (Topological Field Parser, valency, and case checks).
-  - 100% private: no essays or student data are ever sent to external cloud APIs.
-- **Teacher Workspace & Assignment Mode**:
-  - Create customized, tamper-proof assignment links signed with client-side HMAC-SHA256 tokens.
-  - Distributed via URL hash fragments (`#assignment=...`) with zero server logging and duplicate submission lockout.
-- **Offline-First PWA**:
-  - Fully functional offline once loaded. Attempts and progress are kept locally in `localStorage`.
-- **Multilingual UI**: German, English, and Russian interface with detailed German clue highlights and core vocabulary notes.
+**Contents:** [Features](#features) · [Exam structure](#exam-structure) · [Quick start](#quick-start) · [Testing](#testing) · [Documentation](#documentation)
 
 ---
 
-## 🚀 Quick Start
+## Features
 
-### Prerequisites
-- Node.js >= 18
-- npm
+- **Lesen** — 10 variants, 15 tasks in 3 parts (e-mails, web ads, notices), 25-minute timer, official pass mark 9/15, review with clue quotes and vocabulary.
+- **Schreiben** — 4 variants: registration form (Teil 1) and a short letter with 3 Leitpunkte (Teil 2), graded by the telc A1 criteria.
+- **In-browser grading of the letter** — a German linguistic engine (topological fields, case and agreement, letter formulas) plus a small embedding ranker (EmbeddingGemma via WebGPU/Wasm). Grammar hints never lower the telc score; a separate accuracy scale shows them.
+- **Teacher mode** — signed assignment links (`#task=`), result links (`#review=`), list of issued tasks with submissions; all in URL fragments and `localStorage`.
+- **Offline and private** — works offline after the first load; attempts and progress stay in the browser, nothing is sent anywhere.
+- **Interface** in German, English and Russian; phone, tablet and desktop layouts.
 
-### Local Development
+Hören and Sprechen are not built yet (placeholders).
+
+## Exam structure
+
+| Module | Part | Tasks | Format |
+|---|---|---|---|
+| **Lesen** (25 min, 15 points) | Teil 1 | 5 (two e-mails) | richtig / falsch |
+| | Teil 2 | 5 (two web pages each) | a / b |
+| | Teil 3 | 5 (notices) | richtig / falsch |
+| **Schreiben** (20 min, 15 points) | Teil 1 | 5 form fields | short answers |
+| | Teil 2 | letter with 3 Leitpunkte | free text, 10 points |
+
+## Quick start
+
+Requires Node.js 22 (as in CI) and npm.
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start the Vite dev server
-npm run dev
+npm run dev        # http://localhost:5173
+npm run build      # contracts + tests, then dist/
+npm run preview    # serve dist/ locally
 ```
-The app is available at `http://localhost:5173`.
 
-### Production Build (Static Site)
+**Docker** (the same static `dist/`, served by nginx):
 
 ```bash
-npm run build     # static assets in dist/
-npm run preview   # serve dist/ locally
+docker compose up --build   # http://localhost:8080
 ```
-The same `dist/` is deployed to GitHub Pages. There is no server, API or database.
 
-### Docker (static, like GitHub Pages)
+For phones on the LAN (service worker and Web Crypto need a secure context) put `cert.pem` and `key.pem` into `certs/` (e.g. with `mkcert`); HTTPS is then served on `https://<your-ip>:8443`.
+
+## Testing
 
 ```bash
-docker compose up --build
-```
-Builds `dist/` and serves it as static files with nginx at `http://localhost:8080`.
-For phones on the LAN (service worker and Web Crypto need a secure context), put `cert.pem` and `key.pem`
-into `certs/` (e.g. with `mkcert`) — HTTPS is then served at `https://<your-ip>:8443`.
-
----
-
-## 📝 Exam Structure
-
-| Module | Part | Tasks / Questions | Format | Duration |
-| :--- | :--- | :--- | :--- | :--- |
-| **Lesen** | Teil 1 | 5 questions (Texts 1–2) | Richtig (+) / Falsch (-) | ~25 min |
-| | Teil 2 | 5 questions (Websites a/b) | Option [a] / [b] | |
-| | Teil 3 | 5 questions (Notices 11–15) | Richtig (+) / Falsch (-) | |
-| **Schreiben** | Teil 1 | 5 form fields | Text / Data input | ~20 min |
-| | Teil 2 | Short email (3 Leitpunkte) | Free text (In-browser AI evaluation) | |
-
----
-
-## 🧪 Testing & Verification
-
-```bash
-# Run unit tests (routing, rules, scoring, token security)
-npm test
-
-# Validate seed datasets and exam schemas
-npm run validate:seeds
-
-# Benchmark Schreiben AI & linguistic grading pipeline
-npm run eval:schreiben
+npm run verify:contracts   # architecture and data contracts
+npm test                   # unit tests
+npm run test:ui            # Playwright: every screen and control, desktop + mobile
+npm run validate:seeds     # exam data schema
+npm run bench:schreiben    # Schreiben grading diagnostics
 ```
 
----
+All commands: [quality gates](docs/architecture/quality-gates.md#command-reference).
 
-## 📖 Architecture & Guides
+## Documentation
 
-- [ARCHITECTURE.md](ARCHITECTURE.md) — Comprehensive technical architecture, hybrid AI grading pipeline, linguistic parsing engine, and component diagrams.
-- [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) — Guide to creating, formatting, and verifying new exam variants.
-- [CREDITS.md](CREDITS.md) — Libraries, models, fonts and language data this project uses, with their authors and licenses.
+- [ARCHITECTURE.md](ARCHITECTURE.md) — overview and map of [`docs/architecture/`](docs/architecture/): frontend, data and storage, Schreiben grading, linguistic engine, teacher assignments, quality gates.
+- [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) — how to write and validate a new exam variant.
+- [CREDITS.md](CREDITS.md) — libraries, models, fonts and language data with their authors and licenses.
+
+License: MIT (see `LICENSE`); bundled language data is CC BY-SA 4.0 (see `CREDITS.md`).

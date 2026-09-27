@@ -3,7 +3,7 @@
   "version": "0.7.99",
   "license": "MIT",
   "type": "module",
-  "description": "Interactive Telc Deutsch A1 Lesen Exam Web Application with realistic tasks, timer, scoring and explanations",
+  "description": "Browser-first telc Deutsch A1 exam simulator: Lesen and Schreiben with realistic tasks, timer and in-browser grading",
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
