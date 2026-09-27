@@ -36,10 +36,8 @@ jobs:
           ONNXRUNTIME_NODE_INSTALL: skip
         run: npm ci
 
-      - name: Run tests
-        run: npm test
-
-      - name: Build site
+      # prebuild runs verify:contracts and the unit tests, so they are not repeated as a separate step.
+      - name: Check contracts, run unit tests and build site
         run: npm run build
 
       - name: Install Playwright browser

@@ -4,6 +4,8 @@ import { getVersionSummary, getVersionTooltip } from '../config/version.js';
 import { NUMERIC } from './layout/typography.js';
 import { PAGE_CONTAINER } from './layout/pageLayout.js';
 
+const CREDITS_URL = 'https://github.com/soldrag/telcA1/blob/main/CREDITS.md';
+
 const LINK_CLASS = 'min-h-[2.75rem] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
 
 /**
@@ -22,6 +24,8 @@ export default function Footer({ onOpenLegalModal }) {
           <button type="button" onClick={() => onOpenLegalModal?.('impressum')} className={LINK_CLASS}>{t('footer.impressum')}</button>
           <span aria-hidden="true">·</span>
           <button type="button" onClick={() => onOpenLegalModal?.('datenschutz')} className={LINK_CLASS}>{t('footer.datenschutz')}</button>
+          <span aria-hidden="true">·</span>
+          <a href={CREDITS_URL} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>{t('footer.credits')}</a>
           <span aria-hidden="true" className="max-lg:hidden">·</span>
           <span className="max-lg:order-3 max-lg:basis-full">{t('footer.privacy')}</span>
         </p>

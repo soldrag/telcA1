@@ -5,7 +5,7 @@ import { Button } from '../ui/Button.jsx';
 import { DIALOG_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
-export default function TimeUpModal({ isOpen, onConfirm }) {
+export default function TimeUpModal({ isOpen, onConfirm, isGrading = false }) {
   const { t } = useI18n();
 
   return (
@@ -24,9 +24,10 @@ export default function TimeUpModal({ isOpen, onConfirm }) {
           variant="default"
           size="default"
           onClick={onConfirm}
+          isLoading={isGrading}
           className="w-full py-3 font-bold text-white bg-action-primary hover:bg-action-primary-hover rounded-xl min-h-[2.75rem]"
         >
-          {t('modals.timeUpConfirm')}
+          {isGrading ? t('modals.submitting') : t('modals.timeUpConfirm')}
         </Button>
       </div>
     </Dialog>

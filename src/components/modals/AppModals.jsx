@@ -50,6 +50,7 @@ export default function AppModals({ modals = {}, actions = {}, stats = {} }) {
         <TimeUpModal
           isOpen={modals.timeUpModalOpen}
           onConfirm={actions.onConfirmTimeUp}
+          isGrading={stats.isSubmitting}
         />
       )}
       <OnDemandModals modals={modals} />

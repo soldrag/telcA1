@@ -21,74 +21,61 @@ export default function HistoryItemCard({ attempt, onSelect, onShare, compact = 
 
   return (
     <div
-      onClick={() => onSelect(attempt.id)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(attempt.id); }}
-      className={`w-full text-left transition-all cursor-pointer flex items-center justify-between gap-4 group focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem] ${
+      className={`w-full flex items-center gap-3 group transition-all ${
         compact
           ? 'p-4 rounded-2xl border border-border-default hover:border-action-primary hover:bg-action-primary-subtle/30'
           : 'p-4 sm:p-6 hover:bg-surface-raised'
       }`}
     >
-      <div className="flex items-center space-x-4 min-w-0">
-        <div className={`flex-shrink-0 flex items-center justify-center border ${
-          compact ? 'w-10 h-10 rounded-xl' : 'w-12 h-12 rounded-2xl'
-        } ${iconContainerClass}`}>
-          {attempt.passed ? (
-            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
-          ) : (
-            <XCircle className="w-5 h-5 sm:w-6 sm:h-6" />
-          )}
-        </div>
-
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className={`font-bold text-content-primary truncate ${compact ? 'text-sm' : 'text-base'}`}>
-              {examTitle}
-            </span>
-            <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${statusBadgeClass}`}>
-              {attempt.passed ? t('history.passedBadge') : t('history.failedBadge')}
-            </span>
+      {/* Opening and sharing are sibling buttons: a button inside a button is read as one control. */}
+      <button
+        type="button"
+        onClick={() => onSelect(attempt.id)}
+        className="flex-1 min-w-0 text-left cursor-pointer flex items-center justify-between gap-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2 min-h-[2.75rem]"
+      >
+        <div className="flex items-center space-x-4 min-w-0">
+          <div className={`flex-shrink-0 flex items-center justify-center border ${
+            compact ? 'w-10 h-10 rounded-xl' : 'w-12 h-12 rounded-2xl'
+          } ${iconContainerClass}`}>
+            {attempt.passed ? (
+              <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
+            ) : (
+              <XCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+            )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-content-tertiary">
-            <span className="flex items-center space-x-1">
-              <Calendar className="w-3.5 h-3.5 text-content-muted" />
-              <span>{formattedDate}</span>
-            </span>
-            <span className="flex items-center space-x-1">
-              <Clock className="w-3.5 h-3.5 text-content-muted" />
-              <span>{t('history.duration', { minutes, seconds })}</span>
-            </span>
-          </div>
-        </div>
-      </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              <span className={`font-bold text-content-primary truncate ${compact ? 'text-sm' : 'text-base'}`}>
+                {examTitle}
+              </span>
+              <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${statusBadgeClass}`}>
+                {attempt.passed ? t('history.passedBadge') : t('history.failedBadge')}
+              </span>
+            </div>
 
-      <div className="flex items-center space-x-3 flex-shrink-0">
-        <div className="text-right">
-          <div className={`font-bold text-content-primary ${NUMERIC} ${compact ? 'text-sm sm:text-base' : 'text-lg'}`}>
-            {attempt.score} <span className="text-xs sm:text-sm font-medium text-content-tertiary">/ {getAttemptMaxScore(attempt)}</span>
-          </div>
-          <div className={`text-xs font-bold ${NUMERIC} ${attempt.passed ? 'text-state-success' : 'text-state-error'}`}>
-            {attempt.percentage}%
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-content-tertiary">
+              <span className="flex items-center space-x-1">
+                <Calendar className="w-3.5 h-3.5 text-content-muted" />
+                <span>{formattedDate}</span>
+              </span>
+              <span className="flex items-center space-x-1">
+                <Clock className="w-3.5 h-3.5 text-content-muted" />
+                <span>{t('history.duration', { minutes, seconds })}</span>
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-1.5">
-          {!compact && onShare && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onShare(attempt);
-              }}
-              title={t('history.shareAttempt')}
-              className="w-10 h-10 rounded-xl bg-surface-card border border-border-default flex items-center justify-center text-content-muted hover:bg-action-primary-subtle hover:text-action-primary hover:border-action-primary-border transition-all cursor-pointer min-h-[2.5rem]"
-            >
-              <Share2 className="w-4 h-4" />
-            </button>
-          )}
+        <div className="flex items-center space-x-3 flex-shrink-0">
+          <div className="text-right">
+            <div className={`font-bold text-content-primary ${NUMERIC} ${compact ? 'text-sm sm:text-base' : 'text-lg'}`}>
+              {attempt.score} <span className="text-xs sm:text-sm font-medium text-content-tertiary">/ {getAttemptMaxScore(attempt)}</span>
+            </div>
+            <div className={`text-xs font-bold ${NUMERIC} ${attempt.passed ? 'text-state-success' : 'text-state-error'}`}>
+              {attempt.percentage}%
+            </div>
+          </div>
 
           {compact ? (
             <ChevronRight className="w-5 h-5 text-content-muted group-hover:text-action-primary transition-colors" />
@@ -98,7 +85,19 @@ export default function HistoryItemCard({ attempt, onSelect, onShare, compact = 
             </div>
           )}
         </div>
-      </div>
+      </button>
+
+      {!compact && onShare && (
+        <button
+          type="button"
+          onClick={() => onShare(attempt)}
+          title={t('history.shareAttempt')}
+          aria-label={t('history.shareAttempt')}
+          className="flex-shrink-0 w-10 h-10 rounded-xl bg-surface-card border border-border-default flex items-center justify-center text-content-muted hover:bg-action-primary-subtle hover:text-action-primary hover:border-action-primary-border transition-all cursor-pointer min-h-[2.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
+        >
+          <Share2 className="w-4 h-4" />
+        </button>
+      )}
     </div>
   );
 }

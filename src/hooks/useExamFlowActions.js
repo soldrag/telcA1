@@ -79,8 +79,8 @@ export function useExamFlowActions({
       showError('errors.submitExam');
       return;
     }
+    // The time-up dialog stays over the results until the student closes it; otherwise it only flashes.
     modals.closeSubmitModal();
-    modals.closeTimeUpModal();
 
     if (assignmentMode?.isAssignmentMode) {
       await assignmentMode.finalizeAssignment({

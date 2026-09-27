@@ -40,7 +40,7 @@ export default function App() {
         actions={{
           onConfirmSubmit: controller.submitExam,
           onConfirmLeave: controller.leaveExam,
-          onConfirmTimeUp: controller.submitExam,
+          onConfirmTimeUp: controller.modals.closeTimeUpModal,
         }}
         stats={{
           answeredCount: controller.session.answeredCount,

@@ -484,6 +484,7 @@ export const TRANSLATION_CONTRACT = {
     privacy: 'string',
     impressum: 'string',
     datenschutz: 'string',
+    credits: 'string',
   },
   languages: {
     en: 'string',

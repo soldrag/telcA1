@@ -418,7 +418,7 @@ export const en = {
     submitConfirm: 'Yes, check answers',
     submitting: 'Grading...',
     timeUpTitle: 'Time is up!',
-    timeUpDesc: 'The 25-minute time limit for the Reading section has expired. Your answers will now be evaluated.',
+    timeUpDesc: 'The time limit for this section has expired. Your answers are evaluated as they are.',
     timeUpConfirm: 'View results',
     stubTitle: 'Section coming soon',
     stubDesc: 'The module "{title}" is currently in development. You can practice the Reading (Lesen) module right now.',
@@ -483,6 +483,7 @@ export const en = {
     privacy: 'Your data stays in this browser',
     impressum: 'Legal Notice (Impressum)',
     datenschutz: 'Privacy Policy (Datenschutz)',
+    credits: 'Credits',
   },
   languages: {
     en: 'English',

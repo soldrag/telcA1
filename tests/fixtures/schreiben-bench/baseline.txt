@@ -26,7 +26,7 @@ T3_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violatio
 T3_06  none=221       gray=220       primary=220    exp=222 | Severe A1 Typos
 T3_07  none=222       gray=222       primary=222    exp=222 | Hyper-formal in Casual Context
 T3_08  none=10i1      gray=10i0      primary=10i0   exp=100 | Absage (Semantic Negation)
-T3_09  none=121       gray=121       primary=121    exp=--- | Telegraphic Minimal
+T3_09  none=122       gray=122       primary=122    exp=--- | Telegraphic Minimal
 T3_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 G1     none=222       gray=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)
 G2     none=222       gray=222       primary=222    exp=222 | 2. Modellsatz 1 Typical A1 Submission with typical errors (S

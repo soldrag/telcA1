@@ -14,9 +14,13 @@ test('the time limit ends the exam and shows the results', async ({ page }) => {
   await answerVisibleQuestions(page);
   await page.clock.fastForward(EXAM_TIME_MS + 1_000);
   await page.clock.resume();
-  // Time-up submits by itself; its dialog closes as soon as grading is done.
-  await expect(page.getByRole('button', { name: en.header.retake }).filter({ visible: true }).first()).toBeVisible({ timeout: 30_000 });
+  // Time-up submits by itself; its dialog stays over the results until the student closes it.
+  const viewResults = page.getByRole('button', { name: en.modals.timeUpConfirm });
+  await expect(viewResults).toBeEnabled({ timeout: 30_000 });
+  await expect(page.getByRole('button', { name: en.header.retake }).filter({ visible: true }).first()).toBeAttached();
+  await viewResults.click();
   await expect(page.getByRole('dialog')).toBeHidden();
+  await expect(page.getByRole('button', { name: en.header.retake }).filter({ visible: true }).first()).toBeVisible();
 });
 
 test('practice without a timer does not run out', async ({ page }) => {
