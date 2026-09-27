@@ -18,3 +18,17 @@ describe('Grammar hints on correct sentences', () => {
     assert.deepEqual(hinted, []);
   });
 });
+
+// Counterexamples from the independent review of v0.7.95 (not from the corpus): the tagger and case-government
+// heuristics must not overreach.
+describe('Grammar hints: review counterexamples', () => {
+  const corrections = (text) => checkGermanA1Grammar(text).map((e) => e.correction);
+  for (const text of ['Ich komme, weil wir einen Termin haben.', 'Ich weiß nicht, ob wir meinen Onkel treffen.',
+    'Er verkauft sein Auto.', 'Ich gebe ihr Blumen.', 'Kommt ihr Mann auch?']) {
+    it(`clean: ${text}`, () => assert.deepEqual(corrections(text), []));
+  }
+  for (const [text, correction] of [['Ich brauche ein Computer jeden Tag.', 'einen Computer'],
+    ['Ich sehe der Mann jede Woche.', 'den Mann'], ['Ich besuche meinem Bruder jeden Tag.', 'meinen Bruder']]) {
+    it(`${text} → ${correction}`, () => assert.ok(corrections(text).includes(correction), JSON.stringify(corrections(text))));
+  }
+});

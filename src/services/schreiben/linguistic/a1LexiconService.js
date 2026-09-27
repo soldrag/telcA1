@@ -20,12 +20,12 @@ function dictionaryEntries(bare) {
 
 // The A1 list gives a verb's present singular and plural forms; the dictionary adds the readings it leaves out for
 // the same verb ("kommt" is also "ihr kommt", "kam" the past of "kommen").
-// A lower-case A1 word that is neither noun nor verb there may still be a verb form ("liebe": "Liebe Anna",
-// "ich liebe dich"); the tagger chooses by position. A lower-case noun stays a noun ("tage" is "Tage").
+// A lower-case A1 adjective or adverb may still be a verb form ("liebe": "Liebe Anna", "ich liebe dich"); the
+// tagger chooses by position. Nouns, articles and pronouns keep their A1 readings ("tage", "einen", "meinen").
 function withDictionaryVerbReadings(bare, levelEntries) {
   const levelVerbs = levelEntries.filter((e) => String(e.pos).startsWith('VERB') && e.person);
   if (levelVerbs.length === 0) {
-    const homographs = /^[a-zäöüß]/.test(bare) && !levelEntries.some((e) => e.pos === 'NOUN' || String(e.pos).startsWith('VERB'))
+    const homographs = /^[a-zäöüß]/.test(bare) && levelEntries.every((e) => e.pos === 'ADJ' || e.pos === 'ADV')
       ? lookupDictionaryVerb(bare).filter((d) => d.pos === 'VERB_FIN') : [];
     return homographs.length ? [...levelEntries, ...homographs] : levelEntries;
   }
@@ -151,12 +151,15 @@ export function disambiguateToken(rawWord = '', prevToken = null, nextToken = nu
     && c.person?.some((p) => prevToken.person?.includes(p)) && (!c.number || !prevToken.number || c.number === prevToken.number));
   if (agreeingVerb && !candidates[0].pos.startsWith('VERB')) return { raw, lower, ...agreeingVerb };
 
-  // A pronoun/possessive homograph before a noun or adjective is the possessive: "Hat Ihr Sohn …?", "ihr Kind".
-  const determiner = ['NOUN', 'ADJ'].includes(nextToken?.pos) && candidates.find((c) => c.pos === 'DET');
+  // A pronoun/possessive homograph before a noun or adjective is the possessive when its form fits the noun:
+  // "Hat Ihr Sohn …?", "ihr Kind" — but "Ich gebe ihr Blumen" (plural needs "ihre") keeps the pronoun.
+  const determiner = ['NOUN', 'ADJ'].includes(nextToken?.pos) && candidates.find((c) => c.pos === 'DET'
+    && (nextToken.pos === 'ADJ' || (nextToken.number !== 'pl' && (!c.gender || !nextToken.gender || c.gender === nextToken.gender || nextToken.gender === 'n'))));
   if (determiner) return { raw, lower, ...determiner };
 
   // A participle/finite homograph before an auxiliary is the participle: "…, von der ich dir erzählt habe".
-  const participle = ['haben', 'sein', 'werden'].includes(nextToken?.lemma) && candidates.find((c) => c.pos === 'VERB_PART');
+  const participle = String(nextToken?.pos).startsWith('VERB') && ['haben', 'sein', 'werden'].includes(nextToken?.lemma)
+    && candidates.find((c) => c.pos === 'VERB_PART');
   if (participle) return { raw, lower, ...participle };
 
   const special = resolveSpecialParticles(lower, prevToken, nextToken);

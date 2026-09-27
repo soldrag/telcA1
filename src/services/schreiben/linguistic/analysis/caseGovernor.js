@@ -40,7 +40,9 @@ const canBeAccusative = (phrase) => (phrase.pronoun
 
 /** The accusative object comes after a dative one: "macht mir viel Spaß", "gebe dir das Buch". */
 function hasLaterAccusativeObject(phrase, clause, phrases) {
-  return phrases.some((p) => p.start > phrase.end && p.end <= clause.end && !p.governor && !p.isCalendar && canBeAccusative(p));
+  // Time phrases in the accusative ("jeden Tag", "diesen Monat") are adverbials, not objects.
+  return phrases.some((p) => p.start > phrase.end && p.end <= clause.end && !p.governor && !p.isCalendar
+    && !ADVERBIAL_CATEGORIES.has(p.head?.analysis.entry.category) && canBeAccusative(p));
 }
 
 function verbObjectCases(phrase, context) {
