@@ -48,7 +48,7 @@ flowchart TB
 | `src/contracts/`, `scripts/contracts/`, `scripts/verify-contracts.js` | build-time contracts |
 | `shared/testTypes.js` | module rules (time, tasks, points) |
 | `scripts/seeds/`, `scripts/lexicon/` | seed validator, dictionary builders |
-| `tests/` | unit tests, `ui/` (Playwright), `e2e/` (CDP), `eval/`, `fixtures/` |
+| `tests/` | unit tests, `ui/` (Playwright), `eval/`, `fixtures/` |
 | `public/` | service worker, theme script, icons, fonts, manifest |
 
 ## Documentation map
