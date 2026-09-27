@@ -70,7 +70,22 @@ function extractClauseArguments(tokens = []) {
   }
 
   const subjectToken = tokens.find(t => t.pos === 'PRON_SUBJ') || tokens.find(t => t.pos === 'NOUN') || null;
-  return { subject: subjectToken?.lower || null, objects, temporalMarkers, stateMarkers };
+  const directObjects = extractDirectObjects(tokens, subjectToken);
+  return { subject: subjectToken?.lower || null, objects, directObjects, temporalMarkers, stateMarkers };
+}
+
+// Nouns outside a prepositional phrase that are not the subject: "einen neuen Termin" is a complement
+// of the verb, "am Montag" is not. A preposition governs the tokens up to its noun.
+function extractDirectObjects(tokens = [], subjectToken = null) {
+  const directObjects = [];
+  let insidePrepPhrase = false;
+  for (const t of tokens) {
+    if (t.pos === 'PREP') insidePrepPhrase = true;
+    if (t.pos !== 'NOUN') continue;
+    if (!insidePrepPhrase && t !== subjectToken) directObjects.push((t.lemma || t.lower).toLowerCase());
+    insidePrepPhrase = false;
+  }
+  return directObjects;
 }
 
 export function parseClauseStructure(clause) {

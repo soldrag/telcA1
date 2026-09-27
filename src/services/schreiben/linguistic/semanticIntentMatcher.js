@@ -14,7 +14,7 @@ export { INTENT_TYPES };
 // Negations that express a speech act instead of refusing it. A defect is reported by negating
 // the function ("funktioniert nicht"), never by negating the problem ("kein Problem"); a cancellation
 // or a reason is carried by any negation ("kann nicht kommen", "habe keine Zeit").
-const ANY_NEGATION = Object.freeze(['negated_entity', 'negated_action', 'negated_participant']);
+const ANY_NEGATION = Object.freeze(['negated_entity', 'negated_action', 'negated_participant', 'negated_object']);
 export const INTENT_POLARITY = Object.freeze({
   [INTENT_TYPES.DEFECT_REPORT]: { contentNegations: ['negated_action', 'negated_participant'] },
   [INTENT_TYPES.APPOINTMENT_CANCEL]: { contentNegations: ANY_NEGATION },

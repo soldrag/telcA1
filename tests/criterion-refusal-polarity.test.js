@@ -26,6 +26,8 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
     [companion, 'Meine Schwester kommt nicht.', 'negated_participant'],
     [priceAndPets, 'Wir haben keinen Hund.', 'negated_entity'],
     [defectReason, 'Ich habe kein Problem.', 'negated_entity'],
+    [newAppointment, 'Einen neuen Termin möchte ich nicht.', 'negated_object'],
+    [newAppointment, 'Ich brauche den Termin nicht.', 'negated_object'],
   ];
   for (const [criterion, sentence, reason] of refusals) {
     it(`"${sentence}" refuses "${criterion.label}"`, () => {
@@ -42,6 +44,8 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
     [defectReason, 'Die Heizung funktioniert nicht.'],
     [newAppointment, 'Am Mittwoch kann ich nicht, aber am Donnerstag habe ich Zeit.'],
     [companion, 'Mein Bruder kommt auch mit.'],
+    [newAppointment, 'Am Montag möchte ich nicht, aber am Dienstag gern.'],
+    [newAppointment, 'Ich kann den Termin am Montag nicht machen, aber am Dienstag.'],
   ];
   for (const [criterion, sentence] of contentNegations) {
     it(`"${sentence}" does not refuse "${criterion.label}"`, () => {
