@@ -105,7 +105,8 @@ async function scoreCriterionItem(params) {
   let rankerDetails = compoundEval?.rankerDetails || null;
   let arbitration = null;
 
-  const arbitrationGate = { provider, effectiveSim, framePenalty: frameCheck.penalty, baselineScore: baseScore, isCompound: Boolean(compoundEval) };
+  const isSimilarityOnly = !hasAffirmativeEvidence && !compoundEval;
+  const arbitrationGate = { provider, effectiveSim, framePenalty: frameCheck.penalty, baselineScore: baseScore, isCompound: Boolean(compoundEval), isSimilarityOnly };
   // Missing declared evidence is settled by the detector: no provider re-reads it into the text.
   if (!evidenceMissing && shouldArbitrateLeitpunkt(arbitrationGate)) {
     // The arbiter reads what the letter affirms: a refused clause ("ich kann nicht kommen") is not a Zusage.
@@ -113,7 +114,7 @@ async function scoreCriterionItem(params) {
     const sentences = candidates.map((s) => extractAffirmativeText(s, crit, { lexicon: policy.lexicon })).filter(Boolean);
     const arb = await arbitrateLeitpunkt({
       criterion: crit, sentences, baselineScore: baseScore, provider,
-      embedder: rankerEmbedder, rivalCriteria: criteria.filter((c) => c !== crit), policy,
+      embedder: rankerEmbedder, rivalCriteria: criteria.filter((c) => c !== crit), policy, isSimilarityOnly,
     });
     finalScore = arb.score;
     arbitrated = arb.arbitrated;

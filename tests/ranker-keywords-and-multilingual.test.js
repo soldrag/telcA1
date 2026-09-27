@@ -121,6 +121,16 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
     assert.equal(shouldArbitrateLeitpunkt({ provider: ranker, effectiveSim: 0.95, framePenalty: 2 }), false);
   });
 
+  it('a point resting on sentence similarity alone is always reviewed and not floored by it', () => {
+    const llm = { id: PROVIDER_IDS.CLIENT_WEBGPU };
+    const none = { id: PROVIDER_IDS.NONE };
+    const gate = (provider) => shouldArbitrateLeitpunkt({ provider, effectiveSim: 0.52, framePenalty: 0, baselineScore: 1, isSimilarityOnly: true });
+    assert.equal(gate(llm), true);
+    assert.equal(gate(none), false, 'without a provider the similarity level stands');
+    assert.equal(mergeArbitrationVerdict(1, { coverage: 'no' }, { isSimilarityOnly: true }).score, 0);
+    assert.equal(mergeArbitrationVerdict(1, { coverage: 'no' }).score, 1, 'keyword evidence keeps its floor');
+  });
+
   it('a gray-zone provider reviews a compound point only while its aspects disagree', () => {
     const llm = { id: PROVIDER_IDS.CLIENT_WEBGPU };
     const gate = (baselineScore, effectiveSim) => shouldArbitrateLeitpunkt({ provider: llm, effectiveSim, framePenalty: 0, baselineScore, isCompound: true });

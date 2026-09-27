@@ -7,7 +7,9 @@
  * - gray-zone providers never lower a baseline level ≥ 1 (isProtected records when that floor applied);
  * - the primary ranker is the arbiter: its 'no' verdict overrides the keyword baseline, and a compound
  *   point is capped at partial when the ranker vetoed an aspect that only keywords supported
- *   (both only when the level policy trusts the verdict on these sentences, see IRankerPolicy.isVerdictReliable).
+ *   (both only when the level policy trusts the verdict on these sentences, see IRankerPolicy.isVerdictReliable);
+ * - a baseline resting on sentence similarity alone (no keyword, concept or structured evidence) is only a
+ *   topic hint: any provider is asked, and its verdict is not floored by that baseline.
  */
 
 import { isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
@@ -31,11 +33,12 @@ function isBaselineUndecided({ effectiveSim, baselineScore, isCompound }) {
 
 /**
  * @param {{ provider: object, effectiveSim: number, framePenalty: number,
- *   baselineScore?: number, isCompound?: boolean }} params
+ *   baselineScore?: number, isCompound?: boolean, isSimilarityOnly?: boolean }} params
  */
-export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty, baselineScore, isCompound = false }) {
+export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty, baselineScore, isCompound = false, isSimilarityOnly = false }) {
   if (!provider || provider.id === PROVIDER_IDS.NONE || framePenalty > 0) return false;
-  return isPrimaryRankerProvider(provider) || isBaselineUndecided({ effectiveSim, baselineScore, isCompound });
+  if (isPrimaryRankerProvider(provider) || (isSimilarityOnly && baselineScore > 0)) return true;
+  return isBaselineUndecided({ effectiveSim, baselineScore, isCompound });
 }
 
 function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
@@ -47,11 +50,11 @@ function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
 /**
  * @param {number} baselineScore
  * @param {object} verdict - provider coverage verdict
- * @param {{ rankerIsArbiter?: boolean }} [options]
+ * @param {{ rankerIsArbiter?: boolean, isSimilarityOnly?: boolean }} [options]
  */
-export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter = false } = {}) {
+export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter = false, isSimilarityOnly = false } = {}) {
   const rawScore = coverageToPoints(verdict?.coverage, baselineScore);
-  if (rankerIsArbiter && verdict?.coverage === 'no') {
+  if ((rankerIsArbiter || isSimilarityOnly) && verdict?.coverage === 'no') {
     return { score: rawScore, rankerScore: rawScore, isProtected: false, arbitrated: rawScore !== baselineScore };
   }
   const { score: guardedScore, isProtected } = applyConfidenceFloor(baselineScore, rawScore);
@@ -63,9 +66,10 @@ export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbite
 
 /**
  * @param {{ criterion: object, sentences: string[], baselineScore: number, provider: object,
- *   embedder?: object|null, rivalCriteria?: object[], policy?: object }} params - policy: the task level's ranker policy
+ *   embedder?: object|null, rivalCriteria?: object[], policy?: object, isSimilarityOnly?: boolean }} params
+ *   - policy: the task level's ranker policy
  */
-export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [], policy }) {
+export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [], policy, isSimilarityOnly = false }) {
   if (!sentences?.length || !provider || provider.id === PROVIDER_IDS.NONE) {
     return { score: baselineScore, arbitrated: false, rankerDetails: null };
   }
@@ -74,7 +78,7 @@ export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, 
     const verdict = isPrimaryRankerProvider(provider)
       ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria, policy })
       : await provider.classifyCoverage(criterion, sentences.join(' '));
-    return { ...mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter }), rankerDetails: verdict || null };
+    return { ...mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter, isSimilarityOnly }), rankerDetails: verdict || null };
   } catch (err) {
     console.warn('[LeitpunktArbitration] LP arbitration skipped on error:', err?.message || err);
     return { score: baselineScore, arbitrated: false, rankerDetails: null };
