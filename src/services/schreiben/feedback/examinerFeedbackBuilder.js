@@ -69,7 +69,13 @@ function selectOverallCode(facts, verdict) {
   return facts.finalPoints >= verdict.good ? EXAMINER_CODES.OVERALL_GOOD : EXAMINER_CODES.OVERALL_PARTIAL;
 }
 
-function summarizeContent(items) {
+const VOID_SUMMARY_CODES = Object.freeze({
+  NO_PREDICATION: EXAMINER_CODES.SUMMARY_LP_VOID_NO_PREDICATION,
+  OFF_TOPIC: EXAMINER_CODES.SUMMARY_LP_VOID_OFF_TOPIC,
+});
+
+function summarizeContent(items, voidReason) {
+  if (VOID_SUMMARY_CODES[voidReason]) return entry(VOID_SUMMARY_CODES[voidReason]);
   const inverted = items.find(isInverted);
   if (inverted) return entry(EXAMINER_CODES.SUMMARY_LP_INVERTED, { criterion: inverted.label });
   const missing = items.filter((it) => !it.score);
@@ -99,7 +105,7 @@ function summarizeGrammar(errors) {
 function composeSummary(facts, selection) {
   const overall = entry(selectOverallCode(facts, selection.verdict), { points: facts.finalPoints, maxPoints: facts.maxPoints });
   if (overall.code === EXAMINER_CODES.OVERALL_INSUFFICIENT) return [overall];
-  const parts = [overall, summarizeContent(facts.items), summarizeFraming(facts), summarizeGrammar(facts.grammarErrors)];
+  const parts = [overall, summarizeContent(facts.items, facts.leitpunkteVoidReason), summarizeFraming(facts), summarizeGrammar(facts.grammarErrors)];
   return parts.filter(Boolean).slice(0, selection.maxSummarySentences);
 }
 
@@ -108,7 +114,8 @@ function composeBullets(facts, selection) {
     .map((g) => ({ category: 'grammar', status: 'warning', ...g }));
   return [
     describeFramingPart('anrede', facts.anrede),
-    ...facts.items.map(describeLeitpunkt),
+    // Voided points are explained once in the summary; a per-point quote would contradict the 0 points.
+    ...(facts.leitpunkteVoidReason ? [] : facts.items.map(describeLeitpunkt)),
     describeFramingPart('gruss', facts.gruss),
     ...grammar,
   ].filter(Boolean);

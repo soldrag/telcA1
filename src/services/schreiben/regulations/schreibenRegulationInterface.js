@@ -13,7 +13,15 @@
  * @property {Array} [grammarErrors] - Available to regulations that grade formal accuracy
  * @property {number} [wordCount]
  * @property {boolean} [isUnratable] - Gibberish or empty text
+ * @property {import('../grading/letterContentFacts.js').LetterContentFacts} [content] - What the body
+ *   states; a regulation may void Leitpunkte by it (no statement at all, a letter on another task)
  */
+
+/** Why a regulation gave every Leitpunkt 0 regardless of its coverage level. */
+export const LEITPUNKTE_VOID_REASONS = Object.freeze({
+  NO_PREDICATION: 'NO_PREDICATION',
+  OFF_TOPIC: 'OFF_TOPIC',
+});
 
 /**
  * @typedef {Object} ScoredCriterion
@@ -28,6 +36,7 @@
  * @property {ScoredCriterion & {rating: string}} kg - Kommunikative Gestaltung
  * @property {number} total
  * @property {number} maxPoints
+ * @property {string|null} leitpunkteVoidReason - a LEITPUNKTE_VOID_REASONS value, or null
  */
 
 export class ISchreibenRegulation {

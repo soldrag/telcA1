@@ -12,6 +12,7 @@ export function computeTelcFinalScore({
   wordCount = 0,
   isGibberish = false,
   grammarErrors = [],
+  content = null,
   level,
 }) {
   const regulation = getSchreibenRegulation(level);
@@ -22,6 +23,7 @@ export function computeTelcFinalScore({
     grammarErrors,
     wordCount,
     isUnratable: isGibberish || wordCount === 0,
+    content,
   });
   return {
     finalPoints: score.total,

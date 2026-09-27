@@ -9,7 +9,7 @@ import { PROVIDER_IDS } from '../../ai/types.js';
 function buildLegacyFacts({ stage1, stage2, errors }) {
   return {
     anredeScore: stage1.anredeScore,
-    lpScore: stage2.totalScore,
+    lpScore: (stage2.items || []).reduce((sum, it) => sum + (Number(it.score) || 0), 0),
     grussScore: stage1.grussScore,
     grammarErrorCount: errors.length,
   };
@@ -46,7 +46,7 @@ function toLeitpunktFact(item = {}) {
 /**
  * Facts contract consumed by IRankerPolicy.buildExaminerFeedback.
  */
-export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, userSegments, finalPoints, maxPoints, isGibberish }) {
+export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, userSegments, finalPoints, maxPoints, isGibberish, leitpunkteVoidReason = null }) {
   return {
     anrede: {
       score: stage1.anredeScore,
@@ -61,6 +61,7 @@ export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, use
     maxPoints,
     wordCount: stage0.wordCount,
     isGibberish: Boolean(isGibberish),
+    leitpunkteVoidReason,
   };
 }
 

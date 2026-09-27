@@ -1,0 +1,6 @@
+{
+  "weekdays": ["montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"],
+  "timeNouns": ["uhr", "zeit", "termin", "woche", "wochenende", "morgen", "vormittag", "nachmittag", "abend"],
+  "positiveStates": ["perfekt", "einwandfrei", "super", "toll", "gut", "warm"],
+  "defectStates": ["kaputt", "kalt", "defekt", "schlecht", "dunkel"]
+}

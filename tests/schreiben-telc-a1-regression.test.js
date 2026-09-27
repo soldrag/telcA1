@@ -18,10 +18,7 @@ const weights = A1_GRAMMAR_PROFILE.accuracyWeights;
 
 const suites = await loadRegressionSuites();
 
-const LIMITED_MODE_GAPS = {
-  '11_keyword_stuffing': 'bare rubric nouns count as coverage; limited mode has no communicative-action check',
-  '12_off_topic': 'LP2: an off-topic date ("am Samstag") counts as Zeitraum evidence; limited mode has no topic check (todo «Keyword stuffing и off-topic»)',
-};
+const LIMITED_MODE_GAPS = {};
 
 const CONTENT_KEYS = ['lp1', 'lp2', 'lp3', 'total'];
 

@@ -19,6 +19,7 @@ import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../ai/types.js';
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
+import { detectLetterContentFacts } from './grading/letterContentFacts.js';
 
 function classifyArbitration(it) {
   if (it.isProtected) return 'protected';
@@ -37,9 +38,12 @@ function buildDiffSummary(items = []) {
     }));
 }
 
+// `score` is the level the regulation awarded (it may void a covered point); `detectedScore` is the coverage.
 function attachPoints(items, score) {
   return items.map((it, i) => ({
     ...it,
+    score: score.leitpunkte[i]?.level ?? it.score,
+    detectedScore: it.score,
     points: score.leitpunkte[i]?.points ?? 0,
     maxPoints: score.leitpunkte[i]?.maxPoints ?? 0,
   }));
@@ -60,7 +64,7 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
 }
 
 function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy }) {
-  const items = attachPoints(stage2.items, score);
+  const { items } = stage2;
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
   return {
     word_count: stage0.wordCount,
@@ -74,6 +78,7 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     breakdown: {
       anrede: stage1.anredeScore,
       leitpunkte: items.reduce((sum, it) => sum + it.points, 0),
+      leitpunkte_void_reason: score.leitpunkteVoidReason ?? null,
       gruss: stage1.grussScore,
       kommunikative_gestaltung: score.kg,
       items,
@@ -145,14 +150,16 @@ export async function gradeSchreibenSubmission({
     wordCount: stage0.wordCount,
     isGibberish: quality.isGibberish,
     grammarErrors: errors,
+    content: detectLetterContentFacts({ bodySentences: stage0.bodySentences, criteria, lexicon: levelContext.lexicon }),
     level: question.level,
   });
 
   onProgress?.('Erstelle Feedback...', 0.9);
+  const scoredStage2 = { ...stage2, items: attachPoints(stage2.items, score) };
   const feedback = await composePipelineFeedback({
     context: {
-      stage0, stage1, stage2, errors, userSegments, finalPoints,
-      maxPoints: score.maxPoints, isGibberish: quality.isGibberish,
+      stage0, stage1, stage2: scoredStage2, errors, userSegments, finalPoints,
+      maxPoints: score.maxPoints, isGibberish: quality.isGibberish, leitpunkteVoidReason: score.leitpunkteVoidReason,
     },
     policy: levelPolicy,
     activeProvider,
@@ -169,6 +176,6 @@ export async function gradeSchreibenSubmission({
 
   onProgress?.('Bewertung abgeschlossen', 1.0);
   return assembleGradingResult({
-    stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy,
+    stage0, stage1, stage2: scoredStage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy,
   });
 }

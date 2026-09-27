@@ -1,15 +1,16 @@
 /**
- * Clause Structure & Proposition Parser for German A1.
+ * Clause Structure & Proposition Parser for German.
  * Deconstructs clauses into predicate core, polarity scope, and semantic arguments.
  * Strictly adheres to McConnell limits (<= 150 lines, <= 25 lines per function).
  */
 
 import { parseSentenceTopology } from './topologicalFieldParser.js';
+import wordClasses from './data/clauseWordClasses.json' with { type: 'json' };
 
-const WEEKDAYS = new Set(['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag']);
-const TIME_NOUNS = new Set(['uhr', 'zeit', 'termin', 'woche', 'wochenende', 'morgen', 'vormittag', 'nachmittag', 'abend']);
-const POSITIVE_STATES = new Set(['perfekt', 'einwandfrei', 'super', 'toll', 'gut', 'warm']);
-const DEFECT_STATES = new Set(['kaputt', 'kalt', 'defekt', 'schlecht', 'dunkel']);
+const WEEKDAYS = new Set(wordClasses.weekdays);
+const TIME_NOUNS = new Set(wordClasses.timeNouns);
+const POSITIVE_STATES = new Set(wordClasses.positiveStates);
+const DEFECT_STATES = new Set(wordClasses.defectStates);
 
 function extractPredicateCore(clause) {
   const allTokens = clause.tokens || [...(clause.vorfeld || []), clause.finVerb, ...(clause.mittelfeld || [])].filter(Boolean);
