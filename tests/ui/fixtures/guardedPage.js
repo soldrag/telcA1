@@ -34,7 +34,7 @@ function isAbortedByNavigation(request) {
 /** The screen rendered real content: a heading and no raw i18n keys. */
 export async function expectScreenRendered(page) {
   await expect(page.locator('#root')).not.toBeEmpty();
-  await expect(page.locator('h1, h2').first()).toBeVisible();
+  await expect(page.locator('h1, h2, h3').first()).toBeVisible();
   const text = await page.locator('body').innerText();
   expect(findRawTranslationKeys(text), 'untranslated i18n keys on screen').toEqual([]);
 }
