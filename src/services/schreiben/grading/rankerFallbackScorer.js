@@ -36,13 +36,22 @@ function scoreKeywordCoverage(keywords = [], sentence = '', lexicon) {
   return Math.min(1, 0.4 + 0.5 * (matched / kwStems.length) + 0.1 * (matched - 1));
 }
 
-function scoreLabelTokenOverlap(criterionText = '', sentStems = []) {
-  const critTokens = String(criterionText).toLowerCase().replace(/[.,!?;:]+/g, ' ').split(/\s+/)
-    .filter((w) => w.length > 2 && !STOP_WORDS.has(w))
-    .map((w) => stemGermanWord(w));
-  if (critTokens.length === 0) return 0.5;
-  const matches = critTokens.filter((token) => sentStems.includes(token));
-  return Math.min(1, Math.max(0, (matches.length / critTokens.length) * 1.5));
+// The nouns of a label carry its topic ("Neuer Terminvorschlag" is about the Terminvorschlag, not about
+// anything "neu"). A word is a noun when the lexicon reads it so, or when the lexicon does not know it
+// and the label capitalises it. A label without nouns is read by all its content words.
+function isLabelNoun(word, lexicon) {
+  const entries = lexicon.lookup(word) || [];
+  if (entries.length > 0) return entries.some((e) => e.pos === 'NOUN');
+  return /^[A-ZÄÖÜ]/.test(word);
+}
+
+function scoreLabelTokenOverlap(criterionText = '', sentStems = [], lexicon) {
+  const contentWords = String(criterionText).replace(/[.,!?;:]+/g, ' ').split(/\s+/)
+    .filter((w) => w.length > 2 && !STOP_WORDS.has(w.toLowerCase()));
+  if (contentWords.length === 0) return 0.5;
+  const nouns = contentWords.filter((w) => isLabelNoun(w, lexicon));
+  const topicStems = (nouns.length > 0 ? nouns : contentWords).map((w) => stemGermanWord(w.toLowerCase()));
+  return topicStems.filter((stem) => sentStems.includes(stem)).length / topicStems.length;
 }
 
 function normalizeAspect(aspect) {
@@ -68,7 +77,7 @@ export function computeFallbackEvidence(aspect, sentenceText = '', { policy } = 
   const sentStems = toStems(normSent);
   const keywordScore = scoreKeywordCoverage(keywords, normSent, policy.lexicon);
   const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, { sentenceStems: sentStems, rawSentence: normSent, domains: policy.conceptDomains });
-  const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(label, sentStems);
+  const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(label, sentStems, policy.lexicon);
   const lexical = Math.max(keywordScore, labelScore);
   const structured = scoreStructuredAspectEvidence(evidence, normSent);
   const boundedLexical = structured === 0 ? policy.capUnprovenLexical(evidence, lexical) : lexical;
