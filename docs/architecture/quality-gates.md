@@ -29,6 +29,7 @@ Schreiben regression suites: `tests/fixtures/schreiben-regression/*.json` — le
 ## UI tests
 
 - **Playwright** (`npm run test:ui`, `tests/ui/*.spec.js`, `playwright.config.js`): builds the site and serves it like GitHub Pages (`vite preview`; `UI_SKIP_BUILD=1` reuses `dist/`), desktop 1440 px and mobile (Pixel 7) projects. Every control of every screen is clicked; Lesen and Schreiben variants are answered, submitted and reviewed end to end; a teacher assignment goes the whole way `#task=` → submit → `#review=` → «Issued»; settings, legal texts, every interface language and both themes are switched; the layout has no sideways scroll and the page-grid bands (`data-band`) keep their edges at 390 / 800 / 1440 / 1920 px; after the first visit the app opens and grades a Lesen exam offline (service worker). A test fails on page exceptions, console errors, failed requests, any `/api` call and raw i18n keys. `npm run test:ui:headed` for debugging.
+- **CI** (`.github/workflows/deploy.yml`): on every push to `main` the suite runs against the freshly built `dist/` (about 2 minutes, one retry); a failure stops the GitHub Pages deploy and uploads the Playwright report and traces as the `playwright-report` artifact.
 
 ## Schreiben benchmarks
 
