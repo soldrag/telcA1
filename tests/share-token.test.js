@@ -257,7 +257,7 @@ describe('Share Token Service', () => {
     assert.ok(decoded);
 
     // Simulate teacher opening the link and grading
-    const graded = submitLocalExamAnswers(decoded.examId, {
+    const graded = await submitLocalExamAnswers(decoded.examId, {
       answers: decoded.answers,
       timeSpentSeconds: decoded.timeSpentSeconds,
     });

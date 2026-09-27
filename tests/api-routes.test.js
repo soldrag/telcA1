@@ -79,7 +79,7 @@ describe('Server Route Handlers (Offline Unit Test)', () => {
     assert.equal(res.body.totalAvailable, 2);
   });
 
-  it('POST /api/exams/:id/submit evaluates submission statelessly without storing user attempts on server', () => {
+  it('POST /api/exams/:id/submit evaluates submission statelessly without storing user attempts on server', async () => {
     const router = createExamsRouter(db);
     const submitHandler = findRouteHandler(router, '/:id/submit', 'post');
     const req = {
@@ -89,7 +89,7 @@ describe('Server Route Handlers (Offline Unit Test)', () => {
     };
     const res = createMockRes();
 
-    submitHandler(req, res);
+    await submitHandler(req, res);
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.score, 1);
     assert.equal(res.body.passed, true);
