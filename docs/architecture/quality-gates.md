@@ -28,8 +28,8 @@ Schreiben regression suites: `tests/fixtures/schreiben-regression/*.json` — le
 
 ## UI tests
 
-- **Playwright** (`npm run test:ui`, `tests/ui/*.spec.js`, `playwright.config.js`): builds the site and serves it like GitHub Pages (`vite preview`; `UI_SKIP_BUILD=1` reuses `dist/`), desktop 1440 px and mobile (Pixel 7) projects. Every control of every screen is clicked; Lesen and Schreiben variants are answered, submitted and reviewed end to end. A test fails on page exceptions, console errors, failed requests, any `/api` call and raw i18n keys. `npm run test:ui:headed` for debugging.
-- **CDP scripts** (`tests/e2e/`, shared `cdpHarness.js`, set `CHROME_PATH`): `test:e2e` (button smoke), `test:e2e:assignment` (`#task=` → submit → `#review=`), `test:e2e:mobile` (safe areas, `theme-color`, no white flash), `test:e2e:grid` (band edges on the page grid at 1440 / 1920 / 390 px).
+- **Playwright** (`npm run test:ui`, `tests/ui/*.spec.js`, `playwright.config.js`): builds the site and serves it like GitHub Pages (`vite preview`; `UI_SKIP_BUILD=1` reuses `dist/`), desktop 1440 px and mobile (Pixel 7) projects. Every control of every screen is clicked; Lesen and Schreiben variants are answered, submitted and reviewed end to end; a teacher assignment goes the whole way `#task=` → submit → `#review=` → «Issued». A test fails on page exceptions, console errors, failed requests, any `/api` call and raw i18n keys. `npm run test:ui:headed` for debugging.
+- **CDP scripts** (`tests/e2e/`, shared `cdpHarness.js`, set `CHROME_PATH`): `test:e2e` (button smoke), `test:e2e:mobile` (safe areas, `theme-color`, no white flash), `test:e2e:grid` (band edges on the page grid at 1440 / 1920 / 390 px).
 
 ## Schreiben benchmarks
 
@@ -47,7 +47,7 @@ Diagnostics, not targets: every score change is explained, never tuned towards t
 | `npm run verify:contracts` | contract checks |
 | `npm test` | unit tests |
 | `npm run test:ui` | Playwright UI suite |
-| `npm run test:e2e[:assignment\|:mobile\|:grid]` | CDP browser scripts |
+| `npm run test:e2e[:mobile\|:grid]` | CDP browser scripts |
 | `npm run validate:seeds` · `node scripts/seeds/validateSeeds.js <file>` | seed schema: all registered seeds / one file |
 | `npm run bench:schreiben` · `eval:schreiben` · `measure:grammar` | grading diagnostics |
 | `npm run build:lexicon` | regenerate noun/verb dictionaries |

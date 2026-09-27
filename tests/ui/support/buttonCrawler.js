@@ -9,13 +9,15 @@ const SETTLE_MS = 150;
  * and reports which click broke the page. Destructive actions (submit, clear, leave) are listed
  * in `skip` and exercised by the flow specs instead; links to other sites are checked, not opened.
  *
+ * `within` narrows the crawl to one part of the screen, e.g. an open dialog (the page behind it is inert).
+ *
  * @param {import('@playwright/test').Page} page
- * @param {{ restore: () => Promise<void>, pageProblems: string[], skip?: RegExp[] }} options
+ * @param {{ restore: () => Promise<void>, pageProblems: string[], skip?: RegExp[], within?: string }} options
  * @returns {Promise<string[]>} labels of the controls clicked
  */
-export async function clickEveryControl(page, { restore, pageProblems, skip = [] }) {
+export async function clickEveryControl(page, { restore, pageProblems, skip = [], within = 'body' }) {
   await restore();
-  const controls = await listControls(page);
+  const controls = await listControls(page.locator(within));
   const clicked = [];
   const broken = [];
   for (const control of controls) {
@@ -25,7 +27,7 @@ export async function clickEveryControl(page, { restore, pageProblems, skip = []
     }
     if (skip.some((pattern) => pattern.test(control.label))) continue;
     await restore();
-    const problems = await clickAndInspect(page, control, pageProblems);
+    const problems = await clickAndInspect(page, { control, within }, pageProblems);
     if (problems.length) broken.push(`"${control.label}": ${problems.join('; ')}`);
     clicked.push(control.label);
   }
@@ -33,9 +35,9 @@ export async function clickEveryControl(page, { restore, pageProblems, skip = []
   return clicked;
 }
 
-async function clickAndInspect(page, control, pageProblems) {
+async function clickAndInspect(page, { control, within }, pageProblems) {
   const before = pageProblems.length;
-  const target = page.locator(CLICKABLE).nth(control.index);
+  const target = page.locator(within).locator(CLICKABLE).nth(control.index);
   const label = await target.evaluate(describeLabel).catch(() => null);
   if (label !== control.label) return [`control moved (found "${label}")`];
   await target.click({ timeout: 5_000 }).catch((error) => pageProblems.push(`click failed: ${error.message.split('\n')[0]}`));
@@ -47,8 +49,8 @@ async function clickAndInspect(page, control, pageProblems) {
   return problems;
 }
 
-async function listControls(page) {
-  return page.locator(CLICKABLE).evaluateAll((elements, describe) => {
+async function listControls(root) {
+  return root.locator(CLICKABLE).evaluateAll((elements, describe) => {
     const labelOf = new Function(`return (${describe})`)();
     return elements
       .map((element, index) => ({ element, index }))

@@ -12,7 +12,6 @@
     "test:ui": "playwright test",
     "test:ui:headed": "playwright test --project=desktop --headed",
     "test:e2e": "node tests/e2e/all-buttons-smoke.js",
-    "test:e2e:assignment": "node tests/e2e/assignment-flow-e2e.js",
     "test:e2e:mobile": "node tests/e2e/mobile-layout.test.js",
     "test:e2e:grid": "node tests/e2e/grid-alignment.test.js",
     "test:eval": "node --import ./tests/support/loadLexiconData.js --test tests/eval/*.test.js",
