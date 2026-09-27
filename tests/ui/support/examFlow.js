@@ -48,6 +48,7 @@ export async function openSubmitDialog(page) {
 /** Confirms the submit dialog and waits for the results screen. */
 export async function confirmSubmit(page) {
   await page.getByRole('dialog').getByRole('button', { name: en.modals.submitConfirm }).click();
-  await expect(page.getByRole('dialog')).toBeHidden();
+  // A Schreiben letter is graded by the Micro-Ranker before the dialog closes; the first run downloads the model.
+  await expect(page.getByRole('dialog')).toBeHidden({ timeout: 180_000 });
   await expect(page.getByRole('button', { name: en.header.retake }).filter({ visible: true }).first()).toBeVisible({ timeout: 30_000 });
 }

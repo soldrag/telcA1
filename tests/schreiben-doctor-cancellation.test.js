@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { gradeLetter } from './helpers/gradeLetter.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
@@ -29,7 +29,7 @@ Mit freundlichen Gruß
 Artem Smirnov`;
 
   // reglament §6 Teil 2: a declension slip in an appropriate formula is a hint, not a lost point.
-  it('recognizes "Sehr geehrte Herr Dr. Schneider" as appropriate anrede with a declension hint', () => {
+  it('recognizes "Sehr geehrte Herr Dr. Schneider" as appropriate anrede with a declension hint', async () => {
     const res = analyzeSalutation('Sehr geehrte Herr Dr. Schneider,\nich muss absagen.', { isFormal: true, grammar: A1.grammar });
     assert.equal(res.recognized, true);
     assert.equal(res.score, 2);
@@ -41,8 +41,8 @@ Artem Smirnov`;
     assert.equal(correct.score, 2);
   });
 
-  it('assigns the cancellation sentence to Leitpunkt 1 (no phantom empty point)', () => {
-    const res = evaluateTeil2Essay(studentText, question);
+  it('assigns the cancellation sentence to Leitpunkt 1 (no phantom empty point)', async () => {
+    const res = await gradeLetter(studentText, question);
     const segments = res.user_segments.leitpunkte;
     assert.match(segments[0].userSentence, /absagen/i);
     assert.match(segments[1].userSentence, /Überstunden|Arbeit/i);
@@ -52,8 +52,8 @@ Artem Smirnov`;
     assert.equal(res.breakdown.gruss, 2);
   });
 
-  it('detects the three previously missed grammar errors', () => {
-    const res = evaluateTeil2Essay(studentText, question);
+  it('detects the three previously missed grammar errors', async () => {
+    const res = await gradeLetter(studentText, question);
     const originals = res.grammar_errors.map(e => e.original.toLowerCase());
     assert.ok(originals.some(o => o.includes('sehr geehrte herr')), 'missing "Sehr geehrte Herr"');
     assert.ok(originals.some(o => o.includes('mein termin')), 'missing "mein Termin"');
@@ -61,14 +61,6 @@ Artem Smirnov`;
     assert.equal(res.grammar_errors.length >= 5, true);
     // Errors are feedback only at A1, the declined Anrede included: 9 + KG 1
     assert.equal(res.points_earned, 10);
-  });
-
-  it('client pipeline agrees with the rules-only scoring', async () => {
-    const rulesOnlyResult = evaluateTeil2Essay(studentText, question);
-    const clientResult = await gradeSchreibenSubmission({ userText: studentText, question, options: { forceLimitedMode: true } });
-    assert.equal(clientResult.points_earned, rulesOnlyResult.points_earned);
-    assert.equal(clientResult.criteria_breakdown.anrede, 2);
-    assert.match(clientResult.user_segments.leitpunkte[0].userSentence, /absagen/i);
   });
 
   it('correctly handles the Praxis-Team cancellation letter from screenshot', async () => {

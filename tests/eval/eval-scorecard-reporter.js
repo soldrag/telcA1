@@ -5,16 +5,16 @@
  */
 
 import { performance } from 'node:perf_hooks';
-import { evaluateTeil2Essay } from '../../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { gradeLetter } from '../helpers/gradeLetter.js';
 import {
   allSchreibenEvaluationCases,
   getQuestionForCase
 } from './fixtures/index.js';
 
-function evaluateCase(testCase) {
+async function evaluateCase(testCase) {
   const question = getQuestionForCase(testCase);
   const start = performance.now();
-  const res = evaluateTeil2Essay(testCase.text, question);
+  const res = await gradeLetter(testCase.text, question);
   const latencyMs = Number((performance.now() - start).toFixed(2));
 
   const exp = testCase.expected;
@@ -70,11 +70,11 @@ function printSummary(results, totalTime) {
   console.log('='.repeat(96) + '\n');
 }
 
-export function runSchreibenEvaluation() {
+export async function runSchreibenEvaluation() {
   const overallStart = performance.now();
   printHeader();
 
-  const results = allSchreibenEvaluationCases.map(evaluateCase);
+  const results = await Promise.all(allSchreibenEvaluationCases.map(evaluateCase));
   results.forEach((r, idx) => console.log(formatRow(r, idx)));
 
   const totalTime = performance.now() - overallStart;
@@ -86,6 +86,6 @@ export function runSchreibenEvaluation() {
 
 // Auto-run if executed directly as entry script
 if (process.argv[1]?.endsWith('eval-scorecard-reporter.js')) {
-  const { allPassed } = runSchreibenEvaluation();
+  const { allPassed } = await runSchreibenEvaluation();
   process.exit(allPassed ? 0 : 1);
 }

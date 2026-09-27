@@ -8,7 +8,7 @@ import { runStage0Preprocessing } from './grading/stage0Preprocessing.js';
 import { runStage1Scoring } from './grading/stage1SalutationClosing.js';
 import { composePipelineFeedback } from './grading/pipelineFeedback.js';
 import { resolveLevelContext } from './levelContext.js';
-import { resolveLeitpunktCriteria } from './deterministicBaseline.js';
+import { resolveLeitpunktCriteria } from './leitpunktCriteria.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { calculateLinguisticAccuracy } from './scoring/linguisticAccuracyScorer.js';
 import { getGrammarProfile } from './profiles/index.js';

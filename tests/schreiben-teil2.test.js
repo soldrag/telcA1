@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { analyzeGermanQuality } from '../src/services/schreiben/germanQualityAnalyzer.js';
-import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { gradeLetter } from './helpers/gradeLetter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const A1 = resolveLevelContext('A1');
 
 describe('Schreiben Teil 2 Essay Evaluator', () => {
-  it('analyzes salutations accurately', () => {
+  it('analyzes salutations accurately', async () => {
     const formal = analyzeSalutation('Sehr geehrte Damen und Herren,\nich brauche Hilfe.', { grammar: A1.grammar });
     assert.equal(formal.recognized, true);
     assert.equal(formal.score, 2);
@@ -23,7 +23,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(missing.score, 0);
   });
 
-  it('analyzes closing formulas and sender names', () => {
+  it('analyzes closing formulas and sender names', async () => {
     const withName = analyzeClosing('Mit freundlichen Grüßen,\nAnna Schmidt');
     assert.equal(withName.recognized, true);
     assert.equal(withName.hasName, true);
@@ -39,7 +39,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(missing.score, 0);
   });
 
-  it('detects gibberish and spam repetitions; noun capitalization comes from the grammar engine', () => {
+  it('detects gibberish and spam repetitions; noun capitalization comes from the grammar engine', async () => {
     const spam = analyzeGermanQuality('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo');
     assert.equal(spam.isGibberish, true);
 
@@ -47,7 +47,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.ok(capCheck.some((e) => e.code === 'ERR_NOUN_CAPITALIZATION'), 'noun capitalisation is the grammar engine rule');
   });
 
-  it('evaluates full sample solution with maximum points', () => {
+  it('evaluates full sample solution with maximum points', async () => {
     const sampleText = 'Sehr geehrte Damen und Herren,\n\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\n\nMit freundlichen Grüßen\nMaria Ivanova';
     const mockQuestion = {
       options_json: {
@@ -61,7 +61,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
       }
     };
 
-    const result = evaluateTeil2Essay(sampleText, mockQuestion);
+    const result = await gradeLetter(sampleText, mockQuestion);
     assert.equal(result.points_earned, 10);
     assert.equal(result.is_correct, true);
     assert.equal(result.breakdown.anrede, 2);
@@ -69,11 +69,11 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(result.breakdown.gruss, 2);
   });
 
-  it('gives 0 points for empty or gibberish text', () => {
-    const emptyResult = evaluateTeil2Essay('', {});
+  it('gives 0 points for empty or gibberish text', async () => {
+    const emptyResult = await gradeLetter('', {});
     assert.equal(emptyResult.points_earned, 0);
 
-    const spamResult = evaluateTeil2Essay('test test test test test test test test test test', {});
+    const spamResult = await gradeLetter('test test test test test test test test test test', {});
     assert.equal(spamResult.points_earned, 0);
   });
 });

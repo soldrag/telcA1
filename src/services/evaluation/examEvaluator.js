@@ -1,4 +1,4 @@
-import { matchTextAnswer, evaluateEssay } from './schreibenEvaluator.js';
+import { matchTextAnswer } from './schreibenEvaluator.js';
 
 function parseJsonSafely(jsonString, fallbackValue) {
   if (!jsonString) return fallbackValue;
@@ -19,10 +19,10 @@ function createDynamicBreakdown(questions = []) {
   return breakdown;
 }
 
-function determineQuestionGrading(question, userAnswer, parsedOptions) {
+async function determineQuestionGrading(question, userAnswer, parsedOptions, gradeEssay) {
   const isEssay = parsedOptions?.type === 'essay' || question.question_type === 'essay';
   if (isEssay) {
-    return evaluateEssay(userAnswer, question);
+    return gradeEssay({ userText: userAnswer, question });
   }
 
   const isChoice = Array.isArray(parsedOptions) && parsedOptions.length > 0;
@@ -37,10 +37,14 @@ function determineQuestionGrading(question, userAnswer, parsedOptions) {
   return { is_correct: isCorrect, points_earned: isCorrect ? 1 : 0, max_points: 1 };
 }
 
-export function gradeQuestion(question, answers = {}) {
+/**
+ * @param {{ gradeEssay: (input: { userText: string, question: object }) => Promise<object> }} ports - the letter
+ *   grader (schreiben/grading/essayGrader.gradeEssayWithActiveProvider in the app)
+ */
+export async function gradeQuestion(question, answers = {}, { gradeEssay } = {}) {
   const userAnswer = (answers[question.id] || '').trim();
   const parsedOptions = parseJsonSafely(question.options_json, null);
-  const grading = determineQuestionGrading(question, userAnswer, parsedOptions);
+  const grading = await determineQuestionGrading(question, userAnswer, parsedOptions, gradeEssay);
 
   return {
     id: question.id,
@@ -59,13 +63,12 @@ export function gradeQuestion(question, answers = {}) {
     points_earned: grading.points_earned,
     max_points: grading.max_points,
     word_count: grading.word_count,
-    criteria_breakdown: grading.breakdown || null,
+    criteria_breakdown: grading.criteria_breakdown || null,
     examiner_feedback: grading.examiner_feedback || null,
     feedback_summary: grading.feedback_summary || null,
-    feedback_notes: grading.feedback || [],
-    detected_elements: grading.detected || null,
     grammar_errors: grading.grammar_errors || [],
-    user_segments: grading.user_segments || null,
+    diff_summary: grading.diff_summary || [],
+    provider_id: grading.provider_id || null,
     clue_quote: question.clue_quote,
     explanation_ru: question.explanation_ru,
     explanation_en: question.explanation_en,
@@ -74,12 +77,16 @@ export function gradeQuestion(question, answers = {}) {
   };
 }
 
-export function evaluateExamSubmission(questions = [], answers = {}) {
+/** @param {{ gradeEssay: Function }} ports - see gradeQuestion */
+export async function evaluateExamSubmission(questions = [], answers = {}, ports = {}) {
+  if (typeof ports.gradeEssay !== 'function') throw new Error('evaluateExamSubmission: gradeEssay port is required');
   let score = 0;
   const teilBreakdown = createDynamicBreakdown(questions);
+  const gradedItems = [];
+  for (const question of questions) gradedItems.push(await gradeQuestion(question, answers, ports));
 
-  const reviewItems = questions.map((question) => {
-    const item = gradeQuestion(question, answers);
+  const reviewItems = gradedItems.map((item, index) => {
+    const question = questions[index];
     const itemPoints = item.points_earned !== undefined ? item.points_earned : (item.is_correct ? 1 : 0);
     const itemMaxPoints = item.max_points !== undefined ? item.max_points : 1;
 

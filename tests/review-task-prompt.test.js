@@ -1,15 +1,18 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
+import { gradeEssayLimited } from './helpers/gradeLetter.js';
+
+const submit = (questions, answers) => evaluateExamSubmission(questions, answers, { gradeEssay: gradeEssayLimited });
 import { questions as sQuestions1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
 import { questions as mQuestions1 } from '../src/data/exams/seeds/modellsatz-1.js';
 
 describe('Review Task Context & Prompt Invariants', () => {
-  it('preserves full task context (situation, leitpunkte, statement) for Schreiben Teil 2', () => {
+  it('preserves full task context (situation, leitpunkte, statement) for Schreiben Teil 2', async () => {
     const essayQuestion = sQuestions1.find(q => q.teil === 2);
     assert.ok(essayQuestion, 'Schreiben Teil 2 question must exist');
 
-    const { reviewItems } = evaluateExamSubmission([essayQuestion], {
+    const { reviewItems } = await submit([essayQuestion], {
       [essayQuestion.id]: 'Sehr geehrte Damen und Herren, ich möchte einen Deutschkurs machen. Mit freundlichen Grüßen'
     });
 
@@ -24,11 +27,11 @@ describe('Review Task Context & Prompt Invariants', () => {
     assert.ok(item.statement, 'Must retain statement instruction');
   });
 
-  it('preserves situation, form label, and context body for Schreiben Teil 1', () => {
+  it('preserves situation, form label, and context body for Schreiben Teil 1', async () => {
     const formQuestion = sQuestions1.find(q => q.teil === 1 && q.question_number === 1);
     assert.ok(formQuestion, 'Schreiben Teil 1 question must exist');
 
-    const { reviewItems } = evaluateExamSubmission([formQuestion], {
+    const { reviewItems } = await submit([formQuestion], {
       [formQuestion.id]: 'Bauer'
     });
 
@@ -39,11 +42,11 @@ describe('Review Task Context & Prompt Invariants', () => {
     assert.ok(item.statement.includes('Familienname'));
   });
 
-  it('preserves situation and multiple choice web options for Lesen Teil 2', () => {
+  it('preserves situation and multiple choice web options for Lesen Teil 2', async () => {
     const lesenTeil2Question = mQuestions1.find(q => q.teil === 2 && q.question_number === 6);
     assert.ok(lesenTeil2Question, 'Lesen Teil 2 question must exist');
 
-    const { reviewItems } = evaluateExamSubmission([lesenTeil2Question], {
+    const { reviewItems } = await submit([lesenTeil2Question], {
       [lesenTeil2Question.id]: 'b'
     });
 
@@ -55,11 +58,11 @@ describe('Review Task Context & Prompt Invariants', () => {
     assert.equal(item.correct_answer, 'b');
   });
 
-  it('preserves context header and statement for Lesen Teil 1 and Teil 3', () => {
+  it('preserves context header and statement for Lesen Teil 1 and Teil 3', async () => {
     const lesenTeil1 = mQuestions1.find(q => q.teil === 1 && q.question_number === 1);
     const lesenTeil3 = mQuestions1.find(q => q.teil === 3 && q.question_number === 11);
 
-    const { reviewItems } = evaluateExamSubmission([lesenTeil1, lesenTeil3], {
+    const { reviewItems } = await submit([lesenTeil1, lesenTeil3], {
       [lesenTeil1.id]: 'falsch',
       [lesenTeil3.id]: 'richtig'
     });

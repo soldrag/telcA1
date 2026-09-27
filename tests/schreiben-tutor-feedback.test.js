@@ -2,14 +2,10 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 import { resolveTutorCriterionFeedback } from '../src/services/schreiben/feedback/tutorFeedbackResolver.js';
-import { analyzeLeitpunkte } from '../src/services/schreiben/leitpunkteAnalyzer.js';
-import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
-import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
-
-const A1 = resolveLevelContext('A1');
+import { gradeLetter } from './helpers/gradeLetter.js';
 
 describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
-  it('resolves localized explanations in Russian, English, and German for inverted defect', () => {
+  it('resolves localized explanations in Russian, English, and German for inverted defect', async () => {
     const ruNote = resolveTutorCriterionFeedback({
       criterionId: 'lp1',
       score: 0,
@@ -39,7 +35,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
     assert.match(deNote, /dass das Gerät funktioniert/);
   });
 
-  it('resolves localized explanations for inverted request (refusing technician)', () => {
+  it('resolves localized explanations for inverted request (refusing technician)', async () => {
     const ruNote = resolveTutorCriterionFeedback({
       criterionId: 'lp3',
       score: 0,
@@ -59,7 +55,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
     assert.match(enNote, /refuses a technician\/help/);
   });
 
-  it('resolves correct tutor notes for full fulfillment and missing points', () => {
+  it('resolves correct tutor notes for full fulfillment and missing points', async () => {
     const fullRu = resolveTutorCriterionFeedback({
       criterionId: 'lp2',
       score: 2,
@@ -77,7 +73,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
     assert.match(missingEn, /Point missing:/);
   });
 
-  it('resolves salutation and closing notes accurately across languages', () => {
+  it('resolves salutation and closing notes accurately across languages', async () => {
     const anredeOk = resolveTutorCriterionFeedback({
       criterionId: 'anrede',
       score: 2,
@@ -95,7 +91,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
     assert.match(grussMissing, /Missing closing formula or sender name/);
   });
 
-  it('falls back cleanly by score when diagnosticCode is missing', () => {
+  it('falls back cleanly by score when diagnosticCode is missing', async () => {
     const fallbackRu = resolveTutorCriterionFeedback({
       criterionId: 'lp1',
       score: 2,
@@ -111,7 +107,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
     assert.match(fallbackZero, /Es fehlt eine passende Anrede/);
   });
 
-  it('reconciles contradictory diagnostic code when score does not match code', () => {
+  it('reconciles contradictory diagnostic code when score does not match code', async () => {
     // Score is 2, but code was stale LP_MISSING
     const reconciledRu = resolveTutorCriterionFeedback({
       criterionId: 'lp3',
@@ -170,7 +166,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
     }
   ];
 
-  it('tags adversarial heating letter with LP_INVERTED_DEFECT and LP_INVERTED_REQUEST', () => {
+  it('tags adversarial heating letter with LP_INVERTED_DEFECT and LP_INVERTED_REQUEST', async () => {
     const text = 'Sehr geehrter Herr Müller,\n' +
       'ich schreibe Ihnen, weil meine Heizung perfekt funktioniert und die Wohnung sehr warm ist.\n' +
       'Ich habe morgen Zeit.\n' +
@@ -178,7 +174,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen\n' +
       'Max Mustermann';
 
-    const result = analyzeLeitpunkte(text, heatingCriteria, null, A1);
+    const result = (await gradeLetter(text, { options_json: { rubric: { leitpunkte_criteria: heatingCriteria } } })).breakdown;
     const lp1 = result.items[0];
     const lp3 = result.items[2];
 
@@ -189,7 +185,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
     assert.equal(lp3.diagnosticCode, DIAGNOSTIC_CODES.LP_INVERTED_REQUEST);
   });
 
-  it('tags legitimate submission with LP_FULFILLED', () => {
+  it('tags legitimate submission with LP_FULFILLED', async () => {
     const text = 'Sehr geehrter Herr Müller,\n' +
       'meine Heizung ist kaputt und die Wohnung ist sehr kalt.\n' +
       'Ich bin am Dienstag ab 16 Uhr zu Hause.\n' +
@@ -197,7 +193,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen\n' +
       'Max Mustermann';
 
-    const result = analyzeLeitpunkte(text, heatingCriteria, null, A1);
+    const result = (await gradeLetter(text, { options_json: { rubric: { leitpunkte_criteria: heatingCriteria } } })).breakdown;
     assert.equal(result.items[0].score, 2);
     assert.equal(result.items[0].diagnosticCode, DIAGNOSTIC_CODES.LP_FULFILLED);
     assert.equal(result.items[1].score, 2);
@@ -205,7 +201,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
     assert.equal(result.items[2].diagnosticCode, DIAGNOSTIC_CODES.LP_FULFILLED);
   });
 
-  it('provides diagnostic codes across full evaluateTeil2Essay pipeline', () => {
+  it('provides diagnostic codes across full evaluateTeil2Essay pipeline', async () => {
     const question = {
       max_points: 10,
       options_json: {
@@ -221,7 +217,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen,\n' +
       'Anna Meier';
 
-    const res = evaluateTeil2Essay(letter, question);
+    const res = await gradeLetter(letter, question);
     assert.ok(res.breakdown.items.length === 3);
     for (const item of res.breakdown.items) {
       assert.ok(item.diagnosticCode, `Item ${item.id} should have a diagnosticCode`);

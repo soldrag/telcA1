@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { gradeLetter } from './helpers/gradeLetter.js';
 import { questions as ms4Questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
 describe('Schreiben Teil 2 Benchmark Corpus (Gold Standard)', () => {
@@ -28,13 +28,13 @@ describe('Schreiben Teil 2 Benchmark Corpus (Gold Standard)', () => {
     }
   };
 
-  it('Test 1: User Text #2 (Language school, hybrid salutation, modal syntax, capitalization, 2 questions in Punkt 3)', () => {
+  it('Test 1: User Text #2 (Language school, hybrid salutation, modal syntax, capitalization, 2 questions in Punkt 3)', async () => {
     const text = `Hallo Damen und Herren,
 ich besuche wollen einen deutschkurs im August. Ich habe vier wochen Zeit und ich am vormittag lernen möchte. Was kosten der Kurs? Bitte senden Sie mir die informationen für die anmeldung.
 Viele Grüße
 Artem Smirnov`;
 
-    const res = evaluateTeil2Essay(text, modellsatz1Question);
+    const res = await gradeLetter(text, modellsatz1Question);
     
     // Punkt 3 must capture both sentences!
     const p3Sentence = res.user_segments.leitpunkte[2].userSentence;
@@ -51,14 +51,14 @@ Artem Smirnov`;
     assert.equal(res.points_earned, 9.5);
   });
 
-  it('Test 2: User Text #1 (Language school, formal greeting, 6 typical errors)', () => {
+  it('Test 2: User Text #1 (Language school, formal greeting, 6 typical errors)', async () => {
     const text = `Sehr geehrte Damen und Herren,
 ich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs?
 Wie kann ich anmelden?
 Mit freundlichen Gruß
 Artem Smirnov`;
 
-    const res = evaluateTeil2Essay(text, modellsatz1Question);
+    const res = await gradeLetter(text, modellsatz1Question);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -66,13 +66,13 @@ Artem Smirnov`;
     assert.equal(res.points_earned, 10);
   });
 
-  it('Test 3: Modellsatz 2 Doctor cancellation (Strong submission without errors)', () => {
+  it('Test 3: Modellsatz 2 Doctor cancellation (Strong submission without errors)', async () => {
     const text = `Sehr geehrte Frau Dr. Schneider,
 ich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?
 Mit freundlichen Grüßen
 Max Mustermann`;
 
-    const res = evaluateTeil2Essay(text, modellsatz2Question);
+    const res = await gradeLetter(text, modellsatz2Question);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -80,13 +80,13 @@ Max Mustermann`;
     assert.equal(res.points_earned, 10);
   });
 
-  it('Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, single name)', () => {
+  it('Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, single name)', async () => {
     const text = `Guten Tag Herr Schneider,
 ich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?
 Viele Grusse
 Olga`;
 
-    const res = evaluateTeil2Essay(text, modellsatz2Question);
+    const res = await gradeLetter(text, modellsatz2Question);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     // Single name Olga gives 1 point for closing
@@ -95,11 +95,11 @@ Olga`;
     assert.equal(res.points_earned, 9.5);
   });
 
-  it('Test 5: Incomplete text (missing Punkt 3 and closing, under word count)', () => {
+  it('Test 5: Incomplete text (missing Punkt 3 and closing, under word count)', async () => {
     const text = `Sehr geehrte Damen und Herren,
 ich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub.`;
 
-    const res = evaluateTeil2Essay(text, modellsatz1Question);
+    const res = await gradeLetter(text, modellsatz1Question);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.gruss, 0);
     assert.equal(res.breakdown.items[2].score, 0);
@@ -108,13 +108,13 @@ ich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub.`;
     assert.equal(res.points_earned, 6.5);
   });
 
-  it('Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting, wrong prepositions, adjective ending)', () => {
+  it('Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting, wrong prepositions, adjective ending)', async () => {
     const text = `Sehr geehrte Damen und Herren,
 ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.
 Mit freundliche Grüßen
 Artem Smirnov`;
 
-    const res = evaluateTeil2Essay(text, modellsatz1Question);
+    const res = await gradeLetter(text, modellsatz1Question);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -130,38 +130,38 @@ Artem Smirnov`;
     assert.match(res.user_segments.leitpunkte[2].userSentence, /anmelden/i);
   });
 
-  it('Test 7: Pure word repetition / gibberish gets 0 points', () => {
+  it('Test 7: Pure word repetition / gibberish gets 0 points', async () => {
     const text = `hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo`;
-    const res = evaluateTeil2Essay(text, modellsatz1Question);
+    const res = await gradeLetter(text, modellsatz1Question);
     assert.equal(res.points_earned, 0);
   });
 
-  it('Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel kostet der Hund? Ist die Wohnung erlaubt?)', () => {
+  it('Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel kostet der Hund? Ist die Wohnung erlaubt?)', async () => {
     const ms4Teil2 = ms4Questions.find(q => q.id === 's4-q6');
     const text = `Sehr geehrte Frau Hansen,
 ich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?
 Mit freundlichen Grüßen
 Alex Müller`;
 
-    const res = evaluateTeil2Essay(text, ms4Teil2);
+    const res = await gradeLetter(text, ms4Teil2);
     // Punkt 3 must receive 0 points due to Sinnentstellung
     assert.equal(res.breakdown.items[2].score, 0);
-    assert.match(res.breakdown.items[2].detail, /Sinnentstellung/i);
+    assert.match(res.breakdown.items[2].frameErrors.map((e) => e.explanation).join(' '), /Sinnentstellung/i);
     // Total score must be penalised (max 7/10)
     assert.ok(res.points_earned <= 7);
   });
 
-  it('Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnung vermieten statt mieten)', () => {
+  it('Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnung vermieten statt mieten)', async () => {
     const ms4Teil2 = ms4Questions.find(q => q.id === 's4-q6');
     const text = `Sehr geehrte Frau Hansen,
 ich möchte Ihre Ferienwohnung vermieten. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 10. bis zum 17. Juli. Wie viel kostet die Wohnung? Ist ein Hund erlaubt?
 Mit freundlichen Grüßen
 Alex Müller`;
 
-    const res = evaluateTeil2Essay(text, ms4Teil2);
+    const res = await gradeLetter(text, ms4Teil2);
     // Punkt 1 is capped to 1 point due to conversive verb error
     assert.equal(res.breakdown.items[0].score, 1);
-    assert.match(res.breakdown.items[0].detail, /mieten.*nicht.*vermieten/i);
+    assert.match(res.breakdown.items[0].frameErrors.map((e) => e.explanation).join(' '), /mieten.*nicht.*vermieten/i);
     // Partial point 1 costs 1.5 (3 → 1.5); the lexical error itself is reported, not scored
     assert.equal(res.points_earned, 8.5);
     assert.ok(res.grammar_errors.some(e => e.code === 'ERR_CONVERSIVE_VERB_DIRECTION'));

@@ -59,6 +59,7 @@ function importLocalGrading() {
   return Promise.all([
     import('./schreiben/linguistic/a1LexiconService.js'),
     import('../../src/services/evaluation/examEvaluator.js'),
+    import('./schreiben/grading/essayGrader.js'),
   ]);
 }
 
@@ -67,19 +68,24 @@ export async function preloadLocalGrading() {
   await loadLexiconData();
 }
 
-/** Grades in the browser (static hosting, offline). Schreiben answers read the lexicon data, loaded first. */
+/**
+ * Grades in the browser (static hosting, offline). Schreiben answers read the lexicon data, loaded first;
+ * the letter is graded by the Micro-Ranker in the grading worker whenever it is available.
+ */
 export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
   const exam = seedData.exams.find(e => e.id === examId);
   if (!exam) {
     throw new Error(`Exam not found: ${examId}`);
   }
-  const [{ loadLexiconData }, { evaluateExamSubmission }] = await importLocalGrading();
+  const [{ loadLexiconData }, { evaluateExamSubmission }, { gradeEssayWithActiveProvider }] = await importLocalGrading();
   await loadLexiconData();
   const questions = seedData.questions
     .filter(q => q.exam_id === examId)
     .sort((a, b) => a.question_number - b.question_number);
 
-  const { score, reviewItems, teilBreakdown } = evaluateExamSubmission(questions, answers);
+  const { score, reviewItems, teilBreakdown } = await evaluateExamSubmission(questions, answers, {
+    gradeEssay: gradeEssayWithActiveProvider,
+  });
   const totalQuestions = questions.length;
   const maxScore = exam.max_score || getTestTypeById(exam.test_type || 'lesen').maxScore;
   const percentage = maxScore > 0 ? Math.round((score / maxScore) * 1000) / 10 : 0;

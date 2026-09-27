@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
-import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { gradeLetter } from './helpers/gradeLetter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const A1 = resolveLevelContext('A1');
@@ -27,7 +27,7 @@ Artem Smirnov`;
     }
   };
 
-  it('tolerantly recognizes closing formula and sender name despite declension typo', () => {
+  it('tolerantly recognizes closing formula and sender name despite declension typo', async () => {
     const closing = analyzeClosing(userText, { isFormal: true });
     assert.equal(closing.recognized, true);
     assert.equal(closing.hasName, true);
@@ -37,7 +37,7 @@ Artem Smirnov`;
     assert.match(dative.correction, /freundlichem Gruß/);
   });
 
-  it('detects all typical A1 German grammar errors in the user text', () => {
+  it('detects all typical A1 German grammar errors in the user text', async () => {
     const errors = checkGermanA1Grammar(userText);
     const originals = errors.map(e => e.original.toLowerCase());
 
@@ -50,7 +50,7 @@ Artem Smirnov`;
     assert.equal(originals.some(o => o.includes('mit freundlichen gruß')), true);
   });
 
-  it('segments the user text accurately into the 3 Leitpunkte, Anrede and Closing', () => {
+  it('segments the user text accurately into the 3 Leitpunkte, Anrede and Closing', async () => {
     const criteria = question.options_json.rubric.leitpunkte_criteria;
     const segments = segmentUserEssay(userText, criteria, A1);
 
@@ -64,8 +64,8 @@ Artem Smirnov`;
     assert.equal(segments.senderName, 'Artem Smirnov');
   });
 
-  it('evaluates overall essay: typical A1 errors do not lower the score (10/10)', () => {
-    const result = evaluateTeil2Essay(userText, question);
+  it('evaluates overall essay: typical A1 errors do not lower the score (10/10)', async () => {
+    const result = await gradeLetter(userText, question);
     assert.equal(result.breakdown.anrede, 2);
     assert.equal(result.breakdown.leitpunkte, 9);
     assert.equal(result.breakdown.gruss, 2);
@@ -86,7 +86,7 @@ Artem Smirnov`;
       { id: 'lp3', label: 'Kosten/Anmeldung', keywords: ['kosten', 'kostet', 'gebühr', 'anmelden', 'anmeldung', 'wie viel'] }
     ];
 
-    it('detects all specific syntax, word order, plural and missing article errors', () => {
+    it('detects all specific syntax, word order, plural and missing article errors', async () => {
       const errors = checkGermanA1Grammar(text3);
       const originals = errors.map(e => e.original.toLowerCase());
 
@@ -110,7 +110,7 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('liebe grüße,')), true);
     });
 
-    it('detects W-Frage word order even without a question mark', () => {
+    it('detects W-Frage word order even without a question mark', async () => {
       const textNoQm = 'Wie viel der Kurs kostet. Und wie ich kann mich anmelden.';
       const errors = checkGermanA1Grammar(textNoQm);
       const originals = errors.map(e => e.original.toLowerCase());
@@ -118,7 +118,7 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('wie ich kann')), true);
     });
 
-    it('detects Verbzweitstellung error with adverbial at Position 1', () => {
+    it('detects Verbzweitstellung error with adverbial at Position 1', async () => {
       const textAdv = 'Im August ich möchte Deutsch lernen.';
       const errors = checkGermanA1Grammar(textAdv);
       const originals = errors.map(e => e.original.toLowerCase());
@@ -126,7 +126,7 @@ Artem Smirnov`;
       assert.equal(errors.find(e => e.original.includes('Im August ich möchte'))?.correction, 'Im August möchte ich');
     });
 
-    it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', () => {
+    it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', async () => {
       const segments = segmentUserEssay(text3, rubricCriteria, A1);
 
       assert.equal(segments.anrede, 'Sehr geehrte Damen und Herren,');
@@ -143,7 +143,7 @@ Artem Smirnov`;
       assert.match(segments.leitpunkte[2].userSentence, /wie ich kann mich anmelden/i);
     });
 
-    it('provides punctuation hint for comma after closing formula', () => {
+    it('provides punctuation hint for comma after closing formula', async () => {
       const comma = checkGermanA1Grammar(text3).find((e) => e.code === 'ERR_COMMA_AFTER_CLOSING');
       assert.match(comma.explanation, /kein Komma/i);
     });
@@ -155,7 +155,7 @@ ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier W
 Mit freundliche Grüßen
 Artem Smirnov`;
 
-    it('detects the syntax, preposition and declension errors', () => {
+    it('detects the syntax, preposition and declension errors', async () => {
       const errors = checkGermanA1Grammar(text4);
       const originals = errors.map(e => e.original.toLowerCase());
 
@@ -166,8 +166,8 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('mit freundliche grüßen')), true);
     });
 
-    it('segments and evaluates full tricky text: understandable despite word-order errors (10/10)', () => {
-      const res = evaluateTeil2Essay(text4, question);
+    it('segments and evaluates full tricky text: understandable despite word-order errors (10/10)', async () => {
+      const res = await gradeLetter(text4, question);
       assert.equal(res.points_earned, 10);
       assert.equal(res.breakdown.leitpunkte, 9);
       // "einen Deutschkurs für August" is correct German, so it is no longer flagged.

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { gradeSchreibenWithWorker } from '../services/schreiben/grading/gradingWorkerClient.js';
+import { gradeEssayWithActiveProvider } from '../services/schreiben/grading/essayGrader.js';
 import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../services/ai/types.js';
 import { applyAiGradingResult } from './schreibenAiResultApplier.js';
@@ -7,8 +7,8 @@ export { formatDiffEntry } from './schreibenDiffFormatter.js';
 
 
 /**
- * Whether the results screen should grade the letter with the pipeline: the result stored at submission
- * comes from the rules-only path and names no provider; a pipeline result does.
+ * Whether the results screen should grade the letter: a result graded at submission names its provider;
+ * attempts saved before that (rules-only grading) do not.
  */
 export function needsPipelineGrading(item = {}) {
   return Boolean(item.user_answer) && !item.provider_id;
@@ -27,7 +27,7 @@ export function useSchreibenAiChecker({
       ? (language === 'ru' ? '⚡ Оценка выполнена микро-ранжировщиком (System 1)' : '⚡ Bewertung durch Micro-Ranker (System 1) abgeschlossen')
       : ''
   ));
-  const [aiDiffSummary, setAiDiffSummary] = useState([]);
+  const [aiDiffSummary, setAiDiffSummary] = useState(() => item.diff_summary || []);
   const [feedbackSummary, setFeedbackSummary] = useState(() => item.feedback_summary || '');
   const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
   const [activeProvider, setActiveProvider] = useState(null);
@@ -41,18 +41,11 @@ export function useSchreibenAiChecker({
     return () => { isMounted = false; };
   }, []);
 
-  // The provider is chosen here, where the developer override in localStorage is readable; the worker
-  // gets only the resulting fact and runs the model off the main thread (CLAUDE.md §11).
-  const gradeInBackground = useCallback(async () => {
-    const provider = await aiProviderRegistry.getActiveProvider();
-    setActiveProvider(provider);
-    return gradeSchreibenWithWorker({
-      userText: item.user_answer,
-      question: item,
-      options: { forceLimitedMode: provider.id === PROVIDER_IDS.NONE },
-      onProgress: (text) => setAiStatus(text),
-    });
-  }, [item]);
+  const gradeInBackground = useCallback(() => gradeEssayWithActiveProvider({
+    userText: item.user_answer,
+    question: item,
+    onProgress: (text) => setAiStatus(text),
+  }), [item]);
 
   const applyResult = useCallback((res) => {
     applyAiGradingResult({

@@ -5,7 +5,6 @@
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateTeil2Essay } from '../../src/services/schreiben/schreibenTeil2Evaluator.js';
 import { gradeSchreibenSubmission } from '../../src/services/schreiben/gradingPipeline.js';
 import {
   allSchreibenEvaluationCases,
@@ -63,16 +62,8 @@ describe('Schreiben Teil 2 Algorithmic Quality Suite (25 Edge Cases)', () => {
   for (const tc of allSchreibenEvaluationCases) {
     it(`[${tc.category.toUpperCase()}] ${tc.id}: ${tc.title}`, async () => {
       const question = getQuestionForCase(tc);
-      const resSync = evaluateTeil2Essay(tc.text, question);
-      const resPipeline = await gradeSchreibenSubmission({ userText: tc.text, question, options });
-
-      assertCaseExpectations(resSync, tc.expected, `${tc.id}-sync`);
-      assertCaseExpectations(resPipeline, tc.expected, `${tc.id}-pipeline`);
-
-      // The rules-only evaluator and the pipeline agree in limited mode
-      assert.equal(resSync.points_earned, resPipeline.points_earned);
-      assert.equal(resSync.breakdown.anrede, resPipeline.breakdown.anrede);
-      assert.equal(resSync.breakdown.gruss, resPipeline.breakdown.gruss);
+      const res = await gradeSchreibenSubmission({ userText: tc.text, question, options });
+      assertCaseExpectations(res, tc.expected, tc.id);
     });
   }
 
