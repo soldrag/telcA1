@@ -54,10 +54,10 @@ function formsOf(row, columns, kase = null) {
 function toRecord(row, columns) {
   const lemma = row[0];
   const plural = [...new Set([...formsOf(row, columns.plural, 'nominativ'), ...formsOf(row, columns.plural)])];
-  // The archaic dative -e ("dem Termine") would make the plural "Termine" ambiguous; a form shared with the
-  // plural stays singular only as the nominative ("der Lehrer" / "die Lehrer").
-  const nominatives = formsOf(row, columns.singular, 'nominativ');
-  const singular = formsOf(row, columns.singular).filter((f) => nominatives.includes(f) || !plural.includes(f));
+  // The archaic dative -e ("dem Termine") is spelled like the plural "Termine": a singular form found only in the
+  // dative is dropped when the plural has it. Any other shared form stays singular ("der Lehrer", "den Kunden").
+  const nonDative = ['nominativ', 'genitiv', 'akkusativ'].flatMap((kase) => formsOf(row, columns.singular, kase));
+  const singular = formsOf(row, columns.singular).filter((f) => nonDative.includes(f) || !plural.includes(f));
   if (!/^[A-ZÄÖÜ]/.test(lemma) || !/Substantiv/.test(row[1]) || /Gebundenes Lexem/.test(row[1])) return null;
   if (singular.length === 0 && plural.length === 0) return null;
   const genders = [...new Set(columns.genus.map((i) => row[i]).filter((g) => /^[mfn]$/.test(g)))];
