@@ -53,7 +53,7 @@ export default function SchreibenLetterTexts({ item, selfCheck, t, className = '
     user: t('results.schreibenResult.yourText', { count: item.word_count || 0 }),
     sample: t('results.schreibenResult.sampleText'),
   };
-  const panelClass = (key) => `${view === key ? 'block' : 'hidden'} md:block min-w-0 rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 space-y-2`;
+  const panelClass = (key) => `${view === key ? 'block' : 'hidden'} md:block min-w-0 rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 lg:p-6 space-y-2`;
 
   return (
     <section className={`flex flex-col gap-3 md:grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 md:items-stretch ${className}`}>

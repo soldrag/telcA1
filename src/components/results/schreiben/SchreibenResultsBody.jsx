@@ -46,7 +46,8 @@ export default function SchreibenResultsBody({ reviewItems = [], onUpdateItemSco
   const handleScoreChange = (total, breakdown) => onUpdateItemScore?.(essay.id, total, breakdown);
 
   return (
-    <div className="space-y-4">
+    // gap, not space-y: the switch is hidden from 1024 px and must not leave its margin behind.
+    <div className="flex flex-col gap-4">
       {formReview && <SectionSwitch section={section} onChange={setSection} labels={labels} />}
       <SchreibenSelfCheck item={essay} onScoreChange={handleScoreChange} formReview={formReview} visibleSection={formReview ? section : null} />
     </div>

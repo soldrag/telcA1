@@ -58,7 +58,7 @@ export default function SchreibenFormReviewTable({ items = [] }) {
   const score = items.filter((item) => item.is_correct).length;
 
   return (
-    <section aria-labelledby="form-review-title" className="rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5">
+    <section aria-labelledby="form-review-title" className="rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 lg:p-6">
       <h3 id="form-review-title" className="text-lg font-bold text-content-primary">
         {t('results.schreibenResult.formTitle', { score, max: items.length })}
       </h3>

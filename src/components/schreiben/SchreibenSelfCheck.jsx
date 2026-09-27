@@ -4,11 +4,12 @@ import { useSchreibenSelfCheck } from '../../hooks/useSchreibenSelfCheck.js';
 import SchreibenLetterVerdict from './SchreibenLetterVerdict.jsx';
 import SchreibenLetterTexts from './SchreibenLetterTexts.jsx';
 import SchreibenMoreDetails from './SchreibenMoreDetails.jsx';
+import { BAND_TOP, SPAN } from '../layout/pageLayout.js';
 
 /**
  * Letter review: conclusion and criteria, the texts, then the Teil 1 form and secondary details.
  * Below 1024 px one stream (optionally only the section picked in the Form / Letter switch).
- * From 1024 px the letter is one row, criteria beside the sticky texts, and the form and details
+ * From 1024 px the letter is one band of the page grid, criteria (5 columns) beside the sticky texts (7), and the form and details
  * run full width below it, so neither column is left half empty.
  */
 export default function SchreibenSelfCheck({ item = {}, onScoreChange, formReview = null, visibleSection = null }) {
@@ -18,11 +19,11 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange, formRevie
   const onlyIn = (section) => (visibleSection && visibleSection !== section ? 'max-lg:hidden' : '');
 
   return (
-    <div className="flex flex-col gap-4 lg:gap-6">
+    <div className="flex flex-col gap-4 lg:gap-10">
       {/* The sticky texts stay inside the letter row and never slide over the form below. */}
-      <div className="contents lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-6 lg:items-start">
-        <SchreibenLetterVerdict {...shared} className={`order-1 min-w-0 ${onlyIn('letter')}`} />
-        <div className={`order-2 lg:sticky lg:top-20 min-w-0 ${onlyIn('letter')}`}>
+      <div className={BAND_TOP}>
+        <SchreibenLetterVerdict {...shared} className={`order-1 min-w-0 ${SPAN.narrow} ${onlyIn('letter')}`} />
+        <div className={`order-2 lg:sticky lg:top-20 min-w-0 ${SPAN.wide} ${onlyIn('letter')}`}>
           <SchreibenLetterTexts {...shared} />
         </div>
       </div>

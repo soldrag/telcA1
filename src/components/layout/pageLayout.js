@@ -13,6 +13,9 @@ export const PAGE_STACK = 'flex flex-col gap-8 lg:gap-10';
 // the page stream in the order their `order-*` classes give.
 export const BAND = 'contents lg:grid lg:grid-cols-12 lg:gap-x-6 lg:items-stretch';
 
+// A band whose blocks keep their own height, top-aligned: for a sticky column beside a long one.
+export const BAND_TOP = 'contents lg:grid lg:grid-cols-12 lg:gap-x-6 lg:items-start';
+
 // How many of the 12 columns a block takes inside a band.
 export const SPAN = {
   main: 'lg:col-span-8',
