@@ -24,3 +24,8 @@ export async function selectModule(page, moduleId) {
   const selector = page.getByRole('group', { name: en.welcome.types.selectModule }).filter({ visible: true }).first();
   await selector.getByRole('button', { name: title }).click();
 }
+
+/** Everything the app keeps in this browser, to rebuild a profile without replaying how it was made. */
+export async function captureStorage(page) {
+  return page.evaluate(() => Object.fromEntries(Object.entries(localStorage)));
+}
