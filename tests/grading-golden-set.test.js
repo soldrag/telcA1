@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { gradeSchreibenTeil2 } from '../src/services/schreiben/grading/gradingFacade.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 
 describe('Grading Golden Set (10-15 Reference Letters, Algorithmic Determinism)', () => {
   const modellsatz1Question = {
@@ -37,7 +37,7 @@ ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule besuchen. Ich h
 Mit freundlichen Grüßen
 Maximilian Becker`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -51,7 +51,7 @@ ich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich 
 Mit freundlichen Gruß
 Artem Smirnov`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -64,12 +64,14 @@ Artem Smirnov`;
 Viele Grüße
 Anna Müller`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 0);
-    assert.equal(res.breakdown.leitpunkte, 9);
+    // LP3 «Kosten und Anmeldung»: only the cost is asked — reglament: a point fulfilled in part earns 1.5
+    assert.equal(res.breakdown.items[2].score, 1);
+    assert.equal(res.breakdown.leitpunkte, 7.5);
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
-    assert.equal(res.points_earned, 9.5);
+    assert.equal(res.points_earned, 8);
   });
 
   it('4. Modellsatz 1 Missing LP3 (Score 0 for LP3)', async () => {
@@ -78,7 +80,7 @@ ich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit.
 Mit freundlichen Grüßen
 Sarah Meyer`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.items[2].score, 0); // LP3 missing
     assert.equal(res.breakdown.gruss, 2);
@@ -89,7 +91,7 @@ Sarah Meyer`;
     const text = `Sehr geehrte Damen und Herren,
 ich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit am Vormittag. Wie viel kostet der Kurs und wie kann ich mich anmelden?`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.gruss, 0);
     assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
@@ -102,7 +104,7 @@ ich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht komme
 Mit freundlichen Grüßen
 Max Mustermann`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -115,7 +117,7 @@ ich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. G
 Viele Grusse
 Olga`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 1); // Single name gives 1
@@ -129,7 +131,7 @@ ich kann am Montag leider nicht kommen. Ich bin krank. Können wir den Termin ve
 Mit freundlichen Grüßen
 Thomas Mann`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.breakdown.anrede, 1);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -138,7 +140,7 @@ Thomas Mann`;
   it('9. Extremely short submission is scored by content only (no length rule at A1)', async () => {
     const text = `Hallo Herr Schneider, ich kann nicht kommen. Danke.`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz2Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
     assert.equal(res.word_count < 15, true);
     assert.equal(res.points_earned <= 4, true);
   });
@@ -146,7 +148,7 @@ Thomas Mann`;
   it('10. Pure word repetition / gibberish gets 0 points', async () => {
     const text = `hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.points_earned, 0);
     assert.equal(res.is_correct, false);
   });
@@ -157,7 +159,7 @@ ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier W
 Mit freundliche Grüßen
 Artem Smirnov`;
 
-    const res = await gradeSchreibenTeil2({ userText: text, question: modellsatz1Question, options });
+    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -170,8 +172,8 @@ ich will im August einen Deutschkurs A1 machen. Ich habe vier Wochen Zeit und m�
 Mit freundlichen Grüßen
 Klara Weber`;
 
-    const run1 = await gradeSchreibenTeil2({ userText: sampleText, question: modellsatz1Question, options });
-    const run2 = await gradeSchreibenTeil2({ userText: sampleText, question: modellsatz1Question, options });
+    const run1 = await gradeSchreibenSubmission({ userText: sampleText, question: modellsatz1Question, options });
+    const run2 = await gradeSchreibenSubmission({ userText: sampleText, question: modellsatz1Question, options });
 
     assert.equal(run1.points_earned, run2.points_earned);
     assert.deepEqual(run1.criteria_breakdown, run2.criteria_breakdown);

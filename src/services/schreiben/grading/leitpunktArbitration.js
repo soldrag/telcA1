@@ -1,44 +1,30 @@
 /**
  * Leitpunkt Arbitration Policy.
- * Decides when a provider evaluates a Leitpunkt and how its verdict merges with the baseline:
- * - micro_ranker is a primary evaluator (all criteria, ~15 ms per sentence);
- * - generative LLM providers stay restricted to gray zones (seconds per call);
+ * Decides when the ranker evaluates a Leitpunkt and how its verdict merges with the baseline:
+ * - micro_ranker is the primary evaluator (all criteria, ~15 ms per sentence); the limited mode (`none`) never arbitrates;
  * - a compound criterion with a missing aspect is capped at the partial level (A ∧ B: all aspects needed for full);
- * - gray-zone providers never lower a baseline level ≥ 1 (isProtected records when that floor applied);
- * - the primary ranker is the arbiter: its 'no' verdict overrides the keyword baseline, and a compound
+ * - an untrusted verdict never lowers a baseline level ≥ 1 (isProtected records when that floor applied);
+ * - the ranker is the arbiter: its 'no' verdict overrides the keyword baseline, and a compound
  *   point is capped at partial when the ranker vetoed an aspect that only keywords supported
  *   (both only when the level policy trusts the verdict on these sentences, see IRankerPolicy.isVerdictReliable);
  * - a baseline resting on sentence similarity alone (no keyword, concept or structured evidence) is only a
- *   topic hint: any provider is asked, and its verdict is not floored by that baseline.
+ *   topic hint: the ranker's verdict is not floored by that baseline.
  */
 
-import { isScoreInGrayZone, coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
-import { SIMILARITY_T2 } from './types.js';
+import { coverageToPoints, applyConfidenceFloor } from './stage2Leitpunkte.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 
 const COMPOUND_MISSING_ASPECT_CAP = 1;
 
-export function isPrimaryRankerProvider(provider) {
+function isPrimaryRankerProvider(provider) {
   return provider?.id === PROVIDER_IDS.MICRO_RANKER;
 }
 
-// Whether a gray-zone provider has anything to decide. For a compound criterion the keyword aspects
-// settle a missing aspect (0), while a full similarity capped at partial means the aspects disagree.
-function isBaselineUndecided({ effectiveSim, baselineScore, isCompound }) {
-  if (!isCompound) return isScoreInGrayZone(effectiveSim);
-  if (baselineScore === 0) return false;
-  if (baselineScore === 1 && effectiveSim >= SIMILARITY_T2) return true;
-  return isScoreInGrayZone(effectiveSim);
-}
-
 /**
- * @param {{ provider: object, effectiveSim: number, framePenalty: number,
- *   baselineScore?: number, isCompound?: boolean, isSimilarityOnly?: boolean }} params
+ * @param {{ provider: object, framePenalty: number }} params
  */
-export function shouldArbitrateLeitpunkt({ provider, effectiveSim, framePenalty, baselineScore, isCompound = false, isSimilarityOnly = false }) {
-  if (!provider || provider.id === PROVIDER_IDS.NONE || framePenalty > 0) return false;
-  if (isPrimaryRankerProvider(provider) || (isSimilarityOnly && baselineScore > 0)) return true;
-  return isBaselineUndecided({ effectiveSim, baselineScore, isCompound });
+export function shouldArbitrateLeitpunkt({ provider, framePenalty }) {
+  return isPrimaryRankerProvider(provider) && !(framePenalty > 0);
 }
 
 function hasUnconfirmedCompoundAspect(verdict, rankerIsArbiter) {
@@ -70,14 +56,12 @@ export function mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbite
  *   - policy: the task level's ranker policy
  */
 export async function arbitrateLeitpunkt({ criterion, sentences, baselineScore, provider, embedder = null, rivalCriteria = [], policy, isSimilarityOnly = false }) {
-  if (!sentences?.length || !provider || provider.id === PROVIDER_IDS.NONE) {
+  if (!sentences?.length || !isPrimaryRankerProvider(provider)) {
     return { score: baselineScore, arbitrated: false, rankerDetails: null };
   }
   try {
-    const rankerIsArbiter = isPrimaryRankerProvider(provider) && provider.canOverruleBaseline(sentences, policy);
-    const verdict = isPrimaryRankerProvider(provider)
-      ? await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria, policy })
-      : await provider.classifyCoverage(criterion, sentences.join(' '));
+    const rankerIsArbiter = provider.canOverruleBaseline(sentences, policy);
+    const verdict = await provider.classifyCoverage(criterion, sentences, { embedder, rivalCriteria, policy });
     return { ...mergeArbitrationVerdict(baselineScore, verdict, { rankerIsArbiter, isSimilarityOnly }), rankerDetails: verdict || null };
   } catch (err) {
     console.warn('[LeitpunktArbitration] LP arbitration skipped on error:', err?.message || err);

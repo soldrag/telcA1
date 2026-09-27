@@ -34,7 +34,7 @@ Schreiben regression suites: `tests/fixtures/schreiben-regression/*.json` — le
 ## Schreiben benchmarks
 
 Diagnostics, not targets: every score change is explained, never tuned towards the expectations (the expectations are agent annotations, not teacher ratings).
-- `npm run bench:schreiben` (`scripts/bench-schreiben-leitpunkte.mjs`) — benchmark and gold letters (`tests/fixtures/schreiben-bench/`) and the regression suites in three modes (none / gray zone / primary Micro-Ranker with local EmbeddingGemma); diff against `baseline.txt`, `--save` stores a new baseline.
+- `npm run bench:schreiben` (`scripts/bench-schreiben-leitpunkte.mjs`) — benchmark and gold letters (`tests/fixtures/schreiben-bench/`) and the regression suites in two modes (none / primary Micro-Ranker with local EmbeddingGemma); diff against `baseline.txt`, `--save` stores a new baseline.
 - `npm run eval:schreiben` — scorecard over `tests/eval/` (reports in `tests/eval/reports/`, not committed); `npm run test:eval` runs the eval suites.
 - `npm run measure:grammar` — grammar hint precision/recall ([linguistic engine](linguistic-engine.md#precision-and-regression-net)).
 

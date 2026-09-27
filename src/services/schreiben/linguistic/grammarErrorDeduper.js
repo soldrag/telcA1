@@ -42,3 +42,28 @@ export function dedupeGrammarErrors(errors = []) {
     kept.some((k) => describeSameDefect(k, err)) ? kept : [...kept, err]
   ), []);
 }
+
+/** Adds the findings of another analyzer to the baseline list, one entry per original phrase and defect. */
+export function mergeCandidateGrammarErrors(baselineErrors = [], candidateErrors = []) {
+  const base = Array.isArray(baselineErrors) ? baselineErrors : [];
+  const candidates = Array.isArray(candidateErrors) ? candidateErrors : [];
+  const seen = new Set(base.map(e => (e?.original || '').toLowerCase().trim()).filter(Boolean));
+  const merged = [...base];
+
+  for (const err of candidates) {
+    if (!err || !err.original) continue;
+    const key = String(err.original).toLowerCase().trim();
+    if (!seen.has(key)) {
+      seen.add(key);
+      merged.push({
+        ...err,
+        original: String(err.original || '').trim(),
+        correction: String(err.correction || '').trim(),
+        explanation: String(err.explanation || 'Grammatikfehler').trim(),
+        category: err.category || 'syntax'
+      });
+    }
+  }
+
+  return dedupeGrammarErrors(merged);
+}

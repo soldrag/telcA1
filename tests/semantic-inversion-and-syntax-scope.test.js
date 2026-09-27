@@ -2,7 +2,9 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { parseSentenceTopology } from '../src/services/schreiben/linguistic/topologicalFieldParser.js';
 import { detectSemanticInversion } from '../src/services/schreiben/linguistic/semanticPolarityValidator.js';
-import { runStage2Leitpunkte } from '../src/services/schreiben/grading/stage2Leitpunkte.js';
+import { scorePipelineLeitpunkte } from '../src/services/schreiben/grading/pipelineStageScorers.js';
+import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
 
 describe('Syntax Scope & Subordinate Clause Coordination', () => {
@@ -72,7 +74,9 @@ describe('Stage 2 Adversarial Semantic Inversion Protection', () => {
       'Bitte kommen Sie nicht vorbei.'
     ];
 
-    const res = await runStage2Leitpunkte({ criteria, bodySentences: adversarialBody, lexicon: A1_GRAMMAR_PROFILE.lexicon });
+    const res = await scorePipelineLeitpunkte({
+      criteria, bodySentences: adversarialBody, provider: new NoneProvider(), customExtractor: false, policy: resolveLevelContext('A1').policy,
+    });
     assert.equal(res.totalScore, 0);
     assert.equal(res.items[0].score, 0);
     assert.equal(res.items[1].score, 0);

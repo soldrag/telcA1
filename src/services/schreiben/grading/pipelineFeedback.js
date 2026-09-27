@@ -4,7 +4,6 @@
  */
 
 import { assembleDeterministicFeedback } from './stage4Feedback.js';
-import { PROVIDER_IDS } from '../../ai/types.js';
 
 function buildLegacyFacts({ stage1, stage2, errors }) {
   return {
@@ -13,18 +12,6 @@ function buildLegacyFacts({ stage1, stage2, errors }) {
     grussScore: stage1.grussScore,
     grammarErrorCount: errors.length,
   };
-}
-
-async function resolveLegacyFeedbackText(facts, activeProvider, enableLlmPolish) {
-  let feedbackText = assembleDeterministicFeedback(facts);
-  if (enableLlmPolish && activeProvider.id !== PROVIDER_IDS.NONE) {
-    try {
-      feedbackText = await activeProvider.polishFeedback(facts);
-    } catch (err) {
-      console.warn('[GradingPipeline] Feedback polish skipped:', err?.message || err);
-    }
-  }
-  return feedbackText;
 }
 
 function toClosingQuote(gruss = {}) {
@@ -66,10 +53,10 @@ export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, use
 }
 
 /**
- * @returns {Promise<{ feedbackText: string, examinerFeedback: object|null }>}
+ * @returns {{ feedbackText: string, examinerFeedback: object|null }}
  */
-export async function composePipelineFeedback({ context, policy, activeProvider, enableLlmPolish }) {
-  const feedbackText = await resolveLegacyFeedbackText(buildLegacyFacts(context), activeProvider, enableLlmPolish);
+export function composePipelineFeedback({ context, policy }) {
+  const feedbackText = assembleDeterministicFeedback(buildLegacyFacts(context));
   try {
     return { feedbackText, examinerFeedback: policy.buildExaminerFeedback(buildExaminerFeedbackFacts(context)) };
   } catch (err) {

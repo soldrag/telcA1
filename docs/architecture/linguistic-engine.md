@@ -73,7 +73,7 @@ Port: `{ lookup(word), findForms(predicate), tag(tokens), load() }` — `linguis
 | `measurePhraseOrder` | "Zeit vier Wochen" → "vier Wochen Zeit" |
 | `verbFrame` | reflexive / prepositional object / separable prefix ("mich anmelden", "rufen Sie mich zurück") — only for verbs with lexicon valency |
 
-Also: `verblessClauseChecker.js` (a clause without a verb; an unknown word in a verb slot is not "verbless"), `sentenceGrammarFilter.js`, `analyzers/sentenceGrammarMicroChecker.js`.
+Also: `verblessClauseChecker.js` (a clause without a verb; an unknown word in a verb slot is not "verbless"), `grammarErrorDeduper.js` (one entry per defect across analyzers, `mergeCandidateGrammarErrors`).
 
 ## Letter zones and letter rules
 

@@ -1,11 +1,9 @@
 /**
  * Dedicated Web Worker for Schreiben Teil 2 grading.
- * Runs in isolated thread, computes embeddings/LLM grading, and streams progress.
+ * Runs in isolated thread, computes embedding-based grading, and streams progress.
  */
 
 import { gradeSchreibenSubmission } from '../gradingPipeline.js';
-
-export const WORKER_BUILD_VERSION = '2026.09.13.v2';
 
 self.onmessage = async (event) => {
   const { id, type, payload } = event.data || {};

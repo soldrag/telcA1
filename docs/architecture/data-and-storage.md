@@ -43,7 +43,7 @@ Attempt history uses the strategy pattern: `storage/attemptStorage.interface.js`
 | `telc_assignment_lockout_<id>` | `assignmentLockoutStorage` | start/submission of one task |
 | `telc_teacher_key` | `teacherSecurityService` | HMAC key |
 | `telc_welcome_role`, `telc_app_language`, `telc_app_theme`, `telc_exam_font` | UI hooks | preferences |
-| `telc_ai_provider_override`, `telc_enable_generative_llm`, `telc_enable_ab_testing_ui`, `telc_ab_grading_history` | AI config | developer switches |
+| `telc_ai_provider_override` | AI config | developer switch (force a registered provider, e.g. `none`) |
 
 Nothing is sent anywhere: no telemetry, no user id, no remote attempt storage.
 

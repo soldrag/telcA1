@@ -10,7 +10,6 @@ import { AIProvider } from '../AIProvider.js';
 import { PROVIDER_IDS } from '../types.js';
 import { classifyCriterionCoverage } from '../../schreiben/grading/microRankerService.js';
 import { createRankerEmbedder } from '../../embeddings/rankerEmbedder.js';
-import { assembleDeterministicFeedback } from '../../schreiben/grading/stage4Feedback.js';
 import { defaultA1RankerPolicy } from '../../schreiben/grading/policies/a1RankerPolicy.js';
 import { clearEmbeddingCache, unloadEmbeddingService } from '../../embeddings/embeddingService.js';
 
@@ -60,25 +59,6 @@ export class MicroRankerProvider extends AIProvider {
    */
   canOverruleBaseline(sentences = [], policy = this.policy) {
     return policy.isVerdictReliable(sentences);
-  }
-
-  /**
-   * Micro-task 2: Grammar candidates.
-   * Pure System 1: leaves grammar analysis to deterministic linguistic engine.
-   * @returns {Promise<Array>}
-   */
-  async proposeGrammarCandidates() {
-    return [];
-  }
-
-  /**
-   * Micro-task 3: Verbal feedback polish.
-   * Pure System 1: produces deterministic, authenticated telc feedback.
-   * @param {object} facts
-   * @returns {Promise<string>}
-   */
-  async polishFeedback(facts = {}) {
-    return assembleDeterministicFeedback(facts);
   }
 
   /**

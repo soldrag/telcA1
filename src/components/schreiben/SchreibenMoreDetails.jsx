@@ -4,7 +4,6 @@ import LinguisticAccuracyPanel from './LinguisticAccuracyPanel.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
 import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
 import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
-import SchreibenAbComparisonCard from './SchreibenAbComparisonCard.jsx';
 import SchreibenRankerDetailsCard from './SchreibenRankerDetailsCard.jsx';
 import VocabularyList from '../results/VocabularyList.jsx';
 import { formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
@@ -26,15 +25,8 @@ function AiDiffList({ entries, item, language }) {
   );
 }
 
-function DebugPanels({ ai, diagnosticData, language }) {
-  return (
-    <>
-      {ai.abComparison && (
-        <SchreibenAbComparisonCard comparison={ai.abComparison} onClose={ai.closeAbComparison} language={language} />
-      )}
-      <SchreibenRankerDetailsCard diagnosticData={diagnosticData} language={language} />
-    </>
-  );
+function DebugPanels({ diagnosticData, language }) {
+  return <SchreibenRankerDetailsCard diagnosticData={diagnosticData} language={language} />;
 }
 
 /**
@@ -65,9 +57,9 @@ export default function SchreibenMoreDetails({ item, selfCheck, t, language, cla
           t={t}
         />
         <VocabularyList entries={item.vocabulary_notes} language={language} title={t('results.usefulWords')} />
-        <SchreibenAiControlBar aiLoading={ai.aiLoading} handleRunRankerAi={ai.handleRunRankerAi} handleRunAbComparison={ai.handleRunAbComparison} />
+        <SchreibenAiControlBar aiLoading={ai.aiLoading} />
         <AiDiffList entries={ai.aiDiffSummary} item={item} language={language} />
-        {isDebugView() && <DebugPanels ai={ai} diagnosticData={diagnosticData} language={language} />}
+        {isDebugView() && <DebugPanels diagnosticData={diagnosticData} language={language} />}
         <SchreibenAiDisclaimer />
       </div>
     </details>

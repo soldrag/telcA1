@@ -9,7 +9,7 @@ import { selectGrammarHighlights } from '../src/services/schreiben/feedback/gram
 import { defaultA1RankerPolicy, IRankerPolicy } from '../src/services/schreiben/grading/policies/index.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
-import { NoneProvider } from '../src/services/ai/index.js';
+import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
 
 const lp = (label, score, diagnosticCode, matchedSentence = '', missingAspects = []) =>
   ({ label, score, diagnosticCode, matchedSentence, missingAspects });

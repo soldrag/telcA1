@@ -4,7 +4,6 @@ import { gradeSchreibenWithWorker, isWorkerSupported } from '../services/schreib
 import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../services/ai/types.js';
 import { applyAiGradingResult } from './schreibenAiResultApplier.js';
-import { compareGradingResults } from '../services/schreiben/grading/abTestingService.js';
 export { formatDiffEntry } from './schreibenDiffFormatter.js';
 
 
@@ -27,7 +26,6 @@ export function useSchreibenAiChecker({
   const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
   const [activeProvider, setActiveProvider] = useState(null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
-  const [abComparison, setAbComparison] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -42,7 +40,7 @@ export function useSchreibenAiChecker({
     setActiveProvider(provider);
     const onProg = (text) => setAiStatus(progressPrefix ? `${progressPrefix}: ${text}` : text);
 
-    const isBrowserAi = provider.id === PROVIDER_IDS.CLIENT_WEBGPU || provider.id === PROVIDER_IDS.MICRO_RANKER;
+    const isBrowserAi = provider.id === PROVIDER_IDS.MICRO_RANKER;
     if (!targetProvider && isBrowserAi && isWorkerSupported()) {
       return await gradeSchreibenWithWorker({
         userText: item.user_answer,
@@ -113,38 +111,6 @@ export function useSchreibenAiChecker({
     }
   }, [item?.examiner_feedback, item?.user_answer, handleRunRankerAi]);
 
-  const handleRunAbComparison = useCallback(async () => {
-    setAiLoading(true);
-    setAiDiffSummary([]);
-    setFeedbackSummary('');
-    setExaminerFeedback(null);
-    try {
-      const t0 = performance.now();
-      const standardProvider = await aiProviderRegistry.getActiveProvider();
-      const resA = await runEvaluationForProvider(standardProvider, 'A: Standard');
-      const durA = Math.round(performance.now() - t0);
-
-      const t1 = performance.now();
-      const ranker = aiProviderRegistry.getProvider(PROVIDER_IDS.MICRO_RANKER);
-      const resB = await runEvaluationForProvider(ranker, 'B: Ranker');
-      const durB = Math.round(performance.now() - t1);
-
-      const comp = compareGradingResults(resA, resB, {
-        durationMsA: durA,
-        durationMsB: durB,
-        providerAId: standardProvider.id,
-        providerBId: ranker.id,
-      });
-      setAbComparison(comp);
-      applyResult(resB);
-      setAiStatus(language === 'ru' ? '✅ A/B сравнение успешно выполнено' : '✅ A/B-Vergleich abgeschlossen');
-    } catch (err) {
-      setAiStatus(err.message || (language === 'ru' ? 'Ошибка A/B теста' : 'Fehler beim A/B-Test'));
-    } finally {
-      setAiLoading(false);
-    }
-  }, [runEvaluationForProvider, applyResult, language]);
-
   return {
     aiLoading,
     aiStatus,
@@ -152,11 +118,8 @@ export function useSchreibenAiChecker({
     feedbackSummary,
     examinerFeedback,
     liveCriteriaBreakdown,
-    abComparison,
-    closeAbComparison: () => setAbComparison(null),
     handleRunAi,
     handleRunRankerAi,
-    handleRunAbComparison,
     activeProvider,
     providerId: activeProvider?.id || PROVIDER_IDS.NONE,
     isLimitedMode: activeProvider?.id === PROVIDER_IDS.NONE,

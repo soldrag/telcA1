@@ -43,7 +43,7 @@ flowchart TB
 | `src/data/exams/` | exam seeds and the `seedData.js` barrel |
 | `src/services/examService.js`, `localDataService.js`, `evaluation/` | data port and answer grading |
 | `src/services/schreiben/` | Schreiben grading: `grading/`, `linguistic/`, `feedback/`, `scoring/`, `profiles/`, `regulations/` |
-| `src/services/ai/`, `src/services/embeddings/` | AI providers (Micro-Ranker, disabled generative ones), embedder |
+| `src/services/ai/`, `src/services/embeddings/` | AI providers (Micro-Ranker, limited mode), embedder |
 | `src/services/storage/`, `security/`, `share/`, `assignment/` | local storage, teacher key and signing, token compression, assignment timer |
 | `src/contracts/`, `scripts/contracts/`, `scripts/verify-contracts.js` | build-time contracts |
 | `shared/testTypes.js` | module rules (time, tasks, points) |

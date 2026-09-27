@@ -3,7 +3,7 @@
  * Decouples state mutations and localized status messages from the main hook controller.
  */
 
-import { mergeCandidateGrammarErrors } from '../services/schreiben/linguistic/sentenceGrammarFilter.js';
+import { mergeCandidateGrammarErrors } from '../services/schreiben/linguistic/grammarErrorDeduper.js';
 
 export function applyAiGradingResult({
   aiResult,

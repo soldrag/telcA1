@@ -1,66 +1,66 @@
-T1_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
-T1_02  none=202       gray=202       primary=202    exp=202 | Missing Zeitraum
-T1_03  none=220       gray=220       primary=220    exp=220 | Missing Hausaufgaben
-T1_04  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violation
-T1_05  none=122       gray=122       primary=122    exp=222 | Severe A1 Typos
-T1_06  none=222       gray=222       primary=222    exp=222 | Informal Salutation
-T1_07  none=220i      gray=220i      primary=220i   exp=220 | Semantic Negation (No HW)
-T1_08  none=122       gray=022       primary=022    exp=022 | Missing Grund
-T1_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
-T1_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
-T2_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
-T2_02  none=212       gray=212       primary=212    exp=212 | Trap: Personen without Beruf
-T2_03  none=212       gray=212       primary=212    exp=212 | Trap: Beruf without Personen
-T2_04  none=220       gray=220       primary=220    exp=220 | Missing Besichtigung
-T2_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
-T2_06  none=020       gray=020       primary=020    exp=222 | Severe A1 Typos
-T2_07  none=212       gray=212       primary=212    exp=212 | Informal Salutation
-T2_08  none=212       gray=212       primary=212    exp=210 | Semantic Negation (Too expensive)
-T2_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
-T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
-T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
-T3_02  none=122       gray=122       primary=122    exp=122 | Trap: Dank without explicit Zusage
-T3_03  none=202       gray=202       primary=202    exp=202 | Missing Begleitperson
-T3_04  none=221       gray=220       primary=220    exp=220 | Missing Mitbringen/Hilfe
-T3_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
-T3_06  none=221       gray=220       primary=220    exp=222 | Severe A1 Typos
-T3_07  none=222       gray=222       primary=222    exp=222 | Hyper-formal in Casual Context
-T3_08  none=10i1      gray=10i0      primary=10i0   exp=100 | Absage (Semantic Negation)
-T3_09  none=122       gray=122       primary=122    exp=--- | Telegraphic Minimal
-T3_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
-G1     none=222       gray=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)
-G2     none=222       gray=222       primary=222    exp=222 | 2. Modellsatz 1 Typical A1 Submission with typical errors (S
-G3     none=221       gray=221       primary=221    exp=221 | 3. Modellsatz 1 Missing Anrede (Score 0 for Anrede)
-G4     none=220       gray=220       primary=220    exp=??0 | 4. Modellsatz 1 Missing LP3 (Score 0 for LP3)
-G6     none=222       gray=222       primary=222    exp=222 | 6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)
-G7     none=222       gray=222       primary=222    exp=222 | 7. Modellsatz 2 Moderate errors with single name (Score 7-9/
-G8     none=222       gray=222       primary=222    exp=222 | 8. Modellsatz 2 Informal greeting in formal context (Score 1
-G11    none=222       gray=222       primary=222    exp=222 | 11. Complex syntax with adverbial fronting & Satzklammer (Re
-C2     none=222       gray=222       primary=222    exp=222 | Test 2: User Text #1 (Language school, formal greeting, 6 ty
-C3     none=222       gray=222       primary=222    exp=222 | Test 3: Modellsatz 2 Doctor cancellation (Strong submission 
-C4     none=222       gray=222       primary=222    exp=222 | Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, s
-C5     none=220       gray=220       primary=220    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
-C6     none=222       gray=222       primary=222    exp=222 | Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting
-C8     none=220       gray=220       primary=220    exp=??0 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
-C9     none=122       gray=122       primary=122    exp=1?? | Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun
-s4-q6:01 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Baseline: all points, formal frame.
-s4-q6:02 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=8.5 | The letter from the screenshot: 'Haustiere' aspect missing.
-s4-q6:03 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Pets expressed via 'Hund' without the word 'Haustier'.
-s4-q6:04 none=221       gray=221       primary=221    exp=222 tot=8.5/8.5/8.5 exp=8.5-10 | Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.
-s4-q6:05 none=000       gray=000       primary=000    exp=000 tot=1/1/1 exp=0.5-1 | Perfect greeting/closing, no content. Must not score high.
-s4-q6:06 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Content complete, Anrede missing, closing present.
-s4-q6:07 none=222       gray=222       primary=222    exp=222 tot=9/9/9 exp=9 | Content complete, no Anrede, no Gruß, no name.
-s4-q6:08 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Register mismatch: 'Hallo!' / 'Tschüss' to a stranger. Goethe's model example with 'Hallo!' got 0.5 for KG.
-s4-q6:09 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | Composite point 2 with one aspect missing.
-s4-q6:10 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Many grammar/spelling errors, fully understandable. Must NOT be penalized.
-s4-q6:11 none=000       gray=000       primary=000    exp=000 tot=1/1/1 exp=0.5-5.5 | Adversarial for embeddings: bare keywords, no communicative sentences.
-s4-q6:12 none=000       gray=000       primary=000    exp=000 tot=0.5/0.5/0.5 exp=0.5-1 | Formally correct letter on a different task (birthday invitation). Semantic similarity to 'Grund/Zeitraum' may be non-zero.
-s4-q6:13 none=122       gray=122       primary=122    exp=222 tot=8.5/8.5/8.5 exp=8.5-10 | No explicit 'ich möchte mieten' - reason only implied by the question about availability.
-s4-q6:14 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=8.5 | Mirror of case 02: pets present, price missing.
-s4-q6:15 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Well over 30 words, extra off-point sentences. Length alone must not add or remove points.
-s4-q6:16 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=7-8.5 | Point 3 present but barely understandable.
-s4-q6:17 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.
-s4-q6:18 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
-s4-q6:19 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.
-s4-q6:20 none=212       gray=212       primary=212    exp=212 tot=8.5/8.5/8.5 exp=8.5 | 'Wir kommen' names no number of persons: Personen missing, Zeitraum present.
-s4-q6:21 none=221       gray=221       primary=221    exp=221 tot=8/8/8 exp=8 | 'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 0.5, as in 17.
+T1_01  none=222       primary=222    exp=222 | Gold Standard
+T1_02  none=202       primary=202    exp=202 | Missing Zeitraum
+T1_03  none=220       primary=220    exp=220 | Missing Hausaufgaben
+T1_04  none=222       primary=222    exp=222 | V2 Syntax Violation
+T1_05  none=122       primary=122    exp=222 | Severe A1 Typos
+T1_06  none=222       primary=222    exp=222 | Informal Salutation
+T1_07  none=220i      primary=220i   exp=220 | Semantic Negation (No HW)
+T1_08  none=122       primary=022    exp=022 | Missing Grund
+T1_09  none=222       primary=222    exp=--- | Telegraphic Minimal
+T1_10  none=000       primary=000    exp=000 | Completely Off-topic
+T2_01  none=222       primary=222    exp=222 | Gold Standard
+T2_02  none=212       primary=212    exp=212 | Trap: Personen without Beruf
+T2_03  none=212       primary=212    exp=212 | Trap: Beruf without Personen
+T2_04  none=220       primary=220    exp=220 | Missing Besichtigung
+T2_05  none=222       primary=222    exp=222 | V2 Syntax Violations
+T2_06  none=020       primary=020    exp=222 | Severe A1 Typos
+T2_07  none=212       primary=212    exp=212 | Informal Salutation
+T2_08  none=212       primary=212    exp=210 | Semantic Negation (Too expensive)
+T2_09  none=222       primary=222    exp=--- | Telegraphic Minimal
+T2_10  none=000       primary=000    exp=000 | Completely Off-topic
+T3_01  none=222       primary=222    exp=222 | Gold Standard
+T3_02  none=122       primary=122    exp=122 | Trap: Dank without explicit Zusage
+T3_03  none=202       primary=202    exp=202 | Missing Begleitperson
+T3_04  none=221       primary=220    exp=220 | Missing Mitbringen/Hilfe
+T3_05  none=222       primary=222    exp=222 | V2 Syntax Violations
+T3_06  none=221       primary=220    exp=222 | Severe A1 Typos
+T3_07  none=222       primary=222    exp=222 | Hyper-formal in Casual Context
+T3_08  none=10i1      primary=10i0   exp=100 | Absage (Semantic Negation)
+T3_09  none=122       primary=122    exp=--- | Telegraphic Minimal
+T3_10  none=000       primary=000    exp=000 | Completely Off-topic
+G1     none=222       primary=222    exp=222 | 1. Modellsatz 1 Perfect Submission (Score 10/10)
+G2     none=222       primary=222    exp=222 | 2. Modellsatz 1 Typical A1 Submission with typical errors (S
+G3     none=221       primary=221    exp=221 | 3. Modellsatz 1 Missing Anrede (Score 0 for Anrede)
+G4     none=220       primary=220    exp=??0 | 4. Modellsatz 1 Missing LP3 (Score 0 for LP3)
+G6     none=222       primary=222    exp=222 | 6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)
+G7     none=222       primary=222    exp=222 | 7. Modellsatz 2 Moderate errors with single name (Score 7-9/
+G8     none=222       primary=222    exp=222 | 8. Modellsatz 2 Informal greeting in formal context (Score 1
+G11    none=222       primary=222    exp=222 | 11. Complex syntax with adverbial fronting & Satzklammer (Re
+C2     none=222       primary=222    exp=222 | Test 2: User Text #1 (Language school, formal greeting, 6 ty
+C3     none=222       primary=222    exp=222 | Test 3: Modellsatz 2 Doctor cancellation (Strong submission 
+C4     none=222       primary=222    exp=222 | Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, s
+C5     none=220       primary=220    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
+C6     none=222       primary=222    exp=222 | Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting
+C8     none=220       primary=220    exp=??0 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
+C9     none=122       primary=122    exp=1?? | Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun
+s4-q6:01 none=222       primary=222    exp=222 tot=10/10 exp=10 | Baseline: all points, formal frame.
+s4-q6:02 none=221       primary=221    exp=221 tot=8.5/8.5 exp=8.5 | The letter from the screenshot: 'Haustiere' aspect missing.
+s4-q6:03 none=222       primary=222    exp=222 tot=10/10 exp=10 | Pets expressed via 'Hund' without the word 'Haustier'.
+s4-q6:04 none=221       primary=221    exp=222 tot=8.5/8.5 exp=8.5-10 | Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.
+s4-q6:05 none=000       primary=000    exp=000 tot=1/1 exp=0.5-1 | Perfect greeting/closing, no content. Must not score high.
+s4-q6:06 none=222       primary=222    exp=222 tot=9.5/9.5 exp=9.5 | Content complete, Anrede missing, closing present.
+s4-q6:07 none=222       primary=222    exp=222 tot=9/9 exp=9 | Content complete, no Anrede, no Gruß, no name.
+s4-q6:08 none=222       primary=222    exp=222 tot=9.5/9.5 exp=9.5 | Register mismatch: 'Hallo!' / 'Tschüss' to a stranger. Goethe's model example with 'Hallo!' got 0.5 for KG.
+s4-q6:09 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | Composite point 2 with one aspect missing.
+s4-q6:10 none=222       primary=222    exp=222 tot=10/10 exp=10 | Many grammar/spelling errors, fully understandable. Must NOT be penalized.
+s4-q6:11 none=000       primary=000    exp=000 tot=1/1 exp=0.5-5.5 | Adversarial for embeddings: bare keywords, no communicative sentences.
+s4-q6:12 none=000       primary=000    exp=000 tot=0.5/0.5 exp=0.5-1 | Formally correct letter on a different task (birthday invitation). Semantic similarity to 'Grund/Zeitraum' may be non-zero.
+s4-q6:13 none=122       primary=122    exp=222 tot=8.5/8.5 exp=8.5-10 | No explicit 'ich möchte mieten' - reason only implied by the question about availability.
+s4-q6:14 none=221       primary=221    exp=221 tot=8.5/8.5 exp=8.5 | Mirror of case 02: pets present, price missing.
+s4-q6:15 none=222       primary=222    exp=222 tot=10/10 exp=10 | Well over 30 words, extra off-point sentences. Length alone must not add or remove points.
+s4-q6:16 none=221       primary=221    exp=221 tot=8.5/8.5 exp=7-8.5 | Point 3 present but barely understandable.
+s4-q6:17 none=222       primary=222    exp=222 tot=9.5/9.5 exp=9.5 | User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.
+s4-q6:18 none=222       primary=222    exp=222 tot=10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
+s4-q6:19 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.
+s4-q6:20 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | 'Wir kommen' names no number of persons: Personen missing, Zeitraum present.
+s4-q6:21 none=221       primary=221    exp=221 tot=8/8 exp=8 | 'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 0.5, as in 17.

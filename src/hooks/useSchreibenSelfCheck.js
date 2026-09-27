@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useSchreibenAiChecker } from './useSchreibenAiChecker.js';
 import { scoreCriteriaLevels } from '../services/schreiben/regulations/index.js';
-import { mergeCandidateGrammarErrors } from '../services/schreiben/linguistic/sentenceGrammarFilter.js';
-import { dedupeGrammarErrors } from '../services/schreiben/linguistic/grammarErrorDeduper.js';
+import { mergeCandidateGrammarErrors, dedupeGrammarErrors } from '../services/schreiben/linguistic/grammarErrorDeduper.js';
 
 const NEXT_LEVEL = { 2: 1, 1: 0, 0: 2 };
 const NO_ERRORS = [];

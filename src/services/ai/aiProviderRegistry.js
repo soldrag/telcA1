@@ -1,16 +1,13 @@
 /**
  * Registry and strategy selector for AIProviders.
- * Auto-detects in priority order: window_ai -> client_webgpu -> none.
- * Supports manual override with localStorage persistence.
+ * Picks the configured primary provider (Micro-Ranker) when available, otherwise the limited rule-based mode.
+ * A developer override (localStorage) may force a registered provider, e.g. `none` for the limited mode.
  */
 
 import { PROVIDER_IDS } from './types.js';
 import { NoneProvider } from './providers/NoneProvider.js';
-import { WindowAiProvider } from './providers/WindowAiProvider.js';
-import { ClientWebGpuProvider } from './providers/ClientWebGpuProvider.js';
 import { MicroRankerProvider } from './providers/MicroRankerProvider.js';
-import { isWebGPUSupported } from '../../utils/webGpuSupport.js';
-import { getPrimaryAiProviderId, isGenerativeLlmEnabled } from '../../config/aiConfig.js';
+import { getPrimaryAiProviderId } from '../../config/aiConfig.js';
 
 const STORAGE_OVERRIDE_KEY = 'telc_ai_provider_override';
 
@@ -18,12 +15,6 @@ export class AIProviderRegistry {
   constructor() {
     this.providers = new Map();
     this.activeProviderId = null;
-    this.initializeDefaults();
-  }
-
-  initializeDefaults() {
-    this.register(new WindowAiProvider());
-    this.register(new ClientWebGpuProvider());
     this.register(new MicroRankerProvider());
     this.register(new NoneProvider());
   }
@@ -37,49 +28,22 @@ export class AIProviderRegistry {
     return this.providers.get(id) || this.providers.get(PROVIDER_IDS.NONE);
   }
 
-  getAllProviders() {
-    return Array.from(this.providers.values());
-  }
-
   getSavedOverride() {
     try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        return window.localStorage.getItem(STORAGE_OVERRIDE_KEY);
-      }
+      if (typeof window === 'undefined' || !window.localStorage) return null;
+      return window.localStorage.getItem(STORAGE_OVERRIDE_KEY);
     } catch {
       return null;
     }
-    return null;
   }
 
   async detectBestAvailableProvider() {
-    const override = this.getSavedOverride();
-    if (override && this.providers.has(override)) {
-      const overrideProvider = this.providers.get(override);
-      const isAvail = await overrideProvider.isAvailable();
-      if (isAvail) return overrideProvider;
-    }
-
-    let selected = null;
-    const primaryId = getPrimaryAiProviderId();
-    const priority = [primaryId];
-    if (isGenerativeLlmEnabled()) {
-      priority.push(PROVIDER_IDS.WINDOW_AI, PROVIDER_IDS.CLIENT_WEBGPU);
-    }
-    priority.push(PROVIDER_IDS.NONE);
-
+    const priority = [this.getSavedOverride(), getPrimaryAiProviderId()];
     for (const id of priority) {
-      const p = this.providers.get(id);
-      if (p) {
-        const avail = await p.isAvailable();
-        if (avail) {
-          selected = p;
-          break;
-        }
-      }
+      const provider = id && this.providers.get(id);
+      if (provider && await provider.isAvailable()) return provider;
     }
-
-    return selected || this.getProvider(PROVIDER_IDS.NONE);
+    return this.getProvider(PROVIDER_IDS.NONE);
   }
 
   async getActiveProvider() {
@@ -89,26 +53,6 @@ export class AIProviderRegistry {
     const best = await this.detectBestAvailableProvider();
     this.activeProviderId = best.id;
     return best;
-  }
-
-  setActiveProvider(providerId) {
-    if (this.providers.has(providerId)) {
-      this.activeProviderId = providerId;
-      try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          window.localStorage.setItem(STORAGE_OVERRIDE_KEY, providerId);
-        }
-      } catch {}
-    }
-  }
-
-  clearOverride() {
-    this.activeProviderId = null;
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.removeItem(STORAGE_OVERRIDE_KEY);
-      }
-    } catch {}
   }
 }
 

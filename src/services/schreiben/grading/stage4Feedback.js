@@ -1,34 +1,7 @@
 /**
- * Stage 4: Feedback Summary (Deterministic Template Bank by default).
+ * Stage 4: Feedback Summary.
  * Assembles feedback from computed facts using verified A1 German phrases.
- * Supports optional Qwen3 polish via feature flag (disabled by default).
  */
-
-import { buildFeedbackPolishPrompt } from './prompts.js';
-
-const TEMPLATE_BANK = {
-  anrede: {
-    2: 'Die Anrede ist passend und formal korrekt gewählt.',
-    1: 'Die Anrede ist vorhanden, weist jedoch kleinere Formfehler auf.',
-    0: 'Es fehlt eine passende Anrede zu Beginn des Briefes.'
-  },
-  leitpunkte: {
-    full: 'Alle drei Inhaltspunkte sind verständlich und vollständig bearbeitet.',
-    partial: 'Die Inhaltspunkte wurden im Wesentlichen bearbeitet, teilweise fehlen Einzelheiten.',
-    weak: 'Mehrere geforderte Inhaltspunkte fehlen oder sind unvollständig.'
-  },
-  gruss: {
-    2: 'Grußformel und Name am Schluss sind vollständig und passend.',
-    1: 'Die Grußformel oder der Name am Schluss ist unvollständig.',
-    0: 'Es fehlt eine passende Grußformel oder der Name am Ende.'
-  },
-  grammar: {
-    clean: 'Sprachlich sehr sorgfältig: keine wesentlichen Grammatikfehler gefunden.',
-    minor: 'Gute sprachliche Verständlichkeit mit nur wenigen kleinen Fehlern.',
-    moderate: 'Achten Sie auf Verbformen und Wortstellung, um Punktabzüge zu vermeiden.',
-    heavy: 'Mehrere Grammatik- und Satzbaufehler beeinträchtigen die Verständlichkeit.'
-  }
-};
 
 export function assembleDeterministicFeedback({
   anredeScore = 0,
@@ -70,34 +43,4 @@ export function assembleDeterministicFeedback({
     return `Die Anrede ist passend und formal korrekt gewählt. Die Inhaltspunkte wurden im Wesentlichen bearbeitet, teilweise fehlen jedoch wichtige Einzelheiten. Grußformel und Name am Schluss sind passend. ${gramText}`;
   }
   return `Die geforderten Inhaltspunkte wurden nur teilweise bearbeitet. Achten Sie zudem auf die formale Gestaltung von Anrede und Grußformel. ${gramText}`;
-}
-
-export async function polishFeedbackWithLLM(templateText = '') {
-  return templateText;
-}
-
-export async function runStage4Feedback({
-  facts = {},
-  enableLlmPolish = false,
-  qwenEngine = null
-}) {
-  const deterministicText = assembleDeterministicFeedback({
-    anredeScore: facts.anredeScore ?? 0,
-    lpScore: facts.lpScore ?? 0,
-    grussScore: facts.grussScore ?? 0,
-    grammarErrorCount: facts.grammarErrorCount ?? 0
-  });
-
-  if (!enableLlmPolish || !qwenEngine) {
-    return {
-      feedback: deterministicText,
-      isPolished: false
-    };
-  }
-
-  const polishedText = await polishFeedbackWithLLM(deterministicText, qwenEngine);
-  return {
-    feedback: polishedText,
-    isPolished: polishedText !== deterministicText
-  };
 }

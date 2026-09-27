@@ -1,9 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  MicroRankerProvider,
-  PROVIDER_IDS,
-} from '../src/services/ai/index.js';
+import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
+import { PROVIDER_IDS } from '../src/services/ai/types.js';
+import { assembleDeterministicFeedback } from '../src/services/schreiben/grading/stage4Feedback.js';
 import {
   scoreSentencePair,
   classifyCriterionCoverage,
@@ -24,15 +23,8 @@ describe('MicroRankerProvider & MicroRankerService Tests', () => {
     assert.ok(provider.name.includes('Micro-Ranker'));
   });
 
-  it('proposeGrammarCandidates returns empty array (System 1 delegates to linguistic engine)', async () => {
-    const provider = new MicroRankerProvider({ embedder: null });
-    const candidates = await provider.proposeGrammarCandidates('Ich gehe heute ins Kino.');
-    assert.deepEqual(candidates, []);
-  });
-
-  it('polishFeedback produces authentic deterministic telc feedback', async () => {
-    const provider = new MicroRankerProvider({ embedder: null });
-    const feedback = await provider.polishFeedback({
+  it('assembleDeterministicFeedback produces authentic telc feedback from the facts', () => {
+    const feedback = assembleDeterministicFeedback({
       anredeScore: 2,
       lpScore: 6,
       grussScore: 2,

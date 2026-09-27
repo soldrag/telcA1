@@ -31,11 +31,11 @@ flowchart TD
 |---|---|---|
 | 0 | `grading/stage0Preprocessing.js`, `schreibenTextSegmenter.js`, `linguistic/macroSegmenter.js` | sentences, letter zones (salutation / body / closing) |
 | 1 | `grading/stage1SalutationClosing.js`, `salutationAnalyzer.js`, `closingAnalyzer.js` | Anrede and Gruß levels |
-| 2 | `grading/stage2Leitpunkte.js`, `grading/pipelineStageScorers.js`, `grading/stage2Arbitration.js` | level 0/1/2 per Leitpunkt with evidence sentences |
-| 3 | `grading/stage3Grammar.js` → [linguistic engine](linguistic-engine.md) | grammar errors (feedback only) |
+| 2 | `grading/stage2Leitpunkte.js`, `grading/pipelineStageScorers.js`, `grading/leitpunktArbitration.js` | level 0/1/2 per Leitpunkt with evidence sentences |
+| 3 | `grading/pipelineStageScorers.collectPipelineGrammarErrors` → [linguistic engine](linguistic-engine.md) | grammar errors (feedback only) |
 | 4 | `grading/stage4Feedback.js`, `grading/pipelineFeedback.js`, `regulations/` | points, examiner feedback |
 
-**Entry points:** `gradingPipeline.gradeSchreibenSubmission` (full pipeline), `grading/gradingFacade.gradeSchreibenTeil2`, `schreibenMicroPipeline`, and the rules-only `evaluateTeil2Essay` (`deterministicBaseline.runDeterministicBaseline`). Neural grading runs in a Web Worker (`grading/gradingWorkerClient.gradeSchreibenWithWorker`), which is terminated after use to free memory/VRAM.
+**Entry points:** `gradingPipeline.gradeSchreibenSubmission` (full pipeline) and the rules-only `evaluateTeil2Essay` (`deterministicBaseline.runDeterministicBaseline`). A Web Worker bridge exists (`grading/gradingWorkerClient.gradeSchreibenWithWorker`, terminated after use), but the results screen (`useSchreibenAiChecker`) runs the Micro-Ranker on the main thread: inside the worker `MicroRankerProvider.isAvailable()` sees no `window` and the registry would pick the limited mode (open issue in todo).
 
 Every entry point first awaits the lexicon data (`levelContext.lexicon.load()`), because the noun and verb dictionaries are a lazily loaded asset.
 
@@ -90,8 +90,9 @@ Key rules:
 `grading/leitpunktArbitration.js` merges the deterministic baseline with the provider verdict (`mergeArbitrationVerdict`):
 - The primary Micro-Ranker judges **every** Leitpunkt and may lower the keyword baseline (a `no` → 0, a vetoed aspect → partial) — only when the policy trusts it on those sentences (`isVerdictReliable`; A1: ≤ 30 % words outside the lexicon, since typo-heavy letters look like noise to the embedder).
 - A compound point with a missing aspect is capped at partial.
-- A similarity-only point (no keyword/concept/structured evidence) is always sent to an available provider.
-- Generative providers (`WindowAiProvider`, `ClientWebGpuProvider`) exist but are **off** (`ENABLE_GENERATIVE_LLM: false`). When enabled they are asked only in a ±0.06 gray zone, may raise but not lower a verified baseline (confidence floor), and malformed output falls back to the baseline. Prompts: `grading/prompts.js`.
+- A similarity-only point (no keyword/concept/structured evidence) is not floored by that baseline.
+- An untrusted verdict may raise but not lower a verified baseline (confidence floor, `isProtected`).
+- Only the Micro-Ranker arbitrates; the limited mode (`none`) keeps the baseline. There are no generative providers.
 - Frame penalties and semantic inversions skip arbitration.
 - Telemetry: `rankerScore`, `isProtected`, `diff_summary` (shown only with `?debug`).
 
@@ -126,7 +127,7 @@ Result shape: `breakdown.items[i].points/maxPoints` (detector level kept in `det
 - **Diagnostic codes** (`feedback/feedbackContracts.js`): `LP_FULFILLED`, `LP_PARTIAL`, `LP_MISSING`, `LP_INVERTED_REQUEST`, `LP_INVERTED_GENERAL`, `LP_FRAME_VIOLATION`, `ANREDE_*`, `GRUSS_*`, …
 - **Examiner feedback**: `IRankerPolicy.buildExaminerFeedback(facts)` → language-neutral `examiner_feedback = { version, summary: [{code, params}], bullets: [...] }` (`feedback/examinerFeedbackBuilder.js`). Params hold only verbatim quotes of the letter and rubric labels. Grammar highlights are picked by error `code`/`category` (`grammarHighlightSelector.js`). Rendered **at display time** in the UI language (`examinerFeedbackRenderer.js`, `examinerPhraseBank.js`), so stored attempts re-render after a language switch. The summary names a void reason and never quotes against a 0.
 - **Tutor notes** (`feedback/tutorFeedbackResolver.js`): one sentence per criterion in ru/en/de.
-- UI: `results/schreiben/*` — `SchreibenSelfCheck` (conclusion → criteria → texts with credited phrases highlighted via `utils/letterHighlights.js` → details), `SchreibenExaminerFeedbackCard`, `SchreibenRankerDetailsCard` and A/B cards only with `?debug`.
+- UI: `results/schreiben/*` — `SchreibenSelfCheck` (conclusion → criteria → texts with credited phrases highlighted via `utils/letterHighlights.js` → details), `SchreibenExaminerFeedbackCard`, `SchreibenRankerDetailsCard` only with `?debug`.
 
 ## Linguistic accuracy scale
 
@@ -137,7 +138,7 @@ A pedagogical 0–10 score **independent of the telc score** (`scoring/linguisti
 
 ## Runtime modes
 
-Capability is detected at run time (`navigator.gpu` + `requestAdapter()`), never by user agent.
+Capability is detected at run time, never by user agent: the embedder picks WebGPU when `navigator.gpu` exists (`utils/webGpuSupport.isWebGPUSupported`); the adapter probe `isWebGPUAdapterAvailable` (`requestAdapter()`) exists but is not wired in yet (open issue in todo).
 
 | Environment | Embeddings | Mode |
 |---|---|---|
@@ -145,7 +146,7 @@ Capability is detected at run time (`navigator.gpu` + `requestAdapter()`), never
 | No WebGPU | Transformers.js Wasm | Micro-Ranker (Wasm) |
 | Model unavailable | — | limited deterministic mode (keywords, detectors, rules) |
 
-Flags in `src/config/aiConfig.js` (`PRIMARY_PROVIDER`, `ENABLE_GENERATIVE_LLM`, `ENABLE_AB_TESTING_UI`); dev overrides via `localStorage` (`telc_enable_generative_llm`, `telc_enable_ab_testing_ui`, `telc_ai_provider_override`).
+The primary provider is set in `src/config/aiConfig.js` (`PRIMARY_PROVIDER`); a developer override via `localStorage` (`telc_ai_provider_override`, e.g. `none`) forces a registered provider.
 
 ## Known limits
 

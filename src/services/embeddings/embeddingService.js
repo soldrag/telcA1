@@ -76,16 +76,6 @@ export async function getCachedLpEmbedding(lpId = '', lpText = '', customExtract
   return vec;
 }
 
-export async function precomputeTaskCriteria(criteria = [], customExtractor = null) {
-  const results = {};
-  for (const crit of criteria) {
-    const text = crit.label || crit.id;
-    const vec = await getCachedLpEmbedding(crit.id, text, customExtractor);
-    results[crit.id] = vec;
-  }
-  return results;
-}
-
 export function clearEmbeddingCache() {
   lpEmbeddingCache.clear();
 }

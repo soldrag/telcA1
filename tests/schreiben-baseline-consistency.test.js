@@ -1,10 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateEssay } from '../src/services/evaluation/schreibenEvaluator.js';
-import { runSchreibenMicroPipeline } from '../src/services/schreiben/schreibenMicroPipeline.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { toCriteriaBreakdown } from '../src/services/schreiben/deterministicBaseline.js';
 
-describe('Deterministic baseline: rules-only evaluator vs micro-pipeline', () => {
+describe('Deterministic baseline: rules-only evaluator vs the grading pipeline in limited mode', () => {
   const question = {
     max_points: 10,
     options_json: {
@@ -34,15 +34,15 @@ Maria Ivanova`;
     assert.equal(breakdown.gruss, 1);
   });
 
-  it('rules-only evaluator and micro-pipeline agree on final points', async () => {
+  it('rules-only evaluator and the limited-mode pipeline agree on final points', async () => {
     const rulesOnlyResult = evaluateEssay(fullEssay, question);
-    const clientResult = await runSchreibenMicroPipeline({
+    const clientResult = await gradeSchreibenSubmission({
       userText: fullEssay,
       question,
-      llmCaller: null
-    });
+      options: { forceLimitedMode: true },
+      });
 
-    assert.equal(clientResult.final_points, rulesOnlyResult.points_earned);
+    assert.equal(clientResult.points_earned, rulesOnlyResult.points_earned);
     assert.equal(clientResult.word_count, rulesOnlyResult.word_count);
     assert.equal(clientResult.criteria_breakdown.anrede, rulesOnlyResult.breakdown.anrede);
     assert.equal(clientResult.criteria_breakdown.gruss, rulesOnlyResult.breakdown.gruss);
@@ -55,11 +55,11 @@ Maria Ivanova`;
   it('both paths give 0 points for gibberish text', async () => {
     const spam = 'test test test test test test test test test test';
     assert.equal(evaluateEssay(spam, question).points_earned, 0);
-    const clientResult = await runSchreibenMicroPipeline({
+    const clientResult = await gradeSchreibenSubmission({
       userText: spam,
       question,
-      llmCaller: null
-    });
-    assert.equal(clientResult.final_points, 0);
+      options: { forceLimitedMode: true },
+      });
+    assert.equal(clientResult.points_earned, 0);
   });
 });

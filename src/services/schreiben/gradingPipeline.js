@@ -135,10 +135,8 @@ export async function gradeSchreibenSubmission({
 
   onProgress?.('Grammatikprüfung...', 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
-  const errors = await collectPipelineGrammarErrors({
+  const errors = collectPipelineGrammarErrors({
     rawText: raw,
-    bodySentences: stage0.bodySentences,
-    provider: activeProvider,
     semanticErrors: stage2.semanticErrors || [],
     baselineErrors,
     grammar: levelContext.grammar,
@@ -157,14 +155,12 @@ export async function gradeSchreibenSubmission({
 
   onProgress?.('Erstelle Feedback...', 0.9);
   const scoredStage2 = { ...stage2, items: attachPoints(stage2.items, score) };
-  const feedback = await composePipelineFeedback({
+  const feedback = composePipelineFeedback({
     context: {
       stage0, stage1, stage2: scoredStage2, errors, userSegments, finalPoints,
       maxPoints: score.maxPoints, isGibberish: quality.isGibberish, leitpunkteVoidReason: score.leitpunkteVoidReason,
     },
     policy: levelPolicy,
-    activeProvider,
-    enableLlmPolish: options.enableLlmPolish,
   });
 
   const diffSummary = buildDiffSummary(stage2.items);

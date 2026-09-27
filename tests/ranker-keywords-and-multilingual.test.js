@@ -11,7 +11,6 @@ import {
 } from '../src/services/schreiben/grading/leitpunktArbitration.js';
 import { scorePipelineLeitpunkte } from '../src/services/schreiben/grading/pipelineStageScorers.js';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
-import { AIProvider } from '../src/services/ai/AIProvider.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import { TASK_PREFIX_TEXT, clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
 import { createConceptEmbedder, createFixedSimilarityEmbedder } from './helpers/mockRankerEmbedder.js';
@@ -26,17 +25,6 @@ const OSTSEE_LP2 = {
   aspects: [{ label: 'Personen', evidence: 'personCount' }, { label: 'Zeitraum', evidence: 'temporal' }],
   keywords: ['erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'juli', 'august', 'personen', 'tage', 'zeitraum'],
 };
-
-class SpyProvider extends AIProvider {
-  constructor(id) {
-    super(id, `Spy ${id}`);
-    this.calls = 0;
-  }
-  async classifyCoverage() {
-    this.calls++;
-    return { coverage: 'full' };
-  }
-}
 
 class SpyMicroRanker extends MicroRankerProvider {
   constructor() {
@@ -112,33 +100,18 @@ describe('Micro-Ranker: competitive gate across task Leitpunkte', () => {
 });
 
 describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
-  it('micro_ranker evaluates every criterion; LLM providers only in gray zones', () => {
+  it('micro_ranker evaluates every criterion without a frame penalty; the limited mode never arbitrates', () => {
     const ranker = { id: PROVIDER_IDS.MICRO_RANKER };
-    const llm = { id: PROVIDER_IDS.CLIENT_WEBGPU };
-    assert.equal(shouldArbitrateLeitpunkt({ provider: ranker, effectiveSim: 0.95, framePenalty: 0 }), true);
-    assert.equal(shouldArbitrateLeitpunkt({ provider: llm, effectiveSim: 0.95, framePenalty: 0 }), false);
-    assert.equal(shouldArbitrateLeitpunkt({ provider: llm, effectiveSim: 0.66, framePenalty: 0 }), true);
-    assert.equal(shouldArbitrateLeitpunkt({ provider: ranker, effectiveSim: 0.95, framePenalty: 2 }), false);
+    const none = { id: PROVIDER_IDS.NONE };
+    assert.equal(shouldArbitrateLeitpunkt({ provider: ranker, framePenalty: 0 }), true);
+    assert.equal(shouldArbitrateLeitpunkt({ provider: ranker, framePenalty: 2 }), false);
+    assert.equal(shouldArbitrateLeitpunkt({ provider: none, framePenalty: 0 }), false);
   });
 
-  it('a point resting on sentence similarity alone is always reviewed and not floored by it', () => {
-    const llm = { id: PROVIDER_IDS.CLIENT_WEBGPU };
-    const none = { id: PROVIDER_IDS.NONE };
-    const gate = (provider) => shouldArbitrateLeitpunkt({ provider, effectiveSim: 0.52, framePenalty: 0, baselineScore: 1, isSimilarityOnly: true });
-    assert.equal(gate(llm), true);
-    assert.equal(gate(none), false, 'without a provider the similarity level stands');
+  it('a point resting on sentence similarity alone is not floored by it', () => {
     assert.equal(mergeArbitrationVerdict(1, { coverage: 'no' }, { isSimilarityOnly: true }).score, 0);
     assert.equal(mergeArbitrationVerdict(1, { coverage: 'no' }).score, 1, 'keyword evidence keeps its floor');
   });
-
-  it('a gray-zone provider reviews a compound point only while its aspects disagree', () => {
-    const llm = { id: PROVIDER_IDS.CLIENT_WEBGPU };
-    const gate = (baselineScore, effectiveSim) => shouldArbitrateLeitpunkt({ provider: llm, effectiveSim, framePenalty: 0, baselineScore, isCompound: true });
-    assert.equal(gate(1, 0.95), true, 'full similarity capped at partial by a missing aspect');
-    assert.equal(gate(0, 0.66), false, 'keywords settle a missing aspect');
-    assert.equal(gate(2, 0.95), false, 'every aspect covered, similarity outside the gray zone');
-  });
-
 
   it('caps a compound verdict with a missing aspect at 1 point despite baseline 2', () => {
     const verdict = { coverage: 'partial', isCompound: true, missingAspects: ['Dauer'] };
@@ -157,7 +130,7 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
     assert.deepEqual(res.items[0].rankerDetails.missingAspects, ['Dauer']);
   });
 
-  it('runs micro_ranker on all 3 criteria, a generative provider only on gray-zone ones', async () => {
+  it('runs micro_ranker on all 3 criteria', async () => {
     const criteria = [
       { id: 'lp1', label: 'Grund', keywords: ['urlaub'], requiredMatches: 1 },
       { id: 'lp2', label: 'Personen', keywords: ['vier'], requiredMatches: 1 },
@@ -165,11 +138,8 @@ describe('Leitpunkt arbitration: primary ranker & compound cap', () => {
     ];
     const body = ['Wir möchten Urlaub in Ihrer Ferienwohnung machen.', 'Wir sind vier Personen.', 'Dürfen wir einen Hund mitbringen?'];
     const ranker = new SpyMicroRanker();
-    const llm = new SpyProvider(PROVIDER_IDS.CLIENT_WEBGPU);
     await scorePipelineLeitpunkte({ criteria, bodySentences: body, provider: ranker, customExtractor: false, policy: A1.policy });
-    await scorePipelineLeitpunkte({ criteria, bodySentences: body, provider: llm, customExtractor: false, policy: A1.policy });
     assert.equal(ranker.calls, 3);
-    assert.equal(llm.calls, 0);
   });
 
   it('reuses Stage 2 sentence vectors instead of re-embedding them in the ranker', async () => {

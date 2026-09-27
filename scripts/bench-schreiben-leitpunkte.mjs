@@ -1,5 +1,6 @@
 /**
- * Schreiben Leitpunkte benchmark: benchmark letters + gold letters + regression suites, graded in three provider modes.
+ * Schreiben Leitpunkte benchmark: benchmark letters + gold letters + regression suites, graded in two provider modes
+ * (none: the limited rule-based mode; primary: the Micro-Ranker on EmbeddingGemma).
  * Diagnostic only — every score change must be explained, never tuned towards expectedLp.
  * Usage: npm run bench:schreiben [-- --save]   (--save overwrites the stored baseline)
  */
@@ -9,9 +10,7 @@ import { pipeline, env } from '@huggingface/transformers';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
-import { createRankerEmbedder } from '../src/services/embeddings/rankerEmbedder.js';
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
-import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import { BENCHMARK_TASKS } from '../tests/fixtures/schreiben-bench/letters.js';
 import { loadRegressionSuites, acceptedRange, leitpunktLevelForPoints } from '../tests/helpers/regressionFixtures.js';
 
@@ -20,13 +19,6 @@ const BASELINE = new URL('baseline.txt', FIXTURES);
 const SEED_FILES = [1, 2, 3, 4].map((n) => `../src/data/exams/seeds/schreiben-modellsatz-${n}.js`);
 
 env.allowRemoteModels = false;
-
-class GrayZoneRanker extends MicroRankerProvider {
-  constructor(options) {
-    super(options);
-    this.id = PROVIDER_IDS.CLIENT_WEBGPU;
-  }
-}
 
 async function findSeedQuestion(questionId) {
   for (const file of SEED_FILES) {
@@ -110,7 +102,6 @@ async function runBenchmark() {
   const extractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
   const modes = {
     none: new NoneProvider(),
-    gray: new GrayZoneRanker({ embedder: createRankerEmbedder({ customExtractor: extractor }) }),
     primary: new MicroRankerProvider(),
   };
   const tally = Object.fromEntries(Object.keys(modes).map((m) => [m, { hit: 0, total: 0 }]));

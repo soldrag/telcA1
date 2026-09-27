@@ -1,11 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
-import { runSchreibenMicroPipeline } from '../src/services/schreiben/schreibenMicroPipeline.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
-import { generateFeedbackSummary } from '../src/services/schreiben/analyzers/feedbackVerbalizer.js';
-import { isConsistentWithFacts } from '../src/services/schreiben/analyzers/feedbackVerbalizer.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const A1 = resolveLevelContext('A1');
@@ -67,36 +65,10 @@ Artem Smirnov`;
 
   it('client pipeline agrees with the rules-only scoring', async () => {
     const rulesOnlyResult = evaluateTeil2Essay(studentText, question);
-    const clientResult = await runSchreibenMicroPipeline({ userText: studentText, question, llmCaller: null });
-    assert.equal(clientResult.final_points, rulesOnlyResult.points_earned);
+    const clientResult = await gradeSchreibenSubmission({ userText: studentText, question, options: { forceLimitedMode: true } });
+    assert.equal(clientResult.points_earned, rulesOnlyResult.points_earned);
     assert.equal(clientResult.criteria_breakdown.anrede, 2);
     assert.match(clientResult.user_segments.leitpunkte[0].userSentence, /absagen/i);
-  });
-
-  it('rejects LLM feedback that contradicts covered facts (parrot guard)', async () => {
-    const facts = {
-      salutationScore: 1,
-      lpResults: [{ score: 2 }, { score: 2 }, { score: 2 }],
-      closingScore: 2,
-      grammarErrors: [{ original: 'antworten Sie mich', correction: 'antworten Sie mir' }]
-    };
-
-    assert.equal(isConsistentWithFacts(
-      'Gute Arbeit! Die ersten beiden Punkte sind verständlich, aber beantworten Sie auch den dritten Punkt.',
-      facts
-    ), false);
-    assert.equal(isConsistentWithFacts(
-      'Sehr gut gemacht! Sie haben alle Punkte verständlich bearbeitet.',
-      facts
-    ), true);
-
-    const parrotLlm = async () => JSON.stringify({
-      feedback: 'Gute Arbeit! Die ersten beiden Punkte sind verständlich, aber beantworten Sie auch den dritten Punkt. Beachten Sie bitte den Hinweis zur Verbform.'
-    });
-
-    const summary = await generateFeedbackSummary({ facts, llmCaller: parrotLlm });
-    assert.doesNotMatch(summary, /beantworten Sie auch den dritten Punkt/);
-    assert.match(summary, /Vielen Dank für Ihren Brief/);
   });
 
   it('correctly handles the Praxis-Team cancellation letter from screenshot', async () => {
@@ -106,8 +78,7 @@ Bitte geben Sie mir Bescheid.
 Mit freundlichen Gruß,
 Artem Smirnov`;
 
-    const { gradeSchreibenTeil2 } = await import('../src/services/schreiben/grading/index.js');
-    const res = await gradeSchreibenTeil2({ userText: text, question, options: { forceLimitedMode: true } });
+    const res = await gradeSchreibenSubmission({ userText: text, question, options: { forceLimitedMode: true } });
 
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
@@ -128,8 +99,7 @@ Artem Smirnov`;
 ich kann zu der Termin am Montag um 14:00 Uhr nicht kommen. Ich habe sehr viel zu tun bei mein Arbeit. Haben Sie vielleicht Zeit an Donnerstag oder Freitag? Bitte rufen Sie an mich zurück.
 Viele Grüße,`;
 
-    const { gradeSchreibenTeil2 } = await import('../src/services/schreiben/grading/index.js');
-    const res = await gradeSchreibenTeil2({ userText: text, question, options: { forceLimitedMode: true } });
+    const res = await gradeSchreibenSubmission({ userText: text, question, options: { forceLimitedMode: true } });
 
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);

@@ -8,12 +8,10 @@ import { arbitrateLeitpunkt, shouldArbitrateLeitpunkt } from './leitpunktArbitra
 import { formatCriterionQuery } from './rankerFallbackScorer.js';
 import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
-import { filterCandidateErrors } from './stage3Grammar.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
-import { PROVIDER_IDS } from '../../ai/types.js';
 import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
 import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/rankerEmbedder.js';
-import { mergeCandidateGrammarErrors } from '../linguistic/sentenceGrammarFilter.js';
+import { mergeCandidateGrammarErrors } from '../linguistic/grammarErrorDeduper.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
@@ -106,9 +104,8 @@ async function scoreCriterionItem(params) {
   let arbitration = null;
 
   const isSimilarityOnly = !hasAffirmativeEvidence && !compoundEval;
-  const arbitrationGate = { provider, effectiveSim, framePenalty: frameCheck.penalty, baselineScore: baseScore, isCompound: Boolean(compoundEval), isSimilarityOnly };
   // Missing declared evidence is settled by the detector: no provider re-reads it into the text.
-  if (!evidenceMissing && shouldArbitrateLeitpunkt(arbitrationGate)) {
+  if (!evidenceMissing && shouldArbitrateLeitpunkt({ provider, framePenalty: frameCheck.penalty })) {
     // The arbiter reads what the letter affirms: a refused clause ("ich kann nicht kommen") is not a Zusage.
     const candidates = relSentences.length > 0 ? relSentences : (bodySentences || []);
     const sentences = candidates.map((s) => extractAffirmativeText(s, crit, { lexicon: policy.lexicon })).filter(Boolean);
@@ -163,21 +160,8 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
 }
 
 /** grammar: the level's grammar checker (resolveLevelContext) */
-export async function collectPipelineGrammarErrors({ rawText, bodySentences, provider, semanticErrors = [], baselineErrors = [], grammar }) {
+export function collectPipelineGrammarErrors({ rawText, semanticErrors = [], baselineErrors = [], grammar }) {
   const ruleErrors = requireLevelPort(grammar, 'collectPipelineGrammarErrors: grammar').checkLetter(rawText) || [];
   const baseMerged = mergeCandidateGrammarErrors(baselineErrors, ruleErrors);
-  const initial = mergeCandidateGrammarErrors(baseMerged, semanticErrors);
-  if (!provider || provider.id === PROVIDER_IDS.NONE) return initial;
-
-  const candidateList = [];
-  for (const s of bodySentences.slice(0, 5)) {
-    try {
-      const rawCandidates = await provider.proposeGrammarCandidates(s);
-      candidateList.push(...filterCandidateErrors(s, rawCandidates, 2));
-    } catch (err) {
-      console.warn('[PipelineStageScorers] Candidate grammar check skipped for sentence:', err?.message || err);
-    }
-  }
-
-  return mergeCandidateGrammarErrors(initial, candidateList);
+  return mergeCandidateGrammarErrors(baseMerged, semanticErrors);
 }

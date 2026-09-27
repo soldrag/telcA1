@@ -1,23 +1,8 @@
 /**
- * Provider IDs, statuses, and schema contracts for client-only AI providers.
+ * Provider IDs of the client-only grading providers.
  */
 
 export const PROVIDER_IDS = {
-  WINDOW_AI: 'window_ai',
-  CLIENT_WEBGPU: 'client_webgpu',
   MICRO_RANKER: 'micro_ranker',
   NONE: 'none',
 };
-
-export const PROVIDER_STATUSES = {
-  READY: 'ready',
-  UNAVAILABLE: 'unavailable',
-  INITIALIZING: 'initializing',
-  ERROR: 'error',
-};
-
-export {
-  LEITPUNKT_COVERAGE_SCHEMA,
-  SENTENCE_GRAMMAR_SCHEMA,
-  FEEDBACK_SCHEMA as FEEDBACK_POLISH_SCHEMA
-} from '../schreiben/grading/types.js';

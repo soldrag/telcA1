@@ -1,26 +1,12 @@
-import { describe, it, beforeEach, afterEach } from 'node:test';
+import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  AIProvider,
-  NoneProvider,
-  WindowAiProvider,
-  ClientWebGpuProvider,
-  AIProviderRegistry,
-  PROVIDER_IDS
-} from '../src/services/ai/index.js';
+import { AIProvider } from '../src/services/ai/AIProvider.js';
+import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
+import { AIProviderRegistry } from '../src/services/ai/aiProviderRegistry.js';
+import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 
 describe('AI Providers Contract & Unit Tests', () => {
-  let originalLanguageModel;
-
-  beforeEach(() => {
-    originalLanguageModel = globalThis.LanguageModel;
-  });
-
-  afterEach(() => {
-    globalThis.LanguageModel = originalLanguageModel;
-  });
-
   it('AIProvider base class enforces contract and rejects empty arguments', () => {
     assert.throws(() => new AIProvider(), /requires id and name/);
     const base = new AIProvider('test_id', 'Test Provider');
@@ -28,7 +14,7 @@ describe('AI Providers Contract & Unit Tests', () => {
     assert.equal(base.name, 'Test Provider');
   });
 
-  it('NoneProvider implements all micro-tasks and is always available', async () => {
+  it('NoneProvider keeps the algorithmic score and is always available', async () => {
     const none = new NoneProvider();
     assert.equal(none.id, PROVIDER_IDS.NONE);
     assert.equal(await none.isAvailable(), true);
@@ -36,78 +22,23 @@ describe('AI Providers Contract & Unit Tests', () => {
     const cov = await none.classifyCoverage('lp1', 'Sentences');
     assert.equal(cov.coverage, 'fallback');
 
-    const errs = await none.proposeGrammarCandidates('Ich lerne Deutsch.');
-    assert.deepEqual(errs, []);
-
-    const feedback = await none.polishFeedback({ anredeScore: 2, lpScore: 6, grussScore: 2, grammarErrorCount: 0 });
-    assert.ok(feedback.includes('Die Anrede ist passend'));
   });
 
-  it('WindowAiProvider detects LanguageModel availability and runs micro-tasks', async () => {
-    globalThis.LanguageModel = {
-      availability: async () => 'readily',
-      create: async () => ({
-        prompt: async () => JSON.stringify({ coverage: 'full', errors: [{ original: 'ein', correction: 'einen', explanation: 'Akkusativ' }] }),
-        destroy: () => {}
-      })
-    };
-
-    const windowAi = new WindowAiProvider();
-    assert.equal(await windowAi.isAvailable(), true);
-
-    const cov = await windowAi.classifyCoverage('Termin', 'Geht es morgen?');
-    assert.equal(cov.coverage, 'full');
-
-    const errs = await windowAi.proposeGrammarCandidates('Ich mache ein Kurs.');
-    assert.equal(errs.length, 1);
-    assert.equal(errs[0].original, 'ein');
-  });
-
-  it('ClientWebGpuProvider executes micro-tasks with JSON schema constraints', async () => {
-    let capturedOptions = null;
-    const mockEngine = {
-      chat: {
-        completions: {
-          create: async (opts) => {
-            capturedOptions = opts;
-            return {
-              choices: [{ message: { content: JSON.stringify({ coverage: 'partial' }) } }]
-            };
-          }
-        }
-      }
-    };
-
-    const gpuProvider = new ClientWebGpuProvider(mockEngine);
-    assert.equal(gpuProvider.id, PROVIDER_IDS.CLIENT_WEBGPU);
-
-    const cov = await gpuProvider.classifyCoverage('Kosten', 'Wie viel kostet?');
-    assert.equal(cov.coverage, 'partial');
-    assert.ok(capturedOptions.response_format);
-    assert.equal(capturedOptions.temperature, 0);
-  });
-
-  it('AIProviderRegistry obeys priority order: window_ai -> client_webgpu -> none', async () => {
+  it('AIProviderRegistry falls back to the limited mode where the Micro-Ranker is unavailable', async () => {
     const registry = new AIProviderRegistry();
-    // In node environment without mocks, window_ai & webgpu are unavailable -> falls back to none
+    // In node without window the Micro-Ranker (browser model) is unavailable
     const active = await registry.detectBestAvailableProvider();
     assert.equal(active.id, PROVIDER_IDS.NONE);
-
-    // With manual override
-    registry.setActiveProvider(PROVIDER_IDS.WINDOW_AI);
-    assert.equal(registry.activeProviderId, PROVIDER_IDS.WINDOW_AI);
-    registry.clearOverride();
-    assert.equal(registry.activeProviderId, null);
+    assert.equal(registry.getProvider('unknown').id, PROVIDER_IDS.NONE);
   });
 
   it('Pipeline degrades gracefully when provider throws or times out mid-grading', async () => {
     const failingProvider = {
-      id: 'failing_ai',
+      id: PROVIDER_IDS.MICRO_RANKER,
       name: 'Failing Provider',
       isAvailable: async () => true,
-      classifyCoverage: async () => { throw new Error('GPU crash'); },
-      proposeGrammarCandidates: async () => { throw new Error('Timeout'); },
-      polishFeedback: async () => { throw new Error('OOM'); }
+      canOverruleBaseline: () => true,
+      classifyCoverage: async () => { throw new Error('GPU crash'); }
     };
 
     const question = {

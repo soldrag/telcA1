@@ -6,7 +6,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateTeil2Essay } from '../../src/services/schreiben/schreibenTeil2Evaluator.js';
-import { gradeSchreibenTeil2 } from '../../src/services/schreiben/grading/gradingFacade.js';
+import { gradeSchreibenSubmission } from '../../src/services/schreiben/gradingPipeline.js';
 import {
   allSchreibenEvaluationCases,
   getQuestionForCase
@@ -64,23 +64,23 @@ describe('Schreiben Teil 2 Algorithmic Quality Suite (25 Edge Cases)', () => {
     it(`[${tc.category.toUpperCase()}] ${tc.id}: ${tc.title}`, async () => {
       const question = getQuestionForCase(tc);
       const resSync = evaluateTeil2Essay(tc.text, question);
-      const resFacade = await gradeSchreibenTeil2({ userText: tc.text, question, options });
+      const resPipeline = await gradeSchreibenSubmission({ userText: tc.text, question, options });
 
       assertCaseExpectations(resSync, tc.expected, `${tc.id}-sync`);
-      assertCaseExpectations(resFacade, tc.expected, `${tc.id}-facade`);
+      assertCaseExpectations(resPipeline, tc.expected, `${tc.id}-pipeline`);
 
-      // Verify sync evaluator and facade match closely in limited mode
-      assert.equal(resSync.points_earned, resFacade.points_earned);
-      assert.equal(resSync.breakdown.anrede, resFacade.breakdown.anrede);
-      assert.equal(resSync.breakdown.gruss, resFacade.breakdown.gruss);
+      // The rules-only evaluator and the pipeline agree in limited mode
+      assert.equal(resSync.points_earned, resPipeline.points_earned);
+      assert.equal(resSync.breakdown.anrede, resPipeline.breakdown.anrede);
+      assert.equal(resSync.breakdown.gruss, resPipeline.breakdown.gruss);
     });
   }
 
   it('Invariance: 100% Determinism across repeated executions', async () => {
     const sample = allSchreibenEvaluationCases[0];
     const question = getQuestionForCase(sample);
-    const run1 = await gradeSchreibenTeil2({ userText: sample.text, question, options });
-    const run2 = await gradeSchreibenTeil2({ userText: sample.text, question, options });
+    const run1 = await gradeSchreibenSubmission({ userText: sample.text, question, options });
+    const run2 = await gradeSchreibenSubmission({ userText: sample.text, question, options });
 
     assert.equal(run1.points_earned, run2.points_earned);
     assert.deepEqual(run1.criteria_breakdown, run2.criteria_breakdown);

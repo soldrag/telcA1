@@ -9,7 +9,7 @@ import { analyzeLeitpunkte } from './leitpunkteAnalyzer.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
-import { mergeCandidateGrammarErrors } from './linguistic/sentenceGrammarFilter.js';
+import { mergeCandidateGrammarErrors } from './linguistic/grammarErrorDeduper.js';
 
 export function resolveLeitpunktCriteria(question = {}) {
   const options = typeof question.options_json === 'string'
