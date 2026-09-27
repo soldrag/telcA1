@@ -72,8 +72,8 @@ async function runCli() {
     const result = validateExamSeed(module.exam, module.questions);
     reportResults([result]);
   } else {
-    console.log('Checking all registered seeds in server/seed-data.js...');
-    const { seedData } = await import('../seed-data.js');
+    console.log('Checking all registered seeds in src/data/exams/seedData.js...');
+    const { seedData } = await import('../../src/data/exams/seedData.js');
     const result = validateAllSeeds(seedData);
     reportAllResults(result);
   }
@@ -107,7 +107,7 @@ function finishReport(errorCount, warnCount = 0) {
   }
 }
 
-if (process.argv[1] && process.argv[1].endsWith('validate-seeds.js')) {
+if (process.argv[1] && process.argv[1].endsWith('validateSeeds.js')) {
   runCli().catch(err => {
     console.error('Fatal execution error:', err);
     process.exit(1);

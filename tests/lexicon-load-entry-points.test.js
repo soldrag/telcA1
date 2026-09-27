@@ -26,21 +26,4 @@ describe('Lexicon data is loaded by the grading entry points', () => {
     `);
     assert.equal(out, '6');
   });
-
-  it('server submit route grades Schreiben without a preload', () => {
-    const out = runFresh(`
-      import { createExamsRouter } from './server/routes/exams.js';
-      import { ExamRepository } from './server/repositories/exam.repository.js';
-      import { seedData } from './server/seed-data.js';
-      const router = createExamsRouter(Object.assign(Object.create(ExamRepository.prototype), {
-        findExamById: (id) => seedData.exams.find((e) => e.id === id),
-        findQuestionsForGrading: (id) => seedData.questions.filter((q) => q.exam_id === id),
-      }));
-      const layer = router.stack.find((l) => l.route?.path === '/:id/submit' && l.route.methods.post);
-      const res = { statusCode: 200, status(c) { this.statusCode = c; return this; }, json(b) { this.body = b; return this; } };
-      await layer.route.stack[0].handle({ params: { id: 'schreiben-modellsatz-4' }, body: { answers: ${ANSWERS}, timeSpentSeconds: 60 }, headers: {} }, res);
-      console.log(res.statusCode, res.body?.reviewItems?.length);
-    `);
-    assert.equal(out, '200 6');
-  });
 });

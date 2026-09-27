@@ -3,26 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        COMMIT_SHA: ${COMMIT_SHA:-unknown}
     container_name: telc-a1-app
     restart: unless-stopped
     ports:
-      - "3001:3001"
-      - "80:3001"
-      - "3443:3443"
-      - "443:3443"
-    environment:
-      - PORT=3001
-      - HTTPS_PORT=3443
-      - HOST=0.0.0.0
-      - NODE_ENV=production
-      - DEBUG=false
-      - LOG_LEVEL=info
-      - DATA_DIR=/app/data
-      - SSL_CERT_PATH=/app/certs/cert.pem
-      - SSL_KEY_PATH=/app/certs/key.pem
+      - "8080:8080"
+      - "8443:8443"
     volumes:
-      - telc_data:/app/data
-      - ./certs:/app/certs:ro
-
-volumes:
-  telc_data:
+      # Optional: cert.pem and key.pem here turn on HTTPS on 8443 (see README).
+      - ./certs:/etc/nginx/certs:ro

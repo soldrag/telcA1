@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { preloadExamGrading } from '../services/api.js';
+import { preloadExamGrading } from '../services/examService.js';
 
 const IDLE_FALLBACK_DELAY_MS = 2000;
 

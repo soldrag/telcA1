@@ -37,27 +37,27 @@ Runs entirely as a static web app on **GitHub Pages** — no server or account r
 # 1. Install dependencies
 npm install
 
-# 2. Start development server (Frontend + Mock API)
+# 2. Start the Vite dev server
 npm run dev
-
-# Or run client-only (Vite):
-npm run dev:client
 ```
-The client will be available at `http://localhost:5173` (or `http://localhost:3001` when running the optional full-stack Express server).
+The app is available at `http://localhost:5173`.
 
 ### Production Build (Static Site)
 
 ```bash
-npm run build
+npm run build     # static assets in dist/
+npm run preview   # serve dist/ locally
 ```
-Outputs static assets to `dist/`, ready for deployment to GitHub Pages or any static CDN.
+The same `dist/` is deployed to GitHub Pages. There is no server, API or database.
 
-### Docker (Optional Server)
+### Docker (static, like GitHub Pages)
 
 ```bash
 docker compose up --build
 ```
-Runs the optional Express + SQLite backend at `http://localhost:3001`.
+Builds `dist/` and serves it as static files with nginx at `http://localhost:8080`.
+For phones on the LAN (service worker and Web Crypto need a secure context), put `cert.pem` and `key.pem`
+into `certs/` (e.g. with `mkcert`) — HTTPS is then served at `https://<your-ip>:8443`.
 
 ---
 

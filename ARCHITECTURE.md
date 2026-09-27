@@ -26,7 +26,7 @@ flowchart TB
         
         subgraph Services["Core Domain Services"]
             ExamSvc["LocalDataService / Seed Data"]
-            StorageSvc["Storage Service (LocalStorage / Memory / Remote Adapter)"]
+            StorageSvc["Storage Service (LocalStorage / Memory)"]
             SecuritySvc["Assignment & Token Service (HMAC-SHA256, URL Frag)"]
             
             subgraph SchreibenEngine["Schreiben Hybrid Grading Engine"]
@@ -46,14 +46,7 @@ flowchart TB
         PrecachedSeeds["Exam Seeds & Bundled Vocab"]
     end
 
-    subgraph OptionalBackend["Optional Backend (Local Dev & Catalog API)"]
-        Express["Express.js Server (:3001)"]
-        SQLite[(SQLite Database)]
-        Express --> SQLite
-    end
-
     StaticHost -.->|"Initial Load / PWA Cache"| Client
-    Client -.->|"Optional Local Sync (Disabled in Pure Static)"| OptionalBackend
 ```
 
 ---
@@ -343,13 +336,14 @@ sequenceDiagram
 
 ---
 
-## 7. Optional Server & SQLite Architecture
+## 7. Static-Only Delivery (no server)
 
-For local development or environments requiring a centralized exam catalog:
-- **Express.js API (`server/index.js`)**: Provides REST endpoints for exam definitions, test types, and optional attempt sync.
-- **Database Facade (`server/db.js`)**: Manages SQLite connection lifecycle, applying idempotent schema migrations (`database/migrations.js`) and executing seed validation (`database/seeder.js`).
-- **Seed Aggregator (`server/seed-data.js`)**: A barrel aggregator importing modular exam variants from `server/seeds/`.
-- **Module Rules — single source of truth (`shared/testTypes.js`)**: time limit, task count, max and pass score are module-wide regulation rules (`reglament/telc-a1.md` §3), not variant data. `seed-data.js` passes every exam through `applyModuleRules()`, which overwrites these fields from the module config, so browser, optional server, validator and scoring all see identical values. Seeds carry content only.
+The app has no backend (removed in v0.7.99). The same `dist/` runs on GitHub Pages, in Docker and from `npm run preview`:
+- **Exam data (`src/data/exams/seedData.js`)**: a barrel aggregator importing the exam variants from `src/data/exams/seeds/`; bundled as the lazy `exam-seeds` chunk.
+- **Exam service (`src/services/examService.js`)**: the hooks' only data port — test types, exams and details from the bundled seeds (`localDataService.js`), answers graded in the browser (`src/services/evaluation/examEvaluator.js`). No `fetch`, no `/api/*`.
+- **Docker (`Dockerfile`, `docker/nginx/`)**: builds with `npm run build` like the Pages workflow and serves `dist/` with nginx (unprivileged, port 8080); HTTPS on 8443 only when `certs/cert.pem` and `certs/key.pem` are mounted (a secure context for phones on the LAN).
+- **Seed validation (`scripts/seeds/validateSeeds.js`)**: a build-time tool (`npm run validate:seeds`), not shipped to the browser.
+- **Module Rules — single source of truth (`shared/testTypes.js`)**: time limit, task count, max and pass score are module-wide regulation rules (`reglament/telc-a1.md` §3), not variant data. `seed-data.js` passes every exam through `applyModuleRules()`, which overwrites these fields from the module config, so the browser, the validator and scoring all see identical values. Seeds carry content only.
 
 ---
 

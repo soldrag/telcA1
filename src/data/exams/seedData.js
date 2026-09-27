@@ -13,7 +13,7 @@ import { exam as sExam2, questions as sQuestions2 } from './seeds/schreiben-mode
 import { exam as sExam3, questions as sQuestions3 } from './seeds/schreiben-modellsatz-3.js';
 import { exam as sExam4, questions as sQuestions4 } from './seeds/schreiben-modellsatz-4.js';
 import { moduleExams, moduleQuestions } from './seeds/stubs-modules.js';
-import { applyModuleRules } from '../shared/testTypes.js';
+import { applyModuleRules } from '../../../shared/testTypes.js';
 
 export const seedData = {
   exams: [

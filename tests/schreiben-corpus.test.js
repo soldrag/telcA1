@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
-import { questions as ms4Questions } from '../server/seeds/schreiben-modellsatz-4.js';
+import { questions as ms4Questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
 describe('Schreiben Teil 2 Benchmark Corpus (Gold Standard)', () => {
   const modellsatz1Question = {

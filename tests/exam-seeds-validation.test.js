@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { seedData } from '../server/seed-data.js';
-import { validateAllSeeds, validateExamSeed } from '../server/database/validate-seeds.js';
+import { seedData } from '../src/data/exams/seedData.js';
+import { validateAllSeeds, validateExamSeed } from '../scripts/seeds/validateSeeds.js';
 
 describe('Exam Seeds Schema & Integrity Validator', () => {
   it('validates all registered seed exams and questions with zero fatal errors', () => {

@@ -17,7 +17,7 @@ import { loadRegressionSuites, acceptedRange, leitpunktLevelForPoints } from '..
 
 const FIXTURES = new URL('../tests/fixtures/schreiben-bench/', import.meta.url);
 const BASELINE = new URL('baseline.txt', FIXTURES);
-const SEED_FILES = [1, 2, 3, 4].map((n) => `../server/seeds/schreiben-modellsatz-${n}.js`);
+const SEED_FILES = [1, 2, 3, 4].map((n) => `../src/data/exams/seeds/schreiben-modellsatz-${n}.js`);
 
 env.allowRemoteModels = false;
 

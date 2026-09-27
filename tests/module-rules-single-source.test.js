@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { readdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { join } from 'node:path';
-import { seedData } from '../server/seed-data.js';
+import { seedData } from '../src/data/exams/seedData.js';
 import { MODULE_RULE_FIELDS, getTestTypeById } from '../shared/testTypes.js';
 
-const SEEDS_DIR = join(process.cwd(), 'server/seeds');
+const SEEDS_DIR = join(process.cwd(), 'src/data/exams/seeds');
 
 async function loadRawSeedExams() {
   const files = readdirSync(SEEDS_DIR).filter((name) => name.endsWith('.js'));

@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { hasAspectConceptEvidence } from '../src/services/schreiben/grading/aspectConceptEvidence.js';
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
-import { questions } from '../server/seeds/schreiben-modellsatz-4.js';
+import { questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
 const A1 = resolveLevelContext('A1');
 const { policy } = A1;

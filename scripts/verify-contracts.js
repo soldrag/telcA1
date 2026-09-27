@@ -113,7 +113,7 @@ async function runVerification() {
   scanDirectoryForContractCalls(errors);
   validateGrammarData(errors);
   validateEngineIsLevelFree(path.join(SRC_DIR, 'services/schreiben'), errors);
-  await validateRubrics(path.resolve(__dirname, '../server/seeds'), errors);
+  await validateRubrics(path.resolve(__dirname, '../src/data/exams/seeds'), errors);
 
   if (errors.length > 0) {
     console.error('\n❌ BUILD FAILED: Contract Violations Detected:');

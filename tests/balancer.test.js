@@ -1,11 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { DatabaseSync } from 'node:sqlite';
-import { 
-  filterLeastAttemptedExams, 
-  pickRandomExam, 
-  selectBalancedRandomExam 
-} from '../server/services/exam-balancer.js';
+import { filterLeastAttemptedExams, pickRandomExam } from '../shared/examBalancerCore.js';
 
 describe('Exam Balancer Service', () => {
   const sampleExams = [
@@ -62,19 +57,5 @@ describe('Exam Balancer Service', () => {
     assert.equal(counts['modellsatz-1'], 10);
     assert.equal(counts['modellsatz-2'], 10);
     assert.equal(counts['modellsatz-3'], 10);
-  });
-
-  it('selectBalancedRandomExam integrates with SQLite database', () => {
-    const memDb = new DatabaseSync(':memory:');
-    memDb.exec(`
-      CREATE TABLE exams (id TEXT PRIMARY KEY, test_type TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 1);
-      CREATE TABLE attempts (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, exam_id TEXT NOT NULL, created_at TEXT NOT NULL);
-      INSERT INTO exams VALUES ('modellsatz-1', 'lesen', 1), ('modellsatz-2', 'lesen', 2);
-      INSERT INTO attempts VALUES ('att-1', 'u1', 'modellsatz-1', '2026-01-01');
-    `);
-
-    const result = selectBalancedRandomExam({ db: memDb, userId: 'u1', testType: 'lesen' });
-    assert.equal(result.exam.id, 'modellsatz-2', 'Should pick modellsatz-2 which has 0 attempts');
-    assert.equal(result.userAttemptsForExam, 0);
   });
 });

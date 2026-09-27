@@ -1,4 +1,4 @@
-import { seedData } from '../../../server/seed-data.js';
+import { seedData } from '../../../src/data/exams/seedData.js';
 import { formatExamName } from '../../../src/utils/examFormat.js';
 
 /**

@@ -1,10 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateEssay } from '../server/services/schreiben-evaluator.js';
+import { evaluateEssay } from '../src/services/evaluation/schreibenEvaluator.js';
 import { runSchreibenMicroPipeline } from '../src/services/schreiben/schreibenMicroPipeline.js';
 import { toCriteriaBreakdown } from '../src/services/schreiben/deterministicBaseline.js';
 
-describe('Deterministic baseline: server vs client consistency', () => {
+describe('Deterministic baseline: rules-only evaluator vs micro-pipeline', () => {
   const question = {
     max_points: 10,
     options_json: {
@@ -34,22 +34,22 @@ Maria Ivanova`;
     assert.equal(breakdown.gruss, 1);
   });
 
-  it('server rules-only evaluator and client micro-pipeline agree on final points', async () => {
-    const serverResult = evaluateEssay(fullEssay, question);
+  it('rules-only evaluator and micro-pipeline agree on final points', async () => {
+    const rulesOnlyResult = evaluateEssay(fullEssay, question);
     const clientResult = await runSchreibenMicroPipeline({
       userText: fullEssay,
       question,
       llmCaller: null
     });
 
-    assert.equal(clientResult.final_points, serverResult.points_earned);
-    assert.equal(clientResult.word_count, serverResult.word_count);
-    assert.equal(clientResult.criteria_breakdown.anrede, serverResult.breakdown.anrede);
-    assert.equal(clientResult.criteria_breakdown.gruss, serverResult.breakdown.gruss);
-    assert.equal(clientResult.criteria_breakdown.lp1, serverResult.breakdown.items[0].score);
-    assert.equal(clientResult.criteria_breakdown.lp2, serverResult.breakdown.items[1].score);
-    assert.equal(clientResult.criteria_breakdown.lp3, serverResult.breakdown.items[2].score);
-    assert.equal(clientResult.grammar_errors.length, serverResult.grammar_errors.length);
+    assert.equal(clientResult.final_points, rulesOnlyResult.points_earned);
+    assert.equal(clientResult.word_count, rulesOnlyResult.word_count);
+    assert.equal(clientResult.criteria_breakdown.anrede, rulesOnlyResult.breakdown.anrede);
+    assert.equal(clientResult.criteria_breakdown.gruss, rulesOnlyResult.breakdown.gruss);
+    assert.equal(clientResult.criteria_breakdown.lp1, rulesOnlyResult.breakdown.items[0].score);
+    assert.equal(clientResult.criteria_breakdown.lp2, rulesOnlyResult.breakdown.items[1].score);
+    assert.equal(clientResult.criteria_breakdown.lp3, rulesOnlyResult.breakdown.items[2].score);
+    assert.equal(clientResult.grammar_errors.length, rulesOnlyResult.grammar_errors.length);
   });
 
   it('both paths give 0 points for gibberish text', async () => {

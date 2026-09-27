@@ -4,7 +4,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isOnline, subscribeNetworkStatus, registerServiceWorker } from '../src/services/pwaRegister.js';
-import { getLanIpAddresses } from '../server/services/network-utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,13 +49,5 @@ describe('PWA & Offline Capability Contracts', () => {
 
     const reg = await registerServiceWorker();
     assert.equal(reg, null, 'registerServiceWorker should safely return null in non-browser/node environment');
-  });
-
-  it('verifies getLanIpAddresses returns array of valid IPv4 strings', () => {
-    const ips = getLanIpAddresses();
-    assert.ok(Array.isArray(ips), 'getLanIpAddresses must return an array');
-    for (const ip of ips) {
-      assert.match(ip, /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/, `${ip} must be valid IPv4`);
-    }
   });
 });

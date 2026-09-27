@@ -1,4 +1,4 @@
-import { seedData } from '../../server/seed-data.js';
+import { seedData } from '../../src/data/exams/seedData.js';
 import { TEST_TYPES, getTestTypeById } from '../../shared/testTypes.js';
 
 export function getLocalTestTypes() {
@@ -58,7 +58,7 @@ export function getLocalExamDetails(examId) {
 function importLocalGrading() {
   return Promise.all([
     import('./schreiben/linguistic/a1LexiconService.js'),
-    import('../../server/services/exam-evaluator.js'),
+    import('../../src/services/evaluation/examEvaluator.js'),
   ]);
 }
 

@@ -65,10 +65,10 @@ Artem Smirnov`;
     assert.equal(res.points_earned, 10);
   });
 
-  it('client pipeline agrees with server rules-only scoring', async () => {
-    const serverResult = evaluateTeil2Essay(studentText, question);
+  it('client pipeline agrees with the rules-only scoring', async () => {
+    const rulesOnlyResult = evaluateTeil2Essay(studentText, question);
     const clientResult = await runSchreibenMicroPipeline({ userText: studentText, question, llmCaller: null });
-    assert.equal(clientResult.final_points, serverResult.points_earned);
+    assert.equal(clientResult.final_points, rulesOnlyResult.points_earned);
     assert.equal(clientResult.criteria_breakdown.anrede, 2);
     assert.match(clientResult.user_segments.leitpunkte[0].userSentence, /absagen/i);
   });

@@ -6,10 +6,10 @@ import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
-import { questions as s1Questions } from '../server/seeds/schreiben-modellsatz-1.js';
-import { questions as s2Questions } from '../server/seeds/schreiben-modellsatz-2.js';
-import { questions as s3Questions } from '../server/seeds/schreiben-modellsatz-3.js';
-import { questions as s4Questions } from '../server/seeds/schreiben-modellsatz-4.js';
+import { questions as s1Questions } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
+import { questions as s2Questions } from '../src/data/exams/seeds/schreiben-modellsatz-2.js';
+import { questions as s3Questions } from '../src/data/exams/seeds/schreiben-modellsatz-3.js';
+import { questions as s4Questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
 const criteriaOf = (qs, id) => qs.find((q) => q.id === id).options_json.rubric.leitpunkte_criteria;
 const [, , courseCosts] = criteriaOf(s1Questions, 's1-q6');

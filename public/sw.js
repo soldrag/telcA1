@@ -85,9 +85,5 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (url.pathname.startsWith('/api/')) {
-    return;
-  }
-
   event.respondWith(handleAssetRequest(request));
 });

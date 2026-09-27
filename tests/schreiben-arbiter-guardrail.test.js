@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { runSchreibenMicroPipeline } from '../src/services/schreiben/schreibenMicroPipeline.js';
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
-import { questions as s3Questions } from '../server/seeds/schreiben-modellsatz-3.js';
+import { questions as s3Questions } from '../src/data/exams/seeds/schreiben-modellsatz-3.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const A1 = resolveLevelContext('A1');

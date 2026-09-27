@@ -1,8 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeAnswer, matchTextAnswer, evaluateEssay } from '../server/services/schreiben-evaluator.js';
-import { evaluateExamSubmission } from '../server/services/exam-evaluator.js';
-import { questions as modellsatz1 } from '../server/seeds/schreiben-modellsatz-1.js';
+import { normalizeAnswer, matchTextAnswer, evaluateEssay } from '../src/services/evaluation/schreibenEvaluator.js';
+import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
+import { questions as modellsatz1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
 
 // Teil 2 is graded against the task's Leitpunkte; without them there is nothing to grade the content by.
 const seedTeil2 = modellsatz1.find((q) => q.id === 's1-q6');

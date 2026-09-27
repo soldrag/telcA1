@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { submitExamAnswers } from '../services/api.js';
+import { submitExamAnswers } from '../services/examService.js';
 import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
 import { useQuestionFlags } from './useQuestionFlags.js';

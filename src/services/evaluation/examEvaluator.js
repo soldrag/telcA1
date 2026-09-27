@@ -1,4 +1,4 @@
-import { matchTextAnswer, evaluateEssay } from './schreiben-evaluator.js';
+import { matchTextAnswer, evaluateEssay } from './schreibenEvaluator.js';
 
 function parseJsonSafely(jsonString, fallbackValue) {
   if (!jsonString) return fallbackValue;

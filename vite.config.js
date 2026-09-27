@@ -28,7 +28,7 @@ function getVendorChunk(id) {
   if (id.includes('node_modules/@huggingface/transformers/') || id.includes('node_modules/onnxruntime-')) {
     return 'vendor-ai-runtime';
   }
-  if (id.includes('/server/seeds/') || id.includes('server/seed-data.js')) {
+  if (id.includes('/src/data/exams/')) {
     return 'exam-seeds';
   }
 }
@@ -91,17 +91,7 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
   },
-  // The UI suite opens the preview as *.github.io so the app takes its GitHub Pages path (playwright.config.js).
-  preview: {
-    allowedHosts: ['.github.io'],
-  },
   server: {
     port: 5173,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
-    },
   },
 });

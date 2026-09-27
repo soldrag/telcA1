@@ -2,9 +2,9 @@
  * Schreiben evaluation service: text normalization, form field matching, and essay scoring.
  * Delegates to modular analyzers in src/services/schreiben/.
  */
-import { normalizeGermanText } from '../../src/services/schreiben/schreibenFuzzyMatcher.js';
-import { evaluateTeil1Answer } from '../../src/services/schreiben/schreibenTeil1Evaluator.js';
-import { evaluateTeil2Essay } from '../../src/services/schreiben/schreibenTeil2Evaluator.js';
+import { normalizeGermanText } from '../schreiben/schreibenFuzzyMatcher.js';
+import { evaluateTeil1Answer } from '../schreiben/schreibenTeil1Evaluator.js';
+import { evaluateTeil2Essay } from '../schreiben/schreibenTeil2Evaluator.js';
 
 export function normalizeAnswer(str = '') {
   return normalizeGermanText(str);

@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateTeil2Essay } from '../src/services/schreiben/schreibenTeil2Evaluator.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
-import { questions } from '../server/seeds/schreiben-modellsatz-4.js';
+import { questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
 describe('Schreiben Semantic Adversarial & Linguistic Invariant Suite', () => {
   const modellsatz4Teil2 = questions.find(q => q.id === 's4-q6');

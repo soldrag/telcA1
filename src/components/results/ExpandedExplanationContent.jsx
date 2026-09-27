@@ -1,7 +1,7 @@
 import React from 'react';
 import { HelpCircle } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
-import { seedData } from '../../../server/seed-data.js';
+import { seedData } from '../../../src/data/exams/seedData.js';
 import SchreibenSelfCheck from '../schreiben/SchreibenSelfCheck.jsx';
 import ReviewTaskPrompt from './ReviewTaskPrompt.jsx';
 import VocabularyList from './VocabularyList.jsx';

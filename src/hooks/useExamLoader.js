@@ -3,7 +3,7 @@ import {
   fetchExams as defaultFetchExams,
   fetchExamDetails as defaultFetchExamDetails,
   fetchTestTypes as defaultFetchTestTypes
-} from '../services/api.js';
+} from '../services/examService.js';
 import { sortExamsNumerically } from '../utils/examFormat.js';
 
 const DEFAULT_API = {

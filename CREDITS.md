@@ -42,15 +42,14 @@ data, these files are themselves licensed under **CC BY-SA 4.0**. The rest of th
 | [Inter](https://rsms.me/inter/) | Rasmus Andersson | SIL Open Font License 1.1 |
 | [JetBrains Mono](https://www.jetbrains.com/lp/mono/) | JetBrains | SIL Open Font License 1.1 |
 
-## Optional server and tooling
+## Build, test and container tooling
 
 | Tool | Author | License |
 |---|---|---|
-| [Express](https://expressjs.com), [compression](https://github.com/expressjs/compression), [cors](https://github.com/expressjs/cors) | TJ Holowaychuk, Troy Goode and the Express contributors | MIT |
 | [Vite](https://vite.dev), [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react) | Evan You and contributors | MIT |
 | [Tailwind CSS](https://tailwindcss.com) | Tailwind Labs | MIT |
 | [PostCSS](https://postcss.org), [Autoprefixer](https://github.com/postcss/autoprefixer) | Andrey Sitnik | MIT |
 | [Terser](https://terser.org) | Mihai Bazon and contributors | BSD-2-Clause |
 | [vite-plugin-compression2](https://github.com/nonzzz/vite-plugin-compression) | Kanno | MIT |
-| [concurrently](https://github.com/open-cli-tools/concurrently) | Kimmo Brunfeldt | MIT |
 | [Playwright](https://playwright.dev) (`@playwright/test`, UI tests only) | Microsoft | Apache-2.0 |
+| [nginx](https://nginx.org), via [nginx-unprivileged](https://github.com/nginx/docker-nginx-unprivileged) (Docker image only) | F5, Inc. and the nginx contributors | BSD-2-Clause |

@@ -1,8 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateExamSubmission } from '../server/services/exam-evaluator.js';
-import { questions as sQuestions1 } from '../server/seeds/schreiben-modellsatz-1.js';
-import { questions as mQuestions1 } from '../server/seeds/modellsatz-1.js';
+import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
+import { questions as sQuestions1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
+import { questions as mQuestions1 } from '../src/data/exams/seeds/modellsatz-1.js';
 
 describe('Review Task Context & Prompt Invariants', () => {
   it('preserves full task context (situation, leitpunkte, statement) for Schreiben Teil 2', () => {

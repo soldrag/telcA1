@@ -225,10 +225,10 @@ Text 1 has 2 questions (1–2), Text 2 has 3 questions (3–5).
 After generating or modifying exam seeds, follow this strict verification workflow:
 
 ### Step 1: Create Seed File
-Place the new file in `server/seeds/` (e.g. `modellsatz-11.js`).
+Place the new file in `src/data/exams/seeds/` (e.g. `modellsatz-11.js`).
 
 ### Step 2: Register in Barrel Aggregator
-Add imports to [`server/seed-data.js`](file:///Users/artemsmirnov/Projects/telcA1/server/seed-data.js):
+Add imports to [`src/data/exams/seedData.js`](src/data/exams/seedData.js):
 ```javascript
 import { exam as exam11, questions as questions11 } from './seeds/modellsatz-11.js';
 
@@ -248,7 +248,7 @@ export const seedData = {
 Run the automated seed validator. You can validate a single file or all seeds:
 ```bash
 # Validate your specific seed file in isolation
-node server/database/validate-seeds.js server/seeds/modellsatz-11.js
+node scripts/seeds/validateSeeds.js src/data/exams/seeds/modellsatz-11.js
 
 # Validate all registered seeds
 npm run validate:seeds

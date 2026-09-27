@@ -1,9 +1,10 @@
-# Stage 1: Build frontend assets
+# Stage 1: build the static site exactly as the GitHub Pages workflow does
 FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+ENV ONNXRUNTIME_NODE_INSTALL=skip
+COPY package*.json .npmrc ./
 RUN npm ci
 
 COPY . .
@@ -13,32 +14,12 @@ ENV VITE_GIT_COMMIT=$COMMIT_SHA
 
 RUN npm run build
 
-# Stage 2: Production runtime
-FROM node:22-alpine AS runner
+# Stage 2: serve dist/ as plain static files — no Node.js, no database, no API
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 
-WORKDIR /app
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx/site.conf docker/nginx/https.conf /etc/nginx/site/
+COPY --chmod=755 docker/nginx/enable-https.sh /docker-entrypoint.d/40-enable-https.sh
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-ENV NODE_ENV=production
-ENV PORT=3001
-ENV HOST=0.0.0.0
-
-COPY package*.json ./
-RUN npm ci --omit=dev
-
-COPY shared/ ./shared/
-COPY server/ ./server/
-COPY src/config/ ./src/config/
-COPY src/services/ ./src/services/
-COPY src/utils/ ./src/utils/
-COPY certs/ ./certs/
-COPY --from=builder /app/dist ./dist
-
-RUN mkdir -p /app/data && chown -R node:node /app
-
-USER node
-
-VOLUME ["/app/data"]
-
-EXPOSE 3001 3443
-
-CMD ["node", "server/index.js"]
+EXPOSE 8080 8443

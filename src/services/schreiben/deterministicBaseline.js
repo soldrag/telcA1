@@ -1,6 +1,6 @@
 /**
  * Deterministic core of the Schreiben evaluation (Stages 0-2 baseline, zero LLM).
- * Shared by the server rules-only path (evaluateTeil2Essay) and the client
+ * Shared by the rules-only path (evaluateTeil2Essay) and the
  * micro-pipeline so both compute identical baseline scores for the same text.
  */
 import { analyzeSalutation } from './salutationAnalyzer.js';

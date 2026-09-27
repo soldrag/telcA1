@@ -7,10 +7,11 @@ import { fillVisibleSchreibenFields } from './support/schreibenFillers.js';
 for (const variant of listVariants('schreiben')) {
   test(`Schreiben ${variant.shortTitle}: fill the form and the letter, submit, see the grading`, async ({ page }) => {
     test.setTimeout(180_000);
+    const appHost = new URL(test.info().project.use.baseURL).host;
     const externalHosts = new Set();
     page.on('request', (request) => {
       const { host } = new URL(request.url());
-      if (!host.startsWith('telca1.github.io')) externalHosts.add(host);
+      if (host !== appHost) externalHosts.add(host);
     });
     await openHome(page, { module: 'schreiben' });
     await startVariant(page, variant);

@@ -427,7 +427,7 @@ export const en = {
     stubPoints: 'Points: {points} points',
     stubNotice: '💡 Authentic tasks and an interactive trainer for this module are in preparation. Currently, the full Lesen (Reading) module with 10 variants is available.',
     shareTitle: 'Share Test Result',
-    shareDesc: 'Generate a link for your teacher. The server stores nothing — the result is encoded directly into the link.',
+    shareDesc: 'Generate a link for your teacher. Nothing is stored anywhere — the result is encoded directly into the link.',
     shareNameLabel: 'Your name or initials (optional):',
     shareNamePlaceholder: 'e.g. John Doe',
     shareCopyBtn: 'Copy link',
