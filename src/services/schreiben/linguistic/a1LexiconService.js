@@ -5,33 +5,39 @@
 
 import rawLexicon from './a1Lexicon.json' with { type: 'json' };
 import { lookupDictionaryNoun, loadGermanNounDictionary } from './germanNounDictionary.js';
+import { lookupDictionaryVerb, loadGermanVerbDictionary, findDictionaryVerbForms } from './germanVerbDictionary.js';
 
 const LEXICON = rawLexicon || {};
 
-// German writes nouns with a capital, so only a capitalised word the A1 vocabulary does not know gets a
-// dictionary noun reading: an unknown verb ("laufen") is not read as "das Laufen", and a known word written
-// with a capital at the sentence start ("Ich", "Liebe") keeps its A1 readings.
-function dictionaryNouns(bare, levelEntries) {
-  if (!/^[A-ZÄÖÜ]/.test(bare) || levelEntries.length > 0) return [];
-  return lookupDictionaryNoun(bare);
+// A word the A1 vocabulary does not know gets general-dictionary readings. German writes nouns with a capital,
+// so a capitalised word is looked up as a noun first: an unknown verb ("laufen") is not read as "das Laufen".
+// A capitalised word that is no noun may be a verb opening the sentence ("Spreche ich …"); a known word keeps its
+// A1 readings ("Ich", "Liebe").
+function dictionaryEntries(bare) {
+  const nouns = /^[A-ZÄÖÜ]/.test(bare) ? lookupDictionaryNoun(bare) : [];
+  return nouns.length > 0 ? nouns : lookupDictionaryVerb(bare);
 }
 
-/** A1 entries first, then general dictionary nouns; the dictionary must be loaded (loadGermanNounDictionary). */
+/** A1 entries first, then general dictionary nouns and verbs; the dictionaries must be loaded (loadLexiconData). */
 export function lookupWord(word = '') {
   if (!word) return [];
   const bare = String(word).replace(/^[.,!?;:]+|[.,!?;:]+$/g, '').trim();
   const levelEntries = LEXICON[bare.toLowerCase()] || [];
-  return levelEntries.length > 0 ? levelEntries : dictionaryNouns(bare, levelEntries);
+  return levelEntries.length > 0 ? levelEntries : dictionaryEntries(bare);
 }
 
 /** Loads the general dictionary data the lookups rely on; resolves immediately once loaded. */
-export function loadLexiconData() {
-  return loadGermanNounDictionary();
+export async function loadLexiconData() {
+  await Promise.all([loadGermanNounDictionary(), loadGermanVerbDictionary()]);
 }
 
-/** @returns {string[]} A1 vocabulary forms with at least one entry matching the predicate (no dictionary nouns) */
+/**
+ * @returns {string[]} A1 vocabulary forms with at least one entry matching the predicate; when the A1 vocabulary has
+ *   none, the dictionary verb forms ("spricht" for "sprechen"). Dictionary nouns are never generated.
+ */
 export function findWordForms(predicate) {
-  return Object.keys(LEXICON).filter((word) => LEXICON[word].some(predicate));
+  const levelForms = Object.keys(LEXICON).filter((word) => LEXICON[word].some(predicate));
+  return levelForms.length > 0 ? levelForms : findDictionaryVerbForms(predicate);
 }
 
 export function isKnownWord(word = '') {

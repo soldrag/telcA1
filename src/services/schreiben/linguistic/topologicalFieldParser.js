@@ -63,14 +63,19 @@ function checkSatzklammer(finVerb = {}, mittelfeld = [], policy = {}) {
 
 /**
  * @param {Array} tokens - tagged clause tokens
- * @param {{ isCoordinated: boolean, precedingSubject: object|null, rawText: string, inSubordinateScope: boolean, lexicon: object, policy: object }} ctx
+ * @param {{ isCoordinated: boolean, followsComma: boolean, precedingSubject: object|null, rawText: string, inSubordinateScope: boolean, lexicon: object, policy: object }} ctx
  */
-function parseClause(tokens = [], { isCoordinated = false, precedingSubject = null, rawText = '', inSubordinateScope = false, lexicon, policy = {} } = {}) {
+function parseClause(tokens = [], { isCoordinated = false, followsComma = false, precedingSubject = null, rawText = '', inSubordinateScope = false, lexicon, policy = {} } = {}) {
   if (tokens[0]?.pos === 'KONJ_SUB' || /^(weil|dass|wenn|ob)$/i.test(tokens[0]?.raw || '')) {
     return { type: 'SUBORDINATE_CLAUSE', tokens, errors: checkSubordinateVerbFinal(tokens, { lookup: lexicon.lookup }) };
   }
 
   const finVerbIdx = tokens.findIndex(t => t.pos === 'VERB_FIN' || t.pos === 'VERB_MOD');
+  // "Weißt du, wann der Kurs beginnt?": after a comma, a W-word clause with its finite verb last is an indirect
+  // question, a subordinate clause; with the verb second ("…, wann beginnt der Kurs?") it stays a main clause.
+  if (followsComma && tokens[0]?.pos === 'INTERROG' && finVerbIdx === tokens.length - 1) {
+    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: [] };
+  }
   if (finVerbIdx === -1) {
     if (isCoordinated) {
       return { type: 'COORDINATED_PHRASE', tokens, errors: [] };
@@ -153,7 +158,8 @@ export function parseSentenceTopology(sentenceStr = '', { lexicon, policy = {} }
     }
 
     const tagged = lexicon.tag(activeWords);
-    const parsed = parseClause(tagged, { isCoordinated, precedingSubject: lastSubject, rawText: clauseText, inSubordinateScope, lexicon, policy });
+    const followsComma = i > 0 && !isCoordinated;
+    const parsed = parseClause(tagged, { isCoordinated, followsComma, precedingSubject: lastSubject, rawText: clauseText, inSubordinateScope, lexicon, policy });
 
     if (parsed.type === 'SUBORDINATE_CLAUSE') {
       inSubordinateScope = true;

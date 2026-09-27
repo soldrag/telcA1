@@ -8,12 +8,15 @@ Each source is listed with its author, license and link; new sources are added i
 | Source | Author | License | Used for |
 |---|---|---|---|
 | [german-nouns](https://github.com/gambolputty/german-nouns) (commit `da71a2b`) | Gregor Weichbrodt | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Genders, plurals and case forms of German nouns |
-| [Wiktionary (de)](https://de.wiktionary.org) — the data german-nouns is compiled from | Wiktionary contributors | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | |
+| [german-verbs-database](https://github.com/viorelsfetea/german-verbs-database) (commit `11771d4`) | Viorel Sfetea | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (Wiktionary data) | Present, past and participle forms of German verbs |
+| [Wiktionary (de)](https://de.wiktionary.org) — the data german-nouns and german-verbs-database are compiled from | Wiktionary contributors | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | |
 | [Snowball German stemmer](https://snowballstem.org/algorithms/german/stemmer.html), via [@orama/stemmers](https://github.com/oramasearch/orama) | Martin Porter, Richard Boulton; Orama (Michele Riva) | BSD-3-Clause (algorithm); Apache-2.0 (package) | Word stems for keyword matching |
 
 `src/services/schreiben/linguistic/data/germanNouns.tsv` is generated from german-nouns by
-`scripts/lexicon/buildGermanNouns.mjs` (selected columns, compact form notation). As an adaptation of CC BY-SA
-data, this file is itself licensed under **CC BY-SA 4.0**. The rest of the project is MIT-licensed (see `LICENSE`).
+`scripts/lexicon/buildGermanNouns.mjs` (selected columns, compact form notation), and
+`src/services/schreiben/linguistic/data/germanVerbs.tsv` from german-verbs-database by
+`scripts/lexicon/buildGermanVerbs.mjs` (selected columns, cleaned variants). As adaptations of CC BY-SA
+data, these files are themselves licensed under **CC BY-SA 4.0**. The rest of the project is MIT-licensed (see `LICENSE`).
 
 ## Models
 

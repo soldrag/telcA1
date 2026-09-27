@@ -72,13 +72,16 @@
   "bench/T2_09": [
     "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin ist morgen 14 Uhr?"
   ],
-  "bench/T2_10": [],
+  "bench/T2_10": [
+    "ERR_BROKEN_SATZKLAMMER_MODAL: möchte mein Auto verkaufen für 5000 Euro → möchte mein Auto für 5000 Euro verkaufen"
+  ],
   "bench/T3_01": [],
   "bench/T3_02": [],
   "bench/T3_03": [],
   "bench/T3_04": [],
   "bench/T3_05": [
-    "ERR_DOUBLED_SUBJECT: Mein Mann er kommt → Mein Mann kommt"
+    "ERR_DOUBLED_SUBJECT: Mein Mann er kommt → Mein Mann kommt",
+    "ERR_BROKEN_SATZKLAMMER_MODAL: kann mitbringen einen Salat → kann einen Salat mitbringen"
   ],
   "bench/T3_06": [
     "ERR_NOUN_CAPITALIZATION: dank → Dank",
