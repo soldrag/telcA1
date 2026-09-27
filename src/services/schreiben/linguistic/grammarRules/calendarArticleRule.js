@@ -7,6 +7,8 @@ import contractionData from '../data/prepositionContractions.json' with { type: 
 
 const clean = (raw = '') => raw.replace(/[.,;:!?]+$/, '');
 const TAKES_ARTICLE_WITH_NAMES = new Set(contractionData.calendarNamesTakeArticle);
+// "an"/"in" with a time word is not free: days, times of day and dates take "am", months and seasons "im".
+const TEMPORAL_PREPOSITION = contractionData.calendarPrepositionByCategory;
 const DATIVE_CONTRACTION = new Map(Object.entries(contractionData.contractions)
   .filter(([, c]) => c.article === 'dem')
   .map(([form, c]) => [c.preposition, form]));
@@ -16,10 +18,21 @@ function needsArticle(phrase) {
   return isOrdinalDate || TAKES_ARTICLE_WITH_NAMES.has(phrase.governor.preposition);
 }
 
+/** The preposition the time word takes when the learner used "an" or "in"; otherwise the one written. */
+function expectedPreposition(phrase) {
+  const written = phrase.governor.preposition;
+  if (!TAKES_ARTICLE_WITH_NAMES.has(written)) return written;
+  const category = phrase.head ? phrase.head.analysis.entry.category : 'date';
+  return TEMPORAL_PREPOSITION[category] || written;
+}
+
 function checkPhrase(tokens, phrase) {
-  if (!phrase.isCalendar || !phrase.governor || phrase.governor.article || phrase.determiner) return null;
-  const contracted = DATIVE_CONTRACTION.get(phrase.governor.preposition);
-  if (!contracted || !needsArticle(phrase)) return null;
+  if (!phrase.isCalendar || !phrase.governor || (phrase.determiner && !phrase.determiner.implicit)) return null;
+  const preposition = expectedPreposition(phrase);
+  const wrongPreposition = preposition !== phrase.governor.preposition;
+  if (phrase.governor.article && !wrongPreposition) return null;
+  const contracted = DATIVE_CONTRACTION.get(preposition);
+  if (!contracted || (!wrongPreposition && !needsArticle(phrase))) return null;
   const words = tokens.slice(phrase.start, phrase.end + 1).map((t) => t.raw.replace(/[,;:!?]+$/, '')).join(' ');
   const prep = clean(phrase.governor.token.raw);
   const correction = `${/^[A-ZÄÖÜ]/.test(prep) ? contracted[0].toUpperCase() + contracted.slice(1) : contracted} ${words}`;

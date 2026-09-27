@@ -53,7 +53,7 @@ function checkClause(analysis, clause, context, previous) {
   const tenses = new Set(verbReadings.map((v) => v.tense || 'PRESENT'));
   const [form] = context.lexicon.findForms((e) => FINITE_POS.has(e.pos) && e.lemma === verb.lemma && tenses.has(e.tense || 'PRESENT')
     && agrees([e], subjects));
-  if (!form) return null;
+  if (!form || form === verb.lower) return null;
   const subjectText = analysis.tokens.slice(subject.start, subject.end + 1).map((t) => clean(t.raw)).join(' ');
   return {
     category: 'agreement',

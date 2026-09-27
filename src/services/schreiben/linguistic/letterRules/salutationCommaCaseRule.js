@@ -4,8 +4,11 @@
  */
 import { splitLetterWords, isPoliteAddressForm } from '../letter/letterFormulaMatcher.js';
 
-function firstBodyWord(bodySentences = []) {
-  return bodySentences.length > 0 ? splitLetterWords(bodySentences[0])[0]?.word : null;
+// A text that is only the salutation has no body: its first "body sentence" is the salutation itself.
+function firstBodyWord(bodySentences = [], greeting = '') {
+  const first = bodySentences[0]?.trim() || '';
+  if (!first || (greeting && first.startsWith(greeting))) return null;
+  return splitLetterWords(first)[0]?.word || null;
 }
 
 function keepsCapital(word, lexicon) {
@@ -18,9 +21,9 @@ export const salutationCommaCaseRule = {
   id: 'salutationCommaCase',
   check(letter, { lexicon }) {
     const salutation = letter.salutation?.text?.trim() || '';
-    const word = firstBodyWord(letter.bodySentences);
-    if (!salutation.endsWith(',') || !word || keepsCapital(word, lexicon)) return [];
     const greeting = salutation.slice(0, -1).trim();
+    const word = firstBodyWord(letter.bodySentences, greeting);
+    if (!salutation.endsWith(',') || !word || keepsCapital(word, lexicon)) return [];
     const lower = word.toLowerCase();
     return [{
       category: 'orthography',

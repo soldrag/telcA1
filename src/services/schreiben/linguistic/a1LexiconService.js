@@ -18,12 +18,29 @@ function dictionaryEntries(bare) {
   return [...nouns, ...lookupDictionaryVerb(bare)];
 }
 
+// The A1 list gives a verb's present singular and plural forms; the dictionary adds the readings it leaves out for
+// the same verb ("kommt" is also "ihr kommt", "kam" the past of "kommen").
+// A lower-case A1 word that is neither noun nor verb there may still be a verb form ("liebe": "Liebe Anna",
+// "ich liebe dich"); the tagger chooses by position. A lower-case noun stays a noun ("tage" is "Tage").
+function withDictionaryVerbReadings(bare, levelEntries) {
+  const levelVerbs = levelEntries.filter((e) => String(e.pos).startsWith('VERB') && e.person);
+  if (levelVerbs.length === 0) {
+    const homographs = /^[a-zäöüß]/.test(bare) && !levelEntries.some((e) => e.pos === 'NOUN' || String(e.pos).startsWith('VERB'))
+      ? lookupDictionaryVerb(bare).filter((d) => d.pos === 'VERB_FIN') : [];
+    return homographs.length ? [...levelEntries, ...homographs] : levelEntries;
+  }
+  const known = (d) => levelVerbs.some((e) => e.lemma === d.lemma && e.number === d.number && !d.tense
+    && d.person.every((p) => e.person.includes(p)));
+  const extra = lookupDictionaryVerb(bare).filter((d) => d.person && levelVerbs.some((e) => e.lemma === d.lemma) && !known(d));
+  return extra.length ? [...levelEntries, ...extra] : levelEntries;
+}
+
 /** A1 entries first, then general dictionary nouns and verbs; the dictionaries must be loaded (loadLexiconData). */
 export function lookupWord(word = '') {
   if (!word) return [];
   const bare = String(word).replace(/^[.,!?;:]+|[.,!?;:]+$/g, '').trim();
   const levelEntries = LEXICON[bare.toLowerCase()] || [];
-  return levelEntries.length > 0 ? levelEntries : dictionaryEntries(bare);
+  return levelEntries.length > 0 ? withDictionaryVerbReadings(bare, levelEntries) : dictionaryEntries(bare);
 }
 
 /** Loads the general dictionary data the lookups rely on; resolves immediately once loaded. */
@@ -128,6 +145,19 @@ export function disambiguateToken(rawWord = '', prevToken = null, nextToken = nu
     return noun ? { raw, lower, ...noun } : { raw, lower, pos: 'NOUN', lemma: raw };
   }
   if (candidates.length === 1) return { raw, lower, ...candidates[0] };
+
+  // Right after a subject pronoun stands the finite verb when a reading agrees with it: "ich liebe dich".
+  const agreeingVerb = prevToken?.pos === 'PRON_SUBJ' && candidates.find((c) => c.pos === 'VERB_FIN'
+    && c.person?.some((p) => prevToken.person?.includes(p)) && (!c.number || !prevToken.number || c.number === prevToken.number));
+  if (agreeingVerb && !candidates[0].pos.startsWith('VERB')) return { raw, lower, ...agreeingVerb };
+
+  // A pronoun/possessive homograph before a noun or adjective is the possessive: "Hat Ihr Sohn …?", "ihr Kind".
+  const determiner = ['NOUN', 'ADJ'].includes(nextToken?.pos) && candidates.find((c) => c.pos === 'DET');
+  if (determiner) return { raw, lower, ...determiner };
+
+  // A participle/finite homograph before an auxiliary is the participle: "…, von der ich dir erzählt habe".
+  const participle = ['haben', 'sein', 'werden'].includes(nextToken?.lemma) && candidates.find((c) => c.pos === 'VERB_PART');
+  if (participle) return { raw, lower, ...participle };
 
   const special = resolveSpecialParticles(lower, prevToken, nextToken);
   if (special) return { raw, lower, ...special };

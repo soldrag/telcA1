@@ -71,18 +71,21 @@ function parseClause(tokens = [], { isCoordinated = false, followsComma = false,
   }
 
   const finVerbIdx = tokens.findIndex(t => t.pos === 'VERB_FIN' || t.pos === 'VERB_MOD');
-  // After a comma, a clause opened by a W-word or a relative pronoun (article form) that ends in its finite verb is
-  // subordinate: an indirect question ("…, wann ich kommen kann") or a relative clause ("…, die gut Deutsch spricht").
+  // After a comma, a clause opened by a W-word or a relative pronoun (article form, also after a preposition) that
+  // ends in its finite verb is subordinate: an indirect question ("…, wann ich kommen kann") or a relative clause
+  // ("…, die gut Deutsch spricht", "…, mit dem ich arbeite").
   // With the verb second ("…, wann beginnt der Kurs?") it stays a main clause.
   const endsInFiniteVerb = ['VERB_FIN', 'VERB_MOD'].includes(tokens[tokens.length - 1]?.pos);
-  if (followsComma && ['INTERROG', 'DET'].includes(tokens[0]?.pos) && endsInFiniteVerb) {
+  const opener = tokens[0]?.pos === 'PREP' ? tokens[1] : tokens[0]; // "…, mit dem ich arbeite"
+  if (followsComma && ['INTERROG', 'DET'].includes(opener?.pos) && endsInFiniteVerb) {
     return { type: 'SUBORDINATE_CLAUSE', tokens, errors: checkSubordinateVerbFinal(tokens, { lookup: lexicon.lookup }) };
   }
   if (finVerbIdx === -1) {
     if (isCoordinated) {
       return { type: 'COORDINATED_PHRASE', tokens, errors: [] };
     }
-    const fragmentError = checkVerblessClause(tokens, rawText);
+    // A verbless piece after a comma belongs to the sentence before it ("Wo ist die Kasse, bitte?").
+    const fragmentError = followsComma ? null : checkVerblessClause(tokens, rawText);
     return { type: 'FRAGMENT', tokens, errors: fragmentError ? [fragmentError] : [] };
   }
 

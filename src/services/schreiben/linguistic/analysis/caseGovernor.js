@@ -4,6 +4,7 @@
  * before the finite verb of a main clause are not governed by the verb.
  */
 import { findClauseOf } from './clauseContext.js';
+import { realizedFeatures } from './nounPhraseFeatures.js';
 
 const PREPOSITION_CASES = { AKK: ['AKK'], DAT: ['DAT'], GEN: ['GEN'], WECHSEL: ['AKK', 'DAT'] };
 const ADVERBIAL_CATEGORIES = new Set(['duration', 'month', 'weekday', 'season', 'daytime']);
@@ -33,11 +34,23 @@ function isClauseSubject(phrase, clause, phrases) {
   return ungoverned.find(canBeNominative) === phrase;
 }
 
+const canBeAccusative = (phrase) => (phrase.pronoun
+  ? Boolean(phrase.pronoun.case?.includes('AKK'))
+  : phrase.head && realizedFeatures(phrase).some((f) => f.case === 'AKK'));
+
+/** The accusative object comes after a dative one: "macht mir viel Spaß", "gebe dir das Buch". */
+function hasLaterAccusativeObject(phrase, clause, phrases) {
+  return phrases.some((p) => p.start > phrase.end && p.end <= clause.end && !p.governor && !p.isCalendar && canBeAccusative(p));
+}
+
 function verbObjectCases(phrase, context) {
   const clause = findClauseOf(context.clauses, phrase.start);
   if (!clause?.objectCases || !isAfterFiniteVerb(phrase, clause)) return null;
   if (phrase.isCalendar || ADVERBIAL_CATEGORIES.has(phrase.head?.analysis.entry.category)) return null;
-  return isClauseSubject(phrase, clause, context.phrases) ? null : { cases: clause.objectCases, governor: clause.lexicalVerb };
+  if (isClauseSubject(phrase, clause, context.phrases)) return null;
+  const takesDative = clause.objectCases.includes('AKK') && hasLaterAccusativeObject(phrase, clause, context.phrases);
+  // The earlier of two objects is the dative one, so a correction puts it in the dative ("gebe meinem Freund das Buch").
+  return { cases: takesDative ? ['DAT', ...clause.objectCases.filter((c) => c !== 'DAT')] : clause.objectCases, governor: clause.lexicalVerb };
 }
 
 /**

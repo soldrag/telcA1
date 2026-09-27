@@ -9,5 +9,6 @@
     "zum": { "preposition": "zu", "article": "dem" },
     "zur": { "preposition": "zu", "article": "der" }
   },
-  "calendarNamesTakeArticle": ["an", "in"]
+  "calendarNamesTakeArticle": ["an", "in"],
+  "calendarPrepositionByCategory": { "weekday": "an", "daytime": "an", "date": "an", "month": "in", "season": "in" }
 }

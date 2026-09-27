@@ -54,15 +54,16 @@ for (const suite of suites) {
       });
     }
 
-    it('one defect flagged by two analyzers is listed once (17_screenshot_user_review)', () => {
-      const res = results.get('17_screenshot_user_review');
-      if (!res) return;
-      // Two distinct bracket defects, each listed once with its whole bracket.
-      const satzklammer = res.grammar_errors.filter((e) => e.code === 'ERR_BROKEN_SATZKLAMMER_MODAL');
-      assert.deepEqual(satzklammer.map((e) => e.original).sort(), [
-        'möchten kommen von 15. Juli bis 25. Juli',
-        'will im Sommer mit meine Familie Urlaub machen an der Ostsee',
-      ]);
+    it('one defect flagged by two analyzers is listed once (17_screenshot_user_review)', async () => {
+      const tc = suite.cases.find((c) => c.id === '17_screenshot_user_review');
+      if (!tc) return;
+      const bracket = (res) => res.grammar_errors.filter((e) => e.code === 'ERR_BROKEN_SATZKLAMMER_MODAL').map((e) => e.original);
+      // A prepositional phrase after the infinitive is accepted German ("Urlaub machen an der Ostsee").
+      assert.deepEqual(bracket(results.get(tc.id)), []);
+      // An object after the infinitive breaks the bracket: listed once with its whole bracket.
+      const withObjectAfter = tc.text.replace('Urlaub machen an der Ostsee', 'machen Urlaub an der Ostsee');
+      assert.notEqual(withObjectAfter, tc.text);
+      assert.deepEqual(bracket(await gradeLimited(withObjectAfter, suite.question)), ['will im Sommer mit meine Familie machen Urlaub an der Ostsee']);
     });
 
     it('the learning scale shown in the UI equals the pipeline one, capital "Ich" after the salutation included (17)', () => {

@@ -36,7 +36,9 @@ function buildMissingQuestionVerbError(rawText = '', tokens = []) {
   const prefix = isWieViel ? `${tokens[0].raw} ${tokens[1].raw}` : (tokens[0]?.raw || '');
   const rest = isWieViel ? tokens.slice(2).map(t => t.raw).join(' ') : tokens.slice(1).map(t => t.raw).join(' ');
 
-  const correction = prefix && rest ? `${prefix} ist ${rest}?` : `${clean} [Verb fehlt]?`;
+  // "ist" goes after a question word ("Wo ist …?", "Wie viel ist …?"); elsewhere the verb is not guessed ("Du am Montag Zeit?").
+  const opensWithQuestionWord = tokens[0]?.pos === 'INTERROG' || INTERROGATIVE_WORDS.has(firstLower);
+  const correction = opensWithQuestionWord && prefix && rest ? `${prefix} ist ${rest}?` : `${clean} [Verb fehlt]?`;
 
   return {
     category: 'syntax',

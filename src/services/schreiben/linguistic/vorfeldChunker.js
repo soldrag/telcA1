@@ -39,8 +39,11 @@ function chunkPrepositionalPhrase(tokens = [], startIndex = 0) {
   while (i < tokens.length && (tokens[i].pos === 'DET' || tokens[i].pos === 'ADJ')) {
     i++;
   }
-  if (i < tokens.length && (isNounLike(tokens[i]) || /^\d+$/.test(tokens[i].raw || ''))) {
+  const isOrdinalDate = /^\d{1,2}\.$/.test(tokens[i]?.raw || '');
+  if (i < tokens.length && (isNounLike(tokens[i]) || /^\d+$/.test(tokens[i].raw || '') || isOrdinalDate)) {
     i++;
+    // "am 3. Mai", "für 5000 Euro": a number and the noun it counts are one phrase
+    if ((isOrdinalDate || /^\d+$/.test(tokens[i - 1].raw || '')) && i < tokens.length && isNounLike(tokens[i])) i++;
     if (i < tokens.length && tokens[i].raw.toLowerCase() === 'uhr') {
       i++;
     }
@@ -135,8 +138,17 @@ export function estimateVorfeldConstituents(tokens = []) {
       }
     }
 
-    if (t.pos === 'ADV' || t.pos === 'INTERROG') {
-      constituents.push({ type: t.pos === 'INTERROG' ? 'W_WORD' : 'ADVP', tokens: [t], rawText: t.raw });
+    if (t.pos === 'INTERROG') {
+      // An interrogative determiner and its noun phrase are one constituent: "Welche Bücher", "Welchen Kurs".
+      const np = chunkNounPhrase(tokens, i + 1);
+      const chunkTokens = np && /^welch/i.test(t.lower || '') ? [t, ...np.constituent.tokens] : [t];
+      constituents.push({ type: 'W_WORD', tokens: chunkTokens, rawText: chunkTokens.map((c) => c.raw).join(' ') });
+      i += chunkTokens.length;
+      continue;
+    }
+
+    if (t.pos === 'ADV') {
+      constituents.push({ type: 'ADVP', tokens: [t], rawText: t.raw });
       i++;
       continue;
     }

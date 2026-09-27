@@ -23,12 +23,10 @@
   "ostsee/14_price_missing": [],
   "ostsee/15_long_with_extras": [],
   "ostsee/16_unclear_point": [
-    "ERR_MISSING_PREDICATE_QUESTION: Geld wie Nacht? → Geld ist wie Nacht?"
+    "ERR_MISSING_PREDICATE_QUESTION: Geld wie Nacht? → Geld wie Nacht [Verb fehlt]?"
   ],
   "ostsee/17_screenshot_user_review": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: will im Sommer mit meine Familie Urlaub machen an der Ostsee → will im Sommer mit meine Familie Urlaub an der Ostsee machen",
     "ERR_PREP_CASE_DAT: mit meine Familie → mit meiner Familie",
-    "ERR_BROKEN_SATZKLAMMER_MODAL: möchten kommen von 15. Juli bis 25. Juli → möchten von 15. Juli bis 25. Juli kommen",
     "ERR_PREP_CASE_DAT: mit zwei Kinder → mit zwei Kindern",
     "ERR_CALENDAR_ARTICLE: von 15. Juli → vom 15. Juli",
     "ERR_VERB_VALENCY_AKK: ein kleiner Hund → einen kleinen Hund",
@@ -70,11 +68,9 @@
   "bench/T2_07": [],
   "bench/T2_08": [],
   "bench/T2_09": [
-    "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin ist morgen 14 Uhr?"
+    "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin morgen 14 Uhr [Verb fehlt]?"
   ],
-  "bench/T2_10": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: möchte mein Auto verkaufen für 5000 Euro → möchte mein Auto für 5000 Euro verkaufen"
-  ],
+  "bench/T2_10": [],
   "bench/T3_01": [],
   "bench/T3_02": [],
   "bench/T3_03": [],
@@ -95,7 +91,6 @@
   "gold/G2": [
     "ERR_VERB_VALENCY_AKK: ein Deutschkurs → einen Deutschkurs",
     "ERR_CALENDAR_ARTICLE: in August → im August",
-    "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
     "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
     "ERR_REFLEXIVE_PRONOUN_MISSING: anmelden → mich anmelden",
     "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß"
@@ -104,7 +99,6 @@
   "gold/G4": [],
   "gold/G6": [],
   "gold/G7": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: kann am montag nicht kommen zu Termin → kann am montag nicht zu Termin kommen",
     "ERR_NOUN_CAPITALIZATION: montag, fieber, mittwoch → Montag, Fieber, Mittwoch",
     "ERR_UMLAUT_SPELLING: Grusse → Grüße"
   ],
@@ -118,19 +112,16 @@
   "gold/C2": [
     "ERR_VERB_VALENCY_AKK: ein Deutschkurs → einen Deutschkurs",
     "ERR_CALENDAR_ARTICLE: in August → im August",
-    "ERR_BROKEN_SATZKLAMMER_MODAL: will lernen am Vormittag → will am Vormittag lernen",
     "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
     "ERR_REFLEXIVE_PRONOUN_MISSING: anmelden → mich anmelden",
     "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß"
   ],
   "gold/C3": [],
   "gold/C4": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: kann am montag nicht kommen zu Termin → kann am montag nicht zu Termin kommen",
     "ERR_NOUN_CAPITALIZATION: montag, fieber, mittwoch → Montag, Fieber, Mittwoch",
     "ERR_UMLAUT_SPELLING: Grusse → Grüße"
   ],
   "gold/C5": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: möchte Deutschkurs machen im August → möchte Deutschkurs im August machen",
     "ERR_MISSING_ARTICLE: Deutschkurs machen → einen Deutschkurs machen"
   ],
   "gold/C6": [
@@ -160,9 +151,7 @@
   "target/date_contraction": [
     "ERR_CALENDAR_ARTICLE: von 15. Juli → vom 15. Juli"
   ],
-  "target/ausklammerung_pp": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: will im Sommer Urlaub machen an der Ostsee → will im Sommer Urlaub an der Ostsee machen"
-  ],
+  "target/ausklammerung_pp": [],
   "target/month_preposition": [
     "ERR_CALENDAR_ARTICLE: in Juli → im Juli"
   ],
@@ -203,6 +192,6 @@
     "ERR_MISSING_COPULA_VERB: Ich in Berlin. → Ich in Berlin [Verb: „ist“ fehlt]"
   ],
   "target/verbless_question_with_number": [
-    "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin ist morgen 14 Uhr?"
+    "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin morgen 14 Uhr [Verb fehlt]?"
   ]
 }

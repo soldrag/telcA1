@@ -45,7 +45,8 @@ Artem Smirnov`;
     assert.equal(originals.some(o => o.includes('ein deutschkurs')), true);
     assert.equal(originals.some(o => o.includes('anmelden')), true);
     assert.equal(originals.some(o => o.includes('zeit vier wochen')), true);
-    assert.equal(originals.some(o => o.includes('will lernen am vormittag')), true);
+    // "will lernen am Vormittag": a prepositional phrase after the infinitive is accepted German, not flagged.
+    assert.equal(originals.some(o => o.includes('will lernen am vormittag')), false);
     assert.equal(originals.some(o => o.includes('mit freundlichen gruß')), true);
   });
 

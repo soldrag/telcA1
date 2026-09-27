@@ -56,7 +56,9 @@ function readNounPhrase(tokens, start, governor, lexicon) {
     if (!analysis) return null;
     adjectives.push({ token: tokens[i++], analysis });
   }
-  const bare = !determiner.token && !quantifier && adjectives.length === 0;
+  // A mass quantifier before the noun ("viel Spaß", "wenig Zeit") rules out a name just as an article does.
+  const afterMassQuantifier = MASS_QUANTIFIERS.has(analyzeAdjective(tokens[start - 1]?.lower || '', lexicon)?.stem || tokens[start - 1]?.lower);
+  const bare = !determiner.token && !quantifier && adjectives.length === 0 && !afterMassQuantifier;
   const noun = tokens[i] && isNounToken(tokens[i]) ? analyzeNoun(tokens[i].raw, lexicon, { bare }) : null;
   if (!noun) return null;
   const phrase = { start, end: i, determiner: determiner.token ? determiner : null, quantifier, adjectives, head: { token: tokens[i], analysis: noun } };

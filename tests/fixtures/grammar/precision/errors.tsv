@@ -1,0 +1,249 @@
+prep_case	Ich wohne mit meine Familie in Berlin.	Ich wohne mit meiner Familie in Berlin.
+prep_case	Ich fahre mit der Bus zur Arbeit.	Ich fahre mit dem Bus zur Arbeit.
+prep_case	Ich komme aus die Türkei.	Ich komme aus der Türkei.
+prep_case	Nach die Arbeit gehe ich nach Hause.	Nach der Arbeit gehe ich nach Hause.
+prep_case	Ich gehe heute zu meine Freundin.	Ich gehe heute zu meiner Freundin.
+prep_case	Das Geschenk ist für meiner Mutter.	Das Geschenk ist für meine Mutter.
+prep_case	Ich warte seit eine Stunde.	Ich warte seit einer Stunde.
+prep_case	Ich wohne bei meine Eltern.	Ich wohne bei meinen Eltern.
+prep_case	Wir spielen mit die Kinder im Park.	Wir spielen mit den Kindern im Park.
+prep_case	Ich habe einen Termin bei der Arzt.	Ich habe einen Termin beim Arzt.
+prep_case	Ohne meinem Mann komme ich nicht.	Ohne meinen Mann komme ich nicht.
+prep_case	Ich spreche morgen mit mein Chef.	Ich spreche morgen mit meinem Chef.
+prep_case	Ich gehe jeden Tag durch dem Park.	Ich gehe jeden Tag durch den Park.
+verb_object_case	Ich habe ein Hund.	Ich habe einen Hund.
+verb_object_case	Ich brauche ein Computer.	Ich brauche einen Computer.
+verb_object_case	Ich suche ein Job.	Ich suche einen Job.
+verb_object_case	Kennst du der Lehrer?	Kennst du den Lehrer?
+verb_object_case	Ich besuche mein Bruder am Samstag.	Ich besuche meinen Bruder am Samstag.
+verb_object_case	Die Wohnung hat kein Balkon.	Die Wohnung hat keinen Balkon.
+verb_object_case	Ich möchte ein Termin machen.	Ich möchte einen Termin machen.
+verb_object_case	Ich trinke jeden Morgen ein Kaffee.	Ich trinke jeden Morgen einen Kaffee.
+verb_object_case	Ich sehe der Mann.	Ich sehe den Mann.
+verb_object_case	Kannst du mein Sohn abholen?	Kannst du meinen Sohn abholen?
+verb_object_case	Ich kaufe der Kuchen.	Ich kaufe den Kuchen.
+verb_object_case	Ich gebe mein Freund das Buch.	Ich gebe meinem Freund das Buch.
+verb_object_case	Ich habe am Montag ein Termin.	Ich habe am Montag einen Termin.
+article_gender	Die Haus ist groß.	Das Haus ist groß.
+article_gender	Der Wohnung ist schön.	Die Wohnung ist schön.
+article_gender	Das Kurs beginnt am Montag.	Der Kurs beginnt am Montag.
+article_gender	Die Zimmer hat einen Balkon.	Das Zimmer hat einen Balkon.
+article_gender	Der Party ist am Samstag.	Die Party ist am Samstag.
+article_gender	Mein Adresse ist neu.	Meine Adresse ist neu.
+article_gender	Meine Bruder wohnt in Kiew.	Mein Bruder wohnt in Kiew.
+article_gender	Das Arzt ist sehr nett.	Der Arzt ist sehr nett.
+article_gender	Der Kind ist krank.	Das Kind ist krank.
+article_gender	Die Hotel liegt am Meer.	Das Hotel liegt am Meer.
+article_gender	Ist der Küche groß?	Ist die Küche groß?
+article_gender	Unser Wohnung hat drei Zimmer.	Unsere Wohnung hat drei Zimmer.
+calendar_article	Ich komme in Juli.	Ich komme im Juli.
+calendar_article	Der Kurs beginnt an Montag.	Der Kurs beginnt am Montag.
+calendar_article	Ich habe Urlaub von 15. bis 25. Juli.	Ich habe Urlaub vom 15. bis 25. Juli.
+calendar_article	Ich komme an 3. Mai.	Ich komme am 3. Mai.
+calendar_article	Die Party ist in Samstag.	Die Party ist am Samstag.
+calendar_article	In Sommer fahren wir nach Italien.	Im Sommer fahren wir nach Italien.
+calendar_article	Ich habe am August Urlaub.	Ich habe im August Urlaub.
+calendar_article	Ich bin in 1990 geboren.	Ich bin 1990 geboren.
+calendar_article	Wir sehen uns an Wochenende.	Wir sehen uns am Wochenende.
+calendar_article	Der Termin ist in Dienstag um 10 Uhr.	Der Termin ist am Dienstag um 10 Uhr.
+calendar_article	Mein Geburtstag ist an 7. Februar.	Mein Geburtstag ist am 7. Februar.
+calendar_article	In Winter ist es sehr kalt.	Im Winter ist es sehr kalt.
+calendar_article	Ich komme in Abend.	Ich komme am Abend.
+subject_verb_agreement	Ich wohnt in Berlin.	Ich wohne in Berlin.
+subject_verb_agreement	Er wohne in Hamburg.	Er wohnt in Hamburg.
+subject_verb_agreement	Wir kommt am Samstag.	Wir kommen am Samstag.
+subject_verb_agreement	Meine Kinder spielt gern Fußball.	Meine Kinder spielen gern Fußball.
+subject_verb_agreement	Du kann morgen kommen.	Du kannst morgen kommen.
+subject_verb_agreement	Ich bist müde.	Ich bin müde.
+subject_verb_agreement	Meine Eltern ist in der Türkei.	Meine Eltern sind in der Türkei.
+subject_verb_agreement	Anna und Peter kommt auch.	Anna und Peter kommen auch.
+subject_verb_agreement	Hast ihr am Sonntag Zeit?	Habt ihr am Sonntag Zeit?
+subject_verb_agreement	Die Wohnung haben zwei Zimmer.	Die Wohnung hat zwei Zimmer.
+subject_verb_agreement	Meine Mutter sprechen kein Deutsch.	Meine Mutter spricht kein Deutsch.
+subject_verb_agreement	Er möchten einen Kaffee.	Er möchte einen Kaffee.
+subject_verb_agreement	Ich hat keine Zeit.	Ich habe keine Zeit.
+v2_word_order	Morgen ich komme nicht.	Morgen komme ich nicht.
+v2_word_order	Am Samstag wir machen eine Party.	Am Samstag machen wir eine Party.
+v2_word_order	Leider ich habe keine Zeit.	Leider habe ich keine Zeit.
+v2_word_order	Im August wir fahren nach Spanien.	Im August fahren wir nach Spanien.
+v2_word_order	Dann ich gehe nach Hause.	Dann gehe ich nach Hause.
+v2_word_order	Heute ich bin krank.	Heute bin ich krank.
+v2_word_order	Am Montag ich habe einen Termin.	Am Montag habe ich einen Termin.
+v2_word_order	Nach dem Kurs ich gehe einkaufen.	Nach dem Kurs gehe ich einkaufen.
+v2_word_order	Jetzt ich wohne in Köln.	Jetzt wohne ich in Köln.
+v2_word_order	Deshalb ich kann nicht kommen.	Deshalb kann ich nicht kommen.
+v2_word_order	In Berlin wir haben eine kleine Wohnung.	In Berlin haben wir eine kleine Wohnung.
+v2_word_order	Um 8 Uhr der Kurs beginnt.	Um 8 Uhr beginnt der Kurs.
+verb_final_subordinate	Ich komme nicht, weil ich bin krank.	Ich komme nicht, weil ich krank bin.
+verb_final_subordinate	Ich weiß, dass du hast keine Zeit.	Ich weiß, dass du keine Zeit hast.
+verb_final_subordinate	Wenn du hast Zeit, komm bitte.	Wenn du Zeit hast, komm bitte.
+verb_final_subordinate	Ich frage, ob die Wohnung ist noch frei.	Ich frage, ob die Wohnung noch frei ist.
+verb_final_subordinate	Ich lerne Deutsch, weil ich möchte in Deutschland arbeiten.	Ich lerne Deutsch, weil ich in Deutschland arbeiten möchte.
+verb_final_subordinate	Ich weiß nicht, wann beginnt der Kurs.	Ich weiß nicht, wann der Kurs beginnt.
+verb_final_subordinate	Ich hoffe, dass es geht dir gut.	Ich hoffe, dass es dir gut geht.
+verb_final_subordinate	Können Sie mir sagen, wo ist die Praxis?	Können Sie mir sagen, wo die Praxis ist?
+verb_final_subordinate	Ich bin traurig, weil mein Freund kommt nicht.	Ich bin traurig, weil mein Freund nicht kommt.
+verb_final_subordinate	Ich rufe an, weil ich brauche einen Termin.	Ich rufe an, weil ich einen Termin brauche.
+verb_final_subordinate	Das ist der Mann, der wohnt neben mir.	Das ist der Mann, der neben mir wohnt.
+verb_final_subordinate	Wenn das Wetter ist schön, gehen wir schwimmen.	Wenn das Wetter schön ist, gehen wir schwimmen.
+verb_final_subordinate	Ich schreibe dir, dass ich kann nicht kommen.	Ich schreibe dir, dass ich nicht kommen kann.
+modal_bracket	Ich möchte machen einen Termin.	Ich möchte einen Termin machen.
+modal_bracket	Ich kann kommen morgen nicht.	Ich kann morgen nicht kommen.
+modal_bracket	Wir wollen kaufen ein Auto.	Wir wollen ein Auto kaufen.
+modal_bracket	Ich muss lernen Deutsch.	Ich muss Deutsch lernen.
+modal_bracket	Kannst du abholen mich?	Kannst du mich abholen?
+modal_bracket	Ich möchte reservieren ein Zimmer.	Ich möchte ein Zimmer reservieren.
+modal_bracket	Du musst nehmen die Tabletten.	Du musst die Tabletten nehmen.
+modal_bracket	Ich will besuchen meine Oma.	Ich will meine Oma besuchen.
+modal_bracket	Möchtest du trinken einen Kaffee?	Möchtest du einen Kaffee trinken?
+modal_bracket	Ich kann sprechen gut Deutsch.	Ich kann gut Deutsch sprechen.
+modal_bracket	Wir müssen suchen eine neue Wohnung.	Wir müssen eine neue Wohnung suchen.
+modal_bracket	Können Sie schicken mir die Informationen?	Können Sie mir die Informationen schicken?
+modal_bracket	Ich darf essen keine Schokolade.	Ich darf keine Schokolade essen.
+missing_verb	Ich in Berlin.	Ich wohne in Berlin.
+missing_verb	Meine Mutter 60 Jahre alt.	Meine Mutter ist 60 Jahre alt.
+missing_verb	Ich sehr müde.	Ich bin sehr müde.
+missing_verb	Die Party am Samstag um 19 Uhr.	Die Party ist am Samstag um 19 Uhr.
+missing_verb	Die Wohnung sehr schön.	Die Wohnung ist sehr schön.
+missing_verb	Ich aus der Ukraine.	Ich komme aus der Ukraine.
+missing_verb	Mein Sohn krank.	Mein Sohn ist krank.
+missing_verb	Das Zimmer 50 Euro pro Nacht.	Das Zimmer kostet 50 Euro pro Nacht.
+missing_verb	Ich leider keine Zeit.	Ich habe leider keine Zeit.
+missing_verb	Wo die Apotheke?	Wo ist die Apotheke?
+missing_verb	Du am Montag Zeit?	Hast du am Montag Zeit?
+missing_verb	Ich Lehrerin von Beruf.	Ich bin Lehrerin von Beruf.
+noun_capitalisation	Ich habe eine frage.	Ich habe eine Frage.
+noun_capitalisation	Die wohnung ist groß.	Die Wohnung ist groß.
+noun_capitalisation	Ich brauche einen termin.	Ich brauche einen Termin.
+noun_capitalisation	Vielen dank für die Einladung.	Vielen Dank für die Einladung.
+noun_capitalisation	Mein bruder wohnt in Kiew.	Mein Bruder wohnt in Kiew.
+noun_capitalisation	Ich gehe heute zum arzt.	Ich gehe heute zum Arzt.
+noun_capitalisation	Wir fahren im sommer nach Spanien.	Wir fahren im Sommer nach Spanien.
+noun_capitalisation	Hast du am wochenende Zeit?	Hast du am Wochenende Zeit?
+noun_capitalisation	Ich wohne in berlin.	Ich wohne in Berlin.
+noun_capitalisation	Das zimmer kostet 40 Euro.	Das Zimmer kostet 40 Euro.
+noun_capitalisation	Ich spiele gern fußball.	Ich spiele gern Fußball.
+noun_capitalisation	Viele grüße	Viele Grüße
+noun_capitalisation	Mit freundlichen grüßen	Mit freundlichen Grüßen
+umlaut	Vielen Dank fur die Einladung.	Vielen Dank für die Einladung.
+umlaut	Viele Gruße	Viele Grüße
+umlaut	Ich mochte einen Termin machen.	Ich möchte einen Termin machen.
+umlaut	Ich wurde gern kommen.	Ich würde gern kommen.
+umlaut	Die Wohnung ist sehr schon.	Die Wohnung ist sehr schön.
+umlaut	Ich komme um funf Uhr.	Ich komme um fünf Uhr.
+umlaut	Konnen Sie mir helfen?	Können Sie mir helfen?
+umlaut	Ich fahre nach Munchen.	Ich fahre nach München.
+umlaut	Das Zimmer ist fur zwei Personen.	Das Zimmer ist für zwei Personen.
+umlaut	Ich habe eine Tochter und zwei Sohne.	Ich habe eine Tochter und zwei Söhne.
+umlaut	Die Kuche ist klein.	Die Küche ist klein.
+umlaut	Ich spreche ein bisschen Turkisch.	Ich spreche ein bisschen Türkisch.
+umlaut	Ich hore gern Musik.	Ich höre gern Musik.
+plural_after_number	Ich habe zwei Kind.	Ich habe zwei Kinder.
+plural_after_number	Ich bleibe zwei Woche.	Ich bleibe zwei Wochen.
+plural_after_number	Der Kurs dauert drei Monat.	Der Kurs dauert drei Monate.
+plural_after_number	Ich habe zwei Schwester.	Ich habe zwei Schwestern.
+plural_after_number	Wir sind vier Person.	Wir sind vier Personen.
+plural_after_number	Ich möchte zwei Nacht bleiben.	Ich möchte zwei Nächte bleiben.
+plural_after_number	Ich brauche drei Tag Urlaub.	Ich brauche drei Tage Urlaub.
+plural_after_number	Ich habe zwei Frage.	Ich habe zwei Fragen.
+plural_after_number	Ich kaufe fünf Flasche Wasser.	Ich kaufe fünf Flaschen Wasser.
+plural_after_number	Wir haben zwei Katze.	Wir haben zwei Katzen.
+plural_after_number	Mein Sohn ist sechs Jahr alt.	Mein Sohn ist sechs Jahre alt.
+plural_after_number	Ich warte schon zehn Minute.	Ich warte schon zehn Minuten.
+missing_article	Ich habe Frage.	Ich habe eine Frage.
+missing_article	Ich suche Wohnung in Berlin.	Ich suche eine Wohnung in Berlin.
+missing_article	Wohnung ist sehr schön.	Die Wohnung ist sehr schön.
+missing_article	Ich brauche Termin beim Arzt.	Ich brauche einen Termin beim Arzt.
+missing_article	Ich habe Hund.	Ich habe einen Hund.
+missing_article	Kurs beginnt am Montag.	Der Kurs beginnt am Montag.
+missing_article	Ich gehe in Supermarkt.	Ich gehe in den Supermarkt.
+missing_article	Ich fahre mit Bus zur Arbeit.	Ich fahre mit dem Bus zur Arbeit.
+missing_article	Ich möchte Zimmer reservieren.	Ich möchte ein Zimmer reservieren.
+missing_article	Ist Zimmer noch frei?	Ist das Zimmer noch frei?
+missing_article	Mein Mann ist heute bei Arzt.	Mein Mann ist heute beim Arzt.
+missing_article	Ich arbeite in Krankenhaus.	Ich arbeite im Krankenhaus.
+salutation_agreement	Sehr geehrte Herr Müller,	Sehr geehrter Herr Müller,
+salutation_agreement	Sehr geehrter Frau Hansen,	Sehr geehrte Frau Hansen,
+salutation_agreement	Lieber Anna,	Liebe Anna,
+salutation_agreement	Liebe Thomas,	Lieber Thomas,
+salutation_agreement	Liebe Herr Schmidt,	Lieber Herr Schmidt,
+salutation_agreement	Lieber Frau Klein,	Liebe Frau Klein,
+salutation_agreement	Sehr geehrter Damen und Herren,	Sehr geehrte Damen und Herren,
+salutation_agreement	Sehr geehrtes Frau Weber,	Sehr geehrte Frau Weber,
+salutation_agreement	Liebe Peter,	Lieber Peter,
+salutation_agreement	Lieber Maria,	Liebe Maria,
+salutation_agreement	Sehr geehrte Herr Doktor Braun,	Sehr geehrter Herr Doktor Braun,
+salutation_agreement	Lieben Anna,	Liebe Anna,
+reflexive_missing	Ich freue auf deine Antwort.	Ich freue mich auf deine Antwort.
+reflexive_missing	Wir treffen um 8 Uhr vor dem Kino.	Wir treffen uns um 8 Uhr vor dem Kino.
+reflexive_missing	Ich interessiere für Musik.	Ich interessiere mich für Musik.
+reflexive_missing	Ich möchte für den Kurs anmelden.	Ich möchte mich für den Kurs anmelden.
+reflexive_missing	Ich fühle heute nicht gut.	Ich fühle mich heute nicht gut.
+reflexive_missing	Ich muss beeilen.	Ich muss mich beeilen.
+reflexive_missing	Ich entschuldige für die Verspätung.	Ich entschuldige mich für die Verspätung.
+reflexive_missing	Er freut über das Geschenk.	Er freut sich über das Geschenk.
+reflexive_missing	Ich habe sehr über deinen Brief gefreut.	Ich habe mich sehr über deinen Brief gefreut.
+reflexive_missing	Wir sehen am Samstag.	Wir sehen uns am Samstag.
+reflexive_missing	Setz bitte!	Setz dich bitte!
+reflexive_missing	Ich erinnere nicht an den Namen.	Ich erinnere mich nicht an den Namen.
+doubled_subject	Mein Mann er kommt auch.	Mein Mann kommt auch.
+doubled_subject	Meine Schwester sie wohnt in Kiew.	Meine Schwester wohnt in Kiew.
+doubled_subject	Die Wohnung sie ist sehr schön.	Die Wohnung ist sehr schön.
+doubled_subject	Mein Sohn er ist krank.	Mein Sohn ist krank.
+doubled_subject	Anna sie hat morgen Geburtstag.	Anna hat morgen Geburtstag.
+doubled_subject	Meine Eltern sie kommen im Mai.	Meine Eltern kommen im Mai.
+doubled_subject	Der Kurs er beginnt am Montag.	Der Kurs beginnt am Montag.
+doubled_subject	Mein Chef er ist sehr nett.	Mein Chef ist sehr nett.
+doubled_subject	Unsere Nachbarin sie hilft uns oft.	Unsere Nachbarin hilft uns oft.
+doubled_subject	Das Hotel es liegt am Meer.	Das Hotel liegt am Meer.
+doubled_subject	Meine Kinder sie gehen in die Schule.	Meine Kinder gehen in die Schule.
+separable_prefix	Ich rufe an dich.	Ich rufe dich an.
+separable_prefix	Ich anrufe dich morgen.	Ich rufe dich morgen an.
+separable_prefix	Der Zug ankommt um 10 Uhr.	Der Zug kommt um 10 Uhr an.
+separable_prefix	Ich aufstehe jeden Tag um 6 Uhr.	Ich stehe jeden Tag um 6 Uhr auf.
+separable_prefix	Wir einladen dich zu unserer Party.	Wir laden dich zu unserer Party ein.
+separable_prefix	Ich kaufe ein am Samstag.	Ich kaufe am Samstag ein.
+separable_prefix	Holst du ab mich?	Holst du mich ab?
+separable_prefix	Ich mitbringe einen Kuchen.	Ich bringe einen Kuchen mit.
+separable_prefix	Wann fängt an der Kurs?	Wann fängt der Kurs an?
+separable_prefix	Rufen Sie an mich bitte.	Rufen Sie mich bitte an.
+separable_prefix	Ich weiß nicht, ob er kommt mit.	Ich weiß nicht, ob er mitkommt.
+separable_prefix	Ich komme mit nicht.	Ich komme nicht mit.
+wrong_preposition	Ich fahre morgen zu Berlin.	Ich fahre morgen nach Berlin.
+wrong_preposition	Ich bin heute in Hause.	Ich bin heute zu Hause.
+wrong_preposition	Ich warte für dich.	Ich warte auf dich.
+wrong_preposition	Ich komme von der Türkei.	Ich komme aus der Türkei.
+wrong_preposition	Ich gehe jetzt zu Hause.	Ich gehe jetzt nach Hause.
+wrong_preposition	Ich interessiere mich an Musik.	Ich interessiere mich für Musik.
+wrong_preposition	Ich freue mich für deinen Besuch.	Ich freue mich auf deinen Besuch.
+wrong_preposition	Ich denke oft über dich.	Ich denke oft an dich.
+wrong_preposition	Ich habe Angst von dem Hund.	Ich habe Angst vor dem Hund.
+wrong_preposition	Wir fliegen im Sommer nach die Türkei.	Wir fliegen im Sommer in die Türkei.
+wrong_preposition	Ich spreche mit dir über Telefon.	Ich spreche mit dir am Telefon.
+wrong_preposition	Wir fahren im August in Österreich.	Wir fahren im August nach Österreich.
+pronoun_case	Ich helfe dich.	Ich helfe dir.
+pronoun_case	Kannst du mich helfen?	Kannst du mir helfen?
+pronoun_case	Ich rufe dir morgen an.	Ich rufe dich morgen an.
+pronoun_case	Ich danke dich für die Einladung.	Ich danke dir für die Einladung.
+pronoun_case	Wie geht es du?	Wie geht es dir?
+pronoun_case	Ich liebe dir.	Ich liebe dich.
+pronoun_case	Das Buch gefällt ich.	Das Buch gefällt mir.
+pronoun_case	Ich besuche er am Sonntag.	Ich besuche ihn am Sonntag.
+pronoun_case	Ich schreibe er eine E-Mail.	Ich schreibe ihm eine E-Mail.
+pronoun_case	Kannst du mir vom Bahnhof abholen?	Kannst du mich vom Bahnhof abholen?
+pronoun_case	Ich frage ihm morgen.	Ich frage ihn morgen.
+pronoun_case	Ich gratuliere dich zum Geburtstag.	Ich gratuliere dir zum Geburtstag.
+pronoun_case	Ich lade du zu meiner Party ein.	Ich lade dich zu meiner Party ein.
+misspelt_verb	Ich wonen in Berlin.	Ich wohne in Berlin.
+misspelt_verb	Ich arbaite als Koch.	Ich arbeite als Koch.
+misspelt_verb	Ich shreibe dir eine E-Mail.	Ich schreibe dir eine E-Mail.
+misspelt_verb	Ich libe Musik.	Ich liebe Musik.
+misspelt_verb	Ich spile gern Fußball.	Ich spiele gern Fußball.
+misspelt_verb	Ich kome morgen um 10 Uhr.	Ich komme morgen um 10 Uhr.
+misspelt_verb	Ich brauhe einen Termin.	Ich brauche einen Termin.
+misspelt_verb	Wir besuhen dich am Sonntag.	Wir besuchen dich am Sonntag.
+misspelt_verb	Ich studire Informatik.	Ich studiere Informatik.
+misspelt_verb	Ich heise Olga.	Ich heiße Olga.
+misspelt_verb	Ich fare jetzt nach Hause.	Ich fahre jetzt nach Hause.
+misspelt_verb	Ich sprehe gut Englisch.	Ich spreche gut Englisch.
+misspelt_verb	Ich kene ihn nicht.	Ich kenne ihn nicht.

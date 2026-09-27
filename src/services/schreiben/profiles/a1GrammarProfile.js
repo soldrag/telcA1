@@ -16,7 +16,9 @@ export const A1_GRAMMAR_PROFILE = Object.freeze({
   policy: Object.freeze({
     // Everyday A1 German uses the dative after genitive prepositions ("wegen dem Termin"); not an error here.
     acceptedPrepositionCases: Object.freeze({ GEN: ['DAT'] }),
-    // A1 courses teach the sentence bracket strictly: nothing follows the infinitive ("an der Ostsee machen").
-    strictSatzklammer: true,
+    // A prepositional phrase after the infinitive is accepted German ("ein Zimmer reservieren für zwei Nächte"),
+    // so only an object or other non-prepositional part there is flagged ("einen Termin machen", not "machen einen
+    // Termin"). Hints are shown only where the rule is reliable; strict bracket teaching flagged correct sentences.
+    strictSatzklammer: false,
   }),
 });
