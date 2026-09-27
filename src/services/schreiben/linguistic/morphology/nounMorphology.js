@@ -18,20 +18,30 @@ function allowedCases(lowerForm, entry) {
   return isBaseForm ? ['NOM'] : ['AKK', 'DAT', 'GEN'];
 }
 
-const slotOf = (entry) => (entry.number === 'pl' ? 'pl' : entry.gender);
+const slotsOf = (entry) => (entry.number === 'pl' ? ['pl'] : entry.gender ? [entry.gender] : entry.genders || []);
 
 /**
  * @param {string} form - the noun as written (capitalisation decides dictionary noun readings)
  * @param {{ lookup: Function }} lexicon - level vocabulary port
- * @returns {{ slot: string, cases: string[], entry: object } | null} null for unknown nouns and for forms whose
- *   gender/number the word alone does not fix ("der/die Lehrer", "der/das Joghurt", adjectival "Erwachsene")
+ * @param {{ bare?: boolean }} [options] - `bare`: the noun stands without determiner, numeral or adjective. Proper
+ *   names do ("Maria kommt", "mit Maria"), so a general-dictionary reading ("Maria", plural of "Mare") is not
+ *   taken for a bare word; the level vocabulary still is.
+ * @returns {{ slot: string, cases: string[], entry: object, readings: Array<{ slot, cases, entry }> } | null}
+ *   every slot the form can fill ("Kollegen": m sg oblique or plural, "Joghurt": m or n); the phrase decides
+ *   between them. The top-level fields repeat the first reading. null for unknown nouns and for adjectival
+ *   declension ("Erwachsene"), whose slot the determiner alone decides.
  */
-export function analyzeNoun(form, lexicon) {
-  const nouns = lexicon.lookup(form || '').filter((e) => e.pos === 'NOUN');
-  const slots = new Set(nouns.map(slotOf));
-  if (nouns.length === 0 || slots.size !== 1 || slots.has(undefined) || nouns.some((e) => e.adjectivalDeclension)) return null;
-  const entry = nouns[0];
-  return { slot: slotOf(entry), cases: allowedCases(String(form).toLowerCase().replace(/[.,!?;:]+$/, ''), entry), entry };
+export function analyzeNoun(form, lexicon, { bare = false } = {}) {
+  const nouns = lexicon.lookup(form || '').filter((e) => e.pos === 'NOUN' && !(bare && e.source === 'dictionary'));
+  if (nouns.length === 0 || nouns.some((e) => e.adjectivalDeclension)) return null;
+  const lowerForm = String(form).toLowerCase().replace(/[.,!?;:]+$/, '');
+  const readings = nouns.flatMap((entry) => slotsOf(entry).map((slot) => ({ slot, cases: allowedCases(lowerForm, entry), entry })));
+  return readings.length ? withReadings(readings) : null;
+}
+
+/** The analysis narrowed to some of its readings; the top-level fields follow the first one. */
+export function withReadings(readings) {
+  return { ...readings[0], readings };
 }
 
 export function generateNoun(rawForm, analysis, grammaticalCase) {

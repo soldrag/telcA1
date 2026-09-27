@@ -4,16 +4,17 @@
  */
 import { matchSalutation } from '../letter/letterFormulaMatcher.js';
 import { analyzeAdjective, generateAdjective } from '../morphology/adjectiveMorphology.js';
+import { analyzeNoun } from '../morphology/nounMorphology.js';
 import { matchCapitalization, joinWords } from './letterWording.js';
 
 const SLOT_NAMES = { m: 'maskulin', f: 'feminin', n: 'neutral', pl: 'Plural' };
 
-// The addressee is a title, a group ("Team") or a name. Names are not vocabulary: a general-dictionary noun
-// spelled like a name ("Anna", a coin) must not decide the gender.
+// The addressee is a title, a group ("Team") or a name, and stands bare after the adjective: a name spelled like a
+// general-dictionary noun ("Anna", "Maria") does not decide the gender.
 function addresseeSlot(word, lexicon) {
   for (const form of [word.replace(/-/g, ''), word.split('-').at(-1)]) {
-    const noun = lexicon.lookup(form).find((e) => e.pos === 'NOUN' && e.source !== 'dictionary' && (e.number === 'pl' || e.gender));
-    if (noun) return noun.number === 'pl' ? 'pl' : noun.gender;
+    const noun = analyzeNoun(form, lexicon, { bare: true });
+    if (noun) return noun.slot;
   }
   return null;
 }

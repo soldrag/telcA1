@@ -7,7 +7,8 @@ import paradigms from '../data/declensionParadigms.json' with { type: 'json' };
 import contractions from '../data/prepositionContractions.json' with { type: 'json' };
 import { analyzeDeterminer } from '../morphology/determinerMorphology.js';
 import { analyzeAdjective } from '../morphology/adjectiveMorphology.js';
-import { analyzeNoun } from '../morphology/nounMorphology.js';
+import { analyzeNoun, withReadings } from '../morphology/nounMorphology.js';
+import { agreeingNounReadings } from './nounPhraseFeatures.js';
 
 const CARDINALS = new Set(paradigms.cardinals);
 const PRONOUN_POS = new Set(['PRON_SUBJ', 'PRON_OBJ']);
@@ -55,10 +56,12 @@ function readNounPhrase(tokens, start, governor, lexicon) {
     if (!analysis) return null;
     adjectives.push({ token: tokens[i++], analysis });
   }
-  const noun = tokens[i] && isNounToken(tokens[i]) ? analyzeNoun(tokens[i].raw, lexicon) : null;
+  const bare = !determiner.token && !quantifier && adjectives.length === 0;
+  const noun = tokens[i] && isNounToken(tokens[i]) ? analyzeNoun(tokens[i].raw, lexicon, { bare }) : null;
   if (!noun) return null;
-  const isCalendar = CALENDAR_CATEGORIES.has(noun.entry.category);
-  return { start, end: i, determiner: determiner.token ? determiner : null, quantifier, adjectives, head: { token: tokens[i], analysis: noun }, isCalendar };
+  const phrase = { start, end: i, determiner: determiner.token ? determiner : null, quantifier, adjectives, head: { token: tokens[i], analysis: noun } };
+  const analysis = withReadings(agreeingNounReadings(phrase));
+  return { ...phrase, head: { token: tokens[i], analysis }, isCalendar: CALENDAR_CATEGORIES.has(analysis.entry.category) };
 }
 
 function readPhraseAt(tokens, index, governor, lexicon) {

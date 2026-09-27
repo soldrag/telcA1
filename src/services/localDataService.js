@@ -1,5 +1,6 @@
 import { seedData } from '../../server/seed-data.js';
 import { evaluateExamSubmission } from '../../server/services/exam-evaluator.js';
+import { loadLexiconData } from './schreiben/linguistic/a1LexiconService.js';
 import { TEST_TYPES, getTestTypeById } from '../../shared/testTypes.js';
 
 export function getLocalTestTypes() {
@@ -52,11 +53,13 @@ export function getLocalExamDetails(examId) {
   };
 }
 
-export function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
+/** Grades in the browser (static hosting, offline). Schreiben answers read the lexicon data, loaded first. */
+export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
   const exam = seedData.exams.find(e => e.id === examId);
   if (!exam) {
     throw new Error(`Exam not found: ${examId}`);
   }
+  await loadLexiconData();
   const questions = seedData.questions
     .filter(q => q.exam_id === examId)
     .sort((a, b) => a.question_number - b.question_number);

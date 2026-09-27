@@ -12,16 +12,30 @@ function adjectivesAgree(phrase, declension, key) {
   return phrase.adjectives.every(({ analysis }) => adjectiveSlots(analysis.ending, declension).has(key));
 }
 
-/** @returns {Array<{ case: string, slot: string, reading: object|null }>} empty when the parts disagree */
-export function realizedFeatures(phrase) {
-  const { slot, cases } = phrase.head.analysis;
+function readingFeatures(phrase, noun) {
+  const { slot, cases } = noun;
   if (phrase.quantifier && slot !== 'pl') return [];
   const readings = phrase.determiner ? phrase.determiner.readings : [null];
   return readings
     .filter((r) => !r || r.slot === slot)
-    .flatMap((r) => (r ? [r.case] : cases).map((c) => ({ case: c, slot, reading: r })))
+    .flatMap((r) => (r ? [r.case] : cases).map((c) => ({ case: c, slot, reading: r, noun })))
     .filter((f) => cases.includes(f.case))
     .filter((f) => adjectivesAgree(phrase, f.reading ? DECLENSION_BY_FAMILY[f.reading.family] : 'strong', `${f.case}:${f.slot}`));
+}
+
+/**
+ * @returns {Array<{ case: string, slot: string, reading: object|null, noun: object }>} over every reading of the
+ *   head noun ("den Kollegen": AKK m or DAT pl); empty when the parts disagree
+ */
+export function realizedFeatures(phrase) {
+  return phrase.head.analysis.readings.flatMap((noun) => readingFeatures(phrase, noun));
+}
+
+/** The head noun readings the determiner, numeral and adjectives agree with; all of them when none does. */
+export function agreeingNounReadings(phrase) {
+  const nouns = phrase.head.analysis.readings;
+  const agreeing = nouns.filter((noun) => readingFeatures(phrase, noun).length > 0);
+  return agreeing.length ? agreeing : nouns;
 }
 
 function inflectDeterminer(phrase, grammaticalCase, slot) {

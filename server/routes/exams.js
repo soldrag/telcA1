@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import { extractUserId } from '../services/user-context.js';
 import { selectBalancedRandomExam } from '../services/exam-balancer.js';
 import { evaluateExamSubmission } from '../services/exam-evaluator.js';
+import { loadLexiconData } from '../../src/services/schreiben/linguistic/a1LexiconService.js';
 import { ExamRepository } from '../repositories/exam.repository.js';
 import { AttemptRepository } from '../repositories/attempt.repository.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
@@ -90,8 +91,10 @@ export function createExamsRouter(databaseOrRepository) {
     }
   });
 
-  router.post('/:id/submit', (req, res) => {
+  router.post('/:id/submit', async (req, res) => {
     try {
+      // Schreiben answers are graded with the lexicon, whose dictionary data loads once.
+      await loadLexiconData();
       const validationError = validateSubmissionBody(req.body);
       if (validationError) {
         return res.status(400).json({ error: validationError });

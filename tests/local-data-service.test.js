@@ -28,8 +28,8 @@ describe('Local Data Service (Client-Side & GitHub Pages Mode)', () => {
     assert.equal(details.questions[0].question_number, 1);
   });
 
-  it('evaluates answers and calculates correct score', () => {
-    const submission = submitLocalExamAnswers('modellsatz-1', {
+  it('evaluates answers and calculates correct score', async () => {
+    const submission = await submitLocalExamAnswers('modellsatz-1', {
       answers: {
         'm1-q1': 'falsch', // correct
         'm1-q2': 'falsch', // check against seed
