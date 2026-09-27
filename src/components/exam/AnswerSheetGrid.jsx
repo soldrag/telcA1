@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flag } from 'lucide-react';
+import { NUMERIC } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 const ANSWER_MARKS = { richtig: '+', falsch: '−' };
@@ -34,7 +35,7 @@ function AnswerCell({ question, answer, isCurrent, isFlagged, onSelect, isCompac
       aria-current={isCurrent ? 'step' : undefined}
       className={`relative ${isCompact ? 'w-9 h-9' : 'w-11 h-11'} shrink-0 rounded-lg border flex flex-col items-center justify-center leading-none transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary ${resolveCellClass({ isAnswered: Boolean(mark), isCurrent, isFlagged })}`}
     >
-      <span className="text-xs font-semibold tabular-nums">{question.question_number}</span>
+      <span className={`text-xs font-semibold ${NUMERIC}`}>{question.question_number}</span>
       <span className={`font-semibold ${isCompact ? 'text-xs h-3.5' : 'text-sm h-4'}`}>{mark}</span>
       {isFlagged && <Flag className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 text-state-warning fill-current" aria-hidden="true" />}
     </button>

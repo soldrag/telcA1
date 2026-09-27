@@ -1,5 +1,6 @@
 import React from 'react';
 import { Type } from 'lucide-react';
+import { NUMERIC } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function SchreibenWordCounter({ text = '', targetWords = 30 }) {
@@ -28,7 +29,7 @@ export default function SchreibenWordCounter({ text = '', targetWords = 30 }) {
   return (
     <div className="flex items-center gap-2 text-sm font-semibold text-content-secondary">
       <Type className="w-4 h-4 text-action-primary shrink-0" aria-hidden="true" />
-      <span className="tabular-nums whitespace-nowrap">{count} / ~{targetWords}<span className="hidden sm:inline"> Wörter</span></span>
+      <span className={`${NUMERIC} whitespace-nowrap`}>{count} / ~{targetWords}<span className="hidden sm:inline"> Wörter</span></span>
       <span className={`hidden sm:inline px-2.5 py-0.5 rounded-full border text-xs font-semibold ${statusBadge.className}`}>
         {statusBadge.text}
       </span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { getTestTypeById } from '../../../shared/testTypes.js';
 import { formatPoints } from '../../utils/formatPoints.js';
+import { NUMERIC } from '../layout/typography.js';
 import { getTeilTitles } from '../../config/teilTitles.js';
 
 function resolveTeils(teilBreakdown, testType) {
@@ -24,7 +25,7 @@ export default function TeilBreakdownGrid({ teilBreakdown = {}, testType = 'lese
         return (
           <li key={teil} lang="de" className="px-3 py-1.5 rounded-lg bg-surface-inset text-sm text-content-secondary lg:flex lg:justify-between lg:gap-2 min-w-0">
             <span className="lg:truncate" title={titles[teil] || undefined}>{titles[teil] || `Teil ${teil}`}</span><span className="lg:hidden"> · </span>
-            <span className="font-semibold text-content-primary tabular-nums shrink-0">{formatPoints(score, language)}/{total}</span>
+            <span className={`font-semibold text-content-primary ${NUMERIC} shrink-0`}>{formatPoints(score, language)}/{total}</span>
           </li>
         );
       })}

@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { EXAM_HEADER_SLOT_ID } from './examHeaderSlot.js';
 import AnswerSheetGrid from './AnswerSheetGrid.jsx';
 import FontSizeControl from '../teil1/FontSizeControl.jsx';
+import { NUMERIC } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 function useHeaderSlot() {
@@ -28,7 +29,7 @@ function TeilTabs({ groups, activeTeil, answers, onSelectTeil }) {
               isActive ? 'bg-surface-inset text-content-primary font-semibold' : 'text-content-secondary hover:bg-surface-raised'
             }`}
           >
-            Teil {group.teil}<span className="hidden xl:inline"> · {group.sublabel}</span> <span className="tabular-nums text-content-tertiary">{answered}/{group.questions.length}</span>
+            Teil {group.teil}<span className="hidden xl:inline"> · {group.sublabel}</span> <span className={`${NUMERIC} text-content-tertiary`}>{answered}/{group.questions.length}</span>
           </button>
         );
       })}

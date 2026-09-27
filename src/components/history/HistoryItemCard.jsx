@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckCircle2, XCircle, Calendar, Clock, Eye, ChevronRight, Share2 } from 'lucide-react';
 import { cleanExamTitle, formatAttemptDate, formatAttemptDuration } from '../../utils/historyFormat.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { NUMERIC } from '../layout/typography.js';
 import { getAttemptMaxScore } from '../../utils/attemptStats.js';
 
 export default function HistoryItemCard({ attempt, onSelect, onShare, compact = false }) {
@@ -66,10 +67,10 @@ export default function HistoryItemCard({ attempt, onSelect, onShare, compact = 
 
       <div className="flex items-center space-x-3 flex-shrink-0">
         <div className="text-right">
-          <div className={`font-black text-content-primary ${compact ? 'text-sm sm:text-base' : 'text-lg'}`}>
+          <div className={`font-bold text-content-primary ${NUMERIC} ${compact ? 'text-sm sm:text-base' : 'text-lg'}`}>
             {attempt.score} <span className="text-xs sm:text-sm font-medium text-content-tertiary">/ {getAttemptMaxScore(attempt)}</span>
           </div>
-          <div className={`text-xs font-bold ${attempt.passed ? 'text-state-success' : 'text-state-error'}`}>
+          <div className={`text-xs font-bold ${NUMERIC} ${attempt.passed ? 'text-state-success' : 'text-state-error'}`}>
             {attempt.percentage}%
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { RotateCcw, CheckCircle2, Award, Clock } from 'lucide-react';
 import { calculateHistoryStats } from '../../utils/historyFormat.js';
+import { NUMERIC } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 /**
@@ -26,7 +27,7 @@ export default function HistoryStatsGrid({ attempts = [] }) {
             <Icon className={`w-4 h-4 shrink-0 ${color}`} aria-hidden="true" />
             <span className="truncate">{label}</span>
           </span>
-          <span className="text-xl sm:text-2xl font-bold text-content-primary tabular-nums">{value}</span>
+          <span className={`text-xl sm:text-2xl font-bold text-content-primary ${NUMERIC}`}>{value}</span>
         </li>
       ))}
     </ul>

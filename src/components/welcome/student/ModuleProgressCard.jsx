@@ -2,6 +2,7 @@ import React from 'react';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
 import { getTeilTitles } from '../../../config/teilTitles.js';
 import { formatPoints } from '../../../utils/formatPoints.js';
+import { NUMERIC } from '../../layout/typography.js';
 import Section from '../../layout/Section.jsx';
 
 const toPercent = (ratio) => `${Math.round(Math.max(0, Math.min(1, ratio)) * 100)}%`;
@@ -15,7 +16,7 @@ function TeilRow({ entry, title, isWeakest, passRatio, t, language }) {
           {title}
           {isWeakest && <span lang={language} className="ml-2 text-state-warning-text">· {t('welcome.progress.weakest')}</span>}
         </span>
-        <span className="font-semibold tabular-nums text-content-primary">{formatPoints(entry.score, language)}/{formatPoints(entry.total, language)}</span>
+        <span className={`font-semibold ${NUMERIC} text-content-primary`}>{formatPoints(entry.score, language)}/{formatPoints(entry.total, language)}</span>
       </div>
       <div className="relative h-2 rounded-full bg-surface-inset">
         <div className={`h-2 rounded-full ${fill}`} style={{ width: toPercent(entry.ratio) }} />

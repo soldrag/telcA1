@@ -5,6 +5,7 @@ import { formatDayMonth } from '../../../utils/historyFormat.js';
 import { describeIssuedAssignment, STATUS_TONE_CLASS } from './issuedStatus.js';
 import { splitByModule } from '../../../utils/moduleSplit.js';
 import { getTestTypeById } from '../../../../shared/testTypes.js';
+import { NUMERIC } from '../../layout/typography.js';
 import OtherModulesHint from '../OtherModulesHint.jsx';
 
 const ACTION = 'min-h-[2.75rem] px-3 rounded-xl text-sm font-semibold text-action-primary hover:bg-action-primary-subtle cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
@@ -41,7 +42,7 @@ function IssuedTable({ rows, t, language, ...handlers }) {
             <td className="px-4 py-3 font-semibold text-content-primary break-words">{row.student}</td>
             <td className="px-4 py-3 text-content-primary"><span lang="de">{row.variant}</span><Deadline entry={entry} language={language} t={t} /></td>
             <td className="px-4 py-3 text-content-secondary whitespace-nowrap max-lg:hidden">{formatDayMonth(entry.issuedAt, language)}</td>
-            <td className={`px-4 py-3 tabular-nums ${STATUS_TONE_CLASS[row.status.tone]}`}>{row.status.text}</td>
+            <td className={`px-4 py-3 ${NUMERIC} ${STATUS_TONE_CLASS[row.status.tone]}`}>{row.status.text}</td>
             <td className="px-2 py-1 text-right"><RowAction row={row} entry={entry} t={t} {...handlers} /></td>
           </tr>
         ))}
@@ -58,7 +59,7 @@ function IssuedCards({ rows, t, language, ...handlers }) {
           <div className="min-w-0 space-y-0.5">
             <div className="font-semibold text-content-primary break-words">{row.student}</div>
             <div lang="de" className="text-sm text-content-secondary">{row.variant}</div>
-            <div className={`text-sm tabular-nums ${STATUS_TONE_CLASS[row.status.tone]}`}>{row.status.text}</div>
+            <div className={`text-sm ${NUMERIC} ${STATUS_TONE_CLASS[row.status.tone]}`}>{row.status.text}</div>
             <Deadline entry={entry} language={language} t={t} />
           </div>
           <div className="shrink-0"><RowAction row={row} entry={entry} t={t} {...handlers} /></div>

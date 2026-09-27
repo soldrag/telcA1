@@ -1,8 +1,9 @@
 import React from 'react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { NUMERIC } from '../layout/typography.js';
 import { getTestTypeById } from '../../../shared/testTypes.js';
 
-const CHIP = 'min-h-[2.75rem] px-3 rounded-full border border-border-default bg-surface-raised hover:bg-surface-inset text-sm font-semibold text-content-primary tabular-nums cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
+const CHIP = `min-h-[2.75rem] px-3 rounded-full border border-border-default bg-surface-raised hover:bg-surface-inset text-sm font-semibold text-content-primary ${NUMERIC} cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary`;
 
 /**
  * «In other modules: [Lesen · 1]»: assignments of the modules not open now, each chip switching to its module.

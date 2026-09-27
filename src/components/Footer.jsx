@@ -1,6 +1,7 @@
 import React from 'react';
 import { useI18n } from '../i18n/I18nContext.jsx';
 import { getVersionSummary, getVersionTooltip } from '../config/version.js';
+import { NUMERIC } from './layout/typography.js';
 import { PAGE_CONTAINER } from './layout/pageLayout.js';
 
 const LINK_CLASS = 'min-h-[2.75rem] inline-flex items-center px-1 hover:text-content-primary transition-colors underline decoration-border-default hover:decoration-content-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
@@ -24,7 +25,7 @@ export default function Footer({ onOpenLegalModal }) {
           <span aria-hidden="true" className="max-lg:hidden">·</span>
           <span className="max-lg:order-3 max-lg:basis-full">{t('footer.privacy')}</span>
         </p>
-        <span className="font-mono tabular-nums cursor-default select-all" title={getVersionTooltip()}>{getVersionSummary()}</span>
+        <span className={`font-mono ${NUMERIC} cursor-default select-all`} title={getVersionTooltip()}>{getVersionSummary()}</span>
       </div>
     </footer>
   );

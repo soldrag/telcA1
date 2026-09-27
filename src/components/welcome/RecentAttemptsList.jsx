@@ -5,6 +5,7 @@ import { formatDayMonth } from '../../utils/historyFormat.js';
 import { getAttemptMaxScore } from '../../utils/attemptStats.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { NUMERIC } from '../layout/typography.js';
 import Section from '../layout/Section.jsx';
 
 const FOCUS_RING = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary focus-visible:ring-offset-2';
@@ -19,7 +20,7 @@ function DeltaBadge({ delta, t, language }) {
   if (!delta) return <span aria-hidden="true" />;
   const text = `${delta > 0 ? '↑ +' : '↓ −'}${formatPoints(Math.abs(delta), language)}`;
   return (
-    <span className={`text-xs tabular-nums ${delta > 0 ? 'text-state-success-text' : 'text-state-error-text'}`} aria-label={t('welcome.recentAttempts.deltaAria', { delta: text })}>
+    <span className={`text-xs ${NUMERIC} ${delta > 0 ? 'text-state-success-text' : 'text-state-error-text'}`} aria-label={t('welcome.recentAttempts.deltaAria', { delta: text })}>
       {text}
     </span>
   );
@@ -42,7 +43,7 @@ function RecentAttemptRow({ attempt, delta, onLoadAttempt }) {
           <span className="text-sm text-content-primary truncate">{name}</span>
           <span className="text-xs text-content-secondary">{date}</span>
         </span>
-        <span className="text-sm font-semibold tabular-nums text-content-primary text-right">
+        <span className={`text-sm font-semibold ${NUMERIC} text-content-primary text-right`}>
           {formatPoints(attempt.score, language)}/{getAttemptMaxScore(attempt)}
         </span>
         <DeltaBadge delta={delta} t={t} language={language} />

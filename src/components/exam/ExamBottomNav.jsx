@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowLeft, ClipboardList } from 'lucide-react';
 import ExamPrimaryAction, { NAV_FOCUS_RING } from './ExamPrimaryAction.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { NUMERIC } from '../layout/typography.js';
 import { useTextEntryFocus } from '../../hooks/useTextEntryFocus.js';
 
 /**
@@ -37,7 +38,7 @@ export default function ExamBottomNav({ pagination = {}, actions = {}, sheet = {
           className={`flex-1 min-h-[3.25rem] rounded-xl text-content-primary hover:bg-surface-raised flex items-center justify-center gap-2 font-semibold cursor-pointer ${NAV_FOCUS_RING}`}
         >
           <ClipboardList className="w-5 h-5 text-content-secondary" />
-          <span className="tabular-nums">{t('exam.sheetButton', { answered: sheet.answered, total: sheet.total })}</span>
+          <span className={NUMERIC}>{t('exam.sheetButton', { answered: sheet.answered, total: sheet.total })}</span>
         </button>
 
         <ExamPrimaryAction activeTeil={activeTeil} maxTeile={maxTeile} isInspection={isInspection} {...actions} />

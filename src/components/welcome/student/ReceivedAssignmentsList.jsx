@@ -2,6 +2,7 @@ import React from 'react';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
 import { formatExamName } from '../../../utils/examFormat.js';
 import { formatDayMonth } from '../../../utils/historyFormat.js';
+import { NUMERIC } from '../../layout/typography.js';
 import { getTestTypeById } from '../../../../shared/testTypes.js';
 
 const VISIBLE_LIMIT = 5;
@@ -62,7 +63,7 @@ function SubmittedAssignment({ assignment, onOpenTask, t, language }) {
           </span>
         </span>
         {hasScore && (
-          <span className={`font-semibold tabular-nums ${assignment.score >= passScore ? 'text-state-success-text' : 'text-state-error-text'}`}>
+          <span className={`font-semibold ${NUMERIC} ${assignment.score >= passScore ? 'text-state-success-text' : 'text-state-error-text'}`}>
             {assignment.score}/{maxScore}
           </span>
         )}

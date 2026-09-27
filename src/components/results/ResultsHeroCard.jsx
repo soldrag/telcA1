@@ -4,6 +4,7 @@ import ScoreThresholdBar from './ScoreThresholdBar.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { getTestTypeById } from '../../../shared/testTypes.js';
 import { formatExamName } from '../../utils/examFormat.js';
+import { NUMERIC } from '../layout/typography.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
 function formatDuration(totalSeconds = 0) {
@@ -43,7 +44,7 @@ export default function ResultsHeroCard({ results, teilChipsFromLg = false, clas
             {module.title} · {examName} · {formatDuration(results.timeSpentSeconds)}
           </p>
           <div className="flex items-baseline justify-between gap-3">
-            <p id="results-score" className="text-5xl font-bold tracking-tight text-content-primary leading-none tabular-nums">
+            <p id="results-score" className={`text-5xl font-bold tracking-tight text-content-primary leading-none ${NUMERIC}`}>
               {formatPoints(results.score, language)}
               <span className="text-2xl font-semibold text-content-muted"> / {maxScore}</span>
             </p>

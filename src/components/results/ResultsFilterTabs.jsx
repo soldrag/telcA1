@@ -1,4 +1,5 @@
 import React from 'react';
+import { NUMERIC } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ResultsFilterTabs({
@@ -34,7 +35,7 @@ export default function ResultsFilterTabs({
         }`}
       >
         <span>{t('results.tabMistakes')}</span>
-        <span className="bg-state-error-muted text-state-error-text text-[0.625rem] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-extrabold">
+        <span className={`bg-state-error-muted text-state-error-text text-[0.625rem] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-bold ${NUMERIC}`}>
           {mistakesCount}
         </span>
       </button>
@@ -49,7 +50,7 @@ export default function ResultsFilterTabs({
         }`}
       >
         <span>{t('results.tabCorrect')}</span>
-        <span className="bg-state-success-muted text-state-success-text text-[0.625rem] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-extrabold">
+        <span className={`bg-state-success-muted text-state-success-text text-[0.625rem] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-bold ${NUMERIC}`}>
           {score}
         </span>
       </button>

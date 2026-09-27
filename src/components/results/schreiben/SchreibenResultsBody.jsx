@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SchreibenSelfCheck from '../../schreiben/SchreibenSelfCheck.jsx';
 import SchreibenFormReviewTable from './SchreibenFormReviewTable.jsx';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
+import { NUMERIC } from '../../layout/typography.js';
 import { formatPoints } from '../../../utils/formatPoints.js';
 
 function isEssay(item) {
@@ -18,7 +19,7 @@ function SectionSwitch({ section, onChange, labels }) {
           type="button"
           aria-pressed={section === key}
           onClick={() => onChange(key)}
-          className={`min-h-[2.75rem] rounded-lg text-sm font-semibold tabular-nums cursor-pointer transition-colors ${section === key ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary'}`}
+          className={`min-h-[2.75rem] rounded-lg text-sm font-semibold ${NUMERIC} cursor-pointer transition-colors ${section === key ? 'bg-surface-card text-content-primary shadow-xs' : 'text-content-secondary'}`}
         >
           {labels[key]}
         </button>

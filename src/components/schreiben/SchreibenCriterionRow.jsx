@@ -1,5 +1,6 @@
 import React from 'react';
 import { resolveTutorCriterionFeedback } from '../../services/schreiben/feedback/tutorFeedbackResolver.js';
+import { NUMERIC } from '../layout/typography.js';
 import { getCriterionColor } from './criterionColors.js';
 
 const LEVEL_TEXT_CLASS = {
@@ -34,7 +35,7 @@ export default function SchreibenCriterionRow({ criterionId, label, level, badge
           <span aria-hidden="true" className={`w-2.5 h-2.5 rounded-full shrink-0 ${getCriterionColor(criterionId).dot}`} />
           <span className="text-sm font-medium text-content-primary">{label}</span>
         </span>
-        <span className={`text-sm font-semibold tabular-nums shrink-0 ${LEVEL_TEXT_CLASS[level] || LEVEL_TEXT_CLASS[0]}`}>
+        <span className={`text-sm font-semibold ${NUMERIC} shrink-0 ${LEVEL_TEXT_CLASS[level] || LEVEL_TEXT_CLASS[0]}`}>
           {badgeText}
         </span>
       </button>

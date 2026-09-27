@@ -1,5 +1,6 @@
 import React from 'react';
 import SchreibenCriterionRow from './SchreibenCriterionRow.jsx';
+import { NUMERIC } from '../layout/typography.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
 export const CRITERIA_DEFINITIONS = [
@@ -78,7 +79,7 @@ export default function SchreibenCriteriaChecklist({
         <li className="pt-2">
           <div className="flex items-center justify-between gap-3 px-2 text-sm font-medium text-content-primary">
             <span>{t('results.schreibenCriteria.kg')}</span>
-            <span className="font-semibold tabular-nums">{fmt(kg.points)}/{fmt(kg.maxPoints)}</span>
+            <span className={`font-semibold ${NUMERIC}`}>{fmt(kg.points)}/{fmt(kg.maxPoints)}</span>
           </div>
           <ul className="pl-3">
             {FRAMING_IDS.map((id) => (

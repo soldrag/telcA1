@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pause, Play } from 'lucide-react';
+import { NUMERIC } from './layout/typography.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 const CRITICAL_SECONDS = 5 * 60;
@@ -44,7 +45,7 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
 
   if (!timer.isTimed) {
     return (
-      <span className="font-mono-num text-base font-semibold text-content-secondary tabular-nums" title={t('timer.practiceMode')}>
+      <span className={`font-mono-num text-base font-semibold text-content-secondary ${NUMERIC}`} title={t('timer.practiceMode')}>
         {formatTimeDisplay(timer.secondsElapsed)}
       </span>
     );
@@ -56,7 +57,7 @@ export default function ExamTimer({ timer, isSubmitted = false }) {
   return (
     <div className="flex items-center gap-1 shrink-0">
       <span
-        className={`font-mono-num text-lg sm:text-xl font-semibold tabular-nums ${isCritical ? 'text-state-error' : 'text-content-primary'}`}
+        className={`font-mono-num text-lg sm:text-xl font-semibold ${NUMERIC} ${isCritical ? 'text-state-error' : 'text-content-primary'}`}
         title={t('timer.timeLimit', { limit: formatTimeDisplay(totalSeconds) })}
       >
         {formatTimeDisplay(secondsLeft)}

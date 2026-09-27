@@ -15,3 +15,6 @@ export const CARD_TITLE = 'text-base lg:text-lg font-bold text-content-primary';
 // The title of an exam part (Teil banner) and of a dialog: one step above a card.
 export const PART_TITLE = 'text-base sm:text-xl font-bold text-content-primary';
 export const DIALOG_TITLE = 'text-lg sm:text-xl font-bold text-content-primary';
+
+// Scores, counts, dates and timers: tabular figures, so digits keep their width and columns of numbers line up.
+export const NUMERIC = 'tabular-nums';
