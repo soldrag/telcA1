@@ -2,6 +2,7 @@ import React from 'react';
 import { AlertCircle } from 'lucide-react';
 import { Dialog } from '../ui/Dialog.jsx';
 import { Button } from '../ui/Button.jsx';
+import { DIALOG_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ConfirmSubmitModal({
@@ -22,7 +23,7 @@ export default function ConfirmSubmitModal({
         <AlertCircle className="w-6 h-6" />
       </div>
 
-      <h3 id="confirm-submit-title" className="text-xl font-bold text-content-primary">
+      <h3 id="confirm-submit-title" className={DIALOG_TITLE}>
         {t('modals.submitTitle')}
       </h3>
 

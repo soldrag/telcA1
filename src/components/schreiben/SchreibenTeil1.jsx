@@ -2,6 +2,7 @@ import React from 'react';
 import { ClipboardList, Building2 } from 'lucide-react';
 import SchreibenSituationCard from './SchreibenSituationCard.jsx';
 import SchreibenFormField from './SchreibenFormField.jsx';
+import { PART_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function SchreibenTeil1({
@@ -22,7 +23,7 @@ export default function SchreibenTeil1({
             <ClipboardList className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-black text-content-primary">
+            <h2 className={PART_TITLE}>
               Teil 1 • Formular ausfüllen
             </h2>
             <p className="text-xs sm:text-sm text-content-secondary font-medium">

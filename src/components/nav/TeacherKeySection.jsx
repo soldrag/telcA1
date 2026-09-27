@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard.js';
+import { SECTION_TITLE } from '../layout/typography.js';
 import { getOrCreateTeacherKey, setTeacherKey } from '../../services/security/teacherSecurityService.js';
 
 const SMALL_BUTTON = 'min-h-[2.75rem] px-3 rounded-xl text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary';
@@ -41,7 +42,7 @@ export default function TeacherKeySection() {
 
   return (
     <section aria-labelledby="teacher-key-title" className="space-y-2">
-      <h3 id="teacher-key-title" className="text-sm font-semibold text-content-secondary">{t('welcome.teacherSpace.keyCardTitle')}</h3>
+      <h3 id="teacher-key-title" className={SECTION_TITLE}>{t('welcome.teacherSpace.keyCardTitle')}</h3>
       <p className="text-sm text-content-secondary leading-relaxed">{t('welcome.teacherSpace.keyCardDesc')}</p>
       {isEditing ? <KeyEditor initialValue={currentKey} onSave={handleSave} t={t} /> : (
         <div className="flex flex-wrap items-center gap-2 rounded-xl bg-surface-inset border border-border-default p-1.5 pl-3">

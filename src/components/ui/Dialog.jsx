@@ -2,6 +2,7 @@ import React, { useId } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '../../utils/cn.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { DIALOG_TITLE } from '../layout/typography.js';
 import { useModalDialog } from '../../hooks/useModalDialog.js';
 
 // Phones get a bottom sheet (thumb reach, safe area); from 640 px a centred window.
@@ -40,7 +41,7 @@ export function Dialog({ isOpen, onClose, title, description, children, maxWidth
       <div className="flex flex-col max-h-[calc(100dvh-2rem)] p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:p-7">
         <div className="flex items-start justify-between gap-4 mb-4 shrink-0">
           <div>
-            {title && <h2 id={titleId} className="text-lg sm:text-xl font-bold text-content-primary leading-tight">{title}</h2>}
+            {title && <h2 id={titleId} className={`${DIALOG_TITLE} leading-tight`}>{title}</h2>}
             {description && <p className="text-sm text-content-secondary mt-1 leading-relaxed">{description}</p>}
           </div>
           {onClose && <CloseButton onClose={onClose} label={t('common.close')} />}

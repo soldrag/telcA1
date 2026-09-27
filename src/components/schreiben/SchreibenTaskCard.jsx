@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import { SECTION_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 /**
@@ -11,7 +12,7 @@ export default function SchreibenTaskCard({ situation, leitpunkte = [], isCollap
   return (
     <div className="bg-surface-card rounded-2xl border border-border-default p-4 sm:p-6 space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="text-sm font-semibold text-content-secondary">Aufgabenstellung</h3>
+        <h3 className={SECTION_TITLE}>Aufgabenstellung</h3>
         <button
           type="button"
           onClick={onToggle}

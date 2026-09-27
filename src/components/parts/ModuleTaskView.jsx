@@ -1,6 +1,7 @@
 import React from 'react';
 import { Volume2 } from 'lucide-react';
 import TaskOptionList from './TaskOptionList.jsx';
+import { PART_TITLE } from '../layout/typography.js';
 import TaskBinaryOptions from './TaskBinaryOptions.jsx';
 
 export default function ModuleTaskView({
@@ -35,7 +36,7 @@ export default function ModuleTaskView({
                   Aufgabe {question.question_number}
                 </span>
                 {question.title && (
-                  <h3 className="text-xl font-black text-content-primary mt-2">
+                  <h3 className={`${PART_TITLE} mt-2`}>
                     {question.title}
                   </h3>
                 )}

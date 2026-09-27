@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check, X } from 'lucide-react';
+import { CARD_TITLE } from '../../layout/typography.js';
 import { useI18n } from '../../../i18n/I18nContext.jsx';
 
 function resolveExplanation(item, language) {
@@ -59,7 +60,7 @@ export default function SchreibenFormReviewTable({ items = [] }) {
 
   return (
     <section aria-labelledby="form-review-title" className="rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 lg:p-6">
-      <h3 id="form-review-title" className="text-lg font-bold text-content-primary">
+      <h3 id="form-review-title" className={CARD_TITLE}>
         {t('results.schreibenResult.formTitle', { score, max: items.length })}
       </h3>
       <ul className="divide-y divide-border-subtle lg:divide-y-0 lg:grid lg:grid-cols-5 lg:gap-x-6">

@@ -1,6 +1,7 @@
 import React from 'react';
 import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
 import SchreibenCriteriaChecklist from './SchreibenCriteriaChecklist.jsx';
+import { CARD_TITLE } from '../layout/typography.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
 function resolveLeitpunktTitles(item) {
@@ -21,7 +22,7 @@ export default function SchreibenLetterVerdict({ item, selfCheck, t, language, c
 
   return (
     <section aria-labelledby="letter-verdict-title" className={`rounded-2xl bg-surface-card border border-border-default p-4 sm:p-5 lg:p-6 space-y-4 max-lg:[&>h3+*]:!mt-0 ${className}`}>
-      <h3 id="letter-verdict-title" className="max-lg:sr-only text-lg font-bold text-content-primary">
+      <h3 id="letter-verdict-title" className={`max-lg:sr-only ${CARD_TITLE}`}>
         {t('results.schreibenResult.letterTitle', { score: fmt(teil2Score.total), max: fmt(teil2Score.maxPoints) })}
       </h3>
       <SchreibenExaminerFeedbackCard

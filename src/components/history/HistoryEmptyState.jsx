@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
+import { CARD_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function HistoryEmptyState({ onStartExam }) {
@@ -10,7 +11,7 @@ export default function HistoryEmptyState({ onStartExam }) {
       <div className="w-16 h-16 bg-surface-inset rounded-full flex items-center justify-center mb-4">
         <Clock className="w-8 h-8 text-content-muted" />
       </div>
-      <h3 className="text-lg font-bold text-content-primary mb-2">{t('history.emptyTitle')}</h3>
+      <h3 className={`${CARD_TITLE} mb-2`}>{t('history.emptyTitle')}</h3>
       <p className="text-sm text-content-secondary max-w-sm mb-6">
         {t('history.emptyDesc')}
       </p>

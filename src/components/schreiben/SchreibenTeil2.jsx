@@ -4,6 +4,7 @@ import SchreibenWordCounter from './SchreibenWordCounter.jsx';
 import SchreibenUmlautBar from './SchreibenUmlautBar.jsx';
 import SchreibenTaskCard from './SchreibenTaskCard.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import { PART_TITLE } from '../layout/typography.js';
 import { useTextEntryFocus } from '../../hooks/useTextEntryFocus.js';
 
 const DEFAULT_LEITPUNKTE = ['Grund für Ihr Schreiben', 'Termin und Details', 'Frage oder Bitte um Antwort'];
@@ -42,7 +43,7 @@ export default function SchreibenTeil2({
             <Mail className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-content-primary">Teil 2 • E-Mail / Brief schreiben</h2>
+            <h2 className={PART_TITLE}>Teil 2 • E-Mail / Brief schreiben</h2>
             <p className="text-sm text-content-secondary">{t('exam.schreibenPart2Instruction')}</p>
           </div>
         </div>

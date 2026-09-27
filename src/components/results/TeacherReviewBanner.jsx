@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GraduationCap, ShieldCheck, ShieldAlert, LogOut, User, Clock, Layers } from 'lucide-react';
+import { CARD_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function TeacherReviewBanner({
@@ -39,7 +40,7 @@ export default function TeacherReviewBanner({
                 </span>
               )}
             </div>
-            <h2 className="text-base font-bold text-content-primary mt-0.5">
+            <h2 className={`${CARD_TITLE} mt-0.5`}>
               {t('results.teacherReviewTitle')}
             </h2>
           </div>

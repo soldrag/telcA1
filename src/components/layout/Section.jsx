@@ -1,4 +1,5 @@
 import React from 'react';
+import { SECTION_TITLE } from './typography.js';
 
 // frame="card": framed at every width; "desktop": bare on phones, framed from 1024 px; "none": no frame.
 const FRAMES = {
@@ -12,7 +13,8 @@ const PADDINGS = {
   none: { normal: '', list: '', flush: '' },
 };
 
-export const SECTION_TITLE = 'text-sm font-semibold text-content-secondary';
+// Kept here for the blocks that import the title style with the Section itself.
+export { SECTION_TITLE };
 
 /**
  * The one block pattern of a page: the title sits above the frame (never inside it), an optional

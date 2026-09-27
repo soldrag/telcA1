@@ -2,6 +2,7 @@ import React from 'react';
 import { Clock } from 'lucide-react';
 import { Dialog } from '../ui/Dialog.jsx';
 import { Button } from '../ui/Button.jsx';
+import { DIALOG_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function TimeUpModal({ isOpen, onConfirm }) {
@@ -14,7 +15,7 @@ export default function TimeUpModal({ isOpen, onConfirm }) {
           <Clock className="w-7 h-7" />
         </div>
         <div className="space-y-2">
-          <h3 id="time-up-title" className="text-xl font-black text-content-primary">{t('modals.timeUpTitle')}</h3>
+          <h3 id="time-up-title" className={DIALOG_TITLE}>{t('modals.timeUpTitle')}</h3>
           <p className="text-sm text-content-secondary leading-relaxed">
             {t('modals.timeUpDesc')}
           </p>

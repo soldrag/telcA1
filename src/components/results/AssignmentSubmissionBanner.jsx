@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Copy, Check, LogOut, User } from 'lucide-react';
+import { CARD_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function AssignmentSubmissionBanner({
@@ -45,7 +46,7 @@ export default function AssignmentSubmissionBanner({
                 </span>
               )}
             </div>
-            <h2 className="text-base sm:text-lg font-bold text-content-primary mt-0.5">
+            <h2 className={`${CARD_TITLE} mt-0.5`}>
               {t('results.assignmentSubmissionTitle')}
             </h2>
           </div>

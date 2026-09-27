@@ -2,6 +2,7 @@ import React from 'react';
 import { Mail } from 'lucide-react';
 import Teil1GroupCard from './teil1/Teil1GroupCard.jsx';
 import { PAGE_STACK } from './layout/pageLayout.js';
+import { PART_TITLE } from './layout/typography.js';
 import { useI18n } from '../i18n/I18nContext.jsx';
 
 function Teil1Banner() {
@@ -20,7 +21,7 @@ function Teil1Banner() {
             </span>
             <span className="text-xs text-content-tertiary font-bold">Aufgaben 1–5</span>
           </div>
-          <h2 className="text-base sm:text-xl font-black text-content-primary mt-1">
+          <h2 className={`${PART_TITLE} mt-1`}>
             E-Mails, Briefe und persönliche Mitteilungen
           </h2>
           <p className="text-sm text-content-secondary mt-1 font-medium leading-normal">
