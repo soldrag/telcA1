@@ -34,24 +34,22 @@ function FindingsToggle({ isOpen, count, label, onToggle }) {
 
 /**
  * The examiner's conclusion on the letter, shown first: summary, then one line per finding.
- * Falls back to the legacy summary string for results without a descriptor.
  */
-export default function SchreibenExaminerFeedbackCard({ examinerFeedback, feedbackSummary, language, title, findingsLabel }) {
+export default function SchreibenExaminerFeedbackCard({ examinerFeedback, language, title, findingsLabel }) {
   const [isOpen, setOpen] = useState(() => !startsCollapsed());
   const rendered = useMemo(() => renderExaminerFeedback(examinerFeedback, language), [examinerFeedback, language]);
-  const summary = rendered?.summary || feedbackSummary;
-  if (!summary) return null;
+  if (!rendered?.summary) return null;
 
   return (
     <div className="rounded-xl bg-surface-inset p-3 sm:p-4 space-y-2 sm:space-y-3">
       <h4 className="text-sm font-semibold text-content-secondary">{title}</h4>
       <p className="text-[0.9375rem] sm:text-base text-content-primary leading-relaxed">
-        {summary}
-        {rendered?.bulletPoints.length > 0 && (
+        {rendered.summary}
+        {rendered.bulletPoints.length > 0 && (
           <FindingsToggle isOpen={isOpen} count={rendered.bulletPoints.length} label={findingsLabel} onToggle={() => setOpen((value) => !value)} />
         )}
       </p>
-      {rendered?.bulletPoints.length > 0 && (
+      {rendered.bulletPoints.length > 0 && (
         <ul className={`space-y-2 ${isOpen ? '' : 'max-sm:hidden'}`}>
           {rendered.bulletPoints.map((b, i) => <FeedbackBullet key={`${b.category}-${i}`} bullet={b} />)}
         </ul>

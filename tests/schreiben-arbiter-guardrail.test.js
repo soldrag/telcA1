@@ -39,12 +39,10 @@ Alex`;
     ];
 
     const seg = segmentUserEssay(studentLetter, criteria, A1);
-    assert.equal(seg.anrede, 'Lieber Herr Meier,');
     assert.match(seg.leitpunkte[0].userSentence, /ich habe ein Problem/i);
     assert.match(seg.leitpunkte[1].userSentence, /Meine Wohnung ist sehr kalt/i);
     assert.match(seg.leitpunkte[2].userSentence, /Können Sie bitte morgen kommen/i);
     assert.match(seg.leitpunkte[2].userSentence, /Ich bin ab 18 Uhr zu Hause/i);
-    assert.equal(seg.closing, 'Viele Grüße');
   });
 
   it('Deterministic baseline awards real student letter passing score (6.5/10) with partial LP1 and LP3', async () => {

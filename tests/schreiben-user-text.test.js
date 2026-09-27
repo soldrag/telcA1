@@ -50,23 +50,22 @@ Artem Smirnov`;
     assert.equal(originals.some(o => o.includes('mit freundlichen gruß')), true);
   });
 
-  it('segments the user text accurately into the 3 Leitpunkte, Anrede and Closing', async () => {
+  it('segments the letter body into the 3 Leitpunkte', async () => {
     const criteria = question.options_json.rubric.leitpunkte_criteria;
     const segments = segmentUserEssay(userText, criteria, A1);
 
-    assert.equal(segments.anrede, 'Sehr geehrte Damen und Herren,');
     assert.match(segments.leitpunkte[0].userSentence, /deutschkurs/i);
     assert.match(segments.leitpunkte[1].userSentence, /wochen/i);
     // Both questions in Punkt 3 are preserved together!
     assert.match(segments.leitpunkte[2].userSentence, /kostet/i);
     assert.match(segments.leitpunkte[2].userSentence, /anmelden/i);
-    assert.equal(segments.closing, 'Mit freundlichen Gruß');
-    assert.equal(segments.senderName, 'Artem Smirnov');
   });
 
   it('evaluates overall essay: typical A1 errors do not lower the score (10/10)', async () => {
     const result = await gradeLetter(userText, question);
     assert.equal(result.breakdown.anrede, 2);
+    assert.equal(result.user_segments.closing, 'Mit freundlichen Gruß');
+    assert.equal(result.user_segments.senderName, 'Artem Smirnov');
     assert.equal(result.breakdown.leitpunkte, 9);
     assert.equal(result.breakdown.gruss, 2);
     assert.equal(result.points_earned, 10);
@@ -129,8 +128,7 @@ Artem Smirnov`;
     it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', async () => {
       const segments = segmentUserEssay(text3, rubricCriteria, A1);
 
-      assert.equal(segments.anrede, 'Sehr geehrte Damen und Herren,');
-      // Punkt 1 has the Grund
+        // Punkt 1 has the Grund
       assert.match(segments.leitpunkte[0].userSentence, /deutschkurs a1 machen/i);
       assert.doesNotMatch(segments.leitpunkte[0].userSentence, /vormittags/i);
 

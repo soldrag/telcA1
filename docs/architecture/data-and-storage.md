@@ -16,7 +16,7 @@ There is no server, API or database: exam data is bundled, answers are graded in
 
 ## Exam service
 
-`src/services/examService.js` is the hooks' only data port: `fetchTestTypes`, `fetchExams`, `fetchExamDetails`, `submitExamAnswers`, `preloadExamGrading`. It delegates to `localDataService.js` (bundled seeds) and grades with `src/services/evaluation/examEvaluator.js` (Lesen answer keys, Schreiben via `schreibenEvaluator.js` → [Schreiben grading](schreiben-grading.md)). No `fetch`, no `/api/*`. The grading engine and lexicon are imported dynamically on first submit or idle preload.
+`src/services/examService.js` is the hooks' only data port: `fetchTestTypes`, `fetchExams`, `fetchExamDetails`, `submitExamAnswers`, `preloadExamGrading`. It delegates to `localDataService.js` (bundled seeds) and grades with `src/services/evaluation/examEvaluator.js` (Lesen answer keys, Schreiben Teil 1 form fields via `schreibenTeil1Evaluator.js`, the Teil 2 letter via the injected `gradeEssay` port → [Schreiben grading](schreiben-grading.md)). No `fetch`, no `/api/*`. The grading engine and lexicon are imported dynamically on first submit or idle preload.
 
 ## Module rules
 

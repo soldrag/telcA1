@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeAnswer, matchTextAnswer } from '../src/services/evaluation/schreibenEvaluator.js';
+import { normalizeGermanText } from '../src/services/schreiben/schreibenFuzzyMatcher.js';
+import { evaluateTeil1Answer } from '../src/services/schreiben/schreibenTeil1Evaluator.js';
 import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
 import { gradeLetter, gradeEssayLimited } from './helpers/gradeLetter.js';
 
@@ -12,39 +13,39 @@ const seedTeil2 = modellsatz1.find((q) => q.id === 's1-q6');
 
 describe('Schreiben Evaluator & Text Normalization', () => {
   it('normalizes answers by stripping punctuation, trimming and lowercasing', async () => {
-    assert.equal(normalizeAnswer('  Bauer,  '), 'bauer');
-    assert.equal(normalizeAnswer('18. Juli!'), '18 juli');
-    assert.equal(normalizeAnswer('  Doppelzimmer  '), 'doppelzimmer');
+    assert.equal(normalizeGermanText('  Bauer,  '), 'bauer');
+    assert.equal(normalizeGermanText('18. Juli!'), '18 juli');
+    assert.equal(normalizeGermanText('  Doppelzimmer  '), 'doppelzimmer');
   });
 
   it('matches single and pipe-delimited acceptable answers', async () => {
     const q1 = { correct_answer: 'bauer', options_json: { accepted_answers: ['bauer', 'familie bauer'] } };
-    assert.equal(matchTextAnswer('Bauer', q1), true);
-    assert.equal(matchTextAnswer('  familie bauer  ', q1), true);
-    assert.equal(matchTextAnswer('Schmidt', q1), false);
+    assert.equal(evaluateTeil1Answer('Bauer', q1), true);
+    assert.equal(evaluateTeil1Answer('  familie bauer  ', q1), true);
+    assert.equal(evaluateTeil1Answer('Schmidt', q1), false);
 
     const qDate = { correct_answer: '18. juli|18.07' };
-    assert.equal(matchTextAnswer('18. Juli', qDate), true);
-    assert.equal(matchTextAnswer('18.07', qDate), true);
-    assert.equal(matchTextAnswer('19. Juli', qDate), false);
+    assert.equal(evaluateTeil1Answer('18. Juli', qDate), true);
+    assert.equal(evaluateTeil1Answer('18.07', qDate), true);
+    assert.equal(evaluateTeil1Answer('19. Juli', qDate), false);
   });
 
   it('rejects false positives from single characters or substring fragments', async () => {
     const qName = { correct_answer: 'bauer', options_json: { accepted_answers: ['bauer'] } };
-    assert.equal(matchTextAnswer('a', qName), false);
-    assert.equal(matchTextAnswer('b', qName), false);
-    assert.equal(matchTextAnswer('ba', qName), false);
-    assert.equal(matchTextAnswer('Frau Bauer', qName), true);
+    assert.equal(evaluateTeil1Answer('a', qName), false);
+    assert.equal(evaluateTeil1Answer('b', qName), false);
+    assert.equal(evaluateTeil1Answer('ba', qName), false);
+    assert.equal(evaluateTeil1Answer('Frau Bauer', qName), true);
 
     const qRoom = { correct_answer: 'doppelzimmer', options_json: { accepted_answers: ['doppelzimmer', 'dz'] } };
-    assert.equal(matchTextAnswer('zimmer', qRoom), false);
-    assert.equal(matchTextAnswer('d', qRoom), false);
-    assert.equal(matchTextAnswer('ein Doppelzimmer', qRoom), true);
+    assert.equal(evaluateTeil1Answer('zimmer', qRoom), false);
+    assert.equal(evaluateTeil1Answer('d', qRoom), false);
+    assert.equal(evaluateTeil1Answer('ein Doppelzimmer', qRoom), true);
 
     const qNumber = { correct_answer: '3', options_json: { accepted_answers: ['3', 'drei'] } };
-    assert.equal(matchTextAnswer('13', qNumber), false);
-    assert.equal(matchTextAnswer('30', qNumber), false);
-    assert.equal(matchTextAnswer('3 Personen', qNumber), true);
+    assert.equal(evaluateTeil1Answer('13', qNumber), false);
+    assert.equal(evaluateTeil1Answer('30', qNumber), false);
+    assert.equal(evaluateTeil1Answer('3 Personen', qNumber), true);
   });
 
   it('evaluates essay word count and points', async () => {

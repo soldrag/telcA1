@@ -14,7 +14,7 @@ export function normalizeUmlauts(str = '') {
     .replace(/ß/g, 'ss');
 }
 
-export function calculateLevenshtein(a = '', b = '') {
+function calculateLevenshtein(a = '', b = '') {
   if (a === b) return 0;
   if (!a.length) return b.length;
   if (!b.length) return a.length;

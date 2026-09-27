@@ -2,7 +2,6 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
-import { assembleDeterministicFeedback } from '../src/services/schreiben/grading/stage4Feedback.js';
 import {
   scoreSentencePair,
   classifyCriterionCoverage,
@@ -21,17 +20,6 @@ describe('MicroRankerProvider & MicroRankerService Tests', () => {
     const provider = new MicroRankerProvider({ embedder: null });
     assert.equal(provider.id, PROVIDER_IDS.MICRO_RANKER);
     assert.ok(provider.name.includes('Micro-Ranker'));
-  });
-
-  it('assembleDeterministicFeedback produces authentic telc feedback from the facts', () => {
-    const feedback = assembleDeterministicFeedback({
-      anredeScore: 2,
-      lpScore: 6,
-      grussScore: 2,
-      grammarErrorCount: 0,
-    });
-    assert.ok(feedback.includes('Die Anrede ist passend'));
-    assert.ok(feedback.includes('vollständig bearbeitet'));
   });
 
   it('computeDeterministicFallbackScore computes token overlap correctly', () => {

@@ -20,7 +20,7 @@ export function countWords(text = '') {
   return ((text || '').match(/[\p{L}\p{N}]+/gu) || []).length;
 }
 
-export function extractBodyText(fullText = '', salutationText = '', closingText = '', senderName = '') {
+function extractBodyText(fullText = '', salutationText = '', closingText = '', senderName = '') {
   let body = fullText;
   if (salutationText) {
     body = body.replace(salutationText, '').trim();

@@ -28,7 +28,6 @@ export function useSchreibenAiChecker({
       : ''
   ));
   const [aiDiffSummary, setAiDiffSummary] = useState(() => item.diff_summary || []);
-  const [feedbackSummary, setFeedbackSummary] = useState(() => item.feedback_summary || '');
   const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
   const [activeProvider, setActiveProvider] = useState(null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
@@ -55,7 +54,6 @@ export function useSchreibenAiChecker({
       onApplyScores,
       onApplyErrors,
       setAiDiffSummary,
-      setFeedbackSummary,
       setExaminerFeedback,
       setLiveCriteriaBreakdown,
       setAiStatus,
@@ -67,7 +65,6 @@ export function useSchreibenAiChecker({
     setAiLoading(true);
     setAiStatus(language === 'ru' ? 'Запуск микро-ранжировщика...' : 'Lade Micro-Ranker...');
     setAiDiffSummary([]);
-    setFeedbackSummary('');
     setExaminerFeedback(null);
     try {
       applyResult(await gradeInBackground());
@@ -91,7 +88,6 @@ export function useSchreibenAiChecker({
     aiLoading,
     aiStatus,
     aiDiffSummary,
-    feedbackSummary,
     examinerFeedback,
     liveCriteriaBreakdown,
     activeProvider,

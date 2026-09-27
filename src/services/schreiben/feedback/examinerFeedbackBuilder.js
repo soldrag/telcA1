@@ -7,7 +7,7 @@
 import { DIAGNOSTIC_CODES, EXAMINER_CODES } from './feedbackContracts.js';
 import { selectGrammarHighlights } from './grammarHighlightSelector.js';
 
-export const EXAMINER_FEEDBACK_VERSION = 1;
+const EXAMINER_FEEDBACK_VERSION = 1;
 
 const LP_STATUS_BY_CODE = Object.freeze({
   [DIAGNOSTIC_CODES.LP_FULFILLED]: 'positive',

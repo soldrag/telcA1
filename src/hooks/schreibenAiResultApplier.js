@@ -12,7 +12,6 @@ export function applyAiGradingResult({
   onApplyScores,
   onApplyErrors,
   setAiDiffSummary,
-  setFeedbackSummary,
   setExaminerFeedback,
   setLiveCriteriaBreakdown,
   setAiStatus,
@@ -39,9 +38,6 @@ export function applyAiGradingResult({
 
   if (Array.isArray(aiResult.diff_summary) && aiResult.diff_summary.length > 0) {
     setAiDiffSummary?.(aiResult.diff_summary);
-  }
-  if (aiResult.feedback_summary) {
-    setFeedbackSummary?.(aiResult.feedback_summary);
   }
   setExaminerFeedback?.(aiResult.examiner_feedback || null);
   setLiveCriteriaBreakdown?.(aiResult.criteria_breakdown);

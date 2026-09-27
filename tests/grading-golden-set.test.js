@@ -178,6 +178,6 @@ Klara Weber`;
     assert.equal(run1.points_earned, run2.points_earned);
     assert.deepEqual(run1.criteria_breakdown, run2.criteria_breakdown);
     assert.deepEqual(run1.grammar_errors, run2.grammar_errors);
-    assert.equal(run1.feedback_summary, run2.feedback_summary);
+    assert.deepEqual(run1.examiner_feedback, run2.examiner_feedback);
   });
 });

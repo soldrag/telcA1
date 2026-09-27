@@ -6,7 +6,7 @@
  * wrong points silently.
  */
 
-export const LEGACY_TASK_LEVEL = 'A1';
+const LEGACY_TASK_LEVEL = 'A1';
 
 /**
  * @param {string} [level] - the task's `level` field

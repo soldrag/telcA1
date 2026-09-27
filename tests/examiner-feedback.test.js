@@ -201,6 +201,5 @@ describe('Examiner feedback: pipeline integration', () => {
       assert.ok(flatText.includes(b.params.quote.replace(/\s+/g, ' ').replace(/[.,!?]$/, '')), b.params.quote);
     }
     assert.ok(d.bullets.some((b) => b.category === 'grammar'));
-    assert.equal(typeof res.feedback_summary, 'string');
   });
 });

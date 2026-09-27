@@ -29,11 +29,11 @@ flowchart TD
 
 | Stage | Modules | Output |
 |---|---|---|
-| 0 | `grading/stage0Preprocessing.js`, `schreibenTextSegmenter.js`, `linguistic/macroSegmenter.js` | sentences, letter zones (salutation / body / closing) |
+| 0 | `grading/stage0Preprocessing.js`, `schreibenTextSegmenter.js`, `linguistic/macroSegmenter.js` | sentences, letter zones (salutation / body / closing); `schreibenTextSegmenter` assigns body sentences to Leitpunkte |
 | 1 | `grading/stage1SalutationClosing.js`, `salutationAnalyzer.js`, `closingAnalyzer.js` | Anrede and Gruß levels |
 | 2 | `grading/stage2Leitpunkte.js`, `grading/pipelineStageScorers.js`, `grading/leitpunktArbitration.js` | level 0/1/2 per Leitpunkt with evidence sentences |
 | 3 | `grading/pipelineStageScorers.collectPipelineGrammarErrors` → [linguistic engine](linguistic-engine.md) | grammar errors (feedback only) |
-| 4 | `grading/stage4Feedback.js`, `grading/pipelineFeedback.js`, `regulations/` | points, examiner feedback |
+| 4 | `regulations/`, `grading/pipelineFeedback.js` | points, examiner feedback descriptor (rendered in the UI language) |
 
 **Entry point:** `gradingPipeline.gradeSchreibenSubmission`, the only grading path. The letter is graded at submission: `localDataService.submitLocalExamAnswers` gives the exam evaluator (`evaluation/examEvaluator.evaluateExamSubmission`) the `gradeEssay` port `grading/essayGrader.gradeEssayWithActiveProvider`, which asks the registry for the provider — the Micro-Ranker whenever it is available — and grades in the Web Worker (`grading/gradingWorkerClient.gradeSchreibenWithWorker`). The provider is chosen on the main thread, where the `telc_ai_provider_override` in localStorage is readable, and reaches the worker only as the fact `forceLimitedMode`; inside the worker the Micro-Ranker counts as available (`WorkerGlobalScope`). The worker is terminated after every grading; its timeout counts idle time between progress messages, so the first model download is not cut off. Without `Worker` the pipeline runs directly; if the worker fails, grading falls back to the limited mode. The saved attempt keeps the full result with `provider_id`, so history, the exam total and the results screen show one grade; the results screen (`useSchreibenAiChecker`) grades again only attempts saved without a provider (`needsPipelineGrading`).
 

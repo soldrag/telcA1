@@ -6,18 +6,18 @@
 import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
 import { isWebGPUAdapterAvailable } from '../../utils/webGpuSupport.js';
 
-export const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
+const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 export const EMBEDDING_DIMENSION = 256;
 
 // Task prefixes verified against EmbeddingGemma model card
-export const TASK_PREFIX_QUERY = 'task: search result | query: ';
+const TASK_PREFIX_QUERY = 'task: search result | query: ';
 export const TASK_PREFIX_TEXT = 'task: search result | text: ';
 
 let extractorInstance = null;
 let isInitializing = false;
 const lpEmbeddingCache = new Map();
 
-export function formatEmbeddingPrompt(text = '', isQuery = false) {
+function formatEmbeddingPrompt(text = '', isQuery = false) {
   const prefix = isQuery ? TASK_PREFIX_QUERY : TASK_PREFIX_TEXT;
   return `${prefix}${String(text || '').trim()}`;
 }
@@ -26,7 +26,7 @@ async function getDeviceTarget() {
   return await isWebGPUAdapterAvailable() ? 'webgpu' : 'wasm';
 }
 
-export async function initEmbeddingService(onProgress = null) {
+async function initEmbeddingService(onProgress = null) {
   if (extractorInstance) return extractorInstance;
   if (isInitializing) {
     while (isInitializing) {

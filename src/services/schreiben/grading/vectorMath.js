@@ -5,7 +5,7 @@
 
 import { EMBEDDING_DIMENSION } from './types.js';
 
-export function truncateMatryoshka(vector = [], dim = EMBEDDING_DIMENSION) {
+function truncateMatryoshka(vector = [], dim = EMBEDDING_DIMENSION) {
   if (!Array.isArray(vector) && !ArrayBuffer.isView(vector)) return [];
   const targetLength = Math.min(vector.length, dim);
   const truncated = new Float32Array(targetLength);
@@ -15,7 +15,7 @@ export function truncateMatryoshka(vector = [], dim = EMBEDDING_DIMENSION) {
   return truncated;
 }
 
-export function l2Normalize(vector = []) {
+function l2Normalize(vector = []) {
   if (!vector || vector.length === 0) return new Float32Array(0);
   let sumSq = 0;
   for (let i = 0; i < vector.length; i++) {

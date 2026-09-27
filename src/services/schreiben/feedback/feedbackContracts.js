@@ -54,14 +54,6 @@ export const EXAMINER_CODES = Object.freeze({
   GRAMMAR_GENERAL: 'GRAMMAR_GENERAL',
 });
 
-export const DIAGNOSTIC_STATUSES = Object.freeze({
-  FULFILLED: 'fulfilled',
-  PARTIAL: 'partial',
-  MISSING: 'missing',
-  INVERTED: 'inverted',
-  FRAME_VIOLATION: 'frame_violation',
-});
-
 export function resolveLpDiagnosticCode(score = 0, inversion = {}, frameValid = true) {
   if (inversion?.isInverted) {
     if (inversion.reason === 'inverted_problem') return DIAGNOSTIC_CODES.LP_INVERTED_DEFECT;

@@ -1,18 +1,7 @@
 /**
- * Stage 4 wiring for gradingPipeline: legacy German summary string + structured examiner feedback.
+ * Stage 4 wiring for gradingPipeline: the structured examiner feedback.
  * The examiner descriptor is provider-independent (works in limited mode and offline).
  */
-
-import { assembleDeterministicFeedback } from './stage4Feedback.js';
-
-function buildLegacyFacts({ stage1, stage2, errors }) {
-  return {
-    anredeScore: stage1.anredeScore,
-    lpScore: (stage2.items || []).reduce((sum, it) => sum + (Number(it.score) || 0), 0),
-    grussScore: stage1.grussScore,
-    grammarErrorCount: errors.length,
-  };
-}
 
 function toClosingQuote(gruss = {}) {
   const text = gruss.text || '';
@@ -52,15 +41,12 @@ export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, use
   };
 }
 
-/**
- * @returns {{ feedbackText: string, examinerFeedback: object|null }}
- */
-export function composePipelineFeedback({ context, policy }) {
-  const feedbackText = assembleDeterministicFeedback(buildLegacyFacts(context));
+/** @returns {object|null} the examiner feedback descriptor; null when the policy could not build it */
+export function composeExaminerFeedback({ context, policy }) {
   try {
-    return { feedbackText, examinerFeedback: policy.buildExaminerFeedback(buildExaminerFeedbackFacts(context)) };
+    return policy.buildExaminerFeedback(buildExaminerFeedbackFacts(context));
   } catch (err) {
     console.warn('[GradingPipeline] Examiner feedback skipped:', err?.message || err);
-    return { feedbackText, examinerFeedback: null };
+    return null;
   }
 }

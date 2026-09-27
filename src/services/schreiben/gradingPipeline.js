@@ -6,13 +6,10 @@
 
 import { runStage0Preprocessing } from './grading/stage0Preprocessing.js';
 import { runStage1Scoring } from './grading/stage1SalutationClosing.js';
-import { composePipelineFeedback } from './grading/pipelineFeedback.js';
+import { composeExaminerFeedback } from './grading/pipelineFeedback.js';
 import { resolveLevelContext } from './levelContext.js';
 import { resolveLeitpunktCriteria } from './leitpunktCriteria.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
-import { calculateLinguisticAccuracy } from './scoring/linguisticAccuracyScorer.js';
-import { getGrammarProfile } from './profiles/index.js';
-import { countLetterBodyWords } from './scoring/letterBodyWordCounter.js';
 import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
@@ -63,7 +60,7 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
   };
 }
 
-function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy }) {
+function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments }) {
   const { items } = stage2;
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
   return {
@@ -73,8 +70,6 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     is_correct: score.total >= regulation.trainingPassMark,
     is_limited_mode: activeProvider.id === PROVIDER_IDS.NONE,
     provider_id: activeProvider.id,
-    provider_name: activeProvider.name,
-    linguistic_accuracy: linguisticAccuracy,
     breakdown: {
       anrede: stage1.anredeScore,
       leitpunkte: items.reduce((sum, it) => sum + it.points, 0),
@@ -85,10 +80,8 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     },
     criteria_breakdown: buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSentences }),
     grammar_errors: errors,
-    feedback_summary: feedback.feedbackText,
-    examiner_feedback: feedback.examinerFeedback,
+    examiner_feedback: examinerFeedback,
     diff_summary: diffSummary,
-    unassigned_sentences: unassignedSentences,
     user_segments: userSegments,
   };
 }
@@ -114,12 +107,11 @@ export async function gradeSchreibenSubmission({
   const stage1 = runStage1Scoring(stage0);
 
   const levelPolicy = levelContext.policy;
-  const seg = segmentUserEssay(raw, criteria, levelContext);
   const userSegments = {
-    anrede: stage0.salutation.recognized ? stage0.salutation.text : (seg.anrede || ''),
-    closing: stage0.closing.recognized ? stage0.closing.text : (seg.closing || ''),
-    senderName: stage0.closing.senderName || seg.senderName || '',
-    leitpunkte: seg.leitpunkte,
+    anrede: stage1.anrede.text,
+    closing: stage1.gruss.text,
+    senderName: stage1.gruss.senderName,
+    leitpunkte: segmentUserEssay(raw, criteria, levelContext).leitpunkte,
   };
 
   onProgress?.('Prüfung der Leitpunkte...', 0.4);
@@ -155,7 +147,7 @@ export async function gradeSchreibenSubmission({
 
   onProgress?.('Erstelle Feedback...', 0.9);
   const scoredStage2 = { ...stage2, items: attachPoints(stage2.items, score) };
-  const feedback = composePipelineFeedback({
+  const examinerFeedback = composeExaminerFeedback({
     context: {
       stage0, stage1, stage2: scoredStage2, errors, userSegments, finalPoints,
       maxPoints: score.maxPoints, isGibberish: quality.isGibberish, leitpunkteVoidReason: score.leitpunkteVoidReason,
@@ -164,15 +156,9 @@ export async function gradeSchreibenSubmission({
   });
 
   const diffSummary = buildDiffSummary(stage2.items);
-  const linguisticAccuracy = calculateLinguisticAccuracy({
-    grammarErrors: errors,
-    wordCount: countLetterBodyWords(userText),
-    isGibberish: quality.isGibberish,
-    weights: getGrammarProfile(question.level).accuracyWeights,
-  });
 
   onProgress?.('Bewertung abgeschlossen', 1.0);
   return assembleGradingResult({
-    stage0, stage1, stage2: scoredStage2, errors, score, regulation, activeProvider, feedback, diffSummary, userSegments, linguisticAccuracy,
+    stage0, stage1, stage2: scoredStage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments,
   });
 }

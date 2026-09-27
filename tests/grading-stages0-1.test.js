@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { runStage0Preprocessing, normalizeRawText, countWords } from '../src/services/schreiben/grading/stage0Preprocessing.js';
 import { runStage1Scoring } from '../src/services/schreiben/grading/stage1SalutationClosing.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 
 const A1 = resolveLevelContext('A1');
 
@@ -40,8 +41,8 @@ Erika Musterfrau`, A1);
 
     assert.equal(stage1.anredeScore, 2);
     assert.equal(stage1.grussScore, 2);
-    assert.match(stage1.anrede.feedback, /passend/i);
-    assert.match(stage1.gruss.feedback, /Grußformel/i);
+    assert.equal(stage1.anrede.diagnosticCode, DIAGNOSTIC_CODES.ANREDE_PERFECT);
+    assert.equal(stage1.gruss.diagnosticCode, DIAGNOSTIC_CODES.GRUSS_PERFECT);
   });
 
   it('Stage 1 awards 1 point for informal salutation in formal context or single name', () => {
@@ -61,7 +62,7 @@ Anna`, A1);
 
     assert.equal(stage1.anredeScore, 0);
     assert.equal(stage1.grussScore, 0);
-    assert.match(stage1.anrede.feedback, /keine|fehl/i);
-    assert.match(stage1.gruss.feedback, /keine|fehl/i);
+    assert.equal(stage1.anrede.diagnosticCode, DIAGNOSTIC_CODES.ANREDE_MISSING);
+    assert.equal(stage1.gruss.diagnosticCode, DIAGNOSTIC_CODES.GRUSS_MISSING);
   });
 });

@@ -27,7 +27,6 @@ export default function SchreibenLetterVerdict({ item, selfCheck, t, language, c
       </h3>
       <SchreibenExaminerFeedbackCard
         examinerFeedback={ai.examinerFeedback}
-        feedbackSummary={ai.feedbackSummary}
         language={language}
         title={t('results.schreibenResult.verdictTitle')}
         findingsLabel={t('results.schreibenResult.findings')}

@@ -1,5 +1,3 @@
-import { analyzeSalutation } from './salutationAnalyzer.js';
-import { analyzeClosing } from './closingAnalyzer.js';
 import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { matchSentenceToCriteria } from './analyzers/semanticTopicMatcher.js';
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
@@ -30,32 +28,23 @@ function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon, pol
   return assignments;
 }
 
-/** @param {{ lexicon: object, grammar: object, policy: object }} levelContext - the level's lexicon port, grammar checker and ranker policy */
-export function segmentUserEssay(rawText = '', criteria = [], { lexicon, grammar, policy } = {}) {
+function extractLetterBody(text) {
+  const { bodyText, anrede, closing } = segmentMacroStructure(text);
+  if (bodyText) return bodyText;
+  const frame = [anrede.recognized && anrede.text, closing.recognized && closing.text, closing.recognized && closing.senderName];
+  return frame.filter(Boolean).reduce((body, part) => body.replace(part, '').trim(), text);
+}
+
+/**
+ * Assigns the body sentences to the Leitpunkte; Anrede and Gruß are stage 0's.
+ * @param {{ lexicon: object, policy: object }} levelContext - the level's lexicon port and ranker policy
+ */
+export function segmentUserEssay(rawText = '', criteria = [], { lexicon, policy } = {}) {
   requireLevelPort(lexicon, 'segmentUserEssay: lexicon');
   const text = (rawText || '').trim();
-  if (!text) {
-    return { anrede: '', closing: '', senderName: '', leitpunkte: [] };
-  }
+  if (!text) return { leitpunkte: [] };
 
-  const salutation = analyzeSalutation(text, { grammar });
-  const closing = analyzeClosing(text);
-  const macro = segmentMacroStructure(text);
-
-  let body = macro.bodyText || text;
-  if (!macro.bodyText) {
-    if (salutation.recognized && salutation.text) {
-      body = body.replace(salutation.text, '').trim();
-    }
-    if (closing.recognized && closing.text) {
-      body = body.replace(closing.text, '').trim();
-    }
-    if (closing.senderName) {
-      body = body.replace(closing.senderName, '').trim();
-    }
-  }
-
-  const sentences = splitGermanSentences(body);
+  const sentences = splitGermanSentences(extractLetterBody(text));
   const assignments = assignSentencesToCriteria(sentences, { criteria, lexicon, policy });
 
   const leitpunkteMatches = criteria.map((crit, idx) => {
@@ -69,10 +58,5 @@ export function segmentUserEssay(rawText = '', criteria = [], { lexicon, grammar
     };
   });
 
-  return {
-    anrede: salutation.recognized ? salutation.text : '',
-    closing: closing.recognized ? closing.text : '',
-    senderName: closing.senderName || '',
-    leitpunkte: leitpunkteMatches
-  };
+  return { leitpunkte: leitpunkteMatches };
 }

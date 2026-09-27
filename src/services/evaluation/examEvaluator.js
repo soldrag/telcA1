@@ -1,4 +1,4 @@
-import { matchTextAnswer } from './schreibenEvaluator.js';
+import { evaluateTeil1Answer } from '../schreiben/schreibenTeil1Evaluator.js';
 
 function parseJsonSafely(jsonString, fallbackValue) {
   if (!jsonString) return fallbackValue;
@@ -29,7 +29,7 @@ async function determineQuestionGrading(question, userAnswer, parsedOptions, gra
   const isBinary = question.correct_answer === 'richtig' || question.correct_answer === 'falsch';
 
   if (!isChoice && !isBinary) {
-    const isCorrect = matchTextAnswer(userAnswer, question);
+    const isCorrect = evaluateTeil1Answer(userAnswer, question);
     return { is_correct: isCorrect, points_earned: isCorrect ? 1 : 0, max_points: 1 };
   }
 
@@ -41,7 +41,7 @@ async function determineQuestionGrading(question, userAnswer, parsedOptions, gra
  * @param {{ gradeEssay: (input: { userText: string, question: object }) => Promise<object> }} ports - the letter
  *   grader (schreiben/grading/essayGrader.gradeEssayWithActiveProvider in the app)
  */
-export async function gradeQuestion(question, answers = {}, { gradeEssay } = {}) {
+async function gradeQuestion(question, answers = {}, { gradeEssay } = {}) {
   const userAnswer = (answers[question.id] || '').trim();
   const parsedOptions = parseJsonSafely(question.options_json, null);
   const grading = await determineQuestionGrading(question, userAnswer, parsedOptions, gradeEssay);
@@ -65,7 +65,6 @@ export async function gradeQuestion(question, answers = {}, { gradeEssay } = {})
     word_count: grading.word_count,
     criteria_breakdown: grading.criteria_breakdown || null,
     examiner_feedback: grading.examiner_feedback || null,
-    feedback_summary: grading.feedback_summary || null,
     grammar_errors: grading.grammar_errors || [],
     diff_summary: grading.diff_summary || [],
     provider_id: grading.provider_id || null,
