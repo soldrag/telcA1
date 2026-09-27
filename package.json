@@ -1,6 +1,6 @@
 {
   "name": "telc-a1-deutsch-lesen",
-  "version": "0.7.103",
+  "version": "0.7.104",
   "license": "MIT",
   "type": "module",
   "description": "Browser-first telc Deutsch A1 exam simulator: Lesen and Schreiben with realistic tasks, timer and in-browser grading",

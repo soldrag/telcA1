@@ -1,10 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { gradeSchreibenWithWorker } from '../services/schreiben/grading/gradingWorkerClient.js';
 import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../services/ai/types.js';
 import { applyAiGradingResult } from './schreibenAiResultApplier.js';
 export { formatDiffEntry } from './schreibenDiffFormatter.js';
 
+
+/**
+ * Whether the results screen should grade the letter with the pipeline: the result stored at submission
+ * comes from the rules-only path and names no provider; a pipeline result does.
+ */
+export function needsPipelineGrading(item = {}) {
+  return Boolean(item.user_answer) && !item.provider_id;
+}
 
 export function useSchreibenAiChecker({
   item,
@@ -77,11 +85,14 @@ export function useSchreibenAiChecker({
     }
   }, [gradeInBackground, applyResult, language]);
 
+  // Once per answer: applying the result changes the scores and with them runGrading's identity.
+  const gradedAnswerRef = useRef(null);
   useEffect(() => {
-    if (!item?.examiner_feedback && item?.user_answer && !aiLoading) {
-      runGrading();
-    }
-  }, [item?.examiner_feedback, item?.user_answer, runGrading]);
+    const answerKey = `${item?.id}:${item?.user_answer}`;
+    if (!needsPipelineGrading(item) || gradedAnswerRef.current === answerKey) return;
+    gradedAnswerRef.current = answerKey;
+    runGrading();
+  }, [item, runGrading]);
 
   return {
     aiLoading,
