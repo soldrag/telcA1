@@ -354,10 +354,6 @@ export const ru = {
       unverifiedSignature: 'Ключ преподавателя не сохранен на этом устройстве',
       enterKeyToVerify: 'Введите ваш ключ преподавателя для проверки',
       verifyBtn: 'Проверить',
-      telemetryTitle: 'Аудит сессии и честности',
-      wallTime: 'Реальное время: {seconds}с',
-      tabSwitches: '{count} переключений вкладок',
-      noTabSwitches: '0 (Вкладка не покидалась)',
     },
     hero: {
       passed: 'Сдано · порог {pass} из {max}',

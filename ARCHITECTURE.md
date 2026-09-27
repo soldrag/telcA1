@@ -135,11 +135,6 @@ classDiagram
         +getAttempts()
         +saveAttempt(attempt)
     }
-    class RemoteApiAttemptStorage {
-        -baseUrl: string
-        +getAttempts()
-        +saveAttempt(attempt)
-    }
     class MemoryAttemptStorage {
         -items: Array
         +getAttempts()
@@ -147,12 +142,10 @@ classDiagram
     }
     
     AttemptStorageInterface <|.. LocalStorageAttemptStorage
-    AttemptStorageInterface <|.. RemoteApiAttemptStorage
     AttemptStorageInterface <|.. MemoryAttemptStorage
 ```
 
 - **LocalStorageAttemptStorage** (Default): Browser-local storage; requires no network, completely private.
-- **RemoteApiAttemptStorage**: Connects to the optional local Express REST backend.
 - **MemoryAttemptStorage**: Ephemeral storage used for isolated tests and headless verification.
 - **AssignmentLockoutStorage**: Stores completion tokens for teacher assignments to prevent duplicate submissions.
 
@@ -346,7 +339,7 @@ sequenceDiagram
 - **Inspection Mode**: Dedicated variant inspection allowing teachers to preview exams without polluting student attempt history.
 - **Assignment Continuity**: Domain service `assignmentTimerService` computes remaining session duration across page reloads based on cryptographic timestamps, preventing infinite retries while preserving student progress.
 - **Immediate Submission & Teacher Link Flow**: Upon completing an assignment, `useExamFlowActions` finalizes the attempt via `assignmentMode.finalizeAssignment`, generating a signed `#review=...` URL and recording lockout state. `buildResultsProps` passes `assignmentSubmission` to `ResultsView`, which immediately presents `AssignmentSubmissionBanner` with a one-click copy button for the teacher link, while preventing unauthorized retakes in `ResultsActionBar`.
-- **Safe Home Navigation & Mode Teardown**: Transitioning to the home screen via `navigateHome` or `leaveExam` cleanly tears down active `reviewMode` or `assignmentMode`, halts telemetry, and purges `#review=` and `#task=` tokens from the browser address bar via `history.replaceState`. This guarantees that browser reloads (F5 / Cmd+R) cleanly return to the Welcome screen rather than reopening stale tokens.
+- **Safe Home Navigation & Mode Teardown**: Transitioning to the home screen via `navigateHome` or `leaveExam` cleanly tears down active `reviewMode` or `assignmentMode` and purges `#review=` and `#task=` tokens from the browser address bar via `history.replaceState`. This guarantees that browser reloads (F5 / Cmd+R) cleanly return to the Welcome screen rather than reopening stale tokens.
 
 ---
 

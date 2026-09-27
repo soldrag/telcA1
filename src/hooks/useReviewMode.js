@@ -107,7 +107,6 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
         createdAt: decoded.createdAt,
         timeSpentSeconds: decoded.timeSpentSeconds,
         assignmentId: decoded.assignmentId || null,
-        telemetry: decoded.telemetry || null,
         verificationStatus,
       });
 

@@ -14,18 +14,6 @@ import { getPrimaryAiProviderId, isGenerativeLlmEnabled } from '../../config/aiC
 
 const STORAGE_OVERRIDE_KEY = 'telc_ai_provider_override';
 
-function reportDetectionTelemetry(data) {
-  try {
-    if (typeof fetch === 'function') {
-      fetch('/api/debug/trace', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ category: 'AI_DETECT', message: 'Provider detection', data })
-      }).catch(() => {});
-    }
-  } catch {}
-}
-
 export class AIProviderRegistry {
   constructor() {
     this.providers = new Map();
@@ -91,18 +79,7 @@ export class AIProviderRegistry {
       }
     }
 
-    const result = selected || this.getProvider(PROVIDER_IDS.NONE);
-    reportDetectionTelemetry({
-      isSecureContext: typeof window !== 'undefined' ? window.isSecureContext : null,
-      protocol: typeof window !== 'undefined' ? window.location?.protocol : null,
-      hostname: typeof window !== 'undefined' ? window.location?.hostname : null,
-      hasNavigatorGpu: typeof navigator !== 'undefined' && Boolean(navigator.gpu),
-      hasWebGpuAdapter: isWebGPUSupported(),
-      hasLanguageModel: Boolean(globalThis.LanguageModel || (typeof window !== 'undefined' && window.ai?.languageModel)),
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
-      selectedProvider: result.id
-    });
-    return result;
+    return selected || this.getProvider(PROVIDER_IDS.NONE);
   }
 
   async getActiveProvider() {

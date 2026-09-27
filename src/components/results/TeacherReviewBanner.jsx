@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GraduationCap, ShieldCheck, ShieldAlert, LogOut, User, Clock, Layers } from 'lucide-react';
+import { GraduationCap, ShieldCheck, ShieldAlert, LogOut, User } from 'lucide-react';
 import { CARD_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
@@ -12,7 +12,6 @@ export default function TeacherReviewBanner({
   const { t } = useI18n();
   const [customKey, setCustomKey] = useState('');
   const status = reviewInfo?.verificationStatus;
-  const telemetry = reviewInfo?.telemetry;
 
   const handleVerify = (e) => {
     e.preventDefault();
@@ -92,23 +91,6 @@ export default function TeacherReviewBanner({
               </form>
             )}
           </div>
-
-          {telemetry && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-border-default text-content-secondary">
-              <div className="flex items-center space-x-1.5">
-                <Clock className="w-3.5 h-3.5 text-content-muted" />
-                <span>{t('results.teacherAudit.wallTime', { seconds: telemetry.wallClockSeconds })}</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <Layers className="w-3.5 h-3.5 text-content-muted" />
-                <span>
-                  {telemetry.tabSwitches > 0
-                    ? t('results.teacherAudit.tabSwitches', { count: telemetry.tabSwitches })
-                    : t('results.teacherAudit.noTabSwitches')}
-                </span>
-              </div>
-            </div>
-          )}
         </div>
       )}
 

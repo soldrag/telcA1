@@ -45,7 +45,7 @@ export function recordAssignmentStarted(assignmentId, metadata = {}) {
   }
 }
 
-export function recordAssignmentSubmitted(assignmentId, { shareUrl, telemetry } = {}) {
+export function recordAssignmentSubmitted(assignmentId, { shareUrl } = {}) {
   if (!assignmentId) return;
   const storage = getStorage();
   if (!storage) return;
@@ -57,7 +57,6 @@ export function recordAssignmentSubmitted(assignmentId, { shareUrl, telemetry } 
       status: 'submitted',
       submittedAt: new Date().toISOString(),
       shareUrl: shareUrl || existing.shareUrl || null,
-      telemetry: telemetry || existing.telemetry || null,
     };
     storage.setItem(`${KEY_PREFIX}${assignmentId}`, JSON.stringify(state));
     return state;

@@ -16,7 +16,7 @@
 
 /**
  * Base Abstract Interface for Exam Attempts Storage.
- * Implementations: LocalStorageAttemptStorage, RemoteApiAttemptStorage, MemoryAttemptStorage.
+ * Implementations: LocalStorageAttemptStorage, MemoryAttemptStorage.
  */
 export class AttemptStorageInterface {
   /**

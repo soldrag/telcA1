@@ -1,4 +1,3 @@
-import { getOrCreateUserId } from './userIdentity.js';
 import {
   getLocalTestTypes,
   getLocalExams,
@@ -31,10 +30,8 @@ function isStaticMode() {
 }
 
 async function request(endpoint, options = {}) {
-  const userId = getOrCreateUserId();
   const headers = {
     'Content-Type': 'application/json',
-    'x-user-id': userId,
     ...(options.headers || {})
   };
 
@@ -95,30 +92,8 @@ export function preloadExamGrading() {
   return preloadLocalGrading().catch(() => {});
 }
 
+/** Answers are graded in the browser and never leave the device. */
 export async function submitExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
   if (!examId) throw new Error('examId is required to submit exam answers');
-  if (isStaticMode()) {
-    return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
-  }
-  try {
-    return await request(`/api/exams/${encodeURIComponent(examId)}/submit`, {
-      method: 'POST',
-      body: JSON.stringify({ answers, timeSpentSeconds })
-    });
-  } catch {
-    return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
-  }
-}
-
-export async function fetchUserAttempts() {
-  try {
-    return await request('/api/attempts');
-  } catch {
-    return { attempts: [], userId: getOrCreateUserId() };
-  }
-}
-
-export async function fetchAttemptDetail(attemptId) {
-  if (!attemptId) throw new Error('attemptId is required to fetch attempt detail');
-  return request(`/api/attempts/${encodeURIComponent(attemptId)}`);
+  return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
 }

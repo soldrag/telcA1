@@ -55,7 +55,6 @@ describe('Assignment Results Flow & Presentation DTO Contracts', () => {
       status: 'submitted',
       submittedAt: '2026-09-19T12:00:00Z',
       shareUrl: 'http://localhost:5173/#review=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.test',
-      telemetry: { wallClockSeconds: 450, tabSwitches: 0 },
     };
 
     let exitCalled = false;

@@ -355,10 +355,6 @@ export const TRANSLATION_CONTRACT = {
       unverifiedSignature: 'string',
       enterKeyToVerify: 'string',
       verifyBtn: 'string',
-      telemetryTitle: 'string',
-      wallTime: 'string',
-      tabSwitches: 'string',
-      noTabSwitches: 'string',
     },
     hero: {
       passed: 'string',

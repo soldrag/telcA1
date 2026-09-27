@@ -9,7 +9,6 @@ import { db, initDatabase } from './db.js';
 import { createExamsRouter } from './routes/exams.js';
 import { createAttemptsRouter } from './routes/attempts.js';
 import { createTestTypesRouter } from './routes/test-types.js';
-import { createDebugRouter } from './routes/debug.js';
 import * as logger from './services/debug-logger.js';
 import {
   createPrecompressedMiddleware,
@@ -43,7 +42,6 @@ app.use('/api', createRateLimiter({ windowMs: 60 * 1000, maxRequests: 120 }));
 app.use('/api/exams', createExamsRouter(db));
 app.use('/api/attempts', createAttemptsRouter(db));
 app.use('/api/test-types', createTestTypesRouter(db));
-app.use('/api/debug', createDebugRouter());
 
 const distPath = path.join(__dirname, '../dist');
 app.use(createPrecompressedMiddleware(distPath));

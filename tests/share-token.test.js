@@ -54,17 +54,11 @@ describe('Share Token Service', () => {
     assert.equal(decoded.studentName, 'Иван Иванов');
   });
 
-  it('preserves assignment metadata and telemetry across encode and decode', async () => {
+  it('preserves assignment metadata across encode and decode', async () => {
     const attemptWithAssignment = {
       ...sampleAttempt,
       assignment_id: 'asg_12345',
       teacher_signature: 'sig_abcde',
-      telemetry: {
-        startedAt: '2026-09-12T09:40:00.000Z',
-        completedAt: '2026-09-12T10:00:00.000Z',
-        wallClockSeconds: 1200,
-        tabSwitches: 2,
-      },
     };
 
     const token = await encodeAttemptToken({
@@ -75,12 +69,6 @@ describe('Share Token Service', () => {
 
     assert.equal(decoded.assignmentId, 'asg_12345');
     assert.equal(decoded.teacherSignature, 'sig_abcde');
-    assert.deepEqual(decoded.telemetry, {
-      startedAt: '2026-09-12T09:40:00.000Z',
-      completedAt: '2026-09-12T10:00:00.000Z',
-      wallClockSeconds: 1200,
-      tabSwitches: 2,
-    });
   });
 
   it('correctly verifies HMAC signature end-to-end between teacher issue and review', async () => {
@@ -108,12 +96,6 @@ describe('Share Token Service', () => {
       answers: { '1': 'a' },
       time_spent_seconds: 400,
       created_at: new Date().toISOString(),
-      telemetry: {
-        startedAt: new Date(Date.now() - 400000).toISOString(),
-        completedAt: new Date().toISOString(),
-        wallClockSeconds: 400,
-        tabSwitches: 0,
-      },
     };
 
     const reviewToken = await encodeAttemptToken({

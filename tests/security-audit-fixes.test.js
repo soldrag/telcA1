@@ -1,8 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { createDebugAuthMiddleware } from '../server/middleware/debug-auth.js';
-import { createDebugRouter } from '../server/routes/debug.js';
 import { createExamsRouter } from '../server/routes/exams.js';
 import { createAttemptsRouter } from '../server/routes/attempts.js';
 import { createSecurityHeadersMiddleware } from '../server/middleware/security-headers.js';
@@ -42,45 +40,6 @@ function createMockRes() {
 }
 
 describe('Security Audit Fixes Verification', () => {
-  describe('Debug API Authentication & Sanitization', () => {
-    it('blocks debug access in production if DEBUG_ADMIN_KEY is absent', () => {
-      const middleware = createDebugAuthMiddleware({ nodeEnv: 'production', adminKey: undefined });
-      const req = { headers: {} };
-      const res = createMockRes();
-      let nextCalled = false;
-
-      middleware(req, res, () => { nextCalled = true; });
-
-      assert.equal(nextCalled, false);
-      assert.equal(res.statusCode, 403);
-      assert.equal(res.body.error, 'Debug API disabled in production');
-    });
-
-    it('rejects access if DEBUG_ADMIN_KEY is set but request has wrong key', () => {
-      const middleware = createDebugAuthMiddleware({ nodeEnv: 'production', adminKey: 'super-secret-123' });
-      const req = { headers: { 'x-debug-key': 'wrong-key' } };
-      const res = createMockRes();
-      let nextCalled = false;
-
-      middleware(req, res, () => { nextCalled = true; });
-
-      assert.equal(nextCalled, false);
-      assert.equal(res.statusCode, 401);
-      assert.equal(res.body.error, 'Unauthorized debug access');
-    });
-
-    it('allows access in production if valid DEBUG_ADMIN_KEY is provided', () => {
-      const middleware = createDebugAuthMiddleware({ nodeEnv: 'production', adminKey: 'super-secret-123' });
-      const req = { headers: { 'x-debug-key': 'super-secret-123' } };
-      const res = createMockRes();
-      let nextCalled = false;
-
-      middleware(req, res, () => { nextCalled = true; });
-
-      assert.equal(nextCalled, true);
-    });
-  });
-
   describe('Exam Questions Sanitization (Anti-Cheat)', () => {
     const db = new DatabaseSync(':memory:');
     db.exec(`

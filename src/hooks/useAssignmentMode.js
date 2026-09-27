@@ -11,13 +11,11 @@ import {
 } from '../services/storage/assignmentLockoutStorage.js';
 import { saveReceivedAssignment, recordReceivedAssignmentResult } from '../services/storage/receivedAssignmentsStorage.js';
 import { calculateAssignmentTimerState } from '../services/assignment/assignmentTimerService.js';
-import { createSessionTelemetryTracker } from '../services/telemetry/sessionTelemetryTracker.js';
 import { buildShareUrl } from '../services/shareTokenService.js';
 
 export function useAssignmentMode({ loader, session, timer, navigateTo, showError } = {}) {
   const [assignmentData, setAssignmentData] = useState(null);
   const [lockoutState, setLockoutState] = useState(null);
-  const trackerRef = useRef(null);
   const processedTokenRef = useRef(null);
 
   const loaderRef = useRef(loader);
@@ -83,18 +81,11 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
       timerState.remainingSeconds
     );
 
-    const tracker = createSessionTelemetryTracker({ initialStartedAt: started?.startedAt });
-    tracker.start();
-    trackerRef.current = tracker;
-
     navigateToRef.current?.('exam');
   }, [assignmentData, lockoutState, ensureExamLoaded]);
 
   const finalizeAssignment = useCallback(async (attempt) => {
     if (!assignmentData) return null;
-    trackerRef.current?.stop();
-    const telemetry = trackerRef.current?.getSummary() || null;
-
     const enrichedAttempt = {
       ...attempt,
       exam_id: assignmentData.examId,
@@ -103,7 +94,6 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
       teacher_signature: assignmentData.signature,
       assignment_created_at: assignmentData.createdAt,
       assignment_time_limit: assignmentData.timeLimitSeconds,
-      telemetry,
     };
 
     const shareUrl = await buildShareUrl({
@@ -111,18 +101,13 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
       studentName: assignmentData.studentName,
     });
 
-    const submitted = recordAssignmentSubmitted(assignmentData.assignmentId, {
-      shareUrl,
-      telemetry,
-    });
+    const submitted = recordAssignmentSubmitted(assignmentData.assignmentId, { shareUrl });
     setLockoutState(submitted);
     recordReceivedAssignmentResult(assignmentData.assignmentId, attempt);
     return shareUrl;
   }, [assignmentData]);
 
   const exitAssignment = useCallback(() => {
-    trackerRef.current?.stop();
-    trackerRef.current = null;
     processedTokenRef.current = null;
     clearAssignmentTokenFromUrl();
     setAssignmentData(null);

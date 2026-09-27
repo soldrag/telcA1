@@ -39,7 +39,6 @@ function mapPayloadToAttempt(data) {
     teacherSignature: data.sig || null,
     assignmentCreatedAt: data.adt || null,
     assignmentTimeLimit: typeof data.alim === 'number' ? data.alim : null,
-    telemetry: data.tel || null,
   };
 }
 
@@ -62,7 +61,6 @@ export async function encodeAttemptToken({ attempt, studentName } = {}) {
     alim: typeof attempt.assignment_time_limit === 'number'
       ? attempt.assignment_time_limit
       : (typeof attempt.assignmentTimeLimit === 'number' ? attempt.assignmentTimeLimit : undefined),
-    tel: attempt.telemetry || undefined,
   };
 
   const serialized = JSON.stringify(payload);

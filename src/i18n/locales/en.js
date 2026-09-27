@@ -354,10 +354,6 @@ export const en = {
       unverifiedSignature: 'Teacher key not configured on this device',
       enterKeyToVerify: 'Enter your teacher key to verify authenticity',
       verifyBtn: 'Verify',
-      telemetryTitle: 'Session Telemetry & Audit',
-      wallTime: 'Real duration: {seconds}s',
-      tabSwitches: '{count} tab switches',
-      noTabSwitches: '0 (Tab never lost focus)',
     },
     hero: {
       passed: 'Passed · pass mark {pass} of {max}',
