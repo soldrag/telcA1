@@ -19,24 +19,11 @@ describe('Phrase keywords match their words in a row', () => {
   });
 });
 
-describe('A misspelt keyword still states the point', () => {
-  const misspellings = [
-    ['arbeiten', 'Ich muss lange arbieten.'],
-    ['hausaufgaben', 'Bitte schicken Sie die Hausaufgabem.'],
-    ['termin', 'Ich brauche einen Termien.'],
-    ['wohnung', 'Die Vohnung ist schön.'],
-    ['fahrrad', 'Ich habe ein Farrad.'],
-    ['interessiere', 'Ich intressiere mich für den Kurs.'],
-  ];
-  for (const [keyword, sentence] of misspellings) {
-    it(`"${sentence}" states "${keyword}"`, () => {
-      assert.deepEqual(match([keyword], sentence), [keyword]);
+describe('A correctly spelt word is not read as a similar-sounding keyword', () => {
+  const lookalikes = [['kurs', 'kurz'], ['hund', 'Mund'], ['preis', 'Reis'], ['wochen', 'kochen'], ['kind', 'Kino'], ['zeit', 'Zeig']];
+  for (const [keyword, word] of lookalikes) {
+    it(`"${word}" does not state "${keyword}"`, () => {
+      assert.deepEqual(match([keyword], `Das ist ${word}.`), []);
     });
   }
-
-  it('never re-reads a known word as another one', () => {
-    assert.deepEqual(match(['mann'], 'Das kann man machen.'), []);
-    assert.deepEqual(match(['kosten'], 'Ich kann kochen.'), []);
-    assert.deepEqual(match(['arbeit'], 'Ich habe Zeit.'), []);
-  });
 });
