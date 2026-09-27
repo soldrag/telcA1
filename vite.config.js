@@ -48,7 +48,7 @@ export default defineConfig({
     i18nContractValidatorPlugin(),
     compression({
       algorithms: ['gzip', 'brotliCompress'],
-      include: /\.(html|css|js|svg|json|wasm)$/,
+      include: /\.(html|css|js|svg|json|wasm|tsv)$/,
     }),
   ],
   build: {

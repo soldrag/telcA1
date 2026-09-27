@@ -57,6 +57,7 @@ export async function gradeSchreibenTeil2({
   // Stage 0 & 1: Deterministic preprocessing and salutation (0 MB models)
   onProgress?.('Vorverarbeitung und Textanalyse...', 0.05);
   const levelContext = resolveLevelContext(question.level);
+  await levelContext.lexicon.load();
   const stage0 = runStage0Preprocessing(raw, levelContext);
   const quality = analyzeGermanQuality(raw, 30);
 

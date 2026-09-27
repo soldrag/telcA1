@@ -92,3 +92,4 @@ npm run eval:schreiben
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — Comprehensive technical architecture, hybrid AI grading pipeline, linguistic parsing engine, and component diagrams.
 - [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) — Guide to creating, formatting, and verifying new exam variants.
+- [CREDITS.md](CREDITS.md) — Libraries, models, fonts and language data this project uses, with their authors and licenses.

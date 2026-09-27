@@ -101,6 +101,7 @@ export async function gradeSchreibenSubmission({
   onProgress = null,
 }) {
   const levelContext = resolveLevelContext(question.level);
+  await levelContext.lexicon.load();
   const stage0 = runStage0Preprocessing(userText, levelContext);
   const raw = stage0.rawText;
   const criteria = resolveLeitpunktCriteria(question);

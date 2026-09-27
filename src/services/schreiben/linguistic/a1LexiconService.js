@@ -4,16 +4,32 @@
  */
 
 import rawLexicon from './a1Lexicon.json' with { type: 'json' };
+import { lookupDictionaryNoun, loadGermanNounDictionary } from './germanNounDictionary.js';
 
 const LEXICON = rawLexicon || {};
 
-export function lookupWord(word = '') {
-  if (!word) return [];
-  const clean = String(word).toLowerCase().replace(/^[.,!?;:]+|[.,!?;:]+$/g, '').trim();
-  return LEXICON[clean] || [];
+// German writes nouns with a capital, so only a capitalised word the A1 vocabulary does not know gets a
+// dictionary noun reading: an unknown verb ("laufen") is not read as "das Laufen", and a known word written
+// with a capital at the sentence start ("Ich", "Liebe") keeps its A1 readings.
+function dictionaryNouns(bare, levelEntries) {
+  if (!/^[A-ZÄÖÜ]/.test(bare) || levelEntries.length > 0) return [];
+  return lookupDictionaryNoun(bare);
 }
 
-/** @returns {string[]} words with at least one entry matching the predicate */
+/** A1 entries first, then general dictionary nouns; the dictionary must be loaded (loadGermanNounDictionary). */
+export function lookupWord(word = '') {
+  if (!word) return [];
+  const bare = String(word).replace(/^[.,!?;:]+|[.,!?;:]+$/g, '').trim();
+  const levelEntries = LEXICON[bare.toLowerCase()] || [];
+  return levelEntries.length > 0 ? levelEntries : dictionaryNouns(bare, levelEntries);
+}
+
+/** Loads the general dictionary data the lookups rely on; resolves immediately once loaded. */
+export function loadLexiconData() {
+  return loadGermanNounDictionary();
+}
+
+/** @returns {string[]} A1 vocabulary forms with at least one entry matching the predicate (no dictionary nouns) */
 export function findWordForms(predicate) {
   return Object.keys(LEXICON).filter((word) => LEXICON[word].some(predicate));
 }
@@ -81,7 +97,7 @@ function resolveSpecialParticles(lower = '', prevToken = null, nextToken = null)
 export function disambiguateToken(rawWord = '', prevToken = null, nextToken = null, hasFiniteVerb = false) {
   const raw = String(rawWord || '').trim();
   const lower = raw.toLowerCase().replace(/^[.,!?;:]+|[.,!?;:]+$/g, '');
-  const candidates = lookupWord(lower);
+  const candidates = lookupWord(raw);
 
   const fallback = {
     raw,

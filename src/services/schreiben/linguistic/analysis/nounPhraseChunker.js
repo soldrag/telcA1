@@ -33,7 +33,7 @@ function readPreposition(token = {}) {
 
 function readDate(tokens, start, lexicon) {
   if (!isOrdinalDay(tokens[start])) return null;
-  const month = analyzeNoun(tokens[start + 1]?.lower, lexicon);
+  const month = analyzeNoun(tokens[start + 1]?.raw, lexicon);
   const end = month?.entry.category === 'month' ? start + 1 : start;
   return { start, end, isCalendar: true };
 }
@@ -55,7 +55,7 @@ function readNounPhrase(tokens, start, governor, lexicon) {
     if (!analysis) return null;
     adjectives.push({ token: tokens[i++], analysis });
   }
-  const noun = tokens[i] && isNounToken(tokens[i]) ? analyzeNoun(tokens[i].lower, lexicon) : null;
+  const noun = tokens[i] && isNounToken(tokens[i]) ? analyzeNoun(tokens[i].raw, lexicon) : null;
   if (!noun) return null;
   const isCalendar = CALENDAR_CATEGORIES.has(noun.entry.category);
   return { start, end: i, determiner: determiner.token ? determiner : null, quantifier, adjectives, head: { token: tokens[i], analysis: noun }, isCalendar };

@@ -18,16 +18,20 @@ function allowedCases(lowerForm, entry) {
   return isBaseForm ? ['NOM'] : ['AKK', 'DAT', 'GEN'];
 }
 
+const slotOf = (entry) => (entry.number === 'pl' ? 'pl' : entry.gender);
+
 /**
- * @param {string} lowerForm
+ * @param {string} form - the noun as written (capitalisation decides dictionary noun readings)
  * @param {{ lookup: Function }} lexicon - level vocabulary port
- * @returns {{ slot: string, cases: string[], entry: object } | null} null for unknown nouns
+ * @returns {{ slot: string, cases: string[], entry: object } | null} null for unknown nouns and for forms whose
+ *   gender/number the word alone does not fix ("der/die Lehrer", "der/das Joghurt", adjectival "Erwachsene")
  */
-export function analyzeNoun(lowerForm, lexicon) {
-  const entry = lexicon.lookup(lowerForm || '').find((e) => e.pos === 'NOUN' && (e.number === 'pl' || e.gender));
-  if (!entry) return null;
-  const slot = entry.number === 'pl' ? 'pl' : entry.gender;
-  return { slot, cases: allowedCases(lowerForm, entry), entry };
+export function analyzeNoun(form, lexicon) {
+  const nouns = lexicon.lookup(form || '').filter((e) => e.pos === 'NOUN');
+  const slots = new Set(nouns.map(slotOf));
+  if (nouns.length === 0 || slots.size !== 1 || slots.has(undefined) || nouns.some((e) => e.adjectivalDeclension)) return null;
+  const entry = nouns[0];
+  return { slot: slotOf(entry), cases: allowedCases(String(form).toLowerCase().replace(/[.,!?;:]+$/, ''), entry), entry };
 }
 
 export function generateNoun(rawForm, analysis, grammaticalCase) {

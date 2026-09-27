@@ -2,11 +2,11 @@
  * telc A1 grammar profile: the A1 vocabulary, the rules checked at this level and its tolerances.
  * Other levels add their own profile; the grammar engine stays unchanged.
  */
-import { lookupWord, findWordForms, tagTokens } from '../linguistic/a1LexiconService.js';
+import { lookupWord, findWordForms, tagTokens, loadLexiconData } from '../linguistic/a1LexiconService.js';
 
 export const A1_GRAMMAR_PROFILE = Object.freeze({
   level: 'A1',
-  lexicon: Object.freeze({ lookup: lookupWord, findForms: findWordForms, tag: tagTokens }),
+  lexicon: Object.freeze({ load: loadLexiconData, lookup: lookupWord, findForms: findWordForms, tag: tagTokens }),
   rules: Object.freeze(['nounPhraseCase', 'calendarArticle', 'numeralPlural', 'countability', 'subjectVerbAgreement', 'measurePhraseOrder',
     'verbFrame', 'determinerlessCountNoun']),
   letterRules: Object.freeze(['salutationAgreement', 'salutationCommaCase', 'closingFormula', 'nounCapitalization', 'umlautSpelling']),

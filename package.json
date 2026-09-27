@@ -1,6 +1,6 @@
 {
   "name": "telc-a1-deutsch-lesen",
-  "version": "0.7.88",
+  "version": "0.7.89",
   "license": "MIT",
   "type": "module",
   "description": "Interactive Telc Deutsch A1 Lesen Exam Web Application with realistic tasks, timer, scoring and explanations",
@@ -9,18 +9,19 @@
     "dev:client": "vite",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "verify:contracts": "node scripts/verify-contracts.js",
-    "test": "node --test tests/*.test.js",
+    "test": "node --import ./tests/support/loadLexiconData.js --test tests/*.test.js",
     "test:e2e": "node tests/e2e/all-buttons-smoke.js",
     "test:e2e:assignment": "node tests/e2e/assignment-flow-e2e.js",
     "test:e2e:mobile": "node tests/e2e/mobile-layout.test.js",
     "test:e2e:grid": "node tests/e2e/grid-alignment.test.js",
-    "test:eval": "node --test tests/eval/*.test.js",
+    "test:eval": "node --import ./tests/support/loadLexiconData.js --test tests/eval/*.test.js",
     "bench:schreiben": "node scripts/bench-schreiben-leitpunkte.mjs",
     "eval:schreiben": "node tests/eval/eval-scorecard-reporter.js",
     "validate:seeds": "node server/database/validate-seeds.js",
     "prebuild": "npm run verify:contracts && npm run test",
     "build": "vite build",
-    "start": "NODE_ENV=production node server/index.js"
+    "start": "NODE_ENV=production node server/index.js",
+    "build:lexicon": "node scripts/lexicon/buildGermanNouns.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
