@@ -28,17 +28,7 @@ describe('PWA & Offline Capability Contracts', () => {
     }
   });
 
-  it('validates service worker (sw.js) syntax and essential offline handlers', () => {
-    const swPath = path.join(rootDir, 'public/sw.js');
-    assert.ok(fs.existsSync(swPath), 'public/sw.js must exist');
-
-    const content = fs.readFileSync(swPath, 'utf8');
-    assert.ok(content.includes("self.addEventListener('install'"), 'must have install listener');
-    assert.ok(content.includes("self.addEventListener('activate'"), 'must have activate listener');
-    assert.ok(content.includes("self.addEventListener('fetch'"), 'must have fetch listener');
-    assert.ok(content.includes('caches.open'), 'must use Cache API');
-    assert.ok(content.includes('handleNavigation'), 'must handle navigation requests');
-  });
+  // The generated service worker is checked by behaviour, not by its text: tests/ui/offline.spec.js.
 
   it('verifies pwaRegister service utility functions', async () => {
     assert.equal(typeof isOnline(), 'boolean', 'isOnline must return a boolean');

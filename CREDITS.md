@@ -51,5 +51,7 @@ data, these files are themselves licensed under **CC BY-SA 4.0**. The rest of th
 | [PostCSS](https://postcss.org), [Autoprefixer](https://github.com/postcss/autoprefixer) | Andrey Sitnik | MIT |
 | [Terser](https://terser.org) | Mihai Bazon and contributors | BSD-2-Clause |
 | [vite-plugin-compression2](https://github.com/nonzzz/vite-plugin-compression) | Kanno | MIT |
+| [vite-plugin-pwa](https://vite-pwa-org.netlify.app) (generates the offline service worker) | Anthony Fu and contributors | MIT |
+| [Workbox](https://developer.chrome.com/docs/workbox) (`workbox-build`, used by vite-plugin-pwa) | Google LLC | MIT |
 | [Playwright](https://playwright.dev) (`@playwright/test`, UI tests only) | Microsoft | Apache-2.0 |
 | [nginx](https://nginx.org), via [nginx-unprivileged](https://github.com/nginx/docker-nginx-unprivileged) (Docker image only) | F5, Inc. and the nginx contributors | BSD-2-Clause |

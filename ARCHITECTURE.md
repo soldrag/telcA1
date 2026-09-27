@@ -49,7 +49,7 @@ flowchart TB
 | `shared/testTypes.js` | module rules (time, tasks, points) |
 | `scripts/seeds/`, `scripts/lexicon/` | seed validator, dictionary builders |
 | `tests/` | unit tests, `ui/` (Playwright), `eval/`, `fixtures/` |
-| `public/` | service worker, theme script, icons, fonts, manifest |
+| `public/` | theme script, icons, fonts, manifest (the service worker is generated at build) |
 
 ## Documentation map
 

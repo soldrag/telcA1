@@ -49,7 +49,7 @@ Nothing is sent anywhere: no telemetry, no user id, no remote attempt storage.
 
 ## Offline and PWA
 
-- `public/sw.js` precaches the app shell and caches assets on first use (including the lexicon dictionaries); registered by `services/pwaRegister.js` only in a secure context.
+- `sw.js` is generated at build by vite-plugin-pwa (Workbox, `offlinePrecachePlugin` in `vite.config.js`): it precaches every file of the build — lazy chunks and the lexicon dictionaries included, the 22 MB ONNX wasm excluded — so after the first visit the app opens and grades offline; registered by `services/pwaRegister.js` only in a secure context.
 - EmbeddingGemma weights are downloaded at run time from Hugging Face and cached by the browser (CacheStorage/IndexedDB via Transformers.js); without them grading falls back to the limited deterministic mode.
 
 ## Delivery

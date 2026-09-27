@@ -3,6 +3,7 @@ import { execSync } from 'node:child_process';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { compression } from 'vite-plugin-compression2';
+import { VitePWA } from 'vite-plugin-pwa';
 import { i18nContractValidatorPlugin } from './src/i18n/build/i18nPlugin.js';
 
 const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
@@ -31,6 +32,28 @@ function getVendorChunk(id) {
   if (id.includes('/src/data/exams/')) {
     return 'exam-seeds';
   }
+}
+
+// The Lexicon TSV is the largest file the app needs offline; Workbox skips anything above its 2 MB default.
+const PRECACHE_FILE_LIMIT_BYTES = 6 * 1024 * 1024;
+
+// Offline-first (CLAUDE.md §0): the service worker precaches every file of the build, lazy chunks included,
+// so the app opens and grades without a network after the first visit. The ONNX wasm (22 MB) is left out:
+// grading falls back to the limited mode offline. Registration stays in src/services/pwaRegister.js.
+function offlinePrecachePlugin() {
+  return VitePWA({
+    injectRegister: false,
+    manifest: false,
+    filename: 'sw.js',
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2,webmanifest,tsv}'],
+      maximumFileSizeToCacheInBytes: PRECACHE_FILE_LIMIT_BYTES,
+      navigateFallback: 'index.html',
+      cleanupOutdatedCaches: true,
+      clientsClaim: true,
+      skipWaiting: true,
+    },
+  });
 }
 
 const MAIN_CHUNK_LIMIT_BYTES = 300 * 1000;
@@ -65,6 +88,7 @@ export default defineConfig({
     react(),
     i18nContractValidatorPlugin(),
     mainChunkBudgetPlugin(),
+    offlinePrecachePlugin(),
     compression({
       algorithms: ['gzip', 'brotliCompress'],
       include: /\.(html|css|js|svg|json|wasm|tsv)$/,
