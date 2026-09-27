@@ -1,10 +1,10 @@
 /**
  * Concept domain scorer: recognises a rubric aspect in a sentence through the level's concept domains
- * (stem clusters injected as `domains`, see IRankerPolicy.conceptDomains) and proves declared evidence
+ * (word clusters injected as `domains`, see IRankerPolicy.conceptDomains) and proves declared evidence
  * kinds with the structured detectors (time expressions, person counts, occupations).
  */
 
-import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { stemByLemma } from '../linguistic/lemmaStem.js';
 import { detectTemporalExpression } from './temporalRangeDetector.js';
 import { hasPersonCount } from './personCountDetector.js';
 import { hasOccupation } from './occupationDetector.js';
@@ -18,30 +18,58 @@ const OCCUPATION_EVIDENCE_SCORE = 0.9;
 const TIME_DIMENSION_WORDS = new Set(['zeit', 'zeitraum', 'dauer', 'dauert']);
 
 const MIN_COMPOUND_HEAD_LENGTH = 4;
-// Numerals and function words are never the head of a compound ("Klavier", "reservieren").
-const CLOSED_CLASS_STEMS = new Set(['zwei', 'drei', 'vier', 'fuenf', 'fünf', 'paar', 'allein', 'alleine',
-  'wann', 'warum', 'weil', 'denn', 'viel']);
+const indexCache = new WeakMap();
 
-// German compounds are right-headed ("Kurskosten" is a kind of Kosten, "Haustiere" of Tier), so a
-// domain stem proves the concept when it is the whole word or its head, never a mere substring ("Steuer").
-function isDomainHead(word, domainStem) {
-  if (word === domainStem) return true;
-  if (CLOSED_CLASS_STEMS.has(domainStem)) return false;
-  return domainStem.length >= MIN_COMPOUND_HEAD_LENGTH && word.endsWith(domainStem);
+// A compound's head is a noun or a nominalised verb ("Kurskosten" is a kind of Kosten); a word the
+// lexicon knows only in other classes (numerals, adverbs, conjunctions) never heads one ("Klavier").
+function canHeadCompound(word, lexicon) {
+  if (word.length < MIN_COMPOUND_HEAD_LENGTH) return false;
+  const entries = lexicon.lookup(word) || [];
+  return entries.length === 0 || entries.some((e) => e.pos === 'NOUN' || String(e.pos).startsWith('VERB'));
 }
 
-/** @param {Record<string, string[]>} domains - the level's concept domains */
-export function resolveConceptDomain(token = '', domains = {}) {
+function indexDomainWords(domains, lexicon) {
+  return Object.values(domains).map((words) => {
+    const entries = words.map((word) => ({ word, stem: stemByLemma(word, lexicon), isHead: canHeadCompound(word, lexicon) }));
+    return { entries, stems: [...new Set(entries.map((e) => e.stem))] };
+  });
+}
+
+// Domains are level data written as words; they are stemmed by the same lexicon as the text, once per pair.
+function domainIndex(domains, lexicon) {
+  if (!indexCache.has(domains)) indexCache.set(domains, new WeakMap());
+  const byLexicon = indexCache.get(domains);
+  if (!byLexicon.has(lexicon)) byLexicon.set(lexicon, indexDomainWords(domains, lexicon));
+  return byLexicon.get(lexicon);
+}
+
+function lemmasOf(word, lexicon) {
+  return (lexicon.lookup(word) || []).map((e) => String(e.lemma || '').toLowerCase()).filter(Boolean);
+}
+
+// German compounds are right-headed ("Haustiere" is a kind of Tier), so a domain word proves the concept
+// when it is the whole word or its head, never a mere substring ("Steuer").
+function isDomainHit(token, entry) {
+  if (token.stem === entry.stem) return true;
+  return entry.isHead && token.forms.some((form) => form.endsWith(entry.word));
+}
+
+/**
+ * @param {string} token - a word of an aspect label
+ * @param {Record<string, string[]>} domains - the level's concept domains (words)
+ * @param {{ lookup: Function }} lexicon - the level's lexicon port
+ * @returns {string[]|null} the stems of the token's domain
+ */
+export function resolveConceptDomain(token, domains, lexicon) {
   const clean = String(token || '').toLowerCase();
-  const forms = [clean, stemGermanWord(clean)];
-  for (const stems of Object.values(domains)) {
-    if (stems.some((s) => forms.some((form) => isDomainHead(form, s)))) return stems;
-  }
-  return null;
+  if (!clean) return null;
+  const probe = { stem: stemByLemma(clean, lexicon), forms: [clean, ...lemmasOf(clean, lexicon)] };
+  const domain = domainIndex(domains, lexicon).find((d) => d.entries.some((entry) => isDomainHit(probe, entry)));
+  return domain ? domain.stems : null;
 }
 
-export function getDomainStemsForToken(token = '', domains = {}) {
-  return resolveConceptDomain(token, domains) || [stemGermanWord(String(token || '').toLowerCase())];
+export function getDomainStemsForToken(token, domains, lexicon) {
+  return resolveConceptDomain(token, domains, lexicon) || [stemByLemma(token, lexicon)];
 }
 
 /**
@@ -59,9 +87,10 @@ export function scoreStructuredAspectEvidence(evidence, rawSentence = '') {
 
 /**
  * @param {{ label: string, evidence?: string|null }} aspect
- * @param {{ sentenceStems: string[], rawSentence: string, domains: Record<string, string[]> }} sentence
+ * @param {{ sentenceStems: string[], rawSentence: string, domains: Record<string, string[]>, lexicon: object }} sentence
+ *   - sentence stems by stemByLemma with the same lexicon
  */
-export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = null } = {}, { sentenceStems = [], rawSentence = '', domains = {} } = {}) {
+export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = null } = {}, { sentenceStems = [], rawSentence = '', domains = {}, lexicon } = {}) {
   if (!aspectLabel || (sentenceStems.length === 0 && !rawSentence)) return 0;
 
   const aspectTokens = aspectLabel
@@ -79,7 +108,7 @@ export function scoreAspectConceptOverlap({ label: aspectLabel = '', evidence = 
 
     // Plain lexical overlap (incl. function words like "Sie"/"für") is scored elsewhere;
     // only genuine concept-domain hits earn the concept bonus.
-    const domainStems = resolveConceptDomain(token, domains);
+    const domainStems = resolveConceptDomain(token, domains, lexicon);
     if (!domainStems) continue;
     const matches = domainStems.filter((s) => sentenceStems.includes(s));
     if (matches.length > 0) {

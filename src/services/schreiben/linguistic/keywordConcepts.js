@@ -4,7 +4,7 @@
  * Two keywords are one concept when they share a lemma in the lexicon port or a stem.
  */
 
-import { stemGermanWord } from './germanStemmer.js';
+import { stemByLemma } from './lemmaStem.js';
 import { findMatchedKeywords } from './keywordStemMatcher.js';
 
 function splitWords(keyword) {
@@ -13,7 +13,7 @@ function splitWords(keyword) {
 
 function conceptKeys(keyword, lexicon) {
   const parts = splitWords(keyword);
-  const keys = new Set([`stem:${parts.map((w) => stemGermanWord(w)).join(' ')}`]);
+  const keys = new Set([`stem:${parts.map((w) => stemByLemma(w, lexicon)).join(' ')}`]);
   if (parts.length !== 1) return keys;
   for (const entry of lexicon.lookup(parts[0]) || []) {
     if (entry.lemma) keys.add(`lemma:${String(entry.lemma).toLowerCase()}`);

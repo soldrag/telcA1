@@ -91,7 +91,7 @@ describe('arbitration with the ranker as arbiter', () => {
 
 describe('Concept domains match a whole word or a compound head, never a substring', async () => {
   const { resolveConceptDomain } = await import('../src/services/schreiben/grading/conceptDomainScorer.js');
-  const domainOf = (word) => resolveConceptDomain(word, policy.conceptDomains)?.[0] ?? null;
+  const domainOf = (word) => resolveConceptDomain(word, policy.conceptDomains, policy.lexicon)?.[0] ?? null;
 
   it('credits compounds by their head', () => {
     assert.equal(domainOf('kurskosten'), domainOf('kosten'));

@@ -1,12 +1,12 @@
 /**
- * Rubric keyword ↔ text word matching by stem, guarded by word class.
- * The stemmer folds "Anmeldung"/"anmelden" together on purpose, but also "Wohnung"/"wohne" and
- * "Zeitung"/"Zeit": a stem match between a word the lexicon knows only as a noun and one it knows
- * only as a verb is a different concept. Rubrics that mean both list both forms.
+ * Rubric keyword ↔ text word matching by stem of the lemma, guarded by word class.
+ * The stemmer folds "Anmeldung"/"anmelden" together on purpose, but may fold a noun with an unrelated
+ * verb: a stem match between a word the lexicon knows only as a noun and one it knows only as a verb
+ * is a different concept. Rubrics that mean both list both forms.
  * Unknown words (typos, words outside the lexicon) keep the plain stem match.
  */
 
-import { stemGermanWord } from './germanStemmer.js';
+import { stemByLemma } from './lemmaStem.js';
 
 function wordClasses(word, lexicon) {
   const entries = lexicon.lookup(word) || [];
@@ -33,7 +33,7 @@ function cleanWord(word) {
 }
 
 function matchesToken(keywordWord, token, lexicon) {
-  return token.stem === stemGermanWord(keywordWord) && areWordClassesCompatible(keywordWord, token.w, lexicon);
+  return token.stem === stemByLemma(keywordWord, lexicon) && areWordClassesCompatible(keywordWord, token.w, lexicon);
 }
 
 // A phrase keyword ("nächste woche") needs its words in a row, each matched like a single keyword.
@@ -46,7 +46,7 @@ function matchesPhraseAt(parts, tokens, start, lexicon) {
 function separableVerbParts(keyword, lexicon) {
   const entry = (lexicon.lookup(keyword) || []).find((e) => e.valency === 'SEP' && e.baseVerb);
   if (!entry || !keyword.endsWith(entry.baseVerb)) return null;
-  return { prefix: keyword.slice(0, keyword.length - entry.baseVerb.length), baseStem: stemGermanWord(entry.baseVerb) };
+  return { prefix: keyword.slice(0, keyword.length - entry.baseVerb.length), baseStem: stemByLemma(entry.baseVerb, lexicon) };
 }
 
 function isClauseFinal(tokens, index) {
@@ -60,10 +60,10 @@ function matchesSeparatedVerb({ prefix, baseStem }, tokens) {
   }));
 }
 
-function toTokens(words) {
+function toTokens(words, lexicon) {
   return words.map((raw) => ({ w: cleanWord(raw), closesClause: /[.,!?;:]$/.test(String(raw)) }))
     .filter((t) => t.w)
-    .map((t) => ({ ...t, stem: stemGermanWord(t.w) }));
+    .map((t) => ({ ...t, stem: stemByLemma(t.w, lexicon) }));
 }
 
 function matchesKeyword(keyword, tokens, lexicon) {
@@ -80,6 +80,6 @@ function matchesKeyword(keyword, tokens, lexicon) {
  * @returns {string[]} the matched keywords
  */
 export function findMatchedKeywords(keywords = [], words = [], lexicon) {
-  const tokens = toTokens(words);
+  const tokens = toTokens(words, lexicon);
   return keywords.filter((keyword) => matchesKeyword(keyword, tokens, lexicon));
 }

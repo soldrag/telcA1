@@ -30,7 +30,11 @@ describe('A correctly spelt word is not read as a similar-sounding keyword', () 
 
 describe('A separable verb keyword matches its split form (Satzklammer)', () => {
   const stub = {
-    lookup: (w) => ({ zumachen: [{ pos: 'VERB_INF', lemma: 'zumachen', valency: 'SEP', baseVerb: 'machen' }] })[w] || null,
+    lookup: (w) => ({
+      zumachen: [{ pos: 'VERB_INF', lemma: 'zumachen', valency: 'SEP', baseVerb: 'machen' }],
+      macht: [{ pos: 'VERB_FIN', lemma: 'machen' }],
+      mache: [{ pos: 'VERB_FIN', lemma: 'machen' }],
+    })[w] || null,
   };
   const matchSep = (text) => findMatchedKeywords(['zumachen'], words(text), stub);
 

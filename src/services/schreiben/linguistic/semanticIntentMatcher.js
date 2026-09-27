@@ -100,7 +100,7 @@ export function matchPropositionToIntent(clauseProps, { intentType, targets = ne
  */
 export function classifySentenceClauses(sentence = '', { criterion = {}, lexicon } = {}) {
   const intentType = resolveCriterionIntent(criterion);
-  const targets = buildRequestTargets(criterion);
+  const targets = buildRequestTargets(criterion, lexicon);
   const clauses = parseSentencePropositions(sentence, { lexicon }).map((c) => ({
     text: c.rawText,
     ...matchPropositionToIntent(c, { intentType, targets })

@@ -6837,5 +6837,113 @@
       "gender": "m",
       "number": "sg"
     }
+  ],
+  "teuer": [
+    {
+      "pos": "ADJ",
+      "lemma": "teuer"
+    }
+  ],
+  "teure": [
+    {
+      "pos": "ADJ",
+      "lemma": "teuer"
+    }
+  ],
+  "teuren": [
+    {
+      "pos": "ADJ",
+      "lemma": "teuer"
+    }
+  ],
+  "teurer": [
+    {
+      "pos": "ADJ",
+      "lemma": "teuer"
+    }
+  ],
+  "teures": [
+    {
+      "pos": "ADJ",
+      "lemma": "teuer"
+    }
+  ],
+  "teurem": [
+    {
+      "pos": "ADJ",
+      "lemma": "teuer"
+    }
+  ],
+  "billig": [
+    {
+      "pos": "ADJ",
+      "lemma": "billig"
+    }
+  ],
+  "billige": [
+    {
+      "pos": "ADJ",
+      "lemma": "billig"
+    }
+  ],
+  "billigen": [
+    {
+      "pos": "ADJ",
+      "lemma": "billig"
+    }
+  ],
+  "billiger": [
+    {
+      "pos": "ADJ",
+      "lemma": "billig"
+    }
+  ],
+  "billiges": [
+    {
+      "pos": "ADJ",
+      "lemma": "billig"
+    }
+  ],
+  "billigem": [
+    {
+      "pos": "ADJ",
+      "lemma": "billig"
+    }
+  ],
+  "günstig": [
+    {
+      "pos": "ADJ",
+      "lemma": "günstig"
+    }
+  ],
+  "günstige": [
+    {
+      "pos": "ADJ",
+      "lemma": "günstig"
+    }
+  ],
+  "günstigen": [
+    {
+      "pos": "ADJ",
+      "lemma": "günstig"
+    }
+  ],
+  "günstiger": [
+    {
+      "pos": "ADJ",
+      "lemma": "günstig"
+    }
+  ],
+  "günstiges": [
+    {
+      "pos": "ADJ",
+      "lemma": "günstig"
+    }
+  ],
+  "günstigem": [
+    {
+      "pos": "ADJ",
+      "lemma": "günstig"
+    }
   ]
 }

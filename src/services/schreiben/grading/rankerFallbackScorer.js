@@ -5,7 +5,7 @@
  * Strictly complies with McConnell limits (<= 150 lines, <= 25 lines per function).
  */
 
-import { stemGermanWord } from '../linguistic/germanStemmer.js';
+import { stemByLemma } from '../linguistic/lemmaStem.js';
 import { scoreAspectConceptOverlap, scoreStructuredAspectEvidence, getDomainStemsForToken } from './conceptDomainScorer.js';
 import { requireLevelPort } from './levelPorts.js';
 import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
@@ -18,17 +18,16 @@ const STOP_WORDS = new Set([
 ]);
 const MAX_QUERY_KEYWORDS = 8;
 
-function toStems(text = '') {
-  return String(text)
-    .toLowerCase()
-    .replace(/[.,!?;:]+/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((w) => stemGermanWord(w));
+function splitLabelWords(text) {
+  return String(text || '').toLowerCase().replace(/[.,!?;:]+/g, ' ').split(/\s+/).filter(Boolean);
+}
+
+function toStems(text, lexicon) {
+  return splitLabelWords(text).map((w) => stemByLemma(w, lexicon));
 }
 
 function scoreKeywordCoverage(keywords = [], sentence = '', lexicon) {
-  const stemOf = (k) => stemGermanWord(String(k).toLowerCase());
+  const stemOf = (k) => stemByLemma(k, lexicon);
   const kwStems = [...new Set(keywords.map(stemOf))];
   if (kwStems.length === 0) return 0;
   const matched = new Set(findMatchedKeywords(keywords, sentence.split(/\s+/), lexicon).map(stemOf)).size;
@@ -50,7 +49,7 @@ function scoreLabelTokenOverlap(criterionText = '', sentStems = [], lexicon) {
     .filter((w) => w.length > 2 && !STOP_WORDS.has(w.toLowerCase()));
   if (contentWords.length === 0) return 0.5;
   const nouns = contentWords.filter((w) => isLabelNoun(w, lexicon));
-  const topicStems = (nouns.length > 0 ? nouns : contentWords).map((w) => stemGermanWord(w.toLowerCase()));
+  const topicStems = (nouns.length > 0 ? nouns : contentWords).map((w) => stemByLemma(w, lexicon));
   return topicStems.filter((stem) => sentStems.includes(stem)).length / topicStems.length;
 }
 
@@ -74,9 +73,9 @@ export function computeFallbackEvidence(aspect, sentenceText = '', { policy } = 
   const normSent = String(sentenceText).toLowerCase();
   if (!normSent.trim()) return { lexical: 0, structured: 0 };
 
-  const sentStems = toStems(normSent);
+  const sentStems = toStems(normSent, policy.lexicon);
   const keywordScore = scoreKeywordCoverage(keywords, normSent, policy.lexicon);
-  const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, { sentenceStems: sentStems, rawSentence: normSent, domains: policy.conceptDomains });
+  const conceptScore = scoreAspectConceptOverlap({ label: label.toLowerCase(), evidence }, { sentenceStems: sentStems, rawSentence: normSent, domains: policy.conceptDomains, lexicon: policy.lexicon });
   const labelScore = conceptScore > 0 ? conceptScore : scoreLabelTokenOverlap(label, sentStems, policy.lexicon);
   const lexical = Math.max(keywordScore, labelScore);
   const structured = scoreStructuredAspectEvidence(evidence, normSent);
@@ -101,10 +100,10 @@ function findExplicitAspectKeywords(criterion, aspectLabel) {
   return Array.isArray(match?.keywords) ? match.keywords : null;
 }
 
-function assignKeywordByLexicon(keyword, aspectLabels, domains) {
-  const kwStem = stemGermanWord(String(keyword).toLowerCase());
+function assignKeywordByLexicon(keyword, aspectLabels, { conceptDomains, lexicon }) {
+  const kwStem = stemByLemma(keyword, lexicon);
   return aspectLabels.find((label) =>
-    toStems(label).some((token) => getDomainStemsForToken(token, domains).includes(kwStem))
+    splitLabelWords(label).some((token) => getDomainStemsForToken(token, conceptDomains, lexicon).includes(kwStem))
   ) || null;
 }
 
@@ -125,7 +124,7 @@ async function assignKeywordByEmbedding(keyword, aspectLabels, embedder) {
 
 /** @param {{ policy: object }} context - the level policy (concept domains) */
 export function partitionAspectKeywordsSync(criterion, aspectLabels = [], { policy } = {}) {
-  const domains = requireLevelPort(policy, 'partitionAspectKeywordsSync: policy').conceptDomains;
+  requireLevelPort(policy, 'partitionAspectKeywordsSync: policy');
   const keywords = Array.isArray(criterion?.keywords) ? criterion.keywords : [];
   const result = Object.fromEntries(aspectLabels.map((label) => [label, []]));
   if (aspectLabels.length === 1) {
@@ -140,7 +139,7 @@ export function partitionAspectKeywordsSync(criterion, aspectLabels = [], { poli
   }
 
   for (const keyword of keywords) {
-    const target = assignKeywordByLexicon(keyword, aspectLabels, domains);
+    const target = assignKeywordByLexicon(keyword, aspectLabels, policy);
     if (target) result[target].push(keyword);
   }
   return result;

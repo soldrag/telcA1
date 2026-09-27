@@ -15,7 +15,7 @@ T2_04  none=220       gray=220       primary=220    exp=220 | Missing Besichtigu
 T2_05  none=222       gray=222       primary=222    exp=222 | V2 Syntax Violations
 T2_06  none=020       gray=020       primary=020    exp=222 | Severe A1 Typos
 T2_07  none=212       gray=212       primary=212    exp=212 | Informal Salutation
-T2_08  none=210i      gray=210i      primary=210i   exp=210 | Semantic Negation (Too expensive)
+T2_08  none=212       gray=212       primary=212    exp=210 | Semantic Negation (Too expensive)
 T2_09  none=222       gray=222       primary=222    exp=--- | Telegraphic Minimal
 T2_10  none=000       gray=000       primary=000    exp=000 | Completely Off-topic
 T3_01  none=222       gray=222       primary=222    exp=222 | Gold Standard
@@ -46,7 +46,7 @@ C9     none=122       gray=122       primary=122    exp=1?? | Test 9: Modellsatz
 s4-q6:01 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Baseline: all points, formal frame.
 s4-q6:02 none=221       gray=221       primary=221    exp=221 tot=8.5/8.5/8.5 exp=8.5 | The letter from the screenshot: 'Haustiere' aspect missing.
 s4-q6:03 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=10 | Pets expressed via 'Hund' without the word 'Haustier'.
-s4-q6:04 none=222       gray=222       primary=222    exp=222 tot=10/10/10 exp=8.5-10 | Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.
+s4-q6:04 none=221       gray=221       primary=221    exp=222 tot=8.5/8.5/8.5 exp=8.5-10 | Negation: 'keine Haustiere' still addresses the point. Embeddings often mishandle negation.
 s4-q6:05 none=000       gray=000       primary=000    exp=000 tot=1/1/1 exp=0.5-1 | Perfect greeting/closing, no content. Must not score high.
 s4-q6:06 none=222       gray=222       primary=222    exp=222 tot=9.5/9.5/9.5 exp=9.5 | Content complete, Anrede missing, closing present.
 s4-q6:07 none=222       gray=222       primary=222    exp=222 tot=9/9/9 exp=9 | Content complete, no Anrede, no Gruß, no name.
