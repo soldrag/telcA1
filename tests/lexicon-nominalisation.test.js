@@ -6,18 +6,28 @@ import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1Grammar
 
 const posOf = (sentence, word) => tagTokens(sentence.split(' ')).find((t) => t.raw === word)?.pos;
 
-describe('A capitalised verb form in a nominal context is a noun', () => {
-  it('tags "Kosten" after a preposition as a noun and "nach" as its preposition', () => {
-    assert.equal(posOf('Ich frage nicht nach Kosten', 'Kosten'), 'NOUN');
-    assert.equal(posOf('Ich frage nicht nach Kosten', 'nach'), 'PREP');
-  });
+describe('A capitalised verb form after a preposition or article is a noun', () => {
+  const nominal = [
+    ['Wir sprechen über die Kosten', 'Kosten'],
+    ['Ich lese beim Essen', 'Essen'],
+    ['Er fragt nach Kosten', 'Kosten'],
+  ];
+  for (const [sentence, word] of nominal) {
+    it(`"${word}" in "${sentence}" is a noun`, () => {
+      assert.equal(posOf(sentence, word), 'NOUN');
+    });
+  }
 
-  it('keeps the asking verb as the predicate', () => {
-    const [clause] = parseSentencePropositions('Ich frage nicht nach Kosten.', A1_GRAMMAR_PROFILE);
+  it('the preposition before it stays a preposition and the finite verb stays the predicate', () => {
+    assert.equal(posOf('Er fragt nach Kosten', 'nach'), 'PREP');
+    const [clause] = parseSentencePropositions('Er fragt nach Kosten.', A1_GRAMMAR_PROFILE);
     assert.equal(clause.predicateCore.baseAction, 'fragen');
   });
 
-  it('keeps a learner-capitalised verb after a pronoun a verb', () => {
-    assert.match(posOf('ich Komme gern', 'Komme'), /^VERB/);
-  });
+  const verbal = [['ich Komme gern', 'Komme'], ['Ich kann gut Lernen', 'Lernen']];
+  for (const [sentence, word] of verbal) {
+    it(`a learner-capitalised verb "${word}" outside a nominal context stays a verb`, () => {
+      assert.match(posOf(sentence, word), /^VERB/);
+    });
+  }
 });

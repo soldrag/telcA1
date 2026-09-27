@@ -32,6 +32,12 @@ function isNominalisedVerb(raw, candidates, prevPosList = []) {
   return candidates.length > 0 && candidates.every((c) => String(c.pos || '').startsWith('VERB'));
 }
 
+// Looking ahead, the current word is not tagged yet: only a word that can be a preposition or an article
+// makes the next capitalised verb form a noun. An adjective reading is too weak ("gut" is mostly an adverb).
+function governingPositions(word) {
+  return lookupWord(word).map((c) => c.pos).filter((pos) => pos === 'PREP' || pos === 'DET');
+}
+
 function resolveVerbHomonymy(candidates = [], prevToken = null, nextToken = null, hasFiniteVerb = false) {
   const hasInf = candidates.some(c => c.pos === 'VERB_INF');
   const hasFin = candidates.some(c => c.pos === 'VERB_FIN' || c.pos === 'VERB_MOD');
@@ -104,7 +110,7 @@ export function tagTokens(words = []) {
     const prev = result[i - 1] || null;
     const nextRaw = words[i + 1] || '';
     const nextCandidates = lookupWord(nextRaw);
-    const nextIsNoun = isNominalisedVerb(nextRaw, nextCandidates, lookupWord(words[i]).map((c) => c.pos));
+    const nextIsNoun = isNominalisedVerb(nextRaw, nextCandidates, governingPositions(words[i]));
     const next = nextCandidates.length > 0 ? { raw: nextRaw, ...nextCandidates[0], ...(nextIsNoun && { pos: 'NOUN' }) } : null;
     const tagged = disambiguateToken(words[i], prev, next, hasFiniteVerb);
     if (tagged.pos === 'VERB_FIN' || tagged.pos === 'VERB_MOD') {

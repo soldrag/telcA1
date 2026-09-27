@@ -158,7 +158,7 @@ describe('Label overlap is read by the nouns of the label', async () => {
   const { computeFallbackEvidence } = await import('../src/services/schreiben/grading/rankerFallbackScorer.js');
   const lexical = (label, sentence) => computeFallbackEvidence({ label }, sentence, { policy }).lexical;
   it('a shared adjective alone does not cover the label', () => {
-    assert.equal(policy.classifyScore(lexical('Neuer Terminvorschlag', 'Ich möchte einen neuen Computer.')), 'no');
+    assert.equal(policy.classifyScore(lexical('Neuer Terminvorschlag', 'Wir kaufen einen neuen Tisch.')), 'no');
   });
 
   it('one of two label nouns covers the label at most partially', () => {
