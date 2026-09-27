@@ -62,13 +62,23 @@ export function useExamFlowActions({
   }, [loader.exams, loader.activeTestType, storage, startExam]);
 
   const submitExam = useCallback(async () => {
-    const submitResult = await session.submitCurrentExam({
-      examId: loader.currentExamId,
-      isTimed: timer.isTimed,
-      secondsLeft: timer.secondsLeft,
-      secondsElapsed: timer.secondsElapsed,
-      totalSeconds: timer.totalSeconds,
-    });
+    let submitResult;
+    try {
+      submitResult = await session.submitCurrentExam({
+        examId: loader.currentExamId,
+        isTimed: timer.isTimed,
+        secondsLeft: timer.secondsLeft,
+        secondsElapsed: timer.secondsElapsed,
+        totalSeconds: timer.totalSeconds,
+      });
+    } catch (error) {
+      // A grading failure must be visible: the dialog closes over the error banner, the answers stay in the exam.
+      console.error('Exam submission failed:', error);
+      modals.closeSubmitModal();
+      modals.closeTimeUpModal();
+      showError('errors.submitExam');
+      return;
+    }
     modals.closeSubmitModal();
     modals.closeTimeUpModal();
 
@@ -84,7 +94,7 @@ export function useExamFlowActions({
     await history.refreshAttempts();
     await history.refreshHistory();
     navigateTo('results');
-  }, [session, loader.currentExamId, timer, modals, assignmentMode, history, navigateTo]);
+  }, [session, loader.currentExamId, timer, modals, assignmentMode, history, navigateTo, showError]);
 
   const handleTimeUp = useCallback(() => {
     if (session.isSubmitted || screen !== 'exam') return;

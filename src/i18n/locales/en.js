@@ -475,6 +475,7 @@ export const en = {
     loadHistory: 'Failed to load exam history',
     clearHistory: 'Failed to clear history',
     loadSavedAttempt: 'Failed to load saved attempt',
+    submitExam: 'Could not check your answers. They are kept in the exam — try finishing again.',
     loadModules: 'Failed to load exam modules',
     loadVariants: 'Failed to load variants',
     loadExamFailed: 'Error loading exam {examId}',

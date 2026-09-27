@@ -476,6 +476,7 @@ export const TRANSLATION_CONTRACT = {
     loadHistory: 'string',
     clearHistory: 'string',
     loadSavedAttempt: 'string',
+    submitExam: 'string',
     loadModules: 'string',
     loadVariants: 'string',
     loadExamFailed: 'string',

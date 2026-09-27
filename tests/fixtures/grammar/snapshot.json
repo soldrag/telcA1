@@ -3,9 +3,7 @@
   "ostsee/02_reference_missing_pets": [],
   "ostsee/03_pets_synonym": [],
   "ostsee/04_pets_negation": [],
-  "ostsee/05_frame_only": [
-    "ERR_MISSING_COPULA_VERB: ich heiße Artem. → ich heiße Artem [Verb: „ist“ fehlt]"
-  ],
+  "ostsee/05_frame_only": [],
   "ostsee/06_no_greeting": [],
   "ostsee/07_no_frame_at_all": [],
   "ostsee/08_informal_frame": [],
@@ -66,8 +64,6 @@
     "ERR_BROKEN_SATZKLAMMER_MODAL: können machen einen Termin → können einen Termin machen"
   ],
   "bench/T2_06": [
-    "ERR_MISSING_COPULA_VERB: Wir sint 2 personen → Wir sint 2 personen [Verb: „sind“ fehlt]",
-    "ERR_MISSING_PREDICATE_QUESTION: Wan kan man di vonung sehn? → Wan ist kan man di vonung sehn?",
     "ERR_NOUN_CAPITALIZATION: personen → Personen",
     "ERR_UMLAUT_SPELLING: fur → für"
   ],
@@ -85,7 +81,6 @@
     "ERR_DOUBLED_SUBJECT: Mein Mann er kommt → Mein Mann kommt"
   ],
   "bench/T3_06": [
-    "ERR_MISSING_COPULA_VERB: Mein man komt mit. → Mein man komt mit [Verb: „ist“ fehlt]",
     "ERR_NOUN_CAPITALIZATION: dank → Dank",
     "ERR_UMLAUT_SPELLING: fur, Grusse → für, Grüße"
   ],
@@ -198,5 +193,13 @@
     "ERR_UMLAUT_SPELLING: fur, Grusse → für, Grüße"
   ],
   "target/clean_letter_frame": [],
-  "target/clean_transliterated_umlauts": []
+  "target/clean_transliterated_umlauts": [],
+  "target/verbless_unknown_verb": [],
+  "target/verbless_unknown_verb_heissen": [],
+  "target/verbless_copula_missing": [
+    "ERR_MISSING_COPULA_VERB: Ich in Berlin. → Ich in Berlin [Verb: „ist“ fehlt]"
+  ],
+  "target/verbless_question_with_number": [
+    "ERR_MISSING_PREDICATE_QUESTION: Termin morgen 14 Uhr? → Termin ist morgen 14 Uhr?"
+  ]
 }

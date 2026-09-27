@@ -23,5 +23,9 @@
   {"id": "closing_comma", "stage": 5, "text": "Hallo Anna,\nich komme morgen.\nViele Grüße,\nOlga", "expect": ["Viele Grüße"]},
   {"id": "umlaut_spelling", "stage": 5, "text": "Hallo Anna,\ndanke fur die Einladung.\nViele Grusse\nOlga", "expect": ["für, Grüße"]},
   {"id": "clean_letter_frame", "stage": 5, "text": "Sehr geehrte Damen und Herren,\nSie haben mir geschrieben. Vielen Dank.\nViele Grüsse\nOlga Petrova", "expect": []},
-  {"id": "clean_transliterated_umlauts", "stage": 5, "text": "Liebe Anna,\nich komme gerne.\nViele Gruesse\nOlga", "expect": []}
+  {"id": "clean_transliterated_umlauts", "stage": 5, "text": "Liebe Anna,\nich komme gerne.\nViele Gruesse\nOlga", "expect": []},
+  {"id": "verbless_unknown_verb", "stage": 5, "text": "Ich spreche mit dem Kunden.", "expect": []},
+  {"id": "verbless_unknown_verb_heissen", "stage": 5, "text": "Ich heiße Anna.", "expect": []},
+  {"id": "verbless_copula_missing", "stage": 5, "text": "Ich in Berlin.", "expect": ["ist"]},
+  {"id": "verbless_question_with_number", "stage": 5, "text": "Termin morgen 14 Uhr?", "expect": ["ist"]}
 ]

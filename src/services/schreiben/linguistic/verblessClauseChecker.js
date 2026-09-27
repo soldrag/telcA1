@@ -61,8 +61,14 @@ function buildMissingCopulaError(rawText = '', subjectToken = null) {
   };
 }
 
+// A word the lexicon does not know may be the verb ("Ich spreche …" with "sprechen" outside the A1 list):
+// a clause is only called verbless when every word in it is known.
+function hasUnknownWord(tokens = []) {
+  return tokens.some(t => t.pos === 'UNKNOWN' && /[a-zäöüß]/i.test(t.raw || ''));
+}
+
 export function checkVerblessClause(tokens = [], rawText = '') {
-  if (!tokens || tokens.length === 0 || hasAnyVerb(tokens)) {
+  if (!tokens || tokens.length === 0 || hasAnyVerb(tokens) || hasUnknownWord(tokens)) {
     return null;
   }
 

@@ -145,4 +145,41 @@ describe('Exam & Results Button Actions', () => {
     assert.equal(navigatedTo, 'results', 'must navigate to results');
     assert.equal(finalizedPayload?.score, 15, 'finalized assignment must receive score');
   });
+
+  test('submitExam shows an error instead of failing silently when grading throws', async () => {
+    let shownError = null;
+    let navigatedTo = null;
+    const closed = [];
+
+    setupReactDispatcher();
+
+    const flow = useExamFlowActions({
+      screen: 'exam',
+      loader: { currentExamId: 'schreiben-modellsatz-4' },
+      session: {
+        answers: { 's4-q6': 'Sehr geehrte Frau Hansen, …' },
+        submitCurrentExam: async () => { throw new Error('German noun dictionary is not loaded'); },
+      },
+      timer: { isTimed: true, secondsLeft: 500, secondsElapsed: 1000, totalSeconds: 1500 },
+      modals: {
+        closeSubmitModal: () => closed.push('submit'),
+        closeTimeUpModal: () => closed.push('timeUp'),
+      },
+      history: { refreshAttempts: async () => {}, refreshHistory: async () => {} },
+      navigateTo: (dest) => { navigatedTo = dest; },
+      showError: (key) => { shownError = key; },
+    });
+
+    const consoleError = console.error;
+    console.error = () => {};
+    try {
+      await flow.submitExam();
+    } finally {
+      console.error = consoleError;
+    }
+
+    assert.equal(shownError, 'errors.submitExam', 'the failure must reach the error banner');
+    assert.deepEqual(closed, ['submit', 'timeUp'], 'dialogs close so the banner is visible');
+    assert.equal(navigatedTo, null, 'no results screen without results');
+  });
 });
