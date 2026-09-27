@@ -6,11 +6,13 @@ import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
+import { questions as s1Questions } from '../server/seeds/schreiben-modellsatz-1.js';
 import { questions as s2Questions } from '../server/seeds/schreiben-modellsatz-2.js';
 import { questions as s3Questions } from '../server/seeds/schreiben-modellsatz-3.js';
 import { questions as s4Questions } from '../server/seeds/schreiben-modellsatz-4.js';
 
 const criteriaOf = (qs, id) => qs.find((q) => q.id === id).options_json.rubric.leitpunkte_criteria;
+const [, , courseCosts] = criteriaOf(s1Questions, 's1-q6');
 const [cancelReason, cancelWhy, newAppointment] = criteriaOf(s2Questions, 's2-q6');
 const [defectReason, , craftsman] = criteriaOf(s3Questions, 's3-q6');
 const [, , priceAndPets] = criteriaOf(s4Questions, 's4-q6');
@@ -28,6 +30,7 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
     [defectReason, 'Ich habe kein Problem.', 'negated_entity'],
     [newAppointment, 'Einen neuen Termin möchte ich nicht.', 'negated_object'],
     [newAppointment, 'Ich brauche den Termin nicht.', 'negated_object'],
+    [courseCosts, 'Ich frage nicht nach Kosten.', 'negated_object'],
   ];
   for (const [criterion, sentence, reason] of refusals) {
     it(`"${sentence}" refuses "${criterion.label}"`, () => {
@@ -46,6 +49,7 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
     [companion, 'Mein Bruder kommt auch mit.'],
     [newAppointment, 'Am Montag möchte ich nicht, aber am Dienstag gern.'],
     [newAppointment, 'Ich kann den Termin am Montag nicht machen, aber am Dienstag.'],
+    [courseCosts, 'Ich frage nach den Kosten, ich kann nicht viel bezahlen.'],
   ];
   for (const [criterion, sentence] of contentNegations) {
     it(`"${sentence}" does not refuse "${criterion.label}"`, () => {

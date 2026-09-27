@@ -6122,7 +6122,10 @@
       "pos": "VERB_INF",
       "lemma": "fragen",
       "valency": "TRANS",
-      "objCase": "AKK"
+      "objCase": "AKK",
+      "prepObject": [
+        "nach"
+      ]
     },
     {
       "pos": "VERB_FIN",
@@ -6133,7 +6136,10 @@
         1,
         3
       ],
-      "number": "pl"
+      "number": "pl",
+      "prepObject": [
+        "nach"
+      ]
     },
     {
       "pos": "NOUN",
@@ -6151,7 +6157,10 @@
       "person": [
         1
       ],
-      "number": "sg"
+      "number": "sg",
+      "prepObject": [
+        "nach"
+      ]
     },
     {
       "pos": "NOUN",
@@ -6171,7 +6180,10 @@
       "person": [
         2
       ],
-      "number": "sg"
+      "number": "sg",
+      "prepObject": [
+        "nach"
+      ]
     }
   ],
   "fragt": [
@@ -6183,7 +6195,10 @@
       "person": [
         3
       ],
-      "number": "sg"
+      "number": "sg",
+      "prepObject": [
+        "nach"
+      ]
     }
   ],
   "gefragt": [
@@ -6191,7 +6206,10 @@
       "pos": "VERB_PART",
       "lemma": "fragen",
       "valency": "TRANS",
-      "objCase": "AKK"
+      "objCase": "AKK",
+      "prepObject": [
+        "nach"
+      ]
     }
   ],
   "essen": [

@@ -22,6 +22,16 @@ export function isKnownWord(word = '') {
   return lookupWord(word).length > 0;
 }
 
+// German capitalises nouns: a capitalised word the lexicon knows only as a verb, standing after a
+// preposition, article or adjective, is a nominalisation or a homonymous noun ("nach Kosten", "das Essen").
+// A capital alone is not enough: A1 learners capitalise verbs ("ich Komme").
+const NOMINAL_CONTEXT = new Set(['PREP', 'DET', 'ADJ']);
+
+function isNominalisedVerb(raw, candidates, prevPosList = []) {
+  if (!/^[A-ZÄÖÜ]/.test(raw) || !prevPosList.some((pos) => NOMINAL_CONTEXT.has(pos))) return false;
+  return candidates.length > 0 && candidates.every((c) => String(c.pos || '').startsWith('VERB'));
+}
+
 function resolveVerbHomonymy(candidates = [], prevToken = null, nextToken = null, hasFiniteVerb = false) {
   const hasInf = candidates.some(c => c.pos === 'VERB_INF');
   const hasFin = candidates.some(c => c.pos === 'VERB_FIN' || c.pos === 'VERB_MOD');
@@ -75,6 +85,7 @@ export function disambiguateToken(rawWord = '', prevToken = null, nextToken = nu
   };
 
   if (candidates.length === 0) return fallback;
+  if (isNominalisedVerb(raw, candidates, [prevToken?.pos])) return { raw, lower, pos: 'NOUN', lemma: lower };
   if (candidates.length === 1) return { raw, lower, ...candidates[0] };
 
   const special = resolveSpecialParticles(lower, prevToken, nextToken);
@@ -93,7 +104,8 @@ export function tagTokens(words = []) {
     const prev = result[i - 1] || null;
     const nextRaw = words[i + 1] || '';
     const nextCandidates = lookupWord(nextRaw);
-    const next = nextCandidates.length > 0 ? { raw: nextRaw, ...nextCandidates[0] } : null;
+    const nextIsNoun = isNominalisedVerb(nextRaw, nextCandidates, lookupWord(words[i]).map((c) => c.pos));
+    const next = nextCandidates.length > 0 ? { raw: nextRaw, ...nextCandidates[0], ...(nextIsNoun && { pos: 'NOUN' }) } : null;
     const tagged = disambiguateToken(words[i], prev, next, hasFiniteVerb);
     if (tagged.pos === 'VERB_FIN' || tagged.pos === 'VERB_MOD') {
       hasFiniteVerb = true;
