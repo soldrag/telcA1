@@ -18,3 +18,25 @@ describe('Phrase keywords match their words in a row', () => {
     assert.deepEqual(match(['nächste woche'], 'Diese Woche und nächsten Monat.'), []);
   });
 });
+
+describe('A misspelt keyword still states the point', () => {
+  const misspellings = [
+    ['arbeiten', 'Ich muss lange arbieten.'],
+    ['hausaufgaben', 'Bitte schicken Sie die Hausaufgabem.'],
+    ['termin', 'Ich brauche einen Termien.'],
+    ['wohnung', 'Die Vohnung ist schön.'],
+    ['fahrrad', 'Ich habe ein Farrad.'],
+    ['interessiere', 'Ich intressiere mich für den Kurs.'],
+  ];
+  for (const [keyword, sentence] of misspellings) {
+    it(`"${sentence}" states "${keyword}"`, () => {
+      assert.deepEqual(match([keyword], sentence), [keyword]);
+    });
+  }
+
+  it('never re-reads a known word as another one', () => {
+    assert.deepEqual(match(['mann'], 'Das kann man machen.'), []);
+    assert.deepEqual(match(['kosten'], 'Ich kann kochen.'), []);
+    assert.deepEqual(match(['arbeit'], 'Ich habe Zeit.'), []);
+  });
+});
