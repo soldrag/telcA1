@@ -1,6 +1,4 @@
 import { seedData } from '../../server/seed-data.js';
-import { evaluateExamSubmission } from '../../server/services/exam-evaluator.js';
-import { loadLexiconData } from './schreiben/linguistic/a1LexiconService.js';
 import { TEST_TYPES, getTestTypeById } from '../../shared/testTypes.js';
 
 export function getLocalTestTypes() {
@@ -53,12 +51,29 @@ export function getLocalExamDetails(examId) {
   };
 }
 
+/**
+ * The grading engine and the lexicon stay out of the main bundle: they are needed only on submit. The exam
+ * screen preloads them so the chunk is in the service worker cache before the user may go offline.
+ */
+function importLocalGrading() {
+  return Promise.all([
+    import('./schreiben/linguistic/a1LexiconService.js'),
+    import('../../server/services/exam-evaluator.js'),
+  ]);
+}
+
+export async function preloadLocalGrading() {
+  const [{ loadLexiconData }] = await importLocalGrading();
+  await loadLexiconData();
+}
+
 /** Grades in the browser (static hosting, offline). Schreiben answers read the lexicon data, loaded first. */
 export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
   const exam = seedData.exams.find(e => e.id === examId);
   if (!exam) {
     throw new Error(`Exam not found: ${examId}`);
   }
+  const [{ loadLexiconData }, { evaluateExamSubmission }] = await importLocalGrading();
   await loadLexiconData();
   const questions = seedData.questions
     .filter(q => q.exam_id === examId)

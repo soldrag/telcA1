@@ -14,6 +14,7 @@ import { useI18n } from '../i18n/I18nContext.jsx';
 import { useExamFontSize } from '../hooks/useExamFontSize.js';
 import { useAnswerSheet } from '../hooks/useAnswerSheet.js';
 import { useExamHotkeys } from '../hooks/useExamHotkeys.js';
+import { useGradingPreload } from '../hooks/useGradingPreload.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
 
 const AnswerSheetSheet = lazy(() => import('./exam/AnswerSheetSheet.jsx'));
@@ -69,6 +70,7 @@ export default function ExamView({
   const [hasOpenedSheet, setHasOpenedSheet] = useState(false);
   useExamFontSize();
   useExamScrollSync(session, maxTeile);
+  useGradingPreload(!isInspection);
   useExamHotkeys({ questions, currentQuestion: answerSheet.currentQuestion, session, maxTeile, onSelectQuestion: answerSheet.selectQuestion });
 
   if (isLoading || questions.length === 0) {

@@ -363,6 +363,7 @@ For local development or environments requiring a centralized exam catalog:
 ## 8. Verification & Quality Gates
 
 1. **Contract-Guarded Build (`prebuild`)**: `npm run build` runs `npm run verify:contracts` and `npm test` before compilation. Any contract violation or test failure aborts the build with Exit code 1.
+1a. **Main bundle budget (v0.7.97)**: `mainChunkBudgetPlugin` in `vite.config.js` fails the build when the entry chunk exceeds 300 kB (§11; lazy chunks such as the AI runtime and seeds have no budget). The grading engine and the lexicon are not in the entry chunk: `localDataService.submitLocalExamAnswers` imports them dynamically, and the exam screen preloads them once when idle (`useGradingPreload` → `api.preloadExamGrading`) so they are in the service worker cache before the user may go offline.
 2. **Automated Unit & Contract Tests**: `npm test` runs Node.js native test suites covering routing, linguistic rules, scoring logic, button action contracts (`tests/assignment-buttons.test.js`, `tests/exam-buttons.test.js`, `tests/assignment-results-flow.test.js`), and assignment security.
    - `tests/i18n-used-keys.test.js` (v0.7.51): every literal `t('a.b')` key in `src/` must exist in `TRANSLATION_CONTRACT`. `t()` returns the key itself for a missing entry, so `t(key) || fallback` never falls back and the raw key reaches the UI; this gate catches it at build time.
 3. **Seed Schema Validation**: `npm run validate:seeds` verifies the structural integrity of all exam variants, questions, answer keys, and vocabulary explanations.

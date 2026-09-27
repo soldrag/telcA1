@@ -33,6 +33,24 @@ function getVendorChunk(id) {
   }
 }
 
+const MAIN_CHUNK_LIMIT_BYTES = 300 * 1000;
+
+// Vite's chunkSizeWarningLimit covers every chunk, and the lazy AI runtime and seeds are large by design:
+// only the entry chunk has a budget (CLAUDE.md §11), and exceeding it fails the build.
+function mainChunkBudgetPlugin() {
+  return {
+    name: 'main-chunk-budget',
+    generateBundle(_, bundle) {
+      for (const chunk of Object.values(bundle)) {
+        const size = chunk.type === 'chunk' && chunk.isEntry ? Buffer.byteLength(chunk.code) : 0;
+        if (size > MAIN_CHUNK_LIMIT_BYTES) {
+          this.error(`${chunk.fileName} is ${(size / 1000).toFixed(1)} kB, over the ${MAIN_CHUNK_LIMIT_BYTES / 1000} kB main bundle budget`);
+        }
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: './',
   define: {
@@ -46,6 +64,7 @@ export default defineConfig({
   plugins: [
     react(),
     i18nContractValidatorPlugin(),
+    mainChunkBudgetPlugin(),
     compression({
       algorithms: ['gzip', 'brotliCompress'],
       include: /\.(html|css|js|svg|json|wasm|tsv)$/,

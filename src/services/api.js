@@ -4,6 +4,7 @@ import {
   getLocalExams,
   getLocalExamDetails,
   submitLocalExamAnswers,
+  preloadLocalGrading,
 } from './localDataService.js';
 
 async function parseErrorResponse(response) {
@@ -87,6 +88,11 @@ export async function fetchExamDetails(examId) {
   } catch {
     return getLocalExamDetails(examId);
   }
+}
+
+/** Loads the grading code and data ahead of submit; a failure only means they load on submit instead. */
+export function preloadExamGrading() {
+  return preloadLocalGrading().catch(() => {});
 }
 
 export async function submitExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
