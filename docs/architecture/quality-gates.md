@@ -48,6 +48,6 @@ Diagnostics, not targets: every score change is explained, never tuned towards t
 | `npm test` | unit tests |
 | `npm run test:ui` | Playwright UI suite |
 | `npm run test:e2e[:assignment\|:mobile\|:grid]` | CDP browser scripts |
-| `npm run validate:seeds` | schema of all registered seeds |
+| `npm run validate:seeds` · `node scripts/seeds/validateSeeds.js <file>` | seed schema: all registered seeds / one file |
 | `npm run bench:schreiben` · `eval:schreiben` · `measure:grammar` | grading diagnostics |
 | `npm run build:lexicon` | regenerate noun/verb dictionaries |

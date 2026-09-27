@@ -155,7 +155,8 @@ How these fields are used: [Schreiben grading](docs/architecture/schreiben-gradi
    ```
 3. Check:
    ```bash
-   npm run validate:seeds     # schema: fields, answer enums, explanations, duplicate ids, clue_quote in text (warning)
+   node scripts/seeds/validateSeeds.js src/data/exams/seeds/modellsatz-11.js   # this file alone
+   npm run validate:seeds     # all registered seeds: fields, answer enums, explanations, duplicate ids, clue_quote in text (warning)
    npm run verify:contracts   # Schreiben rubric: level, intent, evidence
    npm test
    ```

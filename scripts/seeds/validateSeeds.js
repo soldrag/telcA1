@@ -2,6 +2,14 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { validateExamMetadata } from './validators/examValidator.js';
 import { validateQuestion } from './validators/questionValidator.js';
+import { applyModuleRules, isValidTestType } from '../../shared/testTypes.js';
+
+// A seed file carries content only; seedData.js adds the module rules, so a file checked on its own gets them here.
+export function validateSeedFile(exam, questions) {
+  const knownModule = exam && (!exam.test_type || isValidTestType(exam.test_type));
+  const withRules = knownModule ? applyModuleRules(exam) : exam;
+  return validateExamSeed(withRules, questions);
+}
 
 export function validateExamSeed(exam, questions, options = {}) {
   const metaResult = validateExamMetadata(exam, questions);
@@ -69,7 +77,7 @@ async function runCli() {
     const fullPath = path.resolve(process.cwd(), targetArg);
     console.log(`Checking file: ${targetArg}`);
     const module = await import(pathToFileURL(fullPath).href);
-    const result = validateExamSeed(module.exam, module.questions);
+    const result = validateSeedFile(module.exam, module.questions);
     reportResults([result]);
   } else {
     console.log('Checking all registered seeds in src/data/exams/seedData.js...');

@@ -1,7 +1,8 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { seedData } from '../src/data/exams/seedData.js';
-import { validateAllSeeds, validateExamSeed } from '../scripts/seeds/validateSeeds.js';
+import { validateAllSeeds, validateExamSeed, validateSeedFile } from '../scripts/seeds/validateSeeds.js';
+import { readdirSync } from 'node:fs';
 
 describe('Exam Seeds Schema & Integrity Validator', () => {
   it('validates all registered seed exams and questions with zero fatal errors', () => {
@@ -51,5 +52,20 @@ describe('Exam Seeds Schema & Integrity Validator', () => {
     const result = validateExamSeed(fakeExam, [badQuestion]);
     assert.equal(result.valid, false);
     assert.ok(result.errors.some(e => e.includes("correct_answer must be 'richtig' or 'falsch'")));
+  });
+
+  it('validates every seed file on its own, with the module rules it gets from seedData.js', async () => {
+    const seedsDir = new URL('../src/data/exams/seeds/', import.meta.url);
+    const files = readdirSync(seedsDir).filter((name) => name !== 'stubs-modules.js');
+    for (const name of files) {
+      const { exam, questions } = await import(new URL(name, seedsDir).href);
+      const result = validateSeedFile(exam, questions);
+      assert.deepEqual(result.errors, [], `${name}:\n${result.errors.join('\n')}`);
+    }
+  });
+
+  it('reports an unknown test_type of a seed file instead of throwing', () => {
+    const result = validateSeedFile({ id: 'x', test_type: 'unknown' }, []);
+    assert.equal(result.valid, false);
   });
 });
