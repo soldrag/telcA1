@@ -5,6 +5,11 @@ import ResultsReviewList from './results/ResultsReviewList.jsx';
 import SchreibenResultsBody from './results/schreiben/SchreibenResultsBody.jsx';
 import TeacherReviewBanner from './results/TeacherReviewBanner.jsx';
 import AssignmentSubmissionBanner from './results/AssignmentSubmissionBanner.jsx';
+import { PAGE_STACK, BAND, SPAN } from './layout/pageLayout.js';
+
+// The actions block beside the score is bare on phones (its buttons live in the bottom bar there)
+// and a card of the same height as the score from 1024 px.
+const ACTIONS_BLOCK = `${SPAN.side} max-lg:-mt-4 min-w-0 flex flex-col justify-center lg:rounded-2xl lg:bg-surface-card lg:border lg:border-border-default lg:p-6`;
 
 // Tasks, not points: a Schreiben letter at 3.5/10 is one task to rework, not 6.5 "mistakes".
 function countMistakes(reviewItems = []) {
@@ -31,6 +36,7 @@ export default function ResultsView({
   const isAssignment = Boolean(assignmentSubmission?.isAssignment);
   const shareSubmissionUrl = assignmentSubmission?.lockoutState?.shareUrl || null;
   const isSchreiben = results.exam?.test_type === 'schreiben';
+  const hasActions = !isTeacherReview && (!isAssignment || Boolean(shareSubmissionUrl));
 
   const actions = (
     <ResultsActionBar
@@ -46,7 +52,7 @@ export default function ResultsView({
   );
 
   return (
-    <div className="space-y-6 animate-fadeIn max-sm:pb-24">
+    <div className={`${PAGE_STACK} animate-fadeIn max-sm:pb-24`}>
       {isAssignment && shareSubmissionUrl && (
         <AssignmentSubmissionBanner
           studentName={assignmentSubmission?.assignmentData?.studentName || null}
@@ -64,7 +70,10 @@ export default function ResultsView({
         />
       )}
 
-      <ResultsHeroCard results={results} actions={actions} teilChipsFromLg={isSchreiben} />
+      <div className={BAND}>
+        <ResultsHeroCard results={results} teilChipsFromLg={isSchreiben} className={hasActions ? SPAN.main : SPAN.full} />
+        {hasActions && <div className={ACTIONS_BLOCK}>{actions}</div>}
+      </div>
 
       {isSchreiben ? (
         <SchreibenResultsBody reviewItems={results.reviewItems} onUpdateItemScore={onUpdateItemScore} />

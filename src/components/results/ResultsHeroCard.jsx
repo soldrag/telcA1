@@ -26,16 +26,17 @@ function StatusText({ passed, className, text }) {
 }
 
 /**
- * Result header: total score, pass status with the threshold bar, per-Teil points and the main actions.
+ * Result header: total score, pass status with the threshold bar and per-Teil points.
+ * The actions live in their own block beside it (see ResultsView).
  */
-export default function ResultsHeroCard({ results, actions = null, teilChipsFromLg = false }) {
+export default function ResultsHeroCard({ results, teilChipsFromLg = false, className = '' }) {
   const { t, language } = useI18n();
   const { module, maxScore, passScore, passed } = resolveScoreFacts(results);
   const examName = formatExamName(results.exam?.id || results.exam?.title);
   const statusKey = passed ? 'results.hero.passed' : 'results.hero.failed';
 
   return (
-    <section aria-labelledby="results-score" className="rounded-2xl bg-surface-card border border-border-default p-4 sm:p-6 space-y-4">
+    <section aria-labelledby="results-score" className={`rounded-2xl bg-surface-card border border-border-default p-4 sm:p-6 flex flex-col justify-between gap-4 min-w-0 ${className}`}>
       <div className="flex flex-col lg:flex-row lg:items-end gap-3 lg:gap-8">
         <div className="space-y-1 shrink-0">
           <p lang="de" className="text-sm text-content-muted">
@@ -59,7 +60,6 @@ export default function ResultsHeroCard({ results, actions = null, teilChipsFrom
             label={t('results.hero.barLabel', { pass: passScore, max: maxScore })}
           />
         </div>
-        {actions && <div className="lg:shrink-0">{actions}</div>}
       </div>
       <div className={teilChipsFromLg ? 'max-lg:hidden' : ''}>
         <TeilBreakdownGrid teilBreakdown={results.teilBreakdown} testType={module.id} language={language} />

@@ -56,7 +56,7 @@ function StudentActions(props) {
   const hasMistakes = mistakesCount > 0 && onRetakeMistakes;
   return (
     <div className="space-y-1">
-      <div className="hidden sm:grid sm:grid-cols-2 gap-2">
+      <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-1 gap-2">
         <ActionButtons {...props} shareLabel={t('results.shareResult')} />
       </div>
       <div className="flex flex-wrap gap-x-5">

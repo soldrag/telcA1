@@ -1,6 +1,5 @@
 import React from 'react';
 import ResultsFilterTabs from './ResultsFilterTabs.jsx';
-import ResultsFilterHeader from './ResultsFilterHeader.jsx';
 import { useI18n } from '../../i18n/I18nContext.jsx';
 
 export default function ResultsFilterBar({
@@ -18,10 +17,9 @@ export default function ResultsFilterBar({
   const { t } = useI18n();
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border-default">
-      <ResultsFilterHeader />
-
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-border-default">
+      <p className="text-sm text-content-tertiary max-lg:hidden">{t('results.breakdownSubtitle')}</p>
+      <div className="flex flex-wrap items-center gap-2 lg:ml-auto">
         <ResultsFilterTabs
           filter={filter}
           onSetFilter={onSetFilter}

@@ -12,18 +12,19 @@ function resolveTeils(teilBreakdown, testType) {
 }
 
 /**
- * Per-Teil points as compact chips under the total score.
+ * Per-Teil points as compact chips under the total score; from 1024 px one row of equal cells.
  */
 export default function TeilBreakdownGrid({ teilBreakdown = {}, testType = 'lesen', language }) {
   const titles = getTeilTitles(testType);
 
   return (
-    <ul className="flex flex-wrap gap-2">
+    <ul className="flex flex-wrap gap-2 lg:grid lg:grid-flow-col lg:auto-cols-fr">
       {resolveTeils(teilBreakdown, testType).map((teil) => {
         const { score = 0, total = 5 } = teilBreakdown[teil] || {};
         return (
-          <li key={teil} lang="de" className="px-3 py-1.5 rounded-lg bg-surface-inset text-sm text-content-secondary">
-            {titles[teil] || `Teil ${teil}`} · <span className="font-semibold text-content-primary tabular-nums">{formatPoints(score, language)}/{total}</span>
+          <li key={teil} lang="de" className="px-3 py-1.5 rounded-lg bg-surface-inset text-sm text-content-secondary lg:flex lg:justify-between lg:gap-2 min-w-0">
+            <span className="lg:truncate" title={titles[teil] || undefined}>{titles[teil] || `Teil ${teil}`}</span><span className="lg:hidden"> · </span>
+            <span className="font-semibold text-content-primary tabular-nums shrink-0">{formatPoints(score, language)}/{total}</span>
           </li>
         );
       })}
