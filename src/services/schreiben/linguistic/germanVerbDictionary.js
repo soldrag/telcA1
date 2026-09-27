@@ -46,13 +46,16 @@ function presentForms(infinitive, [ich, du, er]) {
 }
 
 function pastForms(past) {
+  // "machte": machtest, machtet, machten; "kam": kamst, kamt, kamen; "fand"/"tat": fandest, fandet;
+  // "las"/"hieß": lasest, last — an e joins -st after a sibilant and -st/-t after t/d.
   return list(past).flatMap((form) => {
     const plural = form.endsWith('e') ? `${form}n` : `${form}en`;
-    const second = /[sßzx]$/.test(form) ? null : `${form}st`;
+    const second = form.endsWith('e') ? `${form}st` : withEnding(form, 'st').replace(/([sßzx])st$/, '$1est');
+    const ihr = form.endsWith('e') ? `${form}t` : withEnding(form, 't');
     return [
       [form, { person: [1, 3], number: 'sg', tense: 'PAST' }],
-      ...(second ? [[second, { person: [2], number: 'sg', tense: 'PAST' }]] : []),
-      [`${form.replace(/e$/, '')}${form.endsWith('e') ? 'et' : 't'}`, { person: [2], number: 'pl', tense: 'PAST' }],
+      [second, { person: [2], number: 'sg', tense: 'PAST' }],
+      [ihr, { person: [2], number: 'pl', tense: 'PAST' }],
       [plural, { person: [1, 3], number: 'pl', tense: 'PAST' }],
     ];
   });

@@ -61,14 +61,16 @@ function buildMissingCopulaError(rawText = '', subjectToken = null) {
   };
 }
 
-// A word the lexicon does not know may be the verb ("Ich spreche …" with "sprechen" outside the A1 list):
-// a clause is only called verbless when every word in it is known.
-function hasUnknownWord(tokens = []) {
-  return tokens.some(t => t.pos === 'UNKNOWN' && /[a-zäöüß]/i.test(t.raw || ''));
+// A word the lexicon does not know may be the verb — a misspelt one ("Ich wonen in Berlin", "Mein Mann komt mit")
+// or one outside the dictionaries — when it stands where the finite verb stands: first, second, or right after the
+// subject. An unknown word after an article or preposition ("Ich aus der ukraine") does not stand for the verb.
+function hasUnknownWordInVerbPosition(tokens = []) {
+  return tokens.some((t, i) => t.pos === 'UNKNOWN' && /[a-zäöüß]/i.test(t.raw || '')
+    && (i < 2 || ['PRON_SUBJ', 'NOUN'].includes(tokens[i - 1].pos)));
 }
 
 export function checkVerblessClause(tokens = [], rawText = '') {
-  if (!tokens || tokens.length === 0 || hasAnyVerb(tokens) || hasUnknownWord(tokens)) {
+  if (!tokens || tokens.length === 0 || hasAnyVerb(tokens) || hasUnknownWordInVerbPosition(tokens)) {
     return null;
   }
 

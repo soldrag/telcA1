@@ -71,10 +71,12 @@ function parseClause(tokens = [], { isCoordinated = false, followsComma = false,
   }
 
   const finVerbIdx = tokens.findIndex(t => t.pos === 'VERB_FIN' || t.pos === 'VERB_MOD');
-  // "Weißt du, wann der Kurs beginnt?": after a comma, a W-word clause with its finite verb last is an indirect
-  // question, a subordinate clause; with the verb second ("…, wann beginnt der Kurs?") it stays a main clause.
-  if (followsComma && tokens[0]?.pos === 'INTERROG' && finVerbIdx === tokens.length - 1) {
-    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: [] };
+  // After a comma, a clause opened by a W-word or a relative pronoun (article form) that ends in its finite verb is
+  // subordinate: an indirect question ("…, wann ich kommen kann") or a relative clause ("…, die gut Deutsch spricht").
+  // With the verb second ("…, wann beginnt der Kurs?") it stays a main clause.
+  const endsInFiniteVerb = ['VERB_FIN', 'VERB_MOD'].includes(tokens[tokens.length - 1]?.pos);
+  if (followsComma && ['INTERROG', 'DET'].includes(tokens[0]?.pos) && endsInFiniteVerb) {
+    return { type: 'SUBORDINATE_CLAUSE', tokens, errors: checkSubordinateVerbFinal(tokens, { lookup: lexicon.lookup }) };
   }
   if (finVerbIdx === -1) {
     if (isCoordinated) {

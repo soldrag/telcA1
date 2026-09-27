@@ -59,10 +59,13 @@ function wrongPrepositionalObject(analysis, clause, lexicon) {
   };
 }
 
+// "Ich rufe an dich" for "anrufen": the rule needs the separable verb's object case from the lexicon — a separable
+// verb without one ("mitgehen", "zugehen") does not make "mit dir", "zu dir" wrong. An unknown verb has no lemma.
 function prefixUsedAsPreposition(analysis, clause, lexicon) {
   const verb = clause.lexicalVerb;
+  if (!verb?.lemma) return null;
   const phrase = analysis.phrases.filter(inClause(clause)).find((p) => p.pronoun && p.governor
-    && lexicon.findForms((e) => e.baseVerb === verb?.lemma && e.lemma === `${p.governor.preposition}${verb.lemma}`).length);
+    && lexicon.findForms((e) => e.baseVerb === verb.lemma && e.objCase && e.lemma === `${p.governor.preposition}${verb.lemma}`).length);
   if (!phrase) return null;
   const particle = analysis.tokens[phrase.end + 1];
   const followsParticle = particle?.pos === 'VERB_PREFIX' || particle?.pos === 'ADV';

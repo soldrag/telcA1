@@ -10,12 +10,12 @@ import { lookupDictionaryVerb, loadGermanVerbDictionary, findDictionaryVerbForms
 const LEXICON = rawLexicon || {};
 
 // A word the A1 vocabulary does not know gets general-dictionary readings. German writes nouns with a capital,
-// so a capitalised word is looked up as a noun first: an unknown verb ("laufen") is not read as "das Laufen".
-// A capitalised word that is no noun may be a verb opening the sentence ("Spreche ich …"); a known word keeps its
-// A1 readings ("Ich", "Liebe").
+// so only a capitalised word gets noun readings, and they come first: an unknown verb ("laufen") is not read as
+// "das Laufen". A capitalised word keeps its verb readings after them, for a verb opening the sentence ("Lese ich …",
+// "Lese" is also a noun); the tagger chooses by position. A known word keeps its A1 readings ("Ich", "Liebe").
 function dictionaryEntries(bare) {
   const nouns = /^[A-ZÄÖÜ]/.test(bare) ? lookupDictionaryNoun(bare) : [];
-  return nouns.length > 0 ? nouns : lookupDictionaryVerb(bare);
+  return [...nouns, ...lookupDictionaryVerb(bare)];
 }
 
 /** A1 entries first, then general dictionary nouns and verbs; the dictionaries must be loaded (loadLexiconData). */
@@ -114,6 +114,17 @@ export function disambiguateToken(rawWord = '', prevToken = null, nextToken = nu
 
   if (candidates.length === 0) return fallback;
   if (isNominalisedVerb(raw, candidates, [prevToken?.pos])) return { raw, lower, pos: 'NOUN', lemma: lower };
+  // A capitalised dictionary word opening the sentence before a subject pronoun is the verb ("Lese ich …", "Lese" is
+  // also a noun). Otherwise the capital marks a noun: a dictionary noun reading, or the nominalised verb
+  // ("Lesen ist mein Hobby").
+  const isCapitalised = /^[A-ZÄÖÜ]/.test(raw);
+  const openingVerb = isCapitalised && !prevToken && nextToken?.pos === 'PRON_SUBJ'
+    && candidates.find((c) => c.source === 'dictionary' && (c.pos === 'VERB_FIN' || c.pos === 'VERB_MOD'));
+  if (openingVerb) return { raw, lower, ...openingVerb };
+  if (isCapitalised && candidates.every((c) => c.source === 'dictionary')) {
+    const noun = candidates.find((c) => c.pos === 'NOUN');
+    return noun ? { raw, lower, ...noun } : { raw, lower, pos: 'NOUN', lemma: raw };
+  }
   if (candidates.length === 1) return { raw, lower, ...candidates[0] };
 
   const special = resolveSpecialParticles(lower, prevToken, nextToken);

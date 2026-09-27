@@ -47,3 +47,32 @@ describe('Verb dictionary: grammar', () => {
     it(`${text} → ${correction}`, () => assert.ok(corrections(text).some((c) => c.includes(correction)), JSON.stringify(corrections(text))));
   }
 });
+
+describe('Verb dictionary: review counterexamples', () => {
+  for (const text of [
+    'Ich gehe mit dir ins Kino.', 'Ich komme zu dir.', 'Ich wohne bei ihr.',
+    'Ich habe eine Freundin, die gut Deutsch spricht.', 'Das ist das Buch, das ich lese.', 'Ich weiß nicht, wann ich kommen kann.',
+    'Lese ich das Buch?', 'Spiele ich heute?', 'Lesen ist mein Hobby.', 'Kochen ist mein Hobby.', 'Lesen Sie den Text!',
+    'Ich wonen in Berlin.', 'Mein Mann komt mit.',
+  ]) {
+    it(`clean: ${text}`, () => assert.deepEqual(corrections(text), []));
+  }
+
+  for (const [text, correction] of [
+    ['Ich rufe an dich.', 'dich an'], ['Ich aus der ukraine.', 'ist'], ['Wo die haltestelle?', 'ist'],
+    ['Ich sprachst gut Deutsch.', 'sprach'], ['Du sprach gut Deutsch.', 'sprachst'], ['Ihr fand das gut.', 'fandet'],
+  ]) {
+    it(`${text} → ${correction}`, () => assert.ok(corrections(text).some((c) => c.includes(correction)), JSON.stringify(corrections(text))));
+  }
+
+  it('an unknown verb before a preposition and pronoun does not throw', () => {
+    assert.doesNotThrow(() => checkGermanA1Grammar('Ich telefoniren mit ihm.'));
+  });
+
+  it('past forms take -e- after t/d and -est after a sibilant', () => {
+    for (const [form, reading] of [['tatet', 'tun'], ['fandet', 'finden'], ['lasest', 'lesen']]) {
+      assert.ok(lookupWord(form).some((e) => e.lemma === reading && e.tense === 'PAST'), form);
+    }
+    assert.deepEqual(lookupWord('fandt'), []);
+  });
+});

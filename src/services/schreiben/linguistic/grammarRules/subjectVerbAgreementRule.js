@@ -49,7 +49,10 @@ function checkClause(analysis, clause, context, previous) {
   const subject = findSubject(analysis, clause, { sharesSubject: startsWithCoordinator, verbAllowsThirdPerson });
   const subjects = subject ? subjectReadings(subject, context.lexicon) : [];
   if (!subjects.length || !verbReadings.length || agrees(verbReadings, subjects)) return null;
-  const [form] = context.lexicon.findForms((e) => FINITE_POS.has(e.pos) && e.lemma === verb.lemma && agrees([e], subjects));
+  // The correction keeps the tense of the written form ("Ich sprachst" → "sprach", not "spreche").
+  const tenses = new Set(verbReadings.map((v) => v.tense || 'PRESENT'));
+  const [form] = context.lexicon.findForms((e) => FINITE_POS.has(e.pos) && e.lemma === verb.lemma && tenses.has(e.tense || 'PRESENT')
+    && agrees([e], subjects));
   if (!form) return null;
   const subjectText = analysis.tokens.slice(subject.start, subject.end + 1).map((t) => clean(t.raw)).join(' ');
   return {
