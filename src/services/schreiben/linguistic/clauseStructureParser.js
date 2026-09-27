@@ -70,25 +70,21 @@ function extractClauseArguments(tokens = []) {
   }
 
   const subjectToken = tokens.find(t => t.pos === 'PRON_SUBJ') || tokens.find(t => t.pos === 'NOUN') || null;
-  return { subject: subjectToken?.lower || null, objects, ...extractComplements(tokens, subjectToken), temporalMarkers, stateMarkers };
+  return { subject: subjectToken?.lower || null, objects, directObjects: extractDirectObjects(tokens, subjectToken), temporalMarkers, stateMarkers };
 }
 
-// Complements of the verb: nouns outside a prepositional phrase that are not the subject ("einen neuen
-// Termin"), and prepositional phrases with their preposition ("nach Kosten"), so the verb's valency can
-// tell a prepositional object from an adverbial ("am Montag"). A preposition governs the tokens up to its noun.
-function extractComplements(tokens = [], subjectToken = null) {
+// Nouns outside a prepositional phrase that are not the subject: "einen neuen Termin" is a complement
+// of the verb, "am Montag" is not. A preposition governs the tokens up to its noun.
+function extractDirectObjects(tokens = [], subjectToken = null) {
   const directObjects = [];
-  const prepositionalPhrases = [];
-  let preposition = null;
+  let insidePrepPhrase = false;
   for (const t of tokens) {
-    if (t.pos === 'PREP') preposition = (t.lemma || t.lower).toLowerCase();
+    if (t.pos === 'PREP') insidePrepPhrase = true;
     if (t.pos !== 'NOUN') continue;
-    const noun = (t.lemma || t.lower).toLowerCase();
-    if (preposition) prepositionalPhrases.push({ preposition, noun });
-    else if (t !== subjectToken) directObjects.push(noun);
-    preposition = null;
+    if (!insidePrepPhrase && t !== subjectToken) directObjects.push((t.lemma || t.lower).toLowerCase());
+    insidePrepPhrase = false;
   }
-  return { directObjects, prepositionalPhrases };
+  return directObjects;
 }
 
 export function parseClauseStructure(clause) {

@@ -30,7 +30,6 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
     [defectReason, 'Ich habe kein Problem.', 'negated_entity'],
     [newAppointment, 'Einen neuen Termin möchte ich nicht.', 'negated_object'],
     [newAppointment, 'Ich brauche den Termin nicht.', 'negated_object'],
-    [courseCosts, 'Ich frage nicht nach Kosten.', 'negated_object'],
   ];
   for (const [criterion, sentence, reason] of refusals) {
     it(`"${sentence}" refuses "${criterion.label}"`, () => {
@@ -50,12 +49,23 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
     [newAppointment, 'Am Montag möchte ich nicht, aber am Dienstag gern.'],
     [newAppointment, 'Ich kann den Termin am Montag nicht machen, aber am Dienstag.'],
     [courseCosts, 'Ich frage nach den Kosten, ich kann nicht viel bezahlen.'],
+    [newAppointment, 'Ich schaffe den Termin nicht.'],
+    [newAppointment, 'Ich finde den Termin am Montag nicht gut.'],
+    [courseCosts, 'Ich kenne den Preis nicht.'],
   ];
   for (const [criterion, sentence] of contentNegations) {
     it(`"${sentence}" does not refuse "${criterion.label}"`, () => {
       assert.equal(detectSemanticInversion(sentence, criterion, A1_GRAMMAR_PROFILE).isInverted, false);
     });
   }
+});
+
+describe('Known limit: a negated question verb with a prepositional object', () => {
+  it('"Ich frage nicht nach Kosten" refuses the cost question', {
+    todo: 'needs prepositional-object valency for A1 verbs as data (fragen nach, warten auf, bitten um …); a one-verb entry was dropped as fitting (v0.7.82)',
+  }, () => {
+    assert.equal(detectSemanticInversion('Ich frage nicht nach Kosten.', courseCosts, A1_GRAMMAR_PROFILE).isInverted, true);
+  });
 });
 
 describe('Refusal weighed the same across a comma and a full stop', () => {
