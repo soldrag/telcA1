@@ -114,11 +114,13 @@ export function disambiguateToken(rawWord = '', prevToken = null, nextToken = nu
 
   if (candidates.length === 0) return fallback;
   if (isNominalisedVerb(raw, candidates, [prevToken?.pos])) return { raw, lower, pos: 'NOUN', lemma: lower };
-  // A capitalised dictionary word opening the sentence before a subject pronoun is the verb ("Lese ich …", "Lese" is
-  // also a noun). Otherwise the capital marks a noun: a dictionary noun reading, or the nominalised verb
-  // ("Lesen ist mein Hobby").
+  // A capitalised dictionary word opening the sentence is the verb of a question or an imperative when it has a
+  // finite reading ("Lese ich …", "Spielt Anna Tennis?", "Beginnt der Kurs …?"), unless a finite verb or a
+  // preposition follows: then it is a nominalised subject ("Lesen ist mein Hobby", "Schwimmen im See …").
+  // Elsewhere the capital marks a noun: a dictionary noun reading, or the nominalised verb.
   const isCapitalised = /^[A-ZÄÖÜ]/.test(raw);
-  const openingVerb = isCapitalised && !prevToken && nextToken?.pos === 'PRON_SUBJ'
+  const nominalFollows = ['VERB_FIN', 'VERB_MOD', 'PREP'].includes(nextToken?.pos);
+  const openingVerb = isCapitalised && !prevToken && !nominalFollows
     && candidates.find((c) => c.source === 'dictionary' && (c.pos === 'VERB_FIN' || c.pos === 'VERB_MOD'));
   if (openingVerb) return { raw, lower, ...openingVerb };
   if (isCapitalised && candidates.every((c) => c.source === 'dictionary')) {

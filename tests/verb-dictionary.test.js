@@ -53,6 +53,7 @@ describe('Verb dictionary: review counterexamples', () => {
     'Ich gehe mit dir ins Kino.', 'Ich komme zu dir.', 'Ich wohne bei ihr.',
     'Ich habe eine Freundin, die gut Deutsch spricht.', 'Das ist das Buch, das ich lese.', 'Ich weiß nicht, wann ich kommen kann.',
     'Lese ich das Buch?', 'Spiele ich heute?', 'Lesen ist mein Hobby.', 'Kochen ist mein Hobby.', 'Lesen Sie den Text!',
+    'Spielt Anna Tennis?', 'Beginnt der Kurs um 9?', 'Gefällt dir das Hotel?', 'Schwimmen im See ist schön.',
     'Ich wonen in Berlin.', 'Mein Mann komt mit.',
   ]) {
     it(`clean: ${text}`, () => assert.deepEqual(corrections(text), []));
