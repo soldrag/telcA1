@@ -91,6 +91,10 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
   },
+  // The UI suite opens the preview as *.github.io so the app takes its GitHub Pages path (playwright.config.js).
+  preview: {
+    allowedHosts: ['.github.io'],
+  },
   server: {
     port: 5173,
     proxy: {

@@ -42,3 +42,7 @@ tests/eval/reports/
 
 # Architecture documentation (Russian local drafts)
 ARCHITECTURE*.ru.md
+
+# Playwright UI tests
+test-results/
+playwright-report/

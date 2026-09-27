@@ -10,6 +10,8 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "verify:contracts": "node scripts/verify-contracts.js",
     "test": "node --import ./tests/support/loadLexiconData.js --test tests/*.test.js",
+    "test:ui": "playwright test",
+    "test:ui:headed": "playwright test --project=desktop --headed",
     "test:e2e": "node tests/e2e/all-buttons-smoke.js",
     "test:e2e:assignment": "node tests/e2e/assignment-flow-e2e.js",
     "test:e2e:mobile": "node tests/e2e/mobile-layout.test.js",
@@ -36,6 +38,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.2",

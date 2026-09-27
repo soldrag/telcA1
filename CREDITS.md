@@ -53,3 +53,4 @@ data, these files are themselves licensed under **CC BY-SA 4.0**. The rest of th
 | [Terser](https://terser.org) | Mihai Bazon and contributors | BSD-2-Clause |
 | [vite-plugin-compression2](https://github.com/nonzzz/vite-plugin-compression) | Kanno | MIT |
 | [concurrently](https://github.com/open-cli-tools/concurrently) | Kimmo Brunfeldt | MIT |
+| [Playwright](https://playwright.dev) (`@playwright/test`, UI tests only) | Microsoft | Apache-2.0 |
