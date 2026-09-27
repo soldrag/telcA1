@@ -7,10 +7,10 @@ import SchreibenMoreDetails from './SchreibenMoreDetails.jsx';
 import { BAND_TOP, SPAN } from '../layout/pageLayout.js';
 
 /**
- * Letter review: conclusion and criteria, the texts, then the Teil 1 form and secondary details.
+ * Letter review: conclusion and criteria, the texts, the Teil 1 form and secondary details.
  * Below 1024 px one stream (optionally only the section picked in the Form / Letter switch).
- * From 1024 px the letter is one band of the page grid, criteria (5 columns) beside the sticky texts (7), and the form and details
- * run full width below it, so neither column is left half empty.
+ * From 1024 px the Teil 1 form comes first (exam order), then the letter as one band of the page
+ * grid, criteria (5 columns) beside the sticky texts (7), and the details full width below it.
  */
 export default function SchreibenSelfCheck({ item = {}, onScoreChange, formReview = null, visibleSection = null }) {
   const { t, language } = useI18n();
@@ -27,7 +27,8 @@ export default function SchreibenSelfCheck({ item = {}, onScoreChange, formRevie
           <SchreibenLetterTexts {...shared} />
         </div>
       </div>
-      {formReview && <div className={`order-3 min-w-0 ${onlyIn('form')}`}>{formReview}</div>}
+      {/* Teil 1 is read first on desktop: the parts keep the exam order. */}
+      {formReview && <div className={`order-3 lg:-order-1 min-w-0 ${onlyIn('form')}`}>{formReview}</div>}
       <SchreibenMoreDetails {...shared} className={`order-4 ${onlyIn('letter')}`} />
     </div>
   );
