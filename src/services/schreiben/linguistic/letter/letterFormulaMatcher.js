@@ -25,7 +25,14 @@ function matchesPattern(word, pattern) {
   return folded.startsWith(stem) && INFLECTION_ENDINGS.includes(folded.slice(stem.length));
 }
 
+// A one-word closing ("Grüße", "Tschüss") is a formula only when it opens a sentence; inside one it is
+// content: "Ich sende Grüße an Ihre Familie".
+function opensSentence(words, index) {
+  return index === 0 || /[.!?]$/.test(words[index - 1].raw);
+}
+
 function matchAt(words, index, formula) {
+  if (formula.words.length === 1 && !opensSentence(words, index)) return false;
   return formula.words.every((pattern, k) => words[index + k] && matchesPattern(words[index + k].word, pattern));
 }
 

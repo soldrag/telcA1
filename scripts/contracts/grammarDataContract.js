@@ -32,6 +32,21 @@ function validateEntry(word, e, errors) {
   if (e.objCase && !['AKK', 'DAT'].includes(e.objCase)) errors.push(`lexicon "${word}": objCase "${e.objCase}"`);
 }
 
+// A lemma is the base form: an adjective lemma is not an inflected form of another adjective entry
+// ("freundlichen" → "freundlich"), a plural noun's lemma is the singular that lists it as `plural`.
+const isAdjectiveBase = (word) => (lexicon[word] || []).some((e) => e.pos === 'ADJ' || e.pos === 'ADV');
+const singularByPlural = new Map(Object.values(lexicon).flat()
+  .filter((e) => e.pos === 'NOUN' && e.plural).map((e) => [e.plural.toLowerCase(), e.lemma]));
+
+function validateLemma(word, e, errors) {
+  const lemma = String(e.lemma || '').toLowerCase();
+  if (e.pos === 'ADJ' && paradigms.adjectiveEndingCandidates.some((x) => lemma.endsWith(x) && isAdjectiveBase(lemma.slice(0, -x.length)))) {
+    errors.push(`lexicon "${word}": adjective lemma "${e.lemma}" is an inflected form`);
+  }
+  const singular = e.pos === 'NOUN' && e.number === 'pl' ? singularByPlural.get(word) : null;
+  if (singular && e.lemma !== singular) errors.push(`lexicon "${word}": plural lemma "${e.lemma}", singular is "${singular}"`);
+}
+
 function validateProfiles(errors) {
   for (const profile of PROFILES) {
     for (const id of profile.rules) if (!GRAMMAR_RULES[id]) errors.push(`profile ${profile.level}: unknown rule "${id}"`);
@@ -54,7 +69,7 @@ function validateLetterFormulas(errors) {
 
 export function validateGrammarData(errors) {
   validateParadigms(errors);
-  for (const [word, entries] of Object.entries(lexicon)) entries.forEach((e) => validateEntry(word, e, errors));
+  for (const [word, entries] of Object.entries(lexicon)) entries.forEach((e) => { validateEntry(word, e, errors); validateLemma(word, e, errors); });
   validateProfiles(errors);
   validateLetterFormulas(errors);
 }

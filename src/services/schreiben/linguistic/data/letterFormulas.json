@@ -19,7 +19,8 @@
     { "words": ["lieb*", "gruß*"], "register": "informal" },
     { "words": ["bis", "bald"], "register": "informal" },
     { "words": ["auf", "wiedersehen"], "register": "informal" },
-    { "words": ["tschüss"], "register": "informal" }
+    { "words": ["tschüss"], "register": "informal" },
+    { "words": ["gruß*"], "register": "informal" }
   ],
   "politeAddressForms": ["sie", "ihnen", "ihr", "ihre", "ihrem", "ihren", "ihrer"]
 }

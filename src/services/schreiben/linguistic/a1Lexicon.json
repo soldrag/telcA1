@@ -1766,7 +1766,7 @@
   "stunden": [
     {
       "pos": "NOUN",
-      "lemma": "Stunden",
+      "lemma": "Stunde",
       "gender": "f",
       "number": "pl",
       "category": "duration"
@@ -1785,7 +1785,7 @@
   "tage": [
     {
       "pos": "NOUN",
-      "lemma": "Tage",
+      "lemma": "Tag",
       "gender": "m",
       "number": "pl",
       "category": "duration"
@@ -1813,7 +1813,7 @@
   "wochen": [
     {
       "pos": "NOUN",
-      "lemma": "Wochen",
+      "lemma": "Woche",
       "gender": "f",
       "number": "pl",
       "category": "duration"
@@ -1832,7 +1832,7 @@
   "monate": [
     {
       "pos": "NOUN",
-      "lemma": "Monate",
+      "lemma": "Monat",
       "gender": "m",
       "number": "pl",
       "category": "duration"
@@ -1860,7 +1860,7 @@
   "jahre": [
     {
       "pos": "NOUN",
-      "lemma": "Jahre",
+      "lemma": "Jahr",
       "gender": "n",
       "number": "pl",
       "category": "duration"
@@ -1971,13 +1971,13 @@
   "viele": [
     {
       "pos": "ADJ",
-      "lemma": "viele"
+      "lemma": "viel"
     }
   ],
   "wenige": [
     {
       "pos": "ADJ",
-      "lemma": "wenige"
+      "lemma": "wenig"
     }
   ],
   "zurück": [
@@ -2690,7 +2690,7 @@
     },
     {
       "pos": "NOUN",
-      "lemma": "Arbeiten",
+      "lemma": "Arbeit",
       "gender": "f",
       "number": "pl"
     }
@@ -3871,7 +3871,7 @@
   "termine": [
     {
       "pos": "NOUN",
-      "lemma": "Termine",
+      "lemma": "Termin",
       "gender": "m",
       "number": "pl"
     }
@@ -3905,7 +3905,7 @@
   "kurse": [
     {
       "pos": "NOUN",
-      "lemma": "Kurse",
+      "lemma": "Kurs",
       "gender": "m",
       "number": "pl"
     }
@@ -3966,7 +3966,7 @@
   "überstunden": [
     {
       "pos": "NOUN",
-      "lemma": "Überstunden",
+      "lemma": "Überstunde",
       "gender": "f",
       "number": "pl"
     }
@@ -4051,7 +4051,7 @@
   "herren": [
     {
       "pos": "NOUN",
-      "lemma": "Herren",
+      "lemma": "Herr",
       "gender": "m",
       "number": "pl"
     }
@@ -4069,7 +4069,7 @@
   "frauen": [
     {
       "pos": "NOUN",
-      "lemma": "Frauen",
+      "lemma": "Frau",
       "gender": "f",
       "number": "pl"
     }
@@ -4096,7 +4096,7 @@
   "kollegen": [
     {
       "pos": "NOUN",
-      "lemma": "Kollegen",
+      "lemma": "Kollege",
       "gender": "m",
       "number": "pl"
     },
@@ -4230,7 +4230,7 @@
   "informationen": [
     {
       "pos": "NOUN",
-      "lemma": "Informationen",
+      "lemma": "Information",
       "gender": "f",
       "number": "pl"
     }
@@ -4279,7 +4279,7 @@
   "grüße": [
     {
       "pos": "NOUN",
-      "lemma": "Grüße",
+      "lemma": "Gruß",
       "gender": "m",
       "number": "pl"
     }
@@ -4330,7 +4330,7 @@
   "freunde": [
     {
       "pos": "NOUN",
-      "lemma": "Freunde",
+      "lemma": "Freund",
       "gender": "m",
       "number": "pl"
     }
@@ -4496,7 +4496,7 @@
   "kinder": [
     {
       "pos": "NOUN",
-      "lemma": "Kinder",
+      "lemma": "Kind",
       "gender": "n",
       "number": "pl"
     }
@@ -4573,31 +4573,31 @@
   "neue": [
     {
       "pos": "ADJ",
-      "lemma": "neue"
+      "lemma": "neu"
     }
   ],
   "neuer": [
     {
       "pos": "ADJ",
-      "lemma": "neuer"
+      "lemma": "neu"
     }
   ],
   "neues": [
     {
       "pos": "ADJ",
-      "lemma": "neues"
+      "lemma": "neu"
     }
   ],
   "neuen": [
     {
       "pos": "ADJ",
-      "lemma": "neuen"
+      "lemma": "neu"
     }
   ],
   "neuem": [
     {
       "pos": "ADJ",
-      "lemma": "neuem"
+      "lemma": "neu"
     }
   ],
   "alt": [
@@ -4609,25 +4609,25 @@
   "alte": [
     {
       "pos": "ADJ",
-      "lemma": "alte"
+      "lemma": "alt"
     }
   ],
   "alter": [
     {
       "pos": "ADJ",
-      "lemma": "alter"
+      "lemma": "alt"
     }
   ],
   "altes": [
     {
       "pos": "ADJ",
-      "lemma": "altes"
+      "lemma": "alt"
     }
   ],
   "alten": [
     {
       "pos": "ADJ",
-      "lemma": "alten"
+      "lemma": "alt"
     }
   ],
   "groß": [
@@ -4645,25 +4645,25 @@
   "große": [
     {
       "pos": "ADJ",
-      "lemma": "große"
+      "lemma": "groß"
     }
   ],
   "grosse": [
     {
       "pos": "ADJ",
-      "lemma": "grosse"
+      "lemma": "gross"
     }
   ],
   "großer": [
     {
       "pos": "ADJ",
-      "lemma": "großer"
+      "lemma": "groß"
     }
   ],
   "großen": [
     {
       "pos": "ADJ",
-      "lemma": "großen"
+      "lemma": "groß"
     }
   ],
   "klein": [
@@ -4675,19 +4675,19 @@
   "kleine": [
     {
       "pos": "ADJ",
-      "lemma": "kleine"
+      "lemma": "klein"
     }
   ],
   "kleiner": [
     {
       "pos": "ADJ",
-      "lemma": "kleiner"
+      "lemma": "klein"
     }
   ],
   "kleinen": [
     {
       "pos": "ADJ",
-      "lemma": "kleinen"
+      "lemma": "klein"
     }
   ],
   "krank": [
@@ -4711,19 +4711,19 @@
   "freie": [
     {
       "pos": "ADJ",
-      "lemma": "freie"
+      "lemma": "frei"
     }
   ],
   "freien": [
     {
       "pos": "ADJ",
-      "lemma": "freien"
+      "lemma": "frei"
     }
   ],
   "freier": [
     {
       "pos": "ADJ",
-      "lemma": "freier"
+      "lemma": "frei"
     }
   ],
   "schön": [
@@ -4735,25 +4735,25 @@
   "schöne": [
     {
       "pos": "ADJ",
-      "lemma": "schöne"
+      "lemma": "schön"
     }
   ],
   "schöner": [
     {
       "pos": "ADJ",
-      "lemma": "schöner"
+      "lemma": "schön"
     }
   ],
   "schönen": [
     {
       "pos": "ADJ",
-      "lemma": "schönen"
+      "lemma": "schön"
     }
   ],
   "schönem": [
     {
       "pos": "ADJ",
-      "lemma": "schönem"
+      "lemma": "schön"
     }
   ],
   "herzlich": [
@@ -4765,19 +4765,19 @@
   "herzliche": [
     {
       "pos": "ADJ",
-      "lemma": "herzliche"
+      "lemma": "herzlich"
     }
   ],
   "herzlicher": [
     {
       "pos": "ADJ",
-      "lemma": "herzlicher"
+      "lemma": "herzlich"
     }
   ],
   "herzlichen": [
     {
       "pos": "ADJ",
-      "lemma": "herzlichen"
+      "lemma": "herzlich"
     }
   ],
   "freundlich": [
@@ -4789,25 +4789,25 @@
   "freundliche": [
     {
       "pos": "ADJ",
-      "lemma": "freundliche"
+      "lemma": "freundlich"
     }
   ],
   "freundlicher": [
     {
       "pos": "ADJ",
-      "lemma": "freundlicher"
+      "lemma": "freundlich"
     }
   ],
   "freundlichen": [
     {
       "pos": "ADJ",
-      "lemma": "freundlichen"
+      "lemma": "freundlich"
     }
   ],
   "freundlichem": [
     {
       "pos": "ADJ",
-      "lemma": "freundlichem"
+      "lemma": "freundlich"
     }
   ],
   "geehrt": [
@@ -4819,25 +4819,25 @@
   "geehrte": [
     {
       "pos": "ADJ",
-      "lemma": "geehrte"
+      "lemma": "geehrt"
     }
   ],
   "geehrter": [
     {
       "pos": "ADJ",
-      "lemma": "geehrter"
+      "lemma": "geehrt"
     }
   ],
   "geehrtes": [
     {
       "pos": "ADJ",
-      "lemma": "geehrtes"
+      "lemma": "geehrt"
     }
   ],
   "geehrten": [
     {
       "pos": "ADJ",
-      "lemma": "geehrten"
+      "lemma": "geehrt"
     }
   ],
   "lieb": [
@@ -4849,25 +4849,25 @@
   "liebe": [
     {
       "pos": "ADJ",
-      "lemma": "liebe"
+      "lemma": "lieb"
     }
   ],
   "lieber": [
     {
       "pos": "ADJ",
-      "lemma": "lieber"
+      "lemma": "lieb"
     }
   ],
   "liebes": [
     {
       "pos": "ADJ",
-      "lemma": "liebes"
+      "lemma": "lieb"
     }
   ],
   "lieben": [
     {
       "pos": "ADJ",
-      "lemma": "lieben"
+      "lemma": "lieb"
     }
   ],
   "wohnungen": [
@@ -5334,7 +5334,7 @@
   "personen": [
     {
       "pos": "NOUN",
-      "lemma": "Personen",
+      "lemma": "Person",
       "gender": "f",
       "number": "pl",
       "category": "person"
@@ -5353,7 +5353,7 @@
   "nächte": [
     {
       "pos": "NOUN",
-      "lemma": "Nächte",
+      "lemma": "Nacht",
       "gender": "f",
       "number": "pl",
       "category": "duration"
@@ -5381,7 +5381,7 @@
   "apartments": [
     {
       "pos": "NOUN",
-      "lemma": "Apartments",
+      "lemma": "Apartment",
       "gender": "n",
       "number": "pl"
     }
@@ -6157,7 +6157,7 @@
     },
     {
       "pos": "NOUN",
-      "lemma": "Fragen",
+      "lemma": "Frage",
       "gender": "f",
       "number": "pl"
     }
@@ -6792,7 +6792,7 @@
   "gebühren": [
     {
       "pos": "NOUN",
-      "lemma": "Gebühren",
+      "lemma": "Gebühr",
       "gender": "f",
       "number": "pl"
     }
@@ -6809,7 +6809,7 @@
   "preise": [
     {
       "pos": "NOUN",
-      "lemma": "Preise",
+      "lemma": "Preis",
       "gender": "m",
       "number": "pl"
     }
