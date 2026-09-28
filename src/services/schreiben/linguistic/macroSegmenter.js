@@ -48,11 +48,9 @@ function parseSalutation(line = '', isFormalRequired = true) {
   };
 }
 
-function rateClosing({ register, senderName, isFormalRequired }) {
-  if (!senderName) return 1;
-  if (!isFormalRequired || register === 'formal') return 2;
-  if (register === 'semiFormal') return senderName.includes(' ') ? 2 : 1;
-  return 1;
+// The sender's name is no criterion of the Kommunikative Gestaltung: only the formula and its register are rated.
+function rateClosing({ register, isFormalRequired }) {
+  return !isFormalRequired || register !== 'informal' ? 2 : 1;
 }
 
 function readSenderName(lines, index, formula) {
@@ -77,7 +75,7 @@ function parseClosingAndSignature(lines = [], startFrom = 1, isFormalRequired = 
   return {
     closingIdx: found.index,
     recognized: true,
-    score: rateClosing({ register: found.formula.register, senderName, isFormalRequired }),
+    score: rateClosing({ register: found.formula.register, isFormalRequired }),
     text: lines[found.index],
     senderName,
     hasName: Boolean(senderName),

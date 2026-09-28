@@ -88,7 +88,7 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
       diagnosticCode: DIAGNOSTIC_CODES.GRUSS_MISSING,
       language: 'en'
     });
-    assert.match(grussMissing, /Missing closing formula or sender name/);
+    assert.match(grussMissing, /The letter has no closing formula/);
   });
 
   it('falls back cleanly by score when diagnosticCode is missing', async () => {

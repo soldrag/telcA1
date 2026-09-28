@@ -45,7 +45,7 @@ Erika Musterfrau`, A1);
     assert.equal(stage1.gruss.diagnosticCode, DIAGNOSTIC_CODES.GRUSS_PERFECT);
   });
 
-  it('Stage 1 awards 1 point for informal salutation in formal context or single name', () => {
+  it('Stage 1 awards 1 point for an informal salutation in a formal context; a single name costs nothing', () => {
     const stage0 = runStage0Preprocessing(`Hallo Herr Dr. Schneider,
 ich kann nicht kommen.
 Viele Grüße
@@ -53,6 +53,15 @@ Anna`, A1);
     const stage1 = runStage1Scoring(stage0);
 
     assert.equal(stage1.anredeScore, 1);
+    assert.equal(stage1.grussScore, 2);
+  });
+
+  it('Stage 1 awards 1 point for an informal closing in a formal context', () => {
+    const stage1 = runStage1Scoring(runStage0Preprocessing(`Sehr geehrter Herr Dr. Schneider,
+ich kann nicht kommen.
+Liebe Grüße
+Anna Berg`, A1));
+    assert.equal(stage1.anredeScore, 2);
     assert.equal(stage1.grussScore, 1);
   });
 

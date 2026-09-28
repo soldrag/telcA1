@@ -95,8 +95,9 @@ Viele Grüße,`;
 
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 1); // missing sender name
-    assert.equal(res.points_earned, 9.5);
+    // reglament: Kommunikative Gestaltung rates the formulas; a missing sender name costs nothing
+    assert.equal(res.breakdown.gruss, 2);
+    assert.equal(res.points_earned, 10);
 
     // Verify segmentation: Punkt 3 must NOT be empty!
     assert.match(res.user_segments.leitpunkte[0].userSentence, /14:00/);

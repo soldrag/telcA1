@@ -30,7 +30,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(missing.score, 0);
   });
 
-  it('analyzes closing formulas and sender names', async () => {
+  it('analyzes closing formulas; the sender name is read but not rated', async () => {
     const withName = analyzeClosing('Mit freundlichen Grüßen,\nAnna Schmidt');
     assert.equal(withName.recognized, true);
     assert.equal(withName.hasName, true);
@@ -39,7 +39,11 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     const withoutName = analyzeClosing('Mit freundlichen Grüßen');
     assert.equal(withoutName.recognized, true);
     assert.equal(withoutName.hasName, false);
-    assert.equal(withoutName.score, 1);
+    assert.equal(withoutName.score, 2);
+
+    const informalToSie = analyzeClosing('Tschüss,\nAnna Schmidt', { isFormal: true });
+    assert.equal(informalToSie.recognized, true);
+    assert.equal(informalToSie.score, 1);
 
     const missing = analyzeClosing('Danke für alles.');
     assert.equal(missing.recognized, false);

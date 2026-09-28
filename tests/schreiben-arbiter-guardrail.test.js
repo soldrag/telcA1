@@ -56,7 +56,7 @@ Alex`;
     assert.equal(res.breakdown.items[0].score, 1, 'LP1 (problem mentioned) gets 1/2');
     assert.equal(res.breakdown.items[1].score, 2, 'LP2 (kalt + wohnung) gets 2/2');
     assert.equal(res.breakdown.items[2].score, 1, 'LP3 (kommen matched) gets 1/2');
-    assert.equal(res.breakdown.gruss, 1, 'Informal closing Viele Grüße gets 1/2');
+    assert.equal(res.breakdown.gruss, 2, 'Viele Grüße is semi-formal, fit for a Sie-addressee; the name is no criterion');
     assert.equal(res.points_earned, 6.5, 'Total must be 1.5 + 3 + 1.5 + KG 0.5 = 6.5/10 (Passed)');
     assert.equal(res.is_correct, true);
   });

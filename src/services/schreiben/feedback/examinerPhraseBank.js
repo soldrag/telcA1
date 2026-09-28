@@ -34,8 +34,8 @@ const RU = Object.freeze({
   ANREDE_REGISTER_MISMATCH: 'Обращение {quote} слишком неформальное для официального письма.',
   ANREDE_DECLENSION_FLAW: 'В обращении {quote} ошибка в окончании. Правильно: {correction}.',
   ANREDE_PUNCTUATION_FLAW: 'После обращения {quote} пропущена запятая.',
-  GRUSS_PERFECT: 'Прощание и подпись оформлены правильно: {quote}.',
-  GRUSS_INCOMPLETE: 'Прощание неполное: {quote}. Нужны формула прощания и ваше имя.',
+  GRUSS_PERFECT: 'Прощание оформлено правильно: {quote}.',
+  GRUSS_INCOMPLETE: 'Прощание {quote} слишком неформальное для официального письма.',
 
   LP_FULFILLED: 'Пункт {criterion} раскрыт: {quote}.',
   LP_PARTIAL: 'Пункт {criterion} затронут ({quote}), но не хватает подробностей.',
@@ -78,8 +78,8 @@ const EN = Object.freeze({
   ANREDE_REGISTER_MISMATCH: 'The salutation {quote} is too informal for an official email.',
   ANREDE_DECLENSION_FLAW: 'Ending error in salutation {quote}. Correct form: {correction}.',
   ANREDE_PUNCTUATION_FLAW: 'Missing comma after the salutation {quote}.',
-  GRUSS_PERFECT: 'Closing and signature are correct: {quote}.',
-  GRUSS_INCOMPLETE: 'The closing is incomplete: {quote}. Add a closing formula and your name.',
+  GRUSS_PERFECT: 'The closing is correct: {quote}.',
+  GRUSS_INCOMPLETE: 'The closing {quote} is too informal for an official email.',
 
   LP_FULFILLED: 'Point {criterion} is covered: {quote}.',
   LP_PARTIAL: 'Point {criterion} is touched on ({quote}), but details are missing.',

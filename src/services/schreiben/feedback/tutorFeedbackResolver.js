@@ -24,9 +24,9 @@ const TUTOR_MESSAGES = {
     ANREDE_PUNCTUATION_FLAW: 'В обращении пропущена запятая в конце строки.',
     ANREDE_MISSING: 'В начале письма отсутствует подходящее обращение.',
 
-    GRUSS_PERFECT: 'Прощальная формула и имя автора указаны верно.',
-    GRUSS_INCOMPLETE: 'Прощальная формула или имя автора неполные.',
-    GRUSS_MISSING: 'В конце письма отсутствует прощальная формула или имя автора.',
+    GRUSS_PERFECT: 'Прощальная формула подходит к письму.',
+    GRUSS_INCOMPLETE: 'Прощание слишком неформальное для официального письма.',
+    GRUSS_MISSING: 'В конце письма нет прощальной формулы.',
   },
   en: {
     LP_INVERTED_DEFECT: 'Point missed: the text states the appliance works, but the task required reporting a defect.',
@@ -45,9 +45,9 @@ const TUTOR_MESSAGES = {
     ANREDE_PUNCTUATION_FLAW: 'Missing comma at the end of the salutation.',
     ANREDE_MISSING: 'Missing appropriate salutation at the start of the letter.',
 
-    GRUSS_PERFECT: 'Closing formula and sender name are complete and appropriate.',
-    GRUSS_INCOMPLETE: 'Closing formula or sender name is incomplete.',
-    GRUSS_MISSING: 'Missing closing formula or sender name at the end of the letter.',
+    GRUSS_PERFECT: 'The closing formula is appropriate.',
+    GRUSS_INCOMPLETE: 'Closing is too informal for an official email.',
+    GRUSS_MISSING: 'The letter has no closing formula.',
   },
   de: {
     LP_INVERTED_DEFECT: 'Inhaltspunkt nicht erfüllt: Es wurde beschrieben, dass das Gerät funktioniert, statt den Defekt zu melden.',
@@ -66,9 +66,9 @@ const TUTOR_MESSAGES = {
     ANREDE_PUNCTUATION_FLAW: 'Nach der Anrede fehlt ein Komma.',
     ANREDE_MISSING: 'Es fehlt eine passende Anrede zu Beginn des Briefes.',
 
-    GRUSS_PERFECT: 'Grußformel und Name am Schluss sind vollständig und passend.',
-    GRUSS_INCOMPLETE: 'Die Grußformel oder der Name am Schluss ist unvollständig.',
-    GRUSS_MISSING: 'Es fehlt eine Grußformel oder ein Name am Ende des Briefes.',
+    GRUSS_PERFECT: 'Die Grußformel ist passend.',
+    GRUSS_INCOMPLETE: 'Der Gruß ist für einen formellen Brief zu informell.',
+    GRUSS_MISSING: 'Am Ende des Briefes fehlt eine Grußformel.',
   }
 };
 

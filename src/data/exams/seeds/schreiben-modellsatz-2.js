@@ -163,7 +163,7 @@ export const questions = [
             label: 'Neuer Terminvorschlag',
             intent: 'APPOINTMENT_PROPOSAL',
             evidence: 'temporal',
-            keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit'],
+            keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'verschieben'],
             requiredMatches: 2
           }
         ]

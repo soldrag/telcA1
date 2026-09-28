@@ -83,10 +83,6 @@
       "gruss": 2,
       "kg": 1,
       "total": 10
-    },
-    "knownLimit": {
-      "lp3": "limited mode: \"den Termin auf nächsten Dienstag verschieben\" earns LP3 = 1 on the s2-q6 rubric (todo.md, P1)",
-      "total": "follows lp3"
     }
   },
   {
@@ -101,9 +97,9 @@
     "text": "Guten Tag Herr Schneider,\nich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?\nViele Grusse\nOlga",
     "expected": {
       "anrede": 2,
-      "gruss": 1,
-      "kg": 0.5,
-      "total": 9.5
+      "gruss": 2,
+      "kg": 1,
+      "total": 10
     }
   },
   {
@@ -123,7 +119,7 @@
       "total": 9.5
     },
     "knownLimit": {
-      "lp3": "limited mode: \"Können wir den Termin verschieben?\" earns LP3 = 0 on the s2-q6 rubric (todo.md, P1)",
+      "lp3": "limited mode: \"Können wir den Termin verschieben?\" names no new date and earns LP3 = 1 (todo.md, P1)",
       "total": "follows lp3"
     }
   },
