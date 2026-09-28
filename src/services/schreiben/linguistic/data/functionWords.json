@@ -1,5 +1,5 @@
 {
-  "notes": "German function words. queryStopWords: articles, pronouns, prepositions and question words left out of a criterion's search query, since they carry no topic. quantityFillers: prepositions, particles and connectors around an amount that do not change what is counted ('um 9', 'ca. 3', 'insgesamt 3', '2 Kinder und 1 Erwachsener'). alternativeMarkers: words that offer another answer ('18. Juli (oder 19. Juli)'), so a note with them is part of the answer.",
+  "notes": "German function words. queryStopWords: articles, pronouns, prepositions and question words left out of a criterion's search query, since they carry no topic. quantityFillers: prepositions, particles and connectors around an amount that do not change what is counted ('um 9', 'ca. 3', 'insgesamt 3', '2 Kinder und 1 Erwachsener'). alternativeMarkers: words that offer a choice of answers ('Montag oder Donnerstag'). rangeMarkers: words that extend an answer to another value ('18. Juli (bis 19. Juli)'); a note with either is part of the answer, but only a choice makes the whole answer ambiguous.",
   "queryStopWords": [
     "der",
     "die",
@@ -55,8 +55,9 @@
   "alternativeMarkers": [
     "oder",
     "bzw",
-    "beziehungsweise",
-    "bis",
-    "or"
+    "beziehungsweise"
+  ],
+  "rangeMarkers": [
+    "bis"
   ]
 }

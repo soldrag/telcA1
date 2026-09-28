@@ -61,7 +61,9 @@ export class TelcA1Regulation extends ISchreibenRegulation {
 
   get trainingPassMark() { return 6; }
 
-  acceptsTeil1Answer({ sameText, sameNumberOrDate, numberAnswer, rivalWords, abbreviation, singleWord, shorterLength, editDistance, sameSound }) {
+  acceptsTeil1Answer({ offersAlternative, sameText, sameNumberOrDate, numberAnswer, rivalWords, abbreviation, singleWord, shorterLength, editDistance, sameSound }) {
+    // The answer must be "eindeutig": naming two possibilities leaves the choice to the examiner (§ Teil 1).
+    if (offersAlternative) return false;
     if (sameText || sameNumberOrDate) return true;
     // A phrase is compared word by word (schreibenTeil1Evaluator), so "am Sonntag" is not one typo from "am Montag".
     // "Juni" for "Juli" is not a recognisable misspelling: it is another, valid month.

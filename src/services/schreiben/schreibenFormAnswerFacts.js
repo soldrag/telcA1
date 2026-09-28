@@ -20,6 +20,7 @@ import wordClasses from './linguistic/data/clauseWordClasses.json' with { type: 
  * @property {boolean} rivalWords - the expected word is in a closed class (months, weekdays) and the answer is, or sounds like, or is
  *   nearer to another member of it (Juni, "Sontag" for Juli, Montag): a typo there names another answer
  * @property {boolean} abbreviation - the answer is a usual abbreviation of the expected word ("Poststr.", "Mo."; linguistic/data/abbreviations.json)
+ * @property {boolean} [offersAlternative] - the whole answer names a choice ("Montag oder Donnerstag") that the expected answer does not; set by the evaluator, since it is a fact of the answer, not of one compared pair
  * @property {boolean} singleWord - both sides are one word; a typo or sound tolerance is meant for a word, not a phrase
  * @property {number} shorterLength - characters in the shorter of the two normalised texts
  * @property {number} editDistance - Damerau-Levenshtein distance (optimal string alignment), the smaller of the plain and the umlaut-folded one

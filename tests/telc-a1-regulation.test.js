@@ -87,6 +87,11 @@ describe('telc A1 Schreiben Teil 1 regulation (reglament/telc-a1.md, Teil 1 — 
   });
   const accepts = (overrides) => telcA1Regulation.acceptsTeil1Answer(facts(overrides));
 
+  it('rejects an answer that offers a choice, even with the right word in it', () => {
+    assert.equal(accepts({ sameText: true, offersAlternative: true }), false);
+    assert.equal(accepts({ sameNumberOrDate: true, offersAlternative: true }), false);
+  });
+
   it('accepts the same text or the same number or date written another way', () => {
     assert.equal(accepts({ sameText: true }), true);
     assert.equal(accepts({ numberAnswer: true, sameNumberOrDate: true }), true);

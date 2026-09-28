@@ -38,10 +38,15 @@ function containsAcceptedWords(answer, expected, accepts) {
   return false;
 }
 
-const ALTERNATIVE_MARKERS = new Set(functionWords.alternativeMarkers);
+const CHOICE_MARKERS = new Set(functionWords.alternativeMarkers);
+const NOTE_ANSWER_MARKERS = new Set([...functionWords.alternativeMarkers, ...functionWords.rangeMarkers]);
 const BRACKET_NOTE = /\(([^()]*)\)/g;
 
-const offersAlternative = (note) => note.toLowerCase().split(/[^\p{L}]+/u).some((word) => ALTERNATIVE_MARKERS.has(word));
+const containsMarker = (text, markers) => text.toLowerCase().split(/[^\p{L}]+/u).some((word) => markers.has(word));
+
+// An answer that names a choice ("Montag oder Donnerstag") does not say which one is meant, unless the expected
+// answer itself is written with the marker. A range ("bis 18 Uhr") is one answer and stays a match.
+const namesChoice = (reading, expected) => containsMarker(reading, CHOICE_MARKERS) && !containsMarker(expected, CHOICE_MARKERS);
 
 // "3 (drei)", "3 Personen (2 Erwachsene, 1 Kind)": a note in brackets explains the answer and is not graded,
 // unless it offers another answer ("18. Juli (oder 19. Juli)"). "(030) 123456" is read with its brackets opened,
@@ -49,7 +54,7 @@ const offersAlternative = (note) => note.toLowerCase().split(/[^\p{L}]+/u).some(
 function readingsOf(answer) {
   const notes = [...answer.matchAll(BRACKET_NOTE)].map((match) => match[1]);
   const opened = answer.replace(BRACKET_NOTE, ' $1 ').trim();
-  if (!notes.length || notes.some(offersAlternative)) return [opened];
+  if (!notes.length || notes.some((note) => containsMarker(note, NOTE_ANSWER_MARKERS))) return [opened];
   const withoutNotes = answer.replace(BRACKET_NOTE, ' ').trim();
   return [withoutNotes, opened, ...notes].filter(Boolean);
 }
@@ -78,11 +83,12 @@ export function evaluateTeil1Answer(userAnswer = '', question = {}) {
   if (acceptedRawList.length === 0) return false;
 
   const regulation = getSchreibenRegulation(question.level);
-  const accepts = (text, expected) => (
-    regulation.acceptsTeil1Answer(compareFormAnswer(text, expected))
-  );
 
-  return readingsOf(answer).some((reading) => expectedFormsFor(reading, acceptedRawList).some((expected) => (
-    accepts(reading, expected) || (matchesWordByWord(expected) && containsAcceptedWords(reading, expected, accepts))
-  )));
+  return readingsOf(answer).some((reading) => expectedFormsFor(reading, acceptedRawList).some((expected) => {
+    const offersAlternative = namesChoice(reading, expected);
+    const accepts = (text, expectedText) => (
+      regulation.acceptsTeil1Answer({ ...compareFormAnswer(text, expectedText), offersAlternative })
+    );
+    return accepts(reading, expected) || (matchesWordByWord(expected) && containsAcceptedWords(reading, expected, accepts));
+  }));
 }

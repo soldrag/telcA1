@@ -112,6 +112,14 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     assert.equal(evaluateTeil1Answer('1.12.', { correct_answer: '11.2.' }), false);
   });
 
+  it('accepts no answer that offers a choice, and one whose expected answer is itself a choice', () => {
+    assert.equal(evaluateTeil1Answer('Montag oder Donnerstag', { correct_answer: 'Donnerstag' }), false);
+    assert.equal(evaluateTeil1Answer('Leipzig oder Dresden', { correct_answer: 'Leipzig' }), false);
+    assert.equal(evaluateTeil1Answer('Donnerstag', { correct_answer: 'Donnerstag' }), true);
+    assert.equal(evaluateTeil1Answer('bis 18 Uhr', { correct_answer: '18 Uhr' }), true);
+    assert.equal(evaluateTeil1Answer('Montag oder Donnerstag', { correct_answer: 'Montag oder Donnerstag' }), true);
+  });
+
   it('accepts no answer that writes another number beside the right one', () => {
     assert.equal(evaluateTeil1Answer('am 18. Juni oder 18. Juli', { correct_answer: '18. Juli' }), false);
     assert.equal(evaluateTeil1Answer('1 Jahr oder 1 Monat', { correct_answer: '1 Jahr' }), false);
