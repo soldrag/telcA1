@@ -82,19 +82,24 @@ describe('Schreiben regulation registry', () => {
 
 describe('telc A1 Schreiben Teil 1 regulation (reglament/telc-a1.md, Teil 1 — Formular)', () => {
   const facts = (overrides) => ({
-    sameText: false, sameNumberOrDate: false, hasDigits: false, singleWord: true,
+    sameText: false, sameNumberOrDate: false, numberAnswer: false, rivalWords: false, singleWord: true,
     shorterLength: 6, editDistance: 5, sameSound: false, ...overrides,
   });
   const accepts = (overrides) => telcA1Regulation.acceptsTeil1Answer(facts(overrides));
 
   it('accepts the same text or the same number or date written another way', () => {
     assert.equal(accepts({ sameText: true }), true);
-    assert.equal(accepts({ hasDigits: true, sameNumberOrDate: true }), true);
+    assert.equal(accepts({ numberAnswer: true, sameNumberOrDate: true }), true);
   });
 
   it('accepts numbers only when unambiguously right: no typo, no sound tolerance', () => {
-    assert.equal(accepts({ hasDigits: true, editDistance: 1 }), false);
-    assert.equal(accepts({ hasDigits: true, sameSound: true }), false);
+    assert.equal(accepts({ numberAnswer: true, editDistance: 1 }), false);
+    assert.equal(accepts({ numberAnswer: true, sameSound: true }), false);
+  });
+
+  it('gives no tolerance between two valid words of one closed class, as Juni for Juli', () => {
+    assert.equal(accepts({ rivalWords: true, editDistance: 1 }), false);
+    assert.equal(accepts({ rivalWords: true, sameSound: true }), false);
   });
 
   it('allows one typo, two from 8 letters on, none below 4 letters', () => {

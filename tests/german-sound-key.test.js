@@ -19,6 +19,7 @@ describe('German sound key', () => {
     assert.ok(!sameSound('Dienstag', 'Donnerstag'));
     assert.ok(!sameSound('Montag', 'Sonntag'));
     assert.ok(!sameSound('Miete', 'Mitte'), 'ie marks a long vowel');
+    assert.ok(!sameSound('Miiete', 'Mitte'));
     assert.ok(!sameSound('Berg', 'Back'), 'the r of a first syllable is not vocalised');
     assert.ok(!sameSound('Erbe', 'Abe'));
     assert.ok(!sameSound('Mäher', 'mehr'), 'an h between vowels is not a lengthening h');

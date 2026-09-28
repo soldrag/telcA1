@@ -3,18 +3,21 @@
  * decided by the regulation of the task level (ISchreibenRegulation.acceptsTeil1Answer), not here.
  */
 import { areDatesEquivalent } from './schreibenDateNormalizer.js';
-import { areNumbersEquivalent } from './schreibenNumberNormalizer.js';
+import { areNumbersEquivalent, writesNumber } from './schreibenNumberNormalizer.js';
 import { toGermanSoundKey } from './linguistic/germanSoundKey.js';
 import spelling from './linguistic/data/umlautSpelling.json' with { type: 'json' };
+import calendarWords from './linguistic/data/calendarWords.json' with { type: 'json' };
+import wordClasses from './linguistic/data/clauseWordClasses.json' with { type: 'json' };
 
 /**
  * @typedef {Object} FormAnswerFacts
  * @property {boolean} sameText - equal after case and punctuation are normalised, or an umlaut transliteration (ue for ü)
  * @property {boolean} sameNumberOrDate - both write the same number or date (drei = 3, 18. Juli = 18.07)
- * @property {boolean} hasDigits - either side contains a digit (the evaluator also sets it for a word of a number or date answer)
+ * @property {boolean} numberAnswer - the answer, or the expected answer this word belongs to, writes a number or a date
+ * @property {boolean} rivalWords - both are different words of one closed class (Juni, Juli): a typo there names another answer
  * @property {boolean} singleWord - both sides are one word; a typo or sound tolerance is meant for a word, not a phrase
  * @property {number} shorterLength - characters in the shorter of the two normalised texts
- * @property {number} editDistance - Damerau-Levenshtein distance, the smaller of the plain and the umlaut-folded one
+ * @property {number} editDistance - Damerau-Levenshtein distance (optimal string alignment), the smaller of the plain and the umlaut-folded one
  * @property {boolean} sameSound - one German pronunciation (Donnerstag, donastag); see linguistic/germanSoundKey.js
  */
 
@@ -30,7 +33,7 @@ function normalizeUmlauts(str = '') {
   return [...str].map((ch) => spelling.transliteration[ch] ?? ch).join('');
 }
 
-function calculateLevenshtein(a = '', b = '') {
+function calculateDamerauDistance(a = '', b = '') {
   if (a === b) return 0;
   if (!a.length) return b.length;
   if (!b.length) return a.length;
@@ -60,8 +63,25 @@ function calculateLevenshtein(a = '', b = '') {
   return d[a.length][b.length];
 }
 
-/** @returns {FormAnswerFacts} */
-export function compareFormAnswer(answer = '', expected = '') {
+// Closed classes whose members are each a valid answer: word → its meaning within the class.
+const CLOSED_CLASSES = [
+  calendarWords.months,
+  Object.fromEntries(wordClasses.weekdays.map((day, index) => [day, index])),
+];
+
+function areRivalWords(a, b) {
+  return CLOSED_CLASSES.some((members) => (
+    Object.hasOwn(members, a) && Object.hasOwn(members, b) && members[a] !== members[b]
+  ));
+}
+
+/**
+ * @param {string} answer - the answer, or one word of it
+ * @param {string} expected - the expected answer, or the word of it compared with the answer
+ * @param {string} [expectedPhrase] - the whole expected answer the compared word belongs to
+ * @returns {FormAnswerFacts}
+ */
+export function compareFormAnswer(answer = '', expected = '', expectedPhrase = expected) {
   const normAnswer = normalizeGermanText(answer);
   const normExpected = normalizeGermanText(expected);
   const foldedAnswer = normalizeUmlauts(normAnswer);
@@ -69,10 +89,11 @@ export function compareFormAnswer(answer = '', expected = '') {
   return {
     sameText: normAnswer === normExpected || foldedAnswer === foldedExpected,
     sameNumberOrDate: areDatesEquivalent(answer, expected) || areNumbersEquivalent(answer, expected),
-    hasDigits: /\d/.test(normAnswer) || /\d/.test(normExpected),
+    numberAnswer: writesNumber(normAnswer) || writesNumber(expectedPhrase),
+    rivalWords: areRivalWords(normAnswer, normExpected),
     singleWord: !normAnswer.includes(' ') && !normExpected.includes(' '),
     shorterLength: Math.min(normAnswer.length, normExpected.length),
-    editDistance: Math.min(calculateLevenshtein(normAnswer, normExpected), calculateLevenshtein(foldedAnswer, foldedExpected)),
+    editDistance: Math.min(calculateDamerauDistance(normAnswer, normExpected), calculateDamerauDistance(foldedAnswer, foldedExpected)),
     sameSound: toGermanSoundKey(normAnswer) === toGermanSoundKey(normExpected),
   };
 }

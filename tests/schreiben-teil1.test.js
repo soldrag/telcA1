@@ -78,7 +78,6 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     assert.equal(evaluateTeil1Answer('Mittwoch', qDay), false);
     assert.equal(evaluateTeil1Answer('Sonntag', { correct_answer: 'Montag' }), false);
     assert.equal(evaluateTeil1Answer('Fata', { correct_answer: 'Vater' }), true);
-    assert.equal(accepts('Miiete', 'Mitte'), false, 'a marked long vowel is another sound');
   });
 
   it('accepts misspelled words of a multi-word answer, each word on its own', () => {
@@ -95,6 +94,23 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     assert.equal(evaluateTeil1Answer('ein Monat', qYear), false);
     assert.equal(evaluateTeil1Answer('18. Juni', { correct_answer: '18. juli|18.07' }), false);
     assert.equal(areNumbersEquivalent('drei Personen', '3'), true);
+    assert.equal(evaluateTeil1Answer('zwei Kinder', { correct_answer: '2 Kinder und 1 Erwachsener' }), false);
+    assert.equal(evaluateTeil1Answer('zwei Kinder und ein Erwachsener', { correct_answer: '2 Kinder und 1 Erwachsener' }), true);
+    assert.equal(evaluateTeil1Answer('eine Woche', { correct_answer: '1 Woche' }), true);
+  });
+
+  it('gives a number word no typo tolerance, but still tolerates a typo beside the article "eine"', () => {
+    assert.equal(evaluateTeil1Answer('nein', { correct_answer: 'neun' }), false);
+    assert.equal(evaluateTeil1Answer('vier', { correct_answer: 'Bier' }), false);
+    assert.equal(evaluateTeil1Answer('eine Tase Kaffee', { correct_answer: 'eine Tasse Kaffee' }), true);
+  });
+
+  it('does not take another month or weekday for a typo, but tolerates a misspelt one', () => {
+    assert.equal(evaluateTeil1Answer('Juni', { correct_answer: 'Juli' }), false);
+    assert.equal(evaluateTeil1Answer('im Juni', { correct_answer: 'Juli' }), false);
+    assert.equal(evaluateTeil1Answer('Mondtag', { correct_answer: 'Montag' }), true);
+    assert.equal(evaluateTeil1Answer('Dinstag', { correct_answer: 'Dienstag' }), true);
+    assert.equal(evaluateTeil1Answer('Maerz', { correct_answer: 'März' }), true);
   });
 
   // Limit (todo.md, P1): a final "ch" for "g" is how "Tag" sounds in the north, but "ch = g at the end" also

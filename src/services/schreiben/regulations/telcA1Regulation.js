@@ -61,10 +61,11 @@ export class TelcA1Regulation extends ISchreibenRegulation {
 
   get trainingPassMark() { return 6; }
 
-  acceptsTeil1Answer({ sameText, sameNumberOrDate, hasDigits, singleWord, shorterLength, editDistance, sameSound }) {
+  acceptsTeil1Answer({ sameText, sameNumberOrDate, numberAnswer, rivalWords, singleWord, shorterLength, editDistance, sameSound }) {
     if (sameText || sameNumberOrDate) return true;
     // A phrase is compared word by word (schreibenTeil1Evaluator), so "am Sonntag" is not one typo from "am Montag".
-    if (hasDigits || !singleWord || shorterLength < TYPO_MIN_LENGTH) return false;
+    // "Juni" for "Juli" is not a recognisable misspelling: it is another, valid month.
+    if (numberAnswer || rivalWords || !singleWord || shorterLength < TYPO_MIN_LENGTH) return false;
     const allowedTypos = shorterLength >= TWO_TYPOS_MIN_LENGTH ? 2 : 1;
     return editDistance <= allowedTypos || sameSound;
   }
