@@ -36,6 +36,17 @@ const build = (facts) => defaultA1RankerPolicy.buildExaminerFeedback(facts);
 const codes = (entries) => entries.map((e) => e.code);
 
 describe('Examiner feedback: descriptor builder (A1 policy)', () => {
+  it('a closing without the sender name keeps its points and gets a hint', async () => {
+    const res = await gradeSchreibenSubmission({
+      userText: 'Sehr geehrte Frau Dr. Berg,\nich kann morgen leider nicht kommen. Ich bin krank. Geht es am Freitag?\nMit freundlichen Grüßen',
+      question: {}, provider: new NoneProvider(),
+    });
+    assert.equal(res.breakdown.gruss, 2);
+    const hint = res.examiner_feedback.bullets.find((b) => b.category === 'gruss');
+    assert.equal(hint?.code, DIAGNOSTIC_CODES.GRUSS_NO_SENDER_NAME);
+    assert.equal(hint.status, 'warning');
+  });
+
   it('perfect letter: excellent verdict, all points covered, clean grammar', () => {
     const d = build(perfectFacts());
     assert.deepEqual(codes(d.summary), [EXAMINER_CODES.OVERALL_EXCELLENT, EXAMINER_CODES.SUMMARY_LP_ALL_COVERED, EXAMINER_CODES.GRAMMAR_CLEAN]);

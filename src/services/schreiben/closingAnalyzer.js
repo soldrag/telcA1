@@ -1,8 +1,8 @@
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 import { DIAGNOSTIC_CODES } from './feedback/feedbackContracts.js';
 
-function resolveClosingDiagnostic(score) {
-  if (score >= 2) return DIAGNOSTIC_CODES.GRUSS_PERFECT;
+function resolveClosingDiagnostic(score, hasName) {
+  if (score >= 2) return hasName ? DIAGNOSTIC_CODES.GRUSS_PERFECT : DIAGNOSTIC_CODES.GRUSS_NO_SENDER_NAME;
   return score === 1 ? DIAGNOSTIC_CODES.GRUSS_INCOMPLETE : DIAGNOSTIC_CODES.GRUSS_MISSING;
 }
 
@@ -18,6 +18,6 @@ export function analyzeClosing(text = '', options = {}) {
     text: closing.text,
     senderName: closing.senderName,
     hasName: closing.hasName,
-    diagnosticCode: resolveClosingDiagnostic(closing.score),
+    diagnosticCode: resolveClosingDiagnostic(closing.score, closing.hasName),
   };
 }

@@ -24,6 +24,8 @@ export const DIAGNOSTIC_CODES = Object.freeze({
 
   GRUSS_PERFECT: 'GRUSS_PERFECT',
   GRUSS_INCOMPLETE: 'GRUSS_INCOMPLETE',
+  // A hint only: the official criteria rate the formulas, the name costs nothing (reglament/telc-a1.md)
+  GRUSS_NO_SENDER_NAME: 'GRUSS_NO_SENDER_NAME',
   GRUSS_MISSING: 'GRUSS_MISSING',
 });
 

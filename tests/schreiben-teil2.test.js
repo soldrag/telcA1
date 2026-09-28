@@ -40,6 +40,9 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(withoutName.recognized, true);
     assert.equal(withoutName.hasName, false);
     assert.equal(withoutName.score, 2);
+    // The official criteria rate the formulas: a missing name is a hint, not a lost point
+    assert.equal(withoutName.diagnosticCode, 'GRUSS_NO_SENDER_NAME');
+    assert.equal(withName.diagnosticCode, 'GRUSS_PERFECT');
 
     const informalToSie = analyzeClosing('Tschüss,\nAnna Schmidt', { isFormal: true });
     assert.equal(informalToSie.recognized, true);

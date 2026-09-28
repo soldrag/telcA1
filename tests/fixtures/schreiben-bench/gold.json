@@ -164,15 +164,16 @@
     "expectedLp": [
       null,
       null,
-      0
+      1
     ],
     "text": "Sehr geehrte Frau Hansen,\nich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?\nMit freundlichen Grüßen\nAlex Müller",
     "expected": {
       "anrede": 2,
       "gruss": 2,
       "kg": 1,
-      "total": 7
-    }
+      "total": 8.5
+    },
+    "note": "Roles swapped in point 3 (\"Wie viel kostet der Hund? Ist die Wohnung erlaubt?\"): the meaning is distorted, the intent clear from the task — partly fulfilled, as a wrong conversive verb (C9)."
   },
   {
     "id": "C9",

@@ -44,7 +44,8 @@ function checkSlotIncompatibilities(predicates = [], args = [], slot = {}) {
         code: 'ERR_SEMANTIC_ROLE_INVERSION',
         original: phrase,
         explanation: slot.conflictMessageDe || 'Sinnentstellung / Thema verfehlt.',
-        penalty: 2
+        // Swapped roles distort the meaning, yet the intent stays clear from the task: partly understandable, as a wrong conversive verb
+        penalty: 1
       });
     }
   }

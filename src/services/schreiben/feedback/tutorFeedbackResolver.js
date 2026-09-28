@@ -26,6 +26,7 @@ const TUTOR_MESSAGES = {
 
     GRUSS_PERFECT: 'Прощальная формула подходит к письму.',
     GRUSS_INCOMPLETE: 'Прощание слишком неформальное для официального письма.',
+    GRUSS_NO_SENDER_NAME: 'Прощальная формула верная; подпишитесь своим именем — баллы не снижаются.',
     GRUSS_MISSING: 'В конце письма нет прощальной формулы.',
   },
   en: {
@@ -47,6 +48,7 @@ const TUTOR_MESSAGES = {
 
     GRUSS_PERFECT: 'The closing formula is appropriate.',
     GRUSS_INCOMPLETE: 'Closing is too informal for an official email.',
+    GRUSS_NO_SENDER_NAME: 'The closing formula is correct; sign with your name (no points are lost).',
     GRUSS_MISSING: 'The letter has no closing formula.',
   },
   de: {
@@ -68,6 +70,7 @@ const TUTOR_MESSAGES = {
 
     GRUSS_PERFECT: 'Die Grußformel ist passend.',
     GRUSS_INCOMPLETE: 'Der Gruß ist für einen formellen Brief zu informell.',
+    GRUSS_NO_SENDER_NAME: 'Die Grußformel ist richtig; unterschreiben Sie mit Ihrem Namen (kein Punktabzug).',
     GRUSS_MISSING: 'Am Ende des Briefes fehlt eine Grußformel.',
   }
 };
@@ -75,7 +78,7 @@ const TUTOR_MESSAGES = {
 function isCodeCompatibleWithScore(code, score) {
   if (!code) return false;
   if (score >= 2) {
-    return ['LP_FULFILLED', 'ANREDE_PERFECT', 'GRUSS_PERFECT'].includes(code);
+    return ['LP_FULFILLED', 'ANREDE_PERFECT', 'GRUSS_PERFECT', 'GRUSS_NO_SENDER_NAME'].includes(code);
   }
   if (score === 1) {
     return [

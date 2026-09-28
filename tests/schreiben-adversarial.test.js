@@ -14,9 +14,10 @@ Viele Grüße
 Jonas Keller`;
   const booking = 'wir möchten im August Urlaub machen und Ihre Wohnung buchen.';
 
+  // reglament: distorted but understandable from the task → partly fulfilled (1.5), as "vermieten" for "mieten"
   it('asking the price of the pet and whether the flat is allowed distorts point 3 (Sinnentstellung)', async () => {
     const res = await gradeLetter(holidayLetter(booking, 'Was kostet die Katze? Ist das Zimmer erlaubt?'), modellsatz4Teil2);
-    assert.equal(res.breakdown.items[2].score, 0);
+    assert.equal(res.breakdown.items[2].score, 1);
     assert.match(res.breakdown.items[2].frameErrors.map((e) => e.explanation).join(' '), /Sinnentstellung/i);
     assert.deepEqual(res.grammar_errors.filter((e) => e.code === 'ERR_SEMANTIC_ROLE_INVERSION').map((e) => e.original), ['die Katze', 'das Zimmer']);
   });
@@ -50,7 +51,7 @@ Jonas Keller`;
 
   it('asking the price of a person distorts point 3 as the price of a pet does', { todo: '"Sohn" has no person category in the lexicon' }, async () => {
     const res = await gradeLetter(holidayLetter(booking, 'Wie viel kostet mein Sohn? Darf unsere Katze mitkommen?'), modellsatz4Teil2);
-    assert.equal(res.breakdown.items[2].score, 0);
+    assert.equal(res.breakdown.items[2].score, 1);
   });
 
   it('Case 3: Dative Preposition with Feminine Determiner (mit meine Familie)', async () => {

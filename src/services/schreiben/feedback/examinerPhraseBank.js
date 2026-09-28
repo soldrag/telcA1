@@ -36,6 +36,7 @@ const RU = Object.freeze({
   ANREDE_PUNCTUATION_FLAW: 'После обращения {quote} пропущена запятая.',
   GRUSS_PERFECT: 'Прощание оформлено правильно: {quote}.',
   GRUSS_INCOMPLETE: 'Прощание {quote} слишком неформальное для официального письма.',
+  GRUSS_NO_SENDER_NAME: 'Прощание {quote} верное. Подпишитесь под ним своим именем — баллы за это не снимают, но так принято.',
 
   LP_FULFILLED: 'Пункт {criterion} раскрыт: {quote}.',
   LP_PARTIAL: 'Пункт {criterion} затронут ({quote}), но не хватает подробностей.',
@@ -80,6 +81,7 @@ const EN = Object.freeze({
   ANREDE_PUNCTUATION_FLAW: 'Missing comma after the salutation {quote}.',
   GRUSS_PERFECT: 'The closing is correct: {quote}.',
   GRUSS_INCOMPLETE: 'The closing {quote} is too informal for an official email.',
+  GRUSS_NO_SENDER_NAME: 'The closing {quote} is correct. Sign it with your name: it costs no points, but it is customary.',
 
   LP_FULFILLED: 'Point {criterion} is covered: {quote}.',
   LP_PARTIAL: 'Point {criterion} is touched on ({quote}), but details are missing.',

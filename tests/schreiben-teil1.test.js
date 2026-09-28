@@ -57,4 +57,20 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     assert.equal(evaluateTeil1Answer('Kreditkrate', qPayment), true); // 1 typo tolerance
     assert.equal(evaluateTeil1Answer('bar', qPayment), false);
   });
+  // Official telc A1 rating of Teil 1 (Übungstest 1, Bewertung der Schriftlichen Prüfung)
+  it('accepts only unambiguously correct numbers and dates: no typo tolerance for digits', () => {
+    const qDate = { correct_answer: '18. juli|18.07' };
+    assert.equal(evaluateTeil1Answer('18.7.', qDate), true);
+    assert.equal(evaluateTeil1Answer('19.07', qDate), false);
+    assert.equal(evaluateTeil1Answer('12354', { correct_answer: '12345' }), false);
+    assert.equal(evaluateTeil1Answer('12', { correct_answer: '21' }), false);
+    assert.equal(isFuzzyWordMatch('1907', '1807'), false);
+  });
+
+  it('accepts misspellings that keep the word recognisable ("Donerstach", "donastag" for Donnerstag)', { todo: 'needs phonetic matching (todo.md, P1)' }, () => {
+    const qDay = { correct_answer: 'Donnerstag' };
+    assert.equal(evaluateTeil1Answer('Donerstach', qDay), true);
+    assert.equal(evaluateTeil1Answer('donastag', qDay), true);
+    assert.equal(evaluateTeil1Answer('Dienstag', qDay), false);
+  });
 });

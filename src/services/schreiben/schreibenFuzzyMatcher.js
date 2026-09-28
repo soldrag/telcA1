@@ -51,6 +51,9 @@ export function isFuzzyWordMatch(wordA = '', wordB = '', maxDistance = 1) {
   if (normA === normB) return true;
   if (normalizeUmlauts(normA) === normalizeUmlauts(normB)) return true;
 
+  // telc A1 (Schreiben Teil 1): "Bei Aufgaben mit Zahlen können nur eindeutig richtige Lösungen akzeptiert werden"
+  if (/\d/.test(normA) || /\d/.test(normB)) return false;
+
   const minLen = Math.min(normA.length, normB.length);
   if (minLen < 4) return false;
 

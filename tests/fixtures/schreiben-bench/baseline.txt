@@ -37,7 +37,7 @@ G7     none=222       primary=222    exp=222 | 7. Modellsatz 2 Moderate errors w
 G8     none=222       primary=222    exp=222 | 8. Modellsatz 2 Informal greeting in formal context (Score 1
 G11    none=222       primary=222    exp=222 | 11. Complex syntax with adverbial fronting & Satzklammer (Re
 C5     none=220       primary=220    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
-C8     none=220       primary=220    exp=??0 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
+C8     none=221       primary=221    exp=??1 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
 C9     none=122       primary=122    exp=1?? | Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun
 s4-q6:01 none=222       primary=222    exp=222 tot=10/10 exp=10 | Baseline: all points, formal frame.
 s4-q6:02 none=221       primary=221    exp=221 tot=8.5/8.5 exp=8.5 | The letter from the screenshot: 'Haustiere' aspect missing.
