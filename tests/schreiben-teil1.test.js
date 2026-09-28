@@ -85,6 +85,16 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     const qFood = { correct_answer: 'italienische küche' };
     assert.equal(evaluateTeil1Answer('italienishe Kuche', qFood), true);
     assert.equal(evaluateTeil1Answer('französische Küche', qFood), false);
+    assert.equal(evaluateTeil1Answer('am Sonntag', { correct_answer: 'am Montag' }), false);
+    assert.equal(evaluateTeil1Answer('mit Kasse', { correct_answer: 'mit Karte' }), false);
+  });
+
+  it('accepts a number only with the same words beside it', () => {
+    const qYear = { correct_answer: '1 jahr|jahreskarte' };
+    assert.equal(evaluateTeil1Answer('ein Jahr', qYear), true);
+    assert.equal(evaluateTeil1Answer('ein Monat', qYear), false);
+    assert.equal(evaluateTeil1Answer('18. Juni', { correct_answer: '18. juli|18.07' }), false);
+    assert.equal(areNumbersEquivalent('drei Personen', '3'), true);
   });
 
   // Limit (todo.md, P1): a final "ch" for "g" is how "Tag" sounds in the north, but "ch = g at the end" also
