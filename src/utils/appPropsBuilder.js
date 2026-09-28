@@ -32,7 +32,7 @@ export function buildHeaderConfig(controller) {
     modules: {
       testTypes: controller.testTypes,
       activeTestType: controller.activeTestType,
-      onSelectTestType: controller.changeTestType,
+      onSelectTestType: controller.chooseTestType,
     },
     exam: {
       examId: controller.examData?.exam?.id || controller.examData?.questions?.[0]?.exam_id || '',
@@ -53,7 +53,7 @@ function buildWelcomeProps(controller) {
     },
     navigation: { onOpenHistory: controller.openHistory },
     actions: {
-      onSelectTestType: controller.changeTestType,
+      onSelectTestType: controller.chooseTestType,
       onSelectExam: controller.selectExam,
       onStartExam: controller.startExam,
       onInspectExam: controller.inspectExam,
@@ -94,7 +94,7 @@ function createSharePayload(controller) {
   const res = controller.session.results;
   if (!res) return undefined;
   return () => controller.modals.openShareModal({
-    exam_id: controller.currentExamId || res.exam?.id,
+    exam_id: res.exam?.id || controller.currentExamId,
     test_type: res.exam?.test_type || controller.activeTestType,
     answers: controller.session.answers,
     time_spent_seconds: res.timeSpentSeconds,

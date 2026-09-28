@@ -34,8 +34,10 @@ export function useExamFlowActions({
   showError,
 }) {
   const startExam = useCallback(async ({ timed = true, specificExamId } = {}) => {
-    session.resetSession();
     const targetId = specificExamId || loader.currentExamId;
+    // Before the module's variants load there is nothing to start; a guessed id could open another module's exam.
+    if (!targetId) return;
+    session.resetSession();
     let targetExamData = loader.examData;
 
     if (targetId !== loader.currentExamId || !targetExamData || targetExamData.exam?.id !== targetId) {
@@ -64,8 +66,9 @@ export function useExamFlowActions({
   const submitExam = useCallback(async () => {
     let submitResult;
     try {
+      // The student answered the questions on screen: grade that exam even if the selection moved meanwhile.
       submitResult = await session.submitCurrentExam({
-        examId: loader.currentExamId,
+        examId: loader.examData?.exam?.id || loader.currentExamId,
         isTimed: timer.isTimed,
         secondsLeft: timer.secondsLeft,
         secondsElapsed: timer.secondsElapsed,
@@ -94,7 +97,7 @@ export function useExamFlowActions({
     await history.refreshAttempts();
     await history.refreshHistory();
     navigateTo('results');
-  }, [session, loader.currentExamId, timer, modals, assignmentMode, history, navigateTo, showError]);
+  }, [session, loader.examData, loader.currentExamId, timer, modals, assignmentMode, history, navigateTo, showError]);
 
   const handleTimeUp = useCallback(() => {
     if (session.isSubmitted || screen !== 'exam') return;

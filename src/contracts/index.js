@@ -51,7 +51,7 @@ export const sessionContract = {
 
 export const loaderContract = {
   name: 'loaderContract',
-  requiredMethods: ['loadExamById', 'selectExam', 'changeTestType'],
+  requiredMethods: ['loadExamById', 'selectExam', 'changeTestType', 'chooseTestType'],
   requiredProperties: [
     'exams',
     'testTypes',

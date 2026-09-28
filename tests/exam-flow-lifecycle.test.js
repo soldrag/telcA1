@@ -100,6 +100,32 @@ describe('Exam Flow Lifecycle & Session Invariants', () => {
     assert.equal(timerDuration, 1500, 'timer duration must match 25 min');
   });
 
+  test('submitExam grades the exam on screen, not a selection that moved meanwhile', async () => {
+    let submittedExamId = null;
+    React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentDispatcher.current = {
+      useCallback: (fn) => fn,
+      useEffect: () => {},
+      useRef: (v) => ({ current: v }),
+    };
+
+    const actions = useExamFlowActions({
+      screen: 'exam',
+      loader: {
+        currentExamId: 'schreiben-modellsatz-2',
+        examData: { exam: { id: 'schreiben-modellsatz-1' } },
+      },
+      session: { submitCurrentExam: async ({ examId }) => { submittedExamId = examId; return {}; } },
+      timer: { registerTimeUpHandler: () => {} },
+      modals: { closeSubmitModal: () => {} },
+      history: { refreshAttempts: async () => {}, refreshHistory: async () => {} },
+      navigateTo: () => {},
+    });
+
+    await actions.submitExam();
+
+    assert.equal(submittedExamId, 'schreiben-modellsatz-1');
+  });
+
   test('startExam unconditionally resets session when starting a different exam', async () => {
     let sessionResetCalled = false;
     let selectedExamId = null;

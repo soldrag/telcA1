@@ -72,6 +72,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     testTypes: loader.testTypes,
     activeTestType: loader.activeTestType,
     changeTestType: loader.changeTestType,
+    chooseTestType: loader.chooseTestType,
     currentExamId: loader.currentExamId,
     selectExam: loader.selectExam,
     examData: loader.examData,

@@ -53,3 +53,24 @@ test('the first Schreiben submission shows the model download in the submit dial
   await expect(page.getByRole('dialog').getByRole('status')).toContainText(before, { timeout: 30_000 });
   await expect(page.getByRole('dialog')).toBeHidden({ timeout: 180_000 });
 });
+
+// A fresh worker reads the cached model again on every grading; that read is not a download and is not shown as one.
+test('a later Schreiben submission does not report the cached model as a download', async ({ page }) => {
+  test.setTimeout(240_000);
+  const [variant] = listVariants('schreiben');
+  const [before] = en.modals.modelDownloading.split('{megabytes}');
+  for (const isFirst of [true, false]) {
+    await openHome(page, { module: 'schreiben' }); // clears localStorage only: the model cache stays
+    await startVariant(page, variant);
+    await answerAllParts(page, fillVisibleSchreibenFields);
+    await openSubmitDialog(page);
+    const dialog = page.getByRole('dialog');
+    await dialog.getByRole('button', { name: en.modals.submitConfirm }).click();
+    let sawDownload = false;
+    while (await dialog.isVisible()) {
+      sawDownload ||= (await dialog.textContent()).includes(before);
+      await page.waitForTimeout(100);
+    }
+    expect(sawDownload).toBe(isFirst);
+  }
+});

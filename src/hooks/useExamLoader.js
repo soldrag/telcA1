@@ -5,6 +5,7 @@ import {
   fetchTestTypes as defaultFetchTestTypes
 } from '../services/examService.js';
 import { sortExamsNumerically } from '../utils/examFormat.js';
+import { localModulePreference } from '../services/storage/modulePreferenceStorage.js';
 
 const DEFAULT_API = {
   fetchExams: defaultFetchExams,
@@ -15,11 +16,12 @@ const DEFAULT_API = {
 export function useExamLoader({
   api = DEFAULT_API,
   onError,
+  modulePreference = localModulePreference,
 } = {}) {
   const [exams, setExams] = useState([]);
   const [testTypes, setTestTypes] = useState([]);
-  const [activeTestType, setActiveTestType] = useState('lesen');
-  const [currentExamId, setCurrentExamId] = useState('modellsatz-1');
+  const [activeTestType, setActiveTestType] = useState(() => modulePreference.read());
+  const [currentExamId, setCurrentExamId] = useState(null);
   const [examData, setExamData] = useState(null);
   const [isLoadingExam, setIsLoadingExam] = useState(false);
 
@@ -37,9 +39,10 @@ export function useExamLoader({
   }, [activeApi]);
 
   useEffect(() => {
+    let isStale = false;
     activeApi.fetchExams(activeTestType)
       .then((response) => {
-        if (!response.exams?.length) return;
+        if (isStale || !response.exams?.length) return;
         const sorted = sortExamsNumerically(response.exams);
         setExams(sorted);
         setCurrentExamId((prevId) => {
@@ -49,20 +52,26 @@ export function useExamLoader({
           return sorted[0].id;
         });
       })
-      .catch(() => onErrorRef.current?.('errors.loadVariants'));
+      .catch(() => { if (!isStale) onErrorRef.current?.('errors.loadVariants'); });
+    return () => { isStale = true; };
   }, [activeTestType, activeApi]);
 
+  // Loads are not ordered: a late answer to an earlier request must not replace the exam the student started.
+  const latestExamRequestRef = useRef(0);
+
   const loadExamById = useCallback(async (examId) => {
+    const requestId = ++latestExamRequestRef.current;
+    const isLatest = () => requestId === latestExamRequestRef.current;
     setIsLoadingExam(true);
     try {
       const data = await activeApi.fetchExamDetails(examId);
-      setExamData(data);
+      if (isLatest()) setExamData(data);
       return data;
     } catch {
-      onErrorRef.current?.('errors.loadExamFailed');
+      if (isLatest()) onErrorRef.current?.('errors.loadExamFailed');
       return null;
     } finally {
-      setIsLoadingExam(false);
+      if (isLatest()) setIsLoadingExam(false);
     }
   }, [activeApi]);
 
@@ -72,9 +81,15 @@ export function useExamLoader({
     }
   }, [currentExamId, loadExamById]);
 
+  // A module opened by an assignment or review link is not the student's choice: only chooseTestType remembers it.
   const changeTestType = useCallback((typeId) => {
     setActiveTestType(typeId);
   }, []);
+
+  const chooseTestType = useCallback((typeId) => {
+    setActiveTestType(typeId);
+    modulePreference.save(typeId);
+  }, [modulePreference]);
 
   const selectExam = useCallback((examId) => {
     setCurrentExamId(examId);
@@ -88,6 +103,7 @@ export function useExamLoader({
     examData,
     isLoadingExam,
     changeTestType,
+    chooseTestType,
     selectExam,
     loadExamById,
   };

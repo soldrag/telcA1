@@ -6,8 +6,13 @@
 import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
 import { isWebGPUAdapterAvailable } from '../../utils/webGpuSupport.js';
 import { createDownloadReporter } from './modelDownloadProgress.js';
+import { areModelFilesCached } from './modelCacheProbe.js';
 
 const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
+const EMBEDDING_DTYPE = 'q4';
+const EMBEDDING_TASK = 'feature-extraction';
+// The weights are what a download is about; transformers.js names them after the dtype.
+const EMBEDDING_WEIGHT_FILES = [`onnx/model_${EMBEDDING_DTYPE}.onnx`, `onnx/model_${EMBEDDING_DTYPE}.onnx_data`];
 export const EMBEDDING_DIMENSION = 256;
 
 // Task prefixes verified against EmbeddingGemma model card
@@ -44,10 +49,11 @@ async function initEmbeddingService(onProgress = null) {
     }
 
     const device = await getDeviceTarget();
-    extractorInstance = await pipeline('feature-extraction', EMBEDDING_MODEL_ID, {
-      device,
-      dtype: 'q4',
-      progress_callback: createDownloadReporter(onProgress),
+    const options = { device, dtype: EMBEDDING_DTYPE };
+    const isCached = await areModelFilesCached({ env, modelId: EMBEDDING_MODEL_ID, files: EMBEDDING_WEIGHT_FILES });
+    extractorInstance = await pipeline(EMBEDDING_TASK, EMBEDDING_MODEL_ID, {
+      ...options,
+      progress_callback: isCached ? undefined : createDownloadReporter(onProgress),
     });
     return extractorInstance;
   } finally {

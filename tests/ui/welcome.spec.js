@@ -2,6 +2,7 @@ import { test, expectScreenRendered } from './fixtures/guardedPage.js';
 import { openHome, ACTIVE_MODULES, UPCOMING_MODULES } from './support/appState.js';
 import { expect } from '@playwright/test';
 import { clickEveryControl } from './support/buttonCrawler.js';
+import { en } from './support/i18nKeys.js';
 
 for (const role of ['student', 'teacher']) {
   for (const { id: module } of ACTIVE_MODULES) {
@@ -21,4 +22,12 @@ test('upcoming modules are shown but cannot be opened', async ({ page }) => {
   for (const { title } of UPCOMING_MODULES) {
     await expect(selector.getByRole('button', { name: title })).toBeDisabled();
   }
+});
+
+test('the chosen module stays open after a reload', async ({ page }) => {
+  await openHome(page, { module: 'schreiben' });
+  await page.reload();
+  const { title } = ACTIVE_MODULES.find((type) => type.id === 'schreiben');
+  const selector = page.getByRole('group', { name: en.welcome.types.selectModule }).filter({ visible: true }).first();
+  await expect(selector.getByRole('button', { name: title })).toHaveAttribute('aria-pressed', 'true');
 });
