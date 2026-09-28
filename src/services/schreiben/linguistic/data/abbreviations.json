@@ -1,0 +1,71 @@
+{
+  "notes": "Usual German abbreviations written with a dot: abbreviation → the words it stands for. A compound keeps its first part: 'Poststr.' = 'Poststraße'. Month abbreviations are in calendarWords.json.",
+  "abbreviations": {
+    "str": [
+      "straße",
+      "strasse"
+    ],
+    "nr": [
+      "nummer"
+    ],
+    "tel": [
+      "telefon",
+      "telefonnummer"
+    ],
+    "erw": [
+      "erwachsene",
+      "erwachsener",
+      "erwachsenen"
+    ],
+    "mo": [
+      "montag"
+    ],
+    "di": [
+      "dienstag"
+    ],
+    "mi": [
+      "mittwoch"
+    ],
+    "do": [
+      "donnerstag"
+    ],
+    "fr": [
+      "freitag"
+    ],
+    "sa": [
+      "samstag"
+    ],
+    "so": [
+      "sonntag"
+    ],
+    "geb": [
+      "geboren",
+      "geburtsdatum"
+    ],
+    "ca": [
+      "circa"
+    ],
+    "std": [
+      "stunde",
+      "stunden"
+    ],
+    "min": [
+      "minute",
+      "minuten"
+    ],
+    "pers": [
+      "person",
+      "personen"
+    ],
+    "wo": [
+      "woche",
+      "wochen"
+    ],
+    "zi": [
+      "zimmer"
+    ],
+    "mon": [
+      "montag"
+    ]
+  }
+}

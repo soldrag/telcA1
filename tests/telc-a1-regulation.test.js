@@ -83,7 +83,7 @@ describe('Schreiben regulation registry', () => {
 describe('telc A1 Schreiben Teil 1 regulation (reglament/telc-a1.md, Teil 1 — Formular)', () => {
   const facts = (overrides) => ({
     sameText: false, sameNumberOrDate: false, numberAnswer: false, rivalWords: false, singleWord: true,
-    shorterLength: 6, editDistance: 5, sameSound: false, ...overrides,
+    shorterLength: 6, editDistance: 5, sameSound: false, abbreviation: false, ...overrides,
   });
   const accepts = (overrides) => telcA1Regulation.acceptsTeil1Answer(facts(overrides));
 
@@ -112,6 +112,11 @@ describe('telc A1 Schreiben Teil 1 regulation (reglament/telc-a1.md, Teil 1 — 
   it('accepts a spelling that sounds like the expected word, as "donastag" for Donnerstag', () => {
     assert.equal(accepts({ sameSound: true }), true);
     assert.equal(accepts({ shorterLength: 3, sameSound: true }), false);
+  });
+
+  it('accepts a usual abbreviation, but not for a number', () => {
+    assert.equal(accepts({ abbreviation: true, shorterLength: 2, rivalWords: true }), true);
+    assert.equal(accepts({ abbreviation: true, numberAnswer: true }), false);
   });
 
   it('gives a phrase no typo or sound tolerance: its words are compared one by one', () => {

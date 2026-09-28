@@ -1,10 +1,30 @@
 {
-  "notes": "German calendar words. months: name → month number, with the ae spelling of ä. seasons, weekParts and holidays anchor a point in time ('im Sommer', 'zu Ostern'). Weekdays are in clauseWordClasses.json.",
+  "notes": "German calendar words. months: name → month number, with the ae spelling of ä; monthAbbreviations: the usual short forms ('15. Nov.'). seasons, weekParts and holidays anchor a point in time ('im Sommer', 'zu Ostern'). Weekdays are in clauseWordClasses.json. hourWords: the unit of a time of day ('9 Uhr', '14 h'). dayParts: parts of the day that name a time together with a number ('morgens um 9'), each with the hours it spans [from, to] on the 24-hour clock ('nacht' runs past midnight), so 'abends um 8' is 20:00.",
   "months": {
     "januar": 1, "februar": 2, "märz": 3, "maerz": 3, "april": 4, "mai": 5, "juni": 6, "juli": 7,
     "august": 8, "september": 9, "oktober": 10, "november": 11, "dezember": 12
   },
+  "monthAbbreviations": {
+    "jan": 1, "feb": 2, "mär": 3, "mrz": 3, "apr": 4, "jun": 6, "jul": 7, "aug": 8, "sep": 9, "sept": 9,
+    "okt": 10, "nov": 11, "dez": 12
+  },
   "seasons": ["sommer", "winter", "herbst", "frühling", "fruehling"],
   "weekParts": ["wochenende"],
-  "holidays": ["ostern", "weihnachten"]
+  "holidays": ["ostern", "weihnachten"],
+  "hourWords": ["uhr", "h"],
+  "dayParts": {
+    "morgens": [4, 11],
+    "morgen": [4, 11],
+    "früh": [4, 11],
+    "vormittag": [6, 12],
+    "vormittags": [6, 12],
+    "mittag": [11, 14],
+    "mittags": [11, 14],
+    "nachmittag": [12, 18],
+    "nachmittags": [12, 18],
+    "abend": [17, 23],
+    "abends": [17, 23],
+    "nacht": [22, 5],
+    "nachts": [22, 5]
+  }
 }
