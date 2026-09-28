@@ -1,8 +1,8 @@
-import { AttemptStorageInterface } from './attemptStorage.interface.js';
+import { AttemptStorageInterface } from '../../src/services/storage/attemptStorage.interface.js';
 
 /**
  * In-memory implementation of AttemptStorageInterface.
- * Useful for unit testing, SSR, or fallback environments.
+ * The test double of the attempt storage port.
  */
 export class MemoryAttemptStorage extends AttemptStorageInterface {
   constructor(initialAttempts = []) {

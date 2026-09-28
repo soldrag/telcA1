@@ -21,12 +21,6 @@ export function scrollToTop(behavior = 'auto') {
   }
 }
 
-export function scrollToExamHeader(topOffset = 0, behavior = 'auto') {
-  if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
-    window.scrollTo({ top: topOffset, left: 0, behavior });
-  }
-}
-
 export function scrollToElement(elementId, options = { behavior: 'smooth', block: 'center' }) {
   if (typeof document === 'undefined') return;
   const targetElement = document.getElementById(elementId);

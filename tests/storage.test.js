@@ -1,6 +1,6 @@
 import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { MemoryAttemptStorage } from '../src/services/storage/memoryAttemptStorage.js';
+import { MemoryAttemptStorage } from './helpers/memoryAttemptStorage.js';
 import { LocalStorageAttemptStorage } from '../src/services/storage/localStorageAttemptStorage.js';
 import { filterLeastAttemptedExams, getNextBalancedExam } from '../src/utils/examBalancer.js';
 

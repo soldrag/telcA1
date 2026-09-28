@@ -72,17 +72,18 @@ describe('Share Token Service', () => {
   });
 
   it('correctly verifies HMAC signature end-to-end between teacher issue and review', async () => {
-    const { encodeAssignmentToken, decodeAssignmentToken } = await import('../src/services/assignmentTokenService.js');
+    const { createAssignmentLink, decodeAssignmentToken, parseAssignmentTokenFromUrl } = await import('../src/services/assignmentTokenService.js');
     const { verifyAssignmentSignature } = await import('../src/services/security/teacherSecurityService.js');
 
     const teacherKey = 'LEHRER-VALID-1234';
-    const taskToken = await encodeAssignmentToken({
+    const { url: taskUrl } = await createAssignmentLink({ assignmentConfig: {
       examId: 'lesen_1',
       testType: 'lesen',
       timeLimitSeconds: 1500,
       studentName: 'Anna',
       teacherKey,
-    });
+    } });
+    const taskToken = parseAssignmentTokenFromUrl(taskUrl);
     const taskData = await decodeAssignmentToken(taskToken);
 
     // Student completes assignment
@@ -220,7 +221,7 @@ describe('Share Token Service', () => {
 
   it('evaluates shared attempt statelessly without calling storage.saveAttempt', async () => {
     const { submitLocalExamAnswers } = await import('../src/services/localDataService.js');
-    const { MemoryAttemptStorage } = await import('../src/services/storage/memoryAttemptStorage.js');
+    const { MemoryAttemptStorage } = await import('./helpers/memoryAttemptStorage.js');
 
     const teacherStorage = new MemoryAttemptStorage();
     assert.equal((await teacherStorage.getAttempts()).length, 0);

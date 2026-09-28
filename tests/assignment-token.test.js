@@ -1,9 +1,8 @@
 import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  encodeAssignmentToken,
+  createAssignmentLink,
   decodeAssignmentToken,
-  buildAssignmentUrl,
   parseAssignmentTokenFromUrl,
 } from '../src/services/assignmentTokenService.js';
 import { verifyAssignmentSignature } from '../src/services/security/teacherSecurityService.js';
@@ -21,7 +20,8 @@ describe('Assignment Token Service', () => {
   };
 
   test('encodes and decodes assignment token with zt1 prefix', async () => {
-    const token = await encodeAssignmentToken(config);
+    const { url } = await createAssignmentLink({ assignmentConfig: config });
+    const token = parseAssignmentTokenFromUrl(url);
     assert.ok(token.startsWith('zt1.'));
 
     const decoded = await decodeAssignmentToken(token);
@@ -51,7 +51,7 @@ describe('Assignment Token Service', () => {
   });
 
   test('builds full URL with #task= fragment and parses it', async () => {
-    const url = await buildAssignmentUrl({
+    const { url } = await createAssignmentLink({
       assignmentConfig: config,
       originAndPath: 'https://telc.example.com/a1',
     });

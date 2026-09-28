@@ -15,7 +15,7 @@ export function uint8ArrayToBase64Url(bytes) {
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-export function base64UrlToUint8Array(base64url) {
+function base64UrlToUint8Array(base64url) {
   if (typeof Buffer !== 'undefined') {
     return new Uint8Array(Buffer.from(base64url, 'base64url'));
   }
@@ -31,7 +31,7 @@ export function base64UrlToUint8Array(base64url) {
   return bytes;
 }
 
-export const MAX_DECOMPRESSED_BYTES = 256 * 1024;
+const MAX_DECOMPRESSED_BYTES = 256 * 1024;
 
 function createSizeLimitTransform(maxBytes = MAX_DECOMPRESSED_BYTES) {
   let totalBytes = 0;

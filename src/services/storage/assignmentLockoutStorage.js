@@ -64,8 +64,3 @@ export function recordAssignmentSubmitted(assignmentId, { shareUrl } = {}) {
     return null;
   }
 }
-
-export function isAssignmentSubmitted(assignmentId) {
-  const state = getAssignmentState(assignmentId);
-  return state?.status === 'submitted';
-}

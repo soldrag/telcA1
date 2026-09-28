@@ -2,7 +2,6 @@ import { describe, it, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   scrollToTop,
-  scrollToExamHeader,
   scrollToElement,
   lockBodyScroll,
   unlockBodyScroll,
@@ -56,12 +55,6 @@ describe('Scroll Service', () => {
     scrollToTop();
     assert.equal(globalThis.document.documentElement.scrollTop, 0);
     assert.equal(globalThis.document.body.scrollTop, 0);
-  });
-
-  it('scrollToExamHeader calls scrollTo with specified offset and default auto behavior', () => {
-    scrollToExamHeader(120);
-    assert.equal(scrollToCalls.length, 1);
-    assert.deepEqual(scrollToCalls[0], { top: 120, left: 0, behavior: 'auto' });
   });
 
   it('scrollToElement calls scrollIntoView on the target element if found', () => {

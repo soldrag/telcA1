@@ -73,10 +73,6 @@ async function compressPayload(payload) {
   return `${TASK_TOKEN_PREFIX}${compressed}`;
 }
 
-export async function encodeAssignmentToken(config = {}) {
-  return compressPayload(await createAssignmentPayload(config));
-}
-
 export async function decodeAssignmentToken(token) {
   if (!token || typeof token !== 'string') return null;
 
@@ -112,11 +108,6 @@ export async function createAssignmentLink({ assignmentConfig, originAndPath } =
   const payload = await createAssignmentPayload(assignmentConfig);
   const token = await compressPayload(payload);
   return { assignmentId: payload.aid, url: `${resolveBaseUrl(originAndPath)}#task=${token}` };
-}
-
-export async function buildAssignmentUrl(options = {}) {
-  const { url } = await createAssignmentLink(options);
-  return url;
 }
 
 export function parseAssignmentTokenFromUrl(targetUrl) {

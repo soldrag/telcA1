@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { filterLeastAttemptedExams, pickRandomExam } from '../shared/examBalancerCore.js';
+import { filterLeastAttemptedExams, pickRandomExam } from '../src/utils/examBalancer.js';
 
 describe('Exam Balancer Service', () => {
   const sampleExams = [

@@ -33,7 +33,7 @@ Hören and Sprechen are stubs.
 
 ## Local storage
 
-Attempt history uses the strategy pattern: `storage/attemptStorage.interface.js` (`AttemptStorageInterface`: `getAttempts`, `saveAttempt`, `deleteAttempt`, `clearAttempts`) with `LocalStorageAttemptStorage` (default, max 150 attempts) and `MemoryAttemptStorage` (tests); factory `storage/index.js` → `createAttemptStorage`.
+Attempt history uses the strategy pattern: `storage/attemptStorage.interface.js` (`AttemptStorageInterface`: `getAttempts`, `saveAttempt`, `deleteAttempt`, `clearAttempts`) with `LocalStorageAttemptStorage` (default, max 150 attempts) and the test double `tests/helpers/memoryAttemptStorage.js`; `storage/index.js` exports the app instance `attemptStorage`.
 
 | Key | Owner | Content |
 |---|---|---|
