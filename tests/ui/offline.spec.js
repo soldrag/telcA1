@@ -51,8 +51,14 @@ test('offline after the first visit: a Schreiben letter is submitted and graded 
 
   const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('telc_exam_attempts_v1') || '[]'));
   const letter = saved[0]?.results?.reviewItems?.find((item) => item.options_json?.type === 'essay');
-  expect(letter?.provider_id).toBeTruthy();
+  expect(letter?.provider_id).toBe('micro_ranker');
+  expect(letter?.grading_mode).toBe('ranker_without_model');
   expect(typeof letter?.points_earned).toBe('number');
+
+  // The results name the rules fallback, not a model grade.
+  await page.getByText(en.results.schreibenResult.moreDetails).filter({ visible: true }).first().click();
+  await expect(page.getByText(en.results.aiModelUnavailableNotice).filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText(en.results.aiRankerEvaluated)).toHaveCount(0);
 
   // The model download fails offline by design; the grade above was made without it.
   const isOfflineModelDownload = (problem) => problem.startsWith('requestfailed: https://huggingface.co/')

@@ -263,6 +263,7 @@ export const en = {
     aiLimitedNotice: 'Limited mode: rule-based scoring without the AI ranker',
     aiDisclaimer: 'AI can make mistakes. The evaluation is for guidance only and does not replace an official telc examination.',
     aiRankerEvaluated: 'Evaluated by AI ranker',
+    aiModelUnavailableNotice: 'The AI model did not load (offline or not supported on this device): rule-based scoring',
     taskAssignment: 'Task Assignment',
     taskSituation: 'Situation',
     taskLeitpunkte: 'Guide Points',

@@ -156,7 +156,9 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
   }
 
   const totalScore = items.reduce((sum, it) => sum + (Number(it.score) || 0), 0);
-  return { items, totalScore, semanticErrors };
+  // The model judged the letter only if it embedded every body sentence; a partial run is a fallback too.
+  const modelUsed = sentenceVectors.length > 0 && sentenceVectors.every(Boolean);
+  return { items, totalScore, semanticErrors, modelUsed };
 }
 
 /** grammar: the level's grammar checker (resolveLevelContext) */

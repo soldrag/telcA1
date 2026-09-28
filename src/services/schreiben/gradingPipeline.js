@@ -13,7 +13,7 @@ import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { isGibberishText } from './gibberishDetector.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
-import { PROVIDER_IDS } from '../ai/types.js';
+import { PROVIDER_IDS, GRADING_MODES } from '../ai/types.js';
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
@@ -60,16 +60,23 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
   };
 }
 
+function resolveGradingMode(provider, modelUsed) {
+  if (provider.id === PROVIDER_IDS.NONE) return GRADING_MODES.LIMITED;
+  return modelUsed ? GRADING_MODES.RANKER : GRADING_MODES.RANKER_WITHOUT_MODEL;
+}
+
 function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments }) {
   const { items } = stage2;
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
+  const gradingMode = resolveGradingMode(activeProvider, stage2.modelUsed);
   return {
     word_count: stage0.wordCount,
     points_earned: score.total,
     max_points: score.maxPoints,
     is_correct: score.total >= regulation.trainingPassMark,
-    is_limited_mode: activeProvider.id === PROVIDER_IDS.NONE,
+    is_limited_mode: gradingMode !== GRADING_MODES.RANKER,
     provider_id: activeProvider.id,
+    grading_mode: gradingMode,
     breakdown: {
       anrede: stage1.anredeScore,
       leitpunkte: items.reduce((sum, it) => sum + it.points, 0),

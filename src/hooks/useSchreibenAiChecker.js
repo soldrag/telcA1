@@ -12,10 +12,10 @@ export function needsPipelineGrading(item = {}) {
   return Boolean(item.user_answer) && !item.provider_id;
 }
 
-/** `gradedBy` is the provider that graded the letter (PROVIDER_IDS), null while none has. */
+/** `gradingMode` is how the letter was graded (GRADING_MODES), null while ungraded or saved before it was recorded. */
 export function useSchreibenAiChecker({ item, onApplyScores, onApplyErrors }) {
   const [aiLoading, setAiLoading] = useState(false);
-  const [gradedBy, setGradedBy] = useState(() => item.provider_id || null);
+  const [gradingMode, setGradingMode] = useState(() => item.grading_mode || null);
   const [aiDiffSummary, setAiDiffSummary] = useState(() => item.diff_summary || []);
   const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
@@ -28,7 +28,7 @@ export function useSchreibenAiChecker({ item, onApplyScores, onApplyErrors }) {
       const aiResult = await gradeEssayWithActiveProvider({ userText: item.user_answer, question: item });
       applyAiGradingResult({
         aiResult, onApplyScores, onApplyErrors,
-        setters: { setAiDiffSummary, setExaminerFeedback, setLiveCriteriaBreakdown, setGradedBy },
+        setters: { setAiDiffSummary, setExaminerFeedback, setLiveCriteriaBreakdown, setGradingMode },
       });
     } catch (err) {
       console.warn('[useSchreibenAiChecker] Grading failed:', err?.message || err);
@@ -46,5 +46,5 @@ export function useSchreibenAiChecker({ item, onApplyScores, onApplyErrors }) {
     runGrading();
   }, [item, runGrading]);
 
-  return { aiLoading, gradedBy, aiDiffSummary, examinerFeedback, liveCriteriaBreakdown };
+  return { aiLoading, gradingMode, aiDiffSummary, examinerFeedback, liveCriteriaBreakdown };
 }

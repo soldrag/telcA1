@@ -1,17 +1,21 @@
 import React from 'react';
 import { Zap, Loader2 } from 'lucide-react';
 import { useI18n } from '../../i18n/I18nContext.jsx';
-import { PROVIDER_IDS } from '../../services/ai/types.js';
+import { GRADING_MODES } from '../../services/ai/types.js';
 
-const LABEL_BY_PROVIDER = {
-  [PROVIDER_IDS.MICRO_RANKER]: 'results.aiRankerEvaluated',
-  [PROVIDER_IDS.NONE]: 'results.aiLimitedNotice',
+const LABEL_BY_MODE = {
+  [GRADING_MODES.RANKER]: 'results.aiRankerEvaluated',
+  [GRADING_MODES.RANKER_WITHOUT_MODEL]: 'results.aiModelUnavailableNotice',
+  [GRADING_MODES.LIMITED]: 'results.aiLimitedNotice',
 };
 
-/** Who graded the letter: the Micro-Ranker, the limited (rules-only) mode, or grading still running. */
-export default function SchreibenAiControlBar({ aiLoading, gradedBy }) {
+/**
+ * How the letter was graded: by the Micro-Ranker with its model, by rules because the model did not load,
+ * in the limited (rules-only) mode, or grading still running. Attempts saved before the mode was recorded show nothing.
+ */
+export default function SchreibenAiControlBar({ aiLoading, gradingMode }) {
   const { t } = useI18n();
-  const labelKey = aiLoading ? 'results.aiCheckLoading' : LABEL_BY_PROVIDER[gradedBy];
+  const labelKey = aiLoading ? 'results.aiCheckLoading' : LABEL_BY_MODE[gradingMode];
   if (!labelKey) return null;
 
   return (
