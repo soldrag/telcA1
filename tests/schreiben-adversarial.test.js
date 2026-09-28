@@ -44,12 +44,15 @@ Jonas Keller`;
     assert.equal(right.points_earned - wrong.points_earned, 1.5);
   });
 
-  // Known limits (todo.md, P1): recorded, not fitted
-  it('persons named without a numeral fulfil "Personen"', { todo: 'personCountDetector counts numerals only' }, async () => {
-    const res = await gradeLetter(holidayLetter(booking, 'Was kostet die Wohnung pro Nacht? Darf unsere Katze mitkommen?')
-      .replace('Wir sind drei Personen.', 'Ich komme mit meiner Frau und meinem Sohn.'), modellsatz4Teil2);
-    assert.equal(res.breakdown.items[1].score, 2);
+  it('persons named without a numeral fulfil "Personen"', async () => {
+    for (const named of ['Ich komme mit meiner Frau und meinem Sohn.', 'Wir kommen zu dritt, meine Frau, mein Sohn und ich.']) {
+      const res = await gradeLetter(holidayLetter(booking, 'Was kostet die Wohnung pro Nacht? Darf unsere Katze mitkommen?')
+        .replace('Wir sind drei Personen.', named), modellsatz4Teil2);
+      assert.equal(res.breakdown.items[1].score, 2, named);
+    }
   });
+
+  // Known limits (todo.md, P1): recorded, not fitted
 
   it('asking the price of a person distorts point 3 as the price of a pet does', { todo: '"Sohn" has no person category in the lexicon' }, async () => {
     const res = await gradeLetter(holidayLetter(booking, 'Wie viel kostet mein Sohn? Darf unsere Katze mitkommen?'), modellsatz4Teil2);

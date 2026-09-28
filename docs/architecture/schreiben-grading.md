@@ -61,7 +61,7 @@ Every entry point first awaits the lexicon data (`levelContext.lexicon.load()`),
 | Kind | Source | Proves |
 |---|---|---|
 | Lexical | rubric keywords (`linguistic/keywordStemMatcher.js`, `keywordConcepts.js`), concept domains (`grading/conceptDomainScorer.js` + level `conceptDomains`), label noun overlap | the topic is touched |
-| Structured | `grading/temporalRangeDetector.js` (date range, duration, calendar point), `personCountDetector.js` (numeral + person noun), `occupationDetector.js` | the aspect is stated |
+| Structured | `grading/temporalRangeDetector.js` (date range, duration, calendar point), `personCountDetector.js` (numeral + person noun, "zu dritt", "allein", relatives or friends after "mit" + possessive in the clause of a verb of coming or travelling; word lists in `linguistic/data/`), `occupationDetector.js` | the aspect is stated |
 | Neural | cosine(EmbeddingGemma query, sentence) | semantic closeness |
 
 Key rules:

@@ -1,5 +1,6 @@
 {
-  "notes": "German number words. cardinals: word → value for 0–20 and the tens to hundert, with the inflected forms of 'ein' and the ue spellings of ü. ordinalRoots: stems of ordinal words ('erst-e', 'zwanzig-st-e'); compound ordinals are recognised by 'und' + root. articleForms: cardinals that are also the indefinite article ('eine Woche'), so on their own they do not show that a text is about a number. unitSymbols: a symbol or short form → the unit word it stands for ('25 €' = '25 Euro'). fractions: fraction words, which change the amount ('ein halbes Jahr' is not '1 Jahr').",
+  "notes": "German number words. groupSizeWords: the number in 'zu dritt' (a group of three). cardinals: word → value for 0–20 and the tens to hundert, with the inflected forms of 'ein' and the ue spellings of ü. ordinalRoots: stems of ordinal words ('erst-e', 'zwanzig-st-e'); compound ordinals are recognised by 'und' + root. articleForms: cardinals that are also the indefinite article ('eine Woche'), so on their own they do not show that a text is about a number. unitSymbols: a symbol or short form → the unit word it stands for ('25 €' = '25 Euro'). fractions: fraction words, which change the amount ('ein halbes Jahr' is not '1 Jahr').",
+  "groupSizeWords": ["zweit", "dritt", "viert", "fünft", "fuenft", "sechst", "siebt", "neunt", "zehnt"],
   "cardinals": {
     "null": 0,
     "ein": 1,

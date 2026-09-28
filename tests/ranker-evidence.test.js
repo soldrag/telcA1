@@ -39,6 +39,27 @@ describe('person count detector', () => {
     assert.equal(hasPersonCount('Ich komme allein.'), true);
     assert.equal(hasPersonCount('Wir kommen vom 15. bis 25. Juli.'), false);
   });
+
+  it('reads a group adverb and relatives named after "mit" as who comes', () => {
+    for (const text of ['Wir kommen zu dritt.', 'Wir sind zu zweit.', 'Ich komme mit meiner Frau und meinem Sohn.',
+      'Wir fahren mit unseren Eltern.', 'Ich reise mit meinem Bruder.', 'Ich komme mit meinen Freunden.', 'Ich fliege mit meiner Familie.', 'Er kommt mit seiner Frau.',
+      'Ich komme am 3. Juli mit meiner Frau.', 'Wir kommen vom 15. bis 25. Juli mit unseren Kindern.', 'Ich komme am 3.7. mit meiner Frau.',
+      'Wir kommen mit unseren Toechtern.', 'Er faehrt mit seiner Mutter.', 'Ich komme mit eurer Familie.', 'Ich komme mit meinen Geschwistern.',
+      'Wir sind fünf Personen.', 'Wir sind zwölf Personen.']) {
+      assert.equal(hasPersonCount(text), true, text);
+    }
+  });
+
+  it('does not read a relative or a preposition alone as a count', () => {
+    for (const text of ['Meine Frau arbeitet als Ärztin.', 'Ich komme mit dem Zug.', 'Wir kommen zu spät.',
+      'Ich fahre mit meinem Auto.', 'Wir sind zu Hause.', 'Wir kommen.', 'Ich spreche mit meiner Frau.',
+      'Ich bin mit meiner Frau verheiratet.', 'Ich telefoniere mit meinem Bruder.', 'Ich möchte mit meinem Vater sprechen.',
+      'Ich komme um acht Uhr.', 'Ich spreche mit meiner Frau. Ich komme am Montag.',
+      'Ich wohne mit meinem Bruder. Ich fahre mit dem Bus.', 'Ich lerne mit meiner Frau Deutsch, ich komme aus Russland.',
+      'Ich telefoniere mit meiner Mutter, sie kommt morgen.', 'Ich lerne mit meiner Frau Deutsch\nIch komme aus Russland']) {
+      assert.equal(hasPersonCount(text), false, text);
+    }
+  });
 });
 
 describe('occupation detector', () => {
