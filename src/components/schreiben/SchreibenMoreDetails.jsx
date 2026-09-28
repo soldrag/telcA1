@@ -57,7 +57,7 @@ export default function SchreibenMoreDetails({ item, selfCheck, t, language, cla
           t={t}
         />
         <VocabularyList entries={item.vocabulary_notes} language={language} title={t('results.usefulWords')} />
-        <SchreibenAiControlBar aiLoading={ai.aiLoading} />
+        <SchreibenAiControlBar aiLoading={ai.aiLoading} gradedBy={ai.gradedBy} />
         <AiDiffList entries={ai.aiDiffSummary} item={item} language={language} />
         {isDebugView() && <DebugPanels diagnosticData={diagnosticData} language={language} />}
         <SchreibenAiDisclaimer />

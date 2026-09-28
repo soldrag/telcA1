@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { gradeEssayWithActiveProvider } from '../services/schreiben/grading/essayGrader.js';
-import { aiProviderRegistry } from '../services/ai/aiProviderRegistry.js';
-import { PROVIDER_IDS } from '../services/ai/types.js';
 import { applyAiGradingResult } from './schreibenAiResultApplier.js';
 export { formatDiffEntry } from './schreibenDiffFormatter.js';
 
@@ -14,66 +12,30 @@ export function needsPipelineGrading(item = {}) {
   return Boolean(item.user_answer) && !item.provider_id;
 }
 
-export function useSchreibenAiChecker({
-  item,
-  scores,
-  onApplyScores,
-  onApplyErrors,
-  language,
-}) {
+/** `gradedBy` is the provider that graded the letter (PROVIDER_IDS), null while none has. */
+export function useSchreibenAiChecker({ item, onApplyScores, onApplyErrors }) {
   const [aiLoading, setAiLoading] = useState(false);
-  const [aiStatus, setAiStatus] = useState(() => (
-    item.examiner_feedback && item.provider_id === PROVIDER_IDS.MICRO_RANKER
-      ? (language === 'ru' ? '⚡ Оценка выполнена микро-ранжировщиком (System 1)' : '⚡ Bewertung durch Micro-Ranker (System 1) abgeschlossen')
-      : ''
-  ));
+  const [gradedBy, setGradedBy] = useState(() => item.provider_id || null);
   const [aiDiffSummary, setAiDiffSummary] = useState(() => item.diff_summary || []);
   const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
-  const [activeProvider, setActiveProvider] = useState(null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
-
-  useEffect(() => {
-    let isMounted = true;
-    aiProviderRegistry.getActiveProvider().then((p) => {
-      if (isMounted) setActiveProvider(p);
-    });
-    return () => { isMounted = false; };
-  }, []);
-
-  const gradeInBackground = useCallback(() => gradeEssayWithActiveProvider({
-    userText: item.user_answer,
-    question: item,
-    onProgress: (text) => setAiStatus(text),
-  }), [item]);
-
-  const applyResult = useCallback((res) => {
-    applyAiGradingResult({
-      aiResult: res,
-      item,
-      scores,
-      onApplyScores,
-      onApplyErrors,
-      setAiDiffSummary,
-      setExaminerFeedback,
-      setLiveCriteriaBreakdown,
-      setAiStatus,
-      language,
-    });
-  }, [item, scores, onApplyScores, onApplyErrors, language]);
 
   const runGrading = useCallback(async () => {
     setAiLoading(true);
-    setAiStatus(language === 'ru' ? 'Запуск микро-ранжировщика...' : 'Lade Micro-Ranker...');
     setAiDiffSummary([]);
     setExaminerFeedback(null);
     try {
-      applyResult(await gradeInBackground());
+      const aiResult = await gradeEssayWithActiveProvider({ userText: item.user_answer, question: item });
+      applyAiGradingResult({
+        aiResult, onApplyScores, onApplyErrors,
+        setters: { setAiDiffSummary, setExaminerFeedback, setLiveCriteriaBreakdown, setGradedBy },
+      });
     } catch (err) {
-      setAiStatus(err.message || (language === 'ru' ? 'Ошибка ранжировщика' : 'Fehler beim Ranker'));
+      console.warn('[useSchreibenAiChecker] Grading failed:', err?.message || err);
     } finally {
       setAiLoading(false);
     }
-  }, [gradeInBackground, applyResult, language]);
+  }, [item, onApplyScores, onApplyErrors]);
 
   // Once per answer: applying the result changes the scores and with them runGrading's identity.
   const gradedAnswerRef = useRef(null);
@@ -84,14 +46,5 @@ export function useSchreibenAiChecker({
     runGrading();
   }, [item, runGrading]);
 
-  return {
-    aiLoading,
-    aiStatus,
-    aiDiffSummary,
-    examinerFeedback,
-    liveCriteriaBreakdown,
-    activeProvider,
-    providerId: activeProvider?.id || PROVIDER_IDS.NONE,
-    isLimitedMode: activeProvider?.id === PROVIDER_IDS.NONE,
-  };
+  return { aiLoading, gradedBy, aiDiffSummary, examinerFeedback, liveCriteriaBreakdown };
 }

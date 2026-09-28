@@ -3,16 +3,6 @@ import SchreibenCriterionRow from './SchreibenCriterionRow.jsx';
 import { NUMERIC } from '../layout/typography.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
-export const CRITERIA_DEFINITIONS = [
-  { id: 'anrede', label: 'Passende Anrede (z. B. Sehr geehrte Damen und Herren / Liebe ...)' },
-  { id: 'lp1', label: 'Inhaltspunkt 1 verständlich bearbeitet' },
-  { id: 'lp2', label: 'Inhaltspunkt 2 verständlich bearbeitet' },
-  { id: 'lp3', label: 'Inhaltspunkt 3 verständlich bearbeitet' },
-  { id: 'gruss', label: 'Passende Grußformel und Name am Schluss' },
-];
-
-export const CRITERIA_KEYS = ['anrede', 'lp1', 'lp2', 'lp3', 'gruss'];
-
 const LEITPUNKT_IDS = ['lp1', 'lp2', 'lp3'];
 const FRAMING_IDS = ['anrede', 'gruss'];
 const FRAMING_LEVEL_MARK = { 2: '✓', 1: '~', 0: '✗' };

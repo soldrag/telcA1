@@ -26,7 +26,7 @@ function useReportScore(total, scores, onScoreChange) {
 /**
  * Criterion levels, grammar hints and AI re-check state for one Schreiben letter.
  */
-export function useSchreibenSelfCheck({ item = {}, onScoreChange, language }) {
+export function useSchreibenSelfCheck({ item = {}, onScoreChange }) {
   const grammarErrors = item.grammar_errors || NO_ERRORS;
   const [scores, setScores] = useState(() => deriveInitialScores(item));
   const [liveGrammarErrors, setLiveGrammarErrors] = useState(() => dedupeGrammarErrors(grammarErrors));
@@ -39,9 +39,7 @@ export function useSchreibenSelfCheck({ item = {}, onScoreChange, language }) {
     setLiveGrammarErrors(() => mergeCandidateGrammarErrors(grammarErrors, nextErrors));
   }, [grammarErrors]);
 
-  const ai = useSchreibenAiChecker({
-    item, scores, onApplyScores: handleApplyScores, onApplyErrors: handleApplyErrors, language,
-  });
+  const ai = useSchreibenAiChecker({ item, onApplyScores: handleApplyScores, onApplyErrors: handleApplyErrors });
   const teil2Score = useMemo(() => scoreCriteriaLevels(scores, item.level), [scores, item.level]);
   useReportScore(teil2Score.total, scores, onScoreChange);
 

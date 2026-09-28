@@ -24,11 +24,11 @@ describe('i18n Translation Contract Validation', () => {
 
   it('fails validation when a required contract key is missing', () => {
     const brokenLocale = JSON.parse(JSON.stringify(en));
-    delete brokenLocale.header.simulatorTitle;
+    delete brokenLocale.header.menu;
 
     const result = validateLocaleAgainstContract(brokenLocale, TRANSLATION_CONTRACT, 'broken');
     assert.equal(result.isValid, false);
-    assert.ok(result.errors.some(e => e.includes('header.simulatorTitle')));
+    assert.ok(result.errors.some(e => e.includes('header.menu')));
   });
 
   it('fails validation when an extraneous unknown key is present', () => {

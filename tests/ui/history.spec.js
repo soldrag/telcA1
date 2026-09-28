@@ -41,7 +41,7 @@ test('history: every control works with two attempts saved', async ({ page, page
 test('history: clearing asks first, then leaves the empty state', async ({ page }) => {
   await openHome(page);
   await openHistory(page, await completeAttempts(page));
-  const clear = page.getByRole('button', { name: en.history.clearAll }).filter({ visible: true }).first();
+  const clear = page.getByRole('button', { name: en.history.clearHistory }).filter({ visible: true }).first();
   await clear.click();
   await page.getByRole('button', { name: en.history.clearCancel, exact: true }).click();
   await expect(attemptCards(page)).toHaveCount(VARIANTS.length);

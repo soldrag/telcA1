@@ -5,7 +5,7 @@ export const SUPPORTED_LANGUAGES = ['en', 'ru'];
 /**
  * Checks whether a language string is supported.
  */
-export function isSupportedLanguage(lang) {
+function isSupportedLanguage(lang) {
   return typeof lang === 'string' && SUPPORTED_LANGUAGES.includes(lang.toLowerCase());
 }
 

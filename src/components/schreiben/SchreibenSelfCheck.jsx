@@ -15,7 +15,7 @@ import { SPAN } from '../layout/pageLayout.js';
  */
 export default function SchreibenSelfCheck({ item = {}, onScoreChange, formReview = null, visibleSection = null }) {
   const { t, language } = useI18n();
-  const selfCheck = useSchreibenSelfCheck({ item, onScoreChange, language });
+  const selfCheck = useSchreibenSelfCheck({ item, onScoreChange });
   const shared = { item, selfCheck, t, language };
   const onlyIn = (section) => (visibleSection && visibleSection !== section ? 'max-lg:hidden' : '');
 
