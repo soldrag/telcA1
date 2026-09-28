@@ -4,8 +4,9 @@ import { Dialog } from '../ui/Dialog.jsx';
 import { Button } from '../ui/Button.jsx';
 import { DIALOG_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import GradingProgressNote from './GradingProgressNote.jsx';
 
-export default function TimeUpModal({ isOpen, onConfirm, isGrading = false }) {
+export default function TimeUpModal({ isOpen, onConfirm, isGrading = false, gradingProgress = null }) {
   const { t } = useI18n();
 
   return (
@@ -19,6 +20,7 @@ export default function TimeUpModal({ isOpen, onConfirm, isGrading = false }) {
           <p className="text-sm text-content-secondary leading-relaxed">
             {t('modals.timeUpDesc')}
           </p>
+          <GradingProgressNote gradingProgress={gradingProgress} />
         </div>
         <Button
           variant="default"

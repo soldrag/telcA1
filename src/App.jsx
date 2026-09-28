@@ -46,6 +46,7 @@ export default function App() {
           answeredCount: controller.session.answeredCount,
           totalQuestions: controller.examData?.questions?.length || 0,
           isSubmitting: controller.session.isSubmitting,
+          gradingProgress: controller.session.gradingProgress,
         }}
       />
 

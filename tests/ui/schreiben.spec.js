@@ -39,3 +39,17 @@ test('Schreiben in the limited mode: the results name the rules-only grading, no
   await expect(page.getByText(en.results.aiLimitedNotice).filter({ visible: true }).first()).toBeVisible();
   await expect(page.getByText(en.results.aiRankerEvaluated)).toHaveCount(0);
 });
+
+// A clean profile has no model: the first submission downloads it, and the dialog says so instead of a bare "Grading...".
+test('the first Schreiben submission shows the model download in the submit dialog', async ({ page }) => {
+  test.setTimeout(180_000);
+  const [variant] = listVariants('schreiben');
+  await openHome(page, { module: 'schreiben' });
+  await startVariant(page, variant);
+  await answerAllParts(page, fillVisibleSchreibenFields);
+  await openSubmitDialog(page);
+  await page.getByRole('dialog').getByRole('button', { name: en.modals.submitConfirm }).click();
+  const [before] = en.modals.modelDownloading.split('{megabytes}');
+  await expect(page.getByRole('dialog').getByRole('status')).toContainText(before, { timeout: 30_000 });
+  await expect(page.getByRole('dialog')).toBeHidden({ timeout: 180_000 });
+});

@@ -9,7 +9,7 @@ import { formatCriterionQuery } from './rankerFallbackScorer.js';
 import { SIMILARITY_T2, SIMILARITY_T1 } from './types.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { assessEvidenceSentences } from './criterionPolarityGate.js';
-import { computeEmbedding, getCachedLpEmbedding } from '../../embeddings/embeddingService.js';
+import { computeEmbedding, getCachedLpEmbedding, loadEmbeddingModel } from '../../embeddings/embeddingService.js';
 import { createRankerEmbedder, buildSentenceVectorMap } from '../../embeddings/rankerEmbedder.js';
 import { mergeCandidateGrammarErrors } from '../linguistic/grammarErrorDeduper.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
@@ -20,9 +20,10 @@ import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from '.
 import { hasAspectConceptEvidence } from './aspectConceptEvidence.js';
 import { isClaimedByRival } from './rivalEvidence.js';
 
-async function computeSentenceVectors(bodySentences, customExtractor) {
+async function computeSentenceVectors(bodySentences, customExtractor, onModelDownload) {
   if (bodySentences.length === 0 || customExtractor === false) return [];
   try {
+    if (!customExtractor) await loadEmbeddingModel(onModelDownload);
     return await Promise.all(
       bodySentences.map((s) => computeEmbedding(s, false, customExtractor).catch(() => null))
     );
@@ -138,9 +139,10 @@ async function scoreCriterionItem(params) {
 }
 
 /** policy: the level's ranker policy (lexicon port, coverage thresholds). */
-export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, policy }) {
+/** onModelDownload: receives { loadedBytes } while the embedding model downloads (the first grading only). */
+export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, policy, onModelDownload = null }) {
   requireLevelPort(policy, 'scorePipelineLeitpunkte: policy');
-  const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor);
+  const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor, onModelDownload);
   const rankerEmbedder = sentenceVectors.some(Boolean)
     ? createRankerEmbedder({ customExtractor, sentenceVectors: buildSentenceVectorMap(bodySentences, sentenceVectors) })
     : null;

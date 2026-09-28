@@ -13,7 +13,7 @@ import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { isGibberishText } from './gibberishDetector.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
-import { PROVIDER_IDS, GRADING_MODES } from '../ai/types.js';
+import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES } from '../ai/types.js';
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
@@ -58,6 +58,11 @@ function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSe
     items,
     diagnostic: { anrede: stage1.anrede, gruss: stage1.gruss, items, unassignedSentences },
   };
+}
+
+/** onProgress receives { stage: GRADING_STAGES value, fraction 0..1, loadedBytes? }. */
+function reportStage(onProgress, stage, fraction) {
+  onProgress?.({ stage, fraction });
 }
 
 function resolveGradingMode(provider, modelUsed) {
@@ -109,7 +114,7 @@ export async function gradeSchreibenSubmission({
     ? aiProviderRegistry.getProvider(PROVIDER_IDS.NONE)
     : await aiProviderRegistry.getActiveProvider());
 
-  onProgress?.('Vorverarbeitung und Textanalyse...', 0.1);
+  reportStage(onProgress, GRADING_STAGES.PREPROCESSING, 0.1);
   const isGibberish = isGibberishText(raw);
   const stage1 = runStage1Scoring(stage0);
 
@@ -121,7 +126,7 @@ export async function gradeSchreibenSubmission({
     leitpunkte: segmentUserEssay(raw, criteria, levelContext).leitpunkte,
   };
 
-  onProgress?.('Prüfung der Leitpunkte...', 0.4);
+  reportStage(onProgress, GRADING_STAGES.LEITPUNKTE, 0.4);
   const customExtractor = options.forceLimitedMode ? false : options.customExtractor;
   const stage2 = await scorePipelineLeitpunkte({
     criteria,
@@ -130,9 +135,10 @@ export async function gradeSchreibenSubmission({
     customExtractor,
     userSegments,
     policy: levelPolicy,
+    onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
 
-  onProgress?.('Grammatikprüfung...', 0.7);
+  reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
   const errors = collectPipelineGrammarErrors({
     rawText: raw,
@@ -152,7 +158,7 @@ export async function gradeSchreibenSubmission({
     level: question.level,
   });
 
-  onProgress?.('Erstelle Feedback...', 0.9);
+  reportStage(onProgress, GRADING_STAGES.FEEDBACK, 0.9);
   const scoredStage2 = { ...stage2, items: attachPoints(stage2.items, score) };
   const examinerFeedback = composeExaminerFeedback({
     context: {
@@ -164,7 +170,7 @@ export async function gradeSchreibenSubmission({
 
   const diffSummary = buildDiffSummary(stage2.items);
 
-  onProgress?.('Bewertung abgeschlossen', 1.0);
+  reportStage(onProgress, GRADING_STAGES.DONE, 1);
   return assembleGradingResult({
     stage0, stage1, stage2: scoredStage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments,
   });

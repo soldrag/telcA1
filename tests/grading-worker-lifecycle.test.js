@@ -40,7 +40,8 @@ Anna Schmidt`;
     assert.equal(result.points_earned, direct.points_earned);
     assert.deepEqual(result.criteria_breakdown, direct.criteria_breakdown);
     assert.equal(result.is_limited_mode, true);
-    assert.equal(progressUpdates.length > 0, true);
+    // A limited-mode grading downloads no model: its stages only, in order.
+    assert.deepEqual(progressUpdates.map((event) => event.stage), ['preprocessing', 'leitpunkte', 'grammar', 'feedback', 'done']);
   });
 
   describe('gradeInWorker', () => {
@@ -88,15 +89,16 @@ Anna Schmidt`;
     });
 
     it('keeps waiting while the worker reports progress, longer than the idle timeout in total', async () => {
-      const progress = Array.from({ length: 4 }, () => ({ type: 'PROGRESS', text: 'Lade Modell', delay: 30 }));
+      const download = (mb) => ({ stage: 'model_download', fraction: 0.4, loadedBytes: mb * 1e6 });
+      const progress = [1, 2, 3, 4].map((mb) => ({ type: 'PROGRESS', event: download(mb), delay: 30 }));
       installFakeWorker([...progress, { type: 'SUCCESS', result: { points_earned: 9 }, delay: 30 }]);
       try {
         const updates = [];
         const result = await gradeInWorker({
-          userText: 'x', question: sampleQuestion, timeoutMs: 60, onProgress: (text) => updates.push(text),
+          userText: 'x', question: sampleQuestion, timeoutMs: 60, onProgress: (event) => updates.push(event),
         });
         assert.equal(result.points_earned, 9);
-        assert.equal(updates.length, 4);
+        assert.deepEqual(updates, [1, 2, 3, 4].map(download));
       } finally {
         removeFakeWorker();
       }

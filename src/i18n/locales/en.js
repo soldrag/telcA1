@@ -374,6 +374,7 @@ export const en = {
     submitCancel: 'Return to exam',
     submitConfirm: 'Yes, check answers',
     submitting: 'Grading...',
+    modelDownloading: 'Downloading the AI model that grades the letter — needed on the first grading only. {megabytes} MB loaded.',
     timeUpTitle: 'Time is up!',
     timeUpDesc: 'The time limit for this section has expired. Your answers are evaluated as they are.',
     timeUpConfirm: 'View results',

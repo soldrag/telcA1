@@ -5,6 +5,7 @@
 
 import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
 import { isWebGPUAdapterAvailable } from '../../utils/webGpuSupport.js';
+import { createDownloadReporter } from './modelDownloadProgress.js';
 
 const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 export const EMBEDDING_DIMENSION = 256;
@@ -46,16 +47,20 @@ async function initEmbeddingService(onProgress = null) {
     extractorInstance = await pipeline('feature-extraction', EMBEDDING_MODEL_ID, {
       device,
       dtype: 'q4',
-      progress_callback: (report) => {
-        if (!onProgress || !report) return;
-        const pct = report.progress ? ` (${Math.round(report.progress)}%)` : '';
-        onProgress(`EmbeddingGemma: ${report.file || 'Initialisiere'}${pct}`, report.progress);
-      }
+      progress_callback: createDownloadReporter(onProgress),
     });
     return extractorInstance;
   } finally {
     isInitializing = false;
   }
+}
+
+/**
+ * Loads the model ahead of the first embedding, reporting its download ({ loadedBytes }); a cached model
+ * loads without a download. Rejects when the model cannot load (offline before the first download).
+ */
+export async function loadEmbeddingModel(onProgress = null) {
+  await initEmbeddingService(onProgress);
 }
 
 export async function computeEmbedding(text = '', isQuery = false, customExtractor = null) {

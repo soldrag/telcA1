@@ -16,8 +16,8 @@ self.onmessage = async (event) => {
       userText,
       question,
       options,
-      onProgress: (text, progress) => {
-        self.postMessage({ id, type: 'PROGRESS', text, progress });
+      onProgress: (event) => {
+        self.postMessage({ id, type: 'PROGRESS', event });
       }
     });
 

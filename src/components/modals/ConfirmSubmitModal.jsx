@@ -4,6 +4,7 @@ import { Dialog } from '../ui/Dialog.jsx';
 import { Button } from '../ui/Button.jsx';
 import { DIALOG_TITLE } from '../layout/typography.js';
 import { useI18n } from '../../i18n/I18nContext.jsx';
+import GradingProgressNote from './GradingProgressNote.jsx';
 
 export default function ConfirmSubmitModal({
   isOpen,
@@ -35,6 +36,7 @@ export default function ConfirmSubmitModal({
           </span>
         )}
       </p>
+      <GradingProgressNote gradingProgress={submissionStats.gradingProgress} />
 
       <div className="mt-6 flex items-center justify-end space-x-3">
         <Button

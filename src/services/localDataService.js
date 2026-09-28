@@ -71,8 +71,9 @@ export async function preloadLocalGrading() {
 /**
  * Grades in the browser (static hosting, offline). Schreiben answers read the lexicon data, loaded first;
  * the letter is graded by the Micro-Ranker in the grading worker whenever it is available.
+ * onProgress receives the letter grading's progress ({ stage, fraction, loadedBytes? }, GRADING_STAGES).
  */
-export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
+export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSeconds = 0, onProgress = null } = {}) {
   const exam = seedData.exams.find(e => e.id === examId);
   if (!exam) {
     throw new Error(`Exam not found: ${examId}`);
@@ -84,7 +85,7 @@ export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSe
     .sort((a, b) => a.question_number - b.question_number);
 
   const { score, reviewItems, teilBreakdown } = await evaluateExamSubmission(questions, answers, {
-    gradeEssay: gradeEssayWithActiveProvider,
+    gradeEssay: (input) => gradeEssayWithActiveProvider({ ...input, onProgress }),
   });
   const totalQuestions = questions.length;
   const maxScore = exam.max_score || getTestTypeById(exam.test_type || 'lesen').maxScore;

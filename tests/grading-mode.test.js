@@ -66,3 +66,16 @@ describe('grading_mode: how the letter was actually graded', () => {
     assert.equal(fallback.points_earned, limited.points_earned);
   });
 });
+
+describe('grading progress', () => {
+  it('a grading with a ready model reports its stages and no model download', async () => {
+    clearEmbeddingCache();
+    const stages = [];
+    const question = await findSeedQuestion('s1-q6');
+    await gradeSchreibenSubmission({
+      userText: letter, question, options: { customExtractor: workingExtractor },
+      provider: new MicroRankerProvider({ embedder: null }), onProgress: (event) => stages.push(event.stage),
+    });
+    assert.deepEqual(stages, ['preprocessing', 'leitpunkte', 'grammar', 'feedback', 'done']);
+  });
+});

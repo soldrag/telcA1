@@ -27,7 +27,7 @@ export function preloadExamGrading() {
 }
 
 /** Answers are graded in the browser and never leave the device. */
-export async function submitExamAnswers(examId, { answers = {}, timeSpentSeconds = 0 } = {}) {
+export async function submitExamAnswers(examId, { answers = {}, timeSpentSeconds = 0, onProgress = null } = {}) {
   if (!examId) throw new Error('examId is required to submit exam answers');
-  return submitLocalExamAnswers(examId, { answers, timeSpentSeconds });
+  return submitLocalExamAnswers(examId, { answers, timeSpentSeconds, onProgress });
 }

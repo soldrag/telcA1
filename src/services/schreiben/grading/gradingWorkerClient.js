@@ -51,12 +51,12 @@ export function gradeInWorker({
     armTimer();
 
     worker.onmessage = (event) => {
-      const { id, type, text, progress, result, error } = event.data || {};
+      const { id, type, event: progressEvent, result, error } = event.data || {};
       if (id !== requestId) return;
 
       if (type === 'PROGRESS') {
         armTimer();
-        onProgress?.(text, progress);
+        onProgress?.(progressEvent);
       } else if (type === 'SUCCESS') {
         cleanup();
         resolve(result);

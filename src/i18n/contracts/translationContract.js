@@ -375,6 +375,7 @@ export const TRANSLATION_CONTRACT = {
     submitCancel: 'string',
     submitConfirm: 'string',
     submitting: 'string',
+    modelDownloading: 'string',
     timeUpTitle: 'string',
     timeUpDesc: 'string',
     timeUpConfirm: 'string',

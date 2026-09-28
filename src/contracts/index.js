@@ -42,6 +42,7 @@ export const sessionContract = {
     'activeQuestionIndex',
     'isSubmitted',
     'isSubmitting',
+    'gradingProgress',
     'results',
     'scrollTargetId',
     'isInspection',

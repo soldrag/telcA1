@@ -27,6 +27,8 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // The letter grading's progress while submitting ({ stage, loadedBytes? }), null otherwise.
+  const [gradingProgress, setGradingProgress] = useState(null);
   const [results, setResults] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
   const [isInspection, setIsInspection] = useState(false);
@@ -76,7 +78,8 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     try {
       const resultData = await submitService(examId, {
         answers,
-        timeSpentSeconds: Math.max(1, timeSpent)
+        timeSpentSeconds: Math.max(1, timeSpent),
+        onProgress: setGradingProgress,
       });
 
       const attemptRecord = createAttemptRecord({ resultData, examId, answers, timeSpent });
@@ -87,6 +90,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
       return resultData;
     } finally {
       setIsSubmitting(false);
+      setGradingProgress(null);
     }
   }, [answers, isInspection, isSubmitted, isSubmitting, storage, submitService]);
 
@@ -166,6 +170,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     activeQuestionIndex,
     isSubmitted,
     isSubmitting,
+    gradingProgress,
     isInspection,
     setIsInspection,
     results,
