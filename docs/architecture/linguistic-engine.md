@@ -20,7 +20,7 @@ grammarCheckOrchestrator.createGrammarChecker(profile)
        └─ grammarErrorDeduper       → one defect, one error
 ```
 
-`germanGrammarChecker.js` only binds the orchestrator to the A1 profile for tests and tools. The grading pipeline gets its checker from `levelContext` ([Schreiben grading](schreiben-grading.md#level-context-and-ports)).
+The grading pipeline and the tests get the checker of a level from `levelContext` (`resolveLevelContext(level).grammar`) ([Schreiben grading](schreiben-grading.md#level-context-and-ports)).
 
 ## Data
 
@@ -28,7 +28,7 @@ Three kinds of data, three places (CLAUDE.md §5.1):
 
 | Kind | Where | Examples |
 |---|---|---|
-| General German | `linguistic/data/` | `declensionParadigms.json`, `prepositionContractions.json` (incl. `calendarPrepositionByCategory`), `letterFormulas.json`, `umlautSpelling.json`, `germanSpellingSounds.json` (sound keys, `germanSoundKey.js`), `germanNouns.tsv`, `germanVerbs.tsv` |
+| General German | `linguistic/data/` | `declensionParadigms.json`, `prepositionContractions.json` (incl. `calendarPrepositionByCategory`), `letterFormulas.json`, `umlautSpelling.json`, `germanSpellingSounds.json` (sound keys, `germanSoundKey.js`), `clauseWordClasses.json`, `numberWords.json`, `calendarWords.json`, `roleWords.json`, `functionWords.json` (closed classes and role nouns read by the detectors), `germanNouns.tsv`, `germanVerbs.tsv` |
 | Level | lexicon, profile, policy, regulation | A1 lexicon (`a1Lexicon.json`), `profiles/a1GrammarProfile.js`, `grading/policies/a1ConceptDomains.js` |
 | Task | seed rubrics | `keywords`, `intent`, `evidence`, `aspects` |
 

@@ -6,20 +6,16 @@
  * not what one does, so it is not evidence here.
  */
 
-const WORK_VERBS = new Set(['arbeite', 'arbeitest', 'arbeitet', 'arbeiten', 'jobbe', 'jobbt', 'jobben']);
+import roleWords from '../linguistic/data/roleWords.json' with { type: 'json' };
+
+const WORK_VERBS = new Set(roleWords.workVerbForms);
 // Role ("als Koch") or employer/workplace ("bei Siemens", "beim Bäcker", "im Krankenhaus"). "in"/"für" are
 // left out: "in Berlin", "für die Natur" name a place or a cause, not an occupation.
 const ROLE_MARKERS = new Set(['als', 'bei', 'beim', 'im']);
-const STUDY_WORDS = new Set(['studiere', 'studierst', 'studiert', 'studieren', 'studium']);
+const STUDY_WORDS = new Set(roleWords.studyWords);
 const MARKER_WINDOW = 2;
 
-// Occupation nouns (masculine base; "-in"/"-innen" forms are derived). Compounds are right-headed,
-// so "Zahnarzt", "Taxifahrer", "Bauingenieur" are recognised by their head.
-const OCCUPATION_HEADS = ['ingenieur', 'ingenieure', 'arzt', 'ärzt', 'ärzte', 'lehrer', 'verkäufer', 'koch', 'köch', 'köche', 'kellner', 'student',
-  'friseur', 'friseure', 'mechaniker', 'programmierer', 'informatiker', 'krankenpfleger', 'pfleger', 'krankenschwester',
-  'sekretär', 'polizist', 'fahrer', 'bäcker', 'architekt', 'journalist', 'musiker', 'elektriker', 'pilot',
-  'apotheker', 'schüler', 'rentner', 'hausfrau', 'hausmann', 'manager', 'designer', 'kaufmann', 'kauffrau',
-  'buchhalter', 'handwerker', 'maler', 'tischler', 'übersetzer', 'dolmetscher', 'angestellte', 'angestellter'];
+const OCCUPATION_HEADS = roleWords.occupationHeads;
 const MIN_COMPOUND_PREFIX = 2;
 
 function tokenize(text = '') {

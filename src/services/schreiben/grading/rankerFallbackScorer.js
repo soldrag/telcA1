@@ -10,12 +10,9 @@ import { scoreAspectConceptOverlap, scoreStructuredAspectEvidence, getDomainStem
 import { requireLevelPort } from './levelPorts.js';
 import { findMatchedKeywords } from '../linguistic/keywordStemMatcher.js';
 import { cosineSimilarity } from './vectorMath.js';
+import functionWords from '../linguistic/data/functionWords.json' with { type: 'json' };
 
-const STOP_WORDS = new Set([
-  'der', 'die', 'das', 'des', 'dem', 'den', 'ein', 'eine', 'einen', 'einem', 'und', 'oder',
-  'sie', 'ich', 'wir', 'ihr', 'ihre', 'ihren', 'ihnen', 'mir', 'mich', 'uns', 'für', 'mit', 'von',
-  'zum', 'zur', 'bei', 'auf', 'aus', 'wie', 'was', 'wann', 'warum',
-]);
+const STOP_WORDS = new Set(functionWords.queryStopWords);
 const MAX_QUERY_KEYWORDS = 8;
 
 function splitLabelWords(text) {

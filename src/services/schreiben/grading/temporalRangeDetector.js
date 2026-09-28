@@ -10,16 +10,16 @@
  */
 
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
+import calendarWords from '../linguistic/data/calendarWords.json' with { type: 'json' };
+import numberWords from '../linguistic/data/numberWords.json' with { type: 'json' };
+import wordClasses from '../linguistic/data/clauseWordClasses.json' with { type: 'json' };
 
-const MONTHS = new Set(['januar', 'februar', 'märz', 'maerz', 'april', 'mai', 'juni', 'juli', 'august',
-  'september', 'oktober', 'november', 'dezember']);
-const CALENDAR_ANCHORS = new Set([...MONTHS, 'sommer', 'winter', 'herbst', 'frühling', 'fruehling',
-  'montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag', 'wochenende', 'ostern', 'weihnachten']);
+const MONTHS = new Set(Object.keys(calendarWords.months));
+const CALENDAR_ANCHORS = new Set([...MONTHS, ...calendarWords.seasons, ...wordClasses.weekdays,
+  ...calendarWords.weekParts, ...calendarWords.holidays]);
 const RELATIVE_DAYS = new Set(['heute', 'morgen', 'übermorgen', 'uebermorgen']);
-const NUMERAL_WORDS = new Set(['ein', 'eine', 'einen', 'zwei', 'drei', 'vier', 'fünf', 'fuenf', 'sechs', 'sieben',
-  'acht', 'neun', 'zehn', 'elf', 'zwölf', 'zwoelf', 'vierzehn', 'zwanzig', 'dreißig']);
-const ORDINAL_ROOTS = ['erst', 'zweit', 'dritt', 'viert', 'fünf', 'fuenf', 'sechs', 'sieb', 'acht', 'neun',
-  'zehn', 'elf', 'zwölf', 'zwoelf', 'zwanzig', 'dreißig', 'dreissig'];
+const NUMERAL_WORDS = new Set(Object.keys(numberWords.cardinals));
+const ORDINAL_ROOTS = numberWords.ordinalRoots;
 const TIME_UNITS = new Set(['tag', 'tage', 'tagen', 'woche', 'wochen', 'monat', 'monate', 'monaten', 'nacht', 'nächte', 'naechte', 'stunde', 'stunden']);
 const RANGE_CONNECTORS = new Set(['bis', '-', '–']);
 const RANGE_FILLERS = new Set(['zum', 'zur', 'den', 'dem']);

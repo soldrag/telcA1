@@ -1,0 +1,12 @@
+{
+  "notes": "Words that name people by their role. personCountNouns: nouns counted in 'vier Personen', 'mit zwei Kindern'. occupationHeads: occupation nouns (masculine base, '-in'/'-innen' forms are derived); compounds are right-headed, so 'Zahnarzt' is found by 'arzt'. workVerbForms, studyWords: forms that state working or studying.",
+  "personCountNouns": ["person", "personen", "erwachsene", "erwachsenen", "erwachsener", "kind", "kinder",
+    "kindern", "leute", "gast", "gäste", "gaeste", "freund", "freunde", "freundin", "freundinnen", "teilnehmer"],
+  "occupationHeads": ["ingenieur", "ingenieure", "arzt", "ärzt", "ärzte", "lehrer", "verkäufer", "koch", "köch", "köche",
+    "kellner", "student", "friseur", "friseure", "mechaniker", "programmierer", "informatiker", "krankenpfleger", "pfleger",
+    "krankenschwester", "sekretär", "polizist", "fahrer", "bäcker", "architekt", "journalist", "musiker", "elektriker",
+    "pilot", "apotheker", "schüler", "rentner", "hausfrau", "hausmann", "manager", "designer", "kaufmann", "kauffrau",
+    "buchhalter", "handwerker", "maler", "tischler", "übersetzer", "dolmetscher", "angestellte", "angestellter"],
+  "workVerbForms": ["arbeite", "arbeitest", "arbeitet", "arbeiten", "jobbe", "jobbt", "jobben"],
+  "studyWords": ["studiere", "studierst", "studiert", "studieren", "studium"]
+}

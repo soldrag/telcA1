@@ -1,0 +1,6 @@
+{
+  "notes": "German function words. queryStopWords: articles, pronouns, prepositions and question words left out of a criterion's search query, since they carry no topic.",
+  "queryStopWords": ["der", "die", "das", "des", "dem", "den", "ein", "eine", "einen", "einem", "und", "oder",
+    "sie", "ich", "wir", "ihr", "ihre", "ihren", "ihnen", "mir", "mich", "uns", "für", "mit", "von",
+    "zum", "zur", "bei", "auf", "aus", "wie", "was", "wann", "warum"]
+}

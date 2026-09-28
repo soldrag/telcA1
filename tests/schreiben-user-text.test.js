@@ -1,10 +1,11 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
 import { readFileSync } from 'node:fs';
-import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 import { findSeedQuestion } from './helpers/regressionFixtures.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
 

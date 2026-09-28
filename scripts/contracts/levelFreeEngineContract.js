@@ -11,7 +11,6 @@ const LEVEL_MODULES = [
   'profiles/',
   'regulations/',
   'linguistic/a1LexiconService.js',
-  'germanGrammarChecker.js',
   'taskLevel.js',
 ];
 // a1Lexicon, a1RankerPolicy, defaultA1…, A1_GRAMMAR_PROFILE, TelcA1…, and a bare level name 'A1'/'B2'.

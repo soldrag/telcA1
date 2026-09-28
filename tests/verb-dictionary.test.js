@@ -5,7 +5,9 @@
  */
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { lookupWord } from '../src/services/schreiben/linguistic/a1LexiconService.js';
 
 const readings = (word) => lookupWord(word).map((e) => `${e.pos}:${e.lemma}${e.person ? `:${e.person.join('')}${e.number}` : ''}`);

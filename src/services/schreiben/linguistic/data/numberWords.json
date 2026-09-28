@@ -1,0 +1,11 @@
+{
+  "notes": "German number words. cardinals: word → value, with the inflected forms of 'ein' and the ue spellings of ü. ordinalRoots: stems of ordinal words ('erst-e', 'zwanzig-st-e'); compound ordinals are recognised by 'und' + root.",
+  "cardinals": {
+    "null": 0,
+    "ein": 1, "eine": 1, "einen": 1, "einem": 1, "einer": 1, "eins": 1,
+    "zwei": 2, "drei": 3, "vier": 4, "fünf": 5, "fuenf": 5, "sechs": 6, "sieben": 7, "acht": 8, "neun": 9,
+    "zehn": 10, "elf": 11, "zwölf": 12, "zwoelf": 12, "vierzehn": 14, "zwanzig": 20, "dreißig": 30, "dreissig": 30
+  },
+  "ordinalRoots": ["erst", "zweit", "dritt", "viert", "fünf", "fuenf", "sechs", "sieb", "acht", "neun",
+    "zehn", "elf", "zwölf", "zwoelf", "zwanzig", "dreißig", "dreissig"]
+}

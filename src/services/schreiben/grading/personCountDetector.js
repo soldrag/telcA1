@@ -5,10 +5,11 @@
  * participants but no count, so it is not evidence here.
  */
 
-const NUMERALS = new Set(['ein', 'eine', 'einen', 'einem', 'einer', 'zwei', 'drei', 'vier', 'fünf', 'fuenf',
-  'sechs', 'sieben', 'acht', 'neun', 'zehn']);
-const PERSON_NOUNS = new Set(['person', 'personen', 'erwachsene', 'erwachsenen', 'erwachsener', 'kind', 'kinder',
-  'kindern', 'leute', 'gast', 'gäste', 'gaeste', 'freund', 'freunde', 'freundin', 'freundinnen', 'teilnehmer']);
+import numberWords from '../linguistic/data/numberWords.json' with { type: 'json' };
+import roleWords from '../linguistic/data/roleWords.json' with { type: 'json' };
+
+const NUMERALS = new Set(Object.keys(numberWords.cardinals));
+const PERSON_NOUNS = new Set(roleWords.personCountNouns);
 const SOLO_MARKERS = new Set(['allein', 'alleine']);
 const NOUN_WINDOW = 2;
 

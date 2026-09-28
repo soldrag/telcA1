@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { parseSentenceTopology } from '../src/services/schreiben/linguistic/topologicalFieldParser.js';
 import { segmentMacroStructure } from '../src/services/schreiben/linguistic/macroSegmenter.js';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { gradeLetter } from './helpers/gradeLetter.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
-import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const A1 = resolveLevelContext('A1');
 

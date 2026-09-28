@@ -5,7 +5,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { describeGrammarErrors } from './helpers/grammarSnapshotCorpus.js';
 
 const targets = JSON.parse(readFileSync(new URL('./fixtures/grammar/targets.json', import.meta.url), 'utf8'));

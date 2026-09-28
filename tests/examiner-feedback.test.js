@@ -7,7 +7,9 @@ import { DIAGNOSTIC_CODES, EXAMINER_CODES } from '../src/services/schreiben/feed
 import { formatStudentQuote } from '../src/services/schreiben/feedback/studentQuoteFormatter.js';
 import { selectGrammarHighlights } from '../src/services/schreiben/feedback/grammarHighlightSelector.js';
 import { defaultA1RankerPolicy, IRankerPolicy } from '../src/services/schreiben/grading/policies/index.js';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
 

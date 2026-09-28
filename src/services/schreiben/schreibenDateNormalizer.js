@@ -1,18 +1,6 @@
-const GERMAN_MONTHS = {
-  januar: '01',
-  februar: '02',
-  märz: '03',
-  maerz: '03',
-  april: '04',
-  mai: '05',
-  juni: '06',
-  juli: '07',
-  august: '08',
-  september: '09',
-  oktober: '10',
-  november: '11',
-  dezember: '12',
-};
+import calendarWords from './linguistic/data/calendarWords.json' with { type: 'json' };
+
+const MONTHS = calendarWords.months;
 
 function padTwoDigits(value) {
   return String(value).padStart(2, '0');
@@ -24,10 +12,10 @@ function parseNamedMonth(input) {
 
   const day = parseInt(match[1], 10);
   const monthName = match[2];
-  const monthNumber = GERMAN_MONTHS[monthName];
+  const monthNumber = Object.hasOwn(MONTHS, monthName) ? MONTHS[monthName] : null;
 
   if (!monthNumber || day < 1 || day > 31) return null;
-  return `${padTwoDigits(day)}.${monthNumber}`;
+  return `${padTwoDigits(day)}.${padTwoDigits(monthNumber)}`;
 }
 
 function parseNumericDate(input) {

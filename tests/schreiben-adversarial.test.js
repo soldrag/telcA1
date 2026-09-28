@@ -1,7 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { gradeLetter } from './helpers/gradeLetter.js';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
 describe('Schreiben Semantic Adversarial & Linguistic Invariant Suite', () => {

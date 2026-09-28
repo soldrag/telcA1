@@ -43,7 +43,8 @@ Every entry point first awaits the lexicon data (`levelContext.lexicon.load()`),
 
 - A task declares its CEFR `level` in the seed (`level: 'A1'`). `taskLevel.resolveTaskLevel` maps it; a task without a level is legacy data (stored attempts, old links) and counts as A1; an unregistered level throws `RangeError` (fail fast, no silent A1 fallback).
 - `levelContext.resolveLevelContext(level)` → `{ level, policy, lexicon, grammar }` is the one place that binds a level to its ranker policy, lexicon port and grammar checker. Entry points resolve it and pass it down; engine functions have no level default (`grading/levelPorts.requireLevelPort` fails fast).
-- Level-free engine is enforced by `scripts/contracts/levelFreeEngineContract.js`: no level reference outside `grading/policies/`, `profiles/`, `regulations/`, `linguistic/a1LexiconService.js`, `germanGrammarChecker.js`.
+- Level-free engine is enforced by `scripts/contracts/levelFreeEngineContract.js`: no level reference outside `grading/policies/`, `profiles/`, `regulations/`, `linguistic/a1LexiconService.js`.
+- Accepted deviations (review 2026-09-28): the A1 lexicon (`a1Lexicon.json`, `a1LexiconService.js`) lies in `linguistic/` but only the profile and the policy import it; a meaning distortion caps a Leitpunkt's coverage level in `pipelineStageScorers.js`, which is still a fact (level 0/1/2) that the regulation prices; small parser word sets (connectors, prepositions, role markers) stay next to the detector that parses them.
 
 ## Leitpunkt coverage
 

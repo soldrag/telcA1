@@ -6,7 +6,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 
 const read = (name) => readFileSync(new URL(`./fixtures/grammar/precision/${name}`, import.meta.url), 'utf8').split('\n');
 const correct = [...read('correct.txt').map((l) => l.trim()).filter((l) => l && !l.startsWith('#')),

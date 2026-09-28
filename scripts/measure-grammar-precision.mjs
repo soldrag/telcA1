@@ -7,7 +7,9 @@
 // Per-rule precision on correct sentences and per-category recall on single-error learner sentences.
 import { readFileSync } from 'node:fs';
 import { loadLexiconData } from '../src/services/schreiben/linguistic/a1LexiconService.js';
-import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
+import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+
+const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 await loadLexiconData();
 const dir = process.argv.slice(2).find((a) => !a.startsWith('--')) || new URL('../tests/fixtures/grammar/precision', import.meta.url).pathname;
 const norm = (s) => s.replace(/[.,!?;:„“"]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();

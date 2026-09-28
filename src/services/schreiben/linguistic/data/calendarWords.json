@@ -1,0 +1,10 @@
+{
+  "notes": "German calendar words. months: name → month number, with the ae spelling of ä. seasons, weekParts and holidays anchor a point in time ('im Sommer', 'zu Ostern'). Weekdays are in clauseWordClasses.json.",
+  "months": {
+    "januar": 1, "februar": 2, "märz": 3, "maerz": 3, "april": 4, "mai": 5, "juni": 6, "juli": 7,
+    "august": 8, "september": 9, "oktober": 10, "november": 11, "dezember": 12
+  },
+  "seasons": ["sommer", "winter", "herbst", "frühling", "fruehling"],
+  "weekParts": ["wochenende"],
+  "holidays": ["ostern", "weihnachten"]
+}
