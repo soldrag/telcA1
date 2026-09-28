@@ -18,6 +18,13 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(informal.recognized, true);
     assert.equal(informal.score, 1);
 
+    const informalTask = analyzeSalutation('Liebe Maria,\nwie geht es dir?', { isFormal: false, grammar: A1.grammar });
+    assert.equal(informalTask.score, 2);
+
+    const hybrid = analyzeSalutation('Hallo Damen und Herren,\nich brauche Hilfe.', { isFormal: true, grammar: A1.grammar });
+    assert.equal(hybrid.recognized, true);
+    assert.equal(hybrid.score, 1);
+
     const missing = analyzeSalutation('Ich möchte einen Kurs machen.', { grammar: A1.grammar });
     assert.equal(missing.recognized, false);
     assert.equal(missing.score, 0);
@@ -41,6 +48,8 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
 
   it('detects gibberish and spam repetitions; noun capitalization comes from the grammar engine', async () => {
     assert.equal(isGibberishText('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo'), true);
+    // Counterexample: short, repetitive A1 sentences are a text, not repetitions
+    assert.equal(isGibberishText('Ich bin Tom. Ich bin da. Ich bin müde. Ich bin krank. Ich bin zu Hause.'), false);
 
     const capCheck = A1.grammar.checkLetter('Ich habe am montag einen termin bei dr. schneider.');
     assert.ok(capCheck.some((e) => e.code === 'ERR_NOUN_CAPITALIZATION'), 'noun capitalisation is the grammar engine rule');

@@ -90,7 +90,7 @@ describe('Inversion is anchored to the criterion contract, not to a fixed lexico
   const critBrochure = { label: 'Informationen schicken', intent: 'ACTION_REQUEST', keywords: ['prospekt', 'informationen', 'schicken'] };
 
   const foreignNegations = [
-    [critHomework, 'ich kann heute leider nicht zum Deutschkurs kommen, weil ich krank bin und hohes Fieber habe.'],
+    [critHomework, 'ich kann morgen nicht zum Unterricht kommen, weil ich Fieber habe.'],
     [critBringHelp, 'Mein Mann kann auch nicht kommen.'],
     [critBrochure, 'Am Montag kann ich nicht kommen.'],
   ];

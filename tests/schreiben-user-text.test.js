@@ -3,29 +3,18 @@ import assert from 'node:assert/strict';
 import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { checkGermanA1Grammar } from '../src/services/schreiben/germanGrammarChecker.js';
 import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
-import { gradeLetter } from './helpers/gradeLetter.js';
+import { readFileSync } from 'node:fs';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+import { findSeedQuestion } from './helpers/regressionFixtures.js';
 
 const A1 = resolveLevelContext('A1');
+// Learner letters G2 and G11 are gold letters: their scores are checked in grading-golden-set, here only grammar and segmentation.
+const gold = JSON.parse(readFileSync(new URL('./fixtures/schreiben-bench/gold.json', import.meta.url), 'utf8'));
+const goldText = (id) => gold.find((g) => g.id === id).text;
+const courseCriteria = (await findSeedQuestion('s1-q6')).options_json.rubric.leitpunkte_criteria;
 
-describe('Real User Text Examination (Artem Smirnov Email)', () => {
-  const userText = `Sehr geehrte Damen und Herren,
-ich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs?
-Wie kann ich anmelden?
-Mit freundlichen Gruß
-Artem Smirnov`;
-
-  const question = {
-    options_json: {
-      rubric: {
-        leitpunkte_criteria: [
-          { id: 'lp1', label: 'Grund', keywords: ['deutschkurs', 'kurs', 'a1', 'machen', 'august'] },
-          { id: 'lp2', label: 'Zeit/Dauer', keywords: ['wochen', 'zeit', 'vormittag', 'lernen'] },
-          { id: 'lp3', label: 'Kosten/Anmeldung', keywords: ['kosten', 'kostet', 'anmelden', 'wie viel'] }
-        ]
-      }
-    }
-  };
+describe('Learner letters: grammar and segmentation (gold G2, G11 and User Text #3)', () => {
+  const userText = goldText('G2');
 
   it('tolerantly recognizes closing formula and sender name despite declension typo', async () => {
     const closing = analyzeClosing(userText, { isFormal: true });
@@ -51,8 +40,7 @@ Artem Smirnov`;
   });
 
   it('segments the letter body into the 3 Leitpunkte', async () => {
-    const criteria = question.options_json.rubric.leitpunkte_criteria;
-    const segments = segmentUserEssay(userText, criteria, A1);
+    const segments = segmentUserEssay(userText, courseCriteria, A1);
 
     assert.match(segments.leitpunkte[0].userSentence, /deutschkurs/i);
     assert.match(segments.leitpunkte[1].userSentence, /wochen/i);
@@ -61,29 +49,11 @@ Artem Smirnov`;
     assert.match(segments.leitpunkte[2].userSentence, /anmelden/i);
   });
 
-  it('evaluates overall essay: typical A1 errors do not lower the score (10/10)', async () => {
-    const result = await gradeLetter(userText, question);
-    assert.equal(result.breakdown.anrede, 2);
-    assert.equal(result.user_segments.closing, 'Mit freundlichen Gruß');
-    assert.equal(result.user_segments.senderName, 'Artem Smirnov');
-    assert.equal(result.breakdown.leitpunkte, 9);
-    assert.equal(result.breakdown.gruss, 2);
-    assert.equal(result.points_earned, 10);
-    assert.equal(result.is_correct, true);
-    assert.equal(result.grammar_errors.length >= 5, true);
-  });
-
   describe('User Text #3 Examination (Word Order, Satzklammer, W-Frage & Plural)', () => {
     const text3 = `Sehr geehrte Damen und Herren,
 Ich möchte im August Deutschkurs A1 machen. Ich habe Zeit für vier Woche. Ich möchte lernen vormittags. Wie viel der Kurs kostet? Und wie ich kann mich anmelden?
 Liebe Grüße,
 Artem Smirnov`;
-
-    const rubricCriteria = [
-      { id: 'lp1', label: 'Grund', keywords: ['deutschkurs', 'kurs', 'a1', 'lernen', 'sprachschule', 'august'] },
-      { id: 'lp2', label: 'Zeit/Dauer', keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin'] },
-      { id: 'lp3', label: 'Kosten/Anmeldung', keywords: ['kosten', 'kostet', 'gebühr', 'anmelden', 'anmeldung', 'wie viel'] }
-    ];
 
     it('detects all specific syntax, word order, plural and missing article errors', async () => {
       const errors = checkGermanA1Grammar(text3);
@@ -126,7 +96,7 @@ Artem Smirnov`;
     });
 
     it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', async () => {
-      const segments = segmentUserEssay(text3, rubricCriteria, A1);
+      const segments = segmentUserEssay(text3, courseCriteria, A1);
 
         // Punkt 1 has the Grund
       assert.match(segments.leitpunkte[0].userSentence, /deutschkurs a1 machen/i);
@@ -148,10 +118,7 @@ Artem Smirnov`;
   });
 
   describe('User Text #4 Examination (Nächsten Monat, Satzklammer, auf Kurs anmelden)', () => {
-    const text4 = `Sehr geehrte Damen und Herren,
-ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.
-Mit freundliche Grüßen
-Artem Smirnov`;
+    const text4 = goldText('G11');
 
     it('detects the syntax, preposition and declension errors', async () => {
       const errors = checkGermanA1Grammar(text4);
@@ -164,14 +131,12 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('mit freundliche grüßen')), true);
     });
 
-    it('segments and evaluates full tricky text: understandable despite word-order errors (10/10)', async () => {
-      const res = await gradeLetter(text4, question);
-      assert.equal(res.points_earned, 10);
-      assert.equal(res.breakdown.leitpunkte, 9);
-      // "einen Deutschkurs für August" is correct German, so it is no longer flagged.
-
-      assert.equal(res.grammar_errors.length, 4);
-      assert.match(res.user_segments.leitpunkte[1].userSentence, /vormittag studieren/i);
+    it('segments the fronted and bracketed sentences into their Leitpunkte', async () => {
+      const segments = segmentUserEssay(text4, courseCriteria, A1);
+      assert.match(segments.leitpunkte[0].userSentence, /deutschkurs für august/i);
+      assert.match(segments.leitpunkte[1].userSentence, /vormittag studieren/i);
+      assert.match(segments.leitpunkte[2].userSentence, /wie viel kostet der kurs/i);
+      assert.match(segments.leitpunkte[2].userSentence, /anmelden/i);
     });
   });
 });

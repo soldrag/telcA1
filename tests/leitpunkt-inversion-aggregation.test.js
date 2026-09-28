@@ -32,8 +32,8 @@ describe('Leitpunkt inversion with active sentence embeddings', () => {
   beforeEach(() => clearEmbeddingCache());
 
   it('keeps a fulfilled request when another sentence negates an unrelated action', async () => {
-    const res = await gradeWithVectors('ich kann heute leider nicht zum Deutschkurs kommen, weil ich krank bin und hohes Fieber habe. '
-      + 'Ich muss zwei Tage im Bett bleiben. Können Sie mir bitte die Hausaufgaben per E-Mail schicken?');
+    const res = await gradeWithVectors('ich kann morgen nicht zum Unterricht kommen, weil ich Fieber habe. '
+      + 'Der Arzt sagt, ich bleibe drei Tage zu Hause. Schicken Sie mir bitte die Aufgabe?');
     assert.equal(res.criteria_breakdown.lp3, 2);
   });
 

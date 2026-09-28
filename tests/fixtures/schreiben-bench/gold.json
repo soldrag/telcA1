@@ -146,7 +146,13 @@
       null,
       0
     ],
-    "text": "Sehr geehrte Damen und Herren,\nich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub."
+    "text": "Sehr geehrte Damen und Herren,\nich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub.",
+    "expected": {
+      "anrede": 2,
+      "gruss": 0,
+      "kg": 0.5,
+      "total": 6.5
+    }
   },
   {
     "id": "C8",
@@ -157,7 +163,12 @@
       null,
       0
     ],
-    "text": "Sehr geehrte Frau Hansen,\nich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?\nMit freundlichen Grüßen\nAlex Müller"
+    "text": "Sehr geehrte Frau Hansen,\nich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?\nMit freundlichen Grüßen\nAlex Müller",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1
+    }
   },
   {
     "id": "C9",
@@ -168,6 +179,12 @@
       null,
       null
     ],
-    "text": "Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung vermieten. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 10. bis zum 17. Juli. Wie viel kostet die Wohnung? Ist ein Hund erlaubt?\nMit freundlichen Grüßen\nAlex Müller"
+    "text": "Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung vermieten. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 10. bis zum 17. Juli. Wie viel kostet die Wohnung? Ist ein Hund erlaubt?\nMit freundlichen Grüßen\nAlex Müller",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1,
+      "total": 8.5
+    }
   }
 ]

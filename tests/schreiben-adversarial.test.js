@@ -7,40 +7,38 @@ import { questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 describe('Schreiben Semantic Adversarial & Linguistic Invariant Suite', () => {
   const modellsatz4Teil2 = questions.find(q => q.id === 's4-q6');
 
-  it('Case 1: Semantic Role Inversion (Wie viel kostet der Hund? Ist die Wohnung erlaubt?)', async () => {
-    const text = `Sehr geehrte Frau Hansen,
-ich möchte gern eine Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel kostet der Hund? Ist die Wohnung erlaubt?
-Mit freundlichen Grüßen
-Alex Müller`;
+  // The rules are rubric data of s4-q6 (semantic_slots, conversive_rules); these letters are not bench or gold letters.
+  const holidayLetter = (reason, question) => `Liebe Frau Hansen,
+${reason} Wir sind drei Personen. Wir möchten vom 3. bis 10. August bleiben. ${question}
+Viele Grüße
+Jonas Keller`;
+  const booking = 'wir möchten im August Urlaub machen und Ihre Wohnung buchen.';
 
-    const res = await gradeLetter(text, modellsatz4Teil2);
-
-    // Punkt 3 MUST NOT receive 2 points due to role inversion (dog purchase vs apartment rental)
+  it('asking the price of the pet and whether the flat is allowed distorts point 3 (Sinnentstellung)', async () => {
+    const res = await gradeLetter(holidayLetter(booking, 'Was kostet die Katze? Ist das Zimmer erlaubt?'), modellsatz4Teil2);
     assert.equal(res.breakdown.items[2].score, 0);
     assert.match(res.breakdown.items[2].frameErrors.map((e) => e.explanation).join(' '), /Sinnentstellung/i);
-    // Overall points must not be 10/10
-    assert.ok(res.points_earned <= 7, `Expected points <= 7, got ${res.points_earned}`);
-    // Semantic errors must be flagged in grammar_errors
-    const hasInversionError = res.grammar_errors.some(e => e.code === 'ERR_SEMANTIC_ROLE_INVERSION');
-    assert.ok(hasInversionError, 'Must detect ERR_SEMANTIC_ROLE_INVERSION');
+    assert.deepEqual(res.grammar_errors.filter((e) => e.code === 'ERR_SEMANTIC_ROLE_INVERSION').map((e) => e.original), ['die Katze', 'das Zimmer']);
   });
 
-  it('Case 2: Conversive Verb Direction (Ferienwohnung vermieten statt mieten)', async () => {
-    const text = `Sehr geehrte Frau Hansen,
-ich möchte Ihre Ferienwohnung vermieten. Wir sind zwei Erwachsene und ein Kind. Wir kommen vom 10. bis zum 17. Juli. Wie viel kostet die Wohnung? Ist ein Hund erlaubt?
-Mit freundlichen Grüßen
-Alex Müller`;
+  it('the same questions with the roles in place are no inversion', async () => {
+    for (const question of ['Was kostet die Wohnung pro Nacht? Darf unsere Katze mitkommen?', 'Wie viel kostet eine Nacht? Ist eine Katze erlaubt?']) {
+      const res = await gradeLetter(holidayLetter(booking, question), modellsatz4Teil2);
+      assert.equal(res.breakdown.items[2].score, 2, question);
+      assert.equal(res.grammar_errors.some((e) => e.code === 'ERR_SEMANTIC_ROLE_INVERSION'), false, question);
+    }
+  });
 
-    const res = await gradeLetter(text, modellsatz4Teil2);
-
-    // Punkt 1 MUST NOT receive 2 points because "vermieten" inverts tenant/landlord roles
-    assert.equal(res.breakdown.items[0].score, 1);
-    assert.match(res.breakdown.items[0].frameErrors.map((e) => e.explanation).join(' '), /mieten.*nicht.*vermieten/i);
-    // Partial LP1 (1.5) + 3 + 3 + KG 1: the role inversion costs half of point 1, not the whole letter
-    assert.equal(res.points_earned, 8.5);
-    // Lexical conversive error must be flagged
-    const hasConversiveError = res.grammar_errors.some(e => e.code === 'ERR_CONVERSIVE_VERB_DIRECTION');
-    assert.ok(hasConversiveError, 'Must detect ERR_CONVERSIVE_VERB_DIRECTION');
+  it('"vermieten" instead of "mieten" makes point 1 partial and is reported, not scored beyond it', async () => {
+    const question = 'Was kostet die Wohnung pro Nacht? Darf unsere Katze mitkommen?';
+    const wrong = await gradeLetter(holidayLetter('wir möchten im August Ihre Wohnung vermieten.', question), modellsatz4Teil2);
+    const right = await gradeLetter(holidayLetter('wir möchten im August Ihre Wohnung mieten.', question), modellsatz4Teil2);
+    assert.equal(wrong.breakdown.items[0].score, 1);
+    assert.match(wrong.breakdown.items[0].frameErrors.map((e) => e.explanation).join(' '), /mieten.*nicht.*vermieten/i);
+    assert.ok(wrong.grammar_errors.some((e) => e.code === 'ERR_CONVERSIVE_VERB_DIRECTION'));
+    assert.equal(right.breakdown.items[0].score, 2);
+    // Partial point 1 costs 1.5 (3 → 1.5); nothing else changes
+    assert.equal(right.points_earned - wrong.points_earned, 1.5);
   });
 
   it('Case 3: Dative Preposition with Feminine Determiner (mit meine Familie)', async () => {

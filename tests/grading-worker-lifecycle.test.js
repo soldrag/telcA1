@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { isWorkerSupported, gradeSchreibenWithWorker, gradeInWorker } from '../src/services/schreiben/grading/gradingWorkerClient.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 
 describe('Grading Worker Client & Lifecycle Tests', () => {
   const sampleQuestion = {
@@ -35,7 +36,9 @@ Anna Schmidt`;
     });
 
     assert.equal(typeof result, 'object');
-    assert.equal(result.points_earned >= 8, true);
+    const direct = await gradeSchreibenSubmission({ userText: text, question: sampleQuestion, options: { forceLimitedMode: true } });
+    assert.equal(result.points_earned, direct.points_earned);
+    assert.deepEqual(result.criteria_breakdown, direct.criteria_breakdown);
     assert.equal(result.is_limited_mode, true);
     assert.equal(progressUpdates.length > 0, true);
   });

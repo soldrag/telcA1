@@ -67,8 +67,9 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     const fullText = 'Sehr geehrte Damen und Herren, ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs? Mit freundlichen Grüßen\nAnna';
     const fullResult = await gradeLetter(fullText, qEssay);
     assert.equal(fullResult.word_count >= 20, true);
-    // "Anmeldung" of the compound point 3 is not asked: telc gives 1.5 there (8.5 total); see todo
-    assert.ok(fullResult.points_earned >= 8.5, `got ${fullResult.points_earned}`);
+    // "Anmeldung" of the compound point 3 is not asked: partly fulfilled, 1.5 there (3 + 3 + 1.5 + KG 1)
+    assert.deepEqual(fullResult.breakdown.items.map((item) => item.score), [2, 2, 1]);
+    assert.equal(fullResult.points_earned, 8.5);
     assert.equal(fullResult.is_correct, true);
   });
 
@@ -107,7 +108,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     };
 
     const result = await submit(mockQuestions, answers);
-    assert.ok(result.score >= 13.5, `got ${result.score}`);
+    assert.equal(result.score, 13.5);
     assert.equal(result.teilBreakdown[1].score, 5);
     assert.equal(result.teilBreakdown[1].total, 5);
     assert.equal(result.teilBreakdown[2].score, result.score - 5);

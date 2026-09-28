@@ -71,8 +71,8 @@ describe('A1 ranker policy evidence', () => {
   });
 
   it('does not trust the verdict on typo-heavy text', () => {
-    assert.equal(policy.isVerdictReliable(['filen dank fur di einladunk, ich kome gern.']), false);
-    assert.equal(policy.isVerdictReliable(['Wie viel kostet der Kurs und wie kann ich mich anmelden?']), true);
+    assert.equal(policy.isVerdictReliable(['libe grüse, ich hofe dir get es gud, ich kan nich komen.']), false);
+    assert.equal(policy.isVerdictReliable(['Was kostet das Zimmer und wann kann ich einziehen?']), true);
   });
 });
 
