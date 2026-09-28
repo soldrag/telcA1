@@ -29,7 +29,7 @@ flowchart TD
 
 | Stage | Modules | Output |
 |---|---|---|
-| 0 | `grading/stage0Preprocessing.js`, `schreibenTextSegmenter.js`, `linguistic/macroSegmenter.js` | sentences, letter zones (salutation / body / closing); `schreibenTextSegmenter` assigns body sentences to Leitpunkte |
+| 0 | `grading/stage0Preprocessing.js`, `schreibenTextSegmenter.js`, `linguistic/macroSegmenter.js` | sentences, letter zones (salutation / body / closing); `schreibenTextSegmenter` assigns the stage 0 body sentences to Leitpunkte (one body for the ranker and the assignment) |
 | 1 | `grading/stage1SalutationClosing.js`, `salutationAnalyzer.js`, `closingAnalyzer.js` | Anrede and Gruß levels |
 | 2 | `grading/stage2Leitpunkte.js`, `grading/pipelineStageScorers.js`, `grading/leitpunktArbitration.js` | level 0/1/2 per Leitpunkt with evidence sentences |
 | 3 | `grading/pipelineStageScorers.collectPipelineGrammarErrors` → [linguistic engine](linguistic-engine.md) | grammar errors (feedback only) |

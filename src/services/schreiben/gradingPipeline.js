@@ -123,7 +123,7 @@ export async function gradeSchreibenSubmission({
     anrede: stage1.anrede.text,
     closing: stage1.gruss.text,
     senderName: stage1.gruss.senderName,
-    leitpunkte: segmentUserEssay(raw, criteria, levelContext).leitpunkte,
+    leitpunkte: segmentUserEssay(stage0.bodySentences, criteria, levelContext).leitpunkte,
   };
 
   reportStage(onProgress, GRADING_STAGES.LEITPUNKTE, 0.4);

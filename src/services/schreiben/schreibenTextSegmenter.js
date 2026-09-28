@@ -1,6 +1,4 @@
-import { splitGermanSentences } from './linguistic/sentenceTokenizer.js';
 import { matchSentenceToCriteria } from './analyzers/semanticTopicMatcher.js';
-import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 import { requireLevelPort } from './grading/levelPorts.js';
 
 function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon, policy }) {
@@ -28,23 +26,15 @@ function assignSentencesToCriteria(sentences = [], { criteria = [], lexicon, pol
   return assignments;
 }
 
-function extractLetterBody(text) {
-  const { bodyText, anrede, closing } = segmentMacroStructure(text);
-  if (bodyText) return bodyText;
-  const frame = [anrede.recognized && anrede.text, closing.recognized && closing.text, closing.recognized && closing.senderName];
-  return frame.filter(Boolean).reduce((body, part) => body.replace(part, '').trim(), text);
-}
-
 /**
- * Assigns the body sentences to the Leitpunkte; Anrede and Gruß are stage 0's.
+ * Assigns the body sentences to the Leitpunkte; the body is stage 0's (`bodySentences`), the same sentences the ranker scores.
+ * @param {string[]} sentences - stage 0 body sentences
  * @param {{ lexicon: object, policy: object }} levelContext - the level's lexicon port and ranker policy
  */
-export function segmentUserEssay(rawText = '', criteria = [], { lexicon, policy } = {}) {
+export function segmentUserEssay(sentences = [], criteria = [], { lexicon, policy } = {}) {
   requireLevelPort(lexicon, 'segmentUserEssay: lexicon');
-  const text = (rawText || '').trim();
-  if (!text) return { leitpunkte: [] };
+  if (sentences.length === 0) return { leitpunkte: [] };
 
-  const sentences = splitGermanSentences(extractLetterBody(text));
   const assignments = assignSentencesToCriteria(sentences, { criteria, lexicon, policy });
 
   const leitpunkteMatches = criteria.map((crit, idx) => {

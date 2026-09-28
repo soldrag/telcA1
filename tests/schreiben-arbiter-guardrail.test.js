@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
-import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
+import { segmentLetter } from './helpers/segmentLetter.js';
 import { questions as s3Questions } from '../src/data/exams/seeds/schreiben-modellsatz-3.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
@@ -38,7 +38,7 @@ Alex`;
       { id: 'lp3', label: 'Handwerker / Reparaturtermin', keywords: ['handwerker', 'kommen', 'termin'] },
     ];
 
-    const seg = segmentUserEssay(studentLetter, criteria, A1);
+    const seg = segmentLetter(studentLetter, criteria, A1);
     assert.match(seg.leitpunkte[0].userSentence, /ich habe ein Problem/i);
     assert.match(seg.leitpunkte[1].userSentence, /Meine Wohnung ist sehr kalt/i);
     assert.match(seg.leitpunkte[2].userSentence, /Können Sie bitte morgen kommen/i);

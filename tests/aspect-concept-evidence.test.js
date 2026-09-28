@@ -5,7 +5,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { hasAspectConceptEvidence } from '../src/services/schreiben/grading/aspectConceptEvidence.js';
-import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
+import { segmentLetter } from './helpers/segmentLetter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 import { questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
 
@@ -40,7 +40,7 @@ describe('aspect concept evidence', () => {
 describe('segmentation reads the same level data', () => {
   it('assigns "Ist die Wohnung billig?" to Preis und Haustiere, not to the reason by its noun "Wohnung"', () => {
     const text = 'Hallo Frau Hansen,\n\nich möchte im Sommer Ihre Ferienwohnung mieten.\nWir sind drei Personen im Juli.\nIst die Wohnung billig?\n\nViele Grüße\nLena Hoffmann';
-    const segments = segmentUserEssay(text, ostsee.options_json.rubric.leitpunkte_criteria, A1);
+    const segments = segmentLetter(text, ostsee.options_json.rubric.leitpunkte_criteria, A1);
     assert.deepEqual(segments.leitpunkte.map((lp) => lp.sentences), [
       ['ich möchte im Sommer Ihre Ferienwohnung mieten.'],
       ['Wir sind drei Personen im Juli.'],

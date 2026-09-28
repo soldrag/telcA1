@@ -4,7 +4,7 @@ import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
-import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegmenter.js';
+import { segmentLetter } from './helpers/segmentLetter.js';
 import { readFileSync } from 'node:fs';
 import { findSeedQuestion } from './helpers/regressionFixtures.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
@@ -42,7 +42,7 @@ describe('Learner letters: grammar and segmentation (gold G2, G11 and User Text 
   });
 
   it('segments the letter body into the 3 Leitpunkte', async () => {
-    const segments = segmentUserEssay(userText, courseCriteria, A1);
+    const segments = segmentLetter(userText, courseCriteria, A1);
 
     assert.match(segments.leitpunkte[0].userSentence, /deutschkurs/i);
     assert.match(segments.leitpunkte[1].userSentence, /wochen/i);
@@ -54,7 +54,7 @@ describe('Learner letters: grammar and segmentation (gold G2, G11 and User Text 
   it('keeps both questions of Punkt 3 together when the second one is on its own line', () => {
     const split = userText.replace('Kurs? Wie kann', 'Kurs?\nWie kann');
     assert.notEqual(split, userText);
-    const lp3 = segmentUserEssay(split, courseCriteria, A1).leitpunkte[2].userSentence;
+    const lp3 = segmentLetter(split, courseCriteria, A1).leitpunkte[2].userSentence;
     assert.match(lp3, /kostet/i);
     assert.match(lp3, /anmelden/i);
   });
@@ -118,7 +118,7 @@ Artem Smirnov`;
     });
 
     it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', async () => {
-      const segments = segmentUserEssay(text3, courseCriteria, A1);
+      const segments = segmentLetter(text3, courseCriteria, A1);
 
         // Punkt 1 has the Grund
       assert.match(segments.leitpunkte[0].userSentence, /deutschkurs a1 machen/i);
@@ -154,7 +154,7 @@ Artem Smirnov`;
     });
 
     it('segments the fronted and bracketed sentences into their Leitpunkte', async () => {
-      const segments = segmentUserEssay(text4, courseCriteria, A1);
+      const segments = segmentLetter(text4, courseCriteria, A1);
       assert.match(segments.leitpunkte[0].userSentence, /deutschkurs für august/i);
       assert.match(segments.leitpunkte[1].userSentence, /vormittag studieren/i);
       assert.match(segments.leitpunkte[2].userSentence, /wie viel kostet der kurs/i);
