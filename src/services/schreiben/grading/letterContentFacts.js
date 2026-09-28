@@ -6,13 +6,15 @@
 
 import { parseSentenceTopology } from '../linguistic/topologicalFieldParser.js';
 import { countMatchedConcepts } from '../linguistic/keywordConcepts.js';
+import { findCompoundModifierMatches } from '../linguistic/compoundModifierMatcher.js';
 
 /**
  * @typedef {Object} LetterContentFacts
  * @property {boolean} hasPredication - some body clause states something: a finite verb, a subject
  *   pronoun or a question. A list of bare nouns ("Ferienwohnung. Personen. Preis.") does not.
- * @property {boolean} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt,
- *   so the letter is about this task and not another one.
+ * @property {boolean} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt
+ *   (or the modifier of a compound one: "Deutsch" for "Deutschkurs"), so the letter is about this task
+ *   and not another one.
  */
 
 const VERBLESS_CLAUSE_TYPES = new Set(['FRAGMENT', 'COORDINATED_PHRASE']);
@@ -52,7 +54,11 @@ function taskSpecificKeywords(criterion = {}) {
 }
 
 function hasTaskAnchor(words, criteria, lexicon) {
-  return criteria.some((criterion) => countMatchedConcepts(taskSpecificKeywords(criterion), words, lexicon) > 0);
+  return criteria.some((criterion) => {
+    const keywords = taskSpecificKeywords(criterion);
+    return countMatchedConcepts(keywords, words, lexicon) > 0
+      || findCompoundModifierMatches(keywords, words, lexicon).length > 0;
+  });
 }
 
 /**

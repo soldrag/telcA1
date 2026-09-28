@@ -40,6 +40,13 @@ describe('letter content facts: task anchor', () => {
     assert.equal(facts(['Haben Sie einen Helm?']).hasTaskAnchor, true);
   });
 
+  it('the modifier of a compound task keyword ties the letter to the task, a head noun of another task does not', () => {
+    const compoundCriteria = [{ id: 'lp1', label: 'Grund', keywords: ['deutschkurs'] }];
+    const anchored = (sentence) => detectLetterContentFacts({ bodySentences: [sentence], criteria: compoundCriteria, lexicon }).hasTaskAnchor;
+    assert.equal(anchored('Ich möchte Deutsch lernen.'), true);
+    assert.equal(anchored('Ich möchte nach Berlin fahren.'), false);
+  });
+
   it('keywords of a declared time dimension do not: every letter can name a time', () => {
     assert.equal(facts(['Die Party ist am Montag um 18 Uhr.', 'Kommen Sie drei Tage?']).hasTaskAnchor, false);
   });

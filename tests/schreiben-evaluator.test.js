@@ -73,9 +73,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.equal(fullResult.is_correct, true);
   });
 
-  // Known limit (todo.md): "Deutsch lernen" is the reason for writing to a language school, but no rubric
-  // keyword of the task matches it ("deutschkurs" is not "Deutsch"), so the letter counts as off-topic (0.5).
-  it('gives the reason for writing "ich möchte Deutsch lernen" part of Leitpunkt 1', { todo: 'no task anchor for "Deutsch lernen"' }, async () => {
+  it('gives the reason for writing "ich möchte Deutsch lernen" part of Leitpunkt 1', async () => {
     const mediumText = 'Sehr geehrte Damen und Herren, ich möchte Deutsch lernen. Bitte antworten Sie mir.';
     const medResult = await gradeLetter(mediumText, seedTeil2);
     assert.equal(medResult.word_count, 13);

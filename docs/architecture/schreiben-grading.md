@@ -72,7 +72,7 @@ Key rules:
 - **Rival attribution** (`grading/rivalEvidence.js`): evidence skips a sentence that fully states another Leitpunkt and not this one.
 - **One sentence may serve several Leitpunkte** — deliberately, as an examiner would credit it.
 - **Refusals and inversions** (`linguistic/criterionRefusalDetector.js`, `grading/criterionPolarityGate.js`): a negation refuses a point only when it targets the criterion's own keywords — `negated_entity` ("kein Zimmer"), `negated_action`, `negated_participant` ("Meine Schwester kommt nicht"), `negated_object` after a DESIRE verb ("Einen neuen Termin möchte ich nicht"). Complements under `nicht` only contrast ("nicht am Montag"). Which negations *express* the intent instead (a cancellation, "funktioniert nicht") is declared in `INTENT_POLARITY` (`semanticIntentMatcher.js`). A refusal zeroes the point only when no affirmative evidence exists.
-- **Content facts** (`grading/letterContentFacts.js`): `{ hasPredication, hasTaskAnchor }`. A noun list states nothing; a letter that names no rubric keyword is off topic. The regulation decides what these facts cost.
+- **Content facts** (`grading/letterContentFacts.js`): `{ hasPredication, hasTaskAnchor }`. A noun list states nothing; a letter that names no rubric keyword (or the modifier of a compound one, `linguistic/compoundModifierMatcher.js`: "Deutsch" for "Deutschkurs"; an anchor only, it does not cover a Leitpunkt) is off topic. The regulation decides what these facts cost.
 - **Unassigned sentences** (`grading/unassignedSentences.js`) are listed for debugging only, never scored.
 
 ## Micro-Ranker
