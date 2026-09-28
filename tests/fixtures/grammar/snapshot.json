@@ -109,26 +109,8 @@
     "ERR_VERB_PREPOSITION: auf den Kurs anmelden → für den Kurs anmelden",
     "ERR_PREP_CASE_DAT: Mit freundliche Grüßen → Mit freundlichen Grüßen"
   ],
-  "gold/C2": [
-    "ERR_VERB_VALENCY_AKK: ein Deutschkurs → einen Deutschkurs",
-    "ERR_CALENDAR_ARTICLE: in August → im August",
-    "ERR_QUANTITY_ORDER: Zeit vier Wochen → vier Wochen Zeit",
-    "ERR_REFLEXIVE_PRONOUN_MISSING: anmelden → mich anmelden",
-    "ERR_PREP_CASE_DAT: Mit freundlichen Gruß → Mit freundlichem Gruß"
-  ],
-  "gold/C3": [],
-  "gold/C4": [
-    "ERR_NOUN_CAPITALIZATION: montag, fieber, mittwoch → Montag, Fieber, Mittwoch",
-    "ERR_UMLAUT_SPELLING: Grusse → Grüße"
-  ],
   "gold/C5": [
     "ERR_MISSING_ARTICLE: Deutschkurs machen → einen Deutschkurs machen"
-  ],
-  "gold/C6": [
-    "ERR_BROKEN_SATZKLAMMER_MODAL: will besuchen einen Deutschkurs für August → will einen Deutschkurs für August besuchen",
-    "ERR_V2_OVERCROWDED_VORFELD: Nächsten Monat ich habe → Nächsten Monat habe ich",
-    "ERR_VERB_PREPOSITION: auf den Kurs anmelden → für den Kurs anmelden",
-    "ERR_PREP_CASE_DAT: Mit freundliche Grüßen → Mit freundlichen Grüßen"
   ],
   "gold/C8": [],
   "gold/C9": [],

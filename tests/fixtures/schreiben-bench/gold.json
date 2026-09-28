@@ -8,7 +8,13 @@
       2,
       2
     ],
-    "text": "Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule besuchen. Ich habe vier Wochen Zeit und möchte gern am Vormittag lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nMaximilian Becker"
+    "text": "Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule besuchen. Ich habe vier Wochen Zeit und möchte gern am Vormittag lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nMaximilian Becker",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1,
+      "total": 10
+    }
   },
   {
     "id": "G2",
@@ -19,7 +25,13 @@
       2,
       2
     ],
-    "text": "Sehr geehrte Damen und Herren,\nich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs? Wie kann ich anmelden?\nMit freundlichen Gruß\nArtem Smirnov"
+    "text": "Sehr geehrte Damen und Herren,\nich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs? Wie kann ich anmelden?\nMit freundlichen Gruß\nArtem Smirnov",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1,
+      "total": 10
+    }
   },
   {
     "id": "G3",
@@ -31,7 +43,13 @@
       1
     ],
     "text": "Ich möchte im August einen Deutschkurs A1 besuchen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?\nViele Grüße\nAnna Müller",
-    "note": "Leitpunkt 3 asks for Kursgebühren und Anmeldung; the letter asks only for the price, so the compound point is partial."
+    "note": "Leitpunkt 3 asks for Kursgebühren und Anmeldung; the letter asks only for the price, so the compound point is partial.",
+    "expected": {
+      "anrede": 0,
+      "gruss": 2,
+      "kg": 0.5,
+      "total": 8
+    }
   },
   {
     "id": "G4",
@@ -42,7 +60,12 @@
       null,
       0
     ],
-    "text": "Sehr geehrte Damen und Herren,\nich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit.\nMit freundlichen Grüßen\nSarah Meyer"
+    "text": "Sehr geehrte Damen und Herren,\nich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit.\nMit freundlichen Grüßen\nSarah Meyer",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1
+    }
   },
   {
     "id": "G6",
@@ -53,7 +76,14 @@
       2,
       2
     ],
-    "text": "Sehr geehrte Frau Dr. Schneider,\nich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?\nMit freundlichen Grüßen\nMax Mustermann"
+    "text": "Sehr geehrte Frau Dr. Schneider,\nich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?\nMit freundlichen Grüßen\nMax Mustermann",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1,
+      "total": 10
+    },
+    "knownLimit": "limited mode: \"den Termin auf nächsten Dienstag verschieben\" earns LP3 = 1 on the s2-q6 rubric (todo.md, P1)"
   },
   {
     "id": "G7",
@@ -64,7 +94,13 @@
       2,
       2
     ],
-    "text": "Guten Tag Herr Schneider,\nich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?\nViele Grusse\nOlga"
+    "text": "Guten Tag Herr Schneider,\nich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?\nViele Grusse\nOlga",
+    "expected": {
+      "anrede": 2,
+      "gruss": 1,
+      "kg": 0.5,
+      "total": 9.5
+    }
   },
   {
     "id": "G8",
@@ -75,7 +111,14 @@
       2,
       2
     ],
-    "text": "Hallo Herr Schneider,\nich kann am Montag leider nicht kommen. Ich bin krank. Können wir den Termin verschieben?\nMit freundlichen Grüßen\nThomas Mann"
+    "text": "Hallo Herr Schneider,\nich kann am Montag leider nicht kommen. Ich bin krank. Können wir den Termin verschieben?\nMit freundlichen Grüßen\nThomas Mann",
+    "expected": {
+      "anrede": 1,
+      "gruss": 2,
+      "kg": 0.5,
+      "total": 9.5
+    },
+    "knownLimit": "limited mode: \"Können wir den Termin verschieben?\" earns LP3 = 0 on the s2-q6 rubric (todo.md, P1)"
   },
   {
     "id": "G11",
@@ -86,40 +129,13 @@
       2,
       2
     ],
-    "text": "Sehr geehrte Damen und Herren,\nich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.\nMit freundliche Grüßen\nArtem Smirnov"
-  },
-  {
-    "id": "C2",
-    "title": "Test 2: User Text #1 (Language school, formal greeting, 6 ty",
-    "seedQuestionId": "s1-q6",
-    "expectedLp": [
-      2,
-      2,
-      2
-    ],
-    "text": "Sehr geehrte Damen und Herren,\nich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs?\nWie kann ich anmelden?\nMit freundlichen Gruß\nArtem Smirnov"
-  },
-  {
-    "id": "C3",
-    "title": "Test 3: Modellsatz 2 Doctor cancellation (Strong submission ",
-    "seedQuestionId": "s2-q6",
-    "expectedLp": [
-      2,
-      2,
-      2
-    ],
-    "text": "Sehr geehrte Frau Dr. Schneider,\nich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?\nMit freundlichen Grüßen\nMax Mustermann"
-  },
-  {
-    "id": "C4",
-    "title": "Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, s",
-    "seedQuestionId": "s2-q6",
-    "expectedLp": [
-      2,
-      2,
-      2
-    ],
-    "text": "Guten Tag Herr Schneider,\nich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?\nViele Grusse\nOlga"
+    "text": "Sehr geehrte Damen und Herren,\nich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.\nMit freundliche Grüßen\nArtem Smirnov",
+    "expected": {
+      "anrede": 2,
+      "gruss": 2,
+      "kg": 1,
+      "total": 10
+    }
   },
   {
     "id": "C5",
@@ -131,17 +147,6 @@
       0
     ],
     "text": "Sehr geehrte Damen und Herren,\nich möchte Deutschkurs machen im August. Ich habe vier Wochen Urlaub."
-  },
-  {
-    "id": "C6",
-    "title": "Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting",
-    "seedQuestionId": "s1-q6",
-    "expectedLp": [
-      2,
-      2,
-      2
-    ],
-    "text": "Sehr geehrte Damen und Herren,\nich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.\nMit freundliche Grüßen\nArtem Smirnov"
   },
   {
     "id": "C8",

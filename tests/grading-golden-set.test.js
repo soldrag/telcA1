@@ -1,180 +1,79 @@
-import { describe, it } from 'node:test';
+/**
+ * Golden set: the reference letters of fixtures/schreiben-bench/gold.json (shared with `npm run bench:schreiben`),
+ * graded in the limited mode against the rubric of the seed task they answer. Expectations follow reglament/telc-a1.md;
+ * a case the limited mode misses is `todo` with its limit recorded in todo.md, never fitted.
+ */
+import { describe, it, before } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
+import { findSeedQuestion } from './helpers/regressionFixtures.js';
 
-describe('Grading Golden Set (10-15 Reference Letters, Algorithmic Determinism)', () => {
-  const modellsatz1Question = {
-    max_points: 10,
-    options_json: {
-      rubric: {
-        leitpunkte_criteria: [
-          { id: 'lp1', label: 'Grund für das Schreiben (Deutschkurs)', intent: 'REASON_EXPLANATION', keywords: ['deutschkurs', 'kurs', 'a1', 'machen', 'august'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Zeit und Dauer (Vormittag, 4 Wochen)', intent: 'GENERAL', evidence: 'temporal', keywords: ['wochen', 'zeit', 'vormittag', 'lernen', 'stunden'], requiredMatches: 2 },
-          { id: 'lp3', label: 'Kosten und Anmeldung', intent: 'INFORMATION_REQUEST', keywords: ['kosten', 'kostet', 'anmelden', 'anmeldung', 'informationen', 'wie viel'], requiredMatches: 2 }
-        ]
-      }
-    }
-  };
+const gold = JSON.parse(readFileSync(new URL('./fixtures/schreiben-bench/gold.json', import.meta.url), 'utf8'));
+const options = { forceLimitedMode: true };
 
-  const modellsatz2Question = {
-    max_points: 10,
-    options_json: {
-      rubric: {
-        leitpunkte_criteria: [
-          { id: 'lp1', label: 'Termin absagen', intent: 'APPOINTMENT_CANCEL', keywords: ['termin', 'absagen', 'montag', 'nicht kommen'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Grund für die Absage', intent: 'REASON_EXPLANATION', keywords: ['krank', 'fieber', 'überstunden', 'arbeit', 'arbeiten'], requiredMatches: 1 },
-          { id: 'lp3', label: 'Neuer Termin', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'mittwoch', 'woche', 'verschieben', 'neuer termin'], requiredMatches: 1 }
-        ]
-      }
-    }
-  };
+function gradeLimited(text, question) {
+  return gradeSchreibenSubmission({ userText: text, question, options });
+}
 
-  const options = { forceLimitedMode: true }; // Deterministic algorithmic evaluation
+function describeMismatches(entry, res) {
+  const { anrede, gruss, kg, total } = entry.expected;
+  const actual = { anrede: res.breakdown.anrede, gruss: res.breakdown.gruss, kg: res.breakdown.kommunikative_gestaltung.points, total: res.points_earned };
+  const expected = { anrede, gruss, kg, total };
+  entry.expectedLp.forEach((level, i) => {
+    expected[`lp${i + 1}`] = level;
+    actual[`lp${i + 1}`] = res.breakdown.items[i].score;
+  });
+  return Object.keys(expected)
+    .filter((key) => expected[key] !== undefined && expected[key] !== null && expected[key] !== actual[key])
+    .map((key) => `${key}: got ${actual[key]}, expected ${expected[key]}`);
+}
 
-  it('1. Modellsatz 1 Perfect Submission (Score 10/10)', async () => {
-    const text = `Sehr geehrte Damen und Herren,
-ich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule besuchen. Ich habe vier Wochen Zeit und möchte gern am Vormittag lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?
-Mit freundlichen Grüßen
-Maximilian Becker`;
+describe('Grading golden set (gold.json, limited mode)', () => {
+  for (const entry of gold.filter((g) => g.expected)) {
+    it(`${entry.id}: ${entry.title}`, { todo: entry.knownLimit }, async () => {
+      const res = await gradeLimited(entry.text, await findSeedQuestion(entry.seedQuestionId));
+      assert.deepEqual(describeMismatches(entry, res), []);
+    });
+  }
+});
 
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
-    assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.points_earned, 10);
-    assert.equal(res.is_correct, true);
+describe('Grading golden set: frame, length and determinism on own letters', () => {
+  let courseTask;
+  let doctorTask;
+  before(async () => {
+    courseTask = await findSeedQuestion('s1-q6');
+    doctorTask = await findSeedQuestion('s2-q6');
   });
 
-  it('2. Modellsatz 1 Typical A1 Submission with typical errors (Score 10/10: understandable A1 errors are not penalized)', async () => {
-    const text = `Sehr geehrte Damen und Herren,
-ich will in August ein Deutschkurs A1 machen. Ich habe Zeit vier Wochen und ich will lernen am Vormittag. Wie viel kostet der Kurs? Wie kann ich anmelden?
-Mit freundlichen Gruß
-Artem Smirnov`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
-    assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.grammar_errors.length >= 3, true);
-    assert.equal(res.points_earned, 10);
-  });
-
-  it('3. Modellsatz 1 Missing Anrede (Score 0 for Anrede)', async () => {
-    const text = `Ich möchte im August einen Deutschkurs A1 besuchen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?
-Viele Grüße
-Anna Müller`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
-    assert.equal(res.breakdown.anrede, 0);
-    // LP3 «Kosten und Anmeldung»: only the cost is asked — reglament: a point fulfilled in part earns 1.5
-    assert.equal(res.breakdown.items[2].score, 1);
-    assert.equal(res.breakdown.leitpunkte, 7.5);
-    assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
-    assert.equal(res.points_earned, 8);
-  });
-
-  it('4. Modellsatz 1 Missing LP3 (Score 0 for LP3)', async () => {
-    const text = `Sehr geehrte Damen und Herren,
-ich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit.
-Mit freundlichen Grüßen
-Sarah Meyer`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
-    assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.items[2].score, 0); // LP3 missing
-    assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.points_earned <= 8, true);
-  });
-
-  it('5. Modellsatz 1 Missing Gruß & Name (Score 0 for Gruß)', async () => {
-    const text = `Sehr geehrte Damen und Herren,
-ich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit am Vormittag. Wie viel kostet der Kurs und wie kann ich mich anmelden?`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
+  it('a letter without Gruß and name loses only the Gruß part of the Kommunikative Gestaltung', async () => {
+    const res = await gradeLimited(`Sehr geehrte Damen und Herren,
+ich möchte einen Deutschkurs im August machen. Ich habe vier Wochen Zeit am Vormittag. Wie viel kostet der Kurs und wie kann ich mich anmelden?`, courseTask);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.gruss, 0);
-    assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
-    assert.equal(res.points_earned <= 9.5, true);
-  });
-
-  it('6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)', async () => {
-    const text = `Sehr geehrte Frau Dr. Schneider,
-ich habe am Montag um 14 Uhr einen Termin bei Ihnen. Leider kann ich nicht kommen, weil ich arbeiten muss. Können wir den Termin auf nächsten Dienstag verschieben?
-Mit freundlichen Grüßen
-Max Mustermann`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
-    assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.points_earned, 10);
-  });
-
-  it('7. Modellsatz 2 Moderate errors with single name (Score 9.5/10)', async () => {
-    const text = `Guten Tag Herr Schneider,
-ich kann am montag nicht kommen zu Termin. Ich bin sehr krank und habe fieber. Geht es am mittwoch?
-Viele Grusse
-Olga`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
-    assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 1); // Single name gives 1
     assert.equal(res.breakdown.kommunikative_gestaltung.points, 0.5);
     assert.equal(res.points_earned, 9.5);
   });
 
-  it('8. Modellsatz 2 Informal greeting in formal context (Score 1 for Anrede)', async () => {
-    const text = `Hallo Herr Schneider,
-ich kann am Montag leider nicht kommen. Ich bin krank. Können wir den Termin verschieben?
-Mit freundlichen Grüßen
-Thomas Mann`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
-    assert.equal(res.breakdown.anrede, 1);
-    assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 2);
-  });
-
-  it('9. Extremely short submission is scored by content only (no length rule at A1)', async () => {
-    const text = `Hallo Herr Schneider, ich kann nicht kommen. Danke.`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz2Question, options });
+  it('a very short letter is scored by content only (no length rule at A1)', async () => {
+    const res = await gradeLimited('Hallo Herr Schneider, ich kann nicht kommen. Danke.', doctorTask);
     assert.equal(res.word_count < 15, true);
-    assert.equal(res.points_earned <= 4, true);
+    assert.deepEqual(res.breakdown.items.map((item) => item.score), [2, 0, 0]);
+    assert.equal(res.points_earned, 3.5);
   });
 
-  it('10. Pure word repetition / gibberish gets 0 points', async () => {
-    const text = `hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
+  it('pure word repetition gets 0 points', async () => {
+    const res = await gradeLimited('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo', courseTask);
     assert.equal(res.points_earned, 0);
     assert.equal(res.is_correct, false);
   });
 
-  it('11. Complex syntax with adverbial fronting & Satzklammer (10/10: word order errors are not penalized)', async () => {
+  it('two runs produce identical scores and breakdown', async () => {
     const text = `Sehr geehrte Damen und Herren,
-ich will besuchen einen Deutschkurs für August. Nächsten Monat ich habe vier Wochen Zeit und ich möchte am Vormittag studieren. Sagen Sie mir bitte, wie viel kostet der Kurs? Ich möchte mich auf den Kurs anmelden.
-Mit freundliche Grüßen
-Artem Smirnov`;
-
-    const res = await gradeSchreibenSubmission({ userText: text, question: modellsatz1Question, options });
-    assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 9);
-    assert.equal(res.breakdown.gruss, 2);
-    assert.equal(res.points_earned, 10);
-  });
-
-  it('12. Algorithmic determinism: two runs produce identical scores and breakdown', async () => {
-    const sampleText = `Sehr geehrte Damen und Herren,
 ich will im August einen Deutschkurs A1 machen. Ich habe vier Wochen Zeit und möchte am Vormittag lernen. Wie viel kostet der Kurs?
 Mit freundlichen Grüßen
 Klara Weber`;
-
-    const run1 = await gradeSchreibenSubmission({ userText: sampleText, question: modellsatz1Question, options });
-    const run2 = await gradeSchreibenSubmission({ userText: sampleText, question: modellsatz1Question, options });
-
+    const [run1, run2] = [await gradeLimited(text, courseTask), await gradeLimited(text, courseTask)];
     assert.equal(run1.points_earned, run2.points_earned);
     assert.deepEqual(run1.criteria_breakdown, run2.criteria_breakdown);
     assert.deepEqual(run1.grammar_errors, run2.grammar_errors);

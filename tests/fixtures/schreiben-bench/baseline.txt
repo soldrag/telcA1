@@ -36,11 +36,7 @@ G6     none=222       primary=222    exp=222 | 6. Modellsatz 2 Doctor Cancellati
 G7     none=222       primary=222    exp=222 | 7. Modellsatz 2 Moderate errors with single name (Score 7-9/
 G8     none=222       primary=222    exp=222 | 8. Modellsatz 2 Informal greeting in formal context (Score 1
 G11    none=222       primary=222    exp=222 | 11. Complex syntax with adverbial fronting & Satzklammer (Re
-C2     none=222       primary=222    exp=222 | Test 2: User Text #1 (Language school, formal greeting, 6 ty
-C3     none=222       primary=222    exp=222 | Test 3: Modellsatz 2 Doctor cancellation (Strong submission 
-C4     none=222       primary=222    exp=222 | Test 4: Modellsatz 2 Doctor cancellation (Moderate errors, s
 C5     none=220       primary=220    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
-C6     none=222       primary=222    exp=222 | Test 6: Tricky User Text #4 (Satzklammer, adverbial fronting
 C8     none=220       primary=220    exp=??0 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
 C9     none=122       primary=122    exp=1?? | Test 9: Modellsatz 4 Conversive Verb Confusion (Ferienwohnun
 s4-q6:01 none=222       primary=222    exp=222 tot=10/10 exp=10 | Baseline: all points, formal frame.

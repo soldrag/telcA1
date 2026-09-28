@@ -10,7 +10,7 @@ const SUITE_DIR = new URL('../fixtures/schreiben-regression/', import.meta.url);
 const SEED_FILES = [1, 2, 3, 4].map((n) => `../../src/data/exams/seeds/schreiben-modellsatz-${n}.js`);
 const LEVEL_BY_REGULATION = { 'telc-a1': 'A1' };
 
-async function findSeedQuestion(questionId) {
+export async function findSeedQuestion(questionId) {
   for (const file of SEED_FILES) {
     const found = (await import(file)).questions.find((q) => q.id === questionId);
     if (found) return found;
