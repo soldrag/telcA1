@@ -2,7 +2,7 @@
  * telc A1 Schreiben Teil 2 regression suite in limited mode (no model, deterministic).
  * Letters and expectations: tests/fixtures/schreiben-regression/*.json (official points).
  * The neural modes are measured by `npm run bench:schreiben`; this file checks what must hold offline.
- * Known gaps are `todo` with the diagnosed cause — never fixed by fitting code or rubric to the letters.
+ * Known gaps are recorded in todo.md with the diagnosed cause — never fixed by fitting code or rubric to the letters.
  */
 
 import { describe, it, before } from 'node:test';
@@ -18,12 +18,16 @@ const weights = A1_GRAMMAR_PROFILE.accuracyWeights;
 
 const suites = await loadRegressionSuites();
 
-const LIMITED_MODE_GAPS = {};
-
 const CONTENT_KEYS = ['lp1', 'lp2', 'lp3', 'total'];
 
 function gradeLimited(text, question) {
   return gradeSchreibenSubmission({ userText: text, question, options: { forceLimitedMode: true } });
+}
+
+function findCase(suite, id) {
+  const tc = suite.cases.find((c) => c.id === id);
+  assert.ok(tc, `${suite.file} has no case ${id}`);
+  return tc;
 }
 
 function describeMismatches(tc, actual) {
@@ -46,7 +50,7 @@ for (const suite of suites) {
         assert.ok(isWithin(kg, acceptedRange(tc, 'kg')), `KG ${kg}, accepted ${acceptedRange(tc, 'kg').join('–')}`);
       });
 
-      it(`${tc.id}: Leitpunkte and total — ${tc.title}`, { todo: LIMITED_MODE_GAPS[tc.id] }, () => {
+      it(`${tc.id}: Leitpunkte and total — ${tc.title}`, () => {
         const res = results.get(tc.id);
         const [lp1, lp2, lp3] = res.breakdown.items.map((it) => it.points);
         const mismatches = describeMismatches(tc, { lp1, lp2, lp3, total: res.points_earned });
@@ -55,8 +59,7 @@ for (const suite of suites) {
     }
 
     it('one defect flagged by two analyzers is listed once (17_screenshot_user_review)', async () => {
-      const tc = suite.cases.find((c) => c.id === '17_screenshot_user_review');
-      if (!tc) return;
+      const tc = findCase(suite, '17_screenshot_user_review');
       const bracket = (res) => res.grammar_errors.filter((e) => e.code === 'ERR_BROKEN_SATZKLAMMER_MODAL').map((e) => e.original);
       // A prepositional phrase after the infinitive is accepted German ("Urlaub machen an der Ostsee").
       assert.deepEqual(bracket(results.get(tc.id)), []);
@@ -67,13 +70,13 @@ for (const suite of suites) {
     });
 
     it('the learning scale shown in the UI counts the capital "Ich" after the salutation (17)', () => {
-      const res = results.get('17_screenshot_user_review');
-      if (!res) return;
+      const tc = findCase(suite, '17_screenshot_user_review');
+      const res = results.get(tc.id);
       const counted = dedupeGrammarErrors(res.grammar_errors);
       assert.ok(counted.some((e) => e.code === 'ERR_CAPITAL_AFTER_SALUTATION_COMMA'));
       const shown = calculateLinguisticAccuracy({ weights,
         grammarErrors: counted,
-        wordCount: countLetterBodyWords(suite.cases.find((tc) => tc.id === '17_screenshot_user_review').text),
+        wordCount: countLetterBodyWords(tc.text),
       });
       assert.equal(shown.errorCount, counted.length);
     });

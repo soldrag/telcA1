@@ -9,8 +9,9 @@ import {
 } from '../src/config/version.js';
 
 describe('Application Versioning & Build Metadata', () => {
-  it('exposes semver version matching package.json (0.7.23)', () => {
-    assert.equal(APP_VERSION, '0.7.23');
+  // The build injects package.json's version (vite.config.js); tests see the fallback, so only its shape is checked.
+  it('exposes a semver version', () => {
+    assert.match(APP_VERSION, /^\d+\.\d+\.\d+$/);
   });
 
   it('exposes commit hash string or fallback', () => {
