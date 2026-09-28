@@ -64,7 +64,8 @@
     "expected": {
       "anrede": 2,
       "gruss": 2,
-      "kg": 1
+      "kg": 1,
+      "total": 7
     }
   },
   {
@@ -83,7 +84,10 @@
       "kg": 1,
       "total": 10
     },
-    "knownLimit": "limited mode: \"den Termin auf nächsten Dienstag verschieben\" earns LP3 = 1 on the s2-q6 rubric (todo.md, P1)"
+    "knownLimit": {
+      "lp3": "limited mode: \"den Termin auf nächsten Dienstag verschieben\" earns LP3 = 1 on the s2-q6 rubric (todo.md, P1)",
+      "total": "follows lp3"
+    }
   },
   {
     "id": "G7",
@@ -118,7 +122,10 @@
       "kg": 0.5,
       "total": 9.5
     },
-    "knownLimit": "limited mode: \"Können wir den Termin verschieben?\" earns LP3 = 0 on the s2-q6 rubric (todo.md, P1)"
+    "knownLimit": {
+      "lp3": "limited mode: \"Können wir den Termin verschieben?\" earns LP3 = 0 on the s2-q6 rubric (todo.md, P1)",
+      "total": "follows lp3"
+    }
   },
   {
     "id": "G11",
@@ -167,7 +174,8 @@
     "expected": {
       "anrede": 2,
       "gruss": 2,
-      "kg": 1
+      "kg": 1,
+      "total": 7
     }
   },
   {

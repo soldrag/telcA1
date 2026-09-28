@@ -1,7 +1,8 @@
 /**
  * Golden set: the reference letters of fixtures/schreiben-bench/gold.json (shared with `npm run bench:schreiben`),
  * graded in the limited mode against the rubric of the seed task they answer. Expectations follow reglament/telc-a1.md;
- * a case the limited mode misses is `todo` with its limit recorded in todo.md, never fitted.
+ * a field the limited mode misses is named in `knownLimit` and checked by a separate `todo` test (limit recorded in todo.md);
+ * every other field of that letter is still checked strictly.
  */
 import { describe, it, before } from 'node:test';
 import assert from 'node:assert/strict';
@@ -16,7 +17,7 @@ function gradeLimited(text, question) {
   return gradeSchreibenSubmission({ userText: text, question, options });
 }
 
-function describeMismatches(entry, res) {
+function collectMismatches(entry, res) {
   const { anrede, gruss, kg, total } = entry.expected;
   const actual = { anrede: res.breakdown.anrede, gruss: res.breakdown.gruss, kg: res.breakdown.kommunikative_gestaltung.points, total: res.points_earned };
   const expected = { anrede, gruss, kg, total };
@@ -26,14 +27,26 @@ function describeMismatches(entry, res) {
   });
   return Object.keys(expected)
     .filter((key) => expected[key] !== undefined && expected[key] !== null && expected[key] !== actual[key])
-    .map((key) => `${key}: got ${actual[key]}, expected ${expected[key]}`);
+    .map((key) => ({ key, text: `${key}: got ${actual[key]}, expected ${expected[key]}` }));
 }
 
+const isLimited = (entry) => (mismatch) => Boolean(entry.knownLimit?.[mismatch.key]);
+
 describe('Grading golden set (gold.json, limited mode)', () => {
-  for (const entry of gold.filter((g) => g.expected)) {
-    it(`${entry.id}: ${entry.title}`, { todo: entry.knownLimit }, async () => {
+  it('every gold letter carries expectations', () => {
+    assert.deepEqual(gold.filter((g) => !g.expected).map((g) => g.id), []);
+  });
+
+  for (const entry of gold) {
+    it(`${entry.id}: ${entry.title}`, async () => {
       const res = await gradeLimited(entry.text, await findSeedQuestion(entry.seedQuestionId));
-      assert.deepEqual(describeMismatches(entry, res), []);
+      const strict = collectMismatches(entry, res).filter((m) => !isLimited(entry)(m));
+      assert.deepEqual(strict.map((m) => m.text), []);
+    });
+    if (!entry.knownLimit) continue;
+    it(`${entry.id}: known limit — ${Object.values(entry.knownLimit)[0]}`, { todo: 'limited mode (todo.md, P1)' }, async () => {
+      const res = await gradeLimited(entry.text, await findSeedQuestion(entry.seedQuestionId));
+      assert.deepEqual(collectMismatches(entry, res).filter(isLimited(entry)).map((m) => m.text), []);
     });
   }
 });

@@ -12,21 +12,13 @@ import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerPro
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
 import { BENCHMARK_TASKS } from '../tests/fixtures/schreiben-bench/letters.js';
-import { loadRegressionSuites, acceptedRange, leitpunktLevelForPoints } from '../tests/helpers/regressionFixtures.js';
+import { loadRegressionSuites, acceptedRange, leitpunktLevelForPoints, findSeedQuestion } from '../tests/helpers/regressionFixtures.js';
 
 const FIXTURES = new URL('../tests/fixtures/schreiben-bench/', import.meta.url);
 const BASELINE = new URL('baseline.txt', FIXTURES);
-const SEED_FILES = [1, 2, 3, 4].map((n) => `../src/data/exams/seeds/schreiben-modellsatz-${n}.js`);
 
 env.allowRemoteModels = false;
 
-async function findSeedQuestion(questionId) {
-  for (const file of SEED_FILES) {
-    const found = (await import(file)).questions.find((q) => q.id === questionId);
-    if (found) return found;
-  }
-  throw new Error(`Seed question not found: ${questionId}`);
-}
 
 async function loadItems() {
   const letters = BENCHMARK_TASKS.flatMap((t) => t.letters.map((l) => ({ ...l, question: t.question })));

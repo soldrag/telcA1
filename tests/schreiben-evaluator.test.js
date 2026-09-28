@@ -82,6 +82,12 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.ok(medResult.points_earned >= 2 && medResult.points_earned <= 3.5, `got ${medResult.points_earned}`);
   });
 
+  // Known limit (todo.md, P1): a negation is content for the reason point (INTENT_POLARITY of REASON_EXPLANATION)
+  it('a refused reason for writing does not fulfil Leitpunkt 1', { todo: 'negation of the reason counts as content' }, async () => {
+    const res = await gradeLetter('Sehr geehrte Damen und Herren,\nich möchte keinen Deutschkurs im Herbst besuchen. Ich habe drei Wochen Zeit, am Nachmittag. Was kostet der Kurs und wie melde ich mich an?\nMit freundlichen Grüßen\nPaul Wagner', seedTeil2);
+    assert.equal(res.breakdown.items[0].score, 0);
+  });
+
   it('evaluates a complete Schreiben exam submission correctly up to 15 points', async () => {
     const mockQuestions = [
       { id: 's1-q1', teil: 1, question_number: 1, correct_answer: 'bauer' },

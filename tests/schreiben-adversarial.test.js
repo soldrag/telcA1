@@ -41,6 +41,18 @@ Jonas Keller`;
     assert.equal(right.points_earned - wrong.points_earned, 1.5);
   });
 
+  // Known limits (todo.md, P1): recorded, not fitted
+  it('persons named without a numeral fulfil "Personen"', { todo: 'personCountDetector counts numerals only' }, async () => {
+    const res = await gradeLetter(holidayLetter(booking, 'Was kostet die Wohnung pro Nacht? Darf unsere Katze mitkommen?')
+      .replace('Wir sind drei Personen.', 'Ich komme mit meiner Frau und meinem Sohn.'), modellsatz4Teil2);
+    assert.equal(res.breakdown.items[1].score, 2);
+  });
+
+  it('asking the price of a person distorts point 3 as the price of a pet does', { todo: '"Sohn" has no person category in the lexicon' }, async () => {
+    const res = await gradeLetter(holidayLetter(booking, 'Wie viel kostet mein Sohn? Darf unsere Katze mitkommen?'), modellsatz4Teil2);
+    assert.equal(res.breakdown.items[2].score, 0);
+  });
+
   it('Case 3: Dative Preposition with Feminine Determiner (mit meine Familie)', async () => {
     const text = 'Ich fahre im Sommer mit meine Familie nach Berlin.';
     const errors = checkGermanA1Grammar(text);
@@ -82,15 +94,12 @@ David Weber`;
   });
 
   it('Case 6: Missing predicate in question (Wie viel der Preis für die Wohnung?)', async () => {
-    const text = `Sehr geehrte Frau Hansen,
-ich möchte Ihre Ferienwohnung mieten. Wir sind zwei Erwachsene und ein Kind. Wir bleiben vom 10. bis zum 17. Juli. Wie viel der Preis für die Wohnung? Darf mein Hund mitkommen?
-Mit freundlichen Grüßen
-Alex Müller`;
-
-    const res = await gradeLetter(text, modellsatz4Teil2);
+    const res = await gradeLetter(holidayLetter(booking, 'Wie viel der Preis für die Wohnung? Darf unsere Katze mitkommen?'), modellsatz4Teil2);
+    const correct = await gradeLetter(holidayLetter(booking, 'Wie viel kostet die Wohnung? Darf unsere Katze mitkommen?'), modellsatz4Teil2);
 
     // The question stays understandable: the error is flagged as feedback but costs no points at A1
-    assert.equal(res.points_earned, 10);
+    assert.equal(res.points_earned, correct.points_earned);
+    assert.deepEqual(res.breakdown.items.map((item) => item.score), [2, 2, 2]);
     const missingVerbErr = res.grammar_errors.find(e => e.code === 'ERR_MISSING_PREDICATE_QUESTION');
     assert.ok(missingVerbErr, 'Must detect ERR_MISSING_PREDICATE_QUESTION');
     assert.match(missingVerbErr.original, /Wie viel der Preis/i);

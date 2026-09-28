@@ -6,6 +6,7 @@ import { segmentUserEssay } from '../src/services/schreiben/schreibenTextSegment
 import { readFileSync } from 'node:fs';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 import { findSeedQuestion } from './helpers/regressionFixtures.js';
+import { gradeLetter } from './helpers/gradeLetter.js';
 
 const A1 = resolveLevelContext('A1');
 // Learner letters G2 and G11 are gold letters: their scores are checked in grading-golden-set, here only grammar and segmentation.
@@ -47,6 +48,26 @@ describe('Learner letters: grammar and segmentation (gold G2, G11 and User Text 
     // Both questions in Punkt 3 are preserved together!
     assert.match(segments.leitpunkte[2].userSentence, /kostet/i);
     assert.match(segments.leitpunkte[2].userSentence, /anmelden/i);
+  });
+
+  it('keeps both questions of Punkt 3 together when the second one is on its own line', () => {
+    const split = userText.replace('Kurs? Wie kann', 'Kurs?\nWie kann');
+    assert.notEqual(split, userText);
+    const lp3 = segmentUserEssay(split, courseCriteria, A1).leitpunkte[2].userSentence;
+    assert.match(lp3, /kostet/i);
+    assert.match(lp3, /anmelden/i);
+  });
+
+  it('User Text #2: rough word order and an imperative request still fulfil all three points', async () => {
+    const res = await gradeLetter(`Hallo Damen und Herren,
+ich besuche wollen einen deutschkurs im August. Ich habe vier wochen Zeit und ich am vormittag lernen möchte. Was kosten der Kurs? Bitte senden Sie mir die informationen für die anmeldung.
+Viele Grüße
+Artem Smirnov`, await findSeedQuestion('s1-q6'));
+    assert.deepEqual(res.breakdown.items.map((item) => item.score), [2, 2, 2]);
+    assert.match(res.user_segments.leitpunkte[2].userSentence, /Was kosten der Kurs\?.*anmeldung/);
+    // "Hallo" to "Damen und Herren": register mismatch, KG 0.5 (3 + 3 + 3 + 0.5)
+    assert.equal(res.breakdown.anrede, 1);
+    assert.equal(res.points_earned, 9.5);
   });
 
   describe('User Text #3 Examination (Word Order, Satzklammer, W-Frage & Plural)', () => {
