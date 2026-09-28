@@ -18,7 +18,7 @@ export default function Footer({ onOpenLegalModal }) {
   return (
     <footer className="mt-auto border-t border-border-subtle bg-bg-canvas text-xs text-content-tertiary">
       <div className={`${PAGE_CONTAINER} py-2 flex flex-col lg:flex-row items-center lg:justify-between gap-x-6 text-center lg:text-left`}>
-        <p className="flex flex-wrap items-center justify-center gap-x-3">
+        <p className="flex flex-wrap items-center justify-center lg:justify-start gap-x-3">
           <span className="max-lg:order-2 max-lg:basis-full">{t('footer.text')}</span>
           <span aria-hidden="true" className="max-lg:hidden">·</span>
           <button type="button" onClick={() => onOpenLegalModal?.('impressum')} className={LINK_CLASS}>{t('footer.impressum')}</button>
@@ -29,7 +29,7 @@ export default function Footer({ onOpenLegalModal }) {
           <span aria-hidden="true" className="max-lg:hidden">·</span>
           <span className="max-lg:order-3 max-lg:basis-full">{t('footer.privacy')}</span>
         </p>
-        <span className={`font-mono ${NUMERIC} cursor-default select-all`} title={getVersionTooltip()}>{getVersionSummary()}</span>
+        <span className={`shrink-0 whitespace-nowrap font-mono ${NUMERIC} cursor-default select-all`} title={getVersionTooltip()}>{getVersionSummary()}</span>
       </div>
     </footer>
   );

@@ -51,8 +51,8 @@ graph TD
 ## Layout system
 
 - **Breakpoints**: phone `<640`, tablet `640–1023`, desktop `≥1024` px.
-- **Container**: `layout/pageLayout.js` — `PAGE_CONTAINER` (75rem), `SCREEN_COLUMN` (45rem on tablets), `PAGE_STACK`, `BAND`, `SPAN`.
-- **Sizes in rem only** (no `-[Npx]`). Root font size is 16 px up to 1600 px, then `clamp(16px, 6px + 0.625vw, 32px)`, so large monitors show the same layout scaled.
+- **Container**: `layout/pageLayout.js` — `PAGE_CONTAINER` (fluid: `clamp(75rem, 62.5vw, 90rem)`, gutter `clamp(1rem, 3vw, 2.5rem)`), `SCREEN_COLUMN` (45rem on tablets), `PAGE_STACK`, `BAND`, `SPAN`.
+- **Sizes in rem only** (no `-[Npx]`). Root font size is 16 px up to 1600 px, then `clamp(16px, 11px + 0.3125vw, 20px)`: text grows gently and stops at 20 px, the container widens instead.
 - **Page grid**: desktop pages are bands of a 12-column grid (`layout/Band`, `data-band`; `align="stretch"` shares top/bottom edges, `"start"` for sticky columns). Below 1024 px a band dissolves (`display: contents`) and blocks reorder with `order-*`.
 - **Blocks**: every block is a `layout/Section` — title above the frame, optional action in the title row, one frame (`card` / `desktop` / `none`), 24 px padding on desktop.
 - **Type scale** (`layout/typography.js`): `PAGE_TITLE` (one h1 per screen), `PAGE_LEAD`, `SECTION_TITLE`, `CARD_TITLE`, `PART_TITLE`, `DIALOG_TITLE`, `NUMERIC` (tabular figures). Headings use only these tokens.

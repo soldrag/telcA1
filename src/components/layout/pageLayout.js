@@ -1,8 +1,8 @@
-// One container for the header, the page and the bars: 75rem (1200 px at the base size; it grows
-// with the root font size on large monitors, see index.css).
-export const PAGE_CONTAINER = 'mx-auto w-full max-w-[75rem] px-4 sm:px-6 lg:px-10';
+// One fluid container for the header, the page and the bars, with no breakpoints: the width follows
+// the screen (62.5vw) between 75rem and 90rem, and the side gutter grows with it from 1rem to 2.5rem.
+// Together with the fluid root font size (index.css) a large monitor gets a wider page, not a zoomed one.
+export const PAGE_CONTAINER = 'mx-auto w-full max-w-[clamp(75rem,62.5vw,90rem)] px-[clamp(1rem,3vw,2.5rem)]';
 
-// Portrait tablets read one wide column (max 720 px) instead of a stretched desktop layout.
 export const SCREEN_COLUMN = 'mx-auto w-full sm:max-w-[45rem] lg:max-w-none';
 
 // The vertical rhythm of a page built from bands: 32 px between blocks on phones, 40 px between bands on desktop.

@@ -95,11 +95,11 @@
 }
 
 @layer base {
-  /* One scale for every size (all sizes are rem): 16px up to 1600px wide, then it grows with the
-     screen (18px at 1920, 22px at 2560, 30px at 3840), so a large monitor shows the same layout
-     bigger instead of a small island in the middle. Phones and tablets stay at 16px. */
+  /* One scale for every size (all sizes are rem): 16px up to 1600px wide, then it grows gently
+     (17px at 1920, 19px at 2560) and stops at 20px, so a 4K monitor gets readable text, not a
+     zoomed-in page. The fluid container (pageLayout.js) fills the extra room. */
   html {
-    font-size: clamp(16px, calc(6px + 0.625vw), 32px);
+    font-size: clamp(16px, calc(11px + 0.3125vw), 20px);
   }
 
   html, body {
