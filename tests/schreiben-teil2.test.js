@@ -68,6 +68,20 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(result.breakdown.gruss, 2);
   });
 
+  it('finds Anrede and Gruß in a letter written on one line', async () => {
+    const body = 'ich brauche eine neue Wohnung in Köln. Haben Sie eine Wohnung mit zwei Zimmern?';
+    const oneLine = await gradeLetter(`Sehr geehrter Herr Braun, ${body} Mit freundlichen Grüßen Lea Koch`, {});
+    const withBreaks = await gradeLetter(`Sehr geehrter Herr Braun,\n${body}\nMit freundlichen Grüßen\nLea Koch`, {});
+    assert.equal(oneLine.breakdown.anrede, 2);
+    assert.equal(oneLine.breakdown.gruss, 2);
+    assert.equal(oneLine.breakdown.anrede, withBreaks.breakdown.anrede);
+    assert.equal(oneLine.breakdown.gruss, withBreaks.breakdown.gruss);
+
+    const noFrame = await gradeLetter(`Ich ${body.slice(4)} Lea Koch`, {});
+    assert.equal(noFrame.breakdown.anrede, 0);
+    assert.equal(noFrame.breakdown.gruss, 0);
+  });
+
   it('gives 0 points for empty or gibberish text', async () => {
     const emptyResult = await gradeLetter('', {});
     assert.equal(emptyResult.points_earned, 0);

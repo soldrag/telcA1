@@ -32,7 +32,6 @@ certs/*.crt
 coverage/
 *.lcov
 .nyc_output/
-tests/eval/reports/
 
 # Architecture documentation (Russian local drafts)
 *.ru.md
