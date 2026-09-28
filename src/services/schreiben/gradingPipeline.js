@@ -10,7 +10,7 @@ import { composeExaminerFeedback } from './grading/pipelineFeedback.js';
 import { resolveLevelContext } from './levelContext.js';
 import { resolveLeitpunktCriteria } from './leitpunktCriteria.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
-import { analyzeGermanQuality } from './germanQualityAnalyzer.js';
+import { isGibberishText } from './gibberishDetector.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../ai/types.js';
@@ -103,7 +103,7 @@ export async function gradeSchreibenSubmission({
     : await aiProviderRegistry.getActiveProvider());
 
   onProgress?.('Vorverarbeitung und Textanalyse...', 0.1);
-  const quality = analyzeGermanQuality(raw, 30);
+  const isGibberish = isGibberishText(raw);
   const stage1 = runStage1Scoring(stage0);
 
   const levelPolicy = levelContext.policy;
@@ -139,7 +139,7 @@ export async function gradeSchreibenSubmission({
     salutationScore: stage1.anredeScore,
     closingScore: stage1.grussScore,
     wordCount: stage0.wordCount,
-    isGibberish: quality.isGibberish,
+    isGibberish,
     grammarErrors: errors,
     content: detectLetterContentFacts({ bodySentences: stage0.bodySentences, criteria, lexicon: levelContext.lexicon }),
     level: question.level,
@@ -150,7 +150,7 @@ export async function gradeSchreibenSubmission({
   const examinerFeedback = composeExaminerFeedback({
     context: {
       stage0, stage1, stage2: scoredStage2, errors, userSegments, finalPoints,
-      maxPoints: score.maxPoints, isGibberish: quality.isGibberish, leitpunkteVoidReason: score.leitpunkteVoidReason,
+      maxPoints: score.maxPoints, isGibberish, leitpunkteVoidReason: score.leitpunkteVoidReason,
     },
     policy: levelPolicy,
   });

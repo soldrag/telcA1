@@ -43,7 +43,7 @@ function toEntries(line) {
 }
 
 /** @returns {Map<string, object[]>} lower-case form → noun entries */
-export function indexNounDictionary(text = '') {
+function indexNounDictionary(text = '') {
   const index = new Map();
   for (const line of text.split('\n')) {
     if (!line || line.startsWith('#')) continue;
@@ -61,10 +61,6 @@ export function indexNounDictionary(text = '') {
 export async function loadGermanNounDictionary(readText = readDictionaryText) {
   if (formIndex) return;
   formIndex = indexNounDictionary(await readText(DICTIONARY_URL));
-}
-
-export function isGermanNounDictionaryLoaded() {
-  return formIndex !== null;
 }
 
 /**

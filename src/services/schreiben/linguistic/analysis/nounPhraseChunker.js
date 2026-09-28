@@ -17,7 +17,7 @@ const DEGREE_PARTICLES = new Set(paradigms.degreeParticles);
 const MASS_QUANTIFIERS = new Set(paradigms.massQuantifierStems);
 
 export const endsPhrase = (token = {}) => /[,;:]$/.test(token.raw || '');
-export const isOrdinalDay = (token = {}) => /^\d{1,2}\.$/.test(token.raw || '');
+const isOrdinalDay = (token = {}) => /^\d{1,2}\.$/.test(token.raw || '');
 const isCardinal = (token = {}) => CARDINALS.has(token.lower) || /^\d+$/.test(token.raw || '');
 const isNounToken = (token = {}) => token.pos === 'NOUN' || /^[A-ZÄÖÜ]/.test(token.raw || '');
 

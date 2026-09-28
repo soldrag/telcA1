@@ -117,7 +117,7 @@ function resolveSpecialParticles(lower = '', prevToken = null, nextToken = null)
   return null;
 }
 
-export function disambiguateToken(rawWord = '', prevToken = null, nextToken = null, hasFiniteVerb = false) {
+function disambiguateToken(rawWord = '', prevToken = null, nextToken = null, hasFiniteVerb = false) {
   const raw = String(rawWord || '').trim();
   const lower = raw.toLowerCase().replace(/^[.,!?;:]+|[.,!?;:]+$/g, '');
   const candidates = lookupWord(raw);

@@ -15,7 +15,7 @@ export { INTENT_TYPES };
 // the function ("funktioniert nicht"), never by negating the problem ("kein Problem"); a cancellation
 // or a reason is carried by any negation ("kann nicht kommen", "habe keine Zeit").
 const ANY_NEGATION = Object.freeze(['negated_entity', 'negated_action', 'negated_participant', 'negated_object']);
-export const INTENT_POLARITY = Object.freeze({
+const INTENT_POLARITY = Object.freeze({
   [INTENT_TYPES.DEFECT_REPORT]: { contentNegations: ['negated_action', 'negated_participant'] },
   [INTENT_TYPES.APPOINTMENT_CANCEL]: { contentNegations: ANY_NEGATION },
   [INTENT_TYPES.REASON_EXPLANATION]: { contentNegations: ANY_NEGATION },
@@ -87,7 +87,7 @@ function evaluateIntentMatch(clauseProps, intentType, targets) {
   }
 }
 
-export function matchPropositionToIntent(clauseProps, { intentType, targets = new Set() } = {}) {
+function matchPropositionToIntent(clauseProps, { intentType, targets = new Set() } = {}) {
   const refusal = detectTargetRefusal(clauseProps, targets);
   const isContent = INTENT_POLARITY[intentType]?.contentNegations.includes(refusal.reason);
   if (refusal.isRefusal && !isContent) return { isMatch: false, isInverted: true, reason: refusal.reason };

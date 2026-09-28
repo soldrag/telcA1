@@ -73,7 +73,7 @@ function toEntries(line) {
 }
 
 /** @returns {Map<string, object[]>} lower-case form → verb entries */
-export function indexVerbDictionary(text = '') {
+function indexVerbDictionary(text = '') {
   const index = new Map();
   for (const line of text.split('\n')) {
     if (!line || line.startsWith('#')) continue;

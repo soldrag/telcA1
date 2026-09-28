@@ -22,7 +22,7 @@ function isVerbOnly(classes) {
 }
 
 /** @param {{ lookup: Function }} lexicon - the level's lexicon port */
-export function areWordClassesCompatible(a, b, lexicon) {
+function areWordClassesCompatible(a, b, lexicon) {
   const ca = wordClasses(a, lexicon);
   const cb = wordClasses(b, lexicon);
   return !((isNounOnly(ca) && isVerbOnly(cb)) || (isVerbOnly(ca) && isNounOnly(cb)));

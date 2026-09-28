@@ -88,7 +88,7 @@ function extractDirectObjects(tokens = [], subjectToken = null) {
   return directObjects;
 }
 
-export function parseClauseStructure(clause) {
+function parseClauseStructure(clause) {
   const allTokens = clause.tokens || [...(clause.vorfeld || []), clause.finVerb, ...(clause.mittelfeld || [])].filter(Boolean);
   const predicateCore = extractPredicateCore(clause);
   const polarity = extractPolarity(allTokens, predicateCore);

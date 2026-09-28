@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
-import { analyzeGermanQuality } from '../src/services/schreiben/germanQualityAnalyzer.js';
+import { isGibberishText } from '../src/services/schreiben/gibberishDetector.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
@@ -40,8 +40,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
   });
 
   it('detects gibberish and spam repetitions; noun capitalization comes from the grammar engine', async () => {
-    const spam = analyzeGermanQuality('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo');
-    assert.equal(spam.isGibberish, true);
+    assert.equal(isGibberishText('hallo hallo hallo hallo hallo hallo hallo hallo hallo hallo'), true);
 
     const capCheck = A1.grammar.checkLetter('Ich habe am montag einen termin bei dr. schneider.');
     assert.ok(capCheck.some((e) => e.code === 'ERR_NOUN_CAPITALIZATION'), 'noun capitalisation is the grammar engine rule');
