@@ -2,8 +2,11 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeGermanDate, areDatesEquivalent } from '../src/services/schreiben/schreibenDateNormalizer.js';
 import { normalizeGermanNumber, areNumbersEquivalent } from '../src/services/schreiben/schreibenNumberNormalizer.js';
-import { isFuzzyWordMatch } from '../src/services/schreiben/schreibenFuzzyMatcher.js';
+import { compareFormAnswer } from '../src/services/schreiben/schreibenFormAnswerFacts.js';
 import { evaluateTeil1Answer } from '../src/services/schreiben/schreibenTeil1Evaluator.js';
+import { telcA1Regulation } from '../src/services/schreiben/regulations/index.js';
+
+const accepts = (answer, expected) => telcA1Regulation.acceptsTeil1Answer(compareFormAnswer(answer, expected));
 
 describe('Schreiben Teil 1 Smart Form Evaluator', () => {
   it('normalizes various date formats into canonical representations', () => {
@@ -30,11 +33,11 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
   });
 
   it('matches words with typos or umlaut variations using fuzzy matching', () => {
-    assert.equal(isFuzzyWordMatch('Kreditkrate', 'Kreditkarte'), true);
-    assert.equal(isFuzzyWordMatch('Doppelzimer', 'Doppelzimmer'), true);
-    assert.equal(isFuzzyWordMatch('Doppelzimmer', 'Doppelzimmer'), true);
+    assert.equal(accepts('Kreditkrate', 'Kreditkarte'), true);
+    assert.equal(accepts('Doppelzimer', 'Doppelzimmer'), true);
+    assert.equal(accepts('Doppelzimmer', 'Doppelzimmer'), true);
     // Short words should not match different words
-    assert.equal(isFuzzyWordMatch('bar', 'bad'), false);
+    assert.equal(accepts('bar', 'bad'), false);
   });
 
   it('evaluates Teil 1 answers comprehensively', () => {
@@ -64,13 +67,29 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     assert.equal(evaluateTeil1Answer('19.07', qDate), false);
     assert.equal(evaluateTeil1Answer('12354', { correct_answer: '12345' }), false);
     assert.equal(evaluateTeil1Answer('12', { correct_answer: '21' }), false);
-    assert.equal(isFuzzyWordMatch('1907', '1807'), false);
+    assert.equal(accepts('1907', '1807'), false);
   });
 
-  it('accepts misspellings that keep the word recognisable ("Donerstach", "donastag" for Donnerstag)', { todo: 'needs phonetic matching (todo.md, P1)' }, () => {
+  it('accepts a misspelling that sounds like the expected word ("donastag" for Donnerstag)', () => {
     const qDay = { correct_answer: 'Donnerstag' };
-    assert.equal(evaluateTeil1Answer('Donerstach', qDay), true);
     assert.equal(evaluateTeil1Answer('donastag', qDay), true);
+    assert.equal(evaluateTeil1Answer('am Donastag', qDay), true);
     assert.equal(evaluateTeil1Answer('Dienstag', qDay), false);
+    assert.equal(evaluateTeil1Answer('Mittwoch', qDay), false);
+    assert.equal(evaluateTeil1Answer('Sonntag', { correct_answer: 'Montag' }), false);
+    assert.equal(evaluateTeil1Answer('Fata', { correct_answer: 'Vater' }), true);
+    assert.equal(accepts('Miiete', 'Mitte'), false, 'a marked long vowel is another sound');
+  });
+
+  it('accepts misspelled words of a multi-word answer, each word on its own', () => {
+    const qFood = { correct_answer: 'italienische küche' };
+    assert.equal(evaluateTeil1Answer('italienishe Kuche', qFood), true);
+    assert.equal(evaluateTeil1Answer('französische Küche', qFood), false);
+  });
+
+  // Limit (todo.md, P1): a final "ch" for "g" is how "Tag" sounds in the north, but "ch = g at the end" also
+  // joins Flug and Fluch, Teig and Teich, so the rule is not introduced.
+  it('accepts "Donerstach" for Donnerstag', { todo: 'final ch for g joins real words (Flug/Fluch)' }, () => {
+    assert.equal(evaluateTeil1Answer('Donerstach', { correct_answer: 'Donnerstag' }), true);
   });
 });

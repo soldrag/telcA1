@@ -1,10 +1,5 @@
-import { areDatesEquivalent } from './schreibenDateNormalizer.js';
-import { areNumbersEquivalent } from './schreibenNumberNormalizer.js';
-import {
-  normalizeGermanText,
-  normalizeUmlauts,
-  isFuzzyWordMatch,
-} from './schreibenFuzzyMatcher.js';
+import { compareFormAnswer, normalizeGermanText } from './schreibenFormAnswerFacts.js';
+import { getSchreibenRegulation } from './regulations/index.js';
 
 function extractAcceptedRawList(question = {}) {
   const rawCorrect = question.correct_answer || '';
@@ -18,35 +13,27 @@ function extractAcceptedRawList(question = {}) {
   ].map(s => String(s).trim()).filter(Boolean);
 }
 
-function matchTextPhrases(cleanUser, target) {
-  if (cleanUser === target) return true;
-  if (normalizeUmlauts(cleanUser) === normalizeUmlauts(target)) return true;
-
-  if (target.includes(' ')) {
-    const escaped = target.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return new RegExp(`(^|\\s)${escaped}(\\s|$)`).test(cleanUser);
+// "mit Kreditkarte", "am 18. Juli": the expected words appear in the answer in a row, each one accepted.
+function containsAcceptedWords(answer, expected, accepts) {
+  const answerWords = normalizeGermanText(answer).split(' ');
+  const expectedWords = normalizeGermanText(expected).split(' ');
+  for (let start = 0; start + expectedWords.length <= answerWords.length; start++) {
+    if (expectedWords.every((word, i) => accepts(answerWords[start + i], word))) return true;
   }
-
-  const userWords = cleanUser.split(' ');
-  if (userWords.includes(target)) return true;
-
-  return userWords.some((word) => isFuzzyWordMatch(word, target));
+  return false;
 }
 
 export function evaluateTeil1Answer(userAnswer = '', question = {}) {
-  const rawUser = String(userAnswer || '').trim();
-  if (!rawUser) return false;
+  const answer = String(userAnswer || '').trim();
+  if (!answer) return false;
 
   const acceptedRawList = extractAcceptedRawList(question);
   if (acceptedRawList.length === 0) return false;
 
-  const dateOrNumMatch = acceptedRawList.some((target) => (
-    areDatesEquivalent(rawUser, target) || areNumbersEquivalent(rawUser, target)
+  const regulation = getSchreibenRegulation(question.level);
+  const accepts = (text, expected) => regulation.acceptsTeil1Answer(compareFormAnswer(text, expected));
+
+  return acceptedRawList.some((expected) => (
+    accepts(answer, expected) || containsAcceptedWords(answer, expected, accepts)
   ));
-  if (dateOrNumMatch) return true;
-
-  const cleanUser = normalizeGermanText(rawUser);
-  const acceptedCleanList = acceptedRawList.map(normalizeGermanText).filter(Boolean);
-
-  return acceptedCleanList.some((target) => matchTextPhrases(cleanUser, target));
 }

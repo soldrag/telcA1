@@ -1,6 +1,9 @@
 /**
- * telc Deutsch A1 / Start Deutsch 1 — Schreiben Teil 2 regulation.
- * Source of truth: reglament/telc-a1.md §6.
+ * telc Deutsch A1 / Start Deutsch 1 — Schreiben regulation.
+ * Source of truth: reglament/telc-a1.md (Teil 1 — Formular; §6 for Teil 2).
+ * Teil 1: an answer counts when it is recognisable; spelling is "in der Regel nicht relevant"
+ *   (Donnerstag: "Donerstach oder donastag zu akzeptieren"), but numbers only when "eindeutig richtig".
+ * Teil 2:
  * - Each Leitpunkt: 3 fulfilled and understandable · 1.5 partial · 0 missing/unclear.
  * - Kommunikative Gestaltung (Anrede + Gruß): 1 appropriate · 0.5 atypical or one missing · 0 both missing.
  * - Grammar, spelling and length are not scoring criteria at A1; they stay feedback-only.
@@ -15,6 +18,9 @@ const KG_POINTS = Object.freeze({ appropriate: 1, partial: 0.5, none: 0 });
 const LEITPUNKT_MAX = LEITPUNKT_POINTS[2];
 const KG_MAX = KG_POINTS.appropriate;
 const FULL_LEVEL = 2;
+// Below this length one wrong letter makes another word (bar, bad); from the long length on two are allowed.
+const TYPO_MIN_LENGTH = 4;
+const TWO_TYPOS_MIN_LENGTH = 8;
 
 function normalizeLevel(level) {
   const n = Number(level);
@@ -54,6 +60,13 @@ export class TelcA1Regulation extends ISchreibenRegulation {
   get maxPoints() { return 10; }
 
   get trainingPassMark() { return 6; }
+
+  acceptsTeil1Answer({ sameText, sameNumberOrDate, hasDigits, shorterLength, editDistance, sameSound }) {
+    if (sameText || sameNumberOrDate) return true;
+    if (hasDigits || shorterLength < TYPO_MIN_LENGTH) return false;
+    const allowedTypos = shorterLength >= TWO_TYPOS_MIN_LENGTH ? 2 : 1;
+    return editDistance <= allowedTypos || sameSound;
+  }
 
   scoreTeil2({ leitpunktLevels = [], anrede = 0, gruss = 0, isUnratable = false, content = null } = {}) {
     const leitpunkteVoidReason = isUnratable ? null : resolveVoidReason(content);

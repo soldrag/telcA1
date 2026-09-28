@@ -109,11 +109,15 @@ Task entities (cities, items) live only in rubric keywords; concept domains hold
 
 ## Exam regulation (`ISchreibenRegulation`)
 
-`regulations/schreibenRegulationInterface.js`; registry `regulations/index.js` (`getSchreibenRegulation`, `registerSchreibenRegulation`, `scoreCriteriaLevels`); A1: `regulations/telcA1Regulation.js` per `reglament/telc-a1.md` §6.
+`regulations/schreibenRegulationInterface.js`; registry `regulations/index.js` (`getSchreibenRegulation`, `registerSchreibenRegulation`, `scoreCriteriaLevels`); A1: `regulations/telcA1Regulation.js` per `reglament/telc-a1.md` (Teil 1 — Formular, §6).
 
-Decides **what levels are worth**. Contract: `id`, `level`, `maxPoints`, `trainingPassMark`, `scoreTeil2(evidence)`; evidence = `{ leitpunktLevels, anrede, gruss, grammarErrors, wordCount, isUnratable, content }`.
+Decides **what the facts are worth**. Contract: `id`, `level`, `maxPoints`, `trainingPassMark`, `acceptsTeil1Answer(facts)`, `scoreTeil2(evidence)`; evidence = `{ leitpunktLevels, anrede, gruss, grammarErrors, wordCount, isUnratable, content }`.
 
-telc A1:
+Teil 1 (form fields): `schreibenTeil1Evaluator.js` compares the answer, and each run of its words, with every accepted answer (`schreibenFormAnswerFacts.js` → `FormAnswerFacts` = `{ sameText, sameNumberOrDate, hasDigits, shorterLength, editDistance, sameSound }`) and asks the regulation of `question.level`. `sameSound` compares German sound keys (`linguistic/germanSoundKey.js`, rules in `linguistic/data/germanSpellingSounds.json`): spelling-to-sound rules that keep the vowels and the marked vowel length, so "donastag" = Donnerstag but Dienstag ≠ Donnerstag and Miete ≠ Mitte. Kölner Phonetik (`cologne-phonetic`, `talisman`) was rejected: it drops the vowels and gives Dienstag and "donastag" one code; Phonem does not vocalise r; `double-metaphone` is English.
+
+telc A1 Teil 1: the same text, an umlaut transliteration or the same number/date counts; numbers only exactly; one typo from 4 letters, two from 8; the same sound key.
+
+telc A1 Teil 2:
 - each Leitpunkt 3 / 1.5 / 0; Kommunikative Gestaltung (Anrede + Gruß) 1 / 0.5 / 0; max 10;
 - no predication or no task anchor → every Leitpunkt 0 (`leitpunkteVoidReason`: `NO_PREDICATION`, `OFF_TOPIC`); gibberish/empty → 0;
 - grammar, spelling and length are **not** criteria; a declension slip in a correct formula ("Sehr geehrte Herr") keeps the point and becomes a hint.
@@ -151,7 +155,10 @@ The primary provider is set in `src/config/aiConfig.js` (`PRIMARY_PROVIDER`); a 
 ## Known limits
 
 Recorded instead of fitting (CLAUDE.md §8.1):
-- typo-heavy letters keep partial scores: fuzzy/phonetic keyword matching read correct words as keywords (kurz→Kurs, Mund→Hund) and was rejected;
+- typo-heavy letters keep partial scores: fuzzy/phonetic keyword matching read correct words as keywords (kurz→Kurs, Mund→Hund) and was rejected for Teil 2; the sound key serves only Teil 1, where one answer is compared with one expected word;
+- Teil 1: "Donerstach" for Donnerstag (an example of the official rating) is not accepted: "final ch = g" would also join Flug/Fluch and Teig/Teich;
+- Teil 1: the one-typo tolerance also accepts another real word at distance 1 ("Mitte" for Miete, "Sontag" for Montag);
+- engine calibration constants (`SIMILARITY_T1/T2` in `grading/types.js`, keyword similarities in `pipelineStageScorers.js`) are model calibration, not level rules; they stay until the trained calibration in the ranker policy replaces them;
 - "Ich frage nicht nach Kosten" is not a refusal until prepositional verb valency is data for all A1 verbs;
 - verb forms outside the lexicon are not folded to one concept ("meldet" ≠ "melden");
 - a month alone ("im August") counts as a Zeitraum until a regulation source says otherwise.

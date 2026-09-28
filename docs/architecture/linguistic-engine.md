@@ -28,7 +28,7 @@ Three kinds of data, three places (CLAUDE.md §5.1):
 
 | Kind | Where | Examples |
 |---|---|---|
-| General German | `linguistic/data/` | `declensionParadigms.json`, `prepositionContractions.json` (incl. `calendarPrepositionByCategory`), `letterFormulas.json`, `umlautSpelling.json`, `germanNouns.tsv`, `germanVerbs.tsv` |
+| General German | `linguistic/data/` | `declensionParadigms.json`, `prepositionContractions.json` (incl. `calendarPrepositionByCategory`), `letterFormulas.json`, `umlautSpelling.json`, `germanSpellingSounds.json` (sound keys, `germanSoundKey.js`), `germanNouns.tsv`, `germanVerbs.tsv` |
 | Level | lexicon, profile, policy, regulation | A1 lexicon (`a1Lexicon.json`), `profiles/a1GrammarProfile.js`, `grading/policies/a1ConceptDomains.js` |
 | Task | seed rubrics | `keywords`, `intent`, `evidence`, `aspects` |
 

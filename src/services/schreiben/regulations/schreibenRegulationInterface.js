@@ -1,7 +1,8 @@
 /**
- * Abstract contract for an exam regulation of Schreiben Teil 2 (DIP).
- * A regulation turns detector evidence (coverage levels 0/1/2) into official exam points.
- * Detectors decide *what* is in the letter; the regulation decides *what it is worth*.
+ * Abstract contract for an exam regulation of Schreiben (DIP).
+ * Teil 1: it decides from comparison facts whether a form answer counts. Teil 2: it turns detector
+ * evidence (coverage levels 0/1/2) into official exam points.
+ * Detectors decide *what* is in the answer; the regulation decides *what it is worth*.
  * Each level (A1, A2, …) has its own implementation and its own reglament/*.md.
  */
 
@@ -55,6 +56,15 @@ export class ISchreibenRegulation {
   /** Training orientation mark for Teil 2, not an official pass threshold. */
   get trainingPassMark() {
     throw new Error('ISchreibenRegulation.trainingPassMark getter must be implemented');
+  }
+
+  /**
+   * Schreiben Teil 1: whether a form answer counts for one expected answer.
+   * @param {import('../schreibenFormAnswerFacts.js').FormAnswerFacts} facts
+   * @returns {boolean}
+   */
+  acceptsTeil1Answer(facts) {
+    throw new Error('ISchreibenRegulation.acceptsTeil1Answer must be implemented');
   }
 
   /**

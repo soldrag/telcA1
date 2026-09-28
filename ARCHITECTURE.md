@@ -69,7 +69,7 @@ flowchart TB
 | Task | Start here |
 |---|---|
 | New exam variant | [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) |
-| Points or pass rules of Schreiben | `regulations/telcA1Regulation.js` + `reglament/telc-a1.md` |
+| Points or pass rules of Schreiben, accepted Teil 1 answers | `regulations/telcA1Regulation.js` + `reglament/telc-a1.md` |
 | How coverage is classified (thresholds, compound points) | `grading/policies/a1RankerPolicy.js` |
 | A grammar hint | `linguistic/grammarRules/` or `letterRules/`, enabled in `profiles/a1GrammarProfile.js` |
 | New CEFR level | new regulation + ranker policy + grammar profile + reglament; no engine edits |

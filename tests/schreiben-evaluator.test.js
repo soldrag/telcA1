@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeGermanText } from '../src/services/schreiben/schreibenFuzzyMatcher.js';
+import { normalizeGermanText } from '../src/services/schreiben/schreibenFormAnswerFacts.js';
 import { evaluateTeil1Answer } from '../src/services/schreiben/schreibenTeil1Evaluator.js';
 import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
 import { gradeLetter, gradeEssayLimited } from './helpers/gradeLetter.js';

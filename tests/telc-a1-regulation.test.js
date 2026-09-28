@@ -75,7 +75,38 @@ describe('Schreiben regulation registry', () => {
     const raw = new ISchreibenRegulation();
     assert.throws(() => raw.id, /id getter must be implemented/);
     assert.throws(() => raw.scoreTeil2({}), /scoreTeil2 must be implemented/);
+    assert.throws(() => raw.acceptsTeil1Answer({}), /acceptsTeil1Answer must be implemented/);
     assert.ok(new TelcA1Regulation() instanceof ISchreibenRegulation);
+  });
+});
+
+describe('telc A1 Schreiben Teil 1 regulation (reglament/telc-a1.md, Teil 1 — Formular)', () => {
+  const facts = (overrides) => ({
+    sameText: false, sameNumberOrDate: false, hasDigits: false,
+    shorterLength: 6, editDistance: 5, sameSound: false, ...overrides,
+  });
+  const accepts = (overrides) => telcA1Regulation.acceptsTeil1Answer(facts(overrides));
+
+  it('accepts the same text or the same number or date written another way', () => {
+    assert.equal(accepts({ sameText: true }), true);
+    assert.equal(accepts({ hasDigits: true, sameNumberOrDate: true }), true);
+  });
+
+  it('accepts numbers only when unambiguously right: no typo, no sound tolerance', () => {
+    assert.equal(accepts({ hasDigits: true, editDistance: 1 }), false);
+    assert.equal(accepts({ hasDigits: true, sameSound: true }), false);
+  });
+
+  it('allows one typo, two from 8 letters on, none below 4 letters', () => {
+    assert.equal(accepts({ shorterLength: 6, editDistance: 1 }), true);
+    assert.equal(accepts({ shorterLength: 6, editDistance: 2 }), false);
+    assert.equal(accepts({ shorterLength: 8, editDistance: 2 }), true);
+    assert.equal(accepts({ shorterLength: 3, editDistance: 1 }), false);
+  });
+
+  it('accepts a spelling that sounds like the expected word, as "donastag" for Donnerstag', () => {
+    assert.equal(accepts({ sameSound: true }), true);
+    assert.equal(accepts({ shorterLength: 3, sameSound: true }), false);
   });
 });
 
