@@ -117,13 +117,6 @@
   button, a, input, select, textarea {
     touch-action: manipulation;
   }
-
-  /* Prevent automatic viewport zoom on iOS Safari when focusing form elements */
-  @media (max-width: 639px) {
-    input, select, textarea {
-      font-size: 16px;
-    }
-  }
 }
 
 .font-mono-num {
@@ -164,6 +157,16 @@ footer {
   :root { --exam-font-size: 1.0625rem; }
   :root[data-exam-font='large'] { --exam-font-size: 1.25rem; }
   :root[data-exam-font='xlarge'] { --exam-font-size: 1.5rem; }
-  .exam-text { font-size: var(--exam-font-size); line-height: 1.6; }
+  .exam-text { font-size: var(--exam-font-size); --field-font-size: var(--exam-font-size); line-height: 1.6; }
   .exam-reading { font-size: var(--exam-font-size); line-height: 1.6; max-width: 65ch; }
+}
+
+/* Touch browsers (iOS Safari) zoom the page when a field below 16px gets focus.
+   Tailwind compiles @layer away, so a utility like .text-sm (class) outranks this element
+   selector; !important is the only way to make the floor hold for every present and future field.
+   A field may ask for more via --field-font-size. */
+@media (pointer: coarse) {
+  input, select, textarea {
+    font-size: max(1rem, var(--field-font-size, 0px)) !important;
+  }
 }

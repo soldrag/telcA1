@@ -52,6 +52,7 @@ graph TD
 
 - **Breakpoints**: phone `<640`, tablet `640–1023`, desktop `≥1024` px.
 - **Container**: `layout/pageLayout.js` — `PAGE_CONTAINER` (fluid: `clamp(75rem, 62.5vw, 90rem)`, gutter `clamp(1rem, 3vw, 2.5rem)`), `SCREEN_COLUMN` (45rem on tablets), `PAGE_STACK`, `BAND`, `SPAN`.
+- **Form fields on touch devices**: `index.css` ends with a `@media (pointer: coarse)` rule that sets every `input/select/textarea` to `max(1rem, var(--field-font-size, 0px)) !important`. iOS Safari zooms the page when a focused field is below 16 px. Tailwind compiles `@layer` away, so a class utility (`text-sm`) outranks an element selector and only `!important` holds the floor. A field that needs a larger size sets `--field-font-size` (`.exam-text` does, so the essay textarea follows A/A+/A++). New fields need nothing.
 - **Sizes in rem only** (no `-[Npx]`). Root font size is 16 px up to 1600 px, then `clamp(16px, 11px + 0.3125vw, 20px)`: text grows gently and stops at 20 px, the container widens instead.
 - **Page grid**: desktop pages are bands of a 12-column grid (`layout/Band`, `data-band`; `align="stretch"` shares top/bottom edges, `"start"` for sticky columns). Below 1024 px a band dissolves (`display: contents`) and blocks reorder with `order-*`.
 - **Blocks**: every block is a `layout/Section` — title above the frame, optional action in the title row, one frame (`card` / `desktop` / `none`), 24 px padding on desktop.
