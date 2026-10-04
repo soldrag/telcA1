@@ -2,7 +2,7 @@ import { describe, it, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
-import { GRADING_MODES } from '../src/services/ai/types.js';
+import { GRADING_MODES, GRADING_FALLBACK_REASONS } from '../src/services/ai/types.js';
 import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
 import { createConceptEmbedder } from './helpers/mockRankerEmbedder.js';
 import { findSeedQuestion } from './helpers/regressionFixtures.js';
@@ -42,6 +42,7 @@ describe('grading_mode: how the letter was actually graded', () => {
     const res = await gradeWith({ customExtractor: workingExtractor });
     assert.equal(res.grading_mode, GRADING_MODES.RANKER);
     assert.equal(res.is_limited_mode, false);
+    assert.equal(res.grading_fallback, null);
   });
 
   it('the ranker whose model failed reports the rules fallback, not a model grade', async () => {
@@ -51,14 +52,28 @@ describe('grading_mode: how the letter was actually graded', () => {
     assert.equal(res.is_limited_mode, true);
   });
 
+  it('the failed model is named in the result: the reason and the failure\'s own message', async () => {
+    const res = await gradeWith({ customExtractor: failingExtractor });
+    assert.deepEqual(res.grading_fallback, { reason: GRADING_FALLBACK_REASONS.MODEL_FAILED, detail: 'model download failed: offline' });
+  });
+
   it('a model that embedded only part of the letter is a fallback too', async () => {
     const res = await gradeWith({ customExtractor: partlyFailingExtractor });
     assert.equal(res.grading_mode, GRADING_MODES.RANKER_WITHOUT_MODEL);
+    assert.equal(res.grading_fallback.detail, 'WASM out of memory');
   });
 
-  it('the limited mode reports itself', async () => {
+  it('a model that returns no embedding is a failure with its message, not a model grade', async () => {
+    const res = await gradeWith({ customExtractor: async () => ({ data: [] }) });
+    assert.equal(res.grading_mode, GRADING_MODES.RANKER_WITHOUT_MODEL);
+    assert.equal(res.grading_fallback.reason, GRADING_FALLBACK_REASONS.MODEL_FAILED);
+    assert.match(res.grading_fallback.detail, /empty embedding/);
+  });
+
+  it('the limited mode reports itself and is not a fallback', async () => {
     const res = await gradeWith({ forceLimitedMode: true });
     assert.equal(res.grading_mode, GRADING_MODES.LIMITED);
+    assert.equal(res.grading_fallback, null);
   });
 
   it('the fallback grades the letter like the limited mode', async () => {

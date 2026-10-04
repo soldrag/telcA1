@@ -22,4 +22,5 @@ export function applyAiGradingResult({ aiResult, onApplyScores, onApplyErrors, s
   setters.setExaminerFeedback(aiResult.examiner_feedback || null);
   setters.setLiveCriteriaBreakdown(aiResult.criteria_breakdown);
   setters.setGradingMode(aiResult.grading_mode || null);
+  setters.setGradingFallback(aiResult.grading_fallback || null);
 }

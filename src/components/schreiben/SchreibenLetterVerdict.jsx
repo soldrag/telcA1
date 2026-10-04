@@ -1,6 +1,7 @@
 import React from 'react';
 import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
 import SchreibenCriteriaChecklist from './SchreibenCriteriaChecklist.jsx';
+import SchreibenGradingFallbackNotice from './SchreibenGradingFallbackNotice.jsx';
 import { CARD_TITLE } from '../layout/typography.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
@@ -25,6 +26,7 @@ export default function SchreibenLetterVerdict({ item, selfCheck, t, language, c
       <h3 id="letter-verdict-title" className={`max-lg:sr-only ${CARD_TITLE}`}>
         {t('results.schreibenResult.letterTitle', { score: fmt(teil2Score.total), max: fmt(teil2Score.maxPoints) })}
       </h3>
+      {!ai.aiLoading && <SchreibenGradingFallbackNotice gradingMode={ai.gradingMode} gradingFallback={ai.gradingFallback} t={t} />}
       <SchreibenExaminerFeedbackCard
         examinerFeedback={ai.examinerFeedback}
         language={language}

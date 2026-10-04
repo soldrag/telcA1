@@ -3,6 +3,9 @@
  * Ensures the worker is completely terminated after evaluation to free 100% OS memory.
  */
 
+import { GRADING_FALLBACK_REASONS } from '../../ai/types.js';
+import { describeError } from '../../../utils/describeError.js';
+
 export function isWorkerSupported() {
   return typeof window !== 'undefined' && typeof window.Worker === 'function';
 }
@@ -92,13 +95,13 @@ export async function gradeSchreibenWithWorker({
   try {
     return await gradeInWorker({ userText, question, options, onProgress });
   } catch (err) {
-    console.warn('[WorkerClient] Worker execution failed, falling back to limited mode:', err);
     const { gradeSchreibenSubmission } = await import('../gradingPipeline.js');
-    return gradeSchreibenSubmission({
+    const limitedResult = await gradeSchreibenSubmission({
       userText,
       question,
       options: { ...options, forceLimitedMode: true },
       onProgress
     });
+    return { ...limitedResult, grading_fallback: { reason: GRADING_FALLBACK_REASONS.WORKER_FAILED, detail: describeError(err) } };
   }
 }

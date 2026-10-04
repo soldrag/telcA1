@@ -38,8 +38,8 @@ function getVendorChunk(id) {
 const PRECACHE_FILE_LIMIT_BYTES = 6 * 1024 * 1024;
 
 // Offline-first (CLAUDE.md §0): the service worker precaches every file of the build, lazy chunks included,
-// so the app opens and grades without a network after the first visit. The ONNX wasm (22 MB) is left out:
-// grading falls back to the limited mode offline. Registration stays in src/services/pwaRegister.js.
+// so the app opens and grades without a network after the first visit. The ONNX runtime (13-24 MB) is left out of
+// the install: transformers.js caches it on its first use in its own Cache Storage, like the model. Registration stays in src/services/pwaRegister.js.
 function offlinePrecachePlugin() {
   return VitePWA({
     injectRegister: false,

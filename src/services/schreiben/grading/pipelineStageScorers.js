@@ -16,20 +16,26 @@ import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { extractAffirmativeText } from '../linguistic/semanticPolarityValidator.js';
 import { resolveLpDiagnosticCode } from '../feedback/feedbackContracts.js';
 import { requireLevelPort } from './levelPorts.js';
+import { describeError } from '../../../utils/describeError.js';
 import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from './compoundBaselineEvaluator.js';
 import { hasAspectConceptEvidence } from './aspectConceptEvidence.js';
 import { isClaimedByRival } from './rivalEvidence.js';
 
+/** @returns {Promise<{ vectors: Array<number[]|null>, failureDetail: string|null }>} failureDetail: the first failure's message */
 async function computeSentenceVectors(bodySentences, customExtractor, onModelDownload) {
-  if (bodySentences.length === 0 || customExtractor === false) return [];
+  if (bodySentences.length === 0 || customExtractor === false) return { vectors: [], failureDetail: null };
+  let failureDetail = null;
+  const rememberFailure = (err) => { failureDetail ??= describeError(err); return null; };
   try {
     if (!customExtractor) await loadEmbeddingModel(onModelDownload);
-    return await Promise.all(
-      bodySentences.map((s) => computeEmbedding(s, false, customExtractor).catch(() => null))
+    const vectors = await Promise.all(
+      bodySentences.map((s) => computeEmbedding(s, false, customExtractor)
+        .then((vector) => (vector.length > 0 ? vector : rememberFailure(new Error('the model returned an empty embedding'))))
+        .catch(rememberFailure))
     );
+    return { vectors, failureDetail };
   } catch (err) {
-    console.warn('[PipelineStageScorers] Embedding computation failed, falling back to keywords:', err?.message || err);
-    return [];
+    return { vectors: [], failureDetail: describeError(err) };
   }
 }
 
@@ -142,7 +148,7 @@ async function scoreCriterionItem(params) {
 /** onModelDownload: receives { loadedBytes } while the embedding model downloads (the first grading only). */
 export async function scorePipelineLeitpunkte({ criteria, bodySentences, provider, customExtractor, userSegments = null, policy, onModelDownload = null }) {
   requireLevelPort(policy, 'scorePipelineLeitpunkte: policy');
-  const sentenceVectors = await computeSentenceVectors(bodySentences, customExtractor, onModelDownload);
+  const { vectors: sentenceVectors, failureDetail } = await computeSentenceVectors(bodySentences, customExtractor, onModelDownload);
   const rankerEmbedder = sentenceVectors.some(Boolean)
     ? createRankerEmbedder({ customExtractor, sentenceVectors: buildSentenceVectorMap(bodySentences, sentenceVectors) })
     : null;
@@ -160,7 +166,7 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
   const totalScore = items.reduce((sum, it) => sum + (Number(it.score) || 0), 0);
   // The model judged the letter only if it embedded every body sentence; a partial run is a fallback too.
   const modelUsed = sentenceVectors.length > 0 && sentenceVectors.every(Boolean);
-  return { items, totalScore, semanticErrors, modelUsed };
+  return { items, totalScore, semanticErrors, modelUsed, modelFailureDetail: modelUsed ? null : failureDetail };
 }
 
 /** grammar: the level's grammar checker (resolveLevelContext) */

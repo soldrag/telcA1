@@ -69,6 +69,7 @@ async function gradeQuestion(question, answers = {}, { gradeEssay } = {}) {
     diff_summary: grading.diff_summary || [],
     provider_id: grading.provider_id || null,
     grading_mode: grading.grading_mode || null,
+    grading_fallback: grading.grading_fallback || null,
     clue_quote: question.clue_quote,
     explanation_ru: question.explanation_ru,
     explanation_en: question.explanation_en,

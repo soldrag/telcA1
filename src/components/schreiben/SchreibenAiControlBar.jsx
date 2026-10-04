@@ -5,7 +5,6 @@ import { GRADING_MODES } from '../../services/ai/types.js';
 
 const LABEL_BY_MODE = {
   [GRADING_MODES.RANKER]: 'results.aiRankerEvaluated',
-  [GRADING_MODES.RANKER_WITHOUT_MODEL]: 'results.aiModelUnavailableNotice',
   [GRADING_MODES.LIMITED]: 'results.aiLimitedNotice',
 };
 

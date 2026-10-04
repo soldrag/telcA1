@@ -104,6 +104,19 @@ Anna Schmidt`;
       }
     });
 
+    it('a failed worker is named in the limited result the letter is graded with instead', async () => {
+      installFakeWorker([{ type: 'ERROR', error: 'GatherBlockQuantized missing' }]);
+      globalThis.window = globalThis;
+      try {
+        const result = await gradeSchreibenWithWorker({ userText: 'Hallo', question: sampleQuestion });
+        assert.equal(result.grading_mode, 'limited');
+        assert.deepEqual(result.grading_fallback, { reason: 'worker_failed', detail: 'GatherBlockQuantized missing' });
+      } finally {
+        delete globalThis.window;
+        removeFakeWorker();
+      }
+    });
+
     it('gives up and terminates the worker after the idle timeout without progress', async () => {
       const spawned = installFakeWorker([{ type: 'SUCCESS', result: {}, delay: 200 }]);
       try {

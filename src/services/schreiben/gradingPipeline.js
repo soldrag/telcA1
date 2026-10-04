@@ -13,7 +13,7 @@ import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { isGibberishText } from './gibberishDetector.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
-import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES } from '../ai/types.js';
+import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES, GRADING_FALLBACK_REASONS } from '../ai/types.js';
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
@@ -70,6 +70,12 @@ function resolveGradingMode(provider, modelUsed) {
   return modelUsed ? GRADING_MODES.RANKER : GRADING_MODES.RANKER_WITHOUT_MODEL;
 }
 
+/** @returns {import('../ai/types.js').GradingFallback|null} */
+function resolveGradingFallback(stage2) {
+  if (!stage2.modelFailureDetail) return null;
+  return { reason: GRADING_FALLBACK_REASONS.MODEL_FAILED, detail: stage2.modelFailureDetail };
+}
+
 function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments }) {
   const { items } = stage2;
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
@@ -82,6 +88,7 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     is_limited_mode: gradingMode !== GRADING_MODES.RANKER,
     provider_id: activeProvider.id,
     grading_mode: gradingMode,
+    grading_fallback: resolveGradingFallback(stage2),
     breakdown: {
       anrede: stage1.anredeScore,
       leitpunkte: items.reduce((sum, it) => sum + it.points, 0),

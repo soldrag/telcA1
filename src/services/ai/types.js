@@ -30,3 +30,14 @@ export const GRADING_MODES = {
   RANKER_WITHOUT_MODEL: 'ranker_without_model',
   LIMITED: 'limited',
 };
+
+/**
+ * Why a grading fell back from the model, as the named fact `grading_fallback` of the result: `{ reason, detail }`.
+ * MODEL_FAILED: the embedding model did not run (stage 2); WORKER_FAILED: the grading worker failed or timed out
+ * and the letter was graded again on the main thread in the limited mode. `detail` is the failure's own message.
+ * @typedef {{ reason: string, detail: string }} GradingFallback
+ */
+export const GRADING_FALLBACK_REASONS = {
+  MODEL_FAILED: 'model_failed',
+  WORKER_FAILED: 'worker_failed',
+};

@@ -19,7 +19,13 @@ describe('isWebGPUAdapterAvailable (runtime feature detection)', () => {
     assert.equal(await isWebGPUAdapterAvailable(nav), false);
   });
 
+  it('is false for a software fallback adapter, in either place the browsers expose the flag', async () => {
+    assert.equal(await isWebGPUAdapterAvailable(navigatorWithAdapter(async () => ({ info: { isFallbackAdapter: true } }))), false);
+    assert.equal(await isWebGPUAdapterAvailable(navigatorWithAdapter(async () => ({ isFallbackAdapter: true }))), false);
+  });
+
   it('is true when an adapter is granted', async () => {
+    assert.equal(await isWebGPUAdapterAvailable(navigatorWithAdapter(async () => ({ info: { isFallbackAdapter: false } }))), true);
     assert.equal(await isWebGPUAdapterAvailable(navigatorWithAdapter(async () => ({ features: new Set() }))), true);
   });
 });

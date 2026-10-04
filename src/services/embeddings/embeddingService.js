@@ -7,6 +7,7 @@ import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
 import { isWebGPUAdapterAvailable } from '../../utils/webGpuSupport.js';
 import { createDownloadReporter } from './modelDownloadProgress.js';
 import { areModelFilesCached } from './modelCacheProbe.js';
+import { pointOrtToOwnAssets } from './ortRuntimeAssets.js';
 
 const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 const EMBEDDING_DTYPE = 'q4';
@@ -49,6 +50,7 @@ async function initEmbeddingService(onProgress = null) {
     }
 
     const device = await getDeviceTarget();
+    await pointOrtToOwnAssets(env, device);
     const options = { device, dtype: EMBEDDING_DTYPE };
     const isCached = await areModelFilesCached({ env, modelId: EMBEDDING_MODEL_ID, files: EMBEDDING_WEIGHT_FILES });
     extractorInstance = await pipeline(EMBEDDING_TASK, EMBEDDING_MODEL_ID, {
