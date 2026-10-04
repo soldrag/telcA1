@@ -12,6 +12,9 @@ import { exam as sExam1, questions as sQuestions1 } from './seeds/schreiben-mode
 import { exam as sExam2, questions as sQuestions2 } from './seeds/schreiben-modellsatz-2.js';
 import { exam as sExam3, questions as sQuestions3 } from './seeds/schreiben-modellsatz-3.js';
 import { exam as sExam4, questions as sQuestions4 } from './seeds/schreiben-modellsatz-4.js';
+import { exam as sExam5, questions as sQuestions5 } from './seeds/schreiben-modellsatz-5.js';
+import { exam as sExam6, questions as sQuestions6 } from './seeds/schreiben-modellsatz-6.js';
+import { exam as sExam7, questions as sQuestions7 } from './seeds/schreiben-modellsatz-7.js';
 import { moduleExams, moduleQuestions } from './seeds/stubs-modules.js';
 import { applyModuleRules } from '../../../shared/testTypes.js';
 
@@ -31,6 +34,9 @@ export const seedData = {
     { ...sExam2, sort_order: 2 },
     { ...sExam3, sort_order: 3 },
     { ...sExam4, sort_order: 4 },
+    { ...sExam5, sort_order: 5 },
+    { ...sExam6, sort_order: 6 },
+    { ...sExam7, sort_order: 7 },
     ...moduleExams
   ].map(applyModuleRules),
   questions: [
@@ -48,6 +54,9 @@ export const seedData = {
     ...sQuestions2,
     ...sQuestions3,
     ...sQuestions4,
+    ...sQuestions5,
+    ...sQuestions6,
+    ...sQuestions7,
     ...moduleQuestions
   ]
 };

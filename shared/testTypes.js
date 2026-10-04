@@ -35,7 +35,7 @@ export const TEST_TYPES = [
     maxScore: 15,
     passScore: 9,
     partsCount: 2,
-    variantsCount: 4,
+    variantsCount: 7,
     description: 'Заполнение формуляра на 5 пунктов и написание короткого письма/e-mail (~30 слов).'
   },
   {
