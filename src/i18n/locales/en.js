@@ -275,11 +275,11 @@ export const en = {
       summary: '{errors} errors in {words} words of the letter body',
       errorsTitle: 'Grammar and spelling hints ({count})',
       noErrors: 'No major A1 grammar errors found.',
-      hint: 'The official telc A1 score does not drop for these errors as long as they do not block understanding. At A2/B1 such errors cost points — keep practising accuracy.',
+      hint: 'The official telc A1 score does not drop for these errors as long as they do not block understanding. At A2/B1 such errors cost points — keep practising accuracy. Only errors the automatic analysis recognised are shown: it does not find everything, so a text without hints is not guaranteed error-free.',
       whyFewerPointsTitle: 'Why are there fewer points than on the exam?',
       whyFewerPointsDesc: 'The telc A1 exam assesses communicative success: if the message is understandable, grammar mistakes do not reduce the official score. The pedagogical evaluation, however, strictly penalises language errors to highlight areas for improvement towards A2/B1. That is why the learning score is stricter and usually lower.',
       howComputed: 'How it is calculated',
-      formula: 'Each error weighs 0.5 to 1.5 depending on how much it disturbs reading (weights shown in brackets above). The sum is scaled to {reference} words, so one error costs less in a longer letter. Result = 10 − penalty. Salutation and signature are not counted.',
+      formula: 'Each error weighs 0.5 to 2 depending on how much it disturbs reading (weights shown in brackets above). The sum is scaled to {reference} words, so one error costs less in a longer letter. Result = 10 − penalty. Salutation and signature are not counted.',
       bandRange: 'from {min}',
       categoryItem: '{label}: {count} × {weight}',
       categories: {

@@ -16,8 +16,8 @@ const REFERENCE_WORD_COUNT = 30;
 // Band keys only: labels are presentation and live in the i18n dictionaries (results.linguisticAccuracy.bands).
 const BANDS = [
   { min: 9.0, band: 'excellent' },
-  { min: 7.0, band: 'good' },
-  { min: 5.0, band: 'satisfactory' },
+  { min: 8.0, band: 'good' },
+  { min: 6.0, band: 'satisfactory' },
   { min: -Infinity, band: 'needs_practice' },
 ];
 

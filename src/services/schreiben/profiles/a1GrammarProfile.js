@@ -11,8 +11,9 @@ export const A1_GRAMMAR_PROFILE = Object.freeze({
     'verbFrame', 'determinerlessCountNoun']),
   letterRules: Object.freeze(['salutationAgreement', 'salutationCommaCase', 'closingFormula', 'nounCapitalization', 'umlautSpelling']),
   // Learning-scale weights per error category: word order breaks the sentence frame and hinders reading most,
-  // spelling slips least. They never touch the telc score.
-  accuracyWeights: Object.freeze({ syntax: 1.5, rektion: 1.0, agreement: 1.0, grammar: 1.0, lexik: 1.0, orthography: 0.5 }),
+  // spelling slips least. A1 is graded on communication; this scale prepares for A2, where such errors cost points,
+  // so a defect weighs more here than it would on the exam. They never touch the telc score.
+  accuracyWeights: Object.freeze({ syntax: 2.0, rektion: 1.5, agreement: 1.5, grammar: 1.5, lexik: 1.5, orthography: 0.5 }),
   policy: Object.freeze({
     // Everyday A1 German uses the dative after genitive prepositions ("wegen dem Termin"); not an error here.
     acceptedPrepositionCases: Object.freeze({ GEN: ['DAT'] }),

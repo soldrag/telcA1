@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { calculateLinguisticAccuracy } from '../src/services/schreiben/scoring/linguisticAccuracyScorer.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
 
-const weights = A1_GRAMMAR_PROFILE.accuracyWeights;
+// The scorer's mechanics are tested with its own weights: a recalibrated level profile must not break them.
+const weights = { syntax: 1.5, rektion: 1.0, orthography: 0.5 };
 
 describe('Linguistic Accuracy Scorer', () => {
   it('gives 10/10 for zero errors', () => {
@@ -58,5 +59,26 @@ describe('Linguistic Accuracy Scorer', () => {
       { category: 'rektion', count: 1, weight: 1.0 },
       { category: 'orthography', count: 1, weight: 0.5 },
     ]);
+  });
+});
+
+describe('A1 accuracy calibration', () => {
+  const profileWeights = A1_GRAMMAR_PROFILE.accuracyWeights;
+  const oneSlipPerSentence = ['rektion', 'syntax', 'rektion'].map((category) => ({ category, original: `x ${category}` }));
+
+  it('ranks word order as the heaviest defect and spelling as the lightest', () => {
+    const { syntax, orthography, ...others } = profileWeights;
+    assert.ok(Object.values(others).every((w) => w < syntax && w > orthography));
+  });
+
+  it('does not call a text with an error in every sentence "good"', () => {
+    const res = calculateLinguisticAccuracy({ weights: profileWeights, grammarErrors: oneSlipPerSentence, wordCount: 30 });
+    assert.notEqual(res.band, 'good');
+    assert.notEqual(res.band, 'excellent');
+  });
+
+  it('keeps a text with a single minor slip in the top bands', () => {
+    const res = calculateLinguisticAccuracy({ weights: profileWeights, grammarErrors: [{ category: 'orthography', original: 'Ich' }], wordCount: 30 });
+    assert.equal(res.band, 'excellent');
   });
 });

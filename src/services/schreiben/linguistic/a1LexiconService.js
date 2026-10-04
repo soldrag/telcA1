@@ -5,6 +5,7 @@
 
 import rawLexicon from './a1Lexicon.json' with { type: 'json' };
 import { lookupDictionaryNoun, loadGermanNounDictionary } from './germanNounDictionary.js';
+import { resolveHyphenCompoundNouns } from './hyphenCompound.js';
 import { lookupDictionaryVerb, loadGermanVerbDictionary, findDictionaryVerbForms } from './germanVerbDictionary.js';
 
 const LEXICON = rawLexicon || {};
@@ -40,7 +41,9 @@ export function lookupWord(word = '') {
   if (!word) return [];
   const bare = String(word).replace(/^[.,!?;:]+|[.,!?;:]+$/g, '').trim();
   const levelEntries = LEXICON[bare.toLowerCase()] || [];
-  return levelEntries.length > 0 ? withDictionaryVerbReadings(bare, levelEntries) : dictionaryEntries(bare);
+  if (levelEntries.length > 0) return withDictionaryVerbReadings(bare, levelEntries);
+  const entries = dictionaryEntries(bare);
+  return entries.length > 0 ? entries : resolveHyphenCompoundNouns(bare, lookupWord);
 }
 
 /** Loads the general dictionary data the lookups rely on; resolves immediately once loaded. */
