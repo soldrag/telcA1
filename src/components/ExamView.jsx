@@ -70,7 +70,7 @@ export default function ExamView({
   const [hasOpenedSheet, setHasOpenedSheet] = useState(false);
   useExamFontSize();
   useExamScrollSync(session, maxTeile);
-  useGradingPreload(!isInspection);
+  useGradingPreload(!isInspection, resolvedTestType);
   useExamHotkeys({ questions, currentQuestion: answerSheet.currentQuestion, session, maxTeile, onSelectQuestion: answerSheet.selectQuestion });
 
   if (isLoading || questions.length === 0) {

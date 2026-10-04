@@ -3,8 +3,6 @@
  * Ensures the worker is completely terminated after evaluation to free 100% OS memory.
  */
 
-import { gradeSchreibenSubmission } from '../gradingPipeline.js';
-
 export function isWorkerSupported() {
   return typeof window !== 'undefined' && typeof window.Worker === 'function';
 }
@@ -87,6 +85,7 @@ export async function gradeSchreibenWithWorker({
   onProgress = null
 }) {
   if (!isWorkerSupported()) {
+    const { gradeSchreibenSubmission } = await import('../gradingPipeline.js');
     return gradeSchreibenSubmission({ userText, question, options, onProgress });
   }
 
@@ -94,6 +93,7 @@ export async function gradeSchreibenWithWorker({
     return await gradeInWorker({ userText, question, options, onProgress });
   } catch (err) {
     console.warn('[WorkerClient] Worker execution failed, falling back to limited mode:', err);
+    const { gradeSchreibenSubmission } = await import('../gradingPipeline.js');
     return gradeSchreibenSubmission({
       userText,
       question,

@@ -22,8 +22,8 @@ export async function fetchExamDetails(examId) {
 }
 
 /** Loads the grading code and data ahead of submit; a failure only means they load on submit instead. */
-export function preloadExamGrading() {
-  return preloadLocalGrading().catch(() => {});
+export function preloadExamGrading(testType = 'schreiben') {
+  return preloadLocalGrading(testType).catch(() => {});
 }
 
 /** Answers are graded in the browser and never leave the device. */

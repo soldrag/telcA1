@@ -83,6 +83,11 @@ export default defineConfig({
   },
   worker: {
     format: 'es',
+    rollupOptions: {
+      output: {
+        manualChunks: getVendorChunk,
+      },
+    },
   },
   plugins: [
     react(),

@@ -5,30 +5,13 @@
 
 import { EMBEDDING_DIMENSION } from './types.js';
 
-function truncateMatryoshka(vector = [], dim = EMBEDDING_DIMENSION) {
-  if (!Array.isArray(vector) && !ArrayBuffer.isView(vector)) return [];
-  const targetLength = Math.min(vector.length, dim);
-  const truncated = new Float32Array(targetLength);
-  for (let i = 0; i < targetLength; i++) {
-    truncated[i] = vector[i];
-  }
-  return truncated;
-}
-
-function l2Normalize(vector = []) {
-  if (!vector || vector.length === 0) return new Float32Array(0);
+function computeSumOfSquares(vector, length) {
   let sumSq = 0;
-  for (let i = 0; i < vector.length; i++) {
-    sumSq += vector[i] * vector[i];
+  for (let i = 0; i < length; i++) {
+    const val = vector[i];
+    sumSq += val * val;
   }
-  const norm = Math.sqrt(sumSq);
-  if (norm === 0 || !Number.isFinite(norm)) return new Float32Array(vector.length);
-
-  const normalized = new Float32Array(vector.length);
-  for (let i = 0; i < vector.length; i++) {
-    normalized[i] = vector[i] / norm;
-  }
-  return normalized;
+  return sumSq;
 }
 
 export function cosineSimilarity(vecA = [], vecB = []) {
@@ -40,7 +23,24 @@ export function cosineSimilarity(vecA = [], vecB = []) {
   return Math.max(-1, Math.min(1, dotProduct));
 }
 
+/**
+ * Truncates raw embedding to Matryoshka dimensions and normalizes with a single Float32Array allocation.
+ * @param {number[]|ArrayBufferView} rawVector
+ * @param {number} [dim=EMBEDDING_DIMENSION]
+ * @returns {Float32Array}
+ */
 export function prepareEmbeddingVector(rawVector = [], dim = EMBEDDING_DIMENSION) {
-  const truncated = truncateMatryoshka(rawVector, dim);
-  return l2Normalize(truncated);
+  if (!Array.isArray(rawVector) && !ArrayBuffer.isView(rawVector)) return new Float32Array(0);
+  const targetLength = Math.min(rawVector.length, dim);
+  if (targetLength === 0) return new Float32Array(0);
+
+  const norm = Math.sqrt(computeSumOfSquares(rawVector, targetLength));
+  const normalized = new Float32Array(targetLength);
+  if (norm === 0 || !Number.isFinite(norm)) return normalized;
+
+  const invNorm = 1 / norm;
+  for (let i = 0; i < targetLength; i++) {
+    normalized[i] = rawVector[i] * invNorm;
+  }
+  return normalized;
 }

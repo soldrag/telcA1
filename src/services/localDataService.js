@@ -55,7 +55,14 @@ export function getLocalExamDetails(examId) {
  * The grading engine and the lexicon stay out of the main bundle: they are needed only on submit. The exam
  * screen preloads them so the chunk is in the service worker cache before the user may go offline.
  */
-function importLocalGrading() {
+function importLocalGrading(isSchreiben = true) {
+  if (!isSchreiben) {
+    return Promise.all([
+      null,
+      import('../../src/services/evaluation/examEvaluator.js'),
+      null,
+    ]);
+  }
   return Promise.all([
     import('./schreiben/linguistic/a1LexiconService.js'),
     import('../../src/services/evaluation/examEvaluator.js'),
@@ -63,8 +70,9 @@ function importLocalGrading() {
   ]);
 }
 
-export async function preloadLocalGrading() {
-  const [{ loadLexiconData }] = await importLocalGrading();
+export async function preloadLocalGrading(testType = 'schreiben') {
+  if (testType !== 'schreiben') return;
+  const [{ loadLexiconData }] = await importLocalGrading(true);
   await loadLexiconData();
 }
 
@@ -78,14 +86,21 @@ export async function submitLocalExamAnswers(examId, { answers = {}, timeSpentSe
   if (!exam) {
     throw new Error(`Exam not found: ${examId}`);
   }
-  const [{ loadLexiconData }, { evaluateExamSubmission }, { gradeEssayWithActiveProvider }] = await importLocalGrading();
-  await loadLexiconData();
+  const isSchreiben = (exam.test_type || 'lesen') === 'schreiben';
+  const [lexiconModule, { evaluateExamSubmission }, essayGraderModule] = await importLocalGrading(isSchreiben);
+  if (isSchreiben && lexiconModule?.loadLexiconData) {
+    await lexiconModule.loadLexiconData();
+  }
   const questions = seedData.questions
     .filter(q => q.exam_id === examId)
     .sort((a, b) => a.question_number - b.question_number);
 
+  const gradeEssay = isSchreiben && essayGraderModule?.gradeEssayWithActiveProvider
+    ? (input) => essayGraderModule.gradeEssayWithActiveProvider({ ...input, onProgress })
+    : () => ({ is_correct: false, points_earned: 0, max_points: 0 });
+
   const { score, reviewItems, teilBreakdown } = await evaluateExamSubmission(questions, answers, {
-    gradeEssay: (input) => gradeEssayWithActiveProvider({ ...input, onProgress }),
+    gradeEssay,
   });
   const totalQuestions = questions.length;
   const maxScore = exam.max_score || getTestTypeById(exam.test_type || 'lesen').maxScore;

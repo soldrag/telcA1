@@ -42,25 +42,76 @@ function toEntries(line) {
   return [...expand(lemma, singular).map((form) => [form, sg]), ...pluralForms.map((form) => [form, pl])];
 }
 
-/** @returns {Map<string, object[]>} lower-case form → noun entries */
-function indexNounDictionary(text = '') {
-  const index = new Map();
-  for (const line of text.split('\n')) {
-    if (!line || line.startsWith('#')) continue;
-    for (const [form, entry] of toEntries(line)) {
-      const key = form.toLowerCase();
-      const entries = index.get(key);
-      if (!entries) index.set(key, [entry]);
-      else if (!entries.includes(entry)) entries.push(entry);
+const UMLAUT_PAIRS = {
+  A: ['A', 'Ä'], Ä: ['A', 'Ä'],
+  O: ['O', 'Ö'], Ö: ['O', 'Ö'],
+  U: ['U', 'Ü'], Ü: ['U', 'Ü'],
+};
+
+function scanLetterBoundaries(lines) {
+  const ranges = new Map();
+  let currentLetter = '';
+  let start = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line || line[0] === '#') continue;
+    const first = line[0].toUpperCase();
+    if (first !== currentLetter) {
+      if (currentLetter) ranges.set(currentLetter, [start, i]);
+      currentLetter = first;
+      start = i;
     }
   }
-  return index;
+  if (currentLetter) ranges.set(currentLetter, [start, lines.length]);
+  return ranges;
 }
+
+class NounDictionaryStore {
+  constructor(text = '') {
+    this.lines = text.split('\n');
+    this.letterRanges = scanLetterBoundaries(this.lines);
+    this.loadedLetters = new Set();
+    this.cache = new Map();
+  }
+
+  loadLetterBlock(letter) {
+    const range = this.letterRanges.get(letter);
+    if (!range) return;
+    for (let i = range[0]; i < range[1]; i++) {
+      const line = this.lines[i];
+      if (!line || line[0] === '#') continue;
+      for (const [form, entry] of toEntries(line)) {
+        const key = form.toLowerCase();
+        const entries = this.cache.get(key);
+        if (!entries) this.cache.set(key, [entry]);
+        else if (!entries.includes(entry)) entries.push(entry);
+      }
+    }
+  }
+
+  ensureLetter(letter) {
+    const lettersToLoad = UMLAUT_PAIRS[letter] || [letter];
+    for (const l of lettersToLoad) {
+      if (this.loadedLetters.has(l)) continue;
+      this.loadedLetters.add(l);
+      this.loadLetterBlock(l);
+    }
+  }
+
+  lookup(word = '') {
+    const key = String(word || '').toLowerCase();
+    const first = key[0]?.toUpperCase();
+    if (first) this.ensureLetter(first);
+    return this.cache.get(key) || [];
+  }
+}
+
+let nounStore = null;
 
 /** Loads the dictionary once; later calls resolve immediately. */
 export async function loadGermanNounDictionary(readText = readDictionaryText) {
-  if (formIndex) return;
-  formIndex = indexNounDictionary(await readText(DICTIONARY_URL));
+  if (nounStore) return;
+  nounStore = new NounDictionaryStore(await readText(DICTIONARY_URL));
 }
 
 /**
@@ -68,6 +119,6 @@ export async function loadGermanNounDictionary(readText = readDictionaryText) {
  * @returns {object[]} noun entries in the lexicon entry format, marked `source: 'dictionary'`
  */
 export function lookupDictionaryNoun(word = '') {
-  if (!formIndex) throw new Error('German noun dictionary is not loaded: await loadGermanNounDictionary() first');
-  return formIndex.get(String(word).toLowerCase()) || [];
+  if (!nounStore) throw new Error('German noun dictionary is not loaded: await loadGermanNounDictionary() first');
+  return nounStore.lookup(word);
 }
