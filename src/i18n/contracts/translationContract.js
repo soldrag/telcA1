@@ -277,6 +277,8 @@ export const TRANSLATION_CONTRACT = {
       errorsTitle: 'string',
       noErrors: 'string',
       hint: 'string',
+      whyFewerPointsTitle: 'string',
+      whyFewerPointsDesc: 'string',
       howComputed: 'string',
       formula: 'string',
       bandRange: 'string',

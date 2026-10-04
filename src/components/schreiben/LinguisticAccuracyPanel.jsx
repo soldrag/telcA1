@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, Info } from 'lucide-react';
+import { GraduationCap, Info, HelpCircle } from 'lucide-react';
 import {
   calculateLinguisticAccuracy,
   ACCURACY_BAND_THRESHOLDS,
@@ -59,6 +59,20 @@ function CategoryBreakdown({ byCategory, t }) {
   );
 }
 
+function WhyFewerPointsNotice({ t }) {
+  return (
+    <div className="p-3 rounded-lg bg-surface-inset border border-border-subtle space-y-1">
+      <div className="flex items-center gap-1.5 font-semibold text-xs text-content-primary">
+        <HelpCircle className="w-3.5 h-3.5 text-action-primary shrink-0" aria-hidden="true" />
+        <span>{t('results.linguisticAccuracy.whyFewerPointsTitle')}</span>
+      </div>
+      <p className="text-[0.6875rem] text-content-secondary leading-relaxed">
+        {t('results.linguisticAccuracy.whyFewerPointsDesc')}
+      </p>
+    </div>
+  );
+}
+
 // telc grades task fulfilment: a letter that covers no Leitpunkt has no accuracy worth rating.
 function NotRatedPanel({ t }) {
   return (
@@ -106,6 +120,8 @@ export default function LinguisticAccuracyPanel({ grammarErrors = [], wordCount 
         {t('results.linguisticAccuracy.summary', { errors: accuracy.errorCount, words: accuracy.wordCount })}
       </p>
       <CategoryBreakdown byCategory={accuracy.byCategory} t={t} />
+
+      <WhyFewerPointsNotice t={t} />
 
       <details className="text-[0.6875rem] text-content-muted">
         <summary className="cursor-pointer inline-flex items-center space-x-1 font-semibold text-content-secondary">
