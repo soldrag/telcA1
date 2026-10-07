@@ -335,6 +335,7 @@ export const TRANSLATION_CONTRACT = {
       letterTitle: 'string',
       verdictTitle: 'string',
       findings: 'string',
+      scoringScope: 'string',
       formTab: 'string',
       letterTab: 'string',
       yourText: 'string',

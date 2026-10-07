@@ -2,6 +2,7 @@ import React from 'react';
 import SchreibenExaminerFeedbackCard from './SchreibenExaminerFeedbackCard.jsx';
 import SchreibenCriteriaChecklist from './SchreibenCriteriaChecklist.jsx';
 import SchreibenGradingFallbackNotice from './SchreibenGradingFallbackNotice.jsx';
+import SchreibenScoringScopeNote from './SchreibenScoringScopeNote.jsx';
 import { CARD_TITLE } from '../layout/typography.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
@@ -42,6 +43,7 @@ export default function SchreibenLetterVerdict({ item, selfCheck, t, language, c
         language={language}
         t={t}
       />
+      <SchreibenScoringScopeNote t={t} />
     </section>
   );
 }

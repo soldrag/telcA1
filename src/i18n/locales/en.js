@@ -334,6 +334,7 @@ export const en = {
       letterTitle: 'Teil 2 · Letter · {score}/{max}',
       verdictTitle: 'Examiner’s conclusion',
       findings: 'Findings',
+      scoringScope: 'The program checks that every task point is in your letter. How clearly and accurately it is said is the examiner’s call: if a request or question is unclear or asks for something else, the examiner may give 1.5 instead of 3 for that point.',
       formTab: 'Form · {score}/{max}',
       letterTab: 'Letter · {score}/{max}',
       yourText: 'Your text · {count} words',
