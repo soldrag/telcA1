@@ -7,7 +7,7 @@ const ADVERBIAL_NOUN_CATEGORIES = new Set(['duration', 'month', 'weekday', 'seas
 
 /** A third-person pronoun resuming a subject noun phrase ("Mein Mann er kommt"); time phrases are not subjects. */
 function isResumptivePronoun(nounPhrase, pronoun) {
-  const head = nounPhrase.tokens[nounPhrase.tokens.length - 1];
+  const head = nounPhrase.tokens.at(-1);
   return pronoun.tokens[0].person?.includes(3) && !ADVERBIAL_NOUN_CATEGORIES.has(head?.category);
 }
 

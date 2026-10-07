@@ -9,7 +9,7 @@ export default function SchreibenTeilRenderer({
 }) {
   const teil1Questions = questions.filter((q) => q.teil === 1);
   const teil2Questions = questions.filter((q) => q.teil === 2);
-  const essayQuestion = teil2Questions[0] || questions[questions.length - 1];
+  const essayQuestion = teil2Questions[0] || questions.at(-1);
 
   if (activeTeil === 2) {
     return (

@@ -53,7 +53,7 @@ async function gatherCriterionEvidence({ crit, critIdx, bodySentences, sentenceV
   const assigned = userSegments?.leitpunkte?.[critIdx]?.userSentence;
   const segSentences = userSegments?.leitpunkte?.[critIdx]?.sentences
     || (assigned && assigned !== 'Kein Satz im Text gefunden' ? splitGermanSentences(assigned) : []);
-  for (const s of [...segSentences].reverse()) {
+  for (const s of segSentences.toReversed()) {
     const idx = relSentences.indexOf(s);
     if (idx > -1) relSentences.splice(idx, 1);
     relSentences.unshift(s);

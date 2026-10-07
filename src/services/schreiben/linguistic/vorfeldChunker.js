@@ -91,10 +91,9 @@ function mergeStackedTemporalPPs(constituents = []) {
 /** A PP right after a noun phrase is its attribute: "das Wetter in Berlin" is one constituent. */
 function mergePostnominalPPs(constituents = []) {
   return constituents.reduce((merged, curr) => {
-    const prev = merged[merged.length - 1];
+    const prev = merged.at(-1);
     if (prev?.type === 'NP' && curr.type === 'PP') {
-      merged[merged.length - 1] = { ...prev, tokens: [...prev.tokens, ...curr.tokens], rawText: `${prev.rawText} ${curr.rawText}` };
-      return merged;
+      return merged.with(-1, { ...prev, tokens: [...prev.tokens, ...curr.tokens], rawText: `${prev.rawText} ${curr.rawText}` });
     }
     return [...merged, curr];
   }, []);

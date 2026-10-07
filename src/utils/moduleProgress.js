@@ -5,7 +5,7 @@ const TEIL_WINDOW = 5;
 const CHART_WINDOW = 10;
 
 function newestFirst(attempts) {
-  return [...attempts].sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')));
+  return attempts.toSorted((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')));
 }
 
 function averageTeil(teil, attempts) {

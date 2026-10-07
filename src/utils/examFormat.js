@@ -11,5 +11,5 @@ export function formatExamName(examId = '') {
 
 export function sortExamsNumerically(exams = []) {
   if (!Array.isArray(exams) || exams.length === 0) return [];
-  return [...exams].sort((examA, examB) => getExamNumber(examA.id) - getExamNumber(examB.id));
+  return exams.toSorted((examA, examB) => getExamNumber(examA.id) - getExamNumber(examB.id));
 }
