@@ -34,7 +34,7 @@ G3     none=221       primary=221    exp=221 | 3. Modellsatz 1 Missing Anrede (S
 G4     none=220       primary=220    exp=??0 | 4. Modellsatz 1 Missing LP3 (Score 0 for LP3)
 G6     none=222       primary=222    exp=222 | 6. Modellsatz 2 Doctor Cancellation Perfect (Score 10/10)
 G7     none=222       primary=222    exp=222 | 7. Modellsatz 2 Moderate errors with single name (Score 7-9/
-G8     none=222       primary=222    exp=222 | 8. Modellsatz 2 Informal greeting in formal context (Score 1
+G8     none=222       primary=222    exp=222 | 8. Modellsatz 2 Hallo to a formal addressee is appropriate
 G11    none=222       primary=222    exp=222 | 11. Complex syntax with adverbial fronting & Satzklammer (Re
 C5     none=220       primary=220    exp=??0 | Test 5: Incomplete text (missing Punkt 3 and closing, under 
 C8     none=221       primary=221    exp=??1 | Test 8: Modellsatz 4 Semantic Role Inversion (Wie viel koste
@@ -55,8 +55,8 @@ s4-q6:13 none=122       primary=122    exp=222 tot=8.5/8.5 exp=8.5-10 | No expli
 s4-q6:14 none=221       primary=221    exp=221 tot=8.5/8.5 exp=8.5 | Mirror of case 02: pets present, price missing.
 s4-q6:15 none=222       primary=222    exp=222 tot=10/10 exp=10 | Well over 30 words, extra off-point sentences. Length alone must not add or remove points.
 s4-q6:16 none=221       primary=221    exp=221 tot=8.5/8.5 exp=7-8.5 | Point 3 present but barely understandable.
-s4-q6:17 none=222       primary=222    exp=222 tot=9.5/9.5 exp=9.5 | User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.
+s4-q6:17 none=222       primary=222    exp=222 tot=10/10 exp=10 | User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.
 s4-q6:18 none=222       primary=222    exp=222 tot=10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
 s4-q6:19 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.
 s4-q6:20 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | 'Wir kommen' names no number of persons: Personen missing, Zeitraum present.
-s4-q6:21 none=221       primary=221    exp=221 tot=8/8 exp=8 | 'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 0.5, as in 17.
+s4-q6:21 none=221       primary=221    exp=221 tot=8.5/8.5 exp=8.5 | 'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 1, Hallo is a neutral greeting (reglament §6 Teil 2).

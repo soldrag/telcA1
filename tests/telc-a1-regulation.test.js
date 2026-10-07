@@ -23,10 +23,10 @@ describe('telc A1 Schreiben Teil 2 regulation (reglament/telc-a1.md §6)', () =>
   it('rates Kommunikative Gestaltung: 1 appropriate, 0.5 atypical or one missing, 0 both missing', () => {
     const kg = (anrede, gruss) => score({ leitpunktLevels: [], anrede, gruss }).kg.points;
     assert.equal(kg(2, 2), 1);
-    assert.equal(kg(1, 2), 0.5, 'Hallo! to a stranger');
+    assert.equal(kg(1, 2), 0.5, 'Liebe … to a stranger');
     assert.equal(kg(0, 2), 0.5, 'no Anrede');
     assert.equal(kg(2, 0), 0.5, 'no Gruß');
-    assert.equal(kg(1, 0), 0.5, 'Hallo! + Tschüss');
+    assert.equal(kg(1, 0), 0.5, 'Liebe … + no Gruß');
     assert.equal(kg(0, 0), 0);
   });
 

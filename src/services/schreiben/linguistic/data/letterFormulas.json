@@ -6,7 +6,7 @@
     { "words": ["guten", "morgen"], "register": "informal" },
     { "words": ["guten", "abend"], "register": "informal" },
     { "words": ["lieb*"], "register": "informal", "agreesWithAddressee": true },
-    { "words": ["hallo"], "register": "informal" },
+    { "words": ["hallo"], "register": "semiFormal" },
     { "words": ["hi"], "register": "informal" }
   ],
   "closings": [

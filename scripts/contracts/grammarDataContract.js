@@ -12,7 +12,7 @@ import { A1_GRAMMAR_PROFILE } from '../../src/services/schreiben/profiles/a1Gram
 const CASES = ['NOM', 'AKK', 'DAT', 'GEN'];
 const SLOTS = ['m', 'f', 'n', 'pl'];
 const PROFILES = [A1_GRAMMAR_PROFILE];
-const REGISTERS = { salutations: ['formal', 'informal'], closings: ['formal', 'semiFormal', 'informal'] };
+const REGISTERS = { salutations: ['formal', 'semiFormal', 'informal'], closings: ['formal', 'semiFormal', 'informal'] };
 
 function validateTable(name, table, errors) {
   for (const c of CASES) for (const s of SLOTS) {

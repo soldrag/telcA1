@@ -104,7 +104,7 @@
   },
   {
     "id": "G8",
-    "title": "8. Modellsatz 2 Informal greeting in formal context (Score 1",
+    "title": "8. Modellsatz 2 Hallo to a formal addressee is appropriate",
     "seedQuestionId": "s2-q6",
     "expectedLp": [
       2,
@@ -113,10 +113,10 @@
     ],
     "text": "Hallo Herr Schneider,\nich kann am Montag leider nicht kommen. Ich bin krank. Können wir den Termin verschieben?\nMit freundlichen Grüßen\nThomas Mann",
     "expected": {
-      "anrede": 1,
+      "anrede": 2,
       "gruss": 2,
-      "kg": 0.5,
-      "total": 9.5
+      "kg": 1,
+      "total": 10
     },
     "knownLimit": {
       "lp3": "limited mode: \"Können wir den Termin verschieben?\" names no new date and earns LP3 = 1 (todo.md, P1)",

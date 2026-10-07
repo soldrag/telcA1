@@ -46,7 +46,7 @@ Erika Musterfrau`, A1);
   });
 
   it('Stage 1 awards 1 point for an informal salutation in a formal context; a single name costs nothing', () => {
-    const stage0 = runStage0Preprocessing(`Hallo Herr Dr. Schneider,
+    const stage0 = runStage0Preprocessing(`Hi Herr Dr. Schneider,
 ich kann nicht kommen.
 Viele Grüße
 Anna`, A1);

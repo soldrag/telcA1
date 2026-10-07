@@ -141,7 +141,7 @@
       "id": "17_screenshot_user_review",
       "title": "User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.",
       "text": "Hallo Frau Hansen,\n\nIch will im Sommer mit meine Familie Urlaub machen an der Ostsee. Wir möchten kommen von 15. Juli bis 25. Juli, wir sind vier Personen mit zwei Kinder. Wie viel kostet das Apartment pro Nacht? Wir haben auch ein kleiner Hund. Geht das bei Ihnen?\n\nViele Grüße\nAlex Schmidt",
-      "expected": { "lp": [3, 3, 3], "kg": 0.5, "total": 9.5 }
+      "expected": { "lp": [3, 3, 3], "kg": 1, "total": 10 }
     },
     {
       "id": "18_numeric_dates",
@@ -163,9 +163,9 @@
     },
     {
       "id": "21_price_adjective_question",
-      "title": "'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 0.5, as in 17.",
+      "title": "'Ist die Wohnung billig?' asks for the price without a rubric keyword: Preis stated, Haustiere missing (LP3 partial, as in 02). 'im August' is a Zeitraum as 'im Juli' is in the reference 02. 'Hallo'/'Viele Grüße' to a Sie-addressee: KG 1, Hallo is a neutral greeting (reglament §6 Teil 2).",
       "text": "Hallo Frau Hansen,\n\nich suche eine Ferienwohnung an der Ostsee für Urlaub.\nWir sind vier Personen im August.\nIst die Wohnung billig?\n\nViele Grüße\nAlex Schmidt",
-      "expected": { "lp": [3, 3, 1.5], "kg": 0.5, "total": 8 }
+      "expected": { "lp": [3, 3, 1.5], "kg": 1, "total": 8.5 }
     }
   ]
 }
