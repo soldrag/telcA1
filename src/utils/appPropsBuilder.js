@@ -50,6 +50,7 @@ function buildWelcomeProps(controller) {
       currentExamId: controller.currentExamId,
       recentAttempts: controller.history.recentAttempts,
       attempts: controller.history.historyAttempts,
+      draft: controller.examDraft.pending,
     },
     navigation: { onOpenHistory: controller.openHistory },
     actions: {
@@ -60,6 +61,8 @@ function buildWelcomeProps(controller) {
       onStartRandomExam: controller.startRandomExam,
       onLoadAttempt: controller.loadSavedAttempt,
       onShareAttempt: controller.modals.openShareModal,
+      onResumeDraft: controller.resumeDraft,
+      onDiscardDraft: controller.examDraft.clear,
     },
     // Without an exam the form offers the variant list; with an issued entry it reopens «Link is ready».
     onOpenCreateAssignment: (examId = null, issued = null) => controller.modals.openAssignmentModal({

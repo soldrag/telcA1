@@ -5,6 +5,7 @@ import RecentAttemptsList from './RecentAttemptsList.jsx';
 import ModuleStructureCards from './ModuleStructureCards.jsx';
 import TeacherTasksSection from './student/TeacherTasksSection.jsx';
 import ModuleProgressCard from './student/ModuleProgressCard.jsx';
+import ExamDraftCard from './student/ExamDraftCard.jsx';
 import { summarizeVariantScores } from '../../utils/attemptStats.js';
 import { summarizeModuleProgress } from '../../utils/moduleProgress.js';
 import { getReceivedAssignments } from '../../services/storage/receivedAssignmentsStorage.js';
@@ -32,8 +33,8 @@ export default function StudentWelcomeView({
   currentModule = {},
   onOpenTask,
 }) {
-  const { exams = [], activeTestType = 'lesen', recentAttempts = [], attempts = [] } = examState;
-  const { onStartRandomExam, onStartExam, onLoadAttempt, onSelectTestType } = actions;
+  const { exams = [], activeTestType = 'lesen', recentAttempts = [], attempts = [], draft = null } = examState;
+  const { onStartRandomExam, onStartExam, onLoadAttempt, onSelectTestType, onResumeDraft, onDiscardDraft } = actions;
   const [assignments] = useState(getReceivedAssignments);
   const scores = useMemo(() => summarizeVariantScores(attempts, activeTestType), [attempts, activeTestType]);
   const progress = useMemo(() => summarizeModuleProgress(attempts, activeTestType), [attempts, activeTestType]);
@@ -46,6 +47,7 @@ export default function StudentWelcomeView({
         <ModuleHeading moduleInfo={currentModule} />
         <ModuleStructureCards testType={activeTestType} variant="strip" className="max-lg:hidden" />
       </div>
+      <ExamDraftCard draft={draft} onResume={onResumeDraft} onDiscard={onDiscardDraft} />
       <Band>
         <RandomExamCard onStartRandomExam={onStartRandomExam} moduleInfo={currentModule} className={`order-1 lg:order-none ${SPAN.main}`} />
         <TeacherTasksSection

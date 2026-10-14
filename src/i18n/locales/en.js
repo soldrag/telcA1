@@ -112,6 +112,13 @@ export const en = {
       inspectVariantLabel: 'View {variant}',
       assignVariantLabel: 'Assign {variant}',
     },
+    draft: {
+      title: 'Unfinished exam',
+      summaryTimed: '{name}: {answered} answered, about {minutes} min left. The timer kept running while the page was closed.',
+      summaryPractice: '{name}: {answered} answered, practice without a timer.',
+      resume: 'Continue exam',
+      discard: 'Discard',
+    },
     recentAttempts: {
       title: 'Recent attempts',
       viewAll: 'All history',

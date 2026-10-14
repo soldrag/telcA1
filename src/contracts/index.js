@@ -35,6 +35,7 @@ export const sessionContract = {
     'submitCurrentExam',
     'retakeMistakes',
     'loadPastAttempt',
+    'restoreSession',
   ],
   requiredProperties: [
     'answers',

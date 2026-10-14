@@ -5,6 +5,7 @@ import { useAttemptHistory } from './useAttemptHistory.js';
 import { useModalCoordinator } from './useModalCoordinator.js';
 import { useExamLoader } from './useExamLoader.js';
 import { useExamFlowActions } from './useExamFlowActions.js';
+import { useExamDraft } from './useExamDraft.js';
 import { useReviewMode } from './useReviewMode.js';
 import { useAssignmentMode } from './useAssignmentMode.js';
 import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
@@ -48,6 +49,15 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     showError,
   });
 
+  // Assignments keep their own lockout record and teacher review shows someone else's answers: no draft for those.
+  const isOwnExamInProgress = isTimerRunning && !assignmentMode.isAssignmentMode && !reviewMode.isTeacherReview;
+  const examDraft = useExamDraft({
+    isInProgress: isOwnExamInProgress,
+    examId: loader.examData?.exam?.id,
+    session,
+    timer,
+  });
+
   const flowActions = useExamFlowActions({
     screen,
     loader,
@@ -56,6 +66,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     modals,
     history,
     storage,
+    examDraft,
     assignmentMode,
     reviewMode,
     navigateTo,
@@ -84,6 +95,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     history,
     reviewMode,
     assignmentMode,
+    examDraft,
     ...flowActions,
   };
 }

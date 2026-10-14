@@ -46,6 +46,7 @@ describe('Teacher Inspection Mode Architecture & Invariants', () => {
       testTypes: [],
       exams: [],
       history: { recentAttempts: [], historyAttempts: [], historyLoading: false },
+      examDraft: { pending: null, clear() {} },
       examData: {
         exam: { title: 'Modellsatz 1', test_type: 'lesen' },
         questions: [{ id: 'q1' }, { id: 'q2' }],
@@ -72,6 +73,7 @@ describe('Teacher Inspection Mode Architecture & Invariants', () => {
       activeTestType: 'lesen',
       currentExamId: 'modellsatz-1',
       history: { recentAttempts: [] },
+      examDraft: { pending: null, clear() {} },
       session: { results: null },
       openHistory: () => {},
       changeTestType: () => {},

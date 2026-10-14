@@ -113,6 +113,13 @@ export const TRANSLATION_CONTRACT = {
       inspectVariantLabel: 'string',
       assignVariantLabel: 'string',
     },
+    draft: {
+      title: 'string',
+      summaryTimed: 'string',
+      summaryPractice: 'string',
+      resume: 'string',
+      discard: 'string',
+    },
     recentAttempts: {
       title: 'string',
       viewAll: 'string',

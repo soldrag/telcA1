@@ -112,6 +112,13 @@ export const ru = {
       inspectVariantLabel: 'Просмотреть {variant}',
       assignVariantLabel: 'Выдать {variant}',
     },
+    draft: {
+      title: 'Незаконченный экзамен',
+      summaryTimed: '{name}: отвечено {answered}, осталось около {minutes} мин. Таймер шёл, пока страница была закрыта.',
+      summaryPractice: '{name}: отвечено {answered}, тренировка без таймера.',
+      resume: 'Продолжить экзамен',
+      discard: 'Удалить',
+    },
     recentAttempts: {
       title: 'Последние попытки',
       viewAll: 'Вся история',

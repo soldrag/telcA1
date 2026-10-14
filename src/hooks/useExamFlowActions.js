@@ -1,6 +1,10 @@
 import { useCallback, useEffect } from 'react';
 import { getNextBalancedExam } from '../utils/examBalancer.js';
 import { getTestTypeById } from '../../shared/testTypes.js';
+import { resolveDraftTimer } from '../utils/examDraft.js';
+
+// Callers that keep no draft (tests, embeds) leave the draft port out.
+const NO_DRAFT = { pending: null, clear() {} };
 
 function getExamDurationSeconds(details) {
   const exam = details?.exam || {};
@@ -28,6 +32,7 @@ export function useExamFlowActions({
   modals,
   history,
   storage,
+  examDraft = NO_DRAFT,
   assignmentMode,
   reviewMode,
   navigateTo,
@@ -38,6 +43,7 @@ export function useExamFlowActions({
     // Before the module's variants load there is nothing to start; a guessed id could open another module's exam.
     if (!targetId) return;
     session.resetSession();
+    examDraft.clear();
     let targetExamData = loader.examData;
 
     if (targetId !== loader.currentExamId || !targetExamData || targetExamData.exam?.id !== targetId) {
@@ -47,7 +53,7 @@ export function useExamFlowActions({
 
     timer.resetTimer(timed, getExamDurationSeconds(targetExamData));
     navigateTo('exam');
-  }, [loader, session, timer, navigateTo]);
+  }, [loader, session, timer, examDraft, navigateTo]);
 
   const startRandomExam = useCallback(async ({ timed = true } = {}) => {
     try {
@@ -84,6 +90,7 @@ export function useExamFlowActions({
     }
     // The time-up dialog stays over the results until the student closes it; otherwise it only flashes.
     modals.closeSubmitModal();
+    examDraft.clear();
 
     if (assignmentMode?.isAssignmentMode) {
       await assignmentMode.finalizeAssignment({
@@ -97,7 +104,7 @@ export function useExamFlowActions({
     await history.refreshAttempts();
     await history.refreshHistory();
     navigateTo('results');
-  }, [session, loader.examData, loader.currentExamId, timer, modals, assignmentMode, history, navigateTo, showError]);
+  }, [session, loader.examData, loader.currentExamId, timer, modals, examDraft, assignmentMode, history, navigateTo, showError]);
 
   const handleTimeUp = useCallback(() => {
     if (session.isSubmitted || screen !== 'exam') return;
@@ -136,10 +143,28 @@ export function useExamFlowActions({
 
   const leaveExam = useCallback(() => {
     modals.closeLeaveModal();
+    examDraft.clear();
     if (tryExitSpecialMode(assignmentMode, reviewMode)) return;
     session.resetSession();
     navigateTo('welcome');
-  }, [session, modals, assignmentMode, reviewMode, navigateTo]);
+  }, [session, modals, examDraft, assignmentMode, reviewMode, navigateTo]);
+
+  const resumeDraft = useCallback(async () => {
+    const draft = examDraft.pending;
+    if (!draft) return;
+    const data = await loader.loadExamById(draft.examId);
+    if (!data?.exam) {
+      examDraft.clear();
+      return;
+    }
+    if (data.exam.test_type) loader.changeTestType(data.exam.test_type);
+    loader.selectExam(draft.examId);
+    session.restoreSession(draft);
+    const { isTimed, totalSeconds, secondsLeft } = resolveDraftTimer(draft);
+    timer.resetTimer(isTimed, totalSeconds, secondsLeft);
+    examDraft.clear();
+    navigateTo('exam');
+  }, [examDraft, loader, session, timer, navigateTo]);
 
   const inspectExam = useCallback(async (examId) => {
     session.resetSession();
@@ -187,6 +212,7 @@ export function useExamFlowActions({
     openHistory,
     retakeMistakes,
     leaveExam,
+    resumeDraft,
     navigateHome,
     resetExam,
   };

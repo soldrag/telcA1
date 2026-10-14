@@ -44,6 +44,13 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     clearFlags();
   }, [clearFlags]);
 
+  const restoreSession = useCallback(({ answers: savedAnswers, activeTeil: teil, activeQuestionIndex: index }) => {
+    resetSession();
+    setAnswers(savedAnswers);
+    setActiveTeil(teil);
+    setActiveQuestionIndex(index);
+  }, [resetSession]);
+
   const selectAnswer = useCallback((questionId, value) => {
     if (isSubmitted) return;
     setAnswers(prev => ({ ...prev, [questionId]: value }));
@@ -177,6 +184,7 @@ export function useExamSession({ storage = defaultAttemptStorage, submitService 
     scrollTargetId,
     clearScrollTarget,
     resetSession,
+    restoreSession,
     selectAnswer,
     selectTeil,
     nextTeil,

@@ -38,6 +38,7 @@ Attempt history uses the strategy pattern: `storage/attemptStorage.interface.js`
 | Key | Owner | Content |
 |---|---|---|
 | `telc_exam_attempts_v1` | `LocalStorageAttemptStorage` | attempt history |
+| `telc_exam_draft` | `examDraftStorage` (`useExamDraft`) | the exam in progress: answers, position, timer reading; resumed from the home screen, removed on submit, leave or a new start. The timer of a timed exam counts the time the page was closed; assignments and teacher review keep no draft |
 | `telc_assignments` | `receivedAssignmentsStorage` | tasks received by a student |
 | `telc_issued` | `issuedAssignmentsStorage` | tasks issued by a teacher |
 | `telc_assignment_lockout_<id>` | `assignmentLockoutStorage` | start/submission of one task |

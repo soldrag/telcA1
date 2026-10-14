@@ -18,6 +18,7 @@ React 18 + Vite + Tailwind. Code: `src/components/`, `src/hooks/`, `src/utils/`,
 | `useExamLoader` | loading exam variants through `examService`; the latest exam request wins (a late answer to an earlier one is ignored), the submit grades the exam on screen; the active module comes from the `modulePreference` port (default `storage/modulePreferenceStorage.localModulePreference`, `telc_active_module`) and survives a reload; only the student's own choice (`chooseTestType`) is remembered, a module opened by an assignment or review link (`changeTestType`) is not |
 | `useExamSession`, `useExamTimer` | answers, wall-clock timer (sleeps outside an active exam, recalibrates on `visibilitychange`), completion |
 | `useExamFlowActions` | submit, leave, finalize an assignment |
+| `useExamDraft` | autosaves the exam in progress through the `ExamDraftStorage` port (debounced, flushed on `pagehide`); `pending` is the draft found at start, offered by `ExamDraftCard` |
 | `useAnswerSheet`, `useVisibleQuestion`, `useQuestionFlags` | Teil groups, question in view, flags |
 | `useExamHotkeys` | R/F and A/B/C answer, ↑/↓ question, ←/→ Teil; off while typing or in a dialog |
 | `useTextEntryFocus` | hides the bottom bar while a text field has focus |

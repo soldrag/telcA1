@@ -53,6 +53,7 @@ function validateScreenProps(errors) {
     session: { answers: {}, results: null, answeredCount: 0, isSubmitted: false },
     timer: { isTimed: true, totalSeconds: 1500, secondsLeft: 1500, secondsElapsed: 0, isPaused: false },
     history: { recentAttempts: [], historyAttempts: [], historyLoading: false },
+    examDraft: { pending: null, clear() {} },
     reviewMode: { isTeacherReview: false },
     assignmentMode: { isAssignmentMode: false, assignmentData: null, lockoutState: null },
     modals: {},
