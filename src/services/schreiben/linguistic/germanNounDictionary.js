@@ -6,8 +6,6 @@
 
 const DICTIONARY_URL = new URL('./data/germanNouns.tsv', import.meta.url);
 
-let formIndex = null;
-
 async function readDictionaryText(url) {
   if (url.protocol !== 'file:') {
     const response = await fetch(url);

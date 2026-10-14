@@ -14,7 +14,7 @@ const EMBEDDING_DTYPE = 'q4';
 const EMBEDDING_TASK = 'feature-extraction';
 // The weights are what a download is about; transformers.js names them after the dtype.
 const EMBEDDING_WEIGHT_FILES = [`onnx/model_${EMBEDDING_DTYPE}.onnx`, `onnx/model_${EMBEDDING_DTYPE}.onnx_data`];
-export const EMBEDDING_DIMENSION = 256;
+const EMBEDDING_DIMENSION = 256;
 
 // Task prefixes verified against EmbeddingGemma model card
 const TASK_PREFIX_QUERY = 'task: search result | query: ';

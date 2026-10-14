@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import {
-  scoreSentencePair,
   classifyCriterionCoverage,
   computeDeterministicFallbackScore,
 } from '../src/services/schreiben/grading/microRankerService.js';
@@ -60,13 +59,5 @@ describe('MicroRankerProvider & MicroRankerService Tests', () => {
     const provider = new MicroRankerProvider({ embedder: failing });
     const result = await provider.classifyCoverage('Grund des Schreibens', ['Der Grund für mein Schreiben ist ein Termin.']);
     assert.ok(['full', 'partial'].includes(result.coverage));
-  });
-
-  it('scoreSentencePair handles empty input gracefully', async () => {
-    const scoreEmpty = await scoreSentencePair('', 'Some sentence', { policy: A1.policy });
-    assert.equal(scoreEmpty, 0);
-
-    const scoreEmptySent = await scoreSentencePair('Some criterion', '', { policy: A1.policy });
-    assert.equal(scoreEmptySent, 0);
   });
 });

@@ -15,7 +15,7 @@ What protects the build, and which command to run for what.
 ## Contracts
 
 `scripts/verify-contracts.js`:
-- **Port contracts** in `src/contracts/index.js` (timer, session, loader, assignment, screen DTOs) — method calls and screen props are checked statically.
+- **Port contracts** in `scripts/contracts/hookContracts.js` (timer, session, loader, assignment, screen DTOs) — method calls and screen props are checked statically.
 - `scripts/contracts/rubricContract.js` — every Schreiben rubric has a `level` with registered policy/profile/regulation and valid `intent` / `evidence`.
 - `scripts/contracts/levelFreeEngineContract.js` — no level references in engine modules.
 - `scripts/contracts/grammarDataContract.js` — shape of the linguistic data; profiles name existing rules.

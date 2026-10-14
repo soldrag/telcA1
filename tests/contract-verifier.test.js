@@ -6,7 +6,7 @@ import {
   loaderContract,
   assignmentContract,
   screenContracts,
-} from '../src/contracts/index.js';
+} from '../scripts/contracts/hookContracts.js';
 
 describe('Architectural Contract Specifications', () => {
   test('timerContract specifies all required methods and properties', () => {

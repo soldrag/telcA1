@@ -45,7 +45,7 @@ flowchart TB
 | `src/services/schreiben/` | Schreiben grading: `grading/`, `linguistic/`, `feedback/`, `scoring/`, `profiles/`, `regulations/` |
 | `src/services/ai/`, `src/services/embeddings/` | AI providers (Micro-Ranker, limited mode), embedder |
 | `src/services/storage/`, `security/`, `share/`, `assignment/` | local storage, teacher key and signing, token compression, assignment timer |
-| `src/contracts/`, `scripts/contracts/`, `scripts/verify-contracts.js` | build-time contracts |
+| `scripts/contracts/`, `scripts/verify-contracts.js` | build-time contracts |
 | `shared/testTypes.js` | module rules (time, tasks, points) |
 | `scripts/seeds/`, `scripts/lexicon/` | seed validator, dictionary builders |
 | `tests/` | unit tests, `ui/` (Playwright), `fixtures/` |

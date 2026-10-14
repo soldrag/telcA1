@@ -22,7 +22,7 @@ function toLeitpunktFact(item = {}) {
 /**
  * Facts contract consumed by IRankerPolicy.buildExaminerFeedback.
  */
-export function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, userSegments, finalPoints, maxPoints, isGibberish, leitpunkteVoidReason = null }) {
+function buildExaminerFeedbackFacts({ stage0, stage1, stage2, errors, userSegments, finalPoints, maxPoints, isGibberish, leitpunkteVoidReason = null }) {
   return {
     anrede: {
       score: stage1.anredeScore,

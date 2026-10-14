@@ -9,7 +9,6 @@ import { INTENT_TYPES, resolveCriterionIntent } from './criterionIntents.js';
 import { buildRequestTargets, isTargetAction, isTargetNoun } from './criterionRequestTargets.js';
 import { detectTargetRefusal } from './criterionRefusalDetector.js';
 
-export { INTENT_TYPES };
 
 // Negations that express a speech act instead of refusing it. A defect is reported by negating
 // the function ("funktioniert nicht"), never by negating the problem ("kein Problem"); a cancellation

@@ -13,8 +13,6 @@ const PADDINGS = {
   none: { normal: '', list: '', flush: '' },
 };
 
-// Kept here for the blocks that import the title style with the Section itself.
-export { SECTION_TITLE };
 
 /**
  * The one block pattern of a page: the title sits above the frame (never inside it), an optional

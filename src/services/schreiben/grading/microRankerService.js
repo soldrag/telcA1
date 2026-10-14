@@ -55,12 +55,8 @@ async function computeNeuralScore(queryText, sentenceText, { embedder, rivalQuer
  * @param {string} sentenceText
  * @param {{ embedder?: object|null, rivalQueries?: string[], policy: object }} options - policy: the level's ranker policy
  */
-export async function scoreSentencePair(aspect, sentenceText, options = {}) {
-  return (await evaluateSentencePair(aspect, sentenceText, options)).score;
-}
-
 async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy } = {}) {
-  requireLevelPort(policy, 'scoreSentencePair: policy');
+  requireLevelPort(policy, 'evaluateSentencePair: policy');
   const label = String((typeof aspect === 'string' ? aspect : aspect?.label) || '').trim();
   const keywords = typeof aspect === 'string' ? [] : (aspect?.keywords || []);
   const aspectEvidence = typeof aspect === 'string' ? null : (aspect?.evidence || null);

@@ -14,7 +14,7 @@ import {
   loaderContract,
   assignmentContract,
   screenContracts,
-} from '../src/contracts/index.js';
+} from './contracts/hookContracts.js';
 import { buildScreenProps } from '../src/utils/appPropsBuilder.js';
 import { validateGrammarData } from './contracts/grammarDataContract.js';
 import { validateRubrics } from './contracts/rubricContract.js';
