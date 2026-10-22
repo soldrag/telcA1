@@ -11,6 +11,7 @@ import { isKnownWord } from '../../linguistic/a1LexiconService.js';
 import { A1_GRAMMAR_PROFILE } from '../../profiles/a1GrammarProfile.js';
 import { EVIDENCE_KINDS } from '../../linguistic/criterionIntents.js';
 import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
+import A1_EVIDENCE_MODEL from './a1EvidenceModel.json' with { type: 'json' };
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -46,6 +47,11 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get conceptDomains() {
     return A1_CONCEPT_DOMAINS;
+  }
+
+  /** Trained evidence heads and thresholds (scripts/eval/train-evidence-model.mjs). */
+  get evidenceModel() {
+    return A1_EVIDENCE_MODEL;
   }
 
   capUnprovenLexical(evidenceKind, lexical) {

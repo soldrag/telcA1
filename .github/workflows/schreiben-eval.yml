@@ -52,9 +52,9 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: Open set · Micro-Ranker
+      - name: Open set · Micro-Ranker, keyword stage vs evidence heads
         run: |
-          status=0; npm run -s eval:open -- --ranker > eval.log 2>&1 || status=$?
+          status=0; npm run -s eval:open -- --shadow > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
@@ -75,11 +75,11 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: Hidden set · Micro-Ranker
+      - name: Hidden set · Micro-Ranker, keyword stage vs evidence heads
         env:
           TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
         run: |
-          status=0; npm run -s eval:hidden -- --ranker > eval.log 2>&1 || status=$?
+          status=0; npm run -s eval:hidden -- --shadow > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status

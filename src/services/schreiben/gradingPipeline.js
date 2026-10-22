@@ -17,6 +17,8 @@ import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES, GRADING_FALLBACK_REASONS }
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
+import { canGradeByEvidence, scoreLeitpunkteByEvidence } from './grading/evidenceStage.js';
+import { computeDocumentVector } from '../embeddings/embeddingService.js';
 
 function classifyArbitration(it) {
   if (it.isProtected) return 'protected';
@@ -135,15 +137,27 @@ export async function gradeSchreibenSubmission({
 
   reportStage(onProgress, GRADING_STAGES.LEITPUNKTE, 0.4);
   const customExtractor = options.forceLimitedMode ? false : options.customExtractor;
-  const stage2 = await scorePipelineLeitpunkte({
-    criteria,
-    bodySentences: stage0.bodySentences,
-    provider: activeProvider,
-    customExtractor,
-    userSegments,
-    policy: levelPolicy,
-    onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
-  });
+  // The evidence heads grade the Leitpunkte when asked for and possible: the Micro-Ranker, a sentence embedder,
+  // a trained model for the level and an example bank for the task. Otherwise the keyword stage does.
+  const byEvidence = options.leitpunktEngine === 'evidence' && customExtractor
+    && activeProvider.id === PROVIDER_IDS.MICRO_RANKER && canGradeByEvidence(question.id, levelPolicy);
+  const stage2 = byEvidence
+    ? await scoreLeitpunkteByEvidence({
+      criteria,
+      bodySentences: stage0.bodySentences,
+      questionId: question.id,
+      embed: (text) => computeDocumentVector(text, customExtractor),
+      policy: levelPolicy,
+    })
+    : await scorePipelineLeitpunkte({
+      criteria,
+      bodySentences: stage0.bodySentences,
+      provider: activeProvider,
+      customExtractor,
+      userSegments,
+      policy: levelPolicy,
+      onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
+    });
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
@@ -162,7 +176,11 @@ export async function gradeSchreibenSubmission({
     isGibberish,
     grammarErrors: errors,
     content: detectLetterContentFacts({
-      bodySentences: stage0.bodySentences, criteria, lexicon: levelContext.lexicon, servesTaskPurpose: stage2.servesTaskPurpose,
+      bodySentences: stage0.bodySentences,
+      criteria,
+      lexicon: levelContext.lexicon,
+      servesTaskPurpose: stage2.servesTaskPurpose,
+      hasEvidenceAnchor: stage2.hasEvidenceAnchor ?? false,
     }),
     level: question.level,
   });

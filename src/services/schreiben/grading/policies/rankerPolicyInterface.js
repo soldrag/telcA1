@@ -54,6 +54,14 @@ export class IRankerPolicy {
     return {};
   }
 
+  /**
+   * Trained evidence heads of the level (support / contradiction / another purpose) with their thresholds, or null:
+   * a level without one grades Leitpunkte by keywords and the label query.
+   */
+  get evidenceModel() {
+    return null;
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }

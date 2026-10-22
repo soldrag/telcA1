@@ -58,6 +58,15 @@ export async function createSentenceEmbedder(options = {}) {
   return extractor;
 }
 
+// The document prompt of the EmbeddingGemma model card; the evidence heads were trained on it.
+const DOCUMENT_PROMPT = 'title: none | text: ';
+
+/** Sentence vector of a letter span for the evidence heads, from a sentence_embedding extractor. */
+export async function computeDocumentVector(text, extractor) {
+  const output = await extractor(`${DOCUMENT_PROMPT}${String(text || '').trim()}`);
+  return prepareEmbeddingVector(output?.data || output, EMBEDDING_DIMENSION);
+}
+
 async function initEmbeddingService(onProgress = null) {
   if (extractorInstance) return extractorInstance;
   if (isInitializing) {
