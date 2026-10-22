@@ -4,6 +4,8 @@
  *   npm run eval:hidden [-- --ranker]   hidden set: aggregate numbers only, for measuring
  * Default mode is the limited mode (no model). --ranker grades with the Micro-Ranker on EmbeddingGemma,
  * as the browser does (downloads the model on first use).
+ * Open set only: --save <file> stores the per-letter verdicts, --baseline <file> compares with stored ones letter
+ * by letter and Leitpunkt by Leitpunkt (a 40-letter percentage alone moves by chance; paired changes do not).
  * The hidden set is never printed: tune only on the open set, check on the hidden one.
  */
 
@@ -15,6 +17,7 @@ const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url
 const set = process.argv.includes('--hidden') ? 'hidden' : 'open';
 const useRanker = process.argv.includes('--ranker');
 const MIN_GROUP = 8;
+const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
 
 async function loadSet() {
   if (set === 'hidden') return (await import('./hiddenSetStore.mjs')).loadHiddenLetters();
@@ -106,7 +109,35 @@ for (const letter of letters) {
   rows.push(compare(letter, await grade(letter.text, await findQuestion(letter.seedQuestionId))));
 }
 
+function toVerdicts(rows) {
+  return Object.fromEntries(rows.map((r) => [r.letter.id, { lp: r.gotLp, kg: r.gotKg, total: r.got }]));
+}
+
+// Paired comparison: which letters moved closer to or further from the examiner, and which Leitpunkt decisions.
+function printPairedChanges(rows, baseline) {
+  const tally = { letters: { better: 0, worse: 0 }, leitpunkte: { better: 0, worse: 0 } };
+  const changed = [];
+  for (const r of rows) {
+    const before = baseline[r.letter.id];
+    if (!before) continue;
+    const delta = Math.abs(before.total - r.want) - Math.abs(r.diff);
+    if (delta > 0) tally.letters.better += 1;
+    if (delta < 0) tally.letters.worse += 1;
+    r.gotLp.forEach((level, i) => {
+      const was = before.lp[i] === r.letter.expected.lp[i];
+      const is = level === r.letter.expected.lp[i];
+      if (is && !was) tally.leitpunkte.better += 1;
+      if (was && !is) tally.leitpunkte.worse += 1;
+    });
+    if (delta !== 0) changed.push(`${delta > 0 ? '+' : '-'} ${r.letter.id.padEnd(22)} ${r.letter.category.padEnd(13)} lp ${before.lp.join('')} -> ${r.gotLp.join('')} exp=${r.letter.expected.lp.join('')} total ${before.total} -> ${r.got} / ${r.want}`);
+  }
+  console.log(`\nPaired with baseline: letters ${tally.letters.better} closer, ${tally.letters.worse} further; Leitpunkt decisions ${tally.leitpunkte.better} fixed, ${tally.leitpunkte.worse} broken`);
+  changed.forEach((line) => console.log(line));
+}
+
 console.log(`Schreiben eval · ${set} set · ${useRanker ? 'Micro-Ranker (EmbeddingGemma)' : 'limited mode'}`);
 if (set === 'open') printLetters(rows);
 console.table(summarize(rows));
 printGroups(rows);
+if (set === 'open' && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
+if (set === 'open' && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');
