@@ -1,0 +1,185 @@
+{
+  "task": "s4-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte Ihre Ferienwohnung mieten.",
+        "Wir möchten die Ferienwohnung im Sommer buchen.",
+        "Wir suchen eine Unterkunft am Meer und Ihre Wohnung gefällt uns.",
+        "Ich möchte die Meeresbrise für meine Familie reservieren.",
+        "Wir wollen in den Ferien gern in Ihrem Apartment wohnen.",
+        "Ist Ihre Wohnung im Juli noch frei? Wir möchten sie nehmen.",
+        "Ich mochte Ihre Ferienwohnung mieten.",
+        "Wir möchten bei Sie Urlaub machen."
+      ],
+      "misses": {
+        "refusal": [
+          "Wir möchten die Ferienwohnung nicht mieten.",
+          "Wir machen dieses Jahr keinen Urlaub."
+        ],
+        "opposite": [
+          "Ich möchte meine Buchung für die Ferienwohnung stornieren.",
+          "Ich habe auch eine Ferienwohnung an der Ostsee und vermiete sie."
+        ],
+        "past": [
+          "Letzten Sommer waren wir in Ihrer Ferienwohnung.",
+          "Wir haben schon 2023 bei Ihnen Urlaub gemacht."
+        ],
+        "vague": [
+          "Ich liebe das Meer.",
+          "Die Ostsee ist sehr schön."
+        ],
+        "otherTopic": [
+          "Meine Freundin möchte eine Wohnung in Berlin mieten.",
+          "Wir möchten im Sommer Urlaub in Spanien machen."
+        ]
+      }
+    },
+    "lp2:Personen": {
+      "fulfils": [
+        "Wir sind vier Personen.",
+        "Wir kommen zu viert.",
+        "Ich komme mit meinem Mann und zwei Kindern.",
+        "Meine Frau, mein Sohn und ich möchten kommen.",
+        "Wir sind zwei Erwachsene und ein Baby.",
+        "Es kommen fünf Leute.",
+        "Wir sind 2 Erwachsene und 3 Kind.",
+        "Ich komme mit mein Mann und meine Tochter."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich komme nicht mit meiner Familie.",
+          "Wie viele Leute kommen, sage ich später nicht."
+        ],
+        "opposite": [
+          "Für wie viele Personen ist die Wohnung?",
+          "Wie viele Betten hat die Wohnung?"
+        ],
+        "past": [
+          "Letztes Jahr waren wir sechs Personen.",
+          "Früher bin ich immer allein gefahren."
+        ],
+        "vague": [
+          "Ich habe eine große Familie.",
+          "Wir sind nicht viele."
+        ],
+        "otherTopic": [
+          "In meinem Deutschkurs sind zwölf Personen.",
+          "Meine Schwester hat drei Kinder."
+        ]
+      }
+    },
+    "lp2:Zeitraum": {
+      "fulfils": [
+        "Wir möchten vom 1. bis 14. Juli kommen.",
+        "Wir bleiben zwei Wochen im August.",
+        "Wir kommen am 20. Juli und fahren am 3. August wieder.",
+        "Wir haben vom 5. bis 19. August Ferien und möchten dann kommen.",
+        "Wir brauchen die Wohnung für 10 Nächte ab dem 15. Juli.",
+        "Wir möchten Ende Juni eine Woche bleiben.",
+        "Wir möchten von 1. bis 10. August komme.",
+        "Wir bleiben zwei Woche im Juli."
+      ],
+      "misses": {
+        "refusal": [
+          "Im Juli können wir nicht kommen.",
+          "Wir bleiben nicht lange."
+        ],
+        "opposite": [
+          "Wann ist die Wohnung frei?",
+          "Ist die Wohnung im Juli frei?"
+        ],
+        "past": [
+          "Letzten Sommer waren wir zwei Wochen an der Ostsee.",
+          "Im August 2024 war ich in Kiel."
+        ],
+        "vague": [
+          "Wir haben bald Urlaub.",
+          "Im Sommer haben wir Zeit."
+        ],
+        "otherTopic": [
+          "Meine Eltern fahren vom 1. bis 14. Juli nach Italien.",
+          "Mein Deutschkurs geht vom 1. bis 20. Juli."
+        ]
+      }
+    },
+    "lp3:Preis": {
+      "fulfils": [
+        "Was kostet die Wohnung?",
+        "Wie teuer ist eine Nacht?",
+        "Wie viel müssen wir bezahlen?",
+        "Können Sie mir sagen, wie viel zwei Wochen kosten?",
+        "Bitte schreiben Sie mir, wie viel die Woche kostet.",
+        "Was müssen wir für 14 Tage zahlen?",
+        "Wie viel kostet Wohnung pro Nacht?",
+        "Was kosten die Wohnung?"
+      ],
+      "misses": {
+        "refusal": [
+          "Der Preis ist uns egal.",
+          "Das Geld ist kein Problem für uns."
+        ],
+        "opposite": [
+          "Wir können 80 Euro pro Nacht bezahlen.",
+          "Die Wohnung kostet 90 Euro, das habe ich im Internet gelesen."
+        ],
+        "past": [
+          "Letztes Jahr hat die Wohnung 70 Euro pro Nacht gekostet.",
+          "Ich habe schon die Anzahlung bezahlt."
+        ],
+        "vague": [
+          "Wir haben nicht viel Geld.",
+          "Urlaub ist teuer."
+        ],
+        "otherTopic": [
+          "Was kostet die Zugfahrt an die Ostsee?",
+          "Wie teuer ist das Restaurant am Strand?"
+        ]
+      }
+    },
+    "lp3:Haustiere": {
+      "fulfils": [
+        "Sind Haustiere erlaubt?",
+        "Dürfen wir unseren Hund mitbringen?",
+        "Kann unsere Katze mitkommen?",
+        "Wir haben einen kleinen Hund. Ist das ein Problem?",
+        "Ist ein Hund in der Wohnung okay?",
+        "Darf unser Hund auch in der Wohnung schlafen?",
+        "Darf wir unser Hund mitbringen?",
+        "Kann ich mein Katze mitnehmen?"
+      ],
+      "misses": {
+        "refusal": [
+          "Wir haben keine Haustiere.",
+          "Wir bringen keinen Hund mit."
+        ],
+        "opposite": [
+          "Wir bringen unseren Hund mit.",
+          "Ich weiß, Hunde sind bei Ihnen erlaubt."
+        ],
+        "past": [
+          "Letztes Jahr war unser Hund mit im Urlaub.",
+          "Wir hatten früher eine Katze."
+        ],
+        "vague": [
+          "Wir lieben Tiere.",
+          "Unsere Kinder spielen gern mit Tieren."
+        ],
+        "otherTopic": [
+          "Sind Hunde im Restaurant erlaubt?",
+          "Darf man am Strand grillen?"
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Ich habe in Ihrer Ferienwohnung meine Jacke vergessen.",
+    "Ich möchte meine Buchung für Juli stornieren.",
+    "Vielen Dank für den schönen Urlaub an der Ostsee!",
+    "Wir kommen am Samstag erst um 22 Uhr an.",
+    "In der Ferienwohnung ist die Dusche kaputt.",
+    "Ich möchte bitte die Rechnung für unseren Urlaub haben.",
+    "Gibt es in der Nähe einen Supermarkt?",
+    "Wir möchten unseren Aufenthalt um zwei Tage verlängern."
+  ]
+}
