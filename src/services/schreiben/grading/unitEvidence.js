@@ -79,7 +79,7 @@ function purposeScaleOf(taskBank) {
     const meanMargin = (phrases) => phrases.reduce((s, v) => s + rawPurposeMargin(v, apart(v, fulfils), apart(v, taskBank.otherPurpose)), 0) / phrases.length;
     const onPurpose = meanMargin(fulfils);
     const offPurpose = meanMargin(taskBank.otherPurpose);
-    purposeScales.set(taskBank, { middle: (onPurpose + offPurpose) / 2, spread: onPurpose - offPurpose || 1 });
+    purposeScales.set(taskBank, { fulfils, middle: (onPurpose + offPurpose) / 2, spread: onPurpose - offPurpose || 1 });
   }
   return purposeScales.get(taskBank);
 }
@@ -90,8 +90,7 @@ function purposeScaleOf(taskBank) {
  * differ from bank to bank, so only this scale carries over to a task the heads were not trained on.
  */
 export function purposeMargin(vector, taskBank) {
-  const fulfils = Object.values(taskBank.units).flatMap((unit) => unit.fulfils);
-  const { middle, spread } = purposeScaleOf(taskBank);
+  const { fulfils, middle, spread } = purposeScaleOf(taskBank);
   return (rawPurposeMargin(vector, fulfils, taskBank.otherPurpose) - middle) / spread;
 }
 

@@ -14,6 +14,8 @@
 import fs from 'node:fs';
 import { gradeSchreibenSubmission } from '../../src/services/schreiben/gradingPipeline.js';
 import { expectedTotal, validateLetters } from './letterSchema.mjs';
+import { canReviewPurpose } from '../../src/services/schreiben/grading/purposeReview.js';
+import { resolveLevelContext } from '../../src/services/schreiben/levelContext.js';
 
 const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url);
 const set = process.argv.includes('--hidden') ? 'hidden' : 'open';
@@ -146,9 +148,12 @@ function printPairedChanges(rows, baseline) {
 }
 
 // Pair by pair, with the review against without it: Leitpunkt decisions fixed / broken, letters closer / further,
-// 2↔0 errors, voids of letters the examiner credited.
+// 2↔0 errors, voids of letters the examiner credited, and the voids the review adds: catches where the examiner gave
+// every Leitpunkt 0 (invisible in fixed / broken when the keyword levels were 0 already), false voids otherwise.
+const reviewable = (rows) => rows.filter((r) => canReviewPurpose(r.letter.seedQuestionId, resolveLevelContext('A1').policy)).length;
+
 function printShadowComparison(before, after) {
-  const t = { fixed: 0, broken: 0, closer: 0, further: 0, twoZero: [0, 0], falseVoids: [0, 0] };
+  const t = { fixed: 0, broken: 0, closer: 0, further: 0, twoZero: [0, 0], falseVoids: [0, 0], addedCatches: 0, addedFalse: 0 };
   before.forEach((b, i) => {
     const a = after[i];
     const want = a.letter.expected.lp;
@@ -160,6 +165,10 @@ function printShadowComparison(before, after) {
     const delta = Math.abs(b.diff) - Math.abs(a.diff);
     if (delta > 0) t.closer += 1;
     if (delta < 0) t.further += 1;
+    if (a.voided && !b.voided) {
+      if (want.every((l) => l === 0)) t.addedCatches += 1;
+      else t.addedFalse += 1;
+    }
     [b, a].forEach((r, j) => {
       r.gotLp.forEach((level, k) => { if (Math.abs(level - want[k]) === 2) t.twoZero[j] += 1; });
       if (r.voided && want.some((l) => l > 0)) t.falseVoids[j] += 1;
@@ -168,7 +177,9 @@ function printShadowComparison(before, after) {
   const decisions = before.length * 3;
   console.log(`\nShadow · purpose review vs keyword stage over ${decisions} Leitpunkt decisions: ${t.fixed} fixed, ${t.broken} broken (net ${(((t.fixed - t.broken) / decisions) * 100).toFixed(1)}%)`);
   console.log(`  letters closer to the examiner ${t.closer}, further ${t.further}`);
-  console.log(`  2↔0 errors: keyword ${t.twoZero[0]}, review ${t.twoZero[1]} · Leitpunkte void where the examiner credited some: keyword ${t.falseVoids[0]}, review ${t.falseVoids[1]}`);
+  console.log(`  2↔0 errors: keyword ${t.twoZero[0]}, review ${t.twoZero[1]} · letters void although the examiner credited a Leitpunkt: keyword ${t.falseVoids[0]}, review ${t.falseVoids[1]}`);
+  console.log(`  voids the review adds: ${t.addedCatches} where the examiner gave every Leitpunkt 0, ${t.addedFalse} where the examiner credited some`);
+  console.log(`  letters the review could read (trained head, example bank): ${reviewable(before)} of ${before.length}`);
 }
 
 function printEngine(label, rows) {
