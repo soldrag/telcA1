@@ -10,3 +10,11 @@
 - [ ] Neural evidence may anchor the topic, so a paraphrase without rubric words is not voided as `OFF_TOPIC`.
 - [ ] Negation: perfect tense and split separable verbs (`PART_PAST` vs `VERB_PART`), negated reason and state points.
 - [ ] Drop generic rubric keywords (`zeit`, `machen`, `kommen`, `wann`, `können`, `geht`, `gibt`).
+
+## Grading transparency (design + architecture)
+
+- [ ] Show how the letter was judged, step by step, in the results screen: the letter's sentences, which Leitpunkt each one serves or contradicts and how strongly (the evidence heads' probabilities), the closest example phrases it was compared with, the off-task decision, and how levels became points under the regulation. Dynamic and explained in plain words (what is done, how, why), informative and pleasant to look at; it must stay readable on a phone and in both themes. Needs a designer for the visual language and an architect for the data the grader exposes (a stable, language-neutral "judgement trace" in the grading result, rendered at display time like the examiner feedback).
+
+## Later
+
+- [ ] Optional local LLM as a "deep check" (e.g. Gemma 3 1B / Qwen3 0.6B via WebGPU, downloaded only on request): first compare it with the evidence heads on the calibration, held-out, adversarial and purpose sets; adopt only if it is clearly better on traps and off-task letters.
