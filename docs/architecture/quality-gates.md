@@ -46,6 +46,10 @@ Letters written and graded by examiner personas who never saw the engine, the ru
 - **Calibration data** (`scripts/eval/calibration/`, never open or hidden letters): sentences labelled per unit (`sentences-*.json`) train the sentence heads; letters with Leitpunkt levels from two examiners (`letters-levels-*.json`, 96% agreement) and on/off-purpose letters (`letters-purpose.json`) train the review. Both trainers report leave one task out with thresholds chosen inside the fold; the hidden set is looked at once per change, with the go rule written into the commit before the run.
 - New hidden batches: write the JSON into the staging folder named in `scripts/eval/hiddenSetStore.mjs` and run `node scripts/eval/seal-hidden.mjs <batch>` (validates, encrypts with the public key, deletes the plain file). The PreToolUse hook `.claude/hooks/guard-hidden-set.mjs` stops agents from reading a staged batch or the private key.
 
+### Version
+
+Every pull request into main raises the version in `package.json` (and `package-lock.json`): `npm version <x.y.z> --no-git-tag-version`; a change in grading or a new feature raises the minor number, a fix the patch number. The workflow `.github/workflows/version-bump.yml` fails a pull request whose version is not higher than main's.
+
 ## Command reference
 
 | Command | What |
