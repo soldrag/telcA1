@@ -1,124 +1,1450 @@
 [
-{"task":"s5-q6","text":"Ich bin krank und kann nicht kommen.","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich habe Fieber und Kopfschmerzen.","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Leider ich bin krank.","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich habe eine Grippe, der Arzt sagt ich muss im Bett bleiben.","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Mein Bauch tut sehr weh, ich war bei Arzt.","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich schreibe Ihnen, weil ich bin krank.","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich kann heute und morgen nicht kommen.","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich komme zwei Tage nicht in den Kurs.","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Am Freitag ich komme wieder in den Kurs.","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich fehle diese zwei Tage.","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Heute und morgen ich bin nicht im Unterricht.","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Übermorgen ich bin wieder da.","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Können Sie mir bitte die Hausaufgaben per E-Mail schicken?","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Bitte schreiben Sie mir die Hausaufgabe in E-Mail.","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Was ist die Hausaufgaben? Bitte mailen Sie mir.","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich möchte gern die Aufgaben für zu Hause per Mail bekommen.","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Können Sie mir bitte schicken, was wir machen müssen für zu Hause?","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Bitte senden Sie die Arbeitsblätter an meine E-Mail Adresse.","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich bin krank, deshalb ich kann heute und morgen nicht kommen.","labels":{"lp1":"support","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich habe Fieber, bitte schicken Sie mir die Hausaufgaben per E-Mail.","labels":{"lp1":"support","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich bin zwei Tage nicht da, können Sie mir die Hausaufgaben mailen?","labels":{"lp1":"none","lp2":"support","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"Wegen Erkältung ich bleibe heute und morgen zu Hause.","labels":{"lp1":"support","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich bin nicht krank, aber ich komme nicht.","labels":{"lp1":"contradict","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Mir geht es gut, ich bin gesund.","labels":{"lp1":"contradict","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Bitte schicken Sie mir keine Hausaufgaben.","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich brauche die Hausaufgaben nicht, ich mache später.","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich kann Ihnen die Hausaufgaben per E-Mail schicken.","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich komme heute und morgen in den Kurs.","labels":{"lp1":"none","lp2":"contradict","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Morgen ich bin auf jeden Fall im Kurs.","labels":{"lp1":"none","lp2":"contradict","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich hole die Hausaufgaben nächste Woche selbst, Sie müssen nicht mailen.","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s5-q6","text":"Frau Berg, wann ist die Prüfung in der nächste Monat?","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s5-q6","text":"Können Sie mir sagen, wo ich das Buch kaufen kann?","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s5-q6","text":"Ich möchte in den Abendkurs wechseln.","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s5-q6","text":"Mein Sohn möchte auch Deutsch lernen, gibt es Platz im Kurs?","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s5-q6","text":"Wie geht es Ihnen?","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s5-q6","text":"Ich bin Olena aus dem A1-Kurs am Vormittag.","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s5-q6","text":"Vielen Dank für Ihre Hilfe.","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s5-q6","text":"Ich habe eine Problem mit dem Kurs diese Woche.","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Leider ist diese Woche nicht so gut für mich.","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"Ich muss Ihnen etwas sagen wegen den Unterricht.","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-
-{"task":"s6-q6","text":"Ich möchte ein Zimmer reservieren.","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich suche ein Doppelzimmer in Ihre Hotel für mein Urlaub.","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Haben Sie ein Zimmer frei für mich und meine Frau?","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich will bei Ihnen ein Einzelzimmer buchen.","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir kommen am 3. August an.","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich bin ab dem zehnte August in Garmisch.","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Die Anreise ist am Samstag, 12.08.","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir möchten Anfang August kommen.","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir bleiben eine Woche.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich möchte fünf Nächte bleiben.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Zehn Tage wir sind im Urlaub bei Ihnen.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir sind zwei Wochen da, nicht mehr.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Gibt es Frühstück im Hotel?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ist das Frühstück in dem Preis inklusive?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Kann man morgens im Hotel essen, mit Brot und Kaffee?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Haben Sie einen Parkplatz für mein Auto?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"support"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir kommen mit Auto, wo können wir parken?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"support"},"purpose":"task"},
-{"task":"s6-q6","text":"Kostet die Garage für das Auto extra?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"support"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir kommen am 5. August und bleiben eine Woche.","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich möchte ein Zimmer buchen ab 1. August.","labels":{"lp1":"support","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Gibt es Frühstück und Parkplatz bei Ihnen?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"support"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich möchte ein Zimmer für drei Nächte reservieren.","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich möchte kein Zimmer buchen.","labels":{"lp1":"contradict","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Bitte stornieren Sie meine Reservierung.","labels":{"lp1":"contradict","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir brauchen kein Frühstück, wir essen in Stadt.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"contradict","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ohne Frühstück bitte, das ist nicht wichtig.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"contradict","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir haben kein Auto, wir brauchen keinen Parkplatz.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"contradict"},"purpose":"task"},
-{"task":"s6-q6","text":"Parkplatz ist egal für uns, wir fragen nicht.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"contradict"},"purpose":"task"},
-{"task":"s6-q6","text":"Wir kommen nicht im August, wir kommen erst im Oktober.","labels":{"lp1":"none","lp2:Wann":"contradict","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ich weiß noch nicht, wie lange wir bleiben.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"contradict","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Gibt es in Garmisch einen Bus zur Zugspitze?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"other"},
-{"task":"s6-q6","text":"Darf ich meinen Hund mitbringen?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"other"},
-{"task":"s6-q6","text":"Ist das Hotel weit von dem Bahnhof?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"other"},
-{"task":"s6-q6","text":"Haben Sie WLAN in die Zimmer?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"other"},
-{"task":"s6-q6","text":"Ich heiße Mehmet Yılmaz und wohne in Dortmund.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"neutral"},
-{"task":"s6-q6","text":"Danke für Ihre Antwort.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"neutral"},
-{"task":"s6-q6","text":"Ich hoffe, es geht Ihnen gut.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"neutral"},
-{"task":"s6-q6","text":"Wir lieben die Berge sehr.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Im Sommer wir haben Urlaub.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"Ihr Hotel ist sehr schön auf den Fotos.","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-
-{"task":"s7-q6","text":"Ich habe Ihre Anzeige gesehen und die Wohnung interessiert mich.","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich interessiere mich für die 2-Zimmer-Wohnung in Köln.","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ist die Wohnung noch frei? Ich möchte sie mieten.","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich schreibe wegen die Wohnung in Internet.","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ihre Wohnung gefällt mir, ich möchte gern dort wohnen.","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich wohne mit meinem Mann zusammen.","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Wir sind zwei Personen, ich und meine Tochter.","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"In die Wohnung wohnen ich und meine Frau.","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich lebe allein, ohne Kinder und ohne Tiere.","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Wir sind drei: mein Mann, mein Sohn und ich.","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich arbeite als Krankenpfleger im Krankenhaus.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich bin Busfahrerin von Beruf.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich habe eine feste Arbeit bei Firma Bosch, ich bin Elektriker.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Mein Beruf ist Koch.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Kann ich die Wohnung besichtigen?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"Wann kann ich die Wohnung sehen?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"Haben Sie am Samstag Zeit für ein Termin?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich möchte gern die Wohnung anschauen, vielleicht nächste Woche?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich habe Ihre Anzeige gelesen und möchte die Wohnung gern besichtigen.","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich wohne mit meiner Schwester, wir sind beide Verkäuferin.","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich bin Ingenieur und möchte die Wohnung gern ansehen.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"Die Wohnung aus der Anzeige ist für mich und meinen Sohn, sie interessiert mich sehr.","labels":{"lp1":"support","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Die Wohnung interessiert mich nicht.","labels":{"lp1":"contradict","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich suche keine Wohnung mehr.","labels":{"lp1":"contradict","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich möchte die Wohnung nicht besichtigen.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s7-q6","text":"Wir brauchen keinen Termin, wir kommen nicht.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s7-q6","text":"Mein Beruf ist privat, das schreibe ich nicht.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"contradict","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Über meine Arbeit möchte ich nicht sprechen.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"contradict","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Wer in der Wohnung wohnt, sage ich später, nicht jetzt.","labels":{"lp1":"none","lp2:Personen":"contradict","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich möchte nicht sagen, mit wem ich wohne.","labels":{"lp1":"none","lp2:Personen":"contradict","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Wie hoch sind die Nebenkosten?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"other"},
-{"task":"s7-q6","text":"Gibt es einen Balkon in der Wohnung?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"other"},
-{"task":"s7-q6","text":"Darf man in der Wohnung eine Katze haben?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"other"},
-{"task":"s7-q6","text":"Ist die Wohnung in der Nähe von eine Schule?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"other"},
-{"task":"s7-q6","text":"Ich heiße Thi Lan Nguyen, ich bin 32 Jahre alt.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s7-q6","text":"Vielen Dank im Voraus.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s7-q6","text":"Ich hoffe, Sie haben eine schöne Woche.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s7-q6","text":"Köln ist eine schöne Stadt.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Ich brauche bald eine neue Wohnung.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"Meine alte Wohnung ist zu klein.","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"}
+  {
+    "task": "s5-q6",
+    "text": "Ich bin krank und kann nicht kommen.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich habe Fieber und Kopfschmerzen.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Leider ich bin krank.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich habe eine Grippe, der Arzt sagt ich muss im Bett bleiben.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Mein Bauch tut sehr weh, ich war bei Arzt.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich schreibe Ihnen, weil ich bin krank.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich kann heute und morgen nicht kommen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich komme zwei Tage nicht in den Kurs.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Am Freitag ich komme wieder in den Kurs.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich fehle diese zwei Tage.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Heute und morgen ich bin nicht im Unterricht.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Übermorgen ich bin wieder da.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Können Sie mir bitte die Hausaufgaben per E-Mail schicken?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Bitte schreiben Sie mir die Hausaufgabe in E-Mail.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Was ist die Hausaufgaben? Bitte mailen Sie mir.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich möchte gern die Aufgaben für zu Hause per Mail bekommen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Können Sie mir bitte schicken, was wir machen müssen für zu Hause?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Bitte senden Sie die Arbeitsblätter an meine E-Mail Adresse.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich bin krank, deshalb ich kann heute und morgen nicht kommen.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich habe Fieber, bitte schicken Sie mir die Hausaufgaben per E-Mail.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich bin zwei Tage nicht da, können Sie mir die Hausaufgaben mailen?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Wegen Erkältung ich bleibe heute und morgen zu Hause.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich bin nicht krank, aber ich komme nicht.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Mir geht es gut, ich bin gesund.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Bitte schicken Sie mir keine Hausaufgaben.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich brauche die Hausaufgaben nicht, ich mache später.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich kann Ihnen die Hausaufgaben per E-Mail schicken.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich komme heute und morgen in den Kurs.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ]
+  },
+  {
+    "task": "s5-q6",
+    "text": "Morgen ich bin auf jeden Fall im Kurs.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich hole die Hausaufgaben nächste Woche selbst, Sie müssen nicht mailen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Frau Berg, wann ist die Prüfung in der nächste Monat?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Können Sie mir sagen, wo ich das Buch kaufen kann?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich möchte in den Abendkurs wechseln.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Mein Sohn möchte auch Deutsch lernen, gibt es Platz im Kurs?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Wie geht es Ihnen?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich bin Olena aus dem A1-Kurs am Vormittag.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Vielen Dank für Ihre Hilfe.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich habe eine Problem mit dem Kurs diese Woche.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Leider ist diese Woche nicht so gut für mich.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "Ich muss Ihnen etwas sagen wegen den Unterricht.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich möchte ein Zimmer reservieren.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich suche ein Doppelzimmer in Ihre Hotel für mein Urlaub.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Haben Sie ein Zimmer frei für mich und meine Frau?",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich will bei Ihnen ein Einzelzimmer buchen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir kommen am 3. August an.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich bin ab dem zehnte August in Garmisch.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Die Anreise ist am Samstag, 12.08.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir möchten Anfang August kommen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir bleiben eine Woche.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich möchte fünf Nächte bleiben.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Zehn Tage wir sind im Urlaub bei Ihnen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir sind zwei Wochen da, nicht mehr.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Gibt es Frühstück im Hotel?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ist das Frühstück in dem Preis inklusive?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Kann man morgens im Hotel essen, mit Brot und Kaffee?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Haben Sie einen Parkplatz für mein Auto?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir kommen mit Auto, wo können wir parken?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Kostet die Garage für das Auto extra?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir kommen am 5. August und bleiben eine Woche.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich möchte ein Zimmer buchen ab 1. August.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Gibt es Frühstück und Parkplatz bei Ihnen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich möchte ein Zimmer für drei Nächte reservieren.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich möchte kein Zimmer buchen.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Bitte stornieren Sie meine Reservierung.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir brauchen kein Frühstück, wir essen in Stadt.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "contradict",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ohne Frühstück bitte, das ist nicht wichtig.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "contradict",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir haben kein Auto, wir brauchen keinen Parkplatz.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Parkplatz ist egal für uns, wir fragen nicht.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir kommen nicht im August, wir kommen erst im Oktober.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "contradict",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich weiß noch nicht, wie lange wir bleiben.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "contradict",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Gibt es in Garmisch einen Bus zur Zugspitze?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Darf ich meinen Hund mitbringen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ist das Hotel weit von dem Bahnhof?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Haben Sie WLAN in die Zimmer?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich heiße Mehmet Yılmaz und wohne in Dortmund.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Danke für Ihre Antwort.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ich hoffe, es geht Ihnen gut.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Wir lieben die Berge sehr.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s6-q6",
+    "text": "Im Sommer wir haben Urlaub.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "Ihr Hotel ist sehr schön auf den Fotos.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich habe Ihre Anzeige gesehen und die Wohnung interessiert mich.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich interessiere mich für die 2-Zimmer-Wohnung in Köln.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ist die Wohnung noch frei? Ich möchte sie mieten.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich schreibe wegen die Wohnung in Internet.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ihre Wohnung gefällt mir, ich möchte gern dort wohnen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich wohne mit meinem Mann zusammen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Wir sind zwei Personen, ich und meine Tochter.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "In die Wohnung wohnen ich und meine Frau.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich lebe allein, ohne Kinder und ohne Tiere.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Wir sind drei: mein Mann, mein Sohn und ich.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich arbeite als Krankenpfleger im Krankenhaus.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich bin Busfahrerin von Beruf.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich habe eine feste Arbeit bei Firma Bosch, ich bin Elektriker.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Mein Beruf ist Koch.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Kann ich die Wohnung besichtigen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Wann kann ich die Wohnung sehen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Haben Sie am Samstag Zeit für ein Termin?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich möchte gern die Wohnung anschauen, vielleicht nächste Woche?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich habe Ihre Anzeige gelesen und möchte die Wohnung gern besichtigen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich wohne mit meiner Schwester, wir sind beide Verkäuferin.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich bin Ingenieur und möchte die Wohnung gern ansehen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Die Wohnung aus der Anzeige ist für mich und meinen Sohn, sie interessiert mich sehr.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Die Wohnung interessiert mich nicht.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich suche keine Wohnung mehr.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich möchte die Wohnung nicht besichtigen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Wir brauchen keinen Termin, wir kommen nicht.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Mein Beruf ist privat, das schreibe ich nicht.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Über meine Arbeit möchte ich nicht sprechen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Wer in der Wohnung wohnt, sage ich später, nicht jetzt.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "contradict",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich möchte nicht sagen, mit wem ich wohne.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "contradict",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Wie hoch sind die Nebenkosten?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Gibt es einen Balkon in der Wohnung?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Darf man in der Wohnung eine Katze haben?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ist die Wohnung in der Nähe von eine Schule?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich heiße Thi Lan Nguyen, ich bin 32 Jahre alt.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Vielen Dank im Voraus.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich hoffe, Sie haben eine schöne Woche.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Köln ist eine schöne Stadt.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s7-q6",
+    "text": "Ich brauche bald eine neue Wohnung.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "Meine alte Wohnung ist zu klein.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  }
 ]

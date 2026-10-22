@@ -87,14 +87,24 @@ function deterministicFeatures(task, unitKey, text) {
   return { lexical, structured, negated };
 }
 
+// A calibration sentence that nearly repeats a bank phrase would test the bank on itself.
+const NEAR_DUPLICATE = 0.95;
+const dropped = { duplicates: 0 };
+function repeatsBank(vec, bank) {
+  const phrases = [...Object.values(bank.units).flatMap((u) => [...u.fulfils, ...Object.values(u.misses).flat()]), ...bank.otherPurpose];
+  return phrases.some((p) => p.reduce((s, x, i) => s + x * vec[i], 0) > NEAR_DUPLICATE);
+}
+
 async function featureRows(items) {
   const rows = [];
   for (const item of items) {
     const bank = banks[item.task];
     if (!bank) continue;
     const vec = await embed(item.text);
+    if (repeatsBank(vec, bank)) { dropped.duplicates += 1; continue; }
     for (const [unitKey, label] of Object.entries(item.labels)) {
-      if (!bank.units[unitKey]) continue;
+      // Units the second examiner labelled differently are left out of training and evaluation.
+      if (!bank.units[unitKey] || item.disputed?.includes(unitKey)) continue;
       const rivalFulfils = Object.entries(bank.units).filter(([k]) => k.split(':')[0] !== unitKey.split(':')[0]).flatMap(([, u]) => u.fulfils);
       const features = computeEvidenceFeatures(vec, bank.units[unitKey], {
         rivalFulfils, otherPurpose: bank.otherPurpose, neutral: neutralVecs, ...deterministicFeatures(item.task, unitKey, item.text),
@@ -146,16 +156,15 @@ function report(name, rows, scorer) {
 
 // --- data -----------------------------------------------------------------------------------------------------------
 const loadSentences = (file) => (fs.existsSync(new URL(file, CALIBRATION_DIR)) ? readJson(new URL(file, CALIBRATION_DIR)) : []);
-const agreed = (items) => items.filter((it) => it.agreed !== false);
-const trainItems = agreed([...loadSentences('sentences-b1.json'), ...loadSentences('sentences-b2.json')]);
+const trainItems = [...loadSentences('sentences-b1.json'), ...loadSentences('sentences-b2.json')];
 const augmented = [...trainItems, ...trainItems.map((it, i) => ({ ...it, text: learnerVariant(it.text, { seed: 1000 + i }) }))];
 const trainRows = await featureRows(augmented);
-const heldoutRows = await featureRows(agreed(loadSentences('sentences-heldout.json')));
-const adversarialRows = await featureRows(agreed(loadSentences('sentences-adversarial.json')));
+const heldoutRows = await featureRows(loadSentences('sentences-heldout.json'));
+const adversarialRows = await featureRows(loadSentences('sentences-adversarial.json'));
 fs.mkdirSync(path.dirname(cacheFile), { recursive: true });
 fs.writeFileSync(cacheFile, JSON.stringify(cache));
 
-console.log(`Embedding: ${embeddingKind} · train ${trainItems.length} sentences (+ learner variants), ${trainRows.length} unit pairs`);
+console.log(`Embedding: ${embeddingKind} · train ${trainItems.length} sentences (+ learner variants), ${trainRows.length} unit pairs · ${dropped.duplicates} near-duplicates of bank phrases left out`);
 const rule = { support: ruleSupport, contradict: ruleContradict };
 const cvScores = { support: [], contradict: [] };
 for (const task of Object.keys(banks)) {

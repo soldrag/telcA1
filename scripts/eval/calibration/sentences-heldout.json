@@ -1,148 +1,1713 @@
 [
-{"task":"s1-q6","text":"ich mochte gern bei ihnen deutschkurs machen weil mein deutsch ist nicht so gut fur arbeit","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"ich will in ihre schule deutsch lernen das ist mein wunsch schon lange","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"ab 3 august habe ich zeit vorher nicht","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"geht erste woche august?","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"so vier wochen ist gut fur mich nicht mehr bitte","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"ich habe nur zwei wochen urlaub also auch nur zwei wochen kurs ok","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"was kostet das alles zusammen mit bucher","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"support","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"wie viel muss ich bezahlen fur kurs ist teuer? ich habe nicht so viel money","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"support","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"wie kann ich mich anmelden online oder muss ich personlich kommen","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"support"},"purpose":"task"},
-{"task":"s1-q6","text":"ich mochte ab 10 august kommen fur drei wochen","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"support","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"wo kann ich anmelden und was kostet bitte schreiben sie mir","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"support","lp3:Anmeldung":"support"},"purpose":"task"},
-{"task":"s1-q6","text":"eigentlich brauche ich keine kurs mein deutsch ist schon gut genug","labels":{"lp1":"contradict","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"im august kann ich leider gar nicht da bin ich in polen bei familie","labels":{"lp1":"none","lp2:Wann":"contradict","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"kosten ist mir egal das muss ich nicht wissen","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"contradict","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"anmelden will ich nicht ich komme einfach so am ersten tag","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"contradict"},"purpose":"task"},
-{"task":"s1-q6","text":"haben sie auch englischkurs fur meine tochter sie ist 15","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"other"},
-{"task":"s1-q6","text":"ich habe letzte woche meine tasche im klassenraum vergessen haben sie die gefunden","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"other"},
-{"task":"s1-q6","text":"viele grusse und schones wochenende dziekuje","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"neutral"},
-{"task":"s1-q6","text":"ich schreibe wegen das ding mit august","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-{"task":"s1-q6","text":"das mit der schule sie wissen schon was ich meine","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frage nach den Kurskosten":"none","lp3:Anmeldung":"none"},"purpose":"task"},
-
-{"task":"s2-q6","text":"montag 14 uhr kann ich nicht kommen bitte streichen sie das","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"ich muss termin absagen am montag sorry","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"termin montag bitte cancel ich bin nicht da","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"mein chef sagt ich muss diesen montag arbeiten bis 18 uhr keine chance","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"mein kind ist krank und niemand ist zuhause mit ihm","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"an dem tag habe ich termin beim jobcenter um zwei","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"geht dienstag?","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s2-q6","text":"vielleicht nachste woche donnerstag morgen haben sie zeit fur mich","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s2-q6","text":"bitte geben sie mir neue termin egal wann nur nicht vormittag","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s2-q6","text":"ich kann montag nicht kommen weil mein auto ist kaputt und bus fahrt nicht","labels":{"lp1":"support","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"montag geht nicht besser mittwoch nachmittag","labels":{"lp1":"support","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s2-q6","text":"ich komme montag um 14 uhr wie geplant","labels":{"lp1":"contradict","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"warum ich nicht komme ist privat das sage ich nicht","labels":{"lp1":"none","lp2":"contradict","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"ich brauche keine neue termin mehr danke","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s2-q6","text":"montag termin ist super ich bin da kein problem","labels":{"lp1":"contradict","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"kann ich mein rezept fur die tabletten abholen ohne termin","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s2-q6","text":"bitte schicken sie meine befund von blut an meine e-mail","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s2-q6","text":"mit freundlichen grussen ahmed","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s2-q6","text":"wegen montag","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s2-q6","text":"ich schreibe wegen meine sache bei ihnen in der praxis","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-
-{"task":"s3-q6","text":"die heizung geht nicht mehr seit gestern","labels":{"lp1":"support","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"heizung kaputt total kaputt","labels":{"lp1":"support","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"in meine wohnung die heizung funktioniert nicht","labels":{"lp1":"support","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"meine kinder frieren wir sitzen mit jacke im wohnzimmer und schlafen mit mutze","labels":{"lp1":"none","lp2":"support","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"es klopft immer in die rohre ganz laut in der nacht","labels":{"lp1":"none","lp2":"support","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"das ventil am heizkorper dreht sich nicht mehr und unten tropft wasser","labels":{"lp1":"none","lp2":"support","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"konnen sie bitte einen handwerker schicken","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"support","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"bitte jemand soll kommen und reparieren so ein monteur oder fachmann","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"support","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"morgen ab 15 uhr bin ich zuhause fur die reparatur","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"support"},"purpose":"task"},
-{"task":"s3-q6","text":"heizung ist kaputt bitte schicken sie schnell ein handwerker","labels":{"lp1":"support","lp2":"none","lp3:Handwerker":"support","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"der handwerker soll bitte am freitag vormittag kommen","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"support","lp3:Reparaturtermin":"support"},"purpose":"task"},
-{"task":"s3-q6","text":"die heizung funktioniert wieder alles gut","labels":{"lp1":"contradict","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"keine handwerker bitte mein schwager macht das selbst","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"contradict","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"einen termin fur reparatur will ich nicht machen","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"contradict"},"purpose":"task"},
-{"task":"s3-q6","text":"heizung ist ok problem ist nur das fenster","labels":{"lp1":"contradict","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"darf ich eine katze haben in die wohnung","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"other"},
-{"task":"s3-q6","text":"die nebenkostenabrechnung ist falsch glaube ich zu viel wasser","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"other"},
-{"task":"s3-q6","text":"liebe grusse aus dem zweiten stock","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"neutral"},
-{"task":"s3-q6","text":"wegen die sache in meine wohnung bitte melden","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-{"task":"s3-q6","text":"bei uns ist was nicht in ordnung","labels":{"lp1":"none","lp2":"none","lp3:Handwerker":"none","lp3:Reparaturtermin":"none"},"purpose":"task"},
-
-{"task":"s4-q6","text":"wir wollen gern ihre ferienwohnung mieten","labels":{"lp1":"support","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"wir nehmen die wohnung an der ostsee wenn noch frei","labels":{"lp1":"support","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"wir sind vier mit oma","labels":{"lp1":"none","lp2:Personen":"support","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"zwei erwachsene und drei kinder","labels":{"lp1":"none","lp2:Personen":"support","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"vom 12. bis 26. juli","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"support","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"zwei wochen in die sommerferien so ende juli anfang august","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"support","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"was kostet pro nacht","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"support","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"darf unser hund mit er ist klein und lieb","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"support"},"purpose":"task"},
-{"task":"s4-q6","text":"wir haben katze ist das okay fur sie","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"support"},"purpose":"task"},
-{"task":"s4-q6","text":"wir sind zu zweit und mochten vom 1. bis 8. august kommen","labels":{"lp1":"none","lp2:Personen":"support","lp2:Zeitraum":"support","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"wie teuer ist die woche und durfen hunde rein","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"support","lp3:Haustiere":"support"},"purpose":"task"},
-{"task":"s4-q6","text":"wir mieten die wohnung doch nicht wir fahren nach spanien","labels":{"lp1":"contradict","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"haustiere haben wir keine also das ist egal","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"contradict"},"purpose":"task"},
-{"task":"s4-q6","text":"nach dem preis frage ich nicht das ist egal fur uns","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"contradict","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"wann wir kommen weiss ich nicht ich sage kein datum","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"contradict","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"ich habe im letzten urlaub meine sonnenbrille bei ihnen vergessen","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"other"},
-{"task":"s4-q6","text":"konnen sie mir ein gutes fischrestaurant in der nahe empfehlen","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"other"},
-{"task":"s4-q6","text":"hallo frau hansen ich hoffe es geht ihnen gut","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"neutral"},
-{"task":"s4-q6","text":"wegen urlaub schreibe ich ihnen","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-{"task":"s4-q6","text":"die sache mit dem sommer das ware schon","labels":{"lp1":"none","lp2:Personen":"none","lp2:Zeitraum":"none","lp3:Preis":"none","lp3:Haustiere":"none"},"purpose":"task"},
-
-{"task":"s5-q6","text":"ich bin krank seit heute morgen fieber 39","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"ich habe grippe","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"mir geht es schlecht arzt sagt bleiben im bett","labels":{"lp1":"support","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"bis freitag komme ich nicht","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"die ganze woche bin ich nicht im kurs","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"drei tage wahrscheinlich fehle ich vielleicht auch vier","labels":{"lp1":"none","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"bitte schicken sie mir die hausaufgaben per mail","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"konnen sie hausaufgabe an meine email schicken","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"die aufgaben bitte auf whatsapp nein email ist besser","labels":{"lp1":"none","lp2":"none","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"ich bin krank und kann bis mittwoch nicht kommen","labels":{"lp1":"support","lp2":"support","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"ich fehle zwei tage bitte hausaufgaben per mail","labels":{"lp1":"none","lp2":"support","lp3":"support"},"purpose":"task"},
-{"task":"s5-q6","text":"ich bin nicht krank ich habe nur keine lust","labels":{"lp1":"contradict","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"hausaufgaben brauche ich nicht ich mache spater alles nach","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s5-q6","text":"keine email bitte ich hole die blatter selbst ab","labels":{"lp1":"none","lp2":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s5-q6","text":"ich bin wieder gesund alles gut","labels":{"lp1":"contradict","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"kann ich nachsten monat in den b1 kurs wechseln","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s5-q6","text":"wann ist die prufung fur das zertifikat","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"other"},
-{"task":"s5-q6","text":"liebe frau berg","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s5-q6","text":"es gibt ein problem mit morgen","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-{"task":"s5-q6","text":"ich schreibe kurz wegen dem kurs","labels":{"lp1":"none","lp2":"none","lp3":"none"},"purpose":"task"},
-
-{"task":"s6-q6","text":"ich mochte ein zimmer reservieren bei ihnen","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"haben sie doppelzimmer frei wir nehmen","labels":{"lp1":"support","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"ankunft 14. august","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"geht ab 5. august?","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"fur drei nacht","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"eine woche bleiben wir dann fahren wir weiter nach italien","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"gibt es fruhstuck im preis","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"ist breakfast dabei oder extra","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"wo kann ich mein auto parken hat hotel platz","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"support"},"purpose":"task"},
-{"task":"s6-q6","text":"vom 10. august fur vier nachte","labels":{"lp1":"none","lp2:Wann":"support","lp2:wie lange":"support","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"fruhstuck und parkplatz gibts bei ihnen?","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"support","lp3:Parkplatz":"support"},"purpose":"task"},
-{"task":"s6-q6","text":"ich will doch kein zimmer ich schlafe bei freund","labels":{"lp1":"contradict","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"fruhstuck brauchen wir nicht wir essen drausen","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"contradict","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"wir kommen mit zug parkplatz brauchen wir nicht","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"contradict"},"purpose":"task"},
-{"task":"s6-q6","text":"im august geht nicht erst im september","labels":{"lp1":"none","lp2:Wann":"contradict","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"ich habe meine rechnung von letztes jahr verloren konnen sie nochmal schicken","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"other"},
-{"task":"s6-q6","text":"suchen sie vielleicht mitarbeiter fur die rezeption ich spreche drei sprachen","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"other"},
-{"task":"s6-q6","text":"gruss gott aus bremen","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"neutral"},
-{"task":"s6-q6","text":"wegen august hab ich frage","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-{"task":"s6-q6","text":"ich hab gesehen ihr hotel im internet sieht schon aus","labels":{"lp1":"none","lp2:Wann":"none","lp2:wie lange":"none","lp3:Frühstück":"none","lp3:Parkplatz":"none"},"purpose":"task"},
-
-{"task":"s7-q6","text":"ich habe interesse an die wohnung","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"die 2 zimmer wohnung ist perfekt fur uns wir mochten sie gern","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"wir sind drei ich meine frau und baby","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"ich wohne allein","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"ich arbeite als busfahrer bei kvb","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"bin krankenpflegerin im krankenhaus seit 5 jahre","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"kann ich die wohnung anschauen","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"geht samstag zum besichtigen?","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"wann kann ich vorbeikommen und gucken","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"wir sind zwei ich bin koch und meine frau auch","labels":{"lp1":"none","lp2:Personen":"support","lp2:Beruf":"support","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"die wohnung gefallt mir sehr kann ich besichtigen am montag","labels":{"lp1":"support","lp2:Personen":"none","lp2:Beruf":"none","lp3":"support"},"purpose":"task"},
-{"task":"s7-q6","text":"die wohnung ist zu klein fur uns wir wollen nicht mehr","labels":{"lp1":"contradict","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"besichtigung brauche ich nicht fotos reichen mir","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"contradict"},"purpose":"task"},
-{"task":"s7-q6","text":"was ich arbeite sage ich nicht das ist privat","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"contradict","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"eigentlich suche ich ein haus nicht wohnung","labels":{"lp1":"contradict","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"haben sie auch eine garage zu vermieten","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"other"},
-{"task":"s7-q6","text":"kennen sie eine gute umzugsfirma in koln","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"other"},
-{"task":"s7-q6","text":"guten tag frau neumann","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"neutral"},
-{"task":"s7-q6","text":"wegen der anzeige","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"},
-{"task":"s7-q6","text":"ich schreibe weil mein telefon kaputt ist darum keine anruf","labels":{"lp1":"none","lp2:Personen":"none","lp2:Beruf":"none","lp3":"none"},"purpose":"task"}
+  {
+    "task": "s1-q6",
+    "text": "ich mochte gern bei ihnen deutschkurs machen weil mein deutsch ist nicht so gut fur arbeit",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "ich will in ihre schule deutsch lernen das ist mein wunsch schon lange",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "ab 3 august habe ich zeit vorher nicht",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "geht erste woche august?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "so vier wochen ist gut fur mich nicht mehr bitte",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "ich habe nur zwei wochen urlaub also auch nur zwei wochen kurs ok",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "was kostet das alles zusammen mit bucher",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "wie viel muss ich bezahlen fur kurs ist teuer? ich habe nicht so viel money",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "wie kann ich mich anmelden online oder muss ich personlich kommen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "ich mochte ab 10 august kommen fur drei wochen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "wo kann ich anmelden und was kostet bitte schreiben sie mir",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "eigentlich brauche ich keine kurs mein deutsch ist schon gut genug",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "im august kann ich leider gar nicht da bin ich in polen bei familie",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "contradict",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "kosten ist mir egal das muss ich nicht wissen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "contradict",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "anmelden will ich nicht ich komme einfach so am ersten tag",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "haben sie auch englischkurs fur meine tochter sie ist 15",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "ich habe letzte woche meine tasche im klassenraum vergessen haben sie die gefunden",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "viele grusse und schones wochenende dziekuje",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "ich schreibe wegen das ding mit august",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s1-q6",
+    "text": "das mit der schule sie wissen schon was ich meine",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "montag 14 uhr kann ich nicht kommen bitte streichen sie das",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "ich muss termin absagen am montag sorry",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "termin montag bitte cancel ich bin nicht da",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "mein chef sagt ich muss diesen montag arbeiten bis 18 uhr keine chance",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "mein kind ist krank und niemand ist zuhause mit ihm",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "an dem tag habe ich termin beim jobcenter um zwei",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "geht dienstag?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "vielleicht nachste woche donnerstag morgen haben sie zeit fur mich",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "bitte geben sie mir neue termin egal wann nur nicht vormittag",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "ich kann montag nicht kommen weil mein auto ist kaputt und bus fahrt nicht",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "montag geht nicht besser mittwoch nachmittag",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "ich komme montag um 14 uhr wie geplant",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "warum ich nicht komme ist privat das sage ich nicht",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "ich brauche keine neue termin mehr danke",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "montag termin ist super ich bin da kein problem",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "kann ich mein rezept fur die tabletten abholen ohne termin",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "bitte schicken sie meine befund von blut an meine e-mail",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "mit freundlichen grussen ahmed",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s2-q6",
+    "text": "wegen montag",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s2-q6",
+    "text": "ich schreibe wegen meine sache bei ihnen in der praxis",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "die heizung geht nicht mehr seit gestern",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "heizung kaputt total kaputt",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "in meine wohnung die heizung funktioniert nicht",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "meine kinder frieren wir sitzen mit jacke im wohnzimmer und schlafen mit mutze",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "es klopft immer in die rohre ganz laut in der nacht",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp2"
+    ],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s3-q6",
+    "text": "das ventil am heizkorper dreht sich nicht mehr und unten tropft wasser",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ]
+  },
+  {
+    "task": "s3-q6",
+    "text": "konnen sie bitte einen handwerker schicken",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "bitte jemand soll kommen und reparieren so ein monteur oder fachmann",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "morgen ab 15 uhr bin ich zuhause fur die reparatur",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "heizung ist kaputt bitte schicken sie schnell ein handwerker",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "der handwerker soll bitte am freitag vormittag kommen",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "die heizung funktioniert wieder alles gut",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp2"
+    ]
+  },
+  {
+    "task": "s3-q6",
+    "text": "keine handwerker bitte mein schwager macht das selbst",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "einen termin fur reparatur will ich nicht machen",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "heizung ist ok problem ist nur das fenster",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "darf ich eine katze haben in die wohnung",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "die nebenkostenabrechnung ist falsch glaube ich zu viel wasser",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "liebe grusse aus dem zweiten stock",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "wegen die sache in meine wohnung bitte melden",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s3-q6",
+    "text": "bei uns ist was nicht in ordnung",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wir wollen gern ihre ferienwohnung mieten",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wir nehmen die wohnung an der ostsee wenn noch frei",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wir sind vier mit oma",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "zwei erwachsene und drei kinder",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "vom 12. bis 26. juli",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "zwei wochen in die sommerferien so ende juli anfang august",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "was kostet pro nacht",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "darf unser hund mit er ist klein und lieb",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wir haben katze ist das okay fur sie",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wir sind zu zweit und mochten vom 1. bis 8. august kommen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wie teuer ist die woche und durfen hunde rein",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wir mieten die wohnung doch nicht wir fahren nach spanien",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "haustiere haben wir keine also das ist egal",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "nach dem preis frage ich nicht das ist egal fur uns",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "contradict",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wann wir kommen weiss ich nicht ich sage kein datum",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "contradict",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "ich habe im letzten urlaub meine sonnenbrille bei ihnen vergessen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "konnen sie mir ein gutes fischrestaurant in der nahe empfehlen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "hallo frau hansen ich hoffe es geht ihnen gut",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "wegen urlaub schreibe ich ihnen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s4-q6",
+    "text": "die sache mit dem sommer das ware schon",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich bin krank seit heute morgen fieber 39",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich habe grippe",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "mir geht es schlecht arzt sagt bleiben im bett",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "bis freitag komme ich nicht",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "die ganze woche bin ich nicht im kurs",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "drei tage wahrscheinlich fehle ich vielleicht auch vier",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "bitte schicken sie mir die hausaufgaben per mail",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "konnen sie hausaufgabe an meine email schicken",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "die aufgaben bitte auf whatsapp nein email ist besser",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich bin krank und kann bis mittwoch nicht kommen",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich fehle zwei tage bitte hausaufgaben per mail",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich bin nicht krank ich habe nur keine lust",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "hausaufgaben brauche ich nicht ich mache spater alles nach",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "keine email bitte ich hole die blatter selbst ab",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich bin wieder gesund alles gut",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "kann ich nachsten monat in den b1 kurs wechseln",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "wann ist die prufung fur das zertifikat",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "liebe frau berg",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "es gibt ein problem mit morgen",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s5-q6",
+    "text": "ich schreibe kurz wegen dem kurs",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "ich mochte ein zimmer reservieren bei ihnen",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "haben sie doppelzimmer frei wir nehmen",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "ankunft 14. august",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "geht ab 5. august?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "fur drei nacht",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "eine woche bleiben wir dann fahren wir weiter nach italien",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "gibt es fruhstuck im preis",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "ist breakfast dabei oder extra",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "wo kann ich mein auto parken hat hotel platz",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "vom 10. august fur vier nachte",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "fruhstuck und parkplatz gibts bei ihnen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "ich will doch kein zimmer ich schlafe bei freund",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "fruhstuck brauchen wir nicht wir essen drausen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "contradict",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "wir kommen mit zug parkplatz brauchen wir nicht",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "im august geht nicht erst im september",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "contradict",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "ich habe meine rechnung von letztes jahr verloren konnen sie nochmal schicken",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "suchen sie vielleicht mitarbeiter fur die rezeption ich spreche drei sprachen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "gruss gott aus bremen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "wegen august hab ich frage",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s6-q6",
+    "text": "ich hab gesehen ihr hotel im internet sieht schon aus",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s7-q6",
+    "text": "ich habe interesse an die wohnung",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "die 2 zimmer wohnung ist perfekt fur uns wir mochten sie gern",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "wir sind drei ich meine frau und baby",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "ich wohne allein",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "ich arbeite als busfahrer bei kvb",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "bin krankenpflegerin im krankenhaus seit 5 jahre",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "kann ich die wohnung anschauen",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "geht samstag zum besichtigen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "wann kann ich vorbeikommen und gucken",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "wir sind zwei ich bin koch und meine frau auch",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "die wohnung gefallt mir sehr kann ich besichtigen am montag",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "die wohnung ist zu klein fur uns wir wollen nicht mehr",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "besichtigung brauche ich nicht fotos reichen mir",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "was ich arbeite sage ich nicht das ist privat",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "eigentlich suche ich ein haus nicht wohnung",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "haben sie auch eine garage zu vermieten",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "kennen sie eine gute umzugsfirma in koln",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "guten tag frau neumann",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": []
+  },
+  {
+    "task": "s7-q6",
+    "text": "wegen der anzeige",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  },
+  {
+    "task": "s7-q6",
+    "text": "ich schreibe weil mein telefon kaputt ist darum keine anruf",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true
+  }
 ]
