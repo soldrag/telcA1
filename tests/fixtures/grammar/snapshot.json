@@ -45,7 +45,10 @@
     "ERR_V2_OVERCROWDED_VORFELD: Bitte Sie schicken → Bitte schicken Sie"
   ],
   "bench/T1_05": [
-    "ERR_NOUN_CAPITALIZATION: tage → Tage"
+    "ERR_NOUN_CAPITALIZATION: tage → Tage",
+    "ERR_MISSPELLING: binn → bin",
+    "ERR_MISSPELLING: artzt → Arzt",
+    "ERR_MISSPELLING: drey → drei"
   ],
   "bench/T1_06": [],
   "bench/T1_07": [],
@@ -63,7 +66,9 @@
   ],
   "bench/T2_06": [
     "ERR_NOUN_CAPITALIZATION: personen → Personen",
-    "ERR_UMLAUT_SPELLING: fur → für"
+    "ERR_UMLAUT_SPELLING: fur → für",
+    "ERR_MISSPELLING: intehresire → interessiere",
+    "ERR_MISSPELLING: sint → sind"
   ],
   "bench/T2_07": [],
   "bench/T2_08": [],
@@ -81,7 +86,10 @@
   ],
   "bench/T3_06": [
     "ERR_NOUN_CAPITALIZATION: dank → Dank",
-    "ERR_UMLAUT_SPELLING: fur, Grusse → für, Grüße"
+    "ERR_UMLAUT_SPELLING: fur, Grusse → für, Grüße",
+    "ERR_MISSPELLING: filen → vielen",
+    "ERR_MISSPELLING: kome → komme",
+    "ERR_MISSPELLING: komt → kommt"
   ],
   "bench/T3_07": [],
   "bench/T3_08": [],

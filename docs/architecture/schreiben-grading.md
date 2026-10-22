@@ -149,6 +149,7 @@ Result shape: `breakdown.items[i].points/maxPoints` (detector level kept in `det
 
 A pedagogical 0–10 score **independent of the telc score** (`scoring/linguisticAccuracyScorer.js`, UI `LinguisticAccuracyPanel.jsx`, labelled as not affecting the result):
 - defects deduplicated across analyzers (`linguistic/grammarErrorDeduper.js`, in `mergeCandidateGrammarErrors`);
+- misspelt words count (`linguistic/letterRules/misspellingRule.js`: unknown to the lexicon and sounding like exactly one A1 word; capitalised words inside a sentence may be names and are skipped);
 - weighted by category from the grammar profile's `accuracyWeights` (A1: syntax 2.0, case/agreement/grammar/lexis 1.5, spelling 0.5; bands from 9 / 8 / 6);
 - normalised per 30 words of the letter body (`scoring/letterBodyWordCounter.js`); not rated when no Leitpunkt is covered.
 

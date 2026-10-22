@@ -56,9 +56,13 @@ describe('Verb dictionary: review counterexamples', () => {
     'Ich habe eine Freundin, die gut Deutsch spricht.', 'Das ist das Buch, das ich lese.', 'Ich weiß nicht, wann ich kommen kann.',
     'Lese ich das Buch?', 'Spiele ich heute?', 'Lesen ist mein Hobby.', 'Kochen ist mein Hobby.', 'Lesen Sie den Text!',
     'Spielt Anna Tennis?', 'Beginnt der Kurs um 9?', 'Gefällt dir das Hotel?', 'Schwimmen im See ist schön.',
-    'Ich wonen in Berlin.', 'Mein Mann komt mit.',
   ]) {
     it(`clean: ${text}`, () => assert.deepEqual(corrections(text), []));
+  }
+
+  // A misspelt verb gets its spelling (misspellingRule), no guessed agreement form.
+  for (const [text, spelling] of [['Ich wonen in Berlin.', 'wohnen'], ['Mein Mann komt mit.', 'kommt']]) {
+    it(`spelling only: ${text}`, () => assert.deepEqual(corrections(text), [spelling]));
   }
 
   for (const [text, correction] of [
