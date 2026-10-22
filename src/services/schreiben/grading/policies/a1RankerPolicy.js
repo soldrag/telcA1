@@ -89,6 +89,11 @@ export class A1RankerPolicy extends IRankerPolicy {
   }
 
   // A sentence that says the opposite of the aspect proves nothing by its keywords or its dates.
+  // Another task: no sentence states the reason for writing, and fewer than half serve any Leitpunkt.
+  isOffTaskLetter({ purposeSimilarity = 0, supportShare = 0 } = {}) {
+    return !this.isExampleSupport(purposeSimilarity) && supportShare < 0.5;
+  }
+
   combineEvidence(evidence = {}) {
     const { neural = 0, lexical = 0, structured = 0, contradicted = false } = evidence;
     if (contradicted) return neural;

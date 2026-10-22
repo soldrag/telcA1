@@ -161,7 +161,9 @@ export async function gradeSchreibenSubmission({
     wordCount: stage0.wordCount,
     isGibberish,
     grammarErrors: errors,
-    content: detectLetterContentFacts({ bodySentences: stage0.bodySentences, criteria, lexicon: levelContext.lexicon }),
+    content: detectLetterContentFacts({
+      bodySentences: stage0.bodySentences, criteria, lexicon: levelContext.lexicon, servesTaskPurpose: stage2.servesTaskPurpose,
+    }),
     level: question.level,
   });
 
