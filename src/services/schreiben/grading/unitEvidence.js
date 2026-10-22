@@ -23,7 +23,7 @@ export function unitKeysOf(criterion) {
     : [criterion.id];
 }
 
-export function splitUnitKey(unitKey) {
+function splitUnitKey(unitKey) {
   const [lpId, aspectLabel = null] = unitKey.split(UNIT_SEPARATOR);
   return { lpId, aspectLabel };
 }
@@ -37,7 +37,7 @@ function rivalFulfils(taskBank, unitKey) {
 }
 
 /** Keyword, structured-detector and negation readings of the text for one unit. */
-export function deterministicEvidence(criterion, aspectLabel, text, policy) {
+function deterministicEvidence(criterion, aspectLabel, text, policy) {
   const label = aspectLabel || criterion.label;
   const keywords = aspectLabel
     ? partitionAspectKeywordsSync(criterion, splitCompoundCriterion(criterion.label), { policy })[aspectLabel] || []
@@ -96,7 +96,7 @@ export function purposeMargin(vector, taskBank) {
 
 // Spans of a letter body: every sentence, the clauses of a sentence that has several, and adjacent sentence pairs
 // ("Wir haben einen Hund. Darf er mitkommen?" only asks about the dog together).
-export function letterSpans(sentences, { lexicon }) {
+function letterSpans(sentences, { lexicon }) {
   const spans = sentences.map((text, index) => ({ text, sentence: index, whole: true }));
   sentences.forEach((sentence, index) => {
     const clauses = parseSentencePropositions(sentence, { lexicon }).map((p) => p.rawText).filter(Boolean);

@@ -24,7 +24,7 @@ export function encodeVector(vector) {
 }
 
 /** Decodes and re-normalises, so cosines stay true cosines. */
-export function decodeVector(text) {
+function decodeVector(text) {
   const values = Float32Array.from(new Int8Array(fromBase64(text).buffer), (v) => v / SCALE);
   const norm = Math.hypot(...values) || 1;
   return values.map((v) => v / norm);
