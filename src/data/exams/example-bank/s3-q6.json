@@ -1,0 +1,151 @@
+{
+  "task": "s3-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Die Heizung in meiner Wohnung ist kaputt.",
+        "Die Heizung funktioniert nicht.",
+        "Die Heizkörper bleiben kalt.",
+        "Bei mir wird es nicht mehr warm.",
+        "Ich kann meine Wohnung nicht warm machen.",
+        "Die Heizkörper gehen nicht an.",
+        "Heizung ist kaputt.",
+        "In mein Wohnung die Heizung geht nicht."
+      ],
+      "misses": {
+        "refusal": [
+          "Die Heizung ist nicht kaputt.",
+          "Mit der Heizung gibt es kein Problem."
+        ],
+        "opposite": [
+          "Die Heizung funktioniert wieder, danke!",
+          "Die Heizung ist sehr gut."
+        ],
+        "past": [
+          "Letzten Winter war die Heizung kaputt.",
+          "Im Januar war die Heizung schon einmal kaputt."
+        ],
+        "vague": [
+          "In meiner Wohnung gibt es ein Problem.",
+          "Es ist Winter."
+        ],
+        "otherTopic": [
+          "Die Waschmaschine ist kaputt.",
+          "Die Heizung bei meiner Freundin ist kaputt."
+        ]
+      }
+    },
+    "lp2": {
+      "fulfils": [
+        "Es ist sehr kalt in der Wohnung.",
+        "Seit drei Tagen ist es kalt.",
+        "Wir frieren jeden Tag.",
+        "Im Zimmer sind nur 14 Grad.",
+        "Meine Kinder sind schon krank, weil wir frieren.",
+        "Wir tragen in der Wohnung Jacke und Mütze.",
+        "Seit Montag es ist sehr kalt.",
+        "Mein Kinder haben Erkältung."
+      ],
+      "misses": {
+        "refusal": [
+          "Es ist nicht so kalt.",
+          "Wir haben kein Problem, alles okay."
+        ],
+        "opposite": [
+          "Es ist warm in der Wohnung.",
+          "Seit gestern ist es wieder schön warm."
+        ],
+        "past": [
+          "Letztes Jahr war es im Winter sehr kalt.",
+          "Früher war die Wohnung immer kalt."
+        ],
+        "vague": [
+          "Das ist nicht schön.",
+          "Ich bin traurig."
+        ],
+        "otherTopic": [
+          "In Russland ist es sehr kalt.",
+          "Im Büro von meinem Mann ist es kalt."
+        ]
+      }
+    },
+    "lp3:Handwerker": {
+      "fulfils": [
+        "Bitte schicken Sie einen Handwerker.",
+        "Können Sie einen Techniker schicken?",
+        "Bitte rufen Sie eine Firma an.",
+        "Jemand muss die Heizung reparieren.",
+        "Kann ein Mann von der Firma kommen und das reparieren?",
+        "Bitte organisieren Sie eine Reparatur.",
+        "Bitte schicken Sie Handwerker.",
+        "Können Sie eine Handwerker schicken?"
+      ],
+      "misses": {
+        "refusal": [
+          "Ich brauche keinen Handwerker.",
+          "Bitte schicken Sie keinen Handwerker, ich mache das selbst."
+        ],
+        "opposite": [
+          "Ich bin Handwerker und kann die Heizung reparieren.",
+          "Mein Bruder ist Handwerker, er kann Ihnen helfen."
+        ],
+        "past": [
+          "Der Handwerker war schon gestern hier.",
+          "Letztes Jahr war ein Handwerker in der Wohnung."
+        ],
+        "vague": [
+          "Was soll ich machen?",
+          "Ich weiß nicht weiter."
+        ],
+        "otherTopic": [
+          "Meine Nachbarin braucht einen Handwerker für ihr Bad.",
+          "Ich suche einen Handwerker für meinen Garten."
+        ]
+      }
+    },
+    "lp3:Reparaturtermin": {
+      "fulfils": [
+        "Wann kann die Heizung repariert werden?",
+        "Bitte reparieren Sie die Heizung schnell.",
+        "Ich bin morgen ab 8 Uhr zu Hause.",
+        "Der Monteur kann am Freitag kommen.",
+        "Wann kommt der Techniker?",
+        "Bitte noch diese Woche, es ist dringend.",
+        "Wann kommt Handwerker?",
+        "Ich bin am Mittwoch zuhause, dann er kann kommen."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich habe diese Woche keine Zeit für eine Reparatur.",
+          "Eine Reparatur ist nicht nötig."
+        ],
+        "opposite": [
+          "Bitte sagen Sie den Reparaturtermin ab.",
+          "Bitte sagen Sie den Termin mit dem Handwerker ab, er soll nicht kommen."
+        ],
+        "past": [
+          "Die Reparatur war letzte Woche.",
+          "Im Winter 2024 hat der Techniker die Heizung repariert."
+        ],
+        "vague": [
+          "Ich habe nicht so viel Zeit.",
+          "Zeit ist wichtig."
+        ],
+        "otherTopic": [
+          "Wann kommt der Handwerker für das Fenster?",
+          "Die Reparatur von meinem Fahrrad kostet 50 Euro."
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Meine Nachbarn sind jeden Abend sehr laut.",
+    "Ich möchte die Wohnung zum 31. März kündigen.",
+    "Darf ich eine Katze in der Wohnung haben?",
+    "Ich kann die Miete erst am 10. bezahlen.",
+    "Ich brauche einen neuen Schlüssel für den Keller.",
+    "Mein Bruder möchte bei mir wohnen, ist das okay?",
+    "Danke, die Heizung funktioniert wieder.",
+    "Im Treppenhaus ist das Licht kaputt."
+  ]
+}

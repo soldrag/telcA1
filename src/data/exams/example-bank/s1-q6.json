@@ -1,0 +1,185 @@
+{
+  "task": "s1-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte im August einen Deutschkurs bei Ihnen besuchen.",
+        "Ich möchte einen Deutschkurs an Ihrer Schule machen.",
+        "Ich will bei Ihnen Deutsch lernen.",
+        "Ich suche einen Platz in einer Klasse für Deutsch.",
+        "Ich möchte gern an Ihrer Schule mein Deutsch besser machen.",
+        "Ich interessiere mich für Ihren Sprachunterricht in München.",
+        "Ich mochte ein Deutschkurs in Ihre Schule machen.",
+        "Im August ich will bei Sie Deutsch lernen."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich möchte keinen Deutschkurs besuchen.",
+          "Ich brauche im August keinen Kurs bei Ihnen."
+        ],
+        "opposite": [
+          "Ich möchte meinen Deutschkurs im August absagen.",
+          "Ich möchte mich vom Deutschkurs abmelden."
+        ],
+        "past": [
+          "Ich habe letztes Jahr einen Deutschkurs bei Ihnen besucht.",
+          "Im August war ich schon in einem Kurs an Ihrer Schule."
+        ],
+        "vague": [
+          "Ich habe Ihre Schule im Internet gesehen.",
+          "Deutsch ist eine schwere Sprache."
+        ],
+        "otherTopic": [
+          "Meine Freundin möchte im August einen Deutschkurs in Berlin besuchen.",
+          "Ich möchte im August einen Kochkurs besuchen."
+        ]
+      }
+    },
+    "lp2:Wann": {
+      "fulfils": [
+        "Der Kurs soll im August beginnen.",
+        "Ich möchte gern am Vormittag lernen.",
+        "Ich habe nur früh am Tag Zeit, nachmittags arbeite ich.",
+        "Von 9 bis 12 Uhr passt es mir gut.",
+        "Ab dem 3.8. bin ich frei.",
+        "Ich kann in den Sommerferien kommen.",
+        "Kurs soll am 1. August anfangen.",
+        "Ich kann nur vormittag kommen, weil ich arbeite nachmittag."
+      ],
+      "misses": {
+        "refusal": [
+          "Im August kann ich leider nicht kommen.",
+          "Ich will keinen Kurs am Morgen."
+        ],
+        "opposite": [
+          "Wann beginnt der Kurs im August?",
+          "Wann haben Sie Kurse am Vormittag?"
+        ],
+        "past": [
+          "Im August letztes Jahr war ich in Hamburg.",
+          "Ich hatte früher immer am Vormittag Kurs."
+        ],
+        "vague": [
+          "Ich habe nicht immer Zeit.",
+          "Die Zeit ist mir wichtig."
+        ],
+        "otherTopic": [
+          "Meine Schwester hat im August Geburtstag.",
+          "Am Vormittag geht mein Sohn in den Kindergarten."
+        ]
+      }
+    },
+    "lp2:wie lange": {
+      "fulfils": [
+        "Ich möchte den Kurs vier Wochen machen.",
+        "Der Kurs soll einen Monat dauern.",
+        "Ich bleibe nur zwei Wochen in München.",
+        "Ich brauche den Unterricht für den ganzen Monat.",
+        "Ich möchte drei Wochen jeden Tag lernen.",
+        "Am 31. August muss ich wieder nach Hause fahren.",
+        "Ich mochte Kurs für 4 Woche.",
+        "Der Kurs soll zwei Wochen dauert."
+      ],
+      "misses": {
+        "refusal": [
+          "Einen Kurs für vier Wochen möchte ich nicht.",
+          "Ich will nicht lange lernen."
+        ],
+        "opposite": [
+          "Wie lange dauert der Kurs?",
+          "Wie viele Wochen hat ein Kurs bei Ihnen?"
+        ],
+        "past": [
+          "Mein letzter Kurs hat drei Monate gedauert.",
+          "Ich habe schon sechs Wochen Deutsch gelernt."
+        ],
+        "vague": [
+          "Ich habe nicht so viel Zeit.",
+          "Die Dauer ist für mich wichtig."
+        ],
+        "otherTopic": [
+          "Die Zugfahrt nach München dauert sechs Stunden.",
+          "Meine Frau bleibt einen Monat in Italien."
+        ]
+      }
+    },
+    "lp3:Frage nach den Kurskosten": {
+      "fulfils": [
+        "Was kostet der Kurs?",
+        "Wie viel kostet der Deutschkurs im August?",
+        "Wie teuer ist das?",
+        "Wie viel muss ich bezahlen?",
+        "Können Sie mir den Preis sagen?",
+        "Bitte schicken Sie mir Ihre Preisliste.",
+        "Wie viel kostet Kurs?",
+        "Was kosten der Kurs pro Woche?"
+      ],
+      "misses": {
+        "refusal": [
+          "Der Preis ist mir egal.",
+          "Die Kosten sind nicht wichtig für mich."
+        ],
+        "opposite": [
+          "Der Kurs kostet 300 Euro, das weiß ich schon.",
+          "Ich kann 200 Euro bezahlen."
+        ],
+        "past": [
+          "Ich habe den Kurs schon bezahlt.",
+          "Mein letzter Kurs hat 250 Euro gekostet."
+        ],
+        "vague": [
+          "Ich habe nicht viel Geld.",
+          "Geld ist für mich ein Problem."
+        ],
+        "otherTopic": [
+          "Was kostet ein Zimmer in München?",
+          "Wie teuer ist das Ticket für die U-Bahn?"
+        ]
+      }
+    },
+    "lp3:Anmeldung": {
+      "fulfils": [
+        "Wie kann ich mich anmelden?",
+        "Wo kann ich mich für den Kurs anmelden?",
+        "Was muss ich tun, damit ich einen Platz bekomme?",
+        "Kann ich den Kurs im Internet buchen?",
+        "Bitte schicken Sie mir ein Formular.",
+        "Muss ich ins Büro kommen oder geht das per E-Mail?",
+        "Wie ich kann mich anmelden?",
+        "Kann ich mich per Telefon anmelde?"
+      ],
+      "misses": {
+        "refusal": [
+          "Ich möchte mich noch nicht anmelden.",
+          "Ich melde mich nicht an."
+        ],
+        "opposite": [
+          "Ich möchte mich vom Kurs abmelden.",
+          "Die Anmeldung ist im Internet, das weiß ich."
+        ],
+        "past": [
+          "Ich habe mich schon im Juni angemeldet.",
+          "Letztes Jahr war die Anmeldung sehr einfach."
+        ],
+        "vague": [
+          "Ich habe noch eine Frage.",
+          "Das ist alles neu für mich."
+        ],
+        "otherTopic": [
+          "Wie kann ich mich im Fitnessstudio anmelden?",
+          "Mein Mann muss sich bei der Stadt anmelden."
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Ich möchte als Lehrerin an Ihrer Sprachschule arbeiten.",
+    "Ich habe gestern meine Tasche in Ihrer Schule vergessen.",
+    "Ich kann morgen nicht zum Kurs kommen, ich bin krank.",
+    "Ich brauche eine Bestätigung für meinen Deutschkurs.",
+    "Ich möchte mich vom Kurs im August abmelden.",
+    "Der Lehrer in meinem Kurs ist sehr gut, vielen Dank!",
+    "Haben Sie auch Englischkurse für Kinder?",
+    "Ich suche ein Praktikum in München, haben Sie eine Stelle?"
+  ]
+}

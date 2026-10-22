@@ -1,0 +1,117 @@
+{
+  "task": "s5-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich bin krank und kann nicht zum Kurs kommen.",
+        "Leider bin ich krank.",
+        "Ich habe Fieber und Kopfschmerzen.",
+        "Mir geht es nicht gut, ich muss im Bett bleiben.",
+        "Ich habe eine starke Erkältung und gehe heute zum Arzt.",
+        "Der Arzt sagt, ich muss zu Hause bleiben.",
+        "Ich bin krank, deshalb ich kann nicht kommen.",
+        "Ich habe Grippe und kann nicht in Unterricht kommen."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich bin nicht krank, mir geht es gut.",
+          "Ich bin gesund und komme heute zum Kurs."
+        ],
+        "opposite": [
+          "Ich bin wieder gesund und komme morgen zum Unterricht.",
+          "Sind Sie krank, Frau Berg?"
+        ],
+        "past": [
+          "Letzte Woche war ich krank.",
+          "Im Januar hatte ich Grippe."
+        ],
+        "vague": [
+          "Ich möchte Ihnen etwas sagen.",
+          "Heute ist es schwierig für mich."
+        ],
+        "otherTopic": [
+          "Mein Mann ist krank und braucht einen Arzt.",
+          "Meine Freundin hat Fieber."
+        ]
+      }
+    },
+    "lp2": {
+      "fulfils": [
+        "Ich kann heute und morgen nicht kommen.",
+        "Ich fehle zwei Tage.",
+        "Am Donnerstag bin ich wieder da.",
+        "Übermorgen komme ich wieder in die Schule.",
+        "Ich bleibe bis Mittwoch zu Hause.",
+        "Ab Freitag bin ich wieder im Kurs.",
+        "Ich komme zwei Tag nicht.",
+        "Heute und morgen ich bleibe zu Hause."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich weiß nicht, wie lange ich nicht komme.",
+          "Ich kann nicht sagen, wann ich wieder komme."
+        ],
+        "opposite": [
+          "Ich komme heute und morgen zum Kurs.",
+          "Wie lange dauert der Kurs morgen?"
+        ],
+        "past": [
+          "Gestern und vorgestern war ich nicht im Kurs.",
+          "Letzten Monat habe ich eine Woche gefehlt."
+        ],
+        "vague": [
+          "Ich komme bald wieder.",
+          "Vielleicht bin ich einige Zeit nicht da."
+        ],
+        "otherTopic": [
+          "Mein Sohn bleibt heute und morgen zu Hause.",
+          "Meine Kollegin kann zwei Tage nicht kommen."
+        ]
+      }
+    },
+    "lp3": {
+      "fulfils": [
+        "Können Sie mir bitte die Hausaufgaben per E-Mail schicken?",
+        "Bitte schicken Sie mir die Hausaufgaben.",
+        "Was müssen wir zu Hause lernen? Bitte schreiben Sie mir.",
+        "Können Sie mir die Übungen aus dem Unterricht mailen?",
+        "Ich möchte zu Hause üben. Bitte senden Sie mir die Aufgaben.",
+        "Schreiben Sie mir bitte, welche Seiten im Buch ich machen muss.",
+        "Konnen Sie mir bitte Hausaufgabe schicken?",
+        "Bitte Sie schicken mir die Aufgaben per Mail."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich brauche keine Hausaufgaben.",
+          "Bitte schicken Sie mir keine Hausaufgaben."
+        ],
+        "opposite": [
+          "Ich schicke Ihnen meine Hausaufgaben per E-Mail.",
+          "Ich kann Ihnen die Hausaufgaben morgen mailen."
+        ],
+        "past": [
+          "Gestern haben Sie mir die Hausaufgaben geschickt.",
+          "Ich habe die Hausaufgaben schon gemacht."
+        ],
+        "vague": [
+          "Die Hausaufgaben sind wichtig.",
+          "Ich lerne gern zu Hause."
+        ],
+        "otherTopic": [
+          "Können Sie mir bitte die Rechnung per E-Mail schicken?",
+          "Können Sie mir die Telefonnummer von Ali per E-Mail schicken?"
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Wann ist die Prüfung?",
+    "Ich möchte Sie zu meiner Geburtstagsparty einladen.",
+    "Kann ich in einen anderen Kurs wechseln?",
+    "Ich brauche eine Bestätigung für das Jobcenter.",
+    "Wie viel kostet der nächste Deutschkurs?",
+    "Ich habe mein Buch im Kursraum vergessen.",
+    "Können wir am Freitag zusammen ins Museum gehen?",
+    "Ich habe eine neue Adresse: Gartenstraße 5."
+  ]
+}

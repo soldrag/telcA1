@@ -1,0 +1,151 @@
+{
+  "task": "s7-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich interessiere mich für die Wohnung.",
+        "Ich habe Ihre Anzeige gelesen und möchte die Wohnung mieten.",
+        "Ich suche ein neues Zuhause und Ihr Angebot ist perfekt für mich.",
+        "Ich möchte gern bei Ihnen mieten.",
+        "Die zwei Zimmer in Köln möchte ich gern nehmen.",
+        "Ich brauche eine neue Unterkunft in Köln, Ihr Angebot passt gut.",
+        "Ich interessiere mich fur die Wohnung in Zeitung.",
+        "Ich möchte mieten die Wohnung."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich möchte die Wohnung nicht mieten.",
+          "Die Wohnung ist zu teuer, ich nehme sie nicht."
+        ],
+        "opposite": [
+          "Ich vermiete eine Wohnung in Köln.",
+          "Ich habe eine Anzeige für meine Wohnung geschrieben."
+        ],
+        "past": [
+          "Früher habe ich in einer 2-Zimmer-Wohnung gewohnt.",
+          "Letztes Jahr habe ich eine Wohnung in Köln gemietet."
+        ],
+        "vague": [
+          "Wohnungen in Köln sind sehr teuer.",
+          "Ich lese gern Anzeigen in der Zeitung."
+        ],
+        "otherTopic": [
+          "Mein Freund interessiert sich für ein Auto.",
+          "Ich interessiere mich für den Deutschkurs."
+        ]
+      }
+    },
+    "lp2:Personen": {
+      "fulfils": [
+        "Ich möchte mit meiner Frau in der Wohnung wohnen.",
+        "Wir sind zwei Personen.",
+        "Wir sind eine Familie mit einem Kind.",
+        "Ich lebe allein.",
+        "Ich bin Single und habe keine Kinder.",
+        "Meine Freundin zieht mit mir ein.",
+        "Wir sind drei Person, mein Mann, meine Tochter und ich.",
+        "Ich wohne mit mein Bruder zusammen."
+      ],
+      "misses": {
+        "refusal": [
+          "Wer dort wohnt, möchte ich nicht sagen.",
+          "Das ist privat, das schreibe ich nicht."
+        ],
+        "opposite": [
+          "Wie viele Personen wohnen im Haus?",
+          "Wer wohnt jetzt in der Wohnung?"
+        ],
+        "past": [
+          "Früher habe ich mit meinen Eltern gewohnt.",
+          "Letztes Jahr hat meine Schwester bei mir gewohnt."
+        ],
+        "vague": [
+          "Familie ist für mich sehr wichtig.",
+          "Ich habe viele Freunde in Köln."
+        ],
+        "otherTopic": [
+          "In meinem Haus wohnen zehn Personen.",
+          "Meine Nachbarn sind zwei Personen."
+        ]
+      }
+    },
+    "lp2:Beruf": {
+      "fulfils": [
+        "Ich bin Krankenpfleger von Beruf.",
+        "Ich arbeite als Verkäuferin.",
+        "Ich arbeite bei Ford in Köln.",
+        "Ich koche jeden Tag in einem Restaurant.",
+        "Ich unterrichte Kinder an einer Grundschule.",
+        "Ich mache eine Ausbildung als Elektriker.",
+        "Ich bin Ingenieur und arbeite in Firma.",
+        "Ich arbeite als Kellner in ein Hotel."
+      ],
+      "misses": {
+        "refusal": [
+          "Meinen Beruf möchte ich nicht sagen.",
+          "Zu meiner Arbeit schreibe ich nichts."
+        ],
+        "opposite": [
+          "Was sind Sie von Beruf?",
+          "Wo arbeiten Sie, Frau Neumann?"
+        ],
+        "past": [
+          "Früher war ich Lehrer in Syrien.",
+          "Vor zwei Jahren habe ich in einer Bäckerei gearbeitet."
+        ],
+        "vague": [
+          "Ich arbeite viel.",
+          "Meine Arbeit ist interessant."
+        ],
+        "otherTopic": [
+          "Mein Vater ist Arzt von Beruf.",
+          "Meine Schwester arbeitet als Friseurin."
+        ]
+      }
+    },
+    "lp3": {
+      "fulfils": [
+        "Kann ich die Wohnung besichtigen?",
+        "Wann kann ich die Wohnung ansehen?",
+        "Haben Sie am Samstag Zeit? Ich möchte die Zimmer sehen.",
+        "Kann ich vorbeikommen und mir alles anschauen?",
+        "Wann passt es Ihnen? Ich möchte die Räume gern sehen.",
+        "Darf ich nächste Woche kommen und die Küche und das Bad sehen?",
+        "Wann ich kann die Wohnung sehen?",
+        "Ich möchte Termin für Besichtigung."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich muss die Wohnung nicht sehen.",
+          "Eine Besichtigung brauche ich nicht."
+        ],
+        "opposite": [
+          "Ich sage den Termin für die Besichtigung ab.",
+          "Sie können meine Wohnung am Freitag besichtigen."
+        ],
+        "past": [
+          "Gestern habe ich die Wohnung schon gesehen.",
+          "Ich war schon bei der Besichtigung."
+        ],
+        "vague": [
+          "Ich habe nächste Woche viel Zeit.",
+          "Die Wohnung auf dem Foto ist schön."
+        ],
+        "otherTopic": [
+          "Kann ich einen Termin beim Arzt bekommen?",
+          "Kann ich das Auto am Samstag ansehen?"
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Die Heizung in meiner Wohnung ist kaputt.",
+    "Haben Sie noch eine andere Wohnung mit drei Zimmern?",
+    "Die Nachbarn sind jeden Abend sehr laut.",
+    "Ich möchte meine Wohnung zum 31. März kündigen.",
+    "Darf ich eine Katze in der Wohnung haben?",
+    "Wann bekomme ich meine Kaution zurück?",
+    "Ich brauche einen neuen Schlüssel für die Haustür.",
+    "Die Miete ist zu hoch, kann ich weniger zahlen?"
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "task": "s6-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte ein Zimmer reservieren.",
+        "Ich möchte bei Ihnen ein Zimmer buchen.",
+        "Ich möchte in Ihrem Hotel übernachten.",
+        "Wir möchten im Sommer bei Ihnen wohnen.",
+        "Ich suche eine Unterkunft für meinen Urlaub. Haben Sie Platz?",
+        "Haben Sie noch Platz für zwei Personen?",
+        "Ich mochte ein Zimmer für zwei Person reservieren.",
+        "Ich will buchen ein Einzelzimmer."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich möchte kein Zimmer reservieren.",
+          "Ich brauche kein Hotelzimmer, ich wohne bei Freunden."
+        ],
+        "opposite": [
+          "Ich möchte meine Reservierung stornieren.",
+          "Ich habe ein Zimmer frei, möchten Sie es mieten?"
+        ],
+        "past": [
+          "Letztes Jahr habe ich bei Ihnen ein Zimmer gebucht.",
+          "Im August war ich schon in Ihrem Hotel."
+        ],
+        "vague": [
+          "Ich habe Ihr Hotel im Internet gesehen.",
+          "Die Berge sind sehr schön."
+        ],
+        "otherTopic": [
+          "Ich möchte einen Tisch im Restaurant reservieren.",
+          "Ich möchte eine Fahrkarte nach Garmisch buchen."
+        ]
+      }
+    },
+    "lp2:Wann": {
+      "fulfils": [
+        "Ich komme am 10. August an.",
+        "Wir möchten vom 3. bis 10. August kommen.",
+        "Am Samstag, den 12. August, bin ich in Garmisch.",
+        "Unsere Reise beginnt am ersten August.",
+        "Ich bin ab dem 15.8. bei Ihnen.",
+        "Wir sind am Montag, 7. August, gegen 18 Uhr da.",
+        "Ich ankomme am 5. August.",
+        "Wir kommen in 20. August."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich weiß noch nicht, wann ich komme.",
+          "Das Datum kann ich noch nicht sagen."
+        ],
+        "opposite": [
+          "Wann haben Sie im August Zimmer frei?",
+          "Wann ist das Hotel im August offen?"
+        ],
+        "past": [
+          "Ich war am 10. August schon bei Ihnen.",
+          "Letzten August sind wir am 5. angekommen."
+        ],
+        "vague": [
+          "Ich komme im Sommer.",
+          "Wir kommen bald in die Berge."
+        ],
+        "otherTopic": [
+          "Meine Eltern kommen am 10. August nach Deutschland.",
+          "Am 5. August habe ich Geburtstag."
+        ]
+      }
+    },
+    "lp2:wie lange": {
+      "fulfils": [
+        "Ich möchte eine Woche bleiben.",
+        "Wir bleiben fünf Nächte.",
+        "Ich brauche das Zimmer für sieben Tage.",
+        "Wir möchten zwei Wochen in Garmisch Urlaub machen.",
+        "Am 17. August fahren wir wieder nach Hause.",
+        "Für drei Nächte, bitte.",
+        "Ich bleibe zehn Tag.",
+        "Wir möchten bleiben eine Woche."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich weiß nicht, wie lange wir bleiben.",
+          "Wie lange, das kann ich noch nicht sagen."
+        ],
+        "opposite": [
+          "Wie lange kann man bei Ihnen bleiben?",
+          "Wie viele Nächte muss ich mindestens buchen?"
+        ],
+        "past": [
+          "Letztes Jahr bin ich zwei Wochen geblieben.",
+          "Wir waren schon drei Nächte bei Ihnen."
+        ],
+        "vague": [
+          "Wir bleiben nicht so lange.",
+          "Ich möchte ein paar Tage Urlaub machen."
+        ],
+        "otherTopic": [
+          "Mein Bruder bleibt eine Woche in München.",
+          "Der Zug fährt zwei Stunden bis Garmisch."
+        ]
+      }
+    },
+    "lp3:Frühstück": {
+      "fulfils": [
+        "Gibt es bei Ihnen Frühstück?",
+        "Ist das Frühstück im Preis inklusive?",
+        "Kann man morgens im Hotel essen?",
+        "Wann kann man am Morgen essen?",
+        "Was kostet das Essen am Morgen?",
+        "Bekommen wir morgens Kaffee und Brötchen?",
+        "Gibt es Frühstuck?",
+        "Ab wie viel Uhr ist Frühstück?"
+      ],
+      "misses": {
+        "refusal": [
+          "Wir brauchen kein Frühstück.",
+          "Ich frühstücke nicht im Hotel."
+        ],
+        "opposite": [
+          "Mein Freund sagt, das Frühstück bei Ihnen ist sehr gut.",
+          "Wir bringen unser Frühstück selbst mit."
+        ],
+        "past": [
+          "Das Frühstück war letztes Jahr sehr gut.",
+          "Ich habe heute schon gefrühstückt."
+        ],
+        "vague": [
+          "Essen ist für mich wichtig.",
+          "Ich esse morgens gern."
+        ],
+        "otherTopic": [
+          "Gibt es im Hotel ein Restaurant für das Abendessen?",
+          "Gibt es Frühstück im Zug nach Garmisch?"
+        ]
+      }
+    },
+    "lp3:Parkplatz": {
+      "fulfils": [
+        "Haben Sie einen Parkplatz?",
+        "Gibt es beim Hotel Parkplätze?",
+        "Wo kann ich mein Auto abstellen?",
+        "Wir kommen mit dem Auto. Kann man bei Ihnen parken?",
+        "Gibt es eine Garage für mein Auto?",
+        "Kostet das Parken extra?",
+        "Gibt es Parkplatz bei Hotel?",
+        "Wo ich kann mein Auto parken?"
+      ],
+      "misses": {
+        "refusal": [
+          "Wir brauchen keinen Parkplatz, wir kommen mit dem Zug.",
+          "Ich habe kein Auto."
+        ],
+        "opposite": [
+          "Ich habe in Garmisch schon einen Parkplatz.",
+          "Mein Auto parke ich bei meinem Freund."
+        ],
+        "past": [
+          "Letztes Jahr habe ich vor dem Hotel geparkt.",
+          "Der Parkplatz war sehr klein."
+        ],
+        "vague": [
+          "Ich fahre gern Auto.",
+          "Wir haben ein großes Auto."
+        ],
+        "otherTopic": [
+          "Gibt es am Bahnhof einen Parkplatz?",
+          "Haben Sie einen Platz für mein Fahrrad?"
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Ich habe meine Jacke in Zimmer 12 vergessen.",
+    "Ich möchte mich als Kellner in Ihrem Hotel bewerben.",
+    "Die Rechnung ist falsch, bitte prüfen Sie das.",
+    "Ich möchte meine Reservierung für August absagen.",
+    "Das Zimmer war sehr laut, ich bin nicht zufrieden.",
+    "Suchen Sie im Sommer Mitarbeiter für die Küche?",
+    "Haben Sie meine Brille gefunden?",
+    "Gibt es im Winter einen Skikurs in Garmisch?"
+  ]
+}

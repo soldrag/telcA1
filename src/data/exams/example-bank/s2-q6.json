@@ -1,0 +1,117 @@
+{
+  "task": "s2-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich muss meinen Termin am Montag um 14 Uhr absagen.",
+        "Ich kann am Montag nicht zu Ihnen kommen.",
+        "Leider schaffe ich es am Montagnachmittag nicht in die Praxis.",
+        "Bitte streichen Sie meinen Besuch am Montag.",
+        "Am Montag um zwei bin ich leider nicht da.",
+        "Ich möchte den Arztbesuch am Montag stornieren.",
+        "Ich kann am Montag nicht komme.",
+        "Ich muss mein Termin absagen."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich möchte den Termin am Montag nicht absagen.",
+          "Ich sage den Termin nicht ab."
+        ],
+        "opposite": [
+          "Ich möchte am Montag um 14 Uhr einen Termin machen.",
+          "Ich komme am Montag um 14 Uhr gern."
+        ],
+        "past": [
+          "Ich war letzten Montag um 14 Uhr bei Ihnen.",
+          "Ich habe den Termin schon am Telefon abgesagt."
+        ],
+        "vague": [
+          "Ich habe ein Problem mit Montag.",
+          "Montag ist immer ein schwerer Tag für mich."
+        ],
+        "otherTopic": [
+          "Mein Sohn kann am Montag nicht in die Schule gehen.",
+          "Ich muss den Termin beim Friseur absagen."
+        ]
+      }
+    },
+    "lp2": {
+      "fulfils": [
+        "Ich kann nicht kommen, weil ich arbeiten muss.",
+        "Ich muss am Montag arbeiten.",
+        "Mein Kind ist krank.",
+        "Mein Chef braucht mich am Montag im Büro.",
+        "Ich bin am Montag in Hamburg.",
+        "Mein Auto ist kaputt und es fährt kein Bus.",
+        "Weil ich muss arbeiten.",
+        "Mein Tochter ist krank, ich muss zu Hause bleiben."
+      ],
+      "misses": {
+        "refusal": [
+          "Den Grund möchte ich nicht sagen.",
+          "Warum, das ist privat."
+        ],
+        "opposite": [
+          "Ich habe am Montag Zeit.",
+          "Am Montag habe ich frei und kann kommen."
+        ],
+        "past": [
+          "Letzte Woche war ich krank.",
+          "Letzten Monat musste ich auch am Montag arbeiten."
+        ],
+        "vague": [
+          "Es geht leider nicht.",
+          "Ich habe da etwas."
+        ],
+        "otherTopic": [
+          "Mein Kollege kann am Montag nicht arbeiten, er ist krank.",
+          "Meine Freundin hat am Montag keine Zeit."
+        ]
+      }
+    },
+    "lp3": {
+      "fulfils": [
+        "Ich möchte gern einen neuen Termin.",
+        "Haben Sie am Mittwoch einen Termin für mich?",
+        "Kann ich am Dienstag um 10 Uhr kommen?",
+        "Geht es nächste Woche am Vormittag?",
+        "Am Freitag ab 15 Uhr habe ich Zeit, passt das?",
+        "Bitte geben Sie mir einen anderen Tag.",
+        "Ich brauche neue Termin.",
+        "Kann ich am Donnerstag komme?"
+      ],
+      "misses": {
+        "refusal": [
+          "Ich brauche keinen neuen Termin.",
+          "Ich möchte keinen anderen Termin machen."
+        ],
+        "opposite": [
+          "Bitte sagen Sie auch meinen Termin am Mittwoch ab.",
+          "Ich komme dann nicht mehr in Ihre Praxis."
+        ],
+        "past": [
+          "Ich hatte im März einen neuen Termin bei Ihnen.",
+          "Ich habe schon einen anderen Termin bekommen."
+        ],
+        "vague": [
+          "Ich melde mich wieder.",
+          "Vielleicht später."
+        ],
+        "otherTopic": [
+          "Mein Mann braucht einen neuen Termin beim Zahnarzt.",
+          "Meine Katze hat einen Termin beim Tierarzt."
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Ich brauche ein Rezept für meine Tabletten.",
+    "Ich möchte am Montag um 14 Uhr einen Termin machen.",
+    "Bitte schicken Sie mir eine Krankmeldung für meinen Chef.",
+    "Ich habe meine Brille in Ihrer Praxis vergessen.",
+    "Wann ist die Praxis im August geöffnet?",
+    "Ich bin neu in der Stadt und suche einen Hausarzt.",
+    "Ich komme am Montag um 14 Uhr, der Termin ist gut.",
+    "Vielen Dank für die gute Behandlung, Dr. Schneider."
+  ]
+}

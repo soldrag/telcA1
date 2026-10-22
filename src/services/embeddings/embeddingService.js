@@ -33,6 +33,27 @@ async function getDeviceTarget() {
   return await isWebGPUAdapterAvailable() ? 'webgpu' : 'wasm';
 }
 
+/**
+ * EmbeddingGemma's trained sentence vector: the model's `sentence_embedding` output (mean pooling and the dense
+ * projection the Matryoshka truncation is trained on), not the pooled hidden states the feature-extraction
+ * pipeline returns. One factory for the app and the Node scripts, so both embed alike.
+ * @param {object} [options] - transformers.js model options (device, progress_callback)
+ * @returns {Promise<Function>} extractor(prompt) -> { data }, with dispose()
+ */
+export async function createSentenceEmbedder(options = {}) {
+  const { AutoModel, AutoTokenizer } = await import('@huggingface/transformers');
+  const [tokenizer, model] = await Promise.all([
+    AutoTokenizer.from_pretrained(EMBEDDING_MODEL_ID, { progress_callback: options.progress_callback }),
+    AutoModel.from_pretrained(EMBEDDING_MODEL_ID, { dtype: EMBEDDING_DTYPE, ...options }),
+  ]);
+  const extractor = async (prompt) => {
+    const { sentence_embedding: embedding } = await model(tokenizer([prompt], { padding: true, truncation: true }));
+    return { data: embedding.data };
+  };
+  extractor.dispose = () => model.dispose();
+  return extractor;
+}
+
 async function initEmbeddingService(onProgress = null) {
   if (extractorInstance) return extractorInstance;
   if (isInitializing) {
