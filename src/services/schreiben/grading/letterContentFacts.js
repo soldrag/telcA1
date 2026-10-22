@@ -15,8 +15,8 @@ import { findCompoundModifierMatches } from '../linguistic/compoundModifierMatch
  * @property {boolean} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt
  *   (or the modifier of a compound one: "Deutsch" for "Deutschkurs"), so the letter is about this task
  *   and not another one.
- * @property {boolean|null} servesTaskPurpose - the model's reading (letterPurposeFit.js, and the trained
- *   purposeReview.js when it runs): false when the letter is written for another purpose; null when no model read it.
+ * @property {boolean|null} servesTaskPurpose - the trained another-purpose review's reading (purposeReview.js): false
+ *   when the letter is written for another purpose; null when the review did not run (no model, limited mode).
  */
 
 const VERBLESS_CLAUSE_TYPES = new Set(['FRAGMENT', 'COORDINATED_PHRASE']);

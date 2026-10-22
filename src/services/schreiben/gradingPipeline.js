@@ -162,7 +162,7 @@ export async function gradeSchreibenSubmission({
 
   reportStage(onProgress, GRADING_STAGES.LEITPUNKTE, 0.4);
   const customExtractor = options.forceLimitedMode ? false : options.customExtractor;
-  const keywordStage = await scorePipelineLeitpunkte({
+  const stage2 = await scorePipelineLeitpunkte({
     criteria,
     bodySentences: stage0.bodySentences,
     provider: activeProvider,
@@ -171,8 +171,7 @@ export async function gradeSchreibenSubmission({
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
-  const review = await runPurposeReview({ keywordStage, criteria, stage0, question, activeProvider, levelPolicy, options });
-  const stage2 = review?.anotherPurpose ? { ...keywordStage, servesTaskPurpose: false } : keywordStage;
+  const review = await runPurposeReview({ keywordStage: stage2, criteria, stage0, question, activeProvider, levelPolicy, options });
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
@@ -194,7 +193,7 @@ export async function gradeSchreibenSubmission({
       bodySentences: stage0.bodySentences,
       criteria,
       lexicon: levelContext.lexicon,
-      servesTaskPurpose: stage2.servesTaskPurpose,
+      servesTaskPurpose: review ? !review.anotherPurpose : null,
     }),
     level: question.level,
   });

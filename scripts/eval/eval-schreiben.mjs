@@ -6,7 +6,8 @@
  * as the browser does (downloads the model on first use).
  * --review adds the trained another-purpose review to the keyword stage (implies --ranker); --shadow grades every
  * letter without and with it and compares them pair by pair (aggregates only on the hidden set).
- * Open set only: --save <file> stores the per-letter verdicts, --baseline <file> compares with stored ones letter
+ * --calibration grades the calibration letters (scripts/eval/calibration/letters-levels-*.json) like the open set.
+ * Open and calibration sets only: --save <file> stores the per-letter verdicts, --baseline <file> compares with stored ones letter
  * by letter and Leitpunkt by Leitpunkt (a 40-letter percentage alone moves by chance; paired changes do not).
  * The hidden set is never printed: tune only on the open set, check on the hidden one.
  */
@@ -18,15 +19,25 @@ import { canReviewPurpose } from '../../src/services/schreiben/grading/purposeRe
 import { resolveLevelContext } from '../../src/services/schreiben/levelContext.js';
 
 const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url);
-const set = process.argv.includes('--hidden') ? 'hidden' : 'open';
+const set = process.argv.includes('--hidden') ? 'hidden' : (process.argv.includes('--calibration') ? 'calibration' : 'open');
+// Sets whose letters may be printed: tuning and ablation work on these, never on the hidden one.
+const isReadable = set !== 'hidden';
 const shadow = process.argv.includes('--shadow');
 const withReview = process.argv.includes('--review');
 const useRanker = process.argv.includes('--ranker') || withReview || shadow;
 const MIN_GROUP = 8;
 const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
 
+const CALIBRATION_DIR = new URL('calibration/', import.meta.url);
+
 async function loadSet() {
   if (set === 'hidden') return (await import('./hiddenSetStore.mjs')).loadHiddenLetters();
+  // Calibration letters train the purpose review: grade them to measure the keyword stage, not the review.
+  if (set === 'calibration') {
+    return fs.readdirSync(CALIBRATION_DIR).filter((f) => /^letters-levels-.*\.json$/.test(f)).sort().flatMap((f) => (
+      JSON.parse(fs.readFileSync(new URL(f, CALIBRATION_DIR), 'utf8')).map((l, i) => ({ ...l, id: `${f.replace(/^letters-levels-|\.json$/g, '')}-${i}` }))
+    ));
+  }
   return fs.readdirSync(OPEN_DIR).filter((f) => f.endsWith('.json')).sort().flatMap((f) => {
     const letters = JSON.parse(fs.readFileSync(new URL(f, OPEN_DIR), 'utf8'));
     const problems = validateLetters(letters);
@@ -186,7 +197,7 @@ function printShadowComparison(before, after) {
 
 function printEngine(label, rows) {
   console.log(`\nSchreiben eval · ${set} set · ${label}`);
-  if (set === 'open' && !shadow) printLetters(rows);
+  if (isReadable && !shadow) printLetters(rows);
   console.table(summarize(rows));
   printGroups(rows);
 }
@@ -197,8 +208,8 @@ if (shadow) {
   printEngine('Micro-Ranker · keyword stage', keywordRows);
   printEngine('Micro-Ranker · keyword stage + purpose review', evidenceRows);
   printShadowComparison(keywordRows, evidenceRows);
-  if (set === 'open') {
-    console.log('\nChanged letters (open set):');
+  if (isReadable) {
+    console.log(`\nChanged letters (${set} set):`);
     evidenceRows.forEach((a, i) => {
       const b = keywordRows[i];
       if (b.gotLp.join('') !== a.gotLp.join('') || b.got !== a.got) {
@@ -209,6 +220,6 @@ if (shadow) {
 } else {
   const rows = await gradeAll(withReview);
   printEngine(useRanker ? `Micro-Ranker · keyword stage${withReview ? ' + purpose review' : ''}` : 'limited mode', rows);
-  if (set === 'open' && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
-  if (set === 'open' && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');
+  if (isReadable && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
+  if (isReadable && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');
 }

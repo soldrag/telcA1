@@ -92,25 +92,6 @@ export class IRankerPolicy {
   }
 
   /**
-   * Whether a sentence's similarity to the closest fulfilling example phrase supports a Leitpunkt at all.
-   * @param {number} similarity
-   * @returns {boolean}
-   */
-  isExampleSupport(similarity) {
-    return this.calibrateExampleScore(similarity) >= this.thresholds.partial;
-  }
-
-  /**
-   * Whether the letter was written for another task: its reason for writing resembles no fulfilling phrase of
-   * the first Leitpunkt and most sentences serve no Leitpunkt. Never by default: levels decide.
-   * @param {{ purposeSimilarity: number, supportShare: number }} facts
-   * @returns {boolean}
-   */
-  isOffTaskLetter() {
-    return false;
-  }
-
-  /**
    * Merges neural and deterministic evidence into one policy-scale score.
    * Default keeps the strongest signal; level policies may bound lexical hints when a neural verdict exists.
    * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean, contradicted?: boolean }} evidence

@@ -20,7 +20,6 @@ import { describeError } from '../../../utils/describeError.js';
 import { evaluateCompoundCriterionBaseline, hasDeclaredEvidenceSupport } from './compoundBaselineEvaluator.js';
 import { hasAspectConceptEvidence } from './aspectConceptEvidence.js';
 import { isClaimedByRival } from './rivalEvidence.js';
-import { assessLetterPurpose } from './letterPurposeFit.js';
 
 /** @returns {Promise<{ vectors: Array<number[]|null>, failureDetail: string|null }>} failureDetail: the first failure's message */
 async function computeSentenceVectors(bodySentences, customExtractor, onModelDownload) {
@@ -167,11 +166,7 @@ export async function scorePipelineLeitpunkte({ criteria, bodySentences, provide
   const totalScore = items.reduce((sum, it) => sum + (Number(it.score) || 0), 0);
   // The model judged the letter only if it embedded every body sentence; a partial run is a fallback too.
   const modelUsed = sentenceVectors.length > 0 && sentenceVectors.every(Boolean);
-  // Like arbitration, the purpose verdict is the Micro-Ranker's: the limited mode keeps the deterministic facts.
-  const { servesTaskPurpose } = modelUsed && shouldArbitrateLeitpunkt({ provider, framePenalty: 0 })
-    ? await assessLetterPurpose({ bodySentences, criteria, embedder: rankerEmbedder, policy })
-    : { servesTaskPurpose: null };
-  return { items, totalScore, semanticErrors, modelUsed, modelFailureDetail: modelUsed ? null : failureDetail, servesTaskPurpose };
+  return { items, totalScore, semanticErrors, modelUsed, modelFailureDetail: modelUsed ? null : failureDetail };
 }
 
 /** grammar: the level's grammar checker (resolveLevelContext) */
