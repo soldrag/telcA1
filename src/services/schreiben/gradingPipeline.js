@@ -17,7 +17,7 @@ import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES, GRADING_FALLBACK_REASONS }
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
-import { canReviewByEvidence, reviewLeitpunkteByEvidence } from './grading/evidenceReview.js';
+import { canReviewPurpose, reviewLetterPurpose } from './grading/purposeReview.js';
 import { computeDocumentVector } from '../embeddings/embeddingService.js';
 
 function classifyArbitration(it) {
@@ -146,24 +146,22 @@ export async function gradeSchreibenSubmission({
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
-  // The evidence review may move a keyword level by one and decides another-purpose, when asked for and possible:
-  // the Micro-Ranker, a sentence embedder, trained heads for the level and an example bank for the task.
-  const evidenceExtractor = options.leitpunktEngine === 'hybrid' && customExtractor ? options.evidenceExtractor : null;
-  const byEvidence = Boolean(evidenceExtractor) && activeProvider.id === PROVIDER_IDS.MICRO_RANKER
-    && canReviewByEvidence(question.id, levelPolicy);
-  const stage2 = byEvidence
-    ? {
-      ...keywordStage,
-      ...await reviewLeitpunkteByEvidence({
-        items: keywordStage.items,
-        criteria,
-        bodySentences: stage0.bodySentences,
-        questionId: question.id,
-        embed: (text) => computeDocumentVector(text, evidenceExtractor),
-        policy: levelPolicy,
-      }),
-    }
-    : keywordStage;
+  // The trained another-purpose review may add an OFF_TOPIC void, when possible: the Micro-Ranker, a sentence embedder
+  // (options.evidenceExtractor), a trained head for the level and an example bank for the task.
+  const evidenceExtractor = customExtractor ? options.evidenceExtractor : null;
+  const reviewed = Boolean(evidenceExtractor) && activeProvider.id === PROVIDER_IDS.MICRO_RANKER
+    && canReviewPurpose(question.id, levelPolicy);
+  const review = reviewed
+    ? await reviewLetterPurpose({
+      keywordLevels: keywordStage.items.map((it) => it.score),
+      criteria,
+      bodySentences: stage0.bodySentences,
+      questionId: question.id,
+      embed: (text) => computeDocumentVector(text, evidenceExtractor),
+      policy: levelPolicy,
+    })
+    : null;
+  const stage2 = review?.anotherPurpose ? { ...keywordStage, servesTaskPurpose: false } : keywordStage;
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
@@ -186,7 +184,6 @@ export async function gradeSchreibenSubmission({
       criteria,
       lexicon: levelContext.lexicon,
       servesTaskPurpose: stage2.servesTaskPurpose,
-      hasEvidenceAnchor: byEvidence && stage2.items.some((it) => it.score >= 1),
     }),
     level: question.level,
   });

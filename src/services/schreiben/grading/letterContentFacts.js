@@ -15,10 +15,8 @@ import { findCompoundModifierMatches } from '../linguistic/compoundModifierMatch
  * @property {boolean} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt
  *   (or the modifier of a compound one: "Deutsch" for "Deutschkurs"), so the letter is about this task
  *   and not another one.
- *   With the evidence heads a Leitpunkt they find at least partly covered anchors the letter too, so a paraphrase
- *   without rubric words is not taken for another task.
- * @property {boolean|null} servesTaskPurpose - the model's reading (letterPurposeFit.js): false when the letter
- *   reuses the task's words for another purpose; null when the model did not read it.
+ * @property {boolean|null} servesTaskPurpose - the model's reading (letterPurposeFit.js, and the trained
+ *   purposeReview.js when it runs): false when the letter is written for another purpose; null when no model read it.
  */
 
 const VERBLESS_CLAUSE_TYPES = new Set(['FRAGMENT', 'COORDINATED_PHRASE']);
@@ -67,15 +65,15 @@ function hasTaskAnchor(words, criteria, lexicon) {
 
 /**
  * @param {{ bodySentences: string[], criteria: object[], lexicon: { lookup: Function, tag: Function },
- *   servesTaskPurpose?: boolean|null, hasEvidenceAnchor?: boolean }} input
+ *   servesTaskPurpose?: boolean|null }} input
  * @returns {LetterContentFacts}
  */
-export function detectLetterContentFacts({ bodySentences = [], criteria = [], lexicon, servesTaskPurpose = null, hasEvidenceAnchor = false }) {
+export function detectLetterContentFacts({ bodySentences = [], criteria = [], lexicon, servesTaskPurpose = null }) {
   if (!lexicon) throw new TypeError('detectLetterContentFacts needs a lexicon port');
   const words = bodySentences.join(' ').split(/\s+/).filter(Boolean);
   return {
     hasPredication: bodySentences.some((s) => sentenceHasPredication(s, lexicon)),
-    hasTaskAnchor: hasEvidenceAnchor || hasTaskAnchor(words, criteria, lexicon),
+    hasTaskAnchor: hasTaskAnchor(words, criteria, lexicon),
     servesTaskPurpose,
   };
 }

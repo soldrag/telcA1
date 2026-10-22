@@ -56,8 +56,8 @@ export class IRankerPolicy {
 
   /**
    * Trained evidence heads of the level with their thresholds, or null: sentence heads (support / contradiction) and
-   * the letter review over the keyword stage (raise / lower a level, another purpose). A level without them grades
-   * Leitpunkte by keywords and the label query alone.
+   * the another-purpose letter head over the keyword stage (purposeReview). A level without them grades Leitpunkte
+   * by keywords and the label query alone.
    */
   get evidenceModel() {
     return null;

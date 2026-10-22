@@ -5,14 +5,16 @@
  * adjacent sentences together); a contradiction counts only from a whole sentence.
  */
 
-import { computeEvidenceFeatures, applyLogisticHead, FEATURE_NAMES } from './evidenceFeatures.js';
+import { computeEvidenceFeatures, applyLogisticHead } from './evidenceFeatures.js';
+import { cosineSimilarity } from './vectorMath.js';
 import { computeFallbackEvidence, partitionAspectKeywordsSync } from './rankerFallbackScorer.js';
 import { splitCompoundCriterion, isCompoundCriterion } from './compoundCriterionDecomposer.js';
 import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
 import { parseSentencePropositions } from '../linguistic/clauseStructureParser.js';
 
 const UNIT_SEPARATOR = ':';
-const OTHER_PURPOSE_FEATURE = FEATURE_NAMES.indexOf('marginOverOtherPurpose');
+// Phrases this close to the one being measured are its own learner variant or a near copy, not another reference.
+const NEAR_COPY = 0.9;
 
 /** Unit keys of the task's criteria: "lp1", or "lp2:Personen" for each aspect of a compound Leitpunkt. */
 export function unitKeysOf(criterion) {
@@ -64,6 +66,35 @@ export function scoreUnitSpan({ vector, text, unitKey, criterion, taskBank, neut
   };
 }
 
+const closest = (vector, bank) => Math.max(-1, ...bank.map((other) => cosineSimilarity(vector, other)));
+const rawPurposeMargin = (vector, fulfils, otherPurpose) => closest(vector, fulfils) - closest(vector, otherPurpose);
+
+// The bank's own reference points: the mean margin of its fulfilling phrases and of its other-purpose phrases, each
+// measured against the rest of the bank.
+const purposeScales = new WeakMap();
+function purposeScaleOf(taskBank) {
+  if (!purposeScales.has(taskBank)) {
+    const fulfils = Object.values(taskBank.units).flatMap((unit) => unit.fulfils);
+    const apart = (vector, bank) => bank.filter((other) => cosineSimilarity(vector, other) < NEAR_COPY);
+    const meanMargin = (phrases) => phrases.reduce((s, v) => s + rawPurposeMargin(v, apart(v, fulfils), apart(v, taskBank.otherPurpose)), 0) / phrases.length;
+    const onPurpose = meanMargin(fulfils);
+    const offPurpose = meanMargin(taskBank.otherPurpose);
+    purposeScales.set(taskBank, { middle: (onPurpose + offPurpose) / 2, spread: onPurpose - offPurpose || 1 });
+  }
+  return purposeScales.get(taskBank);
+}
+
+/**
+ * How much closer a text is to the task's fulfilling phrases than to another purpose's, on the task's own scale:
+ * 0 halfway between the bank's fulfilling and other-purpose phrases, +0.5 / -0.5 at their means. Raw cosine margins
+ * differ from bank to bank, so only this scale carries over to a task the heads were not trained on.
+ */
+export function purposeMargin(vector, taskBank) {
+  const fulfils = Object.values(taskBank.units).flatMap((unit) => unit.fulfils);
+  const { middle, spread } = purposeScaleOf(taskBank);
+  return (rawPurposeMargin(vector, fulfils, taskBank.otherPurpose) - middle) / spread;
+}
+
 // Spans of a letter body: every sentence, the clauses of a sentence that has several, and adjacent sentence pairs
 // ("Wir haben einen Hund. Darf er mitkommen?" only asks about the dog together).
 export function letterSpans(sentences, { lexicon }) {
@@ -81,30 +112,26 @@ export function letterSpans(sentences, { lexicon }) {
  * @param {{ sentences: string[], embed: (text: string) => Promise<Float32Array>, criteria: object[], taskBank: object,
  *   neutral: Float32Array[], policy: object, model: object }} input
  * @returns {Promise<{ units: Record<string, { support: number, contradict: number, span: string, contradictedBy: string|null }>,
- *   sentenceOtherPurposeMargins: number[] }>}
+ *   sentencePurposeMargins: number[] }>} support from spans no whole sentence contradicts; margins of the whole sentences
  */
 export async function assessLetterUnits({ sentences, embed, criteria, taskBank, neutral, policy, model }) {
   const spans = letterSpans(sentences, { lexicon: policy.lexicon });
   const vectors = await Promise.all(spans.map((span) => embed(span.text)));
   const units = {};
-  const otherPurposeMargin = sentences.map(() => -Infinity);
   for (const criterion of criteria) {
     for (const unitKey of unitKeysOf(criterion)) {
       if (!taskBank.units[unitKey]) continue;
-      const verdict = { support: 0, contradict: 0, span: '', contradictedBy: null, contradictedSupport: 0 };
+      const verdict = { support: 0, contradict: 0, span: '', contradictedBy: null };
       spans.forEach((span, i) => {
         const scored = scoreUnitSpan({ vector: vectors[i], text: span.text, unitKey, criterion, taskBank, neutral, policy, model });
-        if (span.whole) {
-          otherPurposeMargin[span.sentence] = Math.max(otherPurposeMargin[span.sentence], scored.features[OTHER_PURPOSE_FEATURE]);
-          if (scored.contradict > verdict.contradict) { verdict.contradict = scored.contradict; verdict.contradictedBy = span.text; }
-        }
+        if (span.whole && scored.contradict > verdict.contradict) { verdict.contradict = scored.contradict; verdict.contradictedBy = span.text; }
         // A sentence that contradicts the unit cannot support it at the same time.
         const contradicted = span.whole && scored.contradict >= (model?.thresholds?.contradict ?? Infinity);
-        if (contradicted) verdict.contradictedSupport = Math.max(verdict.contradictedSupport, scored.support);
-        else if (scored.support > verdict.support) { verdict.support = scored.support; verdict.span = span.text; }
+        if (!contradicted && scored.support > verdict.support) { verdict.support = scored.support; verdict.span = span.text; }
       });
       units[unitKey] = verdict;
     }
   }
-  return { units, sentenceOtherPurposeMargins: otherPurposeMargin };
+  const sentencePurposeMargins = spans.flatMap((span, i) => (span.whole ? [purposeMargin(vectors[i], taskBank)] : []));
+  return { units, sentencePurposeMargins };
 }

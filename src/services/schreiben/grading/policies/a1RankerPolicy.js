@@ -12,7 +12,7 @@ import { A1_GRAMMAR_PROFILE } from '../../profiles/a1GrammarProfile.js';
 import { EVIDENCE_KINDS } from '../../linguistic/criterionIntents.js';
 import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
 import A1_EVIDENCE_MODEL from './a1EvidenceModel.json' with { type: 'json' };
-import A1_EVIDENCE_REVIEW from './a1EvidenceReviewModel.json' with { type: 'json' };
+import A1_PURPOSE_REVIEW from './a1PurposeReviewModel.json' with { type: 'json' };
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -50,9 +50,9 @@ export class A1RankerPolicy extends IRankerPolicy {
     return A1_CONCEPT_DOMAINS;
   }
 
-  /** Sentence evidence heads (train-evidence-model.mjs) with the letter review heads over them (train-letter-model.mjs). */
+  /** Sentence evidence heads (train-evidence-model.mjs) with the another-purpose letter head over them (train-letter-model.mjs). */
   get evidenceModel() {
-    return this._evidenceModel ??= Object.freeze({ ...A1_EVIDENCE_MODEL, review: A1_EVIDENCE_REVIEW });
+    return this._evidenceModel ??= Object.freeze({ ...A1_EVIDENCE_MODEL, purposeReview: A1_PURPOSE_REVIEW });
   }
 
   capUnprovenLexical(evidenceKind, lexical) {

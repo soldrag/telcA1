@@ -4,8 +4,8 @@
  *   npm run eval:hidden [-- --ranker]   hidden set: aggregate numbers only, for measuring
  * Default mode is the limited mode (no model). --ranker grades with the Micro-Ranker on EmbeddingGemma,
  * as the browser does (downloads the model on first use).
- * --engine hybrid lets the trained evidence review move keyword levels and decide another-purpose (implies --ranker);
- * --shadow grades every letter both ways and compares them pair by pair (aggregates only on the hidden set).
+ * --review adds the trained another-purpose review to the keyword stage (implies --ranker); --shadow grades every
+ * letter without and with it and compares them pair by pair (aggregates only on the hidden set).
  * Open set only: --save <file> stores the per-letter verdicts, --baseline <file> compares with stored ones letter
  * by letter and Leitpunkt by Leitpunkt (a 40-letter percentage alone moves by chance; paired changes do not).
  * The hidden set is never printed: tune only on the open set, check on the hidden one.
@@ -18,8 +18,8 @@ import { expectedTotal, validateLetters } from './letterSchema.mjs';
 const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url);
 const set = process.argv.includes('--hidden') ? 'hidden' : 'open';
 const shadow = process.argv.includes('--shadow');
-const hybridEngine = process.argv.includes('--engine') && process.argv[process.argv.indexOf('--engine') + 1] === 'hybrid';
-const useRanker = process.argv.includes('--ranker') || hybridEngine || shadow;
+const withReview = process.argv.includes('--review');
+const useRanker = process.argv.includes('--ranker') || withReview || shadow;
 const MIN_GROUP = 8;
 const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
 
@@ -43,7 +43,7 @@ async function findQuestion(seedQuestionId) {
   return questionCache.get(seedQuestionId);
 }
 
-async function createGrader(engine) {
+async function createGrader(review) {
   if (!useRanker) {
     return (userText, question) => gradeSchreibenSubmission({ userText, question, options: { forceLimitedMode: true } });
   }
@@ -51,12 +51,12 @@ async function createGrader(engine) {
   const { clearEmbeddingCache, createSentenceEmbedder } = await import('../../src/services/embeddings/embeddingService.js');
   const { pipeline } = await import('@huggingface/transformers');
   const extractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
-  const evidenceExtractor = engine === 'hybrid' ? await createSentenceEmbedder() : null;
+  const evidenceExtractor = review ? await createSentenceEmbedder() : null;
   return async (userText, question) => {
     clearEmbeddingCache();
     return gradeSchreibenSubmission({
       userText, question, provider: new MicroRankerProvider(),
-      options: { customExtractor: extractor, evidenceExtractor, leitpunktEngine: engine },
+      options: { customExtractor: extractor, evidenceExtractor },
     });
   };
 }
@@ -112,8 +112,8 @@ function printLetters(rows) {
 }
 
 const letters = await loadSet();
-async function gradeAll(engine) {
-  const grade = await createGrader(engine);
+async function gradeAll(review) {
+  const grade = await createGrader(review);
   const rows = [];
   for (const letter of letters) rows.push(compare(letter, await grade(letter.text, await findQuestion(letter.seedQuestionId))));
   return rows;
@@ -145,7 +145,7 @@ function printPairedChanges(rows, baseline) {
   changed.forEach((line) => console.log(line));
 }
 
-// Pair by pair, the second engine against the first: Leitpunkt decisions fixed / broken, letters closer / further,
+// Pair by pair, with the review against without it: Leitpunkt decisions fixed / broken, letters closer / further,
 // 2↔0 errors, voids of letters the examiner credited.
 function printShadowComparison(before, after) {
   const t = { fixed: 0, broken: 0, closer: 0, further: 0, twoZero: [0, 0], falseVoids: [0, 0] };
@@ -166,7 +166,7 @@ function printShadowComparison(before, after) {
     });
   });
   const decisions = before.length * 3;
-  console.log(`\nShadow · evidence review vs keyword stage over ${decisions} Leitpunkt decisions: ${t.fixed} fixed, ${t.broken} broken (net ${(((t.fixed - t.broken) / decisions) * 100).toFixed(1)}%)`);
+  console.log(`\nShadow · purpose review vs keyword stage over ${decisions} Leitpunkt decisions: ${t.fixed} fixed, ${t.broken} broken (net ${(((t.fixed - t.broken) / decisions) * 100).toFixed(1)}%)`);
   console.log(`  letters closer to the examiner ${t.closer}, further ${t.further}`);
   console.log(`  2↔0 errors: keyword ${t.twoZero[0]}, review ${t.twoZero[1]} · Leitpunkte void where the examiner credited some: keyword ${t.falseVoids[0]}, review ${t.falseVoids[1]}`);
 }
@@ -179,10 +179,10 @@ function printEngine(label, rows) {
 }
 
 if (shadow) {
-  const keywordRows = await gradeAll('keywords');
-  const evidenceRows = await gradeAll('hybrid');
+  const keywordRows = await gradeAll(false);
+  const evidenceRows = await gradeAll(true);
   printEngine('Micro-Ranker · keyword stage', keywordRows);
-  printEngine('Micro-Ranker · keyword stage + evidence review', evidenceRows);
+  printEngine('Micro-Ranker · keyword stage + purpose review', evidenceRows);
   printShadowComparison(keywordRows, evidenceRows);
   if (set === 'open') {
     console.log('\nChanged letters (open set):');
@@ -194,8 +194,8 @@ if (shadow) {
     });
   }
 } else {
-  const rows = await gradeAll(hybridEngine ? 'hybrid' : 'keywords');
-  printEngine(useRanker ? `Micro-Ranker · ${hybridEngine ? 'keyword stage + evidence review' : 'keyword stage'}` : 'limited mode', rows);
+  const rows = await gradeAll(withReview);
+  printEngine(useRanker ? `Micro-Ranker · keyword stage${withReview ? ' + purpose review' : ''}` : 'limited mode', rows);
   if (set === 'open' && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
   if (set === 'open' && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');
 }
