@@ -3,6 +3,7 @@
 ## Schreiben grading
 
 - [x] Open and hidden evaluation sets of persona-written letters (`npm run eval:open`, `npm run eval:hidden`; see [quality gates](architecture/quality-gates.md#open-and-hidden-evaluation-sets)).
+- [x] Hidden set sealed with a public key and graded only in CI (`TELC_HIDDEN_PRIVATE_KEY` secret).
 - [ ] Grow the hidden set with letters by real teachers or official telc samples with their ratings; model-written letters share the model's blind spots.
 - [ ] Ranker: take EmbeddingGemma's `sentence_embedding` output and the model-card document prefix (`title: none | text:`), then recalibrate the thresholds on the open set and confirm on the hidden one.
 - [ ] Ranker: positive and negative example phrases per Leitpunkt in the rubric instead of label + keywords.

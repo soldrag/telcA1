@@ -1,36 +1,30 @@
 /**
  * Seals a staged batch of hidden letters: validates ~/.cache/telc-a1/hidden-staging/<batch>.json,
- * encrypts it into tests/fixtures/schreiben-hidden/<batch>.enc and deletes the plain file.
- * Prints only counts and schema problems, never a letter.
- * Usage: node scripts/eval/seal-hidden.mjs <batch>   ·   node scripts/eval/seal-hidden.mjs --init-key
+ * encrypts it with the repository's public key into tests/fixtures/schreiben-hidden/<batch>.enc and deletes
+ * the plain file. Needs no secret; prints only counts and schema problems, never a letter.
+ * Usage: node scripts/eval/seal-hidden.mjs <batch>
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { HIDDEN_DIR, STAGING_DIR, KEY_FILE, createKeyFile, readKey, sealBatch } from './hiddenSetStore.mjs';
+import { HIDDEN_DIR, STAGING_DIR, sealBatch } from './hiddenSetStore.mjs';
 import { validateLetters } from './letterSchema.mjs';
 
-const arg = process.argv[2];
+const batchName = process.argv[2];
 
-if (arg === '--init-key') {
-  console.log(createKeyFile() ? `Key created: ${KEY_FILE}` : `Key already exists: ${KEY_FILE}`);
-  fs.mkdirSync(STAGING_DIR, { recursive: true });
-  process.exit(0);
-}
-
-if (!/^[a-z0-9-]+$/.test(arg || '')) {
+if (!/^[a-z0-9-]+$/.test(batchName || '')) {
   console.error('Usage: node scripts/eval/seal-hidden.mjs <batch-name: a-z, 0-9, ->');
   process.exit(1);
 }
 
-const staged = path.join(STAGING_DIR, `${arg}.json`);
-const target = new URL(`${arg}.enc`, HIDDEN_DIR);
+const staged = path.join(STAGING_DIR, `${batchName}.json`);
+const target = new URL(`${batchName}.enc`, HIDDEN_DIR);
 if (!fs.existsSync(staged)) {
-  console.error(`Nothing staged for "${arg}" (expected ${staged}).`);
+  console.error(`Nothing staged for "${batchName}" (expected ${staged}).`);
   process.exit(1);
 }
 if (fs.existsSync(target)) {
-  console.error(`Batch "${arg}" is already sealed; pick another name.`);
+  console.error(`Batch "${batchName}" is already sealed; pick another name.`);
   process.exit(1);
 }
 
@@ -47,8 +41,8 @@ if (problems.length > 0) {
   process.exit(1);
 }
 
-const batch = letters.map((l, i) => ({ ...l, id: `${arg}-${String(i + 1).padStart(2, '0')}` }));
+const batch = letters.map((l, i) => ({ ...l, id: `${batchName}-${String(i + 1).padStart(2, '0')}` }));
 fs.mkdirSync(HIDDEN_DIR, { recursive: true });
-fs.writeFileSync(target, sealBatch(batch, readKey()));
+fs.writeFileSync(target, sealBatch(batch));
 fs.rmSync(staged);
-console.log(`Sealed ${batch.length} letters as ${arg}.enc; the plain file is deleted.`);
+console.log(`Sealed ${batch.length} letters as ${batchName}.enc; the plain file is deleted.`);

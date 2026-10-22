@@ -1,0 +1,76 @@
+name: Schreiben evaluation
+
+# Grades the open and the hidden letter sets in both modes. The hidden set is decrypted with the
+# TELC_HIDDEN_PRIVATE_KEY secret and prints aggregate numbers only (scripts/eval/eval-schreiben.mjs).
+on:
+  push:
+    paths:
+      - 'src/services/schreiben/**'
+      - 'src/services/ai/**'
+      - 'src/services/embeddings/**'
+      - 'src/data/exams/seeds/schreiben-*'
+      - 'scripts/eval/**'
+      - 'tests/fixtures/schreiben-open/**'
+      - 'tests/fixtures/schreiben-hidden/**'
+      - '.github/workflows/schreiben-eval.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        env:
+          ONNXRUNTIME_NODE_INSTALL: skip
+        run: npm ci
+
+      # EmbeddingGemma (~200 MB) is downloaded once and kept between runs.
+      - name: Cache the embedding model
+        uses: actions/cache@v4
+        with:
+          path: node_modules/@huggingface/transformers/.cache
+          key: embeddinggemma-300m-q4-v1
+
+      - name: Open set · limited mode
+        run: |
+          status=0; npm run -s eval:open > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Open set · Micro-Ranker
+        run: |
+          status=0; npm run -s eval:open -- --ranker > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Hidden set · limited mode
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:hidden > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Hidden set · Micro-Ranker
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:hidden -- --ranker > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
