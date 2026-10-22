@@ -5,9 +5,11 @@
 - [x] Open and hidden evaluation sets of persona-written letters (`npm run eval:open`, `npm run eval:hidden`; see [quality gates](architecture/quality-gates.md#open-and-hidden-evaluation-sets)).
 - [x] Hidden set sealed with a public key and graded only in CI (`TELC_HIDDEN_PRIVATE_KEY` secret).
 - [ ] Grow the hidden set with letters by real teachers or official telc samples with their ratings; model-written letters share the model's blind spots.
-- [ ] Ranker: take EmbeddingGemma's `sentence_embedding` output and the model-card document prefix (`title: none | text:`), then recalibrate the thresholds on the open set and confirm on the hidden one.
-- [ ] Ranker: positive and negative example phrases per Leitpunkt in the rubric instead of label + keywords.
-- [ ] Neural evidence may anchor the topic, so a paraphrase without rubric words is not voided as `OFF_TOPIC`.
+- [x] Another-purpose review over the keyword stage (`grading/purposeReview.js`): hidden set 6 Leitpunkt decisions fixed, 0 broken, no false void. Raising or lowering keyword levels by evidence was measured and dropped (no gain on letters on task).
+- [ ] Off-topic recall: half the off-topic letters still pass (near misses to the same addressee: another speech act, a misread role, another service, a personal letter). Write other-purpose phrases per task by that typology as minimal pairs of the task's own phrases, use the other tasks' fulfilling phrases as negatives, add about 10 off-topic calibration letters per task; the no-false-void guard stays.
+- [ ] Legacy ablation on the open set and calibration only: `letterPurposeFit.js` / `isOffTaskLetter`, v1 example phrases (`schreiben-leitpunkt-examples.json`), rival gates, confidence-floor branches; keep only what changes a result.
+- [ ] `heavy_errors` letters are under-credited (hidden set: a third within ±0.5): diagnose with `scripts/eval/learnerNoise.mjs` on calibration letters before changing anything.
+- [ ] Keyword stage on `sentence_embedding` and the model-card prompts: a recalibration of its own, measured on calibration letters, then open, then hidden.
 - [ ] Negation: perfect tense and split separable verbs (`PART_PAST` vs `VERB_PART`), negated reason and state points.
 - [ ] Drop generic rubric keywords (`zeit`, `machen`, `kommen`, `wann`, `können`, `geht`, `gibt`).
 

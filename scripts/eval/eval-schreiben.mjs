@@ -45,15 +45,17 @@ async function findQuestion(seedQuestionId) {
   return questionCache.get(seedQuestionId);
 }
 
+let extractors = null;
 async function createGrader(review) {
   if (!useRanker) {
     return (userText, question) => gradeSchreibenSubmission({ userText, question, options: { forceLimitedMode: true } });
   }
   const { MicroRankerProvider } = await import('../../src/services/ai/providers/MicroRankerProvider.js');
-  const { clearEmbeddingCache, createSentenceEmbedder } = await import('../../src/services/embeddings/embeddingService.js');
-  const { pipeline } = await import('@huggingface/transformers');
-  const extractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
-  const evidenceExtractor = review ? await createSentenceEmbedder() : null;
+  const { clearEmbeddingCache, createEmbeddingExtractors } = await import('../../src/services/embeddings/embeddingService.js');
+  // One model session, as in the app: the keyword stage reads the pooled vectors, the review the sentence ones.
+  extractors ??= await createEmbeddingExtractors();
+  const extractor = extractors.pooled;
+  const evidenceExtractor = review ? extractors.sentence : null;
   return async (userText, question) => {
     clearEmbeddingCache();
     return gradeSchreibenSubmission({

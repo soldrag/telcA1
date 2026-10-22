@@ -45,6 +45,9 @@ jobs:
           path: node_modules/@huggingface/transformers/.cache
           key: embeddinggemma-300m-q4-v1
 
+      - name: Keyword-stage vectors · single model session equals the feature-extraction pipeline
+        run: node scripts/eval/check-embedding-parity.mjs
+
       - name: Open set · limited mode
         run: |
           status=0; npm run -s eval:open > eval.log 2>&1 || status=$?

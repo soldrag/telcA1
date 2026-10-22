@@ -18,7 +18,7 @@ import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
 import { canReviewPurpose, reviewLetterPurpose } from './grading/purposeReview.js';
-import { computeDocumentVector } from '../embeddings/embeddingService.js';
+import { computeDocumentVector, getSentenceExtractor } from '../embeddings/embeddingService.js';
 
 function classifyArbitration(it) {
   if (it.isProtected) return 'protected';
@@ -107,6 +107,31 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
   };
 }
 
+/**
+ * The trained another-purpose review (grading/purposeReview.js) may add an OFF_TOPIC void, when possible: the
+ * Micro-Ranker read the letter with the model, the level has a trained head and the task an example bank. It reads
+ * the model's sentence_embedding: options.evidenceExtractor, or the app's loaded model when the keyword stage used it.
+ * A review that fails leaves the keyword stage's verdict alone.
+ */
+async function runPurposeReview({ keywordStage, criteria, stage0, question, activeProvider, levelPolicy, options }) {
+  if (!keywordStage.modelUsed || activeProvider.id !== PROVIDER_IDS.MICRO_RANKER || !canReviewPurpose(question.id, levelPolicy)) return null;
+  const evidenceExtractor = options.evidenceExtractor ?? (options.customExtractor ? null : await getSentenceExtractor());
+  if (!evidenceExtractor) return null;
+  try {
+    return await reviewLetterPurpose({
+      keywordLevels: keywordStage.items.map((it) => it.score),
+      criteria,
+      bodySentences: stage0.bodySentences,
+      questionId: question.id,
+      embed: (text) => computeDocumentVector(text, evidenceExtractor),
+      policy: levelPolicy,
+    });
+  } catch (err) {
+    console.warn('[PurposeReview] skipped, the keyword verdict stands:', err);
+    return null;
+  }
+}
+
 export async function gradeSchreibenSubmission({
   userText = '',
   question = {},
@@ -146,21 +171,7 @@ export async function gradeSchreibenSubmission({
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
-  // The trained another-purpose review may add an OFF_TOPIC void, when possible: the Micro-Ranker, a sentence embedder
-  // (options.evidenceExtractor), a trained head for the level and an example bank for the task.
-  const evidenceExtractor = customExtractor ? options.evidenceExtractor : null;
-  const reviewed = Boolean(evidenceExtractor) && activeProvider.id === PROVIDER_IDS.MICRO_RANKER
-    && canReviewPurpose(question.id, levelPolicy);
-  const review = reviewed
-    ? await reviewLetterPurpose({
-      keywordLevels: keywordStage.items.map((it) => it.score),
-      criteria,
-      bodySentences: stage0.bodySentences,
-      questionId: question.id,
-      embed: (text) => computeDocumentVector(text, evidenceExtractor),
-      policy: levelPolicy,
-    })
-    : null;
+  const review = await runPurposeReview({ keywordStage, criteria, stage0, question, activeProvider, levelPolicy, options });
   const stage2 = review?.anotherPurpose ? { ...keywordStage, servesTaskPurpose: false } : keywordStage;
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);

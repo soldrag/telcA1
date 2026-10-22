@@ -87,6 +87,16 @@ Key rules:
 - **Ranker veto**: when the embedder rejected a sentence, a lexical-only hit is capped below full (`isLexicalVeto`); structured evidence still stands.
 - Why EmbeddingGemma: a multilingual cross-encoder (mmarco-mMiniLMv2) gave near-zero scores on rubric-style queries and needs a ~470 MB fp32 ONNX; the earlier English MiniLM cross-encoder always returned 1.0 in the used pipeline.
 
+## Another-purpose review
+
+`grading/purposeReview.js` over the keyword stage, in the Micro-Ranker only (the review needs the model). It never changes a Leitpunkt level; it may only add an `OFF_TOPIC` void (`servesTaskPurpose: false`) to the keyword stage's own.
+
+- **Evidence per unit** (`grading/unitEvidence.js`, a Leitpunkt or one aspect of a compound one): trained sentence heads (`policies/a1EvidenceModel.json`, `scripts/eval/train-evidence-model.mjs`) read each sentence, clause and pair of adjacent sentences against the task's **example bank** (`src/data/exams/example-bank/*.json`: per unit 8 fulfilling phrases and misses by type, per task 8 phrases of other purposes, written from the task only), stored as int8 vectors (`vectors.json`).
+- **Purpose margin**: how much closer a sentence is to the task's fulfilling phrases than to another purpose's, on the bank's own scale (0 halfway between the bank's fulfilling and other-purpose phrases). Raw cosines differ from bank to bank; only this scale carries over to a task the head was not trained on.
+- **Decision**: one logistic head (`policies/a1PurposeReviewModel.json`, `scripts/eval/train-letter-model.mjs`) over the margins (mean, min, max), the reason's support, the units' support (mean, max) and the keyword levels; every weight may only argue against a void. Its threshold sits one log-odds unit above every letter an examiner found on task, measured leave one task out; a head that fails its go criteria is stored as off.
+- **Embeddings**: one EmbeddingGemma session (`embeddings/embeddingService.createEmbeddingExtractors`): the keyword stage reads its pooled hidden states (bit-identical to the feature-extraction pipeline, `scripts/eval/check-embedding-parity.mjs` in CI), the review its `sentence_embedding` with the model card's document prompt `title: none | text:`. The weights load once.
+- A review that fails leaves the keyword verdict alone.
+
 ## Arbitration
 
 `grading/leitpunktArbitration.js` merges the deterministic baseline with the provider verdict (`mergeArbitrationVerdict`):

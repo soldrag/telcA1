@@ -11,7 +11,6 @@ import { pointOrtToOwnAssets } from './ortRuntimeAssets.js';
 
 const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 const EMBEDDING_DTYPE = 'q4';
-const EMBEDDING_TASK = 'feature-extraction';
 // The weights are what a download is about; transformers.js names them after the dtype.
 const EMBEDDING_WEIGHT_FILES = [`onnx/model_${EMBEDDING_DTYPE}.onnx`, `onnx/model_${EMBEDDING_DTYPE}.onnx_data`];
 const EMBEDDING_DIMENSION = 256;
@@ -20,6 +19,8 @@ const EMBEDDING_DIMENSION = 256;
 const TASK_PREFIX_QUERY = 'task: search result | query: ';
 export const TASK_PREFIX_TEXT = 'task: search result | text: ';
 
+// The app's model session (createEmbeddingExtractors) and its pooled reading, which the keyword stage calls.
+let modelSession = null;
 let extractorInstance = null;
 let isInitializing = false;
 const lpEmbeddingCache = new Map();
@@ -34,28 +35,40 @@ async function getDeviceTarget() {
 }
 
 /**
- * EmbeddingGemma's trained sentence vector: the model's `sentence_embedding` output (mean pooling and the dense
- * projection the Matryoshka truncation is trained on), not the pooled hidden states the feature-extraction
- * pipeline returns. One factory for the app and the Node scripts, so both embed alike.
- * @param {object} [options] - transformers.js model options (device, progress_callback)
- * @returns {Promise<Function>} extractor(prompt) -> { data }, with dispose()
+ * One EmbeddingGemma session with both readings of a prompt: `pooled` is the attention-masked mean of the hidden
+ * states, exactly what the feature-extraction pipeline returns (the keyword stage's vectors), and `sentence` is the
+ * model's trained `sentence_embedding` (mean pooling plus the dense projection the Matryoshka truncation is trained
+ * on; the evidence heads' vectors). The weights load once. One factory for the app and the Node scripts.
+ * @param {object} [options] - transformers.js model options (device, dtype, progress_callback)
+ * @returns {Promise<{ pooled: Function, sentence: Function, dispose: Function }>} pooled / sentence: (prompt) -> { data }
  */
-export async function createSentenceEmbedder(options = {}) {
-  const { AutoModel, AutoTokenizer } = await import('@huggingface/transformers');
+export async function createEmbeddingExtractors(options = {}) {
+  const { AutoModel, AutoTokenizer, mean_pooling: meanPooling } = await import('@huggingface/transformers');
   const [tokenizer, model] = await Promise.all([
     AutoTokenizer.from_pretrained(EMBEDDING_MODEL_ID, { progress_callback: options.progress_callback }),
     AutoModel.from_pretrained(EMBEDDING_MODEL_ID, { dtype: EMBEDDING_DTYPE, ...options }),
   ]);
   // Output tensors hold native (WebGPU/WASM/ONNX) memory: copy the vector and release them on every call.
-  const extractor = async (prompt) => {
+  const run = async (prompt, read) => {
     const inputs = tokenizer([prompt], { padding: true, truncation: true });
     const outputs = await model(inputs);
-    const data = Float32Array.from(outputs.sentence_embedding.data);
-    [...Object.values(outputs), ...Object.values(inputs)].forEach((tensor) => tensor?.dispose?.());
+    const vector = read(outputs, inputs);
+    const data = Float32Array.from(vector.data);
+    [vector, ...Object.values(outputs), ...Object.values(inputs)].forEach((tensor) => tensor?.dispose?.());
     return { data };
   };
-  extractor.dispose = () => model.dispose();
-  return extractor;
+  return {
+    pooled: (prompt) => run(prompt, (outputs, inputs) => meanPooling(outputs.last_hidden_state, inputs.attention_mask)),
+    sentence: (prompt) => run(prompt, (outputs) => outputs.sentence_embedding),
+    dispose: () => model.dispose(),
+  };
+}
+
+/** The `sentence` reading alone, for the Node scripts. @returns {Promise<Function>} extractor with dispose() */
+export async function createSentenceEmbedder(options = {}) {
+  const { sentence, dispose } = await createEmbeddingExtractors(options);
+  sentence.dispose = dispose;
+  return sentence;
 }
 
 // The document prompt of the EmbeddingGemma model card; the evidence heads were trained on it.
@@ -78,23 +91,29 @@ async function initEmbeddingService(onProgress = null) {
 
   isInitializing = true;
   try {
-    const { pipeline, env } = await import('@huggingface/transformers');
+    const { env } = await import('@huggingface/transformers');
     if (env?.useBrowserCache !== undefined) {
       env.useBrowserCache = true;
     }
 
     const device = await getDeviceTarget();
     await pointOrtToOwnAssets(env, device);
-    const options = { device, dtype: EMBEDDING_DTYPE };
     const isCached = await areModelFilesCached({ env, modelId: EMBEDDING_MODEL_ID, files: EMBEDDING_WEIGHT_FILES });
-    extractorInstance = await pipeline(EMBEDDING_TASK, EMBEDDING_MODEL_ID, {
-      ...options,
+    modelSession = await createEmbeddingExtractors({
+      device,
       progress_callback: isCached ? undefined : createDownloadReporter(onProgress),
     });
+    extractorInstance = modelSession.pooled;
     return extractorInstance;
   } finally {
     isInitializing = false;
   }
+}
+
+/** The loaded model's `sentence_embedding` reading (createEmbeddingExtractors), loading the model if needed. */
+export async function getSentenceExtractor() {
+  await initEmbeddingService();
+  return modelSession.sentence;
 }
 
 /**
@@ -139,17 +158,12 @@ export function clearEmbeddingCache() {
 }
 
 export async function unloadEmbeddingService() {
-  if (extractorInstance) {
-    try {
-      if (typeof extractorInstance.dispose === 'function') {
-        await extractorInstance.dispose();
-      } else if (extractorInstance.model?.dispose) {
-        await extractorInstance.model.dispose();
-      }
-    } catch (err) {
-      console.warn('[EmbeddingService] Dispose notice:', err);
-    }
+  try {
+    await modelSession?.dispose();
+  } catch (err) {
+    console.warn('[EmbeddingService] Dispose notice:', err);
   }
+  modelSession = null;
   extractorInstance = null;
   isInitializing = false;
 }

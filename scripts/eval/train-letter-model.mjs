@@ -13,7 +13,7 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { gradeSchreibenSubmission } from '../../src/services/schreiben/gradingPipeline.js';
-import { createSentenceEmbedder, clearEmbeddingCache } from '../../src/services/embeddings/embeddingService.js';
+import { createEmbeddingExtractors, clearEmbeddingCache } from '../../src/services/embeddings/embeddingService.js';
 import { prepareEmbeddingVector } from '../../src/services/schreiben/grading/vectorMath.js';
 import { applyLogisticHead } from '../../src/services/schreiben/grading/evidenceFeatures.js';
 import { decodeExampleBank } from '../../src/services/schreiben/grading/exampleBankVectors.js';
@@ -75,18 +75,17 @@ const sourceHash = (() => {
 })();
 const keywordCacheFile = path.join(os.homedir(), '.cache', 'telc-a1', 'keyword-verdicts.json');
 const keywordCache = fs.existsSync(keywordCacheFile) ? readJson(keywordCacheFile) : {};
-let pooledExtractor = null;
+// One model session, as in the app: the keyword stage reads the pooled vectors, the review the sentence ones.
+let extractors = null;
+const loadExtractors = async () => (extractors ??= await createEmbeddingExtractors());
 async function keywordVerdict(letter) {
   const key = `${sourceHash}:${sha(letter.task + letter.text)}`;
   if (!keywordCache[key]) {
-    if (!pooledExtractor) {
-      const { pipeline } = await import('@huggingface/transformers');
-      pooledExtractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
-    }
+    const { pooled } = await loadExtractors();
     clearEmbeddingCache();
     const result = await gradeSchreibenSubmission({
       userText: letter.text, question: await questionOf(letter.task), provider: new MicroRankerProvider(),
-      options: { customExtractor: pooledExtractor, leitpunktEngine: 'keywords' },
+      options: { customExtractor: pooled },
     });
     keywordCache[key] = {
       levels: result.breakdown.items.map((it) => it.score),
@@ -99,12 +98,11 @@ async function keywordVerdict(letter) {
 // --- evidence units, as evidenceReview.js reads them; sentence vectors shared with train-evidence-model.mjs ----------
 const vectorCacheFile = path.join(os.homedir(), '.cache', 'telc-a1', 'vectors-sentence.json');
 const vectorCache = fs.existsSync(vectorCacheFile) ? readJson(vectorCacheFile) : {};
-let sentenceExtractor = null;
 async function embed(text) {
   const key = sha(DOC_PROMPT + text);
   if (!vectorCache[key]) {
-    sentenceExtractor ??= await createSentenceEmbedder();
-    vectorCache[key] = Array.from(prepareEmbeddingVector((await sentenceExtractor(DOC_PROMPT + text)).data, 256));
+    const { sentence } = await loadExtractors();
+    vectorCache[key] = Array.from(prepareEmbeddingVector((await sentence(DOC_PROMPT + text)).data, 256));
   }
   return Float32Array.from(vectorCache[key]);
 }
