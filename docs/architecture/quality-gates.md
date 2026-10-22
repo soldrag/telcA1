@@ -37,6 +37,13 @@ Diagnostics, not targets: every score change is explained, never tuned towards t
 - `npm run bench:schreiben` (`scripts/bench-schreiben-leitpunkte.mjs`) — benchmark and gold letters (`tests/fixtures/schreiben-bench/`) and the regression suites in two modes (none / primary Micro-Ranker with local EmbeddingGemma); diff against `baseline.txt`, `--save` stores a new baseline.
 - `npm run measure:grammar` — grammar hint precision/recall ([linguistic engine](linguistic-engine.md#precision-and-regression-net)).
 
+### Open and hidden evaluation sets
+
+Letters written and graded by examiner personas who never saw the engine, the rubric keywords or the tests (`scripts/eval/letterSchema.mjs`: task, category, expected Leitpunkt levels and KG).
+- **Open set** (`tests/fixtures/schreiben-open/*.json`): `npm run eval:open [-- --ranker]` prints every letter with the program's and the examiner's verdict. Use it to find and debug cases.
+- **Hidden set** (encrypted `*.enc` batches in `tests/fixtures/`, AES-256-GCM; the key lives outside the repository, see `scripts/eval/seal-hidden.mjs --init-key`): `npm run eval:hidden [-- --ranker]` prints aggregate numbers only (agreement of totals and Leitpunkt levels, over-/under-credit, categories of at least 8 letters). Never tune on it: a change is judged by the open set first and confirmed on the hidden one. Run it sparingly; every run reveals a little.
+- New hidden batches: write the JSON into the staging folder and run `node scripts/eval/seal-hidden.mjs <batch>` (validates, encrypts, deletes the plain file). The PreToolUse hook `.claude/hooks/guard-hidden-set.mjs` stops agents from reading the letters or the key; it is a fence against accidental fitting, not a security boundary.
+
 ## Command reference
 
 | Command | What |
