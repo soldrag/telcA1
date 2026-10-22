@@ -137,5 +137,23 @@
     "Liebe Nina, mein Arm tut nicht mehr weh, wir können wieder zusammen schwimmen.",
     "Hallo Ben, die Praxis von meinem Arzt ist direkt neben deinem Büro.",
     "Liebe Tante Eva, wir fahren im Sommer nach Spanien und ich freue mich sehr."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Damen und Herren,\nich habe am Montag um 14 Uhr einen Termin bei Dr. Schneider. Leider kann ich nicht kommen, denn mein Sohn ist krank und ich muss zu Hause bleiben. Ist am Donnerstag am Vormittag ein Termin frei?\nMit freundlichen Grüßen\nAyşe Yılmaz",
+      "Guten Tag,\nam Montag um 14 Uhr bin ich leider nicht in der Stadt. Meine Firma schickt mich für drei Tage nach Hamburg. Geht es vielleicht am Freitag um 10 Uhr? Oder nächste Woche am Dienstag?\nViele Grüße\nPaul Novak",
+      "Sehr geehrter Herr Dr. Schneider,\nich kann am Montag um 14 Uhr nicht zum Termin kommen. Ich muss leider länger arbeiten. Haben Sie am Mittwoch einen neuen Termin für mich? Ich kann am Nachmittag kommen. Vielen Dank.\nMit freundlichen Grüßen\nLi Wei",
+      "Sehr geehrte Damen und Herren,\nmeine Mutter, Irina Volkova, hat am Montag um 14 Uhr einen Termin bei Ihnen. Sie kann leider nicht kommen, weil sie Fieber hat und im Bett liegt. Können wir den Termin auf nächste Woche verschieben? Dienstag oder Mittwoch passt gut.\nFreundliche Grüße\nDmitri Volkov"
+    ],
+    "offTask": [
+      "Sehr geehrte Damen und Herren,\nvielen Dank für Ihren Anruf. Ich bestätige meinen Termin am Montag um 14 Uhr bei Dr. Schneider. Ich komme pünktlich und bringe meine Versichertenkarte mit. Muss ich vorher noch etwas beachten? Bitte schreiben Sie mir.\nMit freundlichen Grüßen\nKarin Lehmann",
+      "Sehr geehrte Damen und Herren,\nich war letzte Woche in Ihrer Praxis. Ich hatte um 9 Uhr einen Termin, aber ich habe zwei Stunden gewartet. Niemand hat mir etwas gesagt. Das finde ich nicht gut. Bitte informieren Sie die Patienten nächstes Mal.\nMit freundlichen Grüßen\nGeorg Huber",
+      "Sehr geehrter Herr Klein,\nleider muss Dr. Schneider am Montag zu einem Kongress fahren. Ihr Termin um 14 Uhr fällt deshalb aus. Wir können Ihnen einen neuen Termin am Mittwoch um 15 Uhr geben. Bitte rufen Sie uns kurz an.\nMit freundlichen Grüßen\nJulia Roth, Praxis Dr. Schneider",
+      "Sehr geehrte Damen und Herren,\nich bin Arzthelferin und suche eine neue Arbeit. Ich habe gelesen, Ihre Praxis sucht eine Mitarbeiterin. Ich kann ab Montag anfangen und auch am Nachmittag arbeiten. Kann ich zu einem Gespräch kommen? Ich freue mich auf Ihre Antwort.\nMit freundlichen Grüßen\nSelin Kaya",
+      "Sehr geehrte Damen und Herren,\nich brauche ein neues Rezept für meine Tabletten gegen Kopfschmerzen. Die Packung ist fast leer. Kann ich das Rezept morgen in der Praxis abholen? Oder können Sie es direkt an die Apotheke schicken?\nMit freundlichen Grüßen\nHans Fischer",
+      "Sehr geehrte Damen und Herren,\nich war am Freitag bei Dr. Schneider, weil ich krank war. Mein Chef braucht jetzt eine Bescheinigung für die Arbeit. Können Sie mir bitte die Bescheinigung per Post schicken? Meine Adresse ist Bahnhofstraße 12, 50667 Köln.\nMit freundlichen Grüßen\nMaria Lopez",
+      "Lieber Jonas,\nich war heute beim Arzt. Ich habe nur eine Erkältung, nichts Schlimmes. Am Wochenende bleibe ich zu Hause und trinke viel Tee. Wie geht es dir? Kommst du mich nächste Woche besuchen? Ich freue mich!\nLiebe Grüße\nEmma",
+      "Liebe Oma,\nvielen Dank für dein Paket! Mir geht es jetzt besser. Mein Arzt, Dr. Schneider, ist sehr nett und hat mir gute Medizin gegeben. Nächste Woche gehe ich wieder arbeiten. Wann besuchst du uns?\nViele Küsse\nDeine Lena"
+    ]
+  }
 }

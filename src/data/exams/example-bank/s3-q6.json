@@ -171,5 +171,23 @@
     "Liebe Julia, im Dezember feiern wir in meiner Wohnung, kommst du auch?",
     "Hallo Sami, ich mache im Januar Urlaub in Ägypten, dort scheint die Sonne.",
     "Lieber Bruder, unser Haus ist alt, aber die Nachbarn sind freundlich."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrter Herr Meier,\nich schreibe Ihnen, weil die Heizung in meiner Wohnung kaputt ist. Seit Sonntag ist es sehr kalt, nur 14 Grad. Meine Kinder frieren. Bitte schicken Sie schnell einen Handwerker. Ich bin jeden Tag ab 15 Uhr zu Hause.\nMit freundlichen Grüßen\nFatima Benali",
+      "Guten Tag Herr Meier,\nin meiner Wohnung ist es seit drei Tagen eiskalt. Die Heizkörper bleiben kalt, auch im Bad. Wir schlafen schon mit Jacken. Kann ein Techniker am Donnerstag oder Freitag kommen? Ich bin den ganzen Tag da.\nViele Grüße\nIvan Horvat",
+      "Sehr geehrter Herr Meier,\ndie Heizung in meiner Wohnung funktioniert nicht. Es ist sehr kalt und ich bin oft krank. Wann kommt ein Handwerker? Ich habe am Montag und Dienstag Zeit. Bitte rufen Sie mich an. Vielen Dank.\nMit freundlichen Grüßen\nTom Becker",
+      "Lieber Herr Meier,\nwir haben ein Problem: Unsere Heizung geht seit gestern nicht mehr. Im Wohnzimmer und im Kinderzimmer ist es kalt, und unser Baby ist erst drei Monate alt. Können Sie heute noch einen Handwerker anrufen? Wir sind ab 17 Uhr zu Hause.\nHerzliche Grüße\nSara und Daniel Weiß"
+    ],
+    "offTask": [
+      "Sehr geehrter Herr Meier,\nvielen Dank! Der Handwerker war gestern da und hat alles repariert. Jetzt ist es in der Wohnung wieder schön warm. Er war sehr freundlich und schnell. Ich bin sehr zufrieden. Schöne Grüße auch an Ihre Frau.\nMit freundlichen Grüßen\nFatima Benali",
+      "Sehr geehrter Herr Meier,\nim Januar war die Heizung zwei Wochen kaputt und wir hatten keine Wärme. Wir mussten einen Elektroofen kaufen. Ich möchte deshalb für Januar weniger Miete bezahlen. Ist das möglich? Bitte antworten Sie mir bald.\nMit freundlichen Grüßen\nIvan Horvat",
+      "Liebe Mieterinnen und Mieter,\nam Mittwoch kommt ein Handwerker und kontrolliert die Heizung im ganzen Haus. Er kommt zwischen 8 und 12 Uhr. Bitte seien Sie zu Hause oder geben Sie Ihren Schlüssel beim Nachbarn ab. Vielen Dank!\nMit freundlichen Grüßen\nKlaus Meier",
+      "Sehr geehrter Herr Meier,\nich bin Heizungsbauer und habe eine kleine Firma in Ihrer Stadt. Ich repariere Heizungen schnell und billig. Brauchen Sie für Ihre Häuser einen Handwerker? Ich kann Ihnen gern ein Angebot schicken.\nMit freundlichen Grüßen\nMarek Nowak, Nowak Heizung",
+      "Sehr geehrter Herr Meier,\nich möchte gern eine Katze haben. Sie ist klein und sehr ruhig. Darf ich die Katze in meiner Wohnung halten? Bitte schreiben Sie mir bald eine Antwort. Vielen Dank und einen schönen Tag.\nMit freundlichen Grüßen\nLisa Hoffmann",
+      "Sehr geehrter Herr Meier,\nich habe meinen Wohnungsschlüssel verloren. Ich wohne im zweiten Stock links. Haben Sie noch einen Schlüssel für mich? Wann kann ich ihn bei Ihnen abholen? Ich bezahle natürlich den neuen Schlüssel.\nMit freundlichen Grüßen\nOmar Aziz",
+      "Liebe Mia,\nbei mir ist es gerade sehr kalt, die Heizung ist kaputt! Ich trinke viel heißen Tee und trage zwei Pullover. Morgen kommt hoffentlich ein Handwerker. Wie geht es dir in Spanien? Ist es dort warm?\nViele Grüße\nNora",
+      "Hallo Mama,\nwie geht es euch? Hier in Berlin ist schon Winter und es schneit. Meine neue Wohnung ist schön, aber manchmal ein bisschen kalt. Der Vermieter, Herr Meier, ist nett. Am Wochenende besuche ich euch.\nLiebe Grüße\nDein Ali"
+    ]
+  }
 }

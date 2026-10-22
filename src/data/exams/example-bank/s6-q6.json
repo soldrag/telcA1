@@ -205,5 +205,23 @@
     "Hallo Ali, kannst du im Urlaub meine Katze füttern?",
     "Liebe Eltern, Garmisch ist klein, aber sehr schön.",
     "Lieber Marco, nach dem Urlaub zeige ich dir meine Fotos von der Zugspitze."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Damen und Herren,\nich möchte im August Urlaub in Garmisch machen und ein Doppelzimmer reservieren. Ich komme mit meinem Mann vom 3. bis 10. August. Ist das Frühstück im Preis inklusive? Und gibt es einen Parkplatz am Hotel?\nMit freundlichen Grüßen\nHelena Novak",
+      "Guten Tag,\nhaben Sie vom 12. bis 16. August ein Einzelzimmer frei? Das sind vier Nächte. Ich möchte in den Bergen wandern. Gibt es morgens Frühstück im Hotel? Ich komme mit dem Auto. Kann ich bei Ihnen parken?\nViele Grüße\nJan Svoboda",
+      "Sehr geehrte Damen und Herren,\nich möchte bei Ihnen ein Zimmer reservieren. Ich komme am 5. August und bleibe fünf Tage. Gibt es Frühstück? Haben Sie einen Parkplatz? Bitte schreiben Sie mir auch den Preis. Vielen Dank.\nMit freundlichen Grüßen\nLaura Rossi",
+      "Sehr geehrte Damen und Herren,\nwir sind eine Familie mit zwei Kindern und möchten im August zwei Wochen in Ihrem Hotel übernachten, vom 1. bis 14. August. Wir brauchen ein Familienzimmer. Kostet das Frühstück extra? Und haben Sie eine Garage für unser Auto?\nHerzliche Grüße\nOlga Ivanova"
+    ],
+    "offTask": [
+      "Sehr geehrte Damen und Herren,\nich habe bei Ihnen ein Einzelzimmer vom 14. bis 21. August reserviert. Leider kann ich nicht kommen, weil ich arbeiten muss. Bitte stornieren Sie meine Reservierung. Muss ich dafür etwas bezahlen?\nMit freundlichen Grüßen\nThomas Becker",
+      "Sehr geehrte Damen und Herren,\nich war letzte Woche drei Nächte in Ihrem Hotel. Das Zimmer war laut und das Frühstück war kalt. Auf dem Parkplatz war kein Platz für mein Auto. Ich bin nicht zufrieden und möchte etwas Geld zurück.\nMit freundlichen Grüßen\nMartin Vogel",
+      "Sehr geehrte Damen und Herren,\nich suche für August eine Arbeit in den Bergen. Ich habe schon in einem Hotel in Wien gearbeitet, in der Küche und an der Rezeption. Haben Sie eine Stelle für mich? Ich kann ab 1. August anfangen.\nMit freundlichen Grüßen\nAna Popescu",
+      "Sehr geehrter Herr Becker,\nvielen Dank für Ihre Reservierung. Ihr Einzelzimmer ist vom 14. bis 21. August für Sie frei. Das Frühstück ist inklusive und Sie können kostenlos in unserer Garage parken. Wir freuen uns auf Ihren Besuch!\nMit freundlichen Grüßen\nSabine Huber, Hotel Alpenblick",
+      "Sehr geehrte Damen und Herren,\nich war im Juli bei Ihnen im Hotel, Zimmer 12. Ich habe dort meine Brille vergessen. Sie ist braun und liegt vielleicht im Bad. Haben Sie die Brille gefunden? Können Sie sie mir bitte schicken?\nMit freundlichen Grüßen\nErik Lund",
+      "Sehr geehrte Damen und Herren,\nich bin nächste Woche Gast in Ihrem Hotel. Kann ich bei Ihnen Fahrräder mieten? Gibt es Wanderkarten für die Berge? Ich möchte auch gern eine Tour mit einem Bergführer machen. Wie viel kostet das?\nMit freundlichen Grüßen\nSophie Martin",
+      "Liebe Julia,\nim August fahre ich in die Berge nach Garmisch! Ich wohne in einem kleinen Hotel und gehe jeden Tag wandern. Hast du Lust mitzukommen? Wir können zusammen auf die Zugspitze fahren. Schreib mir bald!\nViele Grüße\nDeine Eva",
+      "Hallo Mama und Papa,\nviele Grüße aus Garmisch! Das Hotel ist sehr schön und das Frühstück ist super. Heute bin ich fünf Stunden gewandert. Die Berge sind hoch und das Wetter ist sonnig. Am Sonntag komme ich nach Hause.\nBis bald\nEuer Felix"
+    ]
+  }
 }

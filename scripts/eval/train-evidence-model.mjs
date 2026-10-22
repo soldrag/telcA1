@@ -59,6 +59,13 @@ for (const file of bankFiles) {
     for (const type of MISS_TYPES) units[key].misses[type] = await encodeAll(unit.misses[type]);
   }
   stored.tasks[taskBank.task] = { units, otherPurpose: await encodeAll(taskBank.otherPurpose) };
+  // Prototype letters are embedded whole, as written; no learner variants.
+  if (taskBank.purposeLetters) {
+    const encodeLetters = async (letters) => Promise.all(letters.map(async (l) => encodeVector(await embed(l))));
+    stored.tasks[taskBank.task].purposeLetters = {
+      onTask: await encodeLetters(taskBank.purposeLetters.onTask), offTask: await encodeLetters(taskBank.purposeLetters.offTask),
+    };
+  }
 }
 const bankSources = [...bankFiles, 'neutral.json'].map((f) => fs.readFileSync(new URL(f, BANK_DIR), 'utf8')).join('\n')
   + fs.readFileSync(new URL('scripts/eval/learnerNoise.mjs', ROOT), 'utf8');

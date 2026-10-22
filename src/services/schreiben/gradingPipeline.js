@@ -122,6 +122,7 @@ async function runPurposeReview({ keywordStage, criteria, stage0, question, acti
       keywordLevels: keywordStage.items.map((it) => it.score),
       criteria,
       bodySentences: stage0.bodySentences,
+      letterText: stage0.rawText,
       questionId: question.id,
       embed: (text) => computeDocumentVector(text, evidenceExtractor),
       policy: levelPolicy,

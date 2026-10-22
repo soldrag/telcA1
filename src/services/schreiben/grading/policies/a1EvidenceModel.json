@@ -6,7 +6,7 @@
     "output": "sentence_embedding",
     "prompt": "title: none | text: ",
     "dimension": 256,
-    "dataHash": "e45bbc31051366bb"
+    "dataHash": "05e5673028a673de"
   },
   "lambda": 0.01,
   "oofHash": "c85a7abdc108228a",

@@ -171,5 +171,23 @@
     "Liebe Mira, wir feiern am Samstag in Köln, kommst du?",
     "Hallo Jan, mein Zimmer im Wohnheim ist zu klein, ich habe keinen Platz für meine Bücher.",
     "Liebe Tante, ich schicke dir ein Foto vom Rhein."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige gelesen und interessiere mich für die 2-Zimmer-Wohnung in Köln. Ich bin 28 Jahre alt, wohne allein und arbeite als Krankenpfleger im Krankenhaus. Kann ich die Wohnung am Samstag besichtigen?\nMit freundlichen Grüßen\nMehmet Demir",
+      "Guten Tag Frau Neumann,\nist die 2-Zimmer-Wohnung in Köln noch frei? Wir sind ein Paar ohne Kinder. Mein Freund ist Koch und ich bin Verkäuferin. Wann können wir die Wohnung ansehen? Am Montag oder Dienstag nach 17 Uhr haben wir Zeit.\nViele Grüße\nAnja Kraus",
+      "Sehr geehrte Frau Neumann,\nich möchte Ihre Wohnung in Köln gern mieten. Ich wohne allein. Ich bin Student und arbeite auch in einem Café. Haben Sie am Freitag Zeit für eine Besichtigung? Ich kann ab 14 Uhr kommen.\nMit freundlichen Grüßen\nLuca Bianchi",
+      "Liebe Frau Neumann,\nIhre Anzeige für die Wohnung in Köln gefällt mir sehr. Ich suche eine Wohnung für mich und meine Tochter. Sie ist sechs Jahre alt. Ich bin Ingenieurin bei einer Firma in Köln. Wann darf ich die Wohnung sehen? Mittwochnachmittag passt mir gut.\nFreundliche Grüße\nPriya Sharma"
+    ],
+    "offTask": [
+      "Sehr geehrte Frau Neumann,\nvielen Dank für die Besichtigung am Samstag. Die Wohnung ist schön, aber sie ist zu klein für uns. Wir haben jetzt eine andere Wohnung gefunden. Wir nehmen Ihre Wohnung leider nicht. Alles Gute für Sie!\nMit freundlichen Grüßen\nMehmet Demir",
+      "Sehr geehrte Frau Neumann,\nich bin Ende Mai aus der Wohnung in der Bergstraße ausgezogen. Die Wohnung war sauber und alles war in Ordnung. Bitte überweisen Sie mir die Kaution auf mein Konto. Wann bekomme ich das Geld?\nMit freundlichen Grüßen\nAnja Kraus",
+      "Liebe Interessenten,\nich vermiete eine schöne 2-Zimmer-Wohnung in Köln-Ehrenfeld. Sie hat 55 Quadratmeter, eine Küche und einen Balkon. Die Miete ist 750 Euro warm. Die Besichtigung ist am Samstag um 11 Uhr. Bitte melden Sie sich bei mir.\nMit freundlichen Grüßen\nGabriele Neumann",
+      "Sehr geehrte Frau Neumann,\nich bin Hausmeister und suche neue Arbeit in Köln. Ich kann kleine Reparaturen machen, den Garten pflegen und das Treppenhaus putzen. Brauchen Sie für Ihr Haus einen Hausmeister? Ich habe montags bis freitags Zeit.\nMit freundlichen Grüßen\nStefan Wójcik",
+      "Sehr geehrte Frau Neumann,\nich wohne seit einem Jahr in Ihrer Wohnung in der Lindenstraße. Ich möchte das Schlafzimmer gern blau streichen. Ist das erlaubt? Ich bezahle die Farbe selbst. Bitte schreiben Sie mir eine kurze Antwort.\nMit freundlichen Grüßen\nJulia Kern",
+      "Sehr geehrte Frau Neumann,\nich habe ein Auto und finde in unserer Straße oft keinen Platz. Haben Sie für Ihre Mieter einen Parkplatz oder eine Garage? Wie viel kostet ein Platz im Monat? Ich wohne im ersten Stock.\nMit freundlichen Grüßen\nRafael Ortiz",
+      "Lieber Max,\nich suche gerade eine Wohnung in Köln. Das ist nicht einfach, die Wohnungen sind sehr teuer! Gestern habe ich eine schöne Anzeige gesehen. Kennst du vielleicht eine freie Wohnung? Wie geht es dir und deiner Familie?\nViele Grüße\nDein Samir",
+      "Liebe Rosa,\nich habe endlich eine neue Wohnung in Köln! Sie hat zwei Zimmer und einen kleinen Balkon. Die Vermieterin ist sehr freundlich. Am 1. März ziehe ich ein. Kannst du mir beim Umzug helfen?\nLiebe Grüße\nDeine Schwester Ines"
+    ]
+  }
 }

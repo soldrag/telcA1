@@ -33,7 +33,7 @@ describe('Another-purpose review', () => {
     const units = { lp1: { support: 0.2 }, lp2: { support: 0.9 } };
     const features = purposeFeatures({ criteria, units, sentencePurposeMargins: [0.4, -0.2], keywordLevels: [1, 2] });
     assert.equal(features.length, PURPOSE_FEATURE_NAMES.length);
-    assert.deepEqual(features.map((f) => Number(f.toFixed(2))), [0.1, -0.2, 0.4, 0.2, 0.55, 0.9, 3]);
+    assert.deepEqual(features.map((f) => Number(f.toFixed(2))), [0.1, -0.2, 0.4, 0.2, 0.55, 0.9, 3, 0]);
   });
 
   it('voids only above its threshold', () => {

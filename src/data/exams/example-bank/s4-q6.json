@@ -205,5 +205,23 @@
     "Liebe Familie Weber, kommt ihr am Samstag zum Grillen? Wir zeigen euch Fotos von der Ostsee.",
     "Hallo Tina, ich habe für den Urlaub eine neue Badehose gekauft.",
     "Lieber Opa, wir schicken dir bald eine Karte vom Strand."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Frau Hansen,\nwir möchten im Sommer Urlaub an der Ostsee machen und Ihre Ferienwohnung mieten. Wir sind vier Personen: zwei Erwachsene und zwei Kinder. Wir kommen vom 10. bis 24. Juli. Was kostet die Wohnung pro Nacht? Dürfen wir unseren Hund mitbringen?\nMit freundlichen Grüßen\nPiotr Kowalski",
+      "Liebe Frau Hansen,\nist die Ferienwohnung „Meeresbrise“ im August noch frei? Meine Frau, meine Tochter und ich möchten zwei Wochen bleiben, vom 1. bis 15. August. Wie hoch ist der Preis? Wir haben eine kleine Katze. Ist das ein Problem?\nViele Grüße\nAndrés Morales",
+      "Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung im Juni buchen. Wir sind drei Personen, mein Mann, mein Sohn und ich. Wir möchten eine Woche bleiben. Wie viel kostet die Wohnung? Sind Haustiere erlaubt?\nMit freundlichen Grüßen\nMarta Silva",
+      "Guten Tag Frau Hansen,\nmeine Familie und ich suchen eine Ferienwohnung an der Ostsee. Ihre Wohnung gefällt uns sehr. Wir sind fünf Personen, zwei Erwachsene und drei Kinder, und haben vom 20. Juli bis 3. August Urlaub. Wie viel kostet das? Kann unser Hund mitkommen?\nFreundliche Grüße\nJonas Berger"
+    ],
+    "offTask": [
+      "Sehr geehrte Frau Hansen,\nwir haben Ihre Ferienwohnung für Juli gebucht. Leider ist mein Mann krank und wir können nicht kommen. Bitte stornieren Sie unsere Buchung. Bekommen wir die Anzahlung zurück? Es tut uns sehr leid.\nMit freundlichen Grüßen\nPetra Lange",
+      "Sehr geehrte Frau Hansen,\nwir waren letzte Woche in Ihrer Ferienwohnung. Leider war die Wohnung nicht sauber, die Dusche war kaputt und es gab keine Handtücher. Das hat uns nicht gefallen. Wir möchten bitte einen Teil vom Geld zurück.\nMit freundlichen Grüßen\nMichael Schulz",
+      "Liebe Familie Weber,\nvielen Dank für Ihre Anfrage. Die Ferienwohnung „Meeresbrise“ ist vom 5. bis 19. Juli noch frei. Sie kostet 90 Euro pro Nacht. Hunde sind leider nicht erlaubt. Bitte antworten Sie mir bis Freitag.\nHerzliche Grüße\nInge Hansen",
+      "Sehr geehrte Frau Hansen,\nich wohne an der Ostsee und suche Arbeit für den Sommer. Ich kann Ihre Ferienwohnung putzen und die Gäste begrüßen. Ich habe am Wochenende und am Montag Zeit. Brauchen Sie Hilfe? Ich freue mich auf Ihre Antwort.\nMit freundlichen Grüßen\nAgnieszka Wróbel",
+      "Sehr geehrte Frau Hansen,\nwir waren bis Samstag in Ihrer Ferienwohnung. Mein Sohn hat sein Handy im Schlafzimmer vergessen. Es ist schwarz und liegt vielleicht unter dem Bett. Können Sie es bitte suchen und uns schicken? Wir bezahlen das Porto.\nMit freundlichen Grüßen\nThomas Krüger",
+      "Sehr geehrte Frau Hansen,\nwir kommen am Freitag in Ihre Ferienwohnung. Wir fahren mit dem Zug. Wie kommen wir vom Bahnhof zur Wohnung? Gibt es einen Bus? Und wo bekommen wir den Schlüssel? Vielen Dank für Ihre Hilfe.\nMit freundlichen Grüßen\nNina Wolff",
+      "Liebe Clara,\nim Sommer fahren wir an die Ostsee! Wir wohnen in einer kleinen Ferienwohnung direkt am Meer. Die Kinder freuen sich schon sehr. Was machst du in den Ferien? Vielleicht kannst du uns ein paar Tage besuchen?\nViele Grüße\nDeine Katrin",
+      "Hallo Ben,\nunser Urlaub an der Ostsee war super! Das Wetter war warm und wir waren jeden Tag am Strand. Unser Hund ist viel geschwommen. Die Ferienwohnung war klein, aber gemütlich. Ich schicke dir bald Fotos.\nBis bald\nTim"
+    ]
+  }
 }

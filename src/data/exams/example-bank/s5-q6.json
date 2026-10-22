@@ -137,5 +137,23 @@
     "Liebe Sofia, in meinem Deutschkurs sind viele Leute aus Afrika und Asien.",
     "Hallo Tim, im Sommer mache ich nach dem Kurs Urlaub in der Türkei.",
     "Liebe Oma, meine Hausaufgaben mache ich immer am Abend in der Küche."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Liebe Frau Berg,\nich bin leider krank und kann heute nicht zum Deutschkurs kommen. Ich habe Halsschmerzen und Fieber. Morgen bleibe ich auch zu Hause, am Donnerstag komme ich wieder. Können Sie mir bitte die Hausaufgaben per E-Mail schicken?\nViele Grüße\nYuki Tanaka",
+      "Sehr geehrte Frau Berg,\nmein Arzt sagt, ich habe eine Grippe und muss heute und morgen im Bett bleiben. Am Freitag bin ich hoffentlich wieder im Kurs. Was sind die Hausaufgaben? Bitte schicken Sie mir die Übungen per Mail.\nMit freundlichen Grüßen\nCarlos Mendes",
+      "Sehr geehrte Frau Berg,\nich bin krank und habe Fieber. Ich kann heute und morgen nicht zum Kurs kommen. Am Montag bin ich wieder da. Bitte schicken Sie mir die Hausaufgaben per E-Mail. Vielen Dank!\nMit freundlichen Grüßen\nAnna Kowal",
+      "Hallo Frau Berg,\nentschuldigen Sie, ich fehle heute und morgen im Kurs. Ich habe starke Bauchschmerzen und war schon beim Arzt. Ich denke, nächste Woche bin ich wieder gesund. Könnten Sie mir die Aufgaben und Arbeitsblätter an meine E-Mail-Adresse senden?\nBeste Grüße\nAmir Rahimi"
+    ],
+    "offTask": [
+      "Liebe Frau Berg,\nich bin wieder gesund und komme morgen wieder zum Kurs. Vielen Dank für die Hausaufgaben. Ich habe alle Übungen gemacht und schicke sie Ihnen im Anhang. Bitte korrigieren Sie meine Fehler. Bis morgen!\nViele Grüße\nYuki Tanaka",
+      "Sehr geehrte Frau Berg,\nich möchte den Deutschkurs beenden. Ich habe eine neue Arbeit und keine Zeit mehr am Vormittag. Vielen Dank für den schönen Unterricht. Bekomme ich das Geld für den letzten Monat zurück?\nMit freundlichen Grüßen\nCarlos Mendes",
+      "Liebe Kursteilnehmerinnen und Kursteilnehmer,\nich bin leider krank und kann heute und morgen nicht unterrichten. Der Kurs fällt aus. Ich schicke Ihnen die Hausaufgaben per E-Mail. Am Montag sehen wir uns wieder. Bitte lernen Sie fleißig!\nViele Grüße\nPetra Berg",
+      "Sehr geehrte Frau Berg,\nich bin Englischlehrer und suche Arbeit. Ich habe gehört, Ihre Sprachschule braucht einen Lehrer für Abendkurse. Ich kann am Montag und Mittwoch unterrichten. Darf ich Ihnen meine Bewerbung schicken? Vielen Dank.\nMit freundlichen Grüßen\nDavid Miller",
+      "Sehr geehrte Frau Berg,\nich möchte im Juni die Prüfung telc A1 machen. Wann ist der nächste Prüfungstermin? Wie viel kostet die Prüfung und wo kann ich mich anmelden? Vielen Dank für Ihre Hilfe.\nMit freundlichen Grüßen\nMariam Said",
+      "Liebe Frau Berg,\nich arbeite ab nächstem Monat am Vormittag. Kann ich in den Abendkurs wechseln? Ist dort noch ein Platz frei? Ich möchte gern weiter Deutsch lernen. Bitte geben Sie mir bald eine Antwort.\nViele Grüße\nHao Chen",
+      "Liebe Sara,\nich bin seit gestern krank und liege im Bett. Ich habe Schnupfen und Kopfschmerzen. Mein Deutschkurs fehlt mir ein bisschen! Kannst du mir am Samstag Obst und Tee bringen? Das wäre sehr lieb.\nLiebe Grüße\nDeine Hana",
+      "Hallo Opa,\nmein Deutschkurs macht viel Spaß. Meine Lehrerin heißt Frau Berg und ist sehr nett. Wir lernen jeden Tag neue Wörter und machen viele Hausaufgaben. Im Sommer möchte ich die Prüfung machen. Wie geht es dir?\nLiebe Grüße\nDeine Mira"
+    ]
+  }
 }

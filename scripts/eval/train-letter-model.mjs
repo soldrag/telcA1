@@ -5,7 +5,9 @@
  * task, and at least 4 more of the graded off-topic letters caught than by the keyword stage alone.
  * Open and hidden letters are never read here.
  * Usage: node --max-old-space-size=6144 --import ./tests/support/loadLexiconData.js scripts/eval/train-letter-model.mjs [--save]
- *   needs the sentence heads of train-evidence-model.mjs; --save writes policies/a1PurposeReviewModel.json
+ *   [--drop <feature>] [--records <file>]
+ *   needs the sentence heads of train-evidence-model.mjs; --save writes policies/a1PurposeReviewModel.json;
+ *   --drop zeroes one feature (ablation), --records writes each letter's out-of-fold verdicts (calibration letters only)
  */
 
 import fs from 'node:fs';
@@ -33,6 +35,10 @@ const LAMBDA = 0.01;
 // A void zeroes the whole task, so the threshold keeps room above the highest letter some examiner found on task
 // (the highest of a hundred scores is itself noisy): VOID_ROOM in log-odds.
 const VOID_ROOM = 1;
+
+const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
+const DROPPED = argValue('--drop') ? PURPOSE_FEATURE_NAMES.indexOf(argValue('--drop')) : -1;
+if (argValue('--drop') && DROPPED < 0) throw new Error(`--drop: no feature ${argValue('--drop')}`);
 
 const level = resolveLevelContext('A1');
 await level.lexicon.load();
@@ -114,12 +120,14 @@ const bank = decodeExampleBank(readJson(new URL('src/data/exams/example-bank/vec
 const rows = [];
 for (const letter of letters) {
   const criteria = resolveLeitpunktCriteria(await questionOf(letter.task));
-  const { bodySentences } = runStage0Preprocessing(letter.text, level);
+  const { bodySentences, rawText } = runStage0Preprocessing(letter.text, level);
   const keyword = await keywordVerdict(letter);
-  const { units, sentencePurposeMargins } = await assessLetterUnits({
-    sentences: bodySentences, embed, criteria, taskBank: bank.tasks[letter.task], neutral: bank.neutral, policy, model: sentenceModel,
+  const { units, sentencePurposeMargins, letterPurposeMargin } = await assessLetterUnits({
+    sentences: bodySentences, letterText: rawText, embed, criteria,
+    taskBank: bank.tasks[letter.task], neutral: bank.neutral, policy, model: sentenceModel,
   });
-  const features = purposeFeatures({ criteria, units, sentencePurposeMargins, keywordLevels: keyword.levels });
+  const features = purposeFeatures({ criteria, units, sentencePurposeMargins, letterPurposeMargin, keywordLevels: keyword.levels });
+  if (DROPPED >= 0) features[DROPPED] = 0;
   rows.push(...letter.verdicts.map((v) => ({ letter, keyword, features, weight: 1 / letter.verdicts.length, offTask: v.offTask ? 1 : 0 })));
 }
 fs.mkdirSync(path.dirname(vectorCacheFile), { recursive: true });
@@ -190,6 +198,12 @@ const onTaskGraded = gradedRecords.filter((r) => r.letter.verdicts.every((v) => 
 const blend = (voided) => (100 * ((1 - OFF_TOPIC_SHARE) * agreement(onTaskGraded, voided) + OFF_TOPIC_SHARE * agreement(offTopicGraded, voided))).toFixed(1);
 console.log(`  Leitpunkt agreement at ${OFF_TOPIC_SHARE * 100}% off-topic letters: keyword ${blend((r) => r.keywordVoid)}%, + review ${blend((r) => r.keywordVoid || r.reviewVoid)}%`);
 
+if (argValue('--records')) {
+  fs.writeFileSync(argValue('--records'), JSON.stringify(records.map((r) => ({
+    id: r.letter.id, task: r.letter.task, category: r.letter.category, text: r.letter.text,
+    offTopic: offTopic(r.letter), keywordVoid: r.keywordVoid, reviewVoid: r.reviewVoid,
+  })), null, 1));
+}
 const extraCaught = caught(offTopicGraded, true) - caught(offTopicGraded, false);
 const go = addedFalse.length === 0 && extraCaught >= 4;
 console.log(`\nGo criteria (no added void on a letter on task, at least 4 more graded off-topic letters caught): ${go ? 'GO' : 'NO-GO'}`);
@@ -197,7 +211,7 @@ console.log(`\nGo criteria (no added void on a letter on task, at least 4 more g
 const final = trainReview(rows);
 console.log(`Final head: threshold ${final.threshold.toFixed(3)}; weights ${PURPOSE_FEATURE_NAMES.map((n, i) => `${n} ${final.head.weights[i].toFixed(2)}`).join(', ')}`);
 
-if (process.argv.includes('--save')) {
+if (process.argv.includes('--save') && DROPPED < 0) {
   // A head that failed its go criteria is stored as off (null), so the app keeps the keyword stage's voids alone.
   fs.writeFileSync(REVIEW_FILE, JSON.stringify({
     version: 1, sentenceModel: sentenceModel.oofHash, code: sourceHash, features: PURPOSE_FEATURE_NAMES,

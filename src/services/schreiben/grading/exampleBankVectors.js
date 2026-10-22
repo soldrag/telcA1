@@ -38,8 +38,9 @@ const fulfilsOf = (bank) => Object.values(bank.units).flatMap((unit) => unit.ful
 /**
  * @param {{ meta: object, neutral: string[], tasks: Record<string, { units: object, otherPurpose: string[] }> }} stored
  * @returns {{ meta: object, neutral: Float32Array[], tasks: Record<string, { units: Record<string, { fulfils: Float32Array[], misses: Record<string, Float32Array[]> }>,
- *   otherPurpose: Float32Array[], foreignPurpose: Float32Array[] }> }}
- *   foreignPurpose: the task's other-purpose phrases plus the other tasks' fulfilling phrases that differ from its own
+ *   otherPurpose: Float32Array[], foreignPurpose: Float32Array[], purposeLetters?: { onTask, offTask, foreign: Float32Array[] } }> }}
+ *   foreignPurpose: the task's other-purpose phrases plus the other tasks' fulfilling phrases that differ from its own;
+ *   purposeLetters: prototype letters of the task's purpose and of other purposes, foreign adding the other tasks' own
  */
 export function decodeExampleBank(stored) {
   const decodeAll = (list = []) => list.map(decodeVector);
@@ -53,12 +54,19 @@ export function decodeExampleBank(stored) {
       };
     }
     tasks[task] = { units, otherPurpose: decodeAll(bank.otherPurpose) };
+    if (bank.purposeLetters) {
+      tasks[task].purposeLetters = { onTask: decodeAll(bank.purposeLetters.onTask), offTask: decodeAll(bank.purposeLetters.offTask) };
+    }
   }
   for (const [task, bank] of Object.entries(tasks)) {
     const own = fulfilsOf(bank);
     const foreign = Object.entries(tasks).filter(([other]) => other !== task).flatMap(([, other]) => fulfilsOf(other))
       .filter((vector) => own.every((mine) => cosineSimilarity(vector, mine) < SAME_PURPOSE));
     bank.foreignPurpose = [...bank.otherPurpose, ...foreign];
+    if (bank.purposeLetters) {
+      const otherTasksLetters = Object.entries(tasks).filter(([other]) => other !== task).flatMap(([, other]) => other.purposeLetters?.onTask ?? []);
+      bank.purposeLetters.foreign = [...bank.purposeLetters.offTask, ...otherTasksLetters];
+    }
   }
   return { meta: stored.meta, neutral: decodeAll(stored.neutral), tasks };
 }

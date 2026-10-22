@@ -67,33 +67,51 @@ export function scoreUnitSpan({ vector, text, unitKey, criterion, taskBank, neut
 }
 
 const closest = (vector, bank) => Math.max(-1, ...bank.map((other) => cosineSimilarity(vector, other)));
-const rawPurposeMargin = (vector, fulfils, otherPurpose) => closest(vector, fulfils) - closest(vector, otherPurpose);
+const rawMargin = (vector, onPurpose, offPurpose) => closest(vector, onPurpose) - closest(vector, offPurpose);
 
-// The bank's own reference points: the mean margin of its fulfilling phrases and of its other-purpose phrases (its own
-// and the other tasks' fulfilling ones, exampleBankVectors.foreignPurpose), each measured against the rest of the bank.
+// A scale from the bank's own reference points: the mean margin of its on-purpose and of its off-purpose examples,
+// each measured against the rest of the bank (itself and, for phrases, its near copies left out).
+function scaleOf(onPurpose, offPurpose, nearCopy) {
+  const apart = (vector, bank) => bank.filter((other) => other !== vector && cosineSimilarity(vector, other) < nearCopy);
+  const meanMargin = (examples) => examples.reduce((s, v) => s + rawMargin(v, apart(v, onPurpose), apart(v, offPurpose)), 0) / examples.length;
+  const on = meanMargin(onPurpose);
+  const off = meanMargin(offPurpose);
+  return { onPurpose, offPurpose, middle: (on + off) / 2, spread: on - off || 1 };
+}
+const scaled = (vector, { onPurpose, offPurpose, middle, spread }) => (rawMargin(vector, onPurpose, offPurpose) - middle) / spread;
+
 const purposeScales = new WeakMap();
-function purposeScaleOf(taskBank) {
+function purposeScalesOf(taskBank) {
   if (!purposeScales.has(taskBank)) {
     const fulfils = Object.values(taskBank.units).flatMap((unit) => unit.fulfils);
-    const apart = (vector, bank) => bank.filter((other) => cosineSimilarity(vector, other) < NEAR_COPY);
-    // A bank not decoded by decodeExampleBank has only its own other-purpose phrases.
+    // A bank not decoded by decodeExampleBank has only its own other-purpose phrases and letters.
     const foreign = taskBank.foreignPurpose ?? taskBank.otherPurpose;
-    const meanMargin = (phrases) => phrases.reduce((s, v) => s + rawPurposeMargin(v, apart(v, fulfils), apart(v, foreign)), 0) / phrases.length;
-    const onPurpose = meanMargin(fulfils);
-    const offPurpose = meanMargin(foreign);
-    purposeScales.set(taskBank, { fulfils, foreign, middle: (onPurpose + offPurpose) / 2, spread: onPurpose - offPurpose || 1 });
+    const letters = taskBank.purposeLetters;
+    purposeScales.set(taskBank, {
+      phrase: scaleOf(fulfils, foreign, NEAR_COPY),
+      letter: letters?.onTask.length ? scaleOf(letters.onTask, letters.foreign ?? letters.offTask, Infinity) : null,
+    });
   }
   return purposeScales.get(taskBank);
 }
 
 /**
- * How much closer a text is to the task's fulfilling phrases than to another purpose's, on the task's own scale:
- * 0 halfway between the bank's fulfilling and other-purpose phrases, +0.5 / -0.5 at their means. Raw cosine margins
- * differ from bank to bank, so only this scale carries over to a task the heads were not trained on.
+ * How much closer a sentence is to the task's fulfilling phrases than to another purpose's (its own other-purpose
+ * phrases and the other tasks' fulfilling ones, exampleBankVectors.foreignPurpose), on the task's own scale: 0 halfway
+ * between the bank's fulfilling and other-purpose phrases, +0.5 / -0.5 at their means. Raw cosine margins differ from
+ * bank to bank, so only this scale carries over to a task the heads were not trained on.
  */
 export function purposeMargin(vector, taskBank) {
-  const { fulfils, foreign, middle, spread } = purposeScaleOf(taskBank);
-  return (rawPurposeMargin(vector, fulfils, foreign) - middle) / spread;
+  return scaled(vector, purposeScalesOf(taskBank).phrase);
+}
+
+/**
+ * The same margin for the whole letter against the task's prototype letters (exampleBankVectors purposeLetters):
+ * one sentence on topic decides a sentence margin, not what the letter as a whole is written for. 0 without prototypes.
+ */
+export function letterPurposeMargin(vector, taskBank) {
+  const { letter } = purposeScalesOf(taskBank);
+  return letter ? scaled(vector, letter) : 0;
 }
 
 // Spans of a letter body: every sentence, the clauses of a sentence that has several, and adjacent sentence pairs
@@ -110,14 +128,16 @@ function letterSpans(sentences, { lexicon }) {
 
 /**
  * Reads every unit of the task over the letter's spans.
- * @param {{ sentences: string[], embed: (text: string) => Promise<Float32Array>, criteria: object[], taskBank: object,
- *   neutral: Float32Array[], policy: object, model: object }} input
+ * @param {{ sentences: string[], letterText?: string, embed: (text: string) => Promise<Float32Array>, criteria: object[],
+ *   taskBank: object, neutral: Float32Array[], policy: object, model: object }} input
+ *   letterText: the whole letter as written (salutation and closing say whom it addresses); the body by default
  * @returns {Promise<{ units: Record<string, { support: number, contradict: number, span: string, contradictedBy: string|null }>,
- *   sentencePurposeMargins: number[] }>} support from spans no whole sentence contradicts; margins of the whole sentences
+ *   sentencePurposeMargins: number[], letterPurposeMargin: number }>} support from spans no whole sentence contradicts;
+ *   margins of the whole sentences and of the whole letter
  */
-export async function assessLetterUnits({ sentences, embed, criteria, taskBank, neutral, policy, model }) {
+export async function assessLetterUnits({ sentences, letterText = sentences.join(' '), embed, criteria, taskBank, neutral, policy, model }) {
   const spans = letterSpans(sentences, { lexicon: policy.lexicon });
-  const vectors = await Promise.all(spans.map((span) => embed(span.text)));
+  const [letterVector, ...vectors] = await Promise.all([embed(letterText), ...spans.map((span) => embed(span.text))]);
   const units = {};
   for (const criterion of criteria) {
     for (const unitKey of unitKeysOf(criterion)) {
@@ -134,5 +154,5 @@ export async function assessLetterUnits({ sentences, embed, criteria, taskBank, 
     }
   }
   const sentencePurposeMargins = spans.flatMap((span, i) => (span.whole ? [purposeMargin(vectors[i], taskBank)] : []));
-  return { units, sentencePurposeMargins };
+  return { units, sentencePurposeMargins, letterPurposeMargin: letterPurposeMargin(letterVector, taskBank) };
 }

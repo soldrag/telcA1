@@ -205,5 +205,23 @@
     "Liebe Oma, München ist sehr schön und das Wetter ist warm.",
     "Hallo Lisa, ich habe im Deutschkurs eine Freundin aus Brasilien gefunden.",
     "Lieber Mehmet, wie geht es dir? Ich habe eine neue Arbeit in München."
-  ]
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs an Ihrer Schule besuchen. Ich bin Anfänger. Der Kurs soll vom 1. bis 28. August gehen, also vier Wochen. Was kostet der Kurs? Und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nAhmed Karimi",
+      "Liebes Team der Sprachschule Aktiv,\nmein Deutsch ist noch nicht gut. Im August bin ich drei Wochen in München und habe jeden Vormittag Zeit. Gibt es dann einen Kurs für mich? Wie hoch sind die Gebühren und wo melde ich mich an?\nViele Grüße\nLucia Fernández",
+      "Sehr geehrte Damen und Herren,\nich möchte bei Ihnen einen Deutschkurs machen. Ich habe im August Zeit, zwei Wochen. Ich möchte gern am Vormittag lernen. Wie viel kostet der Kurs? Wie kann ich mich anmelden? Bitte schreiben Sie mir.\nMit freundlichen Grüßen\nOleg Petrov",
+      "Guten Tag,\nmeine Frau und ich möchten im August bei Ihnen Deutsch lernen. Wir haben sechs Wochen Zeit, vom 3. August bis Mitte September. Am Nachmittag arbeiten wir. Was kostet ein Kurs am Vormittag? Brauchen wir ein Formular für die Anmeldung?\nFreundliche Grüße\nKenji Sato"
+    ],
+    "offTask": [
+      "Sehr geehrte Damen und Herren,\nich habe mich für den Deutschkurs im August angemeldet. Leider kann ich nicht kommen, denn ich muss in meinem Land bleiben. Meine Mutter ist krank. Bitte löschen Sie meine Anmeldung. Bekomme ich mein Geld zurück?\nMit freundlichen Grüßen\nNadia Haddad",
+      "Sehr geehrte Damen und Herren,\nich habe im Juli einen Deutschkurs bei Ihnen gemacht. Ich war nicht zufrieden. Die Gruppe war sehr groß, der Raum war zu warm und der Lehrer war oft nicht da. Ich möchte bitte einen Teil von meinem Geld zurück.\nMit freundlichen Grüßen\nRui Costa",
+      "Sehr geehrte Damen und Herren,\nich bin Deutschlehrerin und suche eine Stelle. Im August habe ich Zeit und kann bei Ihnen Kurse am Vormittag geben. Ich habe fünf Jahre Erfahrung. Brauchen Sie noch eine Lehrerin? Ich schicke Ihnen gern meinen Lebenslauf.\nMit freundlichen Grüßen\nClaudia Wagner",
+      "Liebe Frau Kowalski,\nvielen Dank für Ihre Anmeldung. Ihr Deutschkurs A1 beginnt am 3. August um 9 Uhr und dauert vier Wochen. Der Kurs kostet 480 Euro. Bitte bezahlen Sie bis Ende Juli. Wir freuen uns auf Sie!\nMit freundlichen Grüßen\nThomas Brandt, Sprachschule Aktiv",
+      "Sehr geehrte Damen und Herren,\nich war im Frühling in Ihrem Deutschkurs. Ich brauche jetzt ein Zertifikat für meine Arbeit. Können Sie mir bitte das Zertifikat per Post schicken? Meine Adresse ist Lindenstraße 5, 80331 München. Vielen Dank!\nMit freundlichen Grüßen\nElif Arslan",
+      "Sehr geehrte Damen und Herren,\nich habe gestern meine Jacke in Raum 4 vergessen. Sie ist blau und hat eine große Tasche. Haben Sie die Jacke gefunden? Wann kann ich sie in der Schule abholen? Vielen Dank für Ihre Hilfe.\nMit freundlichen Grüßen\nPedro Alves",
+      "Liebe Anna,\nwie geht es dir? Ich bin jetzt in München und es gefällt mir sehr gut. Bald mache ich vielleicht einen Deutschkurs. Am Wochenende gehe ich mit Freunden in den Englischen Garten. Kommst du mich im Herbst besuchen?\nViele Grüße\nDein Marco",
+      "Hallo Papa,\nich lerne jetzt Deutsch an einer Sprachschule in München. Mein Lehrer ist sehr nett und die anderen Schüler kommen aus vielen Ländern. Das Wetter ist schön. Wie geht es Mama? Ich rufe euch am Sonntag an.\nLiebe Grüße\nSofia"
+    ]
+  }
 }
