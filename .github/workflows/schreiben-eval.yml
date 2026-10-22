@@ -86,3 +86,9 @@ jobs:
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
+
+      # The same review in a real browser: the app loads EmbeddingGemma once and the review voids an off-topic letter.
+      - name: Browser · purpose review in the built app
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test tests/ui/schreiben.spec.js --project=desktop -g "another-purpose review"

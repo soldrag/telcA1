@@ -4,6 +4,7 @@ import { listVariants } from './support/seedCatalog.js';
 import { answerAllParts, confirmSubmit, openSubmitDialog, startVariant } from './support/examFlow.js';
 import { fillVisibleSchreibenFields } from './support/schreibenFillers.js';
 import { en } from './support/i18nKeys.js';
+import { EXAMINER_PHRASES } from '../../src/services/schreiben/feedback/examinerPhraseBank.js';
 
 for (const variant of listVariants('schreiben')) {
   test(`Schreiben ${variant.shortTitle}: fill the form and the letter, submit, see the grading`, async ({ page }) => {
@@ -73,4 +74,31 @@ test('a later Schreiben submission does not report the cached model as a downloa
     }
     expect(sawDownload).toBe(isFirst);
   }
+});
+
+// The trained another-purpose review runs in the browser on the model the keyword stage loaded. A complaint about a
+// course already taken reuses the task's words (Deutschkurs, August) but asks for nothing the task asks for: the
+// keyword stage alone credits it, the review voids its Leitpunkte.
+const COMPLAINT = `Sehr geehrte Damen und Herren,
+ich habe im Juli einen Deutschkurs bei Ihnen gemacht. Der Kurs war leider sehr schlecht. Der Lehrer war oft krank und der Raum war zu klein. Ich möchte mein Geld zurück.
+Mit freundlichen Grüßen
+Paul Weber`;
+
+test('the another-purpose review voids a letter written for another purpose', async ({ page }) => {
+  test.setTimeout(240_000);
+  const variant = listVariants('schreiben').find((v) => v.id === 'schreiben-modellsatz-1');
+  await openHome(page, { module: 'schreiben' });
+  await startVariant(page, variant);
+  await answerAllParts(page, async (p) => {
+    const filled = await fillVisibleSchreibenFields(p);
+    const letter = p.locator('textarea:enabled').filter({ visible: true });
+    if (await letter.count()) {
+      await letter.first().fill(COMPLAINT);
+      await letter.first().blur();
+    }
+    return filled;
+  });
+  await openSubmitDialog(page);
+  await confirmSubmit(page);
+  await expect(page.getByText(EXAMINER_PHRASES.en.SUMMARY_LP_VOID_OFF_TOPIC).first()).toBeVisible();
 });
