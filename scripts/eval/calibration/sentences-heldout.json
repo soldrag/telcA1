@@ -10,7 +10,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -23,7 +30,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -36,7 +50,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -49,7 +70,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -62,7 +90,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -75,7 +110,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -88,7 +130,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -101,7 +150,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -114,7 +170,14 @@
       "lp3:Anmeldung": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    }
   },
   {
     "task": "s1-q6",
@@ -127,7 +190,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -140,7 +210,14 @@
       "lp3:Anmeldung": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "support"
+    }
   },
   {
     "task": "s1-q6",
@@ -153,7 +230,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -166,7 +250,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Wann": "contradict",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -179,7 +270,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "contradict",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -192,7 +290,14 @@
       "lp3:Anmeldung": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "contradict"
+    }
   },
   {
     "task": "s1-q6",
@@ -205,7 +310,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -218,7 +330,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -231,7 +350,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -244,7 +370,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s1-q6",
@@ -257,7 +390,14 @@
       "lp3:Anmeldung": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -268,7 +408,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -279,7 +424,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -290,7 +440,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -301,7 +456,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -312,7 +472,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -323,7 +488,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -334,7 +504,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s2-q6",
@@ -345,7 +520,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s2-q6",
@@ -356,7 +536,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s2-q6",
@@ -367,7 +552,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -378,7 +568,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s2-q6",
@@ -389,7 +584,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -400,7 +600,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -411,7 +616,12 @@
       "lp3": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    }
   },
   {
     "task": "s2-q6",
@@ -422,7 +632,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -433,7 +648,12 @@
       "lp3": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -444,7 +664,12 @@
       "lp3": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -455,7 +680,12 @@
       "lp3": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -467,7 +697,12 @@
     },
     "purpose": "task",
     "disputed": [],
-    "purposeDisputed": true
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s2-q6",
@@ -478,7 +713,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -490,7 +730,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -502,7 +748,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -514,7 +766,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -526,7 +784,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -541,7 +805,13 @@
     "disputed": [
       "lp2"
     ],
-    "purposeDisputed": true
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -555,7 +825,13 @@
     "purpose": "task",
     "disputed": [
       "lp1"
-    ]
+    ],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -567,7 +843,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -579,7 +861,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -591,7 +879,13 @@
       "lp3:Reparaturtermin": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    }
   },
   {
     "task": "s3-q6",
@@ -603,7 +897,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    }
   },
   {
     "task": "s3-q6",
@@ -615,7 +915,13 @@
       "lp3:Reparaturtermin": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    }
   },
   {
     "task": "s3-q6",
@@ -629,7 +935,13 @@
     "purpose": "task",
     "disputed": [
       "lp2"
-    ]
+    ],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "contradict",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -641,7 +953,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -653,7 +971,13 @@
       "lp3:Reparaturtermin": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "contradict"
+    }
   },
   {
     "task": "s3-q6",
@@ -665,7 +989,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "contradict",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -677,7 +1007,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -689,7 +1025,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -701,7 +1043,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -713,7 +1061,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s3-q6",
@@ -725,7 +1079,13 @@
       "lp3:Reparaturtermin": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -738,7 +1098,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -751,7 +1118,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -764,7 +1138,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -777,7 +1158,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -790,7 +1178,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -803,7 +1198,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -816,7 +1218,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -829,7 +1238,14 @@
       "lp3:Haustiere": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    }
   },
   {
     "task": "s4-q6",
@@ -842,7 +1258,14 @@
       "lp3:Haustiere": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    }
   },
   {
     "task": "s4-q6",
@@ -855,7 +1278,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -868,7 +1298,14 @@
       "lp3:Haustiere": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "support"
+    }
   },
   {
     "task": "s4-q6",
@@ -881,7 +1318,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -894,7 +1338,14 @@
       "lp3:Haustiere": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "contradict"
+    }
   },
   {
     "task": "s4-q6",
@@ -907,7 +1358,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "contradict",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -920,7 +1378,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "contradict",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -933,7 +1398,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -946,7 +1418,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -959,7 +1438,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -972,7 +1458,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s4-q6",
@@ -985,7 +1478,14 @@
       "lp3:Haustiere": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -996,7 +1496,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1007,7 +1512,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1018,7 +1528,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1029,7 +1544,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1040,7 +1560,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1051,7 +1576,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1062,7 +1592,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s5-q6",
@@ -1073,7 +1608,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s5-q6",
@@ -1084,7 +1624,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s5-q6",
@@ -1095,7 +1640,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1106,7 +1656,12 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "support"
+    }
   },
   {
     "task": "s5-q6",
@@ -1117,7 +1672,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1128,7 +1688,12 @@
       "lp3": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    }
   },
   {
     "task": "s5-q6",
@@ -1139,7 +1704,12 @@
       "lp3": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    }
   },
   {
     "task": "s5-q6",
@@ -1150,7 +1720,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1161,7 +1736,12 @@
       "lp3": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1172,7 +1752,12 @@
       "lp3": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1183,7 +1768,12 @@
       "lp3": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1194,7 +1784,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s5-q6",
@@ -1205,7 +1800,12 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1218,7 +1818,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1231,7 +1838,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1244,7 +1858,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1257,7 +1878,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1270,7 +1898,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1283,7 +1918,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1296,7 +1938,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1309,7 +1958,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1322,7 +1978,14 @@
       "lp3:Parkplatz": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "support"
+    }
   },
   {
     "task": "s6-q6",
@@ -1335,7 +1998,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1348,7 +2018,14 @@
       "lp3:Parkplatz": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "support",
+      "lp3:Parkplatz": "support"
+    }
   },
   {
     "task": "s6-q6",
@@ -1361,7 +2038,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1374,7 +2058,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "contradict",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1387,7 +2078,14 @@
       "lp3:Parkplatz": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "contradict"
+    }
   },
   {
     "task": "s6-q6",
@@ -1400,7 +2098,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1413,7 +2118,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1426,7 +2138,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1439,7 +2158,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1452,7 +2178,14 @@
       "lp3:Parkplatz": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s6-q6",
@@ -1466,7 +2199,14 @@
     },
     "purpose": "task",
     "disputed": [],
-    "purposeDisputed": true
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frühstück": "none",
+      "lp3:Parkplatz": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1478,7 +2218,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1490,7 +2236,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1502,7 +2254,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1514,7 +2272,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1526,7 +2290,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1538,7 +2308,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1550,7 +2326,13 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s7-q6",
@@ -1562,7 +2344,13 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s7-q6",
@@ -1574,7 +2362,13 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s7-q6",
@@ -1586,7 +2380,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Beruf": "support",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1598,7 +2398,13 @@
       "lp3": "support"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "support"
+    }
   },
   {
     "task": "s7-q6",
@@ -1610,7 +2416,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1622,7 +2434,13 @@
       "lp3": "contradict"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "contradict"
+    }
   },
   {
     "task": "s7-q6",
@@ -1634,7 +2452,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "contradict",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1646,7 +2470,13 @@
       "lp3": "none"
     },
     "purpose": "task",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1658,7 +2488,13 @@
       "lp3": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1670,7 +2506,13 @@
       "lp3": "none"
     },
     "purpose": "other",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1682,7 +2524,13 @@
       "lp3": "none"
     },
     "purpose": "neutral",
-    "disputed": []
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1695,7 +2543,13 @@
     },
     "purpose": "task",
     "disputed": [],
-    "purposeDisputed": true
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   },
   {
     "task": "s7-q6",
@@ -1708,6 +2562,12 @@
     },
     "purpose": "task",
     "disputed": [],
-    "purposeDisputed": true
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Beruf": "none",
+      "lp3": "none"
+    }
   }
 ]
