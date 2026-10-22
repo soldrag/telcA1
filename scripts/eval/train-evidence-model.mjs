@@ -1,9 +1,10 @@
 /**
- * Trains the Leitpunkt evidence heads (supports / contradicts a unit) and the another-purpose letter head, and
- * reports them honestly: leave one task out on the training writer, then another writer and adversarial sentences
+ * Trains the Leitpunkt evidence heads (supports / contradicts a unit) on calibration sentences and reports them
+ * honestly: leave one task out on the training writer, then another writer and adversarial sentences
  * at frozen thresholds. Open and hidden letters are never read here.
  * Usage: node --import ./tests/support/loadLexiconData.js scripts/eval/train-evidence-model.mjs [--save]
- *   --save writes policies/a1EvidenceModel.json and the bank vectors (example-bank/vectors.json)
+ *   --save writes the sentence heads to policies/a1EvidenceModel.json and the bank vectors (example-bank/vectors.json);
+ *   the letter-level heads are trained on top of them by train-letter-model.mjs
  */
 
 import fs from 'node:fs';
@@ -14,10 +15,10 @@ import { createSentenceEmbedder } from '../../src/services/embeddings/embeddingS
 import { prepareEmbeddingVector } from '../../src/services/schreiben/grading/vectorMath.js';
 import { applyLogisticHead, FEATURE_NAMES, MISS_TYPES } from '../../src/services/schreiben/grading/evidenceFeatures.js';
 import { encodeVector, decodeExampleBank } from '../../src/services/schreiben/grading/exampleBankVectors.js';
-import { scoreUnitSpan, assessLetterUnits, offTaskFeatures } from '../../src/services/schreiben/grading/unitEvidence.js';
-import { runStage0Preprocessing } from '../../src/services/schreiben/grading/stage0Preprocessing.js';
+import { scoreUnitSpan } from '../../src/services/schreiben/grading/unitEvidence.js';
 import { resolveLevelContext } from '../../src/services/schreiben/levelContext.js';
 import { learnerVariant } from './learnerNoise.mjs';
+import { trainLogistic, auc, wilson } from './logistic.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const BANK_DIR = new URL('src/data/exams/example-bank/', ROOT);
@@ -103,7 +104,9 @@ async function rowsOf(items) {
   const rows = [];
   for (const item of items) {
     const vector = await embed(item.text);
-    for (const [unitKey, label] of Object.entries(item.labels)) {
+    // Support follows the examiner's rule (an implicit answer counts) where a sentence carries it.
+    const labels = { ...item.labels, ...(item.examinerLabels || {}) };
+    for (const [unitKey, label] of Object.entries(labels)) {
       if (!bank.tasks[item.task]?.units[unitKey] || item.disputed?.includes(unitKey)) continue;
       const { features } = scoreUnitSpan({
         vector, text: item.text, unitKey, criterion: criterionOf(item.task, unitKey),
@@ -130,47 +133,7 @@ const SIGN = {
   contradict: FEATURE_NAMES.map((n) => ({ marginOver_refusal: -1, marginOver_opposite: -1, negated: 1 })[n]),
 };
 
-function trainHead(rows, target, { lambda, signs = SIGN[target], featureCount = FEATURE_NAMES.length, epochs = 1500, rate = 0.1 }) {
-  const mean = Array.from({ length: featureCount }, (_, i) => rows.reduce((s, r) => s + r.features[i], 0) / rows.length);
-  const scale = mean.map((m, i) => Math.sqrt(rows.reduce((s, r) => s + (r.features[i] - m) ** 2, 0) / rows.length) || 1);
-  const positives = rows.filter((r) => r[target]).length;
-  const weightOf = (y) => (y ? rows.length / (2 * positives) : rows.length / (2 * (rows.length - positives)));
-  const head = { weights: new Array(featureCount).fill(0), bias: 0, mean, scale };
-  for (let epoch = 0; epoch < epochs; epoch++) {
-    const grad = new Array(featureCount).fill(0);
-    let gradBias = 0;
-    for (const r of rows) {
-      const err = (applyLogisticHead(r.features, head) - r[target]) * weightOf(r[target]);
-      r.features.forEach((v, i) => { grad[i] += err * ((v - mean[i]) / scale[i]); });
-      gradBias += err;
-    }
-    head.weights = head.weights.map((w, i) => {
-      const next = w - rate * (grad[i] / rows.length + lambda * w);
-      return signs[i] === 1 ? Math.max(0, next) : signs[i] === -1 ? Math.min(0, next) : next;
-    });
-    head.bias -= rate * (gradBias / rows.length);
-  }
-  return head;
-}
-
-function auc(pairs) {
-  const pos = pairs.filter(([, y]) => y).map(([s]) => s);
-  const neg = pairs.filter(([, y]) => !y).map(([s]) => s);
-  if (!pos.length || !neg.length) return NaN;
-  let wins = 0;
-  for (const p of pos) for (const n of neg) wins += p > n ? 1 : p === n ? 0.5 : 0;
-  return wins / (pos.length * neg.length);
-}
-
-// Wilson score interval for a proportion.
-function wilson(k, n, z = 1.96) {
-  if (n === 0) return '—';
-  const p = k / n;
-  const d = 1 + (z * z) / n;
-  const c = (p + (z * z) / (2 * n)) / d;
-  const h = (z * Math.sqrt((p * (1 - p)) / n + (z * z) / (4 * n * n))) / d;
-  return `${p.toFixed(2)} [${Math.max(0, c - h).toFixed(2)}–${Math.min(1, c + h).toFixed(2)}] (${k}/${n})`;
-}
+const trainHead = (rows, target, { lambda, signs = SIGN[target] }) => trainLogistic(rows, target, { lambda, signs });
 
 function outOfFold(rows, lambda) {
   const oof = [];
@@ -259,34 +222,6 @@ frozenReport('Adversarial', adversarialRows);
 console.log('\nWeights (standardised):');
 FEATURE_NAMES.forEach((name, i) => console.log(`  ${name.padEnd(24)} support ${heads.support.weights[i].toFixed(2).padStart(6)}  contradict ${heads.contradict.weights[i].toFixed(2).padStart(6)}`));
 
-// --- another-purpose letters -----------------------------------------------------------------------------------------
-const evidenceModel = { support: heads.support, contradict: heads.contradict, thresholds };
-const letters = [];
-for (const letter of readJson(new URL('letters-purpose.json', CALIBRATION_DIR))) {
-  const sentences = runStage0Preprocessing(letter.text, level).bodySentences;
-  const criteria = criteriaByTask[letter.task];
-  const { units, sentenceOtherPurposeMargins } = await assessLetterUnits({
-    sentences, embed, criteria, taskBank: bank.tasks[letter.task], neutral: bank.neutral, policy, model: evidenceModel,
-  });
-  const features = offTaskFeatures({ criteria, units, sentenceOtherPurposeMargins, thresholds });
-  letters.push({ task: letter.task, features: features.values, fullLeitpunkte: features.fullLeitpunkte, offTask: letter.offTask ? 1 : 0 });
-}
-const OFF_TASK_FEATURES = ['meanOtherPurposeMargin', 'minOtherPurposeMargin', 'reasonSupport'];
-// A sentence closer to the task than to another purpose, and a stated reason for writing, can only argue against.
-const offTaskSigns = [-1, -1, -1];
-const offTaskOof = [];
-for (const task of Object.keys(bank.tasks)) {
-  const head = trainHead(letters.filter((l) => l.task !== task), 'offTask', { lambda, signs: offTaskSigns, featureCount: OFF_TASK_FEATURES.length });
-  letters.filter((l) => l.task === task).forEach((l) => offTaskOof.push({ ...l, p: applyLogisticHead(l.features, head) }));
-}
-// No valid letter may be voided: the threshold sits above every on-task letter's out-of-fold score.
-const guarded = (l) => l.fullLeitpunkte < 2;
-const offTaskThreshold = Math.max(...offTaskOof.filter((l) => !l.offTask && guarded(l)).map((l) => l.p)) + 1e-6;
-const caught = offTaskOof.filter((l) => l.offTask && guarded(l) && l.p >= offTaskThreshold).length;
-const offTaskTotal = offTaskOof.filter((l) => l.offTask).length;
-console.log(`\nAnother-purpose letters (${letters.length}, leave one task out): AUC ${auc(offTaskOof.map((l) => [l.p, l.offTask])).toFixed(3)}; at zero false voids it finds ${wilson(caught, offTaskTotal)} of the off-task letters`);
-const offTaskHead = trainHead(letters, 'offTask', { lambda, signs: offTaskSigns, featureCount: OFF_TASK_FEATURES.length });
-
 fs.mkdirSync(path.dirname(cacheFile), { recursive: true });
 fs.writeFileSync(cacheFile, JSON.stringify(cache));
 
@@ -296,7 +231,6 @@ if (process.argv.includes('--save')) {
   fs.writeFileSync(MODEL_FILE, JSON.stringify({
     version: 2, bank: stored.meta, lambda, oofHash, features: FEATURE_NAMES,
     support: heads.support, contradict: heads.contradict, thresholds,
-    offTask: { features: OFF_TASK_FEATURES, head: offTaskHead, threshold: offTaskThreshold },
   }, null, 2) + '\n');
   console.log(`\nSaved ${MODEL_FILE.pathname} and ${VECTORS_FILE.pathname}`);
 }
