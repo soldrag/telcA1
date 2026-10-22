@@ -9,7 +9,7 @@ export const A1_GRAMMAR_PROFILE = Object.freeze({
   lexicon: Object.freeze({ load: loadLexiconData, lookup: lookupWord, findForms: findWordForms, tag: tagTokens }),
   rules: Object.freeze(['nounPhraseCase', 'calendarArticle', 'numeralPlural', 'countability', 'subjectVerbAgreement', 'measurePhraseOrder',
     'verbFrame', 'determinerlessCountNoun']),
-  letterRules: Object.freeze(['salutationAgreement', 'salutationCommaCase', 'closingFormula', 'nounCapitalization', 'umlautSpelling']),
+  letterRules: Object.freeze(['salutationAgreement', 'salutationCommaCase', 'closingFormula', 'nounCapitalization', 'umlautSpelling', 'misspelling']),
   // Learning-scale weights per error category: word order breaks the sentence frame and hinders reading most,
   // spelling slips least. A1 is graded on communication; this scale prepares for A2, where such errors cost points,
   // so a defect weighs more here than it would on the exam. They never touch the telc score.

@@ -1,0 +1,31 @@
+name: Version bump
+
+# Every pull request into main raises the app version (package.json), so each release is identifiable.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Version is higher than on main
+        run: |
+          base=$(git show "origin/${{ github.base_ref }}:package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")
+          head=$(node -p "require('./package.json').version")
+          lock=$(node -p "require('./package-lock.json').version")
+          echo "main: $base · this PR: $head (lock $lock)"
+          [ "$head" = "$lock" ] || { echo "package-lock.json version differs: run npm version <x.y.z> --no-git-tag-version"; exit 1; }
+          node -e '
+            const [a, b] = process.argv.slice(1).map((v) => v.split(".").map(Number));
+            const higher = b[0] - a[0] || b[1] - a[1] || b[2] - a[2];
+            if (!(higher > 0)) { console.error(`Raise the version above ${a.join(".")}: npm version <x.y.z> --no-git-tag-version`); process.exit(1); }
+          ' "$base" "$head"

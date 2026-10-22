@@ -4,7 +4,9 @@ import { salutationCommaCaseRule } from './salutationCommaCaseRule.js';
 import { closingFormulaRule } from './closingFormulaRule.js';
 import { nounCapitalizationRule } from './nounCapitalizationRule.js';
 import { umlautSpellingRule } from './umlautSpellingRule.js';
+import { misspellingRule } from './misspellingRule.js';
 
-const RULES = [salutationAgreementRule, salutationCommaCaseRule, closingFormulaRule, nounCapitalizationRule, umlautSpellingRule];
+const RULES = [salutationAgreementRule, salutationCommaCaseRule, closingFormulaRule, nounCapitalizationRule, umlautSpellingRule,
+  misspellingRule];
 
 export const LETTER_RULES = Object.freeze(Object.fromEntries(RULES.map((rule) => [rule.id, rule])));
