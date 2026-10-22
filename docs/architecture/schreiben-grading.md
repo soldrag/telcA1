@@ -79,7 +79,8 @@ Key rules:
 
 `MicroRankerProvider.js` + `grading/microRankerService.js`, the primary decision model (`aiConfig.PRIMARY_PROVIDER = 'micro_ranker'`).
 
-- Query = criterion label + rubric keywords (`rankerFallbackScorer.formatCriterionQuery`). The ranker owns no model: it gets an **embedder port** (`embeddings/rankerEmbedder.js`, `{ embedQuery, embedText }`) backed by the same EmbeddingGemma instance as Stage 2, pre-seeded with Stage 2 vectors.
+- **Example phrases** (`src/data/exams/schreiben-leitpunkt-examples.json`, per task and Leitpunkt or aspect: `fulfils` / `misses`, written from the task only, never from graded letters): a sentence scores by its cosine to the closest fulfilling phrase (`IRankerPolicy.calibrateExampleScore`, A1 cut-offs 0.72 / 0.62 from held-out sentences); when it is closer to a near miss ("Ich bestätige meinen Termin" for a cancellation) the verdict is `contradicted` and neither its keywords nor its dates count. The other Leitpunkte's fulfilling phrases are the competitive gate.
+- Without example phrases the query is criterion label + rubric keywords (`rankerFallbackScorer.formatCriterionQuery`). The ranker owns no model: it gets an **embedder port** (`embeddings/rankerEmbedder.js`, `{ embedQuery, embedText }`) backed by the same EmbeddingGemma instance as Stage 2, pre-seeded with Stage 2 vectors.
 - EmbeddingGemma prefixes: `task: sentence similarity | query:` / `| text:`; Matryoshka 256-d cosine.
 - **Competitive gate**: absolute cosine is not comparable across criteria, so a sentence earns neural credit only for the Leitpunkt it is closest to (`rivalCriteria`).
 - **Clause candidates**: sentences are also judged clause by clause (`clauseStructureParser.parseSentencePropositions`), so "Was kostet der Kurs und wie melde ich mich an?" is not diluted.

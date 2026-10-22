@@ -89,6 +89,17 @@ export async function getCachedLpEmbedding(lpId = '', lpText = '', customExtract
   return vec;
 }
 
+/** Rubric example phrases are embedded as documents, like the letter's sentences they are compared with. */
+export async function getCachedExampleEmbedding(text = '', customExtractor = null) {
+  const cacheKey = `example:::${text}`;
+  if (lpEmbeddingCache.has(cacheKey)) {
+    return lpEmbeddingCache.get(cacheKey);
+  }
+  const vec = await computeEmbedding(text, false, customExtractor);
+  lpEmbeddingCache.set(cacheKey, vec);
+  return vec;
+}
+
 export function clearEmbeddingCache() {
   lpEmbeddingCache.clear();
 }

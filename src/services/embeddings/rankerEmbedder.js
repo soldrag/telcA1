@@ -1,11 +1,11 @@
 /**
  * Ranker Embedder Port adapter over the shared EmbeddingGemma service.
- * Port contract: { embedQuery(cacheKey, text), embedText(text) } -> Promise<Float32Array>.
+ * Port contract: { embedQuery(cacheKey, text), embedText(text), embedExample(text) } -> Promise<Float32Array>.
  * Reuses Stage 2 sentence vectors so the ranker never re-embeds the same sentence
  * and never loads a second copy of the model.
  */
 
-import { computeEmbedding, getCachedLpEmbedding } from './embeddingService.js';
+import { computeEmbedding, getCachedExampleEmbedding, getCachedLpEmbedding } from './embeddingService.js';
 
 export function buildSentenceVectorMap(sentences = [], vectors = []) {
   const map = new Map();
@@ -31,5 +31,6 @@ export function createRankerEmbedder({ customExtractor = null, sentenceVectors =
       knownVectors.set(text, vec);
       return vec;
     },
+    embedExample: (text) => getCachedExampleEmbedding(text, customExtractor),
   };
 }

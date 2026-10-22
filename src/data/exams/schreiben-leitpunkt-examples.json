@@ -1,0 +1,541 @@
+{
+  "s1-q6": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte im August einen Deutschkurs an Ihrer Sprachschule besuchen.",
+        "Ich schreibe Ihnen, weil ich einen Deutschkurs bei Ihnen machen möchte.",
+        "Ich will bei Ihnen Deutsch lernen.",
+        "Ich interessiere mich für einen Sprachkurs in Ihrer Schule und möchte gern teilnehmen.",
+        "Ich möchte gern einen Platz in einem Kurs für Anfänger bei Ihnen reservieren.",
+        "Ich mochte in August ein Deutschkurs in ihre Schule machen."
+      ],
+      "misses": [
+        "Ich möchte keinen Deutschkurs machen.",
+        "Ich möchte meinen Deutschkurs im August absagen.",
+        "Mein Bruder macht einen Deutschkurs in Berlin.",
+        "Deutsch ist eine schwere Sprache.",
+        "Letztes Jahr habe ich einen Deutschkurs an Ihrer Schule besucht."
+      ]
+    },
+    "lp2": {
+      "aspects": {
+        "Wann": {
+          "fulfils": [
+            "Ich möchte den Kurs im August machen.",
+            "Der Kurs soll am 1. August beginnen.",
+            "Ich habe nur vormittags Zeit, also möchte ich morgens lernen.",
+            "Ich kann ab dem 3. August zu Ihnen kommen.",
+            "Am liebsten möchte ich in der ersten Augustwoche anfangen.",
+            "Ich will in August am Morgen lerne."
+          ],
+          "misses": [
+            "Im August habe ich leider keine Zeit.",
+            "Bitte schreiben Sie mir, wann ich kommen soll.",
+            "Meine Schwester hat im August Geburtstag.",
+            "Ich habe bald vielleicht Zeit.",
+            "Im August letztes Jahr war ich schon in München."
+          ]
+        },
+        "wie lange": {
+          "fulfils": [
+            "Ich möchte den Kurs vier Wochen lang besuchen.",
+            "Ich bleibe einen Monat in München und möchte so lange lernen.",
+            "Der Kurs soll bis Ende August gehen.",
+            "Ich brauche einen Kurs für 3 Wochen.",
+            "Ich kann nur zwei Wochen bleiben, dann muss ich wieder arbeiten.",
+            "Ich will die Kurs fur zwei Woche machen."
+          ],
+          "misses": [
+            "Ich weiß nicht, wie lange ich bleibe.",
+            "Wie lange dauert ein Kurs bei Ihnen?",
+            "Mein Freund lernt schon zwei Jahre Deutsch.",
+            "Ich habe nicht viel Zeit.",
+            "Ich habe schon sechs Monate Deutsch gelernt."
+          ]
+        }
+      }
+    },
+    "lp3": {
+      "aspects": {
+        "Frage nach den Kurskosten": {
+          "fulfils": [
+            "Wie viel kostet der Kurs?",
+            "Was kostet der Deutschkurs im August?",
+            "Bitte schreiben Sie mir den Preis.",
+            "Wie teuer ist ein Monat bei Ihnen?",
+            "Was muss ich für vier Wochen bezahlen?",
+            "Wie viele kostet die Kurs?"
+          ],
+          "misses": [
+            "Der Preis ist für mich nicht wichtig.",
+            "Ich kann 300 Euro bezahlen.",
+            "Wie viel kostet ein Zimmer in München?",
+            "Ich habe nicht viel Geld.",
+            "Ich habe den Kurs schon bezahlt."
+          ]
+        },
+        "Anmeldung": {
+          "fulfils": [
+            "Wie kann ich mich anmelden?",
+            "Wo kann ich mich für den Kurs anmelden?",
+            "Muss ich ein Formular ausfüllen?",
+            "Wie bekomme ich einen Platz im Kurs?",
+            "Kann ich mich online oder nur in der Schule einschreiben?",
+            "Wie kann ich mich anmelde fur die Kurs?"
+          ],
+          "misses": [
+            "Ich möchte mich noch nicht anmelden.",
+            "Ich möchte mich vom Kurs abmelden.",
+            "Wo kann ich mich in München bei der Stadt anmelden?",
+            "Die Anmeldung ist bestimmt kompliziert.",
+            "Ich habe mich schon im Internet angemeldet."
+          ]
+        }
+      }
+    }
+  },
+  "s2-q6": {
+    "lp1": {
+      "fulfils": [
+        "Ich muss meinen Termin am Montag um 14 Uhr absagen.",
+        "Leider kann ich am Montag um 14:00 Uhr nicht kommen.",
+        "Ich komme am Montag nicht zu Dr. Schneider.",
+        "Bitte streichen Sie meinen Termin am Montag.",
+        "Am Montag um zwei geht es bei mir leider nicht.",
+        "Ich kann nicht kommen am Montag um 14 Uhr, ich muss Termin absage."
+      ],
+      "misses": [
+        "Ich möchte den Termin am Montag nicht absagen.",
+        "Ich bestätige meinen Termin am Montag um 14 Uhr.",
+        "Mein Mann hat am Montag einen Termin beim Zahnarzt.",
+        "Montag ist ein schwieriger Tag für mich.",
+        "Ich habe letzten Montag einen Termin abgesagt."
+      ]
+    },
+    "lp2": {
+      "fulfils": [
+        "Ich kann nicht kommen, weil ich arbeiten muss.",
+        "Mein Kind ist krank, ich muss zu Hause bleiben.",
+        "Am Montag habe ich eine wichtige Prüfung.",
+        "Mein Chef braucht mich am Montag im Büro.",
+        "Ich bin am Montag nicht in der Stadt, ich besuche meine Mutter in Hamburg.",
+        "Ich habe am Montag Arbeit, mein Kollege ist krank und ich muss arbeite."
+      ],
+      "misses": [
+        "Es gibt keinen besonderen Grund.",
+        "Ich kann am Montag gern kommen, ich habe frei.",
+        "Meine Kollegin kann am Freitag nicht arbeiten, weil sie krank ist.",
+        "Leider geht es nicht.",
+        "Letzten Montag hatte ich viel Arbeit."
+      ]
+    },
+    "lp3": {
+      "fulfils": [
+        "Kann ich einen neuen Termin bekommen?",
+        "Ich möchte einen neuen Termin am Mittwoch.",
+        "Geht es vielleicht am Donnerstag um 10 Uhr?",
+        "Haben Sie nächste Woche noch Zeit für mich?",
+        "Ich kann am Freitagvormittag kommen. Ist das möglich?",
+        "Ich mochte eine neue Termin, vielleicht Dienstag in Morgen?"
+      ],
+      "misses": [
+        "Ich brauche keinen neuen Termin.",
+        "Ich sage auch den Termin am Mittwoch ab.",
+        "Mein Sohn hat einen neuen Termin beim Zahnarzt.",
+        "Termine sind immer schwierig.",
+        "Ich hatte schon einen Termin im März."
+      ]
+    }
+  },
+  "s3-q6": {
+    "lp1": {
+      "fulfils": [
+        "Die Heizung in meiner Wohnung ist kaputt.",
+        "Ich schreibe Ihnen, weil die Heizung nicht funktioniert.",
+        "Bei mir wird es nicht mehr warm, die Heizkörper bleiben kalt.",
+        "In meiner Wohnung geht die Heizung nicht.",
+        "Die Heizung macht nicht mehr warm.",
+        "Mein Heizung ist kaput."
+      ],
+      "misses": [
+        "Die Heizung ist nicht kaputt.",
+        "Die Heizung funktioniert wieder gut.",
+        "Meine Waschmaschine ist kaputt.",
+        "Im Winter braucht man eine Heizung.",
+        "Letztes Jahr war die Heizung kaputt."
+      ]
+    },
+    "lp2": {
+      "fulfils": [
+        "Es ist sehr kalt in der Wohnung.",
+        "Die Heizung ist seit drei Tagen kalt.",
+        "In meinem Zimmer sind nur 14 Grad.",
+        "Wir frieren und müssen immer Jacken tragen.",
+        "Mein Baby ist schon krank, weil es so kalt ist.",
+        "Seit Samstag ist sehr kalt in Wohnung und meine Kinder ist krank."
+      ],
+      "misses": [
+        "Es ist nicht kalt in der Wohnung.",
+        "In der Wohnung ist es schön warm.",
+        "Draußen ist es heute sehr kalt, es schneit.",
+        "Ich habe ein Problem.",
+        "Letzten Winter war es auch kalt."
+      ]
+    },
+    "lp3": {
+      "aspects": {
+        "Handwerker": {
+          "fulfils": [
+            "Bitte schicken Sie einen Handwerker.",
+            "Kann ein Handwerker kommen?",
+            "Bitte rufen Sie einen Monteur an.",
+            "Bitte schicken Sie schnell jemand für die Reparatur.",
+            "Ein Fachmann muss die Heizung reparieren, bitte organisieren Sie das.",
+            "Bitte Sie schicken ein Handwerker."
+          ],
+          "misses": [
+            "Ich brauche keinen Handwerker.",
+            "Ich bin selbst Handwerker und repariere die Heizung.",
+            "Mein Nachbar sucht einen Handwerker für seine Küche.",
+            "Handwerker sind sehr teuer.",
+            "Der Handwerker war gestern schon da."
+          ]
+        },
+        "Reparaturtermin": {
+          "fulfils": [
+            "Wann kann die Heizung repariert werden?",
+            "Bitte reparieren Sie die Heizung bis Freitag.",
+            "Der Handwerker kann morgen ab 8 Uhr kommen, ich bin zu Hause.",
+            "Ich bin jeden Tag ab 16 Uhr zu Hause, dann kann jemand kommen.",
+            "Wann kommt jemand? Bitte schnell, am besten heute noch.",
+            "Kann die Handwerker am Montag in Nachmittag komme?"
+          ],
+          "misses": [
+            "Ich habe diese Woche keine Zeit für eine Reparatur.",
+            "Bitte sagen Sie die Reparatur am Montag ab.",
+            "Mein Auto wird am Montag repariert.",
+            "Reparaturen dauern immer lange.",
+            "Im Oktober hat ein Handwerker die Heizung schon repariert."
+          ]
+        }
+      }
+    }
+  },
+  "s4-q6": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte Ihre Ferienwohnung mieten.",
+        "Ich möchte im Sommer die Ferienwohnung „Meeresbrise“ buchen.",
+        "Wir suchen eine Unterkunft an der Ostsee und möchten bei Ihnen wohnen.",
+        "Ist Ihre Wohnung am Meer im Juli noch frei? Wir möchten sie reservieren.",
+        "Meine Familie und ich möchten unseren Urlaub in Ihrer Wohnung verbringen.",
+        "Ich will ihre Ferienwohnung buche fur mein Familie."
+      ],
+      "misses": [
+        "Wir möchten die Ferienwohnung nicht mieten.",
+        "Ich möchte meine Buchung für die Ferienwohnung stornieren.",
+        "Meine Nachbarn haben eine Ferienwohnung in Spanien.",
+        "Die Ostsee ist sehr schön.",
+        "Wir haben letzten Sommer in Ihrer Ferienwohnung gewohnt."
+      ]
+    },
+    "lp2": {
+      "aspects": {
+        "Personen": {
+          "fulfils": [
+            "Wir sind vier Personen.",
+            "Wir kommen mit zwei Erwachsenen und zwei Kindern.",
+            "Ich komme mit meinem Mann und unseren drei Kindern.",
+            "Meine Frau, mein Sohn und ich möchten kommen.",
+            "Wir sind eine Familie mit 5 Leuten.",
+            "Wir sind drei Person, ich, mein Mann und ein Kind."
+          ],
+          "misses": [
+            "Meine Eltern kommen nicht mit.",
+            "Wie viele Personen können in der Wohnung schlafen?",
+            "In meiner Firma arbeiten zwanzig Personen.",
+            "Ich habe eine große Familie.",
+            "Letztes Jahr waren wir sechs Personen im Urlaub."
+          ]
+        },
+        "Zeitraum": {
+          "fulfils": [
+            "Wir möchten vom 10. bis 24. Juli kommen.",
+            "Wir brauchen die Wohnung zwei Wochen im August.",
+            "Wir kommen am 3. August an und fahren am 17. wieder nach Hause.",
+            "Unsere Ferien sind vom 1. bis 14. Juli, dann möchten wir bei Ihnen sein.",
+            "Wir möchten eine Woche bleiben, ab Samstag, den 12. Juli.",
+            "Wir komme von 5. Juli bis 19. Juli."
+          ],
+          "misses": [
+            "Wir wissen noch nicht, wann wir kommen.",
+            "Wann ist die Wohnung frei?",
+            "Meine Schwester macht im Juli Urlaub in Italien.",
+            "Der Sommer ist bald da.",
+            "Wir waren im letzten August zwei Wochen an der Ostsee."
+          ]
+        }
+      }
+    },
+    "lp3": {
+      "aspects": {
+        "Preis": {
+          "fulfils": [
+            "Wie viel kostet die Ferienwohnung?",
+            "Was kostet die Wohnung pro Nacht?",
+            "Wie teuer sind zwei Wochen bei Ihnen?",
+            "Bitte schreiben Sie mir, was wir bezahlen müssen.",
+            "Wie hoch ist die Miete für eine Woche?",
+            "Wieviel kosten die Wohnung pro Tag?"
+          ],
+          "misses": [
+            "Geld ist kein Problem für uns.",
+            "Wir können 80 Euro pro Nacht bezahlen.",
+            "Wie viel kostet der Zug an die Ostsee?",
+            "Urlaub ist heute sehr teuer.",
+            "Letztes Jahr haben wir 700 Euro bezahlt."
+          ]
+        },
+        "Haustiere": {
+          "fulfils": [
+            "Darf ich meinen Hund mitbringen?",
+            "Sind Haustiere in der Wohnung erlaubt?",
+            "Wir haben eine Katze. Kann sie mitkommen?",
+            "Ist ein kleiner Hund bei Ihnen okay?",
+            "Können wir unser Tier mitnehmen?",
+            "Darf ich mein Hund mitbringe?"
+          ],
+          "misses": [
+            "Wir haben keine Haustiere.",
+            "Ich kann gern auf Ihre Katze aufpassen.",
+            "Haben Sie auch einen Hund, Frau Hansen?",
+            "Wir lieben Tiere.",
+            "Früher hatten wir einen Hund."
+          ]
+        }
+      }
+    }
+  },
+  "s5-q6": {
+    "lp1": {
+      "fulfils": [
+        "Ich bin krank und kann nicht zum Kurs kommen.",
+        "Ich kann heute nicht kommen, weil ich krank bin.",
+        "Ich habe Fieber und muss im Bett bleiben.",
+        "Mir geht es nicht gut, ich habe eine Grippe.",
+        "Der Arzt sagt, ich muss zu Hause bleiben.",
+        "Ich bin krank, ich kann nicht komme in die Kurs."
+      ],
+      "misses": [
+        "Ich bin nicht krank.",
+        "Ich bin wieder gesund und komme morgen zum Kurs.",
+        "Mein Nachbar ist krank.",
+        "Im Winter sind viele Leute krank.",
+        "Letzten Monat war ich eine Woche krank."
+      ]
+    },
+    "lp2": {
+      "fulfils": [
+        "Ich kann heute und morgen nicht kommen.",
+        "Ich fehle zwei Tage.",
+        "Am Donnerstag bin ich wieder im Kurs.",
+        "Ich komme erst übermorgen wieder.",
+        "Der Arzt sagt, ich bin bis Mittwoch krank.",
+        "Ich kann heute und morgen nich kommen, ubermorgen komme ich wieder."
+      ],
+      "misses": [
+        "Ich weiß nicht, wie lange ich krank bin.",
+        "Ich komme heute und morgen ganz normal zum Kurs.",
+        "Der Kurs dauert noch zwei Monate.",
+        "Krank sein dauert manchmal lange.",
+        "Letzte Woche habe ich drei Tage gefehlt."
+      ]
+    },
+    "lp3": {
+      "fulfils": [
+        "Können Sie mir bitte die Hausaufgaben per E-Mail schicken?",
+        "Bitte schicken Sie mir die Hausaufgaben.",
+        "Bitte schreiben Sie mir, was ich zu Hause lernen muss.",
+        "Können Sie mir die Aufgaben aus dem Kurs mailen?",
+        "Ich möchte zu Hause üben. Bitte senden Sie mir die Arbeitsblätter.",
+        "Bitte Sie schicken mir die Hausaufgabe mit E-mail."
+      ],
+      "misses": [
+        "Ich brauche keine Hausaufgaben.",
+        "Ich schicke Ihnen meine Hausaufgaben per E-Mail.",
+        "Mein Sohn hat viele Hausaufgaben.",
+        "Hausaufgaben sind wichtig.",
+        "Ich habe die Hausaufgaben von letzter Woche schon gemacht."
+      ]
+    }
+  },
+  "s6-q6": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte ein Zimmer in Ihrem Hotel buchen.",
+        "Ich möchte für August ein Doppelzimmer reservieren.",
+        "Haben Sie im August ein Zimmer für mich frei? Ich möchte bei Ihnen übernachten.",
+        "Ich suche ein Zimmer für meinen Urlaub in Garmisch und möchte bei Ihnen wohnen.",
+        "Wir möchten im August bei Ihnen Urlaub machen und brauchen ein Zimmer.",
+        "Ich mochte ein Zimmer reservieren in ihre Hotel."
+      ],
+      "misses": [
+        "Ich möchte kein Zimmer reservieren.",
+        "Ich möchte meine Reservierung stornieren.",
+        "Mein Freund hat ein Zimmer in Berlin gebucht.",
+        "Die Berge sind im August sehr schön.",
+        "Letztes Jahr hatte ich ein Zimmer in Ihrem Hotel."
+      ]
+    },
+    "lp2": {
+      "aspects": {
+        "Wann": {
+          "fulfils": [
+            "Ich komme am 5. August an.",
+            "Ich möchte vom 10. bis 15. August bleiben.",
+            "Meine Anreise ist am Samstag, den 2. August.",
+            "Ich bin ab dem 12.8. in Garmisch.",
+            "Wir sind in der ersten Augustwoche da.",
+            "Ich komme an 3. August am Abend."
+          ],
+          "misses": [
+            "Ich weiß noch nicht, wann ich komme.",
+            "Wann haben Sie Zimmer frei?",
+            "Mein Bruder kommt im Juli nach Garmisch.",
+            "Ich mache bald Urlaub.",
+            "Ich war im August 2024 schon bei Ihnen."
+          ]
+        },
+        "wie lange": {
+          "fulfils": [
+            "Ich möchte eine Woche bleiben.",
+            "Ich brauche das Zimmer für fünf Nächte.",
+            "Ich reise am 10. an und am 17. August wieder ab.",
+            "Ich habe zehn Tage Urlaub und möchte die ganze Zeit bei Ihnen wohnen.",
+            "Wir möchten 3 Nächte bei Ihnen schlafen.",
+            "Ich will zwei Woche bleibe."
+          ],
+          "misses": [
+            "Ich weiß nicht, wie lange ich bleibe.",
+            "Wie lange kann man bei Ihnen bleiben?",
+            "Mein Kollege bleibt drei Wochen in Spanien.",
+            "Der Urlaub ist immer zu kurz.",
+            "Letztes Jahr bin ich zwei Wochen geblieben."
+          ]
+        }
+      }
+    },
+    "lp3": {
+      "aspects": {
+        "Frühstück": {
+          "fulfils": [
+            "Gibt es Frühstück im Hotel?",
+            "Ist das Frühstück im Preis inklusive?",
+            "Kann ich am Morgen bei Ihnen essen?",
+            "Was gibt es morgens zu essen?",
+            "Bekomme ich morgens Kaffee und Brötchen?",
+            "Gibt es Fruhstuck in ihre Hotel?"
+          ],
+          "misses": [
+            "Ich brauche kein Frühstück.",
+            "Ich frühstücke immer um 7 Uhr.",
+            "Gibt es auch Abendessen im Hotel?",
+            "Frühstück ist für mich wichtig.",
+            "Das Frühstück im letzten Hotel war sehr gut."
+          ]
+        },
+        "Parkplatz": {
+          "fulfils": [
+            "Gibt es einen Parkplatz am Hotel?",
+            "Haben Sie Parkplätze für Gäste?",
+            "Wo kann ich mein Auto parken?",
+            "Ich komme mit dem Auto. Kann ich es bei Ihnen abstellen?",
+            "Gibt es eine Garage für meinen Wagen?",
+            "Gibt es ein Parkplatz fur mein Auto?"
+          ],
+          "misses": [
+            "Ich brauche keinen Parkplatz, ich komme mit dem Zug.",
+            "Ich parke mein Auto am Bahnhof.",
+            "Gibt es einen Spielplatz am Hotel?",
+            "Parken ist in den Bergen schwierig.",
+            "Letztes Mal habe ich auf der Straße geparkt."
+          ]
+        }
+      }
+    }
+  },
+  "s7-q6": {
+    "lp1": {
+      "fulfils": [
+        "Ich interessiere mich für Ihre Wohnung.",
+        "Ich habe Ihre Anzeige gelesen und möchte die 2-Zimmer-Wohnung mieten.",
+        "Ich suche eine Wohnung in Köln. Ist Ihre Wohnung noch frei?",
+        "Ihre Wohnung gefällt mir sehr gut, ich möchte dort wohnen.",
+        "Ich möchte gern in Ihre Wohnung einziehen.",
+        "Ich habe ihre Anzeige gesehen und ich interessiere fur die Wohnung."
+      ],
+      "misses": [
+        "Ich möchte die Wohnung nicht mieten.",
+        "Ich vermiete meine Wohnung in Köln.",
+        "Meine Schwester sucht eine Wohnung in Berlin.",
+        "Köln ist eine schöne Stadt.",
+        "Ich habe früher in einer 2-Zimmer-Wohnung gewohnt."
+      ]
+    },
+    "lp2": {
+      "aspects": {
+        "Personen": {
+          "fulfils": [
+            "Ich möchte mit meiner Frau in der Wohnung wohnen.",
+            "Wir sind zwei Personen.",
+            "Ich lebe allein, nur ich ziehe ein.",
+            "Mein Freund und ich wollen zusammen dort leben.",
+            "Wir sind ein Paar mit einem Baby.",
+            "In die Wohnung wohne ich und mein Frau."
+          ],
+          "misses": [
+            "Ich möchte nicht mit meinen Eltern wohnen.",
+            "Wie viele Personen wohnen im Haus?",
+            "Meine Eltern wohnen in der Türkei.",
+            "Familie ist wichtig für mich.",
+            "Früher habe ich mit drei Freunden zusammen gewohnt."
+          ]
+        },
+        "Beruf": {
+          "fulfils": [
+            "Ich bin Krankenschwester.",
+            "Ich arbeite als Koch in einem Restaurant.",
+            "Ich bin Lehrer von Beruf.",
+            "Ich arbeite bei Ford in Köln, in der Produktion.",
+            "Ich habe eine feste Stelle bei einer Bank.",
+            "Ich arbeite als Verkauferin in Supermarkt."
+          ],
+          "misses": [
+            "Ich arbeite nicht gern am Wochenende.",
+            "Was sind Sie von Beruf, Frau Neumann?",
+            "Mein Vater ist Arzt.",
+            "Ich arbeite viel.",
+            "Früher war ich Taxifahrer."
+          ]
+        }
+      }
+    },
+    "lp3": {
+      "fulfils": [
+        "Kann ich die Wohnung besichtigen?",
+        "Ich möchte einen Termin für eine Besichtigung.",
+        "Wann kann ich die Wohnung sehen?",
+        "Darf ich am Samstag kommen und mir die Zimmer ansehen?",
+        "Haben Sie diese Woche Zeit? Ich möchte die Wohnung gern anschauen.",
+        "Kann ich die Wohnung anschaue am Samstag?"
+      ],
+      "misses": [
+        "Ich muss die Wohnung nicht sehen.",
+        "Sie können meine Wohnung am Samstag besichtigen.",
+        "Wann kann ich das Auto von Ihrer Anzeige ansehen?",
+        "Besichtigungen sind wichtig.",
+        "Ich habe die Wohnung gestern schon gesehen."
+      ]
+    }
+  }
+}
