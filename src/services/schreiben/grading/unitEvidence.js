@@ -69,17 +69,19 @@ export function scoreUnitSpan({ vector, text, unitKey, criterion, taskBank, neut
 const closest = (vector, bank) => Math.max(-1, ...bank.map((other) => cosineSimilarity(vector, other)));
 const rawPurposeMargin = (vector, fulfils, otherPurpose) => closest(vector, fulfils) - closest(vector, otherPurpose);
 
-// The bank's own reference points: the mean margin of its fulfilling phrases and of its other-purpose phrases, each
-// measured against the rest of the bank.
+// The bank's own reference points: the mean margin of its fulfilling phrases and of its other-purpose phrases (its own
+// and the other tasks' fulfilling ones, exampleBankVectors.foreignPurpose), each measured against the rest of the bank.
 const purposeScales = new WeakMap();
 function purposeScaleOf(taskBank) {
   if (!purposeScales.has(taskBank)) {
     const fulfils = Object.values(taskBank.units).flatMap((unit) => unit.fulfils);
     const apart = (vector, bank) => bank.filter((other) => cosineSimilarity(vector, other) < NEAR_COPY);
-    const meanMargin = (phrases) => phrases.reduce((s, v) => s + rawPurposeMargin(v, apart(v, fulfils), apart(v, taskBank.otherPurpose)), 0) / phrases.length;
+    // A bank not decoded by decodeExampleBank has only its own other-purpose phrases.
+    const foreign = taskBank.foreignPurpose ?? taskBank.otherPurpose;
+    const meanMargin = (phrases) => phrases.reduce((s, v) => s + rawPurposeMargin(v, apart(v, fulfils), apart(v, foreign)), 0) / phrases.length;
     const onPurpose = meanMargin(fulfils);
-    const offPurpose = meanMargin(taskBank.otherPurpose);
-    purposeScales.set(taskBank, { fulfils, middle: (onPurpose + offPurpose) / 2, spread: onPurpose - offPurpose || 1 });
+    const offPurpose = meanMargin(foreign);
+    purposeScales.set(taskBank, { fulfils, foreign, middle: (onPurpose + offPurpose) / 2, spread: onPurpose - offPurpose || 1 });
   }
   return purposeScales.get(taskBank);
 }
@@ -90,8 +92,8 @@ function purposeScaleOf(taskBank) {
  * differ from bank to bank, so only this scale carries over to a task the heads were not trained on.
  */
 export function purposeMargin(vector, taskBank) {
-  const { fulfils, middle, spread } = purposeScaleOf(taskBank);
-  return (rawPurposeMargin(vector, fulfils, taskBank.otherPurpose) - middle) / spread;
+  const { fulfils, foreign, middle, spread } = purposeScaleOf(taskBank);
+  return (rawPurposeMargin(vector, fulfils, foreign) - middle) / spread;
 }
 
 // Spans of a letter body: every sentence, the clauses of a sentence that has several, and adjacent sentence pairs

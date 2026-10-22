@@ -10,10 +10,8 @@ const unit = (x, y) => { const n = Math.hypot(x, y); return Float32Array.from([x
 // Fulfilling phrases spread around x, other-purpose phrases around y; banks differ in how widely they spread.
 function bankOf(spreadAngle) {
   const around = (base, k) => unit(Math.cos(base + k * spreadAngle), Math.sin(base + k * spreadAngle));
-  return {
-    units: { lp1: { fulfils: [-1, 0, 1].map((k) => around(0, k)) } },
-    otherPurpose: [-1, 0, 1].map((k) => around(Math.PI / 2, k)),
-  };
+  const otherPurpose = [-1, 0, 1].map((k) => around(Math.PI / 2, k));
+  return { units: { lp1: { fulfils: [-1, 0, 1].map((k) => around(0, k)) } }, otherPurpose, foreignPurpose: otherPurpose };
 }
 
 describe('Another-purpose review', () => {
@@ -23,6 +21,11 @@ describe('Another-purpose review', () => {
       assert.ok(purposeMargin(unit(0.05, 1), bank) < -0.3);
       assert.ok(Math.abs(purposeMargin(unit(1, 1), bank)) < 1e-9);
     }
+  });
+
+  it('reads a bank without foreign purposes by its own other-purpose phrases', () => {
+    const { foreignPurpose, ...ownOnly } = bankOf(0.5);
+    assert.equal(purposeMargin(unit(1, 0.05), ownOnly), purposeMargin(unit(1, 0.05), { ...ownOnly, foreignPurpose }));
   });
 
   it('reads the letter with the features the head was trained on, in order', () => {

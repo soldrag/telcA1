@@ -42,14 +42,16 @@ const readJson = (url) => JSON.parse(fs.readFileSync(url, 'utf8'));
 const sha = (text) => crypto.createHash('sha1').update(text).digest('hex');
 
 // --- letters -----------------------------------------------------------------------------------------------------------
-// Graded letters carry both examiners: where they differ, each verdict counts half (soft label).
+// Letters carry both examiners where there are two: where they differ, each verdict counts half (soft label).
 const graded = ['l1', 'l2', 'l3', 'l4'].flatMap((f) => readJson(new URL(`letters-levels-${f}.json`, CALIBRATION_DIR)).map((l, i) => ({
   id: `${f}-${i}`, task: l.seedQuestionId, text: l.text, category: l.category,
   verdicts: [{ lp: l.expected.lp, offTask: l.category === 'off_topic' }, { lp: l.examiner2.lp, offTask: l.examiner2.offTask }],
 })));
-const purpose = readJson(new URL('letters-purpose.json', CALIBRATION_DIR)).map((l, i) => ({
-  id: `p-${i}`, task: l.task, text: l.text, verdicts: [{ lp: null, offTask: l.offTask }],
-}));
+const purposeFiles = fs.readdirSync(CALIBRATION_DIR).filter((f) => /^letters-purpose.*\.json$/.test(f)).sort();
+const purpose = purposeFiles.flatMap((f) => readJson(new URL(f, CALIBRATION_DIR)).map((l, i) => ({
+  id: `${f.replace(/^letters-|\.json$/g, '')}-${i}`, task: l.task, text: l.text, category: l.type,
+  verdicts: [{ lp: null, offTask: l.offTask }, ...(l.examiner2 ? [{ lp: null, offTask: l.examiner2.offTask }] : [])],
+})));
 const letters = [...graded, ...purpose];
 const tasks = [...new Set(letters.map((l) => l.task))].sort();
 

@@ -5,8 +5,11 @@
  */
 
 import { MISS_TYPES } from './evidenceFeatures.js';
+import { cosineSimilarity } from './vectorMath.js';
 
 const SCALE = 127;
+// Another task's fulfilling phrase this close to one of the task's own says the same thing: it is no other purpose.
+const SAME_PURPOSE = 0.9;
 
 function toBase64(bytes) {
   if (typeof Buffer !== 'undefined') return Buffer.from(bytes).toString('base64');
@@ -30,9 +33,13 @@ function decodeVector(text) {
   return values.map((v) => v / norm);
 }
 
+const fulfilsOf = (bank) => Object.values(bank.units).flatMap((unit) => unit.fulfils);
+
 /**
  * @param {{ meta: object, neutral: string[], tasks: Record<string, { units: object, otherPurpose: string[] }> }} stored
- * @returns {{ meta: object, neutral: Float32Array[], tasks: Record<string, { units: Record<string, { fulfils: Float32Array[], misses: Record<string, Float32Array[]> }>, otherPurpose: Float32Array[] }> }}
+ * @returns {{ meta: object, neutral: Float32Array[], tasks: Record<string, { units: Record<string, { fulfils: Float32Array[], misses: Record<string, Float32Array[]> }>,
+ *   otherPurpose: Float32Array[], foreignPurpose: Float32Array[] }> }}
+ *   foreignPurpose: the task's other-purpose phrases plus the other tasks' fulfilling phrases that differ from its own
  */
 export function decodeExampleBank(stored) {
   const decodeAll = (list = []) => list.map(decodeVector);
@@ -46,6 +53,12 @@ export function decodeExampleBank(stored) {
       };
     }
     tasks[task] = { units, otherPurpose: decodeAll(bank.otherPurpose) };
+  }
+  for (const [task, bank] of Object.entries(tasks)) {
+    const own = fulfilsOf(bank);
+    const foreign = Object.entries(tasks).filter(([other]) => other !== task).flatMap(([, other]) => fulfilsOf(other))
+      .filter((vector) => own.every((mine) => cosineSimilarity(vector, mine) < SAME_PURPOSE));
+    bank.foreignPurpose = [...bank.otherPurpose, ...foreign];
   }
   return { meta: stored.meta, neutral: decodeAll(stored.neutral), tasks };
 }
