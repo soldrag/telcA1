@@ -4,8 +4,8 @@
  *   npm run eval:hidden [-- --ranker]   hidden set: aggregate numbers only, for measuring
  * Default mode is the limited mode (no model). --ranker grades with the Micro-Ranker on EmbeddingGemma,
  * as the browser does (downloads the model on first use).
- * --engine evidence grades the Leitpunkte with the trained evidence heads instead of the keyword stage (implies
- * --ranker); --shadow grades every letter both ways and compares them pair by pair (aggregates only on the hidden set).
+ * --engine hybrid lets the trained evidence review move keyword levels and decide another-purpose (implies --ranker);
+ * --shadow grades every letter both ways and compares them pair by pair (aggregates only on the hidden set).
  * Open set only: --save <file> stores the per-letter verdicts, --baseline <file> compares with stored ones letter
  * by letter and Leitpunkt by Leitpunkt (a 40-letter percentage alone moves by chance; paired changes do not).
  * The hidden set is never printed: tune only on the open set, check on the hidden one.
@@ -18,8 +18,8 @@ import { expectedTotal, validateLetters } from './letterSchema.mjs';
 const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url);
 const set = process.argv.includes('--hidden') ? 'hidden' : 'open';
 const shadow = process.argv.includes('--shadow');
-const evidenceEngine = process.argv.includes('--engine') && process.argv[process.argv.indexOf('--engine') + 1] === 'evidence';
-const useRanker = process.argv.includes('--ranker') || evidenceEngine || shadow;
+const hybridEngine = process.argv.includes('--engine') && process.argv[process.argv.indexOf('--engine') + 1] === 'hybrid';
+const useRanker = process.argv.includes('--ranker') || hybridEngine || shadow;
 const MIN_GROUP = 8;
 const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
 
@@ -49,17 +49,14 @@ async function createGrader(engine) {
   }
   const { MicroRankerProvider } = await import('../../src/services/ai/providers/MicroRankerProvider.js');
   const { clearEmbeddingCache, createSentenceEmbedder } = await import('../../src/services/embeddings/embeddingService.js');
-  let extractor;
-  if (engine === 'evidence') {
-    extractor = await createSentenceEmbedder();
-  } else {
-    const { pipeline } = await import('@huggingface/transformers');
-    extractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
-  }
+  const { pipeline } = await import('@huggingface/transformers');
+  const extractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
+  const evidenceExtractor = engine === 'hybrid' ? await createSentenceEmbedder() : null;
   return async (userText, question) => {
     clearEmbeddingCache();
     return gradeSchreibenSubmission({
-      userText, question, provider: new MicroRankerProvider(), options: { customExtractor: extractor, leitpunktEngine: engine },
+      userText, question, provider: new MicroRankerProvider(),
+      options: { customExtractor: extractor, evidenceExtractor, leitpunktEngine: engine },
     });
   };
 }
@@ -71,6 +68,7 @@ function compare(letter, result) {
   const diff = result.points_earned - expectedTotal(want);
   return {
     letter, gotLp, gotKg, got: result.points_earned, want: expectedTotal(want), diff,
+    voided: Boolean(result.breakdown.leitpunkte_void_reason),
     lpHits: gotLp.filter((lv, i) => lv === want.lp[i]).length,
     lpOver: gotLp.filter((lv, i) => lv > want.lp[i]).length,
     lpUnder: gotLp.filter((lv, i) => lv < want.lp[i]).length,
@@ -164,13 +162,13 @@ function printShadowComparison(before, after) {
     if (delta < 0) t.further += 1;
     [b, a].forEach((r, j) => {
       r.gotLp.forEach((level, k) => { if (Math.abs(level - want[k]) === 2) t.twoZero[j] += 1; });
-      if (r.gotLp.every((l) => l === 0) && want.some((l) => l > 0)) t.falseVoids[j] += 1;
+      if (r.voided && want.some((l) => l > 0)) t.falseVoids[j] += 1;
     });
   });
   const decisions = before.length * 3;
-  console.log(`\nShadow · evidence vs keyword stage over ${decisions} Leitpunkt decisions: ${t.fixed} fixed, ${t.broken} broken (net ${(((t.fixed - t.broken) / decisions) * 100).toFixed(1)}%)`);
+  console.log(`\nShadow · evidence review vs keyword stage over ${decisions} Leitpunkt decisions: ${t.fixed} fixed, ${t.broken} broken (net ${(((t.fixed - t.broken) / decisions) * 100).toFixed(1)}%)`);
   console.log(`  letters closer to the examiner ${t.closer}, further ${t.further}`);
-  console.log(`  2↔0 errors: keyword ${t.twoZero[0]}, evidence ${t.twoZero[1]} · all Leitpunkte 0 where the examiner credited some: keyword ${t.falseVoids[0]}, evidence ${t.falseVoids[1]}`);
+  console.log(`  2↔0 errors: keyword ${t.twoZero[0]}, review ${t.twoZero[1]} · Leitpunkte void where the examiner credited some: keyword ${t.falseVoids[0]}, review ${t.falseVoids[1]}`);
 }
 
 function printEngine(label, rows) {
@@ -182,9 +180,9 @@ function printEngine(label, rows) {
 
 if (shadow) {
   const keywordRows = await gradeAll('keywords');
-  const evidenceRows = await gradeAll('evidence');
+  const evidenceRows = await gradeAll('hybrid');
   printEngine('Micro-Ranker · keyword stage', keywordRows);
-  printEngine('Micro-Ranker · evidence heads', evidenceRows);
+  printEngine('Micro-Ranker · keyword stage + evidence review', evidenceRows);
   printShadowComparison(keywordRows, evidenceRows);
   if (set === 'open') {
     console.log('\nChanged letters (open set):');
@@ -196,8 +194,8 @@ if (shadow) {
     });
   }
 } else {
-  const rows = await gradeAll(evidenceEngine ? 'evidence' : 'keywords');
-  printEngine(useRanker ? `Micro-Ranker · ${evidenceEngine ? 'evidence heads' : 'keyword stage'}` : 'limited mode', rows);
+  const rows = await gradeAll(hybridEngine ? 'hybrid' : 'keywords');
+  printEngine(useRanker ? `Micro-Ranker · ${hybridEngine ? 'keyword stage + evidence review' : 'keyword stage'}` : 'limited mode', rows);
   if (set === 'open' && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
   if (set === 'open' && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');
 }

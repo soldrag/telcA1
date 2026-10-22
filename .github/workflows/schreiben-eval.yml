@@ -52,7 +52,7 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: Open set · Micro-Ranker, keyword stage vs evidence heads
+      - name: Open set · Micro-Ranker, keyword stage vs evidence review
         run: |
           status=0; npm run -s eval:open -- --shadow > eval.log 2>&1 || status=$?
           cat eval.log
@@ -75,7 +75,7 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: Hidden set · Micro-Ranker, keyword stage vs evidence heads
+      - name: Hidden set · Micro-Ranker, keyword stage vs evidence review
         env:
           TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
         run: |

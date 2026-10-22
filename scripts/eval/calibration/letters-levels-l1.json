@@ -3,280 +3,895 @@
     "seedQuestionId": "s1-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs bei Ihnen machen. Ich habe Zeit vom 1. bis 28. August, also vier Wochen. Wie viel kostet der Kurs? Und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nAna Lopes",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "All three points clearly addressed, including both parts of points 2 and 3."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "All three points clearly addressed, including both parts of points 2 and 3.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich will in August ein Deutschkurs in Ihre Schule besuchen. Ich kann am 3. August anfangen und zwei Wochen bleiben. Was kostet das Kurs? Muss ich online anmelden oder in die Schule kommen?\nViele Grüße\nMehmet Yilmaz",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Article and preposition errors do not reduce points because every point is understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Article and preposition errors do not reduce points because every point is understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "complete",
     "text": "Liebes Team der Sprachschule Aktiv,\nich interessiere mich für einen Deutschkurs. Ich bin im August drei Wochen in München, vom 5. bis 26. August. Ich möchte gern morgens lernen. Wie teuer ist ein Kurs? Wo kann ich mich anmelden?\nViele Grüße\nPiotr Nowak",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Complete letter with an extra detail about mornings that neither helps nor hurts."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Complete letter with an extra detail about mornings that neither helps nor hurts.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich lerne seit sechs Monate Deutsch und möchte im August bei Ihnen einen Kurs machen. Ich habe einen Monat Zeit, ab 1. August. Was kostet ein Kurs für vier Wochen und wie melde ich mich an?\nLin Mei",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Content is complete, but the name alone is not a closing formula, so kg is 0.5."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Content is complete, but the name alone is not a closing formula, so kg is 0.5.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nist im August noch ein Platz frei im A2-Kurs? Ich bin vom 4. bis 29. August in München. Was muss ich bezahlen und was muss ich für die Anmeldung tun?\nMit freundlichen Grüßen\nCarlos Mendes",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "The reason for writing is only implied by asking for a free place, which is enough for full credit."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The reason for writing is only implied by asking for a free place, which is enough for full credit.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nich möchte mein Deutsch besser machen. Ich komme am 1. August nach München und fliege am 31. August zurück nach Spanien. Haben Sie eine Preisliste und ein Formular für den Kurs? Bitte schicken Sie mir das.\nViele Grüße\nLucía Fernández",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Duration follows from arrival and departure dates, and the fee and registration question is a request for a price list and form."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Duration follows from arrival and departure dates, and the fee and registration question is a request for a price list and form.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1 only implicit (improve German + course form)"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "implicit",
     "text": "Guten Tag,\nfür meinen Sommer in München suche ich einen Deutschkurs, am liebsten im August, nur zwei Wochen am Abend. Bitte schicken Sie mir die Preise und das Anmeldeformular.\nMit freundlichen Grüßen\nKenji Sato",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Point 3 is a request instead of a question, which is an acceptable way to address it."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Point 3 is a request instead of a question, which is an acceptable way to address it.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nmeine Firma schickt mich im August nach München und ich brauche besseres Deutsch. Ich bin dort zwei Wochen, ab dem 10. Kann ich mich per E-Mail anmelden? Meine Firma bezahlt, wie viel ist das?\nMit freundlichen Grüßen\nRaj Patel",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "The reason is given through the job situation, an unusual but understandable way to address point 1."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The reason is given through the job situation, an unusual but understandable way to address point 1.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1 implicit via firm/better German + Anmeldung"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nich möchte im August einen Deutschkurs bei Ihnen machen. Ich kann ab dem 4. August kommen. Wie viel kostet der Kurs? Wie kann ich mich anmelden?\nMit freundlichen Grüßen\nElena Popescu",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "The start date is given but not how long, so point 2 is only partly done."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The start date is given but not how long, so point 2 is only partly done.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: start date only, no duration"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nich will Deutsch lernen und im August einen Kurs in Ihrer Schule machen. Ich habe drei Wochen Zeit, vom 7. bis 28. August. Wie viel Geld kostet der Kurs?\nViele Grüße\nYusuf Demir",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Only the fees are asked about and registration is not mentioned, so point 3 is partly done."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Only the fees are asked about and registration is not mentioned, so point 3 is partly done.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nich möchte einen Deutschkurs in Ihrer Sprachschule besuchen. Ich habe vier Wochen Zeit. Was kostet ein Kurs und wie funktioniert die Anmeldung?\nMit freundlichen Grüßen\nAmira Haddad",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "The duration is given but the letter never says when (no August or dates), so point 2 is partial."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The duration is given but the letter never says when (no August or dates), so point 2 is partial.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: duration only, no when"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Damen und Herren,\nich möchte einen Deutschkurs in Ihrer Schule besuchen. Ich spreche schon ein bisschen Deutsch. Was kostet ein Kurs und wie kann ich mich anmelden?\nMit freundlichen Grüßen\nTomás Silva",
-    "expected": { "lp": [2, 0, 2], "kg": 1 },
-    "note": "Neither the time nor the duration is mentioned, so point 2 is missing."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Neither the time nor the duration is mentioned, so point 2 is missing.",
+    "examiner2": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Damen und Herren,\nich möchte bei Ihnen Deutsch lernen. Ich bin vom 1. bis 15. August in München. Ich bin Anfänger. Haben Sie Kurse am Vormittag?\nViele Grüße\nOscar Lindqvist",
-    "expected": { "lp": [2, 2, 0], "kg": 1 },
-    "note": "The question about morning courses asks about neither fees nor registration, so point 3 is missing."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The question about morning courses asks about neither fees nor registration, so point 3 is missing.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "heavy_errors",
     "text": "Sehr gehrte Dame und Herr,\nich will Deutsch kurs machen in Ihre schule im August. Ich habe Zeit fier wochen, beginen 1 August. Wiefiel kostet kurs? Wie mache ich anmeldung? Bitte antwort.\nMit freundlich Grus\nAbdi Hassan",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Many spelling and grammar errors, but all points are understandable and the salutation and closing are recognizable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Many spelling and grammar errors, but all points are understandable and the salutation and closing are recognizable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "heavy_errors",
     "text": "Hallo,\nich mochte Deutsch lerne bei Aktiv in August. zwei woche, von 10. August. Kurs - wieviel Euro? Anmelden wo? Internet oder in Schule kommen?\nDanke, tschüss\nRanjit Singh",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Telegraphic but understandable on every point, while tschüss is an unsuitable closing for a school inquiry."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Telegraphic but understandable on every point, while tschüss is an unsuitable closing for a school inquiry.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich bin Deutschlehrerin und möchte im August an der Sprachschule Aktiv in München arbeiten. Ich kann vier Wochen unterrichten. Wie viel verdient man und wie kann ich mich bewerben?\nMit freundlichen Grüßen\nIrina Volkova",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "This is a job application to teach, not an inquiry about attending a course, so every point scores 0."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "This is a job application to teach, not an inquiry about attending a course, so every point scores 0.",
+    "examiner2": {
+      "lp": [
+        0,
+        1,
+        0
+      ],
+      "offTask": true,
+      "doubt": "job application as teacher"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "off_topic",
     "text": "Liebe Maria,\nim August mache ich einen Deutschkurs an der Sprachschule Aktiv in München. Der Kurs dauert vier Wochen. Kommst du auch mit? Dann können wir zusammen lernen. Wie viel kostet dein Zimmer in München?\nLiebe Grüße\nSofia",
-    "expected": { "lp": [0, 0, 0], "kg": 0 },
-    "note": "A personal letter to a friend instead of an email to the school, and the informal salutation and closing do not fit the required addressee."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 0
+    },
+    "note": "A personal letter to a friend instead of an email to the school, and the informal salutation and closing do not fit the required addressee.",
+    "examiner2": {
+      "lp": [
+        0,
+        2,
+        0
+      ],
+      "offTask": true,
+      "doubt": "letter to friend"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich habe mich für den Deutschkurs im August angemeldet. Aber ich kann leider nicht kommen, ich bin krank. Bekomme ich die Kursgebühren zurück?\nMit freundlichen Grüßen\nHuang Wei",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "The letter cancels an existing registration instead of asking to take a course."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The letter cancels an existing registration instead of asking to take a course.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "cancellation/refund"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich mache im August einen Deutschkurs bei Ihnen in München. Ich suche noch ein Zimmer für vier Wochen. Haben Sie Zimmer für Schüler? Wie viel kostet ein Zimmer?\nMit freundlichen Grüßen\nDiego Ramírez",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "The writer is already enrolled and only asks about accommodation, which is a different purpose."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The writer is already enrolled and only asks about accommodation, which is a different purpose.",
+    "examiner2": {
+      "lp": [
+        0,
+        2,
+        0
+      ],
+      "offTask": true,
+      "doubt": "already enrolled, asks about room"
+    }
   },
   {
     "seedQuestionId": "s1-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich habe im August einen Deutschkurs an Ihrer Schule in München besucht. Der Kurs war sehr gut. Ich brauche aber noch mein Zertifikat. Wann kann ich es abholen?\nViele Grüße\nNadia Benali",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "The writer misread the situation and asks for a certificate from a past course."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The writer misread the situation and asks for a certificate from a past course.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "certificate after course"
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich habe am Montag um 14 Uhr einen Termin bei Dr. Schneider. Leider kann ich nicht kommen, denn ich muss arbeiten. Geht es am Mittwoch um 10 Uhr?\nMit freundlichen Grüßen\nOlga Petrenko",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Cancellation, reason and a concrete new date are all clearly given."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Cancellation, reason and a concrete new date are all clearly given.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "complete",
     "text": "Sehr geehrte Frau Dr. Schneider,\nich muss meinen Termin am Montag leider absagen. Mein Sohn ist krank und ich muss zu Hause bleiben. Haben Sie am Donnerstagnachmittag Zeit für mich?\nViele Grüße\nAhmed Hassan",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "A complete, well-organized letter with a suitable salutation and closing."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "A complete, well-organized letter with a suitable salutation and closing.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich kann am Montag nicht zu Termin kommen um 14 Uhr. Ich habe ein Prüfung in die Sprachschule. Kann ich am Dienstag oder Freitag kommen? Vormittags ist gut.\nMit freundliche Grüße\nNguyen Van Long",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Typical learner errors do not affect the score because every point is understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Typical learner errors do not affect the score because every point is understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "complete",
     "text": "ich habe am Montag um 14:00 Uhr einen Termin, aber ich kann leider nicht kommen. Mein Auto ist kaputt. Ist ein neuer Termin am Mittwoch um 15 Uhr möglich?\nMit freundlichen Grüßen\nSara Rossi",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Content is complete, but the salutation is missing, so kg is 0.5."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Content is complete, but the salutation is missing, so kg is 0.5.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nMontag, 14 Uhr, das geht bei mir leider nicht. Ich bin bei meiner Mutter in Hamburg, sie hat Geburtstag. Haben Sie am Donnerstag noch etwas frei?\nMit freundlichen Grüßen\nMaria Kowalska",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "The cancellation is expressed only through the time and the phrase das geht nicht, which an examiner credits."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The cancellation is expressed only through the time and the phrase das geht nicht, which an examiner credits.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nleider muss ich meinen Termin am Montag absagen. Mein Chef sagt, ich muss am Montag nach Berlin fahren. Ich kann jeden Tag ab 16 Uhr, nur nicht am Montag.\nViele Grüße\nJohn Miller",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "The new date is offered as general availability, an unusual but understandable proposal."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The new date is offered as general availability, an unusual but understandable proposal.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP3: availability every day after 16h, no concrete slot"
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "implicit",
     "text": "Guten Tag,\nam Montag um 14 Uhr kann ich leider nicht in die Praxis kommen. Die Kita von meinem Kind ist am Montag zu. Bitte geben Sie mir einen Termin nächste Woche, am besten am Vormittag.\nMit freundlichen Grüßen\nAyşe Kaya",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "The request for next week in the morning counts as a proposal for a new appointment."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The request for next week in the morning counts as a proposal for a new appointment.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nbitte streichen Sie meinen Termin am Montag um 14 Uhr. An diesem Tag habe ich meine Deutschprüfung, sie dauert bis 15 Uhr. Geht auch Dienstag zur gleichen Zeit?\nMit freundlichen Grüßen\nMarco Bianchi",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "The reason is implied by the exam time overlapping with the appointment, which is enough for full credit."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "The reason is implied by the exam time overlapping with the appointment, which is enough for full credit.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nich habe am Montag um 14 Uhr einen Termin bei Ihnen. Ich kann leider nicht kommen, ich habe ein Problem. Ist am Freitag um 11 Uhr ein Termin frei?\nMit freundlichen Grüßen\nSamir Khalil",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "I have a problem does not explain why the writer cannot come, so point 2 is only partly addressed."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "I have a problem does not explain why the writer cannot come, so point 2 is only partly addressed.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: only \"ein Problem\""
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nleider kann ich am Montag nicht zu meinem Termin kommen. Ich muss mit meiner Frau ins Krankenhaus. Ich brauche einen neuen Termin. Bitte rufen Sie mich an.\nMit freundlichen Grüßen\nAndrei Ionescu",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "The writer asks for a new appointment but does not suggest a day or time, so point 3 is partial."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "The writer asks for a new appointment but does not suggest a day or time, so point 3 is partial.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: asks for new appointment/callback, no proposal"
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nmein Termin ist am Montag um 14 Uhr, aber ich kann nicht kommen. Ich habe am Montag keine Zeit. Kann ich am Mittwoch um 14 Uhr kommen?\nViele Grüße\nLeila Ahmadi",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "No time on Monday only repeats that the writer cannot come and gives no real reason, so point 2 is partial."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "No time on Monday only repeats that the writer cannot come and gives no real reason, so point 2 is partial.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: only \"keine Zeit\""
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Damen und Herren,\nich kann am Montag um 14 Uhr leider nicht in die Praxis kommen. Haben Sie am Freitag um 9 Uhr einen Termin für mich? Vielen Dank.\nMit freundlichen Grüßen\nGiorgos Papadakis",
-    "expected": { "lp": [2, 0, 2], "kg": 1 },
-    "note": "No reason at all is given, so point 2 is missing."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "No reason at all is given, so point 2 is missing.",
+    "examiner2": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Damen und Herren,\nich muss meinen Termin am Montag leider absagen. Ich habe starke Zahnschmerzen und gehe am Montag zum Zahnarzt. Entschuldigung!\nMit freundlichen Grüßen\nHanna Berg",
-    "expected": { "lp": [2, 2, 0], "kg": 1 },
-    "note": "No new appointment is suggested or requested, so point 3 is missing."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "No new appointment is suggested or requested, so point 3 is missing.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "heavy_errors",
     "text": "Sehr geerte Frau Docter Schneider,\nich nich komen Montag 14 Uhr Termin. Mein Kind krank, Fieber, ich bleibe hause. Neu Termin Mitwoch oder Donerstag bitte, egal wan.\nViel Grusen\nFatima Noor",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Heavy spelling and syntax errors, but cancellation, reason and new days are all understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Heavy spelling and syntax errors, but cancellation, reason and new days are all understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "heavy_errors",
     "text": "Montag ich habe Termin aber ich kann nich komen weil Bus nein fahren, Streik. Kan ich Dienstag komen, Morgen 9 Uhr? Bitte schreib mir.\nMit freundlichen Grüßen\nIgor Smirnov",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "All points are understandable despite the errors, but the salutation is missing, so kg is 0.5."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "All points are understandable despite the errors, but the salutation is missing, so kg is 0.5.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich möchte einen Termin bei Dr. Schneider machen. Ich habe seit einer Woche Rückenschmerzen. Geht es am Montag um 14 Uhr?\nMit freundlichen Grüßen\nPedro Alves",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "The letter books the Monday appointment instead of cancelling it, so it serves another purpose."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The letter books the Monday appointment instead of cancelling it, so it serves another purpose.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "books the Monday appointment instead of cancelling"
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich habe am Montag um 14 Uhr einen Termin bei Dr. Schneider. Muss ich meine Versichertenkarte mitbringen? Und kann ich vor der Praxis parken?\nMit freundlichen Grüßen\nKim Ji-woo",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "The writer plans to attend and asks practical questions instead of cancelling."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The writer plans to attend and asks practical questions instead of cancelling.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "off_topic",
     "text": "Lieber Herr Dr. Schneider,\nvielen Dank für Ihre Hilfe. Jetzt geht es mir viel besser. Am Montag um 14 Uhr komme ich in die Praxis und bringe Ihnen einen Kuchen mit. Ich habe ihn selbst gebacken.\nHerzliche Grüße\nAnna Weber",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "A personal thank-you letter to the doctor that confirms the appointment instead of cancelling it."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "A personal thank-you letter to the doctor that confirms the appointment instead of cancelling it.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "off_topic",
     "text": "Liebe Anna,\nam Montag um 14 Uhr kann ich leider nicht kommen, ich habe einen Termin in der Praxis Dr. Schneider. Können wir am Dienstag zusammen Kaffee trinken?\nLiebe Grüße\nMila",
-    "expected": { "lp": [0, 0, 0], "kg": 0 },
-    "note": "The writer misread the task and cancels a meeting with a friend, and the informal salutation and closing do not fit a medical practice."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 0
+    },
+    "note": "The writer misread the task and cancels a meeting with a friend, and the informal salutation and closing do not fit a medical practice.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "cancels with friend Anna"
+    }
   },
   {
     "seedQuestionId": "s2-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich war am Montag um 14 Uhr bei Dr. Schneider in der Praxis. Ich brauche noch eine Krankmeldung für meinen Chef. Können Sie mir die bitte schicken?\nMit freundlichen Grüßen\nLuis Torres",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "The writer asks for a sick note after a past visit instead of cancelling the appointment."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "The writer asks for a sick note after a past visit instead of cancelling the appointment.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true
+    }
   }
 ]

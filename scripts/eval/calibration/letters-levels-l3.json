@@ -3,280 +3,898 @@
     "seedQuestionId": "s5-q6",
     "category": "complete",
     "text": "Liebe Frau Berg,\nleider bin ich krank. Ich habe Fieber und Kopfschmerzen. Ich kann heute und morgen nicht in den Kurs kommen. Können Sie mir bitte die Hausaufgaben mailen?\nVielen Dank!\nViele Grüße\nAhmed",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Alle drei Leitpunkte klar bearbeitet, Anrede und Gruß passend."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Alle drei Leitpunkte klar bearbeitet, Anrede und Gruß passend.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "complete",
     "text": "Hallo Frau Berg,\nich habe eine starke Erkältung und muss im Bett bleiben. Heute und morgen komme ich nicht zum Unterricht. Bitte schreiben Sie mir die Hausaufgaben per Mail.\nDanke und liebe Grüße\nMaria",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Vollständig; „Hallo Frau Berg“ ist auf A1 als Anrede akzeptiert."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Vollständig; „Hallo Frau Berg“ ist auf A1 als Anrede akzeptiert.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "complete",
     "text": "Sehr geehrte Frau Berg,\nseit gestern bin ich krank, mein Hals tut sehr weh. Der Arzt sagt, ich muss zwei Tage zu Hause bleiben. Schicken Sie mir bitte die Aufgaben per E-Mail?\nMit freundlichen Grüßen\nTomasz Nowak",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Dauer als „zwei Tage“ formuliert, entspricht heute und morgen."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Dauer als „zwei Tage“ formuliert, entspricht heute und morgen.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "complete",
     "text": "Liebe Frau Berg,\nich bin krank, ich habe Bauchschmerzen. Ich kann nicht kommen heute und morgen. Am Freitag bin ich wieder da. Können Sie mir die Hausaufgabe mit E-Mail senden? Danke schön.\nLiebe Grüße\nLin",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Kleine Wortstellungsfehler, alle Punkte verständlich erfüllt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Kleine Wortstellungsfehler, alle Punkte verständlich erfüllt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "implicit",
     "text": "Liebe Frau Berg,\nich habe 39 Grad Fieber und der Arzt sagt: im Bett bleiben! Deshalb bin ich heute und morgen nicht im Kurs. Bitte schicken Sie mir die Hausaufgaben an meine Adresse olga.k@web.de.\nViele Grüße\nOlga",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Krankheit nur über Fieber und Arzt ausgedrückt, E-Mail über die Adresse – beides anerkannt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Krankheit nur über Fieber und Arzt ausgedrückt, E-Mail über die Adresse – beides anerkannt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "implicit",
     "text": "Liebe Frau Berg,\nich habe Grippe und liege im Bett. Leider kann ich nicht zum Kurs kommen. Übermorgen bin ich hoffentlich wieder da. Bitte senden Sie mir die Hausaufgaben per E-Mail.\nHerzliche Grüße\nDimitri",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Dauer nur implizit über „übermorgen wieder da“, wird anerkannt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Dauer nur implizit über „übermorgen wieder da“, wird anerkannt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "implicit",
     "text": "Hallo Frau Berg,\nmir geht es nicht gut, ich bin krank. Heute und morgen bleibe ich zu Hause. Ich möchte aber zu Hause lernen. Was müssen wir machen? Bitte antworten Sie mir auf diese Mail.\nFatima",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Bitte um Hausaufgaben per E-Mail nur indirekt formuliert, aber verständlich; Grußformel fehlt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Bitte um Hausaufgaben per E-Mail nur indirekt formuliert, aber verständlich; Grußformel fehlt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP3 implicit: \"Was müssen wir machen? antworten Sie auf diese Mail\""
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "implicit",
     "text": "Liebe Frau Berg,\nmein Kopf tut weh und ich habe Husten. Ich bin am Mittwoch und Donnerstag nicht im Deutschkurs. Meine Mailadresse haben Sie ja – können Sie mir die Übungen schicken?\nViele Grüße\nCarlos",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Grund über Symptome, Dauer über Wochentage, Hausaufgaben als „Übungen“ – alles anerkannt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Grund über Symptome, Dauer über Wochentage, Hausaufgaben als „Übungen“ – alles anerkannt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "partial_point",
     "text": "Liebe Frau Berg,\nich bin leider krank und habe Fieber. Ich kann heute und morgen nicht in den Kurs kommen. Gibt es Hausaufgaben?\nViele Grüße\nIrina",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Nur Frage nach Hausaufgaben, keine Bitte um Zusendung per E-Mail."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Nur Frage nach Hausaufgaben, keine Bitte um Zusendung per E-Mail.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: asks if homework exists, no e-mail request"
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "partial_point",
     "text": "Liebe Frau Berg,\nich bin krank, ich habe eine Erkältung. Ich kann ein paar Tage nicht zum Kurs kommen. Bitte schicken Sie mir die Hausaufgaben per E-Mail.\nVielen Dank und viele Grüße\nAmira",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Dauer nur vage mit „ein paar Tage“ angegeben."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Dauer nur vage mit „ein paar Tage“ angegeben.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: \"ein paar Tage\""
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "partial_point",
     "text": "Liebe Frau Berg,\nich habe ein Problem und kann heute und morgen nicht kommen. Es tut mir leid. Können Sie mir bitte die Hausaufgaben per E-Mail schicken?\nViele Grüße\nYusuf",
-    "expected": { "lp": [1, 2, 2], "kg": 1 },
-    "note": "Grund bleibt unklar („ein Problem“), Krankheit wird nicht genannt."
+    "expected": {
+      "lp": [
+        1,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Grund bleibt unklar („ein Problem“), Krankheit wird nicht genannt.",
+    "examiner2": {
+      "lp": [
+        1,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1: \"ein Problem\", illness not stated"
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "missing_point",
     "text": "Liebe Frau Berg,\nich bin krank, ich habe Halsschmerzen und Fieber. Deshalb kann ich nicht zum Kurs kommen. Bitte schicken Sie mir die Hausaufgaben per E-Mail. Danke!\nViele Grüße\nElena",
-    "expected": { "lp": [2, 0, 2], "kg": 1 },
-    "note": "Keine Angabe, wie lange die Person fehlt."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Keine Angabe, wie lange die Person fehlt.",
+    "examiner2": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "missing_point",
     "text": "ich bin krank, ich habe Grippe. Heute und morgen kann ich nicht kommen. Am Montag bin ich wieder im Kurs. Es tut mir sehr leid.",
-    "expected": { "lp": [2, 2, 0], "kg": 0 },
-    "note": "Bitte um Hausaufgaben fehlt; weder Anrede noch Gruß."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 0
+    },
+    "note": "Bitte um Hausaufgaben fehlt; weder Anrede noch Gruß.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "heavy_errors",
     "text": "Liebe Frau Berk,\nich bin krang. Ich habe fiber. Heute und morgen ich nich komen in kurs. Bite Sie schiken mir Hausaufgabe mit email.\nDanke\nGrus\nRahim",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Viele Rechtschreibfehler, aber alle Punkte verständlich."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Viele Rechtschreibfehler, aber alle Punkte verständlich.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "heavy_errors",
     "text": "Hallo Frau Berg\nich krank, mein kopf weh. Ich nicht kann komen heute, morgen auch nich. Hausaufgabe bitte sie schreiben mir in mail, ich machen zu hause.\nAli",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Fehlerreich, aber verständlich; nur Name ohne Grußformel."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Fehlerreich, aber verständlich; nur Name ohne Grußformel.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "off_topic",
     "text": "Liebe Frau Berg,\nwann ist die Prüfung? Ich möchte heute und morgen zu Hause lernen. Können Sie mir per E-Mail Aufgaben für die Prüfung schicken? Danke!\nViele Grüße\nKarim",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Frage nach der Prüfung statt Krankmeldung – andere Mitteilungsabsicht."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Frage nach der Prüfung statt Krankmeldung – andere Mitteilungsabsicht.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        1
+      ],
+      "offTask": true,
+      "doubt": "not sick; wants exam tasks"
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "off_topic",
     "text": "Liebe Frau Berg,\nich habe am Samstag Geburtstag und mache eine Party. Ich möchte Sie gern einladen. Heute und morgen koche ich viel. Bitte schreiben Sie mir per E-Mail, ob Sie kommen.\nLiebe Grüße\nSofia",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Einladung statt Krankmeldung, Wörter der Aufgabe nur übernommen."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Einladung statt Krankmeldung, Wörter der Aufgabe nur übernommen.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "party invitation"
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "off_topic",
     "text": "Liebe Frau Berg,\nich war letzte Woche krank, aber jetzt bin ich wieder gesund. Heute und morgen komme ich wieder zum Kurs. Die Hausaufgaben habe ich schon gemacht. Bis morgen!\nViele Grüße\nJana",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Situation missverstanden: Person kommt zum Kurs, widerspricht der Aufgabe."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Situation missverstanden: Person kommt zum Kurs, widerspricht der Aufgabe.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "returns after illness"
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "off_topic",
     "text": "Liebe Frau Berg,\nich habe gehört, Sie sind krank. Gute Besserung! Heute und morgen gibt es also keinen Kurs, oder? Schicken Sie uns bitte die Hausaufgaben per E-Mail.\nViele Grüße\nPedro",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Rollen vertauscht: die Lehrerin ist krank, nicht der Schreiber."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Rollen vertauscht: die Lehrerin ist krank, nicht der Schreiber.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        1
+      ],
+      "offTask": true,
+      "doubt": "teacher is sick, not the writer"
+    }
   },
   {
     "seedQuestionId": "s5-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Frau Berg,\nich möchte nächsten Monat in den Abendkurs wechseln, weil ich am Vormittag arbeite. Heute und morgen habe ich Zeit für ein Gespräch. Bitte schicken Sie mir die Informationen per E-Mail.\nMit freundlichen Grüßen\nNguyen Van An",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Kurswechsel statt Krankmeldung – andere Absicht."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Kurswechsel statt Krankmeldung – andere Absicht.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "course change"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nmein Mann und ich möchten in Garmisch wandern. Wir brauchen ein Doppelzimmer. Wir kommen am 10. August und bleiben eine Woche. Gibt es Frühstück? Haben Sie auch einen Parkplatz für unser Auto?\nMit freundlichen Grüßen\nAnna Kowalska",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Alle Leitpunkte inklusive beider Teilaspekte bearbeitet."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Alle Leitpunkte inklusive beider Teilaspekte bearbeitet.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich suche ein Einzelzimmer für meinen Urlaub. Ich bin vom 3. bis 9. August in Garmisch. Ist das Frühstück im Preis? Und kann ich mein Auto beim Hotel parken?\nViele Grüße\nMehmet Yilmaz",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Zeitraum mit Datum deckt wann und wie lange ab."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Zeitraum mit Datum deckt wann und wie lange ab.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "complete",
     "text": "Guten Tag,\nmeine Familie und ich machen im Sommer Urlaub in den Alpen. Haben Sie vom 15.08. bis 22.08. ein Zimmer für vier Personen frei? Wir möchten mit Frühstück buchen. Wir kommen mit dem Auto, gibt es eine Garage?\nMit freundlichen Grüßen\nFamilie Haddad",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Parkplatz als „Garage“ umschrieben, vollständig."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Parkplatz als „Garage“ umschrieben, vollständig.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "complete",
     "text": "Sehr geehrte Damen und Herren,\nich will im August Urlaub machen in Ihr Hotel. Ich brauche ein Zimmer für zwei Personen ab 1. August, fünf Nächte. Was kostet Frühstück? Haben Sie Parkplatz?\nMit freundlichen Grüße\nIrina Petrova",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Typische Kasus-Fehler, inhaltlich vollständig."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Typische Kasus-Fehler, inhaltlich vollständig.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nhaben Sie vom 5. bis 12. August ein Doppelzimmer frei? Ist Frühstück dabei? Wir haben ein Auto, gibt es Parkplätze am Hotel?\nVielen Dank und freundliche Grüße\nMarek Zielinski",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Grund nur über die Zimmeranfrage erkennbar, wird anerkannt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Grund nur über die Zimmeranfrage erkennbar, wird anerkannt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "implicit",
     "text": "ich möchte bei Ihnen ein Zimmer reservieren, ich will in den Bergen wandern. Ich komme am 20. August an und fahre am 27. August nach Hause. Gibt es morgens Frühstück? Ist ein Parkplatz frei?\nViele Grüße\nSara Lindqvist",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Dauer nur über An- und Abreise erschließbar; Anrede fehlt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Dauer nur über An- und Abreise erschließbar; Anrede fehlt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nwir möchten Ferien in Garmisch machen, vom 1. bis 14. August. Wir essen morgens gern im Hotel – geht das? Unser Auto ist groß. Wo können wir es abstellen?\nMit freundlichen Grüßen\nGiorgos Papadopoulos",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Frühstück und Parkplatz ungewöhnlich umschrieben, aber klar verständlich."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Frühstück und Parkplatz ungewöhnlich umschrieben, aber klar verständlich.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1 implicit: \"Ferien in Garmisch machen\", no room named"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "implicit",
     "text": "Sehr geehrte Damen und Herren,\nich möchte im August eine Woche Urlaub bei Ihnen machen, vom 8. bis 15. August. Ich brauche keinen Parkplatz, ich komme mit dem Zug. Gibt es Frühstück?\nMit freundlichen Grüßen\nHana Novotná",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Parkplatz ungewöhnlich bearbeitet (nicht benötigt), gilt als behandelt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Parkplatz ungewöhnlich bearbeitet (nicht benötigt), gilt als behandelt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nich möchte im August Urlaub in den Bergen machen. Ich komme am 12. August. Haben Sie ein Zimmer frei? Gibt es Frühstück und einen Parkplatz?\nMit freundlichen Grüßen\nOleksandr",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Nur Anreisedatum, keine Dauer."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Nur Anreisedatum, keine Dauer.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: arrival only"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nwir möchten bei Ihnen Urlaub machen. Wir kommen vom 2. bis 9. August, zwei Personen. Haben Sie ein Zimmer mit Frühstück? Was kostet das?\nMit freundlichen Grüßen\nLucía Fernández",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Nur Frühstück, Parkplatz fehlt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Nur Frühstück, Parkplatz fehlt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: breakfast only"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Damen und Herren,\nim Sommer möchte ich in Garmisch wandern und suche ein Zimmer. Ich möchte zehn Tage bleiben. Gibt es Frühstück im Hotel? Und haben Sie einen Parkplatz?\nMit freundlichen Grüßen\nJin Park",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Nur Dauer genannt, kein Zeitpunkt."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Nur Dauer genannt, kein Zeitpunkt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: \"im Sommer\" instead of August"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "missing_point",
     "text": "Hotel Alpenblick\nich möchte ein Zimmer reservieren, ich mache Urlaub in den Bergen. Ich komme am 3. August und bleibe acht Tage. Ich brauche ein ruhiges Zimmer mit Balkon. Was kostet das?",
-    "expected": { "lp": [2, 2, 0], "kg": 0 },
-    "note": "Frühstück und Parkplatz fehlen; keine Anrede und kein Gruß."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 0
+    },
+    "note": "Frühstück und Parkplatz fehlen; keine Anrede und kein Gruß.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Damen und Herren,\nich möchte bei Ihnen Urlaub machen und in den Bergen wandern. Haben Sie ein Einzelzimmer? Ist das Frühstück inklusive? Ich komme mit dem Auto, gibt es Parkplätze?\nMit freundlichen Grüßen\nBogdan",
-    "expected": { "lp": [2, 0, 2], "kg": 1 },
-    "note": "Kein Datum und keine Dauer angegeben."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Kein Datum und keine Dauer angegeben.",
+    "examiner2": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "heavy_errors",
     "text": "Sehr geerte Damen und Heren,\nich mochte Urlaub machen in Berge. Ich komen 7. August bis 14. August, eine Woch. Gibt es Fruhstuck? Ich habe Auto, wo ich kan parken?\nMit freundliche Gruse\nSamir",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Viele Fehler, aber alle Punkte verständlich."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Viele Fehler, aber alle Punkte verständlich.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "heavy_errors",
     "text": "Guten Tag\nich will Zimmer für Urlaub in Berg. Anfang August komm ich, zwei woche bleibe. Frustuk ist dabei? Auto park geht bei hotel?\nJoão",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Sehr fehlerhaft, aber verständlich; Grußformel fehlt."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Sehr fehlerhaft, aber verständlich; Grußformel fehlt.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich war im August in Ihrem Hotel in Garmisch. Ich habe meine Jacke vergessen, vielleicht im Frühstücksraum. Haben Sie die Jacke gefunden? Ich komme mit dem Auto und hole sie.\nMit freundlichen Grüßen\nLuca Rossi",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Fundsache statt Urlaubsanfrage – andere Absicht."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Fundsache statt Urlaubsanfrage – andere Absicht.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "lost jacket"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich möchte im August in Ihrem Hotel arbeiten. Ich kann gut Frühstück machen und habe Erfahrung im Restaurant. Ich habe ein Auto. Gibt es einen Parkplatz für Mitarbeiter?\nMit freundlichen Grüßen\nAyşe Demir",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Bewerbung statt Zimmeranfrage, Stichwörter nur übernommen."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Bewerbung statt Zimmeranfrage, Stichwörter nur übernommen.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "job application"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nletzte Woche war ich in Ihrem Hotel. Das Frühstück war kalt und der Parkplatz war zu klein. Ich bin nicht zufrieden. Ich möchte mein Geld zurück.\nMit freundlichen Grüßen\nPetr Novák",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Beschwerde über vergangenen Aufenthalt – andere Absicht."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Beschwerde über vergangenen Aufenthalt – andere Absicht.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "complaint"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Frau Müller,\nvielen Dank für Ihre Buchung im Hotel Alpenblick. Sie kommen am 6. August und bleiben eine Woche. Das Frühstück ist von 7 bis 10 Uhr. Der Parkplatz ist hinter dem Hotel.\nMit freundlichen Grüßen\nIhr Hotel Alpenblick",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Rolle missverstanden: schreibt als Hotel an einen Gast."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Rolle missverstanden: schreibt als Hotel an einen Gast.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "written from hotel perspective"
+    }
   },
   {
     "seedQuestionId": "s6-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Damen und Herren,\nich habe ein Zimmer im August gebucht, vom 4. bis 11. August, mit Frühstück und Parkplatz. Leider bin ich krank und kann nicht kommen. Ich möchte die Buchung stornieren.\nMit freundlichen Grüßen\nKenji Sato",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Stornierung statt Anfrage – andere Mitteilungsabsicht."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Stornierung statt Anfrage – andere Mitteilungsabsicht.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "cancellation"
+    }
   }
 ]

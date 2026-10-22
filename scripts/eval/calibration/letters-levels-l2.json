@@ -3,280 +3,898 @@
     "seedQuestionId": "s3-q6",
     "category": "complete",
     "text": "Sehr geehrter Herr Meier,\nich schreibe Ihnen, weil ich ein Problem habe. Seit Montag funktioniert die Heizung in meiner Wohnung nicht. Es ist sehr kalt und meine Kinder sind krank. Bitte schicken Sie schnell einen Handwerker. Ich bin jeden Tag ab 14 Uhr zu Hause.\nMit freundlichen Grüßen\nOlena Kovalenko",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "All three points clearly covered with formal salutation and closing."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "All three points clearly covered with formal salutation and closing.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "complete",
     "text": "Lieber Herr Meier,\nleider muss ich Ihnen schreiben. Meine Heizung ist seit drei Tagen kaputt und in der Wohnung sind nur 14 Grad. Kann der Handwerker am Donnerstag kommen? Am Vormittag bin ich da.\nViele Grüße\nAhmad Rahimi",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Short but complete; Lieber Herr Meier and Viele Grüße are acceptable at A1."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Short but complete; Lieber Herr Meier and Viele Grüße are acceptable at A1.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "complete",
     "text": "Sehr geehrte Herr Meier,\nich habe ein Problem mit meine Wohnung. Die Heizung geht nicht, das Wasser ist auch kalt. Wir frieren. Wann kommt ein Handwerker? Ich habe Zeit am Mittwoch oder Freitag.\nMit freundliche Grüße\nMaria Popescu",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Typical ending errors do not reduce points; all points addressed."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Typical ending errors do not reduce points; all points addressed.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "complete",
     "text": "Hallo Herr Meier,\nich schreibe wegen meiner Heizung. Sie macht nicht warm, seit gestern ist alles kalt. Ich brauche einen Termin für die Reparatur. Morgen um 10 Uhr ist gut für mich. Vielen Dank!\nGrüße\nTomasz Nowak",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Complete; Hallo Herr plus surname and Grüße still count as suitable at A1."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Complete; Hallo Herr plus surname and Grüße still count as suitable at A1.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "implicit",
     "text": "Sehr geehrter Herr Meier,\nin meiner Wohnung sind es nur 12 Grad. Die Heizkörper bleiben kalt, auch wenn ich sie aufdrehe. Bitte schicken Sie jemanden zum Reparieren. Ich bin ab 15 Uhr zu Hause.\nMit freundlichen Grüßen\nSamira Haddad",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Reason is implicit from the content and the craftsman is paraphrased as jemanden zum Reparieren."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Reason is implicit from the content and the craftsman is paraphrased as jemanden zum Reparieren.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1 implicit (cold radiators), heating not named as reason"
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "implicit",
     "text": "Sehr geehrter Herr Meier,\nwir schlafen jetzt mit Jacke und Mütze. Seit Sonntag ist kein warm in der Wohnung, die Heizung macht nichts. Mein Mann kann das nicht reparieren. Wer kann kommen? Am Samstag sind wir da.\nViele Grüße\nFatma Yılmaz",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Unusual opening gives the reason implicitly; Wer kann kommen plus Samstag credits point 3."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Unusual opening gives the reason implicitly; Wer kann kommen plus Samstag credits point 3.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "implicit",
     "text": "Guten Tag Herr Meier,\nwann kommt der Mann für die Heizung? Sie ist seit Freitag kaputt und meine Wohnung ist wie ein Kühlschrank. Ich warte jeden Tag ab 16 Uhr.\nMit freundlichen Grüßen\nDiego Martínez",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Opens with the request; reason, problem and appointment are all understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Opens with the request; reason, problem and appointment are all understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "implicit",
     "text": "Sehr geehrter Herr Meier,\nich brauche Ihre Hilfe. Im Wohnzimmer und im Bad wird es nicht mehr warm, wir haben nur 13 Grad. Ein Monteur soll bitte kommen, gerne diese Woche. Rufen Sie mich an: 0176 1234567.\nMit freundlichen Grüßen\nAnh Nguyen",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Heating never named but the problem is clear; Monteur diese Woche credits point 3."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Heating never named but the problem is clear; Monteur diese Woche credits point 3.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1 implicit: no explicit Heizung"
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "partial_point",
     "text": "Sehr geehrter Herr Meier,\nich schreibe Ihnen wegen meiner Heizung. Sie ist seit Montag kaputt und es ist sehr kalt in der Wohnung. Meine Tochter ist schon erkältet. Bitte machen Sie etwas.\nMit freundlichen Grüßen\nIrina Petrova",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Bitte machen Sie etwas only vaguely touches craftsman or repair appointment."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Bitte machen Sie etwas only vaguely touches craftsman or repair appointment.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: only \"Bitte machen Sie etwas\""
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "partial_point",
     "text": "Sehr geehrter Herr Meier,\nich schreibe Ihnen, weil es in meiner Wohnung ein Problem gibt. Etwas funktioniert nicht richtig. Bitte schicken Sie einen Handwerker. Ich bin am Dienstag und Mittwoch den ganzen Tag zu Hause.\nMit freundlichen Grüßen\nKarim Benali",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Problem is mentioned but not described; heating and cold are never named."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Problem is mentioned but not described; heating and cold are never named.",
+    "examiner2": {
+      "lp": [
+        1,
+        0,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1/LP2 vague: \"etwas funktioniert nicht\""
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "partial_point",
     "text": "Sehr geehrter Herr Meier,\nich schreibe wegen der Heizung. Sie funktioniert seit Samstag nicht mehr und wir frieren in der Wohnung. Ich habe am Freitag Zeit.\nMit freundlichen Grüßen\nLuca Rossi",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "A free day is given but no request for repair or craftsman, so point 3 is unclear."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "A free day is given but no request for repair or craftsman, so point 3 is unclear.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: only availability, no request for repair"
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "missing_point",
     "text": "Sehr geehrter Herr Meier,\nich muss Ihnen leider schreiben. Unsere Heizung ist kaputt, schon seit einer Woche. In der Wohnung sind nur 15 Grad und die Kinder tragen Pullover im Bett. Das ist nicht gut.\nMit freundlichen Grüßen\nPriya Sharma",
-    "expected": { "lp": [2, 2, 0], "kg": 1 },
-    "note": "No craftsman, repair or appointment mentioned at all."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "No craftsman, repair or appointment mentioned at all.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "missing_point",
     "text": "Hallo Herr Meier,\nich schreibe Ihnen heute wegen meiner Wohnung in der Lindenstraße 5. Können Sie bitte einen Handwerker schicken? Am Montag ab 9 Uhr bin ich zu Hause.\nTschüss\nJohn Okafor",
-    "expected": { "lp": [2, 0, 2], "kg": 0.5 },
-    "note": "Problem is never described; Tschüss is an unsuitable closing for the landlord."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Problem is never described; Tschüss is an unsuitable closing for the landlord.",
+    "examiner2": {
+      "lp": [
+        1,
+        0,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP1: only \"wegen meiner Wohnung\""
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "heavy_errors",
     "text": "Sehr geerte Her Meier,\nich schreib ihne weil mein Heitzung kaput. Ist sehr kalt in wonung, ich und kinder frieren. Bitte schik Handwerk schnell. Ich zu hause mitwoch und donerstag.\nmit freudlich grus\nAbdi Hassan",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Many spelling and grammar errors but every point is understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Many spelling and grammar errors but every point is understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "heavy_errors",
     "text": "Hallo Herr Maier\nheitzung nich funktionirt seit 3 tag. In Wohnug nur 10 grad, mein baby krank. Sie bitte Reparatur machen, wan Sie komen? Ich imer da nach 13 uhr.\nDanke\nGrüse Svetlana",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Fragmentary syntax; reason is implicit but all points remain understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Fragmentary syntax; reason is implicit but all points remain understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "off_topic",
     "text": "Sehr geehrter Herr Meier,\nich schreibe Ihnen, weil meine Nachbarn sehr laut sind. Jede Nacht hören sie Musik bis 2 Uhr. Ich kann nicht schlafen. Bitte sprechen Sie mit ihnen. Die Heizung in meiner Wohnung ist zum Glück warm.\nMit freundlichen Grüßen\nNadia Karimi",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Complaint about neighbours to the same landlord; heating is even said to work."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Complaint about neighbours to the same landlord; heating is even said to work.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "noise complaint"
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "off_topic",
     "text": "Sehr geehrter Herr Meier,\nich suche eine größere Wohnung für meine Familie. Haben Sie noch eine Wohnung frei? Ist die Heizung dort neu? Ich möchte die Wohnung gerne sehen. Wann habe ich einen Termin?\nMit freundlichen Grüßen\nAli Demir",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Asks about another flat; Heizung and Termin are reused for a different purpose."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Asks about another flat; Heizung and Termin are reused for a different purpose.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "off_topic",
     "text": "Lieber Herr Meier,\nvielen Dank für die Einladung zu Ihrem Geburtstag. Ich komme gern mit meiner Frau. Bei Ihnen ist es immer schön warm, nicht so kalt wie draußen. Soll ich einen Kuchen mitbringen?\nHerzliche Grüße\nPedro Silva",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Personal reply to a birthday invitation from the same person."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Personal reply to a birthday invitation from the same person.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "off_topic",
     "text": "Sehr geehrter Herr Meier,\nich möchte eine Heizung kaufen. Meine Wohnung ist sehr kalt. Was kostet ein elektrischer Heizer? Haben Sie auch warme Decken? Ich komme am Samstag in Ihr Geschäft.\nMit freundlichen Grüßen\nYusuf Arslan",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Misread situation: treats Herr Meier as a shop owner and wants to buy a heater."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Misread situation: treats Herr Meier as a shop owner and wants to buy a heater.",
+    "examiner2": {
+      "lp": [
+        0,
+        1,
+        0
+      ],
+      "offTask": true,
+      "doubt": "buying a heater in a shop"
+    }
   },
   {
     "seedQuestionId": "s3-q6",
     "category": "off_topic",
     "text": "ich kündige meine Wohnung zum 31. Dezember. Die Wohnung ist zu klein und im Winter sehr kalt. Ich ziehe zu meiner Schwester nach Köln. Wann kann ich Ihnen den Schlüssel geben?\nViele Grüße\nMarek Kowalski",
-    "expected": { "lp": [0, 0, 0], "kg": 0.5 },
-    "note": "Termination of the lease instead of a repair request; salutation missing."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 0.5
+    },
+    "note": "Termination of the lease instead of a repair request; salutation missing.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "termination of lease"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "complete",
     "text": "Sehr geehrte Frau Hansen,\nich möchte im Sommer Ihre Ferienwohnung für meine Familie mieten. Wir sind zwei Erwachsene und drei Kinder und möchten vom 1. bis 14. August kommen. Wie viel kostet die Wohnung pro Nacht? Dürfen wir unseren Hund mitbringen?\nMit freundlichen Grüßen\nElena Popova",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Both parts of points 2 and 3 are covered clearly."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Both parts of points 2 and 3 are covered clearly.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "complete",
     "text": "Liebe Frau Hansen,\nwir suchen eine Ferienwohnung für unseren Urlaub im Juli. Wir sind vier Personen: mein Mann, ich und zwei Kinder. Wir möchten vom 10. bis 20. Juli bleiben. Was kostet das? Wir haben auch eine Katze. Ist das ein Problem?\nViele Grüße\nAyşe Kaya",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Complete; Liebe Frau Hansen and Viele Grüße are acceptable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Complete; Liebe Frau Hansen and Viele Grüße are acceptable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "complete",
     "text": "Sehr geehrte Frau Hansen,\nich habe Ihre Anzeige im Internet gesehen. Ich und meine Familie wollen Urlaub in Ihre Wohnung machen. Wir sind 5 Personen und kommen für eine Woche im August. Wie teuer ist es? Kann unser kleine Hund mitkommen?\nMit freundliche Grüßen\nBogdan Ivanov",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Eine Woche im August is a sufficient period; minor errors do not count."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Eine Woche im August is a sufficient period; minor errors do not count.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "complete",
     "text": "Hallo Frau Hansen,\nich interessiere mich für Ihre Ferienwohnung. Wir sind drei Personen und möchten vom 3. bis 10. Juli kommen. Wie hoch ist der Preis für eine Woche? Wir haben keine Haustiere.\nMit freundlichen Grüßen\nSara Haile",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Stating that there are no pets fully answers the pet part of point 3."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Stating that there are no pets fully answers the pet part of point 3.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "implicit",
     "text": "Sehr geehrte Frau Hansen,\nist Ihre Ferienwohnung in den Sommerferien noch frei? Mein Mann, unsere Zwillinge und ich möchten die ersten zwei Wochen im August ans Meer. Was müssen wir bezahlen? Unser Hund Bello ist sehr ruhig.\nMit freundlichen Grüßen\nMaja Novak",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Number of persons inferred from the family list; the dog remark implies the pet question."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Number of persons inferred from the family list; the dog remark implies the pet question.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "implicit",
     "text": "Guten Tag Frau Hansen,\nhaben Sie im Juli Platz für uns? Wir sind zwei Erwachsene und ein Baby und bleiben eine Woche, ab dem 12. Juli. Bitte schicken Sie mir ein Angebot mit allen Kosten. Tiere haben wir nicht.\nViele Grüße\nRahul Mehta",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Reason is implicit in the availability question; price asked via Angebot mit allen Kosten."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Reason is implicit in the availability question; price asked via Angebot mit allen Kosten.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "implicit",
     "text": "Sehr geehrte Frau Hansen,\nmeine Familie träumt von der Ostsee! Wir sind sechs: Oma, Opa, meine Frau, ich und zwei Kinder. Passt das in Ihre Wohnung vom 20. Juli bis 3. August? Reichen 800 Euro? Und unser Papagei möchte auch mitkommen.\nMit freundlichen Grüßen\nOmar Saleh",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Unusual phrasing: price asked via Reichen 800 Euro, pet via the parrot."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Unusual phrasing: price asked via Reichen 800 Euro, pet via the parrot.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP3 price only as \"Reichen 800 Euro?\""
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "implicit",
     "text": "Sehr geehrte Frau Hansen,\nich möchte für den Sommer buchen: 4 Personen, 05.08. bis 19.08. Bitte schicken Sie mir die Preisliste. Unsere Katze kommt auch mit, ist das erlaubt?\nMit freundlichen Grüßen\nLin Wei",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Telegraphic list style; price requested via Preisliste, still fully understandable."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Telegraphic list style; price requested via Preisliste, still fully understandable.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung „Meeresbrise“ für einen Urlaub mit meiner Familie mieten. Wir sind zwei Erwachsene und zwei Kinder. Was kostet die Wohnung pro Woche? Dürfen wir unseren Hund mitbringen?\nMit freundlichen Grüßen\nKatarzyna Wójcik",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Persons given but no period, so point 2 is only half done."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Persons given but no period, so point 2 is only half done.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: persons but no period"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "partial_point",
     "text": "Liebe Frau Hansen,\nwir möchten Urlaub an der Ostsee machen und suchen eine Wohnung. Wir sind fünf Personen und möchten im Juli zwei Wochen bleiben. Wie viel kostet das? Gibt es auch einen Parkplatz?\nViele Grüße\nHamid Sultani",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Price asked but pets not mentioned; parking question does not replace it."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Price asked but pets not mentioned; parking question does not replace it.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: price + parking, no pets"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Frau Hansen,\nich schreibe Ihnen, weil ich eine Ferienwohnung für den Sommer suche. Wir kommen zu dritt vom 15. bis 22. August. Wir haben eine kleine Katze. Ist das in Ordnung?\nMit freundlichen Grüßen\nIvana Horvat",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Pet question present but price missing, so point 3 is only half done."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Pet question present but price missing, so point 3 is only half done.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: pets only, no price"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Frau Hansen,\nmeine Familie und ich möchten im Sommer Urlaub an der Ostsee machen. Ist Ihre Wohnung vom 1. bis 8. Juli frei? Wir sind vier Personen. Wir freuen uns sehr auf das Meer!\nMit freundlichen Grüßen\nJoão Pereira",
-    "expected": { "lp": [2, 2, 0], "kg": 1 },
-    "note": "Neither price nor pets mentioned, so point 3 is missing."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Neither price nor pets mentioned, so point 3 is missing.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Frau Hansen,\nich habe eine Frage zu Ihrer Ferienwohnung. Was kostet eine Nacht? Und darf mein Hund mit in die Wohnung? Er ist klein und lieb.",
-    "expected": { "lp": [2, 0, 2], "kg": 0.5 },
-    "note": "No persons or dates given; letter ends without any closing."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "No persons or dates given; letter ends without any closing.",
+    "examiner2": {
+      "lp": [
+        1,
+        0,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "heavy_errors",
     "text": "Sehr geerte Frau Hansen,\nich wil mit meine familie in sommer zu Ostsee fahren und ihre ferienwonung mieten. Wir sin 2 gros und 3 kinder, von 1 bis 15 agust. Was kostn? Hund darf mit komen?\nmit freundlich grusen\nRoza Ahmadi",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Heavy spelling errors but all points, including both parts of 2 and 3, are clear."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Heavy spelling errors but all points, including both parts of 2 and 3, are clear.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "heavy_errors",
     "text": "Hallo Frau Hansen\nIch familie Urlaub machen bei sie. 4 Person, Juli zwei woche. Wieviel Geld für alles? Wir haben Katz, ist gut oder nicht gut?\nTschüs Danke\nMehmet",
-    "expected": { "lp": [2, 2, 2], "kg": 0.5 },
-    "note": "Fragmentary but understandable; Tschüs is unsuitable for an unknown landlady."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Fragmentary but understandable; Tschüs is unsuitable for an unknown landlady.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Frau Hansen,\nwir waren im Sommer mit der Familie in Ihrer Ferienwohnung „Meeresbrise“. Leider war die Wohnung nicht sauber und der Preis war zu hoch. Überall waren Haare von Haustieren. Ich möchte Geld zurück.\nMit freundlichen Grüßen\nAndrei Lungu",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Complaint after a past stay instead of a booking inquiry."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Complaint after a past stay instead of a booking inquiry.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "complaint after stay"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "off_topic",
     "text": "Liebe Frau Hansen,\nvielen Dank für den schönen Urlaub an der Ostsee! Meine Familie und ich denken oft an Sie. Die Kinder vermissen Ihre Katze. Ich schicke Ihnen ein Foto von uns am Strand.\nHerzliche Grüße\nGiulia Bianchi",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Personal thank-you letter to the same person after the holiday."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Personal thank-you letter to the same person after the holiday.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "thank-you letter"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "off_topic",
     "text": "Liebe Frau Hansen,\nim Sommer mache ich mit meiner Familie Urlaub an der Ostsee. Wir sind vier Personen und fahren zwei Wochen im Juli. Möchten Sie mitkommen? Sie können auch Ihren Hund mitbringen. Der Preis für die Bahn ist nicht hoch.\nViele Grüße\nNatalia Sokolova",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Misread situation: invites Frau Hansen along, reusing persons, period, price and pets."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Misread situation: invites Frau Hansen along, reusing persons, period, price and pets.",
+    "examiner2": {
+      "lp": [
+        0,
+        2,
+        0
+      ],
+      "offTask": true,
+      "doubt": "invites Frau Hansen"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Frau Hansen,\nich suche Arbeit im Sommer. Kann ich in Ihrer Ferienwohnung „Meeresbrise“ putzen? Ich habe Erfahrung und mag Haustiere. Mein Preis ist 13 Euro pro Stunde. Ich habe von Juni bis August Zeit.\nMit freundlichen Grüßen\nAgnieszka Zielińska",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Job application as a cleaner; task words are reused for another purpose."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Job application as a cleaner; task words are reused for another purpose.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "job request"
+    }
   },
   {
     "seedQuestionId": "s4-q6",
     "category": "off_topic",
     "text": "ich muss leider unsere Buchung für die Ferienwohnung absagen. Mein Mann ist krank, wir können im Sommer nicht an die Ostsee fahren. Bekomme ich den Preis zurück? Unser Hund bleibt auch zu Hause.\nKwame Mensah",
-    "expected": { "lp": [0, 0, 0], "kg": 0 },
-    "note": "Cancels a booking instead of inquiring; no salutation and only a name, no closing formula."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 0
+    },
+    "note": "Cancels a booking instead of inquiring; no salutation and only a name, no closing formula.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "cancels booking"
+    }
   }
 ]

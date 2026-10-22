@@ -3,140 +3,450 @@
     "seedQuestionId": "s7-q6",
     "category": "complete",
     "text": "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige gelesen und ich interessiere mich für die Wohnung. Wir sind zwei Personen, mein Mann und ich. Ich bin Krankenschwester, er ist Koch. Können wir die Wohnung am Samstag um 11 Uhr sehen?\nMit freundlichen Grüßen\nAyşe Demir",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Alle drei Leitpunkte klar bearbeitet, Anrede und Gruß passend."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Alle drei Leitpunkte klar bearbeitet, Anrede und Gruß passend.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "complete",
     "text": "Liebe Frau Neumann,\nich möchte die Wohnung in Köln mieten. Ich wohne allein, ich bin Student und arbeite auch in ein Café. Haben Sie am Montag nach 16 Uhr Zeit? Dann kann ich die Wohnung anschauen.\nViele Grüße\nTomasz Wójcik",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Vollständig; der Kasusfehler 'in ein Café' kostet keine Punkte."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Vollständig; der Kasusfehler 'in ein Café' kostet keine Punkte.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "complete",
     "text": "Sehr geehrte Frau Neumann,\nIhre Wohnung ist sehr schön, ich will sie mieten. Wir sind eine Familie: ich, meine Frau und zwei Kinder. Ich arbeite als Taxifahrer, meine Frau ist Verkäuferin. Wann kann ich die Wohnung sehen? Diese Woche oder nächste Woche?\nMit freundlichen Grüßen\nAhmad Karimi",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Termin als Frage mit Zeitangabe ist ausreichend, alles vollständig."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Termin als Frage mit Zeitangabe ist ausreichend, alles vollständig.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "complete",
     "text": "Hallo Frau Neumann,\nich habe Ihre Anzeige im Internet gesehen. Ich suche eine Wohnung für mich und meine Freundin. Ich bin Ingenieur, sie ist Lehrerin. Ist ein Termin am Freitag um 18 Uhr möglich?\nBeste Grüße\nLuca Romano",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Vollständig; 'Hallo Frau Neumann' mit Nachnamen ist als Anrede akzeptabel."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Vollständig; 'Hallo Frau Neumann' mit Nachnamen ist als Anrede akzeptabel.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "implicit",
     "text": "Sehr geehrte Frau Neumann,\nist die Wohnung noch frei? Ich komme mit meinem Sohn, er ist acht Jahre alt. Ich arbeite im Krankenhaus als Ärztin. Am Donnerstagnachmittag habe ich frei, dann kann ich vorbeikommen.\nMit freundlichen Grüßen\nOlena Kovalenko",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Grund nur implizit über die Frage nach der freien Wohnung, aber klar verständlich."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Grund nur implizit über die Frage nach der freien Wohnung, aber klar verständlich.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "implicit",
     "text": "Liebe Frau Neumann,\nmeine Frau und ich brauchen eine größere Wohnung, unsere Wohnung ist zu klein. Ich repariere Autos in einer Werkstatt, meine Frau backt Brot in der Bäckerei. Am Wochenende haben wir immer Zeit, rufen Sie uns bitte an.\nViele Grüße\nMarco und Giulia Rossi",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Berufe über Tätigkeiten beschrieben, Termin über freie Zeit am Wochenende angeboten."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Berufe über Tätigkeiten beschrieben, Termin über freie Zeit am Wochenende angeboten.",
+    "examiner2": {
+      "lp": [
+        1,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP1: needs bigger flat, no reference to ad; LP3: availability/callback, no viewing named"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "implicit",
     "text": "Sehr geehrte Frau Neumann,\ndie Wohnung aus der Anzeige gefällt mir sehr. Ich bin allein, ohne Familie. Ich unterrichte Mathe an einer Schule in Ehrenfeld. Am Dienstag habe ich um 15 Uhr Schluss, passt das für Sie?\nMit freundlichen Grüßen\nNadia Haddad",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Beruf nur über 'unterrichte an einer Schule' erkennbar, Termin indirekt vorgeschlagen."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Beruf nur über 'unterrichte an einer Schule' erkennbar, Termin indirekt vorgeschlagen.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP3 implicit: \"Dienstag 15 Uhr, passt das?\""
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "implicit",
     "text": "Guten Tag Frau Neumann,\nich interessiere mich für Ihre Wohnung. Ich bin Single und fahre Bus bei der KVB. Ich arbeite immer bis 14 Uhr, danach habe ich jeden Tag Zeit. Sagen Sie mir bitte, wann ich kommen soll.\nSchöne Grüße\nDimitri Popov",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Termin ungewöhnlich gelöst (Zeitfenster plus Bitte um Vorschlag), wird angerechnet."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Termin ungewöhnlich gelöst (Zeitfenster plus Bitte um Vorschlag), wird angerechnet.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige gesehen und möchte die Wohnung gern mieten. Wir sind drei Personen: mein Mann, meine Tochter und ich. Können wir die Wohnung am Mittwoch um 17 Uhr besichtigen?\nMit freundlichen Grüßen\nMaria Santos",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Personen genannt, aber kein Beruf, daher Leitpunkt 2 nur teilweise."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Personen genannt, aber kein Beruf, daher Leitpunkt 2 nur teilweise.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: persons, no profession"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "partial_point",
     "text": "Hallo Frau Neumann,\nich suche eine Wohnung und Ihre Wohnung finde ich gut. Ich wohne mit meinem Bruder zusammen. Wir sind beide Studenten an der Uni Köln. Ich möchte die Wohnung auch gern sehen.\nViele Grüße\nKenji Tanaka",
-    "expected": { "lp": [2, 2, 1], "kg": 1 },
-    "note": "Wunsch nach Besichtigung ohne jede Zeitangabe oder Terminfrage, nur teilweise."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "kg": 1
+    },
+    "note": "Wunsch nach Besichtigung ohne jede Zeitangabe oder Terminfrage, nur teilweise.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        1
+      ],
+      "offTask": false,
+      "doubt": "LP3: wants to see, no time"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "partial_point",
     "text": "Sehr geehrte Frau Neumann,\nich interessiere mich für Ihre Wohnung in Köln. Ich bin Koch von Beruf und arbeite in einem Restaurant. Wir brauchen zwei Zimmer. Haben Sie am Freitagvormittag Zeit für eine Besichtigung?\nMit freundlichen Grüßen\nSamir Benali",
-    "expected": { "lp": [2, 1, 2], "kg": 1 },
-    "note": "Beruf genannt, aber wer mit 'wir' gemeint ist, bleibt offen."
+    "expected": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Beruf genannt, aber wer mit 'wir' gemeint ist, bleibt offen.",
+    "examiner2": {
+      "lp": [
+        2,
+        1,
+        2
+      ],
+      "offTask": false,
+      "doubt": "LP2: profession; persons only implied by \"wir\""
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "missing_point",
     "text": "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige gelesen. Ich möchte die Wohnung mieten. Ich wohne allein mit meiner Katze und arbeite als Verkäuferin im Supermarkt. Ist die Miete mit Nebenkosten? Bitte antworten Sie mir.\nEwa Nowak",
-    "expected": { "lp": [2, 2, 0], "kg": 0.5 },
-    "note": "Kein Termin für eine Besichtigung; Grußformel fehlt, nur Name."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "kg": 0.5
+    },
+    "note": "Kein Termin für eine Besichtigung; Grußformel fehlt, nur Name.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        0
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "missing_point",
     "text": "ich suche schon lange eine Wohnung in Köln und Ihre Wohnung ist perfekt. Ist sie noch frei? Kann ich am Sonntag um 12 Uhr kommen und die Wohnung anschauen? Ich warte auf Ihre Antwort.\nViele Grüße\nAndrés Gómez",
-    "expected": { "lp": [2, 0, 2], "kg": 0.5 },
-    "note": "Keine Angaben zu Personen und Beruf; Anrede fehlt."
+    "expected": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "kg": 0.5
+    },
+    "note": "Keine Angaben zu Personen und Beruf; Anrede fehlt.",
+    "examiner2": {
+      "lp": [
+        2,
+        0,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "heavy_errors",
     "text": "Hallo Frau Noimann,\nich habe sehen ihre Anzeig fur die Wonung. Ich will mieten. Ich und mein Frau wir sind zwei, ich arbeiten Maler, sie Hausfrau. Kan ich komen Diestag Abent 7 Ur?\nFiele Grusse\nBogdan Ivanov",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Viele Fehler, aber alle Leitpunkte verständlich, daher volle Punktzahl."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Viele Fehler, aber alle Leitpunkte verständlich, daher volle Punktzahl.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "heavy_errors",
     "text": "Sehr geerte Frau Neuman,\nIch Wohnung brauchen, Anzeige gelest. 2 Person, ich und mein Kind. Ich Arbeit Pflege in Altenheim. Wann ich kann sehen Wohnung? Morgen gut? Oder Wochenende.\nmit freundliche gruss\nAmina Yusuf",
-    "expected": { "lp": [2, 2, 2], "kg": 1 },
-    "note": "Telegrammstil mit vielen Fehlern, Inhalt trotzdem klar verständlich."
+    "expected": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "kg": 1
+    },
+    "note": "Telegrammstil mit vielen Fehlern, Inhalt trotzdem klar verständlich.",
+    "examiner2": {
+      "lp": [
+        2,
+        2,
+        2
+      ],
+      "offTask": false
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "off_topic",
     "text": "Liebe Frau Neumann,\nich wohne jetzt in meiner neuen 2-Zimmer-Wohnung in Köln. Am Samstag mache ich eine Party. Wir sind zehn Personen, viele Kollegen aus meinem Beruf, ich bin Friseur. Haben Sie Zeit? Termin: 20 Uhr.\nViele Grüße\nPaolo Bianchi",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Einladung zur Party statt Wohnungsanfrage, anderes Schreibziel trotz Aufgabenwörtern."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Einladung zur Party statt Wohnungsanfrage, anderes Schreibziel trotz Aufgabenwörtern.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "party invitation"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Frau Neumann,\nich wohne in Ihrer 2-Zimmer-Wohnung in Köln. Die Heizung ist kaputt und es ist sehr kalt. Wir sind drei Personen, mein Mann ist Bäcker und muss früh schlafen. Bitte schicken Sie einen Techniker. Termin am Montag?\nMit freundlichen Grüßen\nLeyla Aydın",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Beschwerde einer Mieterin über die Heizung, keine Wohnungssuche."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Beschwerde einer Mieterin über die Heizung, keine Wohnungssuche.",
+    "examiner2": {
+      "lp": [
+        0,
+        1,
+        0
+      ],
+      "offTask": true,
+      "doubt": "already tenant, heating repair"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "off_topic",
     "text": "ich habe Ihre Anzeige für die 2-Zimmer-Wohnung gesehen, aber ich habe schon eine Wohnung in der Nähe. Haben Sie vielleicht einen Parkplatz frei? Ich bin Pizzafahrer von Beruf und brauche einen Parkplatz für mein Auto. Ich kann am Mittwoch kommen.\nRavi Kumar",
-    "expected": { "lp": [0, 0, 0], "kg": 0 },
-    "note": "Anfrage nach einem Parkplatz statt nach der Wohnung; Anrede und Gruß fehlen."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 0
+    },
+    "note": "Anfrage nach einem Parkplatz statt nach der Wohnung; Anrede und Gruß fehlen.",
+    "examiner2": {
+      "lp": [
+        0,
+        1,
+        0
+      ],
+      "offTask": true,
+      "doubt": "wants a parking space"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "off_topic",
     "text": "Sehr geehrte Frau Neumann,\nich habe eine 2-Zimmer-Wohnung in Köln und suche eine Mieterin. Sie suchen eine Wohnung, das habe ich gelesen. Wer wohnt mit Ihnen? Was ist Ihr Beruf? Termin für Besichtigung: Freitag, 17 Uhr.\nMit freundlichen Grüßen\nMehmet Yılmaz",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Rollen vertauscht: Schreiber tritt als Vermieter auf, Aufgabe missverstanden."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Rollen vertauscht: Schreiber tritt als Vermieter auf, Aufgabe missverstanden.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "written as landlord"
+    }
   },
   {
     "seedQuestionId": "s7-q6",
     "category": "off_topic",
     "text": "Liebe Frau Neumann,\nich ziehe aus meiner 2-Zimmer-Wohnung aus, ich habe eine neue Arbeit als Köchin in Berlin. Mein Mann und ich gehen im März. Wann möchten Sie die Wohnung sehen? Termin für Besichtigung bitte am Montag.\nViele Grüße\nSofia Petrova",
-    "expected": { "lp": [0, 0, 0], "kg": 1 },
-    "note": "Auszug und Wohnungsübergabe statt Wohnungssuche, anderes Schreibziel."
+    "expected": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "kg": 1
+    },
+    "note": "Auszug und Wohnungsübergabe statt Wohnungssuche, anderes Schreibziel.",
+    "examiner2": {
+      "lp": [
+        0,
+        0,
+        0
+      ],
+      "offTask": true,
+      "doubt": "moving out"
+    }
   }
 ]
