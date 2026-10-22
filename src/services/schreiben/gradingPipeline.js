@@ -17,6 +17,8 @@ import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES, GRADING_FALLBACK_REASONS }
 import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
+import { canReviewPurpose, reviewLetterPurpose } from './grading/purposeReview.js';
+import { computeDocumentVector, getSentenceExtractor } from '../embeddings/embeddingService.js';
 
 function classifyArbitration(it) {
   if (it.isProtected) return 'protected';
@@ -105,6 +107,32 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
   };
 }
 
+/**
+ * The trained another-purpose review (grading/purposeReview.js) may add an OFF_TOPIC void, when possible: the
+ * Micro-Ranker read the letter with the model, the level has a trained head and the task an example bank. It reads
+ * the model's sentence_embedding: options.evidenceExtractor, or the app's loaded model when the keyword stage used it.
+ * A review that fails leaves the keyword stage's verdict alone.
+ */
+async function runPurposeReview({ keywordStage, criteria, stage0, question, activeProvider, levelPolicy, options }) {
+  if (!keywordStage.modelUsed || activeProvider.id !== PROVIDER_IDS.MICRO_RANKER || !canReviewPurpose(question.id, levelPolicy)) return null;
+  const evidenceExtractor = options.evidenceExtractor ?? (options.customExtractor ? null : await getSentenceExtractor());
+  if (!evidenceExtractor) return null;
+  try {
+    return await reviewLetterPurpose({
+      keywordLevels: keywordStage.items.map((it) => it.score),
+      criteria,
+      bodySentences: stage0.bodySentences,
+      letterText: stage0.rawText,
+      questionId: question.id,
+      embed: (text) => computeDocumentVector(text, evidenceExtractor),
+      policy: levelPolicy,
+    });
+  } catch (err) {
+    console.warn('[PurposeReview] skipped, the keyword verdict stands:', err);
+    return null;
+  }
+}
+
 export async function gradeSchreibenSubmission({
   userText = '',
   question = {},
@@ -144,6 +172,7 @@ export async function gradeSchreibenSubmission({
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
+  const review = await runPurposeReview({ keywordStage: stage2, criteria, stage0, question, activeProvider, levelPolicy, options });
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
@@ -161,7 +190,12 @@ export async function gradeSchreibenSubmission({
     wordCount: stage0.wordCount,
     isGibberish,
     grammarErrors: errors,
-    content: detectLetterContentFacts({ bodySentences: stage0.bodySentences, criteria, lexicon: levelContext.lexicon }),
+    content: detectLetterContentFacts({
+      bodySentences: stage0.bodySentences,
+      criteria,
+      lexicon: levelContext.lexicon,
+      servesTaskPurpose: review ? !review.anotherPurpose : null,
+    }),
     level: question.level,
   });
 

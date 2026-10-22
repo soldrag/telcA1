@@ -1,0 +1,2985 @@
+[
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte gern bei Ihre Schule einen Deutschkurs machen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich will Deutsch lernen in Ihre Sprachschule, bitte ein Platz für mich in Kurs.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich interessiere mich für ein Kurs bei Sie und möchte teilnehmen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich schreibe weil ich in die Schule Aktiv Deutsch lernen möchte.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich kann ab den 1. August anfangen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Der Kurs soll für mich in August sein, am Vormittag.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich habe nur im Sommer, im August, Zeit, dann ich kommen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Am besten für mich ist Anfang August.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte vier Wochen lernen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich bleibe drei Woche in München und will die ganze Zeit Kurs haben.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Für einen Monat bitte.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wie viel kostet der Kurs?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Bitte schreiben Sie mir den Preis.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wieviel Geld muss ich für den Kurs bezahlen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Können Sie mir sagen, was kostet das?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wie kann ich mich anmelden?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wo muss ich mich anmelden, im Internet oder in die Schule?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Was muss ich machen für die Anmeldung?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "support"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte im August einen Deutschkurs bei Ihnen besuchen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte drei Wochen im August lernen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "support",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wie viel kostet der Kurs und wie kann ich anmelden?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "support",
+      "lp3:Anmeldung": "support"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte bei Ihnen einen Kurs für zwei Wochen buchen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte keinen Deutschkurs bei Ihnen machen.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Im August habe ich leider keine Zeit für Kurs.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "contradict",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wie lange, das kann ich nicht sagen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "contradict",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "contradict",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Wie lange dauert der Kurs?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "contradict",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp2:wie lange"
+    ],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "support",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Der Preis ist mir egal, ich frage nicht nach Geld.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "contradict",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "contradict",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Der Kurs kostet 300 Euro, das weiß ich schon.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "contradict",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "contradict",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich bin schon angemeldet, ich brauche keine Anmeldung.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "contradict"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte mich nicht anmelden, nur Information.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp1"
+    ],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "contradict"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Haben Sie auch Englischkurse für meine Tochter?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich habe meine Jacke in Ihre Schule vergessen, haben Sie die gefunden?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Suchen Sie noch einen Lehrer? Ich bin Lehrer für Arabisch.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich möchte mich beschweren, die Lehrerin im letzten Kurs war sehr unfreundlich.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich hoffe es geht Ihnen gut.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Mein Name ist Olena und ich komme aus Ukraine.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Vielen Dank für Ihre Hilfe.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Deutsch ist sehr wichtig für mich.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich habe gehört, Ihre Schule ist sehr gut.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Ich brauche Deutsch für meine Arbeit als Krankenschwester.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Wann": "none",
+      "lp2:wie lange": "none",
+      "lp3:Frage nach den Kurskosten": "none",
+      "lp3:Anmeldung": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich muss meinen Termin am Montag absagen.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Leider ich kann am Montag um 14 Uhr nicht kommen.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Bitte streichen Sie mein Termin von Montag.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Der Termin am Montag 14:00 geht für mich nicht.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich komme nicht zu mein Termin am Montag.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich sage den Termin bei Dr. Schneider ab.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Mein Sohn ist krank und ich muss zu Hause bleiben.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich muss arbeiten an diese Tag, mein Chef gibt kein frei.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Weil mein Auto ist kaputt.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich habe an diesem Tag eine Prüfung im Sprachkurs.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Meine Mutter kommt aus Syrien und ich muss sie vom Flughafen abholen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich habe zur gleichen Zeit ein Gespräch beim Jobcenter.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Geht es vielleicht am Mittwoch um 10 Uhr?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich kann am Donnerstag nachmittag kommen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Haben Sie ein neuen Termin für mich nächste Woche?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich möchte einen anderen Termin, bitte am Freitag.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Dienstag morgen ist gut für mich.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich habe jeden Tag ab 16 Uhr Zeit für neuen Termin.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich kann am Montag nicht kommen, weil mein Kind Fieber hat.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich muss den Termin am Montag absagen, geht es am Dienstag um 9 Uhr?",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Wegen meiner Arbeit brauche ich einen neuen Termin am Abend.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich habe am Montag Deutschkurs, deshalb kann ich nicht kommen.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich komme am Montag um 14 Uhr pünktlich zu meinem Termin.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich möchte meinen Termin am Montag behalten.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Bitte bestätigen Sie meinen Termin am Montag um 14 Uhr, ich komme.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Warum ich nicht kommen kann, möchte ich nicht sagen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "contradict",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Einen Grund habe ich nicht.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich brauche keinen neuen Termin.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Bitte geben Sie mir keinen anderen Termin, ich gehe zu einem anderen Arzt.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3": "contradict"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich rufe später an für neue Termin, jetzt ich kann keinen Tag sagen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "support"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Können Sie mir bitte ein Rezept für meine Tabletten schicken?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich brauche eine Krankmeldung für meinen Arbeitgeber.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich habe eine neue Adresse, bitte ändern Sie das in meine Akte.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ist Dr. Schneider im Dezember in Urlaub?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Guten Tag, ich hoffe Sie haben eine gute Woche.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich bin seit zwei Jahren Patientin bei Dr. Schneider.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Danke für Ihr Verständnis.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Es tut mir sehr leid.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Ich habe ein Problem mit mein Termin.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Diese Woche ist sehr schwer für mich.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Die Heizung in meine Wohnung ist kaputt.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich schreibe Ihnen, weil die Heizung nicht funktioniert.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Unsere Heizung geht nicht mehr.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Heizung ist kaputt in Wohnung Nummer 5.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich muss Ihnen sagen, die Heizung funktioniert nicht.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Es ist sehr kalt, nur 13 Grad in Wohnzimmer.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Wir schlafen mit Jacke und Mütze, weil es so kalt ist.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Seit Sonntag ist es in alle Zimmer kalt.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Mein kleiner Sohn ist schon erkältet, weil die Wohnung so kalt ist.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Auch das Wasser in der Dusche ist nur kalt.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Bitte schicken Sie einen Handwerker.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Können Sie jemand für die Reparatur schicken?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich brauche einen Monteur, bitte.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Bitte rufen Sie eine Firma, die das reparieren kann.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Die Reparatur soll bitte so schnell wie möglich sein.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich bin am Dienstag die ganze Tag zu Hause, dann kann man reparieren.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Bitte bis morgen reparieren, es ist sehr dringend.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Nach 15 Uhr bin ich immer da für die Reparatur.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "support"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Die Heizkörper bleiben ganz kalt, auch wenn ich auf 5 drehe.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Bitte schicken Sie morgen früh einen Handwerker.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Die Heizung ist kaputt und es sind nur 12 Grad in der Küche.",
+    "labels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2": "support",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Kann ein Techniker am Samstag kommen?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "support",
+      "lp3:Reparaturtermin": "support"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Die Heizung funktioniert wieder, danke.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Meine Heizung ist nicht kaputt, nur die Waschmaschine.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "In der Wohnung ist es warm genug, kein Problem.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "contradict",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Es ist nicht kalt bei uns.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "contradict",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2": "contradict",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Bitte schicken Sie keinen Handwerker, mein Mann repariert das selbst.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich brauche keinen Techniker.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich habe keine Zeit für eine Reparatur, ich bin immer arbeiten.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp3:Handwerker"
+    ],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "contradict",
+      "lp3:Reparaturtermin": "contradict"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Einen Termin für die Reparatur kann ich Ihnen nicht sagen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "contradict"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Kann ich im Keller mein Fahrrad abstellen?",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Die Nachbarn oben sind jeden Abend sehr laut.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich überweise die Miete diesen Monat ein bisschen später.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich möchte die Wohnung zum 31. März kündigen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich hoffe, es geht Ihnen gut, Herr Meier.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich bin Ihr Mieter aus dem zweiten Stock, Tuan Nguyen.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Vielen Dank im Voraus.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Ich habe ein Problem in der Wohnung.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Der Winter in Deutschland ist sehr lang für uns.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Bitte machen Sie etwas.",
+    "labels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2": "none",
+      "lp3:Handwerker": "none",
+      "lp3:Reparaturtermin": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich möchte Ihre Ferienwohnung mieten.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir möchten im Urlaub in Ihre Ferienwohnung wohnen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich will die Meeresbrise buchen für unsere Familie.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich interessiere mich für Ihre Ferienwohnung und möchte sie reservieren.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir sind vier Personen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich komme mit meine Frau und drei Kinder.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir sind zwei Erwachsene und ein Baby.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Insgesamt kommen sechs Leute.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir möchten vom 15. bis 29. Juli kommen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir haben Urlaub in die ersten zwei Wochen im August.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir bleiben eine Woche, Anfang Juli.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Vom 1.8. bis 8.8. wäre gut.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wie viel kostet die Wohnung pro Nacht?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Was ist der Preis für eine Woche?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Können Sie mir bitte die Kosten sagen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Darf unser Hund mitkommen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Sind Haustiere in der Wohnung erlaubt?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir haben eine Katze, ist das ein Problem?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "support"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir kommen zu viert vom 3. bis 10. Juli.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wie viel kostet es und dürfen wir unseren Hund mitbringen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "support"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "support",
+      "lp3:Haustiere": "support"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich möchte die Wohnung für zwei Wochen im August mieten.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "support",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir möchten mit fünf Personen in Ihre Ferienwohnung Urlaub machen.",
+    "labels": {
+      "lp1": "support",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "support",
+      "lp2:Personen": "support",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir möchten die Wohnung nicht mehr mieten.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich will meine Buchung stornieren.",
+    "labels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "contradict",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wie viele Personen dürfen in der Wohnung schlafen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "contradict",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [
+      "lp2:Personen"
+    ],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wie viele Leute wir sind, weiß ich noch nicht.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "contradict",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "contradict",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wann wir kommen, wissen wir noch nicht.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "contradict",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "contradict",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Den genaue Termin kann ich noch nicht sagen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "contradict",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "contradict",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Der Preis ist kein Problem, ich brauche keine Information über Geld.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "contradict",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "contradict",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir haben keine Haustiere.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "contradict"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Letztes Jahr habe ich meine Sonnenbrille in Ihrer Wohnung vergessen.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Können Sie mir eine Rechnung für mein Urlaub im letzten Jahr schicken?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Haben Sie auch eine Wohnung zu verkaufen?",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Meine Freundin möchte auch Ihre Telefonnummer haben.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "other",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich hoffe, Sie hatten einen schönen Winter.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Ich heiße Mehmet Yilmaz und wohne in Dortmund.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Danke für Ihre Antwort.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "neutral",
+    "disputed": [],
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Die Ostsee ist sehr schön.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Meine Kinder lieben das Meer.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Wir brauchen dringend Urlaub.",
+    "labels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    },
+    "purpose": "task",
+    "disputed": [],
+    "purposeDisputed": true,
+    "examinerLabels": {
+      "lp1": "none",
+      "lp2:Personen": "none",
+      "lp2:Zeitraum": "none",
+      "lp3:Preis": "none",
+      "lp3:Haustiere": "none"
+    }
+  }
+]

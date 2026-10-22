@@ -11,6 +11,8 @@ import { isKnownWord } from '../../linguistic/a1LexiconService.js';
 import { A1_GRAMMAR_PROFILE } from '../../profiles/a1GrammarProfile.js';
 import { EVIDENCE_KINDS } from '../../linguistic/criterionIntents.js';
 import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
+import A1_EVIDENCE_MODEL from './a1EvidenceModel.json' with { type: 'json' };
+import A1_PURPOSE_REVIEW from './a1PurposeReviewModel.json' with { type: 'json' };
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -20,6 +22,9 @@ export class A1RankerPolicy extends IRankerPolicy {
     // Raw EmbeddingGemma cosine cutoffs (calibrated on labelled A1 letters, v0.7.15):
     // true coverage 0.52–0.79, same-topic hard negatives up to ~0.60.
     this._neuralCutoffs = Object.freeze({ full: 0.70, partial: 0.55 });
+    // Cosine to the closest fulfilling rubric example (calibrated on held-out A1 sentences, not on letters):
+    // fulfilling sentences p25 0.73 / p10 0.66, sentences of another Leitpunkt p75 0.67.
+    this._exampleCutoffs = Object.freeze({ full: 0.72, partial: 0.62 });
     // Keyword overlap only shows the topic is touched, not that the aspect is stated: when the neural
     // verdict rejects the sentence, a lexical hit alone stays below full (ranker veto).
     this._lexicalCeiling = 0.6;
@@ -43,6 +48,11 @@ export class A1RankerPolicy extends IRankerPolicy {
 
   get conceptDomains() {
     return A1_CONCEPT_DOMAINS;
+  }
+
+  /** Sentence evidence heads (train-evidence-model.mjs) with the another-purpose letter head over them (train-letter-model.mjs). */
+  get evidenceModel() {
+    return this._evidenceModel ??= Object.freeze({ ...A1_EVIDENCE_MODEL, purposeReview: A1_PURPOSE_REVIEW });
   }
 
   capUnprovenLexical(evidenceKind, lexical) {
@@ -69,22 +79,33 @@ export class A1RankerPolicy extends IRankerPolicy {
   }
 
   calibrateNeuralScore(similarity = 0) {
+    return this._calibrate(similarity, this._neuralCutoffs);
+  }
+
+  calibrateExampleScore(similarity = 0) {
+    return this._calibrate(similarity, this._exampleCutoffs);
+  }
+
+  _calibrate(similarity, cutoffs) {
     const s = typeof similarity === 'number' ? similarity : 0;
-    const { full: nFull, partial: nPartial } = this._neuralCutoffs;
+    const { full: nFull, partial: nPartial } = cutoffs;
     const { full, partial } = this._thresholds;
     if (s >= nFull) return Math.min(1, full + ((s - nFull) * (1 - full)) / (1 - nFull));
     if (s >= nPartial) return partial + ((s - nPartial) * (full - partial)) / (nFull - nPartial);
     return Math.max(0, (s * partial) / nPartial);
   }
 
+  // A sentence that says the opposite of the aspect proves nothing by its keywords or its dates.
   combineEvidence(evidence = {}) {
-    const { neural = 0, lexical = 0, structured = 0 } = evidence;
+    const { neural = 0, lexical = 0, structured = 0, contradicted = false } = evidence;
+    if (contradicted) return neural;
     if (!this.isNeuralRejection(evidence)) return Math.max(neural, lexical, structured);
     return Math.max(neural, structured, Math.min(lexical, this._lexicalCeiling));
   }
 
   isLexicalVeto(evidence = {}) {
-    const { lexical = 0, structured = 0 } = evidence;
+    const { lexical = 0, structured = 0, contradicted = false } = evidence;
+    if (contradicted) return Math.max(lexical, structured) >= this._thresholds.partial;
     return this.isNeuralRejection(evidence) && structured < this._thresholds.full && lexical > this._lexicalCeiling;
   }
 

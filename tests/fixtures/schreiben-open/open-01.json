@@ -1,0 +1,82 @@
+[
+  {
+    "seedQuestionId": "s4-q6",
+    "category": "complete",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Sehr geehrte Frau Hansen,\n\nich habe Ihre Anzeige im Internet gelesen und ich möchte Ihre Ferienwohnung „Meeresbrise“ mieten. Wir sind vier Personen: mein Mann, ich und zwei Kinder (6 und 10 Jahre). Wir möchten vom 3. bis 17. Juli kommen. Wie viel kostet die Wohnung pro Nacht? Wir haben auch einen kleinen Hund. Darf er mitkommen?\n\nMit freundlichen Grüßen\nDragana Petrović",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "All three points clearly covered (rental wish, four people with dates, price and dog question) with a proper formal frame."
+  },
+  {
+    "seedQuestionId": "s3-q6",
+    "category": "paraphrase",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Lieber Herr Meier,\n\nich schreibe Ihnen, weil es in meiner Wohnung seit Freitag nicht mehr warm wird. Die Heizkörper im Wohnzimmer und im Schlafzimmer bleiben ganz kalt, wir haben nur 14 Grad. Meine Tochter ist schon erkältet. Können Sie bitte schnell jemanden schicken, der das in Ordnung bringt? Ich bin jeden Tag ab 15 Uhr zu Hause.\n\nViele Grüße\nFarid Ahmadi",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Never says 'Heizung kaputt' or 'Handwerker', but cold radiators, 14 degrees and 'jemanden schicken' plus availability cover every point."
+  },
+  {
+    "seedQuestionId": "s2-q6",
+    "category": "paraphrase",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Sehr geehrte Damen und Herren,\n\nleider muss ich meinen Besuch bei Dr. Schneider am Montag absagen. Meine Firma schickt mich am Montag nach Hamburg, ich bin erst am Dienstag zurück. Geht es vielleicht am Mittwoch oder Donnerstag am Vormittag? Bitte rufen Sie mich an: 0176 2384910.\n\nMit freundlichen Grüßen\nWang Lei",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "'Besuch absagen' replaces 'Termin', business trip is the reason and Wednesday/Thursday morning is a concrete new proposal."
+  },
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "missing_point",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Sehr geehrte Damen und Herren,\n\nich interessiere mich für einen Deutschkurs in Ihrer Schule. Ich möchte im August vier Wochen in München lernen, am liebsten am Vormittag. Ich habe noch keine Wohnung in München. Können Sie mir ein Zimmer bei einer Familie empfehlen?\n\nZsófia",
+    "expected": { "lp": [2, 2, 0], "kg": 0.5 },
+    "note": "Nicely written, but the question is about accommodation, not fees or registration, and there is only a name without any closing formula."
+  },
+  {
+    "seedQuestionId": "s6-q6",
+    "category": "partial_point",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Hallo,\n\nich möchte im August mit meiner Frau in Garmisch Urlaub machen und suche ein Doppelzimmer in Ihrem Hotel. Gibt es bei Ihnen Frühstück? Kann man beim Hotel parken? Wir kommen mit dem Auto.\n\nVielen Dank und viele Grüße\nMilan Jovanović",
+    "expected": { "lp": [2, 1, 2], "kg": 1 },
+    "note": "Gives 'im August' but no length of stay, so 'wann und wie lange' is only half done; breakfast and parking are both asked."
+  },
+  {
+    "seedQuestionId": "s5-q6",
+    "category": "negation",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Liebe Frau Berg,\n\nich bin krank und habe Fieber. Ich kann heute und morgen nicht in den Kurs kommen. Am Freitag bin ich wieder da. Bitte schicken Sie mir keine Hausaufgaben, ich bin zu müde. Ich lerne nächste Woche.\n\nViele Grüße\nLi Na",
+    "expected": { "lp": [2, 2, 0], "kg": 1 },
+    "note": "Sick note and duration are fine, but she explicitly asks NOT to receive homework, which contradicts point 3."
+  },
+  {
+    "seedQuestionId": "s7-q6",
+    "category": "off_topic",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Liebe Frau Neumann,\n\nich habe jetzt eine neue 2-Zimmer-Wohnung in Köln. Die Wohnung ist sehr schön und hell. Am Samstag mache ich eine Party um 19 Uhr. Ich koche persisches Essen. Kommen Sie auch? Bitte bringen Sie Ihren Mann mit.\n\nLiebe Grüße\nShirin",
+    "expected": { "lp": [0, 0, 0], "kg": 1 },
+    "note": "Reuses '2-Zimmer-Wohnung in Köln' but writes a party invitation instead of asking about the flat, so it is another task; the frame itself is fine."
+  },
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "heavy_errors",
+    "persona": "Goethe examiner, Vienna",
+    "text": "sehr geerte Dame und Heren,\n\nich will in agust Deutsch kurs machen in ihre schule aktiv. ich habe arbeit in Wien aber in agust ich habe urlaub, 3 woche. was kostet kurs? wie ich kan mich anmelden, mit internet oder ich mus komen?\n\nmit freundlich grüsen\nReza Karimi",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Spelling and word order are a mess, but course wish, August for three weeks, cost and registration are all perfectly understandable."
+  },
+  {
+    "seedQuestionId": "s3-q6",
+    "category": "telegraphic",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Hallo Herr Meier,\n\nHeizung – kaputt!!\nWohnung – kalt, 12 Grad\nHandwerker? Wann?\nMittwoch?\n\nViele Grüße\nZhang Wei",
+    "expected": { "lp": [0, 0, 0], "kg": 1 },
+    "note": "Only a list of keywords without a single sentence, so per telc rules every Leitpunkt scores 0 despite the obvious intent; the frame is present."
+  },
+  {
+    "seedQuestionId": "s5-q6",
+    "category": "borderline",
+    "persona": "Goethe examiner, Vienna",
+    "text": "Hallo Frau Berg,\n\nleider habe ich Grippe und muss im Bett bleiben. Ich hoffe, am Donnerstag geht es mir besser. Was machen wir im Kurs? Können Sie mir das schreiben?\n\nBis bald\nIldikó",
+    "expected": { "lp": [2, 2, 1], "kg": 1 },
+    "note": "Absence until Thursday is inferable, but she asks what the class does rather than for homework by e-mail, so point 3 is only partly met."
+  }
+]

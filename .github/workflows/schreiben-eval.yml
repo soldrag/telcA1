@@ -1,0 +1,94 @@
+name: Schreiben evaluation
+
+# Grades the open and the hidden letter sets in both modes. The hidden set is decrypted with the
+# TELC_HIDDEN_PRIVATE_KEY secret and prints aggregate numbers only (scripts/eval/eval-schreiben.mjs).
+on:
+  push:
+    paths:
+      - 'src/services/schreiben/**'
+      - 'src/services/ai/**'
+      - 'src/services/embeddings/**'
+      - 'src/data/exams/seeds/schreiben-*'
+      - 'scripts/eval/**'
+      - 'tests/fixtures/schreiben-open/**'
+      - 'tests/fixtures/schreiben-hidden/**'
+      - '.github/workflows/schreiben-eval.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        env:
+          ONNXRUNTIME_NODE_INSTALL: skip
+        run: npm ci
+
+      # EmbeddingGemma (~200 MB) is downloaded once and kept between runs; it is saved right after the
+      # open set has used it, so a failing hidden-set step does not lose the download.
+      - name: Restore the embedding model
+        id: model-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules/@huggingface/transformers/.cache
+          key: embeddinggemma-300m-q4-v1
+
+      - name: Keyword-stage vectors · single model session equals the feature-extraction pipeline
+        run: node scripts/eval/check-embedding-parity.mjs
+
+      - name: Open set · limited mode
+        run: |
+          status=0; npm run -s eval:open > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Open set · Micro-Ranker, keyword stage without and with the purpose review
+        run: |
+          status=0; npm run -s eval:open -- --shadow > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Save the embedding model
+        if: steps.model-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules/@huggingface/transformers/.cache
+          key: embeddinggemma-300m-q4-v1
+
+      - name: Hidden set · limited mode
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:hidden > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Hidden set · Micro-Ranker, keyword stage without and with the purpose review
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:hidden -- --shadow > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      # The same review in a real browser: the app loads EmbeddingGemma once and the review voids an off-topic letter.
+      - name: Browser · purpose review in the built app
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test tests/ui/schreiben.spec.js --project=desktop -g "another-purpose review"

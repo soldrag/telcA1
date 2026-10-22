@@ -54,6 +54,15 @@ export class IRankerPolicy {
     return {};
   }
 
+  /**
+   * Trained evidence heads of the level with their thresholds, or null: sentence heads (support / contradiction) and
+   * the another-purpose letter head over the keyword stage (purposeReview). A level without them grades Leitpunkte
+   * by keywords and the label query alone.
+   */
+  get evidenceModel() {
+    return null;
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }
@@ -73,9 +82,20 @@ export class IRankerPolicy {
   }
 
   /**
+   * Maps the cosine between a sentence and its closest fulfilling rubric example onto the policy score scale.
+   * Sentence-to-sentence cosines run higher than query-to-sentence ones, so levels calibrate them separately.
+   * @param {number} similarity
+   * @returns {number}
+   */
+  calibrateExampleScore(similarity) {
+    return this.calibrateNeuralScore(similarity);
+  }
+
+  /**
    * Merges neural and deterministic evidence into one policy-scale score.
    * Default keeps the strongest signal; level policies may bound lexical hints when a neural verdict exists.
-   * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean }} evidence
+   * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean, contradicted?: boolean }} evidence
+   *   contradicted: the sentence resembles a near miss of the aspect more than any phrase that fulfils it
    * @returns {number}
    */
   combineEvidence({ neural = 0, lexical = 0, structured = 0 } = {}) {

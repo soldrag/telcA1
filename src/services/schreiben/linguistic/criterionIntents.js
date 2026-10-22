@@ -46,6 +46,18 @@ export function resolveAspectEvidence(criterion = {}, aspectLabel = '') {
   return findDeclaredAspect(criterion, aspectLabel)?.evidence || criterion?.evidence || null;
 }
 
+/**
+ * Example phrases for one aspect of a criterion: the aspect's own under a compound criterion, else the
+ * criterion's. Null when the task has none, so the ranker falls back to the label query.
+ * @returns {{ fulfils: string[], misses: string[] }|null}
+ */
+export function resolveAspectExamples(criterion = {}, aspectLabel = '') {
+  const examples = criterion?.examples;
+  if (!examples) return null;
+  const own = examples.aspects ? examples.aspects[aspectLabel] : examples;
+  return own?.fulfils?.length ? own : null;
+}
+
 /** Whether any part of the criterion is proven by a time expression. */
 export function hasTemporalEvidence(criterion = {}) {
   const aspects = Array.isArray(criterion?.aspects) ? criterion.aspects : [];

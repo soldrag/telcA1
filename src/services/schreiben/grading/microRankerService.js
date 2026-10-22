@@ -20,7 +20,7 @@ import {
   formatCriterionQuery,
   partitionAspectKeywords,
 } from './rankerFallbackScorer.js';
-import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
+import { resolveAspectEvidence, resolveAspectExamples } from '../linguistic/criterionIntents.js';
 
 export { computeDeterministicFallbackScore } from './rankerFallbackScorer.js';
 
@@ -30,6 +30,33 @@ async function isClaimedByRival(sentVec, ownSim, rivalQueries, embedder) {
     if (cosineSimilarity(rivalVec, sentVec) > ownSim) return true;
   }
   return false;
+}
+
+async function closestExample(sentVec, phrases, embedder) {
+  let best = 0;
+  for (const phrase of phrases) {
+    const sim = cosineSimilarity(await embedder.embedExample(phrase), sentVec);
+    if (sim > best) best = sim;
+  }
+  return best;
+}
+
+// Example phrases instead of the label query: a sentence supports the aspect as far as it resembles a phrase
+// that fulfils it; when it resembles a near miss of the same aspect more ("Ich bestätige meinen Termin" for a
+// cancellation), the verdict is a contradiction. The competitive gate compares with the other Leitpunkte's
+// fulfilling phrases, as the label gate compares with their queries.
+async function computeExampleScore(examples, sentenceText, { embedder, rivalExamples = [], policy }) {
+  try {
+    const sentVec = await embedder.embedText(sentenceText);
+    const fulfils = await closestExample(sentVec, examples.fulfils, embedder);
+    const misses = await closestExample(sentVec, examples.misses || [], embedder);
+    if (misses > fulfils) return { neural: 0, hasVerdict: true, contradicted: true };
+    if (await closestExample(sentVec, rivalExamples, embedder) > fulfils) return { neural: 0, hasVerdict: false };
+    return { neural: policy.calibrateExampleScore(fulfils), hasVerdict: true };
+  } catch (err) {
+    console.warn('[MicroRanker] Example embedding fallback triggered:', err?.message || err);
+    return { neural: 0, hasVerdict: false };
+  }
 }
 
 // Competitive gate: EmbeddingGemma ranks well but its absolute cosine is not calibrated across
@@ -51,11 +78,12 @@ async function computeNeuralScore(queryText, sentenceText, { embedder, rivalQuer
 }
 
 /**
- * @param {{ label: string, keywords?: string[], evidence?: string|null }|string} aspect
+ * @param {{ label: string, keywords?: string[], evidence?: string|null, examples?: object|null }|string} aspect
  * @param {string} sentenceText
- * @param {{ embedder?: object|null, rivalQueries?: string[], policy: object }} options - policy: the level's ranker policy
+ * @param {{ embedder?: object|null, rivalQueries?: string[], rivalExamples?: string[], policy: object }} options
+ *   policy: the level's ranker policy
  */
-async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], policy } = {}) {
+async function evaluateSentencePair(aspect, sentenceText, { embedder = null, rivalQueries = [], rivalExamples = [], policy } = {}) {
   requireLevelPort(policy, 'evaluateSentencePair: policy');
   const label = String((typeof aspect === 'string' ? aspect : aspect?.label) || '').trim();
   const keywords = typeof aspect === 'string' ? [] : (aspect?.keywords || []);
@@ -64,9 +92,11 @@ async function evaluateSentencePair(aspect, sentenceText, { embedder = null, riv
   if (!sText || !label) return { score: 0, vetoed: false };
 
   const { lexical, structured } = computeFallbackEvidence({ label, keywords, evidence: aspectEvidence }, sText, { policy });
-  const queryText = formatCriterionQuery(label, keywords);
-  const { neural, hasVerdict } = await computeNeuralScore(queryText, sText, { embedder, rivalQueries, policy });
-  const evidence = { neural, lexical, structured, hasNeural: hasVerdict };
+  const examples = typeof aspect === 'string' ? null : (aspect?.examples || null);
+  const { neural, hasVerdict, contradicted = false } = examples && embedder?.embedExample
+    ? await computeExampleScore(examples, sText, { embedder, rivalExamples, policy })
+    : await computeNeuralScore(formatCriterionQuery(label, keywords), sText, { embedder, rivalQueries, policy });
+  const evidence = { neural, lexical, structured, hasNeural: hasVerdict, contradicted };
   return { score: policy.combineEvidence(evidence), vetoed: policy.isLexicalVeto(evidence) };
 }
 
@@ -86,12 +116,12 @@ async function evaluateSentenceWithClauses(aspect, sentence, options) {
   return best;
 }
 
-async function classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries }) {
+async function classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries, rivalExamples }) {
   let best = { score: 0, vetoed: false };
   let bestSentence = '';
 
   for (const s of sentences) {
-    const pair = await evaluateSentenceWithClauses(aspect, s, { embedder, rivalQueries, policy });
+    const pair = await evaluateSentenceWithClauses(aspect, s, { embedder, rivalQueries, rivalExamples, policy });
     if (pair.score > best.score) {
       best = pair;
       bestSentence = s;
@@ -101,6 +131,21 @@ async function classifySingleAspect(aspect, sentences, { embedder, policy, rival
   const bestScore = best.score;
   const coverage = policy.classifyScore(bestScore);
   return { coverage, score: bestScore, matchedSentence: bestSentence, rankerVeto: best.vetoed };
+}
+
+function buildAspect(criterion, label, keywordsByAspect) {
+  return {
+    label,
+    keywords: keywordsByAspect[label],
+    evidence: resolveAspectEvidence(criterion, label),
+    examples: resolveAspectExamples(criterion, label),
+  };
+}
+
+function fulfillingExamples(criterion) {
+  const examples = criterion?.examples;
+  if (!examples) return [];
+  return examples.aspects ? Object.values(examples.aspects).flatMap((a) => a.fulfils || []) : (examples.fulfils || []);
 }
 
 function normalizeCandidateSentences(candidateSentences) {
@@ -125,19 +170,20 @@ export async function classifyCriterionCoverage(criterion, candidateSentences, o
   const critLabel = critObj.label || critObj.id || '';
   const sentences = normalizeCandidateSentences(candidateSentences);
   const rivalQueries = (options.rivalCriteria || []).map((c) => formatCriterionQuery(c.label || c.id, c.keywords));
+  const rivalExamples = (options.rivalCriteria || []).flatMap(fulfillingExamples);
 
   const aspectLabels = isCompoundCriterion(critLabel) ? splitCompoundCriterion(critLabel) : [critLabel];
   const keywordsByAspect = await partitionAspectKeywords(critObj, aspectLabels, { embedder, policy });
 
   if (aspectLabels.length === 1) {
-    const aspect = { label: critLabel, keywords: keywordsByAspect[critLabel], evidence: resolveAspectEvidence(critObj, critLabel) };
-    return classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries });
+    const aspect = buildAspect(critObj, critLabel, keywordsByAspect);
+    return classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries, rivalExamples });
   }
 
   const aspectResults = [];
   for (const label of aspectLabels) {
-    const aspect = { label, keywords: keywordsByAspect[label], evidence: resolveAspectEvidence(critObj, label) };
-    const res = await classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries });
+    const aspect = buildAspect(critObj, label, keywordsByAspect);
+    const res = await classifySingleAspect(aspect, sentences, { embedder, policy, rivalQueries, rivalExamples });
     aspectResults.push({ aspect: label, ...res });
   }
   return policy.aggregateCompound(aspectResults);

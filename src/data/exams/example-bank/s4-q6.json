@@ -1,0 +1,227 @@
+{
+  "task": "s4-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich möchte Ihre Ferienwohnung mieten.",
+        "Wir möchten die Ferienwohnung im Sommer buchen.",
+        "Wir suchen eine Unterkunft am Meer und Ihre Wohnung gefällt uns.",
+        "Ich möchte die Meeresbrise für meine Familie reservieren.",
+        "Wir wollen in den Ferien gern in Ihrem Apartment wohnen.",
+        "Ist Ihre Wohnung im Juli noch frei? Wir möchten sie nehmen.",
+        "Ich mochte Ihre Ferienwohnung mieten.",
+        "Wir möchten bei Sie Urlaub machen."
+      ],
+      "misses": {
+        "refusal": [
+          "Wir möchten die Ferienwohnung nicht mieten.",
+          "Wir machen dieses Jahr keinen Urlaub."
+        ],
+        "opposite": [
+          "Ich möchte meine Buchung für die Ferienwohnung stornieren.",
+          "Ich habe auch eine Ferienwohnung an der Ostsee und vermiete sie."
+        ],
+        "past": [
+          "Letzten Sommer waren wir in Ihrer Ferienwohnung.",
+          "Wir haben schon 2023 bei Ihnen Urlaub gemacht."
+        ],
+        "vague": [
+          "Ich liebe das Meer.",
+          "Die Ostsee ist sehr schön."
+        ],
+        "otherTopic": [
+          "Meine Freundin möchte eine Wohnung in Berlin mieten.",
+          "Wir möchten im Sommer Urlaub in Spanien machen."
+        ]
+      }
+    },
+    "lp2:Personen": {
+      "fulfils": [
+        "Wir sind vier Personen.",
+        "Wir kommen zu viert.",
+        "Ich komme mit meinem Mann und zwei Kindern.",
+        "Meine Frau, mein Sohn und ich möchten kommen.",
+        "Wir sind zwei Erwachsene und ein Baby.",
+        "Es kommen fünf Leute.",
+        "Wir sind 2 Erwachsene und 3 Kind.",
+        "Ich komme mit mein Mann und meine Tochter."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich komme nicht mit meiner Familie.",
+          "Wie viele Leute kommen, sage ich später nicht."
+        ],
+        "opposite": [
+          "Für wie viele Personen ist die Wohnung?",
+          "Wie viele Betten hat die Wohnung?"
+        ],
+        "past": [
+          "Letztes Jahr waren wir sechs Personen.",
+          "Früher bin ich immer allein gefahren."
+        ],
+        "vague": [
+          "Ich habe eine große Familie.",
+          "Wir sind nicht viele."
+        ],
+        "otherTopic": [
+          "In meinem Deutschkurs sind zwölf Personen.",
+          "Meine Schwester hat drei Kinder."
+        ]
+      }
+    },
+    "lp2:Zeitraum": {
+      "fulfils": [
+        "Wir möchten vom 1. bis 14. Juli kommen.",
+        "Wir bleiben zwei Wochen im August.",
+        "Wir kommen am 20. Juli und fahren am 3. August wieder.",
+        "Wir haben vom 5. bis 19. August Ferien und möchten dann kommen.",
+        "Wir brauchen die Wohnung für 10 Nächte ab dem 15. Juli.",
+        "Wir möchten Ende Juni eine Woche bleiben.",
+        "Wir möchten von 1. bis 10. August komme.",
+        "Wir bleiben zwei Woche im Juli."
+      ],
+      "misses": {
+        "refusal": [
+          "Im Juli können wir nicht kommen.",
+          "Wir bleiben nicht lange."
+        ],
+        "opposite": [
+          "Wann ist die Wohnung frei?",
+          "Ist die Wohnung im Juli frei?"
+        ],
+        "past": [
+          "Letzten Sommer waren wir zwei Wochen an der Ostsee.",
+          "Im August 2024 war ich in Kiel."
+        ],
+        "vague": [
+          "Wir haben bald Urlaub.",
+          "Im Sommer haben wir Zeit."
+        ],
+        "otherTopic": [
+          "Meine Eltern fahren vom 1. bis 14. Juli nach Italien.",
+          "Mein Deutschkurs geht vom 1. bis 20. Juli."
+        ]
+      }
+    },
+    "lp3:Preis": {
+      "fulfils": [
+        "Was kostet die Wohnung?",
+        "Wie teuer ist eine Nacht?",
+        "Wie viel müssen wir bezahlen?",
+        "Können Sie mir sagen, wie viel zwei Wochen kosten?",
+        "Bitte schreiben Sie mir, wie viel die Woche kostet.",
+        "Was müssen wir für 14 Tage zahlen?",
+        "Wie viel kostet Wohnung pro Nacht?",
+        "Was kosten die Wohnung?"
+      ],
+      "misses": {
+        "refusal": [
+          "Der Preis ist uns egal.",
+          "Das Geld ist kein Problem für uns."
+        ],
+        "opposite": [
+          "Wir können 80 Euro pro Nacht bezahlen.",
+          "Die Wohnung kostet 90 Euro, das habe ich im Internet gelesen."
+        ],
+        "past": [
+          "Letztes Jahr hat die Wohnung 70 Euro pro Nacht gekostet.",
+          "Ich habe schon die Anzahlung bezahlt."
+        ],
+        "vague": [
+          "Wir haben nicht viel Geld.",
+          "Urlaub ist teuer."
+        ],
+        "otherTopic": [
+          "Was kostet die Zugfahrt an die Ostsee?",
+          "Wie teuer ist das Restaurant am Strand?"
+        ]
+      }
+    },
+    "lp3:Haustiere": {
+      "fulfils": [
+        "Sind Haustiere erlaubt?",
+        "Dürfen wir unseren Hund mitbringen?",
+        "Kann unsere Katze mitkommen?",
+        "Wir haben einen kleinen Hund. Ist das ein Problem?",
+        "Ist ein Hund in der Wohnung okay?",
+        "Darf unser Hund auch in der Wohnung schlafen?",
+        "Darf wir unser Hund mitbringen?",
+        "Kann ich mein Katze mitnehmen?"
+      ],
+      "misses": {
+        "refusal": [
+          "Wir haben keine Haustiere.",
+          "Wir bringen keinen Hund mit."
+        ],
+        "opposite": [
+          "Wir bringen unseren Hund mit.",
+          "Ich weiß, Hunde sind bei Ihnen erlaubt."
+        ],
+        "past": [
+          "Letztes Jahr war unser Hund mit im Urlaub.",
+          "Wir hatten früher eine Katze."
+        ],
+        "vague": [
+          "Wir lieben Tiere.",
+          "Unsere Kinder spielen gern mit Tieren."
+        ],
+        "otherTopic": [
+          "Sind Hunde im Restaurant erlaubt?",
+          "Darf man am Strand grillen?"
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Ich habe in Ihrer Ferienwohnung meine Jacke vergessen.",
+    "Ich möchte meine Buchung für Juli stornieren.",
+    "Vielen Dank für den schönen Urlaub an der Ostsee!",
+    "Wir kommen am Samstag erst um 22 Uhr an.",
+    "In der Ferienwohnung ist die Dusche kaputt.",
+    "Ich möchte bitte die Rechnung für unseren Urlaub haben.",
+    "Gibt es in der Nähe einen Supermarkt?",
+    "Wir möchten unseren Aufenthalt um zwei Tage verlängern.",
+    "Wir sagen unseren Urlaub in der Meeresbrise ab, mein Mann ist krank.",
+    "Danke, wir haben Ihre Bestätigung und den Code für den Schlüssel bekommen.",
+    "Die Ferienwohnung war leider nicht sauber, das Bad war schmutzig.",
+    "Bitte überweisen Sie uns die Anzahlung zurück.",
+    "Die Kinder sprechen noch jeden Tag von Ihrer schönen Wohnung am Meer, danke!",
+    "Im Internet steht, die Wohnung hat einen Balkon, aber es gibt keinen.",
+    "Ich putze gern und kann im Sommer Ihre Ferienwohnung sauber machen.",
+    "Ich bin Fotograf und mache schöne Bilder von Ihrer Wohnung für das Internet.",
+    "Ich möchte im Sommer bei Ihnen arbeiten, zum Beispiel im Garten.",
+    "Liebe Gäste, bitte bringen Sie Handtücher und Bettwäsche selbst mit.",
+    "Ich habe ein Haus am Meer und suche Mieter für das ganze Jahr.",
+    "Ich habe einen Fahrradladen und möchte Ihren Gästen Räder anbieten.",
+    "Gibt es in der Ferienwohnung eine Waschmaschine?",
+    "Kann man bei Ihnen auch Fahrräder leihen?",
+    "Wie komme ich vom Bahnhof zu Ihrer Wohnung?",
+    "Gibt es am Haus einen Platz für unser Auto?",
+    "Mein Sohn hat sein Handy bei Ihnen liegen lassen, bitte schicken Sie es uns.",
+    "Gibt es in der Nähe einen Spielplatz?",
+    "Liebe Sabine, kannst du im Sommer unsere Blumen gießen?",
+    "Hallo Mama, die Kinder freuen sich schon sehr auf das Meer.",
+    "Lieber Karl, kannst du uns für den Urlaub deine große Tasche leihen?",
+    "Liebe Familie Weber, kommt ihr am Samstag zum Grillen? Wir zeigen euch Fotos von der Ostsee.",
+    "Hallo Tina, ich habe für den Urlaub eine neue Badehose gekauft.",
+    "Lieber Opa, wir schicken dir bald eine Karte vom Strand."
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Frau Hansen,\nwir möchten im Sommer Urlaub an der Ostsee machen und Ihre Ferienwohnung mieten. Wir sind vier Personen: zwei Erwachsene und zwei Kinder. Wir kommen vom 10. bis 24. Juli. Was kostet die Wohnung pro Nacht? Dürfen wir unseren Hund mitbringen?\nMit freundlichen Grüßen\nPiotr Kowalski",
+      "Liebe Frau Hansen,\nist die Ferienwohnung „Meeresbrise“ im August noch frei? Meine Frau, meine Tochter und ich möchten zwei Wochen bleiben, vom 1. bis 15. August. Wie hoch ist der Preis? Wir haben eine kleine Katze. Ist das ein Problem?\nViele Grüße\nAndrés Morales",
+      "Sehr geehrte Frau Hansen,\nich möchte Ihre Ferienwohnung im Juni buchen. Wir sind drei Personen, mein Mann, mein Sohn und ich. Wir möchten eine Woche bleiben. Wie viel kostet die Wohnung? Sind Haustiere erlaubt?\nMit freundlichen Grüßen\nMarta Silva",
+      "Guten Tag Frau Hansen,\nmeine Familie und ich suchen eine Ferienwohnung an der Ostsee. Ihre Wohnung gefällt uns sehr. Wir sind fünf Personen, zwei Erwachsene und drei Kinder, und haben vom 20. Juli bis 3. August Urlaub. Wie viel kostet das? Kann unser Hund mitkommen?\nFreundliche Grüße\nJonas Berger"
+    ],
+    "offTask": [
+      "Sehr geehrte Frau Hansen,\nwir haben Ihre Ferienwohnung für Juli gebucht. Leider ist mein Mann krank und wir können nicht kommen. Bitte stornieren Sie unsere Buchung. Bekommen wir die Anzahlung zurück? Es tut uns sehr leid.\nMit freundlichen Grüßen\nPetra Lange",
+      "Sehr geehrte Frau Hansen,\nwir waren letzte Woche in Ihrer Ferienwohnung. Leider war die Wohnung nicht sauber, die Dusche war kaputt und es gab keine Handtücher. Das hat uns nicht gefallen. Wir möchten bitte einen Teil vom Geld zurück.\nMit freundlichen Grüßen\nMichael Schulz",
+      "Liebe Familie Weber,\nvielen Dank für Ihre Anfrage. Die Ferienwohnung „Meeresbrise“ ist vom 5. bis 19. Juli noch frei. Sie kostet 90 Euro pro Nacht. Hunde sind leider nicht erlaubt. Bitte antworten Sie mir bis Freitag.\nHerzliche Grüße\nInge Hansen",
+      "Sehr geehrte Frau Hansen,\nich wohne an der Ostsee und suche Arbeit für den Sommer. Ich kann Ihre Ferienwohnung putzen und die Gäste begrüßen. Ich habe am Wochenende und am Montag Zeit. Brauchen Sie Hilfe? Ich freue mich auf Ihre Antwort.\nMit freundlichen Grüßen\nAgnieszka Wróbel",
+      "Sehr geehrte Frau Hansen,\nwir waren bis Samstag in Ihrer Ferienwohnung. Mein Sohn hat sein Handy im Schlafzimmer vergessen. Es ist schwarz und liegt vielleicht unter dem Bett. Können Sie es bitte suchen und uns schicken? Wir bezahlen das Porto.\nMit freundlichen Grüßen\nThomas Krüger",
+      "Sehr geehrte Frau Hansen,\nwir kommen am Freitag in Ihre Ferienwohnung. Wir fahren mit dem Zug. Wie kommen wir vom Bahnhof zur Wohnung? Gibt es einen Bus? Und wo bekommen wir den Schlüssel? Vielen Dank für Ihre Hilfe.\nMit freundlichen Grüßen\nNina Wolff",
+      "Liebe Clara,\nim Sommer fahren wir an die Ostsee! Wir wohnen in einer kleinen Ferienwohnung direkt am Meer. Die Kinder freuen sich schon sehr. Was machst du in den Ferien? Vielleicht kannst du uns ein paar Tage besuchen?\nViele Grüße\nDeine Katrin",
+      "Hallo Ben,\nunser Urlaub an der Ostsee war super! Das Wetter war warm und wir waren jeden Tag am Strand. Unser Hund ist viel geschwommen. Die Ferienwohnung war klein, aber gemütlich. Ich schicke dir bald Fotos.\nBis bald\nTim"
+    ]
+  }
+}

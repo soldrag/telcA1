@@ -1,0 +1,82 @@
+[
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "complete",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Sehr geehrte Damen und Herren,\n\nich heiße Artur Becker und komme aus Karaganda. Ich möchte im August bei Ihnen einen Deutschkurs machen. Ich habe vom 3. bis 28. August Zeit, also vier Wochen. Wie viel kostet der Kurs? Und wie kann ich mich anmelden?\n\nMit freundlichen Grüßen\nArtur Becker",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "All three points are clearly addressed with a formal salutation and closing."
+  },
+  {
+    "seedQuestionId": "s3-q6",
+    "category": "paraphrase",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Lieber Herr Meier,\n\nich schreibe Ihnen, weil in meiner Wohnung etwas nicht in Ordnung ist. Die Heizkörper bleiben seit Sonntag ganz kalt, in der Stube sind nur 14 Grad und ich friere die ganze Nacht. Können Sie bitte einen Meister schicken, der das macht? Ich bin jeden Tag zu Hause, nur am Donnerstag nicht.\n\nViele Grüße\nIhre Frida Schmidt",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Reason, problem (cold radiators) and request for a repairman with availability are all given in own words."
+  },
+  {
+    "seedQuestionId": "s6-q6",
+    "category": "paraphrase",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Sehr geehrte Damen und Herren,\n\nmeine Frau und ich wollen uns in den Bergen ausruhen. Haben Sie vom 10. bis 17. August ein Doppelzimmer frei? Kann man morgens bei Ihnen essen? Wir kommen mit dem Auto – wo können wir es abstellen?\n\nMit freundlichen Grüßen\nWaldemar Fischer",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Breakfast and parking are asked without the task words, dates and room request are clear."
+  },
+  {
+    "seedQuestionId": "s4-q6",
+    "category": "missing_point",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Sehr geehrte Frau Hansen,\n\nich habe Ihre Ferienwohnung „Meeresbrise“ im Internet gesehen. Wir möchten im Juli an die Ostsee fahren. Wir sind vier Personen: mein Mann, ich und zwei Kinder (8 und 12 Jahre). Wir möchten vom 5. bis 19. Juli bleiben. Ist die Wohnung da frei?\n\nMit freundlichen Grüßen\nOlga Wagner",
+    "expected": { "lp": [2, 2, 0], "kg": 1 },
+    "note": "Neither price nor pets are mentioned, so point 3 is missing."
+  },
+  {
+    "seedQuestionId": "s7-q6",
+    "category": "partial_point",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Sehr geehrte Frau Neumann,\n\nich habe Ihre Anzeige gelesen und interessiere mich für die 2-Zimmer-Wohnung in Köln. Ich wohne mit meiner Tochter zusammen. Wann kann ich die Wohnung ansehen? Ich habe immer am Nachmittag Zeit.\n\nViele Grüße\nIrina Lehmann",
+    "expected": { "lp": [2, 1, 2], "kg": 1 },
+    "note": "Persons are named but the job is missing, so point 2 is only partly addressed."
+  },
+  {
+    "seedQuestionId": "s2-q6",
+    "category": "negation",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Guten Tag,\n\nich habe am Montag um 14 Uhr einen Termin bei Doktor Schneider. Ich kann nicht kommen, mein Sohn hat Geburtstag und wir fahren zur Oma nach Bielefeld. Einen neuen Termin brauche ich jetzt nicht.\n\nMit freundlichen Grüßen\nAlexander Kraus",
+    "expected": { "lp": [2, 2, 0], "kg": 1 },
+    "note": "The writer explicitly refuses a new appointment, which contradicts point 3."
+  },
+  {
+    "seedQuestionId": "s5-q6",
+    "category": "off_topic",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Liebe Frau Berg,\n\nich gehe jeden Tag in den Deutschkurs. Der Kurs ist gut und die Lehrerin ist nett. Die Hausaufgaben mache ich am Abend mit meinem Enkel. Heute und morgen haben wir keinen Unterricht, dann lerne ich zu Hause Wörter.\n\nViele Grüße\nLydia",
+    "expected": { "lp": [0, 0, 0], "kg": 1 },
+    "note": "The letter describes the course instead of reporting sick, so it misses the task despite reusing its words."
+  },
+  {
+    "seedQuestionId": "s3-q6",
+    "category": "heavy_errors",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Hallo Her Maier,\n\nich schreibe zu ihnen wegen heizung. In meine wonung heizung nicht arbeiten schon drei tag, ist sehr kalt, kinder ist krank. Bitte schiken master fur reparatur, wan er kan komen? Ich bin zu hause nach 16 ur.\n\nDanke, mit freundliche grus\nDmitri",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Despite many errors, reason, problem and a repair request with a time are understandable."
+  },
+  {
+    "seedQuestionId": "s4-q6",
+    "category": "frame_issue",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "wir sind 2 Erwachsene und 1 Hund und möchten im Sommer zu Ihnen an die Ostsee kommen, vom 1. bis 14. August. Was kostet die Wohnung pro Nacht? Darf der Hund mit in die Wohnung?",
+    "expected": { "lp": [2, 2, 2], "kg": 0 },
+    "note": "All content points are covered, but salutation and closing are both missing."
+  },
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "borderline",
+    "persona": "teacher of Spätaussiedler families, Karaganda",
+    "text": "Guten Tag,\n\nich will Deutsch besser sprechen, darum ich will in Ihre Schule kommen. Ich habe Urlaub im August, ganz Monat. Was muss ich bezahlen und machen?\n\nGruß\nNikolai Hoffmann",
+    "expected": { "lp": [2, 2, 1], "kg": 1 },
+    "note": "Fees are asked, but \"was muss ich machen\" only vaguely hints at registration, so point 3 is partial."
+  }
+]

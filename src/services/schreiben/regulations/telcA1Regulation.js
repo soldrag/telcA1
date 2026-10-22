@@ -48,7 +48,7 @@ function scoreKommunikativeGestaltung(anrede, gruss) {
 function resolveVoidReason(content) {
   if (!content) return null;
   if (!content.hasPredication) return LEITPUNKTE_VOID_REASONS.NO_PREDICATION;
-  if (!content.hasTaskAnchor) return LEITPUNKTE_VOID_REASONS.OFF_TOPIC;
+  if (!content.hasTaskAnchor || content.servesTaskPurpose === false) return LEITPUNKTE_VOID_REASONS.OFF_TOPIC;
   return null;
 }
 

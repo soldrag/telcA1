@@ -1,0 +1,193 @@
+{
+  "task": "s3-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Die Heizung in meiner Wohnung ist kaputt.",
+        "Die Heizung funktioniert nicht.",
+        "Die Heizkörper bleiben kalt.",
+        "Bei mir wird es nicht mehr warm.",
+        "Ich kann meine Wohnung nicht warm machen.",
+        "Die Heizkörper gehen nicht an.",
+        "Heizung ist kaputt.",
+        "In mein Wohnung die Heizung geht nicht."
+      ],
+      "misses": {
+        "refusal": [
+          "Die Heizung ist nicht kaputt.",
+          "Mit der Heizung gibt es kein Problem."
+        ],
+        "opposite": [
+          "Die Heizung funktioniert wieder, danke!",
+          "Die Heizung ist sehr gut."
+        ],
+        "past": [
+          "Letzten Winter war die Heizung kaputt.",
+          "Im Januar war die Heizung schon einmal kaputt."
+        ],
+        "vague": [
+          "In meiner Wohnung gibt es ein Problem.",
+          "Es ist Winter."
+        ],
+        "otherTopic": [
+          "Die Waschmaschine ist kaputt.",
+          "Die Heizung bei meiner Freundin ist kaputt."
+        ]
+      }
+    },
+    "lp2": {
+      "fulfils": [
+        "Es ist sehr kalt in der Wohnung.",
+        "Seit drei Tagen ist es kalt.",
+        "Wir frieren jeden Tag.",
+        "Im Zimmer sind nur 14 Grad.",
+        "Meine Kinder sind schon krank, weil wir frieren.",
+        "Wir tragen in der Wohnung Jacke und Mütze.",
+        "Seit Montag es ist sehr kalt.",
+        "Mein Kinder haben Erkältung."
+      ],
+      "misses": {
+        "refusal": [
+          "Es ist nicht so kalt.",
+          "Wir haben kein Problem, alles okay."
+        ],
+        "opposite": [
+          "Es ist warm in der Wohnung.",
+          "Seit gestern ist es wieder schön warm."
+        ],
+        "past": [
+          "Letztes Jahr war es im Winter sehr kalt.",
+          "Früher war die Wohnung immer kalt."
+        ],
+        "vague": [
+          "Das ist nicht schön.",
+          "Ich bin traurig."
+        ],
+        "otherTopic": [
+          "In Russland ist es sehr kalt.",
+          "Im Büro von meinem Mann ist es kalt."
+        ]
+      }
+    },
+    "lp3:Handwerker": {
+      "fulfils": [
+        "Bitte schicken Sie einen Handwerker.",
+        "Können Sie einen Techniker schicken?",
+        "Bitte rufen Sie eine Firma an.",
+        "Jemand muss die Heizung reparieren.",
+        "Kann ein Mann von der Firma kommen und das reparieren?",
+        "Bitte organisieren Sie eine Reparatur.",
+        "Bitte schicken Sie Handwerker.",
+        "Können Sie eine Handwerker schicken?"
+      ],
+      "misses": {
+        "refusal": [
+          "Ich brauche keinen Handwerker.",
+          "Bitte schicken Sie keinen Handwerker, ich mache das selbst."
+        ],
+        "opposite": [
+          "Ich bin Handwerker und kann die Heizung reparieren.",
+          "Mein Bruder ist Handwerker, er kann Ihnen helfen."
+        ],
+        "past": [
+          "Der Handwerker war schon gestern hier.",
+          "Letztes Jahr war ein Handwerker in der Wohnung."
+        ],
+        "vague": [
+          "Was soll ich machen?",
+          "Ich weiß nicht weiter."
+        ],
+        "otherTopic": [
+          "Meine Nachbarin braucht einen Handwerker für ihr Bad.",
+          "Ich suche einen Handwerker für meinen Garten."
+        ]
+      }
+    },
+    "lp3:Reparaturtermin": {
+      "fulfils": [
+        "Wann kann die Heizung repariert werden?",
+        "Bitte reparieren Sie die Heizung schnell.",
+        "Ich bin morgen ab 8 Uhr zu Hause.",
+        "Der Monteur kann am Freitag kommen.",
+        "Wann kommt der Techniker?",
+        "Bitte noch diese Woche, es ist dringend.",
+        "Wann kommt Handwerker?",
+        "Ich bin am Mittwoch zuhause, dann er kann kommen."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich habe diese Woche keine Zeit für eine Reparatur.",
+          "Eine Reparatur ist nicht nötig."
+        ],
+        "opposite": [
+          "Bitte sagen Sie den Reparaturtermin ab.",
+          "Bitte sagen Sie den Termin mit dem Handwerker ab, er soll nicht kommen."
+        ],
+        "past": [
+          "Die Reparatur war letzte Woche.",
+          "Im Winter 2024 hat der Techniker die Heizung repariert."
+        ],
+        "vague": [
+          "Ich habe nicht so viel Zeit.",
+          "Zeit ist wichtig."
+        ],
+        "otherTopic": [
+          "Wann kommt der Handwerker für das Fenster?",
+          "Die Reparatur von meinem Fahrrad kostet 50 Euro."
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Meine Nachbarn sind jeden Abend sehr laut.",
+    "Ich möchte die Wohnung zum 31. März kündigen.",
+    "Darf ich eine Katze in der Wohnung haben?",
+    "Ich kann die Miete erst am 10. bezahlen.",
+    "Ich brauche einen neuen Schlüssel für den Keller.",
+    "Mein Bruder möchte bei mir wohnen, ist das okay?",
+    "Danke, die Heizung funktioniert wieder.",
+    "Im Treppenhaus ist das Licht kaputt.",
+    "Vielen Dank, der Handwerker war schnell da und hat alles gemacht.",
+    "Ich habe die Reparatur selbst bezahlt und möchte das Geld von Ihnen zurück.",
+    "Der Handwerker war gestern hier und hat viel Schmutz in der Wohnung gemacht.",
+    "Die Rechnung für die Heizkosten ist zu hoch, das kann nicht richtig sein.",
+    "Ich möchte weniger Miete zahlen, weil die Heizung im Winter drei Wochen kaputt war.",
+    "Danke für die neuen Fenster, jetzt ist es in der Wohnung viel leiser.",
+    "Ich habe eine Firma für Heizungen und suche neue Kunden in Ihrem Haus.",
+    "Ich bin der Hausmeister und habe am Dienstag alle Wohnungen kontrolliert.",
+    "Ich habe auch eine Wohnung und möchte sie an Sie geben.",
+    "Ich möchte bei Ihnen als Hausmeister arbeiten.",
+    "Liebe Mieter, bitte stellen Sie keine Fahrräder in den Flur.",
+    "Ich interessiere mich für Ihre freie Wohnung im zweiten Stock.",
+    "Wo kann ich im Haus meine Wäsche trocknen?",
+    "Ich brauche für das Amt ein Papier über meine Miete.",
+    "Kann ich im Hof mein Auto parken?",
+    "An meinem Briefkasten fehlt noch das Schild mit meinem Namen.",
+    "Darf ich in meiner Wohnung die Wände neu streichen?",
+    "Wann wird bei uns im Haus der Müll abgeholt?",
+    "Liebe Anna, unsere neue Wohnung ist klein, aber sehr gemütlich.",
+    "Hallo Peter, mein Vermieter heißt Herr Meier und er ist sehr nett.",
+    "Lieber Opa, im Winter ist es hier in Deutschland sehr dunkel.",
+    "Liebe Julia, im Dezember feiern wir in meiner Wohnung, kommst du auch?",
+    "Hallo Sami, ich mache im Januar Urlaub in Ägypten, dort scheint die Sonne.",
+    "Lieber Bruder, unser Haus ist alt, aber die Nachbarn sind freundlich."
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrter Herr Meier,\nich schreibe Ihnen, weil die Heizung in meiner Wohnung kaputt ist. Seit Sonntag ist es sehr kalt, nur 14 Grad. Meine Kinder frieren. Bitte schicken Sie schnell einen Handwerker. Ich bin jeden Tag ab 15 Uhr zu Hause.\nMit freundlichen Grüßen\nFatima Benali",
+      "Guten Tag Herr Meier,\nin meiner Wohnung ist es seit drei Tagen eiskalt. Die Heizkörper bleiben kalt, auch im Bad. Wir schlafen schon mit Jacken. Kann ein Techniker am Donnerstag oder Freitag kommen? Ich bin den ganzen Tag da.\nViele Grüße\nIvan Horvat",
+      "Sehr geehrter Herr Meier,\ndie Heizung in meiner Wohnung funktioniert nicht. Es ist sehr kalt und ich bin oft krank. Wann kommt ein Handwerker? Ich habe am Montag und Dienstag Zeit. Bitte rufen Sie mich an. Vielen Dank.\nMit freundlichen Grüßen\nTom Becker",
+      "Lieber Herr Meier,\nwir haben ein Problem: Unsere Heizung geht seit gestern nicht mehr. Im Wohnzimmer und im Kinderzimmer ist es kalt, und unser Baby ist erst drei Monate alt. Können Sie heute noch einen Handwerker anrufen? Wir sind ab 17 Uhr zu Hause.\nHerzliche Grüße\nSara und Daniel Weiß"
+    ],
+    "offTask": [
+      "Sehr geehrter Herr Meier,\nvielen Dank! Der Handwerker war gestern da und hat alles repariert. Jetzt ist es in der Wohnung wieder schön warm. Er war sehr freundlich und schnell. Ich bin sehr zufrieden. Schöne Grüße auch an Ihre Frau.\nMit freundlichen Grüßen\nFatima Benali",
+      "Sehr geehrter Herr Meier,\nim Januar war die Heizung zwei Wochen kaputt und wir hatten keine Wärme. Wir mussten einen Elektroofen kaufen. Ich möchte deshalb für Januar weniger Miete bezahlen. Ist das möglich? Bitte antworten Sie mir bald.\nMit freundlichen Grüßen\nIvan Horvat",
+      "Liebe Mieterinnen und Mieter,\nam Mittwoch kommt ein Handwerker und kontrolliert die Heizung im ganzen Haus. Er kommt zwischen 8 und 12 Uhr. Bitte seien Sie zu Hause oder geben Sie Ihren Schlüssel beim Nachbarn ab. Vielen Dank!\nMit freundlichen Grüßen\nKlaus Meier",
+      "Sehr geehrter Herr Meier,\nich bin Heizungsbauer und habe eine kleine Firma in Ihrer Stadt. Ich repariere Heizungen schnell und billig. Brauchen Sie für Ihre Häuser einen Handwerker? Ich kann Ihnen gern ein Angebot schicken.\nMit freundlichen Grüßen\nMarek Nowak, Nowak Heizung",
+      "Sehr geehrter Herr Meier,\nich möchte gern eine Katze haben. Sie ist klein und sehr ruhig. Darf ich die Katze in meiner Wohnung halten? Bitte schreiben Sie mir bald eine Antwort. Vielen Dank und einen schönen Tag.\nMit freundlichen Grüßen\nLisa Hoffmann",
+      "Sehr geehrter Herr Meier,\nich habe meinen Wohnungsschlüssel verloren. Ich wohne im zweiten Stock links. Haben Sie noch einen Schlüssel für mich? Wann kann ich ihn bei Ihnen abholen? Ich bezahle natürlich den neuen Schlüssel.\nMit freundlichen Grüßen\nOmar Aziz",
+      "Liebe Mia,\nbei mir ist es gerade sehr kalt, die Heizung ist kaputt! Ich trinke viel heißen Tee und trage zwei Pullover. Morgen kommt hoffentlich ein Handwerker. Wie geht es dir in Spanien? Ist es dort warm?\nViele Grüße\nNora",
+      "Hallo Mama,\nwie geht es euch? Hier in Berlin ist schon Winter und es schneit. Meine neue Wohnung ist schön, aber manchmal ein bisschen kalt. Der Vermieter, Herr Meier, ist nett. Am Wochenende besuche ich euch.\nLiebe Grüße\nDein Ali"
+    ]
+  }
+}

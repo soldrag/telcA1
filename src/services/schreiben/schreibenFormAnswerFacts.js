@@ -8,6 +8,7 @@ import { areTimesEquivalent, writesTime } from './schreibenTimeNormalizer.js';
 import { writesNumber } from './schreibenNumberTokens.js';
 import abbreviationData from './linguistic/data/abbreviations.json' with { type: 'json' };
 import { toGermanSoundKey } from './linguistic/germanSoundKey.js';
+import { calculateDamerauDistance } from './linguistic/editDistance.js';
 import spelling from './linguistic/data/umlautSpelling.json' with { type: 'json' };
 import calendarWords from './linguistic/data/calendarWords.json' with { type: 'json' };
 import wordClasses from './linguistic/data/clauseWordClasses.json' with { type: 'json' };
@@ -38,36 +39,6 @@ export function normalizeGermanText(str = '') {
 
 function normalizeUmlauts(str = '') {
   return [...str].map((ch) => spelling.transliteration[ch] ?? ch).join('');
-}
-
-function calculateDamerauDistance(a = '', b = '') {
-  if (a === b) return 0;
-  if (!a.length) return b.length;
-  if (!b.length) return a.length;
-
-  const d = [];
-  for (let i = 0; i <= a.length; i++) {
-    d[i] = [i];
-  }
-  for (let j = 0; j <= b.length; j++) {
-    d[0][j] = j;
-  }
-
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      d[i][j] = Math.min(
-        d[i - 1][j] + 1,
-        d[i][j - 1] + 1,
-        d[i - 1][j - 1] + cost
-      );
-      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
-        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
-      }
-    }
-  }
-
-  return d[a.length][b.length];
 }
 
 // Closed classes whose members are each a valid answer: word → its meaning within the class.

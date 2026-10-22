@@ -1,0 +1,193 @@
+{
+  "task": "s7-q6",
+  "units": {
+    "lp1": {
+      "fulfils": [
+        "Ich interessiere mich für die Wohnung.",
+        "Ich habe Ihre Anzeige gelesen und möchte die Wohnung mieten.",
+        "Ich suche ein neues Zuhause und Ihr Angebot ist perfekt für mich.",
+        "Ich möchte gern bei Ihnen mieten.",
+        "Die zwei Zimmer in Köln möchte ich gern nehmen.",
+        "Ich brauche eine neue Unterkunft in Köln, Ihr Angebot passt gut.",
+        "Ich interessiere mich fur die Wohnung in Zeitung.",
+        "Ich möchte mieten die Wohnung."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich möchte die Wohnung nicht mieten.",
+          "Die Wohnung ist zu teuer, ich nehme sie nicht."
+        ],
+        "opposite": [
+          "Ich vermiete eine Wohnung in Köln.",
+          "Ich habe eine Anzeige für meine Wohnung geschrieben."
+        ],
+        "past": [
+          "Früher habe ich in einer 2-Zimmer-Wohnung gewohnt.",
+          "Letztes Jahr habe ich eine Wohnung in Köln gemietet."
+        ],
+        "vague": [
+          "Wohnungen in Köln sind sehr teuer.",
+          "Ich lese gern Anzeigen in der Zeitung."
+        ],
+        "otherTopic": [
+          "Mein Freund interessiert sich für ein Auto.",
+          "Ich interessiere mich für den Deutschkurs."
+        ]
+      }
+    },
+    "lp2:Personen": {
+      "fulfils": [
+        "Ich möchte mit meiner Frau in der Wohnung wohnen.",
+        "Wir sind zwei Personen.",
+        "Wir sind eine Familie mit einem Kind.",
+        "Ich lebe allein.",
+        "Ich bin Single und habe keine Kinder.",
+        "Meine Freundin zieht mit mir ein.",
+        "Wir sind drei Person, mein Mann, meine Tochter und ich.",
+        "Ich wohne mit mein Bruder zusammen."
+      ],
+      "misses": {
+        "refusal": [
+          "Wer dort wohnt, möchte ich nicht sagen.",
+          "Das ist privat, das schreibe ich nicht."
+        ],
+        "opposite": [
+          "Wie viele Personen wohnen im Haus?",
+          "Wer wohnt jetzt in der Wohnung?"
+        ],
+        "past": [
+          "Früher habe ich mit meinen Eltern gewohnt.",
+          "Letztes Jahr hat meine Schwester bei mir gewohnt."
+        ],
+        "vague": [
+          "Familie ist für mich sehr wichtig.",
+          "Ich habe viele Freunde in Köln."
+        ],
+        "otherTopic": [
+          "In meinem Haus wohnen zehn Personen.",
+          "Meine Nachbarn sind zwei Personen."
+        ]
+      }
+    },
+    "lp2:Beruf": {
+      "fulfils": [
+        "Ich bin Krankenpfleger von Beruf.",
+        "Ich arbeite als Verkäuferin.",
+        "Ich arbeite bei Ford in Köln.",
+        "Ich koche jeden Tag in einem Restaurant.",
+        "Ich unterrichte Kinder an einer Grundschule.",
+        "Ich mache eine Ausbildung als Elektriker.",
+        "Ich bin Ingenieur und arbeite in Firma.",
+        "Ich arbeite als Kellner in ein Hotel."
+      ],
+      "misses": {
+        "refusal": [
+          "Meinen Beruf möchte ich nicht sagen.",
+          "Zu meiner Arbeit schreibe ich nichts."
+        ],
+        "opposite": [
+          "Was sind Sie von Beruf?",
+          "Wo arbeiten Sie, Frau Neumann?"
+        ],
+        "past": [
+          "Früher war ich Lehrer in Syrien.",
+          "Vor zwei Jahren habe ich in einer Bäckerei gearbeitet."
+        ],
+        "vague": [
+          "Ich arbeite viel.",
+          "Meine Arbeit ist interessant."
+        ],
+        "otherTopic": [
+          "Mein Vater ist Arzt von Beruf.",
+          "Meine Schwester arbeitet als Friseurin."
+        ]
+      }
+    },
+    "lp3": {
+      "fulfils": [
+        "Kann ich die Wohnung besichtigen?",
+        "Wann kann ich die Wohnung ansehen?",
+        "Haben Sie am Samstag Zeit? Ich möchte die Zimmer sehen.",
+        "Kann ich vorbeikommen und mir alles anschauen?",
+        "Wann passt es Ihnen? Ich möchte die Räume gern sehen.",
+        "Darf ich nächste Woche kommen und die Küche und das Bad sehen?",
+        "Wann ich kann die Wohnung sehen?",
+        "Ich möchte Termin für Besichtigung."
+      ],
+      "misses": {
+        "refusal": [
+          "Ich muss die Wohnung nicht sehen.",
+          "Eine Besichtigung brauche ich nicht."
+        ],
+        "opposite": [
+          "Ich sage den Termin für die Besichtigung ab.",
+          "Sie können meine Wohnung am Freitag besichtigen."
+        ],
+        "past": [
+          "Gestern habe ich die Wohnung schon gesehen.",
+          "Ich war schon bei der Besichtigung."
+        ],
+        "vague": [
+          "Ich habe nächste Woche viel Zeit.",
+          "Die Wohnung auf dem Foto ist schön."
+        ],
+        "otherTopic": [
+          "Kann ich einen Termin beim Arzt bekommen?",
+          "Kann ich das Auto am Samstag ansehen?"
+        ]
+      }
+    }
+  },
+  "otherPurpose": [
+    "Die Heizung in meiner Wohnung ist kaputt.",
+    "Haben Sie noch eine andere Wohnung mit drei Zimmern?",
+    "Die Nachbarn sind jeden Abend sehr laut.",
+    "Ich möchte meine Wohnung zum 31. März kündigen.",
+    "Darf ich eine Katze in der Wohnung haben?",
+    "Wann bekomme ich meine Kaution zurück?",
+    "Ich brauche einen neuen Schlüssel für die Haustür.",
+    "Die Miete ist zu hoch, kann ich weniger zahlen?",
+    "Ich habe schon eine Wohnung gefunden und brauche Ihre Wohnung nicht mehr.",
+    "Danke für die Besichtigung gestern, aber die Wohnung ist zu klein für uns.",
+    "Ich habe den Mietvertrag unterschrieben und schicke ihn heute zurück.",
+    "Danke, dass ich die Wohnung bekomme, ich bin sehr froh.",
+    "Bei der Besichtigung war die Wohnung sehr schmutzig, das hat mir nicht gefallen.",
+    "In Ihrer Anzeige steht 50 Quadratmeter, aber die Wohnung ist viel kleiner.",
+    "Meine Wohnung in Köln ist ab Mai frei, kennen Sie jemand?",
+    "Ich bin Maler und kann die Wohnung vor dem Einzug neu streichen.",
+    "Ich bin Makler und kann für Sie neue Mieter finden.",
+    "Ich suche eine Stelle als Hausmeister in Ihrem Haus in Köln.",
+    "Ich habe eine Umzugsfirma und kann Ihren neuen Mietern helfen.",
+    "Liebe Interessenten, die Wohnung ist leider schon weg.",
+    "Hat das Haus auch einen Garten für die Mieter?",
+    "Gibt es bei der Wohnung einen Parkplatz?",
+    "Darf ich in der Wohnung rauchen?",
+    "Wie viel kostet die Wohnung mit Strom und Heizung?",
+    "Ist die Küche in der Wohnung neu?",
+    "Wie weit ist es von der Wohnung zum Bahnhof?",
+    "Liebe Lea, Köln ist eine tolle Stadt und der Dom ist sehr schön.",
+    "Hallo Papa, wenn ich eine Wohnung habe, kannst du mich besuchen.",
+    "Lieber Max, kannst du mir im Juni beim Umzug nach Köln helfen?",
+    "Liebe Mira, wir feiern am Samstag in Köln, kommst du?",
+    "Hallo Jan, mein Zimmer im Wohnheim ist zu klein, ich habe keinen Platz für meine Bücher.",
+    "Liebe Tante, ich schicke dir ein Foto vom Rhein."
+  ],
+  "purposeLetters": {
+    "onTask": [
+      "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige gelesen und interessiere mich für die 2-Zimmer-Wohnung in Köln. Ich bin 28 Jahre alt, wohne allein und arbeite als Krankenpfleger im Krankenhaus. Kann ich die Wohnung am Samstag besichtigen?\nMit freundlichen Grüßen\nMehmet Demir",
+      "Guten Tag Frau Neumann,\nist die 2-Zimmer-Wohnung in Köln noch frei? Wir sind ein Paar ohne Kinder. Mein Freund ist Koch und ich bin Verkäuferin. Wann können wir die Wohnung ansehen? Am Montag oder Dienstag nach 17 Uhr haben wir Zeit.\nViele Grüße\nAnja Kraus",
+      "Sehr geehrte Frau Neumann,\nich möchte Ihre Wohnung in Köln gern mieten. Ich wohne allein. Ich bin Student und arbeite auch in einem Café. Haben Sie am Freitag Zeit für eine Besichtigung? Ich kann ab 14 Uhr kommen.\nMit freundlichen Grüßen\nLuca Bianchi",
+      "Liebe Frau Neumann,\nIhre Anzeige für die Wohnung in Köln gefällt mir sehr. Ich suche eine Wohnung für mich und meine Tochter. Sie ist sechs Jahre alt. Ich bin Ingenieurin bei einer Firma in Köln. Wann darf ich die Wohnung sehen? Mittwochnachmittag passt mir gut.\nFreundliche Grüße\nPriya Sharma"
+    ],
+    "offTask": [
+      "Sehr geehrte Frau Neumann,\nvielen Dank für die Besichtigung am Samstag. Die Wohnung ist schön, aber sie ist zu klein für uns. Wir haben jetzt eine andere Wohnung gefunden. Wir nehmen Ihre Wohnung leider nicht. Alles Gute für Sie!\nMit freundlichen Grüßen\nMehmet Demir",
+      "Sehr geehrte Frau Neumann,\nich bin Ende Mai aus der Wohnung in der Bergstraße ausgezogen. Die Wohnung war sauber und alles war in Ordnung. Bitte überweisen Sie mir die Kaution auf mein Konto. Wann bekomme ich das Geld?\nMit freundlichen Grüßen\nAnja Kraus",
+      "Liebe Interessenten,\nich vermiete eine schöne 2-Zimmer-Wohnung in Köln-Ehrenfeld. Sie hat 55 Quadratmeter, eine Küche und einen Balkon. Die Miete ist 750 Euro warm. Die Besichtigung ist am Samstag um 11 Uhr. Bitte melden Sie sich bei mir.\nMit freundlichen Grüßen\nGabriele Neumann",
+      "Sehr geehrte Frau Neumann,\nich bin Hausmeister und suche neue Arbeit in Köln. Ich kann kleine Reparaturen machen, den Garten pflegen und das Treppenhaus putzen. Brauchen Sie für Ihr Haus einen Hausmeister? Ich habe montags bis freitags Zeit.\nMit freundlichen Grüßen\nStefan Wójcik",
+      "Sehr geehrte Frau Neumann,\nich wohne seit einem Jahr in Ihrer Wohnung in der Lindenstraße. Ich möchte das Schlafzimmer gern blau streichen. Ist das erlaubt? Ich bezahle die Farbe selbst. Bitte schreiben Sie mir eine kurze Antwort.\nMit freundlichen Grüßen\nJulia Kern",
+      "Sehr geehrte Frau Neumann,\nich habe ein Auto und finde in unserer Straße oft keinen Platz. Haben Sie für Ihre Mieter einen Parkplatz oder eine Garage? Wie viel kostet ein Platz im Monat? Ich wohne im ersten Stock.\nMit freundlichen Grüßen\nRafael Ortiz",
+      "Lieber Max,\nich suche gerade eine Wohnung in Köln. Das ist nicht einfach, die Wohnungen sind sehr teuer! Gestern habe ich eine schöne Anzeige gesehen. Kennst du vielleicht eine freie Wohnung? Wie geht es dir und deiner Familie?\nViele Grüße\nDein Samir",
+      "Liebe Rosa,\nich habe endlich eine neue Wohnung in Köln! Sie hat zwei Zimmer und einen kleinen Balkon. Die Vermieterin ist sehr freundlich. Am 1. März ziehe ich ein. Kannst du mir beim Umzug helfen?\nLiebe Grüße\nDeine Schwester Ines"
+    ]
+  }
+}

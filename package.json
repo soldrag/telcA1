@@ -16,7 +16,9 @@
     "validate:seeds": "node scripts/seeds/validateSeeds.js",
     "prebuild": "npm run verify:contracts && npm run test",
     "build": "vite build",
-    "build:lexicon": "node scripts/lexicon/buildGermanNouns.mjs && node scripts/lexicon/buildGermanVerbs.mjs"
+    "build:lexicon": "node scripts/lexicon/buildGermanNouns.mjs && node scripts/lexicon/buildGermanVerbs.mjs",
+    "eval:open": "node --import ./tests/support/loadLexiconData.js scripts/eval/eval-schreiben.mjs",
+    "eval:hidden": "node --import ./tests/support/loadLexiconData.js scripts/eval/eval-schreiben.mjs --hidden"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

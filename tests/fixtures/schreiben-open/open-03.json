@@ -1,0 +1,82 @@
+[
+  {
+    "seedQuestionId": "s3-q6",
+    "category": "complete",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Sehr geehrter Herr Meier,\n\nich schreibe Ihnen, weil die Haitzung in meine Wohnung kaputt ist. Seit Freitag es ist ganz kalt, nur 14 Grad, ich schlafe mit Jacke. Bitte schicken Sie schnell einen Handwerker. Ich bin jeden Tag ab 15 Uhr zu Hause.\n\nMit freundlichen Grüßen\nFarid Ahmadi",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Reason, a concrete description of the cold and a request for a repair person with available times are all clear; spelling errors do not block meaning."
+  },
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "paraphrase",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Hallo liebes Team von Aktiv,\n\nich will besser Deutsch lernen und mochte in Ihre Schule in München lernen. Ich habe Zeit ab 1. August, vier Wochen, am Vormittag. Was muss ich bezahlen für ein Monat? Und was muss ich machen für einen Platz, brauche ich ein Formular?\n\nViele Grüße\nFarid",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "All three points are covered in own words (\"was muss ich bezahlen\" = fees, \"was muss ich machen für einen Platz\" = registration); neutral Hallo is acceptable."
+  },
+  {
+    "seedQuestionId": "s6-q6",
+    "category": "paraphrase",
+    "persona": "Turkish woman classmate, imagined by integration-course learner from Herat, Stuttgart",
+    "text": "Guten Tag,\n\nich und mein Mann wollen in die Berge fahren. Haben Sie ein Zimmer frei vom 10. bis 17. August, eine Woche? Kann man morgens im Hotel essen, oder kostet das extra? Wir kommen mit dem Auto, wo können wir es abstellen?\n\nMit freundlichen Grüssen\nAyse Yilmaz",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Breakfast and parking are asked without the task words (\"morgens essen\", \"Auto abstellen\"), dates and length are concrete, frame is correct."
+  },
+  {
+    "seedQuestionId": "s7-q6",
+    "category": "missing_point",
+    "persona": "young Guinean classmate, imagined by integration-course learner from Herat, Stuttgart",
+    "text": "Sehr geehrte Frau Neumann,\n\nich habe Ihre Anzeige gesehen für die Wohnung mit 2 Zimmer in Köln. Ich interessiere mich sehr. Kann ich die Wohnung anschauen? Am Samstag oder Sonntag ist gut für mich, dann habe ich frei.\n\nMit freundlichen Grüßen\nMamadou Diallo",
+    "expected": { "lp": [2, 0, 2], "kg": 1 },
+    "note": "Interest and a viewing request with days are clear, but nothing is said about how many people will live there or about a job (\"habe frei\" is not a Beruf)."
+  },
+  {
+    "seedQuestionId": "s4-q6",
+    "category": "partial_point",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Liebe Frau Hansen,\n\nich mochte mit meine Familie an die Ostsee fahren und Ihre Ferienwohnung mieten. Wir sind 4 Personen, meine Frau, ich und zwei Tochter (6 und 9 Jahre). Wir möchten vom 20. Juli bis 3. August kommen. Wie viel kostet die Wohnung für eine Nacht?\n\nViele Grüße\nFarid Ahmadi",
+    "expected": { "lp": [2, 2, 1], "kg": 1 },
+    "note": "Reason, persons and dates are complete, but point 3 only asks about the price and says nothing about pets, so it is partial."
+  },
+  {
+    "seedQuestionId": "s5-q6",
+    "category": "negation",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Liebe Frau Berg,\n\nich bin krank, ich habe Fieber und Kopfschmerzen. Heute und morgen ich kann nicht in den Kurs kommen. Bitte keine Hausaufgaben schicken, ich habe kein Computer zu Hause. Ich mache alles am Donnerstag.\n\nViele Grüße\nFarid",
+    "expected": { "lp": [2, 2, 0], "kg": 1 },
+    "note": "Illness and the two days are clear, but the writer explicitly refuses homework by e-mail, which contradicts point 3."
+  },
+  {
+    "seedQuestionId": "s2-q6",
+    "category": "off_topic",
+    "persona": "Iraqi grandmother classmate, imagined by integration-course learner from Herat, Stuttgart",
+    "text": "Guten Tag Praxis Dr. Schneider,\n\nich heiße Samira Hassan. Ich brauche einen Termin für Montag um 14:00 Uhr. Mein Zahn tut weh seit drei Tage. Ist das moglich? Ich habe AOK Karte.\n\nMit freundlichen Grüßen\nSamira Hassan",
+    "expected": { "lp": [0, 0, 0], "kg": 1 },
+    "note": "The writer misreads the task and books the Monday 14:00 appointment instead of cancelling it, so no Leitpunkt of the cancellation task is fulfilled despite reused task words."
+  },
+  {
+    "seedQuestionId": "s2-q6",
+    "category": "heavy_errors",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Halo Dokter Schneider praxis,\n\nich habe montag 14 ur termin aber ich kan nich komen. mein frau und kinder ankomen flughafen frankfurt montag, ich mus abholen. bite neue termin mitwoch oder donastag nach 13 ur.\n\nfiele grüse\nfarid",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Despite many spelling and grammar errors, the cancellation, the reason (picking up family at the airport) and a new date proposal are fully understandable."
+  },
+  {
+    "seedQuestionId": "s6-q6",
+    "category": "telegraphic",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Hotel Alpenblick\n\nZimmer August\n2 Personen 10.8.-14.8.\nFrühstück? Parkplatz?\n\nFarid",
+    "expected": { "lp": [0, 0, 0], "kg": 0 },
+    "note": "Only a list of keywords without sentences, so every Leitpunkt is 0; there is no salutation and no closing formula, only a name."
+  },
+  {
+    "seedQuestionId": "s7-q6",
+    "category": "borderline",
+    "persona": "integration-course learner from Herat, Stuttgart",
+    "text": "Hallo Frau Neumann,\n\nich habe Ihre Anzeige gelesen. Die Wohnung in Köln ist gut für uns. Meine Familie ist noch in Afghanistan, aber sie kommt bald, dann wir sind vier. Ich bin jetzt in Stuttgart im Kurs, aber ich habe Arbeit in Köln gefunden, bei einer Taxi Firma. Wann ist gut für Sie? Ich kann jeden Tag nach 16 Uhr.\n\nTschüss\nFarid",
+    "expected": { "lp": [2, 2, 1], "kg": 0.5 },
+    "note": "Persons and job are clear, but \"Wann ist gut für Sie?\" never says he wants to see the flat, so the viewing is only implied; \"Tschüss\" to an unknown landlady is unsuitable."
+  }
+]

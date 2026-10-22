@@ -1,0 +1,82 @@
+[
+  {
+    "seedQuestionId": "s2-q6",
+    "category": "complete",
+    "persona": "student teacher, integration course Jena",
+    "text": "Sehr geehrte Damen und Herren,\n\nich habe am Montag um 14 Uhr einen Termin bei Dr. Schneider. Leider kann ich nicht kommen, weil meine Tochter krank ist und ich bei ihr zu Hause bleiben muss. Kann ich am Mittwoch oder Donnerstag am Vormittag kommen?\n\nMit freundlichen Grüßen\nOlena Kovalenko",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Cancellation, reason (sick daughter) and two concrete new dates are all clear, with a formal frame."
+  },
+  {
+    "seedQuestionId": "s3-q6",
+    "category": "paraphrase",
+    "persona": "student teacher, integration course Jena",
+    "text": "Hallo Herr Meier,\n\nich wohne in der Wagnergasse 12, 2. Stock. Seit Samstag wird es in der Wohnung nicht mehr warm, die Radiatoren sind ganz kalt. Draußen sind minus Grade und meine Kinder schlafen mit Jacke. Bitte schicken Sie schnell einen Mann, der das wieder in Ordnung macht. Ich bin jeden Tag ab 15 Uhr zu Hause.\n\nViele Grüße\nRojhat Aydin",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Never says Heizung/Handwerker but reason, problem (cold radiators, freezing children) and a repair person with an available time are all clearly there."
+  },
+  {
+    "seedQuestionId": "s7-q6",
+    "category": "paraphrase",
+    "persona": "student teacher, integration course Jena",
+    "text": "Guten Tag Frau Neumann,\n\nich habe im Internet gelesen, dass Sie in Köln eine Wohnung mit zwei Räumen vermieten. Die Wohnung gefällt mir sehr. Wir sind zu zweit, mein Mann und ich, keine Kinder. Ich arbeite als Pflegehelferin im Altenheim und mein Mann fährt Lkw. Darf ich die Wohnung einmal anschauen? Am Samstag habe ich frei.\n\nFreundliche Grüße\nSelam Tekle",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Interest in the flat, two persons with both jobs, and a request to view it on Saturday are expressed in her own words."
+  },
+  {
+    "seedQuestionId": "s4-q6",
+    "category": "missing_point",
+    "persona": "student teacher, integration course Jena",
+    "text": "Sehr geehrte Frau Hansen,\n\nwir möchten im Juli Ferien am Meer machen und ich habe Ihre Wohnung „Meeresbrise“ gefunden. Wir kommen mit 5 Personen, mein Mann, ich und drei Kinder. Wir möchten vom 14. bis 21. Juli bleiben. Ist die Wohnung dann frei?\n\nMit freundlichen Grüßen\nHodan Abdi",
+    "expected": { "lp": [2, 2, 0], "kg": 1 },
+    "note": "Reason, persons and dates are clear, but neither price nor pets is mentioned at all."
+  },
+  {
+    "seedQuestionId": "s6-q6",
+    "category": "partial_point",
+    "persona": "student teacher, integration course Jena",
+    "text": "Sehr geehrte Damen und Herren,\n\nich möchte mit meiner Frau Urlaub in Garmisch machen. Wir möchten vom 3. bis 10. August ein Doppelzimmer. Ist Frühstück im Preis inklusive?\n\nMit freundlichen Grüßen\nAndrij Melnyk",
+    "expected": { "lp": [2, 2, 1], "kg": 1 },
+    "note": "Asks about breakfast but says nothing about parking, so point 3 is only half done."
+  },
+  {
+    "seedQuestionId": "s5-q6",
+    "category": "negation",
+    "persona": "student teacher, integration course Jena",
+    "text": "Hallo Frau Berg,\n\nich bin krank, ich habe Fieber und Halsschmerzen. Heute und morgen komme ich nicht in den Kurs. Am Freitag bin ich wieder da. Bitte keine Hausaufgaben schicken, ich habe kein Laptop und mein Handy hat kein Internet mehr. Ich mache alles am Freitag.\n\nLiebe Grüße\nAbdi",
+    "expected": { "lp": [2, 2, 0], "kg": 1 },
+    "note": "He explicitly asks for no homework by e-mail, which contradicts point 3; the reason and the duration are clear."
+  },
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "off_topic",
+    "persona": "student teacher, integration course Jena",
+    "text": "Sehr geehrte Damen und Herren,\n\nich habe gehört, Ihre Sprachschule „Aktiv“ in München sucht im August Mitarbeiter. Ich möchte bei Ihnen als Hausmeister oder Putzkraft arbeiten. Ich habe B-Führerschein und ich kann gut Deutsch sprechen. Wie viel Geld bekomme ich pro Stunde?\n\nMit freundlichen Grüßen\nYonas Habte",
+    "expected": { "lp": [0, 0, 0], "kg": 1 },
+    "note": "He reuses the school, August and München but applies for a job instead of asking about a course, so no point is met; the formal frame still fits a school."
+  },
+  {
+    "seedQuestionId": "s1-q6",
+    "category": "heavy_errors",
+    "persona": "student teacher, integration course Jena",
+    "text": "Halo Sprachschul Aktiv\n\nich wil in Agust deuch kurs machn in München bei sie. Ich habe zeit 4 woch, montag bis freitak. wi fil kost das kurs und wi kan ich anmelte? bite schreiben mier.\n\nGruss\nTesfay",
+    "expected": { "lp": [2, 2, 2], "kg": 1 },
+    "note": "Spelling is very weak, but the wish for a German course in August, four weeks, and questions about cost and registration are all understandable."
+  },
+  {
+    "seedQuestionId": "s7-q6",
+    "category": "frame_issue",
+    "persona": "student teacher, integration course Jena",
+    "text": "ich habe Ihre Anzeige gesehen für die 2-Zimmer-Wohnung in Köln-Ehrenfeld und ich bin sehr interessiert. Ich wohne mit meiner Schwester zusammen, wir sind 2 Personen. Ich mache eine Ausbildung als Friseurin und meine Schwester ist Verkäuferin im Supermarkt. Wann kann ich die Wohnung sehen? Ich kann nach 17 Uhr.\nDilan",
+    "expected": { "lp": [2, 2, 2], "kg": 0 },
+    "note": "All three points are fully covered, but there is no salutation and no closing formula, only her name."
+  },
+  {
+    "seedQuestionId": "s2-q6",
+    "category": "borderline",
+    "persona": "student teacher, integration course Jena",
+    "text": "Guten Tag,\n\nMontag 14 Uhr ich kann nicht kommen zu Dr. Schneider. Ich muss zum Jobcenter, das ist auch Termin und ist wichtig. Bitte geben Sie mir neuen Termin, wann ist gut für Sie.\n\nMit freundlichen Grüßen\nHasan Yildiz",
+    "expected": { "lp": [2, 2, 1], "kg": 1 },
+    "note": "He asks the practice to pick a new date instead of proposing one himself; examiners could argue for 1 or 2, and I gave 1 because the task asks for a proposal."
+  }
+]
