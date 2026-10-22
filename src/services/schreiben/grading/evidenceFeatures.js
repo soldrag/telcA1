@@ -11,9 +11,12 @@ import { cosineSimilarity } from './vectorMath.js';
 
 export const MISS_TYPES = Object.freeze(['refusal', 'opposite', 'past', 'vague', 'otherTopic']);
 
+// Every similarity enters as a margin: how much closer the sentence is to a fulfilling phrase than to the rival
+// phrase, so each weight has one meaning (a positive weight trusts the fulfilling side) and the features do not
+// repeat each other's information.
 export const FEATURE_NAMES = Object.freeze([
-  'fulfilTop1', 'fulfilTop3', ...MISS_TYPES.map((t) => `miss_${t}`), 'missMarginTop1',
-  'rivalTop1', 'rivalMargin', 'otherPurposeTop1', 'neutralTop1', 'lexical', 'structured', 'negated',
+  'fulfilTop1', 'fulfilTop3', ...MISS_TYPES.map((t) => `marginOver_${t}`),
+  'marginOverRival', 'marginOverOtherPurpose', 'marginOverNeutral', 'lexical', 'structured', 'negated',
 ]);
 
 function similarities(vec, bank = []) {
@@ -31,17 +34,15 @@ const topMean = (sims, k) => (sims.length ? sims.slice(0, k).reduce((s, x) => s 
  */
 export function computeEvidenceFeatures(sentenceVec, unit, context) {
   const fulfils = similarities(sentenceVec, unit.fulfils);
-  const missTop = MISS_TYPES.map((type) => top1(similarities(sentenceVec, unit.misses?.[type] || [])));
-  const rival = top1(similarities(sentenceVec, context.rivalFulfils));
+  const best = top1(fulfils);
+  const marginOver = (bank) => best - top1(similarities(sentenceVec, bank));
   return [
-    top1(fulfils),
+    best,
     topMean(fulfils, 3),
-    ...missTop,
-    top1(fulfils) - Math.max(...missTop),
-    rival,
-    top1(fulfils) - rival,
-    top1(similarities(sentenceVec, context.otherPurpose)),
-    top1(similarities(sentenceVec, context.neutral)),
+    ...MISS_TYPES.map((type) => marginOver(unit.misses?.[type] || [])),
+    marginOver(context.rivalFulfils),
+    marginOver(context.otherPurpose),
+    marginOver(context.neutral),
     context.lexical ?? 0,
     context.structured ?? 0,
     context.negated ? 1 : 0,

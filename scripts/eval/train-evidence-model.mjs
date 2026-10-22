@@ -116,6 +116,14 @@ async function featureRows(items) {
 }
 
 // --- logistic regression with L2, standardised features, balanced classes -------------------------------------------
+// Sign constraints from what the features mean: supporting evidence can only raise support, a closer refusal or
+// opposite act can only raise a contradiction. Without them correlated margins trade weights with odd signs.
+const SIGN = {
+  support: Object.fromEntries(FEATURE_NAMES.map((n) => [n, n === 'negated' ? -1 : 1])),
+  contradict: { marginOver_refusal: -1, marginOver_opposite: -1, negated: 1 },
+};
+const constrained = !process.argv.includes('--free');
+
 function trainHead(rows, target, { lambda = 1, epochs = 1500, rate = 0.1 } = {}) {
   const dim = FEATURE_NAMES.length;
   const mean = Array.from({ length: dim }, (_, i) => rows.reduce((s, r) => s + r.features[i], 0) / rows.length);
@@ -131,7 +139,11 @@ function trainHead(rows, target, { lambda = 1, epochs = 1500, rate = 0.1 } = {})
       r.features.forEach((v, i) => { grad[i] += err * ((v - mean[i]) / scale[i]); });
       gradBias += err;
     }
-    head.weights = head.weights.map((w, i) => w - rate * (grad[i] / rows.length + (lambda * w) / rows.length));
+    head.weights = head.weights.map((w, i) => {
+      const next = w - rate * (grad[i] / rows.length + (lambda * w) / rows.length);
+      const sign = constrained ? SIGN[target][FEATURE_NAMES[i]] : undefined;
+      return sign === 1 ? Math.max(0, next) : sign === -1 ? Math.min(0, next) : next;
+    });
     head.bias -= rate * (gradBias / rows.length);
   }
   return head;
@@ -146,12 +158,25 @@ function auc(scores, labels) {
 }
 const idx = (name) => FEATURE_NAMES.indexOf(name);
 const ruleSupport = (r) => r.features[idx('fulfilTop1')];
-const ruleContradict = (r) => -r.features[idx('missMarginTop1')];
+const ruleContradict = (r) => -Math.min(...MISS_TYPES.map((t) => r.features[idx(`marginOver_${t}`)]));
 
-function report(name, rows, scorer) {
+// Precision where half of the true cases are found: a false contradiction voids a point, so precision matters most.
+function precisionRecall(rows, score, target) {
+  const ranked = rows.map((r) => [score(r), r[target]]).sort((a, b) => b[0] - a[0]);
+  const positives = ranked.filter(([, y]) => y).length;
+  let found = 0;
+  for (let i = 0; i < ranked.length; i++) {
+    if (ranked[i][1]) found += 1;
+    if (found >= positives / 2) return `P@R0.5 ${(found / (i + 1)).toFixed(2)}`;
+  }
+  return 'P@R0.5 —';
+}
+
+function report(name, rows, scorer, { withPrecision = false } = {}) {
   const s = auc(rows.map((r) => scorer.support(r)), rows.map((r) => r.support));
   const c = auc(rows.map((r) => scorer.contradict(r)), rows.map((r) => r.contradict));
-  console.log(`${name.padEnd(44)} support AUC ${s.toFixed(3)}  contradiction AUC ${c.toFixed(3)}  (n=${rows.length})`);
+  const pr = withPrecision ? `  [support ${precisionRecall(rows, scorer.support, 'support')} · contradiction ${precisionRecall(rows, scorer.contradict, 'contradict')}]` : '';
+  console.log(`${name.padEnd(44)} support AUC ${s.toFixed(3)}  contradiction AUC ${c.toFixed(3)}  (n=${rows.length})${pr}`);
 }
 
 // --- data -----------------------------------------------------------------------------------------------------------
@@ -164,7 +189,7 @@ const adversarialRows = await featureRows(loadSentences('sentences-adversarial.j
 fs.mkdirSync(path.dirname(cacheFile), { recursive: true });
 fs.writeFileSync(cacheFile, JSON.stringify(cache));
 
-console.log(`Embedding: ${embeddingKind} · train ${trainItems.length} sentences (+ learner variants), ${trainRows.length} unit pairs · ${dropped.duplicates} near-duplicates of bank phrases left out`);
+console.log(`Embedding: ${embeddingKind} · ${constrained ? 'sign-constrained' : 'free'} weights · train ${trainItems.length} sentences (+ learner variants), ${trainRows.length} unit pairs · ${dropped.duplicates} near-duplicates of bank phrases left out`);
 const rule = { support: ruleSupport, contradict: ruleContradict };
 const cvScores = { support: [], contradict: [] };
 for (const task of Object.keys(banks)) {
@@ -184,10 +209,10 @@ const heads = { support: trainHead(trainRows, 'support'), contradict: trainHead(
 const model = { support: (r) => applyLogisticHead(r.features, heads.support), contradict: (r) => applyLogisticHead(r.features, heads.contradict) };
 console.log('\nHeld-out sentences (another writer):');
 report('nearest-example rule', heldoutRows, rule);
-report('logistic heads', heldoutRows, model);
+report('logistic heads', heldoutRows, model, { withPrecision: true });
 console.log('\nAdversarial sentences:');
 report('nearest-example rule', adversarialRows, rule);
-report('logistic heads', adversarialRows, model);
+report('logistic heads', adversarialRows, model, { withPrecision: true });
 console.log('\nWeights (standardised):');
 FEATURE_NAMES.forEach((name, i) => console.log(`  ${name.padEnd(18)} support ${heads.support.weights[i].toFixed(2).padStart(6)}  contradict ${heads.contradict.weights[i].toFixed(2).padStart(6)}`));
 

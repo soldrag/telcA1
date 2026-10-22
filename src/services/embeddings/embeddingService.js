@@ -46,9 +46,13 @@ export async function createSentenceEmbedder(options = {}) {
     AutoTokenizer.from_pretrained(EMBEDDING_MODEL_ID, { progress_callback: options.progress_callback }),
     AutoModel.from_pretrained(EMBEDDING_MODEL_ID, { dtype: EMBEDDING_DTYPE, ...options }),
   ]);
+  // Output tensors hold native (WebGPU/WASM/ONNX) memory: copy the vector and release them on every call.
   const extractor = async (prompt) => {
-    const { sentence_embedding: embedding } = await model(tokenizer([prompt], { padding: true, truncation: true }));
-    return { data: embedding.data };
+    const inputs = tokenizer([prompt], { padding: true, truncation: true });
+    const outputs = await model(inputs);
+    const data = Float32Array.from(outputs.sentence_embedding.data);
+    [...Object.values(outputs), ...Object.values(inputs)].forEach((tensor) => tensor?.dispose?.());
+    return { data };
   };
   extractor.dispose = () => model.dispose();
   return extractor;
