@@ -1,0 +1,1126 @@
+[
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe bei Ihnen einen Deutschkurs im August gebucht. Aber ich kann leider nicht kommen, meine Mutter in Marokko ist krank und ich fliege nach Hause. Ich möchte den Kurs stornieren. Bitte schicken Sie mir die Kursgebühren zurück, das waren 450 Euro. Meine Kontonummer schicke ich morgen.\nMit freundlichen Grüßen\nFatima Benali",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Cancels an already booked course and asks for a refund instead of asking to attend.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nim Juli habe ich bei Ihnen den Deutschkurs A1 gemacht, vier Wochen. Ich bin nicht zufrieden. Der Lehrer war oft zu spät und der Raum war sehr heiß. Wir hatten auch kein Buch. Die Kursgebühren waren sehr teuer. Ich möchte 100 Euro zurück.\nMit freundlichen Grüßen\nGrzegorz Nowak",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Complaint about a past course plus refund demand; no wish to attend in August.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Frau Weber,\nich habe mich für den Deutschkurs im August angemeldet und die Kursgebühren bezahlt. Aber ich habe das Geld zweimal überwiesen, am 2. Juli und am 5. Juli. Bitte schicken Sie mir 390 Euro zurück. Die Anmeldung ist schon fertig, ich komme am 4. August.\nViele Grüße\nJoão Pereira",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Registration is done; the letter only asks for a double payment back.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich heiße Olena Kovalenko, ich bin 34 Jahre alt und komme aus der Ukraine. Ich bin Lehrerin für Englisch und Deutsch. Ich möchte im August an Ihrer Sprachschule in München arbeiten. Haben Sie eine Stelle für mich? Wie viel verdient man? Ich schicke Ihnen meinen Lebenslauf.\nMit freundlichen Grüßen\nOlena Kovalenko",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Applies for a teaching job at the school instead of booking a course.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Liebe Frau Rossi,\nvielen Dank für Ihre Anmeldung. Ihr Deutschkurs beginnt am 4. August um 9 Uhr und dauert vier Wochen. Die Kursgebühren sind 380 Euro. Bitte bezahlen Sie bis zum 20. Juli. Bringen Sie am ersten Tag einen Stift und Ihren Pass mit. Wir freuen uns auf Sie!\nViele Grüße\nIhre Sprachschule Aktiv",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as the school confirming a student's registration, not as the learner.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Hallo,\nich bin Student in München und suche einen Job für den Sommer. Ich kann im August arbeiten, vier Wochen, vielleicht an der Rezeption in Ihrer Sprachschule. Ich spreche Spanisch, Englisch und ein bisschen Deutsch. Wann kann ich für ein Gespräch kommen?\nViele Grüße\nDiego Martínez",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Wants a summer job at the school reception, not a course.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich war gestern in Ihrer Sprachschule in München, im Raum 12, für einen Test. Ich habe meine Jacke vergessen. Sie ist blau und in der Tasche ist mein Schlüssel. Haben Sie die Jacke gefunden? Wann ist das Büro offen? Ich kann morgen kommen.\nViele Grüße\nAhmed Yilmaz",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Asks about a lost jacket at the school; no course request.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe letztes Jahr im August einen Deutschkurs bei Ihnen gemacht. Jetzt brauche ich das Zertifikat für meine Arbeit, aber ich finde es nicht. Können Sie mir bitte eine Kopie schicken? Was kostet das? Meine Adresse ist Lindenstraße 5, 80331 München.\nMit freundlichen Grüßen\nMaria Santos",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Requests a copy of an old certificate; different service at the same school.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Liebe Anna,\nwie geht es dir? Ich bin jetzt in München. Im August mache ich einen Deutschkurs an der Sprachschule Aktiv, vier Wochen. Die Kursgebühren sind hoch, aber die Schule ist gut. Kommst du mich besuchen? Wir können zusammen in den Englischen Garten gehen.\nLiebe Grüße\ndeine Svetlana",
+    "offTask": true,
+    "type": "personal",
+    "note": "Private letter to a friend inviting her; only mentions the course.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Liebe Mama, lieber Papa,\nich bin gut in München angekommen. Die Wohnung ist klein, aber schön. Ich habe eine Sprachschule gefunden, sie heißt „Aktiv“. Im August will ich dort Deutsch lernen. Könnt ihr mir bitte ein bisschen Geld für die Kursgebühren schicken? Ich vermisse euch!\nViele Küsse\neure Leyla",
+    "offTask": true,
+    "type": "personal",
+    "note": "Letter to parents asking for money; not addressed to the school.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe im August Zeit, vom 4. bis zum 29. August, also vier Wochen, immer am Vormittag. Wie viel kostet der Kurs A1 bei Ihnen? Und wie kann ich mich anmelden, online oder in der Schule? Brauche ich vorher einen Test?\nMit freundlichen Grüßen\nKenji Tanaka",
+    "offTask": false,
+    "type": "noReason",
+    "note": "No explicit 'I want a course' sentence, but dates plus fee and registration questions clearly do the task.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Hallo,\nfür August bitte, zwei Wochen ab dem 10. August. Ich habe nur am Abend Zeit, weil ich arbeite in einem Restaurant. Was kostet ein Abendkurs für zwei Wochen? Muss ich mich im Internet anmelden oder komme ich in die Schule?\nGruß\nPaulo Ferreira",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Skips the reason statement but asks for course time, cost and registration.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich möchte Deutschkurs machen. August, 3 Wochen. Preis? Anmeldung wie? Online? Bitte Antwort.\nDanke\nMehmet Kaya",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic but covers wish, time/duration, fees and registration.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Hallo Sprachschule Aktiv,\nDeutschkurs im August, bitte. Vom 1. bis 31. August, ein Monat, Anfänger. Was kostet das? Wie kann ich mich anmelden?\nGruß\nLinh Nguyen",
+    "offTask": false,
+    "type": "short",
+    "note": "Very short course request with time, cost and registration.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geerte Dame und Her,\nich binn Rahul und ich will machen Deutschkurs in ihre Schule in August. Ich habe zeit drei woche, von 5 August. Wie viel kostet die Kurs und wo ich muss anmelden? Ich habe nich viel Geld.\nMit freundliche Grüse\nRahul Sharma",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Many A1 errors, but asks for the course, gives time and asks fee and registration.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s1-q6",
+    "text": "Sehr geehrte Damen und Herren,\nmein Mann und ich kommen im August nach München. Wir bleiben vier Wochen, vom 3. bis 31. August, und wir sprechen noch nicht gut Deutsch. Was kostet ein Kurs bei Ihnen für zwei Personen? Und wie können wir uns anmelden?\nMit freundlichen Grüßen\nAna Lima",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Never says 'I want to attend' but the course wish is clear from context and questions.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe am Montag um 14:00 Uhr einen Termin bei Dr. Schneider. Ich möchte den Termin bestätigen, ich komme pünktlich. Muss ich meine Versichertenkarte mitbringen? Und brauche ich eine Überweisung von meinem Hausarzt? Bitte schreiben Sie mir kurz.\nMit freundlichen Grüßen\nJana Horváth",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Confirms the appointment instead of cancelling it.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nam Montag hatte ich um 14 Uhr einen Termin in Ihrer Praxis. Ich habe zwei Stunden gewartet! Ich konnte nicht pünktlich zu meiner Arbeit kommen und mein Chef war böse. Die Frau an der Rezeption war auch unfreundlich. Bitte machen Sie das besser.\nMit freundlichen Grüßen\nThomas Becker",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Complains about a past visit's waiting time; nothing is cancelled.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich möchte bitte einen Termin bei Dr. Schneider. Ich habe seit drei Tagen starke Kopfschmerzen und Fieber. Haben Sie am Montag um 14 Uhr Zeit? Am Montag habe ich frei und ich kann sicher kommen. Bitte rufen Sie mich an.\nViele Grüße\nAyşe Demir",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Books a new appointment instead of cancelling one.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrter Herr Okafor,\nleider kann Dr. Schneider am Montag nicht arbeiten, er ist krank. Ihr Termin um 14:00 Uhr fällt aus. Wir haben einen neuen Termin für Sie: Mittwoch um 10 Uhr. Bitte rufen Sie uns an, wenn Sie dann nicht kommen können.\nMit freundlichen Grüßen\nIhr Praxisteam Dr. Schneider",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as the practice cancelling the patient's appointment; roles reversed.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrter Herr Dr. Schneider,\nich bin Krankenschwester aus den Philippinen und wohne jetzt in Köln. Ich suche Arbeit in einer Praxis. Am Montag um 14:00 Uhr kann ich gern zu einem Gespräch kommen. Haben Sie eine Stelle frei? Ich spreche Englisch und ein bisschen Deutsch.\nMit freundlichen Grüßen\nMaricel Reyes",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Job application to the practice, not a cancellation.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich war letzte Woche bei Dr. Schneider. Meine Tabletten für den Blutdruck sind bald leer. Können Sie mir bitte ein neues Rezept schreiben? Ich kann das Rezept am Montag um 14 Uhr abholen. Geht das? Ich warte auf Ihre Antwort.\nVielen Dank\nIgor Petrov",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Asks for a prescription renewal at the practice; no cancellation.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich war am Montag um 14:00 Uhr bei Dr. Schneider. Mein Chef braucht eine Krankmeldung, aber ich habe keine bekommen. Können Sie mir die Bescheinigung bitte per Post schicken? Meine Adresse ist Bahnhofstraße 12, 50667 Köln.\nDanke und viele Grüße\nKarim Haddad",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Requests a sick note for a past appointment.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Liebes Praxisteam,\nam Montag war ich um 14 Uhr bei Ihnen und Dr. Schneider hat Blut abgenommen. Sind meine Blutwerte schon da? Ich kann nicht in die Praxis kommen, ich arbeite jeden Tag bis 18 Uhr. Können Sie mir das Ergebnis bitte per E-Mail schicken?\nViele Grüße\nLaura Kowalczyk",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Asks for test results; 'nicht kommen' refers to visiting, not cancelling.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Liebe Sabine,\nam Montag um 14:00 Uhr habe ich einen Termin bei Dr. Schneider. Kannst du bitte meine Kinder von der Schule abholen? Ich kann nicht kommen, der Termin ist sehr wichtig. Danach koche ich für uns alle. Vielen Dank!\nLiebe Grüße\ndeine Mariana",
+    "offTask": true,
+    "type": "personal",
+    "note": "Asks a friend for childcare; the appointment is kept, not cancelled.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Hallo Ali,\nwie geht's? Ich war heute bei Dr. Schneider. Mein Bein ist nicht gebrochen, nur verstaucht. Der nächste Termin ist am Montag um 14 Uhr. Ich kann eine Woche nicht zum Fußball kommen. Kommst du am Wochenende zu mir? Wir können Filme sehen.\nBis bald\nOmar",
+    "offTask": true,
+    "type": "personal",
+    "note": "Private message to a brother about an injury; nothing is cancelled.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nmein Sohn hat seit gestern hohes Fieber und ich muss am Montag mit ihm zu Hause bleiben. Ich habe niemand für ihn. Haben Sie am Donnerstag oder Freitag einen anderen Termin frei? Vormittags ist gut für mich.\nMit freundlichen Grüßen\nNadia Rahimi",
+    "offTask": false,
+    "type": "noReason",
+    "note": "No explicit 'I cancel' sentence, but explains absence and asks for a new appointment.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Liebes Praxisteam,\nich muss am Montag leider arbeiten, mein Kollege ist im Urlaub und ich bekomme keinen freien Tag. Geht es vielleicht am Dienstag um 16 Uhr? Oder am Mittwoch nach 15 Uhr? Danke für Ihr Verständnis.\nViele Grüße\nPiotr Wiśniewski",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Skips the cancel statement but gives reason and proposes new times.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nTermin Montag 14 Uhr: ich kann nicht kommen. Ich bin krank. Neuer Termin Mittwoch? Danke.\nGruß\nAbdi Hassan",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic cancellation with reason and new date.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Hallo,\nich sage meinen Termin am Montag ab. Grund: Arbeit. Neuer Termin bitte nächste Woche, Dienstag oder Freitag.\nMfG\nElena Popescu",
+    "offTask": false,
+    "type": "short",
+    "note": "Very short but cancels, explains and proposes.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Hallo Praxis Dr Schneider,\nich habe Termin Montag 14 uhr aber ich nicht kann komen. Mein Auto ist kaputt und ich wohnen weit. Ich bitte um neu Termin, vileicht Dienstag oder Mitwoch nach Mittag. Entschuldigun.\nViele Grusse\nTran Van Minh",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Heavy errors, but cancels, gives reason and asks for a new date.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s2-q6",
+    "text": "Sehr geehrte Damen und Herren,\nam Montag bin ich leider mit meiner Firma in Hamburg, die Reise ist schon lange geplant. Für Dr. Schneider passt mir der nächste Freitag um 9 Uhr sehr gut. Ist das möglich?\nMit freundlichen Grüßen\nGiulia Conti",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Cancellation only implied by being away Monday and offering another date.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nvielen Dank! Der Handwerker war gestern da und hat die Heizung repariert. Jetzt funktioniert alles wieder und die Wohnung ist schön warm. Der Mann war sehr nett und schnell. Es gibt kein Problem mehr. Schönes Wochenende!\nMit freundlichen Grüßen\nSilvia Moreno",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Thanks the landlord for a finished repair; nothing is reported.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nim Januar war die Heizung drei Wochen kaputt. Es war sehr kalt und ich habe einen Heizlüfter gekauft, er hat 60 Euro gekostet. Jetzt geht die Heizung wieder gut. Bitte bezahlen Sie mir die 60 Euro zurück, oder ich zahle im März weniger Miete.\nMit freundlichen Grüßen\nDmitri Volkov",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Asks for money back for a past, already fixed outage.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nder Handwerker für die Heizung kommt am Freitag um 10 Uhr. Aber ich habe am Freitag keine Zeit, ich muss arbeiten. Bitte sagen Sie den Termin ab. Die Heizung geht jetzt wieder, mein Nachbar hat mir geholfen.\nViele Grüße\nAmina Diallo",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Cancels the repair because the heating works again.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Liebe Mieterinnen und Mieter,\nam Dienstag ist die Heizung im ganzen Haus von 8 bis 12 Uhr aus. Ein Handwerker kommt und macht eine Kontrolle. Bitte machen Sie die Fenster zu. Es wird nur kurz kalt. Bei Problemen rufen Sie mich bitte an.\nMit freundlichen Grüßen\nKlaus Meier",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as the landlord announcing maintenance to tenants.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nich bin Heizungsmonteur und habe eine kleine Firma hier in Leipzig. Ich repariere Heizungen schnell und billig. Brauchen Sie einen Handwerker für Ihre Häuser? Ich kann jeden Tag kommen, auch am Samstag. Rufen Sie mich an: 0171 4455667.\nMit freundlichen Grüßen\nBogdan Ionescu",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Writer is a tradesman advertising services to the landlord.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nich habe Ihre Anzeige gelesen und möchte Ihre Wohnung mieten. Hat die Wohnung eine gute Heizung? Im Winter ist es hier sehr kalt. Wann kann ich die Wohnung sehen? Ich bin 52 Jahre alt und arbeite als Busfahrer.\nMit freundlichen Grüßen\nKwame Mensah",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Writer is a prospective tenant, not a tenant with a broken heater.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nich wohne in Ihrer Wohnung in der Gartenstraße 8, im zweiten Stock. Ich möchte gern eine Katze haben. Sie ist klein und sehr ruhig. Im Winter ist es draußen kalt, die Katze bleibt immer in der Wohnung. Ist das für Sie okay?\nViele Grüße\nMaja Petrović",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Asks permission for a pet; no heating problem.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nich habe meinen Schlüssel für die Wohnung verloren. Es ist sehr kalt draußen und ich bin jetzt bei meiner Freundin. Haben Sie einen zweiten Schlüssel? Oder brauche ich einen Handwerker für ein neues Schloss? Wer bezahlt das?\nMit freundlichen Grüßen\nLuis Hernández",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Lost key request to the landlord; reuses 'kalt' and 'Handwerker' only.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Liebe Julia,\nbei mir ist die Heizung kaputt und es ist so kalt! Mein Vermieter, Herr Meier, schickt vielleicht morgen einen Handwerker. Darf ich heute bei dir schlafen? Ich bringe Pizza und Wein mit. Bitte schreib mir schnell!\nLiebe Grüße\ndeine Chiara",
+    "offTask": true,
+    "type": "personal",
+    "note": "Asks a friend for a place to sleep; not addressed to the landlord.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Lieber Jonas,\nwie geht es dir in Berlin? Hier ist alles gut. Nur die Heizung in meiner Wohnung funktioniert nicht so gut, aber Herr Meier repariert sie bald. Ich trage zwei Pullover. Kommst du an Weihnachten nach Hause? Ich koche Gulasch für dich.\nDeine Mama Erzsébet",
+    "offTask": true,
+    "type": "personal",
+    "note": "Mother's letter to her son that only mentions the heating.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nseit Samstag sind es in meiner Wohnung nur 14 Grad, die Heizkörper bleiben kalt, auch im Bad. Meine Kinder sind schon erkältet. Können Sie bitte schnell einen Handwerker schicken? Ich bin jeden Tag ab 15 Uhr zu Hause.\nMit freundlichen Grüßen\nSamira Haidari",
+    "offTask": false,
+    "type": "noReason",
+    "note": "No framing sentence, but describes the defect and asks for a repair.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Hallo Herr Meier,\nim Wohnzimmer und im Schlafzimmer sind die Heizkörper ganz kalt, nur in der Küche ist es ein bisschen warm. Wann kann ein Handwerker kommen? Am Montag und Dienstag bin ich den ganzen Tag da.\nViele Grüße\nWei Zhang",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Skips the reason line, reports cold radiators and arranges a repair.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nHeizung kaputt. Seit gestern kalt, nur 12 Grad. Bitte schnell Handwerker schicken. Ich bin immer ab 17 Uhr zu Hause.\nGruß\nYusuf Arslan",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic defect report with repair request.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Hallo Herr Meier,\nmeine Heizung geht nicht. Wohnung sehr kalt. Handwerker – wann? Morgen Vormittag ist ok.\nDanke\nKatarzyna Zielińska",
+    "offTask": false,
+    "type": "short",
+    "note": "Very short but reports the defect and asks for a repair time.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Hallo Her Meier,\ndie Heizung in mein Wohnung is kaputt seit zwei Tag. Es ist sehr kald, mein Baby ist krank. Bitte sie schiken ein Handwerker, ich bin zu Hause jede Tag nach 4 Uhr. Danke schön.\nViele Grüse\nFarah Ahmadi",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Many errors, but reports broken heating and asks for a tradesman.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s3-q6",
+    "text": "Sehr geehrter Herr Meier,\nwir sitzen schon seit Tagen mit Jacke im Wohnzimmer, und unter der Dusche gibt es auch kein warmes Wasser mehr. Mein Mann ist am Mittwoch und Donnerstag zu Hause, dann kann jemand kommen und schauen. Danke!\nMit freundlichen Grüßen\nRosa Gómez",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Never names the heating, but the cold flat and repair visit are clearly implied.",
+    "examiner2": {
+      "offTask": false,
+      "doubt": "heating not named; cold/no warm water implied"
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nwir haben Ihre Ferienwohnung „Meeresbrise“ für Juli gebucht, vom 5. bis 19. Juli. Leider ist mein Mann krank und wir können nicht an die Ostsee fahren. Ich möchte die Buchung stornieren. Bekommen wir die Anzahlung zurück?\nMit freundlichen Grüßen\nIrina Sokolova",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Cancels an existing booking instead of asking to rent.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Sehr geehrte Frau Hansen,\nwir waren im August zwei Wochen in Ihrer Ferienwohnung an der Ostsee. Die Wohnung war leider nicht sauber und die Dusche war kaputt. Unser Hund durfte nicht in den Garten. Der Preis war zu hoch. Ich möchte 150 Euro zurück.\nMit freundlichen Grüßen\nMarco Bianchi",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Complaint after a past stay with refund demand.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nvielen Dank für den schönen Urlaub in der Ferienwohnung „Meeresbrise“! Meine Familie und ich hatten zwei tolle Wochen an der Ostsee. Die Kinder waren jeden Tag am Strand. Auch unser Hund war sehr glücklich. Wir empfehlen Ihre Wohnung allen Freunden.\nHerzliche Grüße\nFamilie Okonkwo",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Thank-you note after the holiday; no booking request.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nich habe auch eine Ferienwohnung an der Ostsee und möchte sie im Sommer vermieten. Die Wohnung hat zwei Zimmer und einen Balkon. Der Preis ist 90 Euro pro Nacht. Haustiere sind erlaubt. Können Sie meine Wohnung auch auf Ihrer Internetseite zeigen?\nMit freundlichen Grüßen\nHelmut Krause",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Writer is an owner who wants to let ('vermieten') his own flat.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Sehr geehrte Frau Hansen,\nich heiße Lucía und bin 19 Jahre alt. Im Sommer habe ich Ferien. Ich möchte bei Ihnen in der Ferienwohnung „Meeresbrise“ arbeiten, zum Beispiel putzen oder im Garten helfen. Ich mag Tiere und Kinder. Wie viel bezahlen Sie pro Stunde?\nViele Grüße\nLucía Fernández",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Wants a summer job at the holiday flat.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Familie Schulz,\nvielen Dank für Ihre Anfrage. Die Ferienwohnung ist vom 1. bis 14. August frei. Sie kostet 85 Euro pro Nacht für vier Personen. Ihr Hund ist herzlich willkommen, das kostet 10 Euro pro Tag extra. Ich freue mich auf Sie!\nViele Grüße\nInge Hansen",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as Frau Hansen answering a guest; roles reversed.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nwir waren letzte Woche in Ihrer Ferienwohnung „Meeresbrise“. Mein Sohn hat sein Kuscheltier vergessen, einen kleinen braunen Hund. Er weint jeden Abend. Können Sie es bitte mit der Post schicken? Ich bezahle das Porto natürlich.\nViele Grüße\nAnnika Lindqvist",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Asks for a forgotten toy to be sent; no booking.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nwir kommen am Samstag in Ihre Ferienwohnung, die Buchung ist schon fertig und bezahlt. Ich habe nur eine Frage: Kann man bei Ihnen Fahrräder leihen? Wir sind vier Personen. Und wo gibt es ein gutes Fischrestaurant an der Ostsee?\nViele Grüße\nJan de Vries",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Booking is already done; asks about bike rental and restaurants.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Swetlana,\nim Sommer fahren wir an die Ostsee! Ich habe eine Ferienwohnung gefunden, sie heißt „Meeresbrise“. Die Vermieterin ist Frau Hansen. Kommst du mit deinen Kindern auch mit? Der Preis ist gut und Haustiere sind erlaubt, du kannst deinen Hund mitbringen.\nKüsse\ndeine Natalia",
+    "offTask": true,
+    "type": "personal",
+    "note": "Letter to a sister inviting her along; not to the landlady.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Hallo Tom,\nwir machen im Sommer Urlaub an der Ostsee, zwei Wochen in einer Ferienwohnung. Leider sind Haustiere dort nicht erlaubt. Kannst du in der Zeit unsere Katze Mimi nehmen? Sie ist ganz lieb und frisst nicht viel.\nViele Grüße\nBabajide",
+    "offTask": true,
+    "type": "personal",
+    "note": "Asks a friend to look after the cat during the holiday.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nwir sind zwei Erwachsene und drei Kinder und haben vom 20. Juli bis 3. August Zeit. Ist die „Meeresbrise“ in dieser Zeit frei? Wie viel kostet sie pro Woche? Wir haben auch einen kleinen Hund. Ist das erlaubt?\nMit freundlichen Grüßen\nFamilie Nkemelu",
+    "offTask": false,
+    "type": "noReason",
+    "note": "No 'we want to rent' sentence, but persons, dates, price and pet are asked.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Sehr geehrte Frau Hansen,\nmeine Frau, unsere zwei Töchter und ich, also vier Personen, zehn Tage im August, ab dem 8. August. Was kostet das zusammen? Dürfen wir unsere Katze mitbringen? Sie ist schon alt und sehr ruhig.\nMit freundlichen Grüßen\nRavi Patel",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Skips the reason but gives people, period, price and pet question.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nFerienwohnung im Juli mieten? 4 Personen, 1 Woche. Preis? Hund erlaubt?\nGrüße\nOksana Bondarenko",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic booking request covering all points.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Hallo Frau Hansen,\nich möchte Ihre Ferienwohnung buchen. Wir sind 3 Personen, 12.–19. August. Was kostet eine Nacht? Wir haben einen Hund. Geht das?\nGruß\nMiguel Torres",
+    "offTask": false,
+    "type": "short",
+    "note": "Short booking request with people, dates, price and pet.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Hallo Frau Hanzen,\nich und meine Familie wir wollen in Sommer Urlaub machen an Ostsee. Ich möchte ihre Ferienwohnung miten. Wir sind fünf Person, zwei Woche in Juli. Was kostet? Wir haben ein Hund, ist das ok?\nViele Grüse\nHasan Çelik",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Many errors, but wants to rent and covers all points.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s4-q6",
+    "text": "Liebe Frau Hansen,\nwir kommen gern mit unseren zwei Kindern und unserem Hund Bello zu Ihnen, vom 15. bis 29. Juli. Ist das bei Ihnen möglich? Und was müssen wir für die zwei Wochen bezahlen?\nViele Grüße\nSophie Dubois",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Booking wish only implied by 'wir kommen ... ist das möglich'.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Frau Berg,\nich bin wieder gesund und komme morgen sicher zum Deutschkurs. Ich habe die Hausaufgaben schon gemacht. Ich schicke Ihnen die Übungen heute per E-Mail. Ist das okay? Ich freue mich auf den Unterricht. Bis morgen im Kurs!\nViele Grüße\nAhmet Yilmaz",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Announces return to class and sends homework; not an absence notice, no request for homework.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Sehr geehrte Frau Berg,\nich bin nicht zufrieden mit dem Deutschkurs. Es gibt jeden Tag zu viele Hausaufgaben. Ich arbeite heute und morgen lange im Restaurant und habe keine Zeit. Bitte geben Sie weniger Hausaufgaben. Die Klasse ist auch sehr laut.\nMit freundlichen Grüßen\nLuis Fernández",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Complaint about too much homework; writer is not absent or ill.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Sehr geehrte Frau Berg,\nich war im Mai drei Wochen krank und konnte nicht zum Deutschkurs kommen. Ich habe 300 Euro für den Kurs bezahlt. Ich möchte bitte mein Geld zurück. Bitte schicken Sie mir das Formular per E-Mail. Meine Kontonummer schreibe ich dann.\nMit freundlichen Grüßen\nOksana Kovalenko",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Past illness only as background; purpose is a refund, not excusing current absence.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Kursteilnehmer,\nich bin leider krank. Der Deutschkurs fällt heute und morgen aus. Ich schicke Ihnen die Hausaufgaben per E-Mail. Bitte machen Sie Übung 3 und 4 im Buch. Am Montag sehen wir uns wieder im Kurs.\nViele Grüße\nIhre Petra Berg",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as the teacher cancelling class to students; the learner's absence is not reported.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Sehr geehrte Frau Berg,\nich heiße Marta und bin Deutschlehrerin aus Polen. Ich möchte gern in Ihrer Sprachschule arbeiten. Ich kann am Montag oder Dienstag zu einem Gespräch kommen. Ich schicke Ihnen meinen Lebenslauf per E-Mail. Haben Sie diese Woche Zeit?\nMit freundlichen Grüßen\nMarta Nowak",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Job application to the school; writer is not a sick course participant.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Frau Berg,\nwann ist die Prüfung telc A1? Ich möchte die Prüfung im Dezember machen. Wie viel kostet sie? Und gibt es Übungen für die Prüfung? Bitte schicken Sie mir die Informationen per E-Mail. Vielen Dank für Ihre Hilfe!\nViele Grüße\nKwame Mensah",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Asks about exam date and practice material; no absence, no illness.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Sehr geehrte Frau Berg,\nich brauche eine Teilnahmebestätigung für das Jobcenter. Ich bin seit März in Ihrem Deutschkurs und komme jeden Tag. Können Sie mir die Bestätigung bis morgen per E-Mail schicken? Das ist sehr wichtig für mich.\nMit freundlichen Grüßen\nDragan Petrović",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Requests an attendance certificate; explicitly attends every day, not absent.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Frau Berg,\nich habe eine neue Arbeit im Krankenhaus. Ich arbeite jetzt am Vormittag. Kann ich in den Abendkurs wechseln? Ab Montag habe ich am Morgen keine Zeit mehr. Bitte schreiben Sie mir eine E-Mail. Vielen Dank!\nViele Grüße\nNguyen Thi Lan",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Wants to switch to the evening course because of a new job ('Krankenhaus' is not illness).",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Sofia,\nwie geht es dir? Mein Deutschkurs ist super. Unsere Lehrerin, Frau Berg, ist sehr nett. Wir haben viele Hausaufgaben, aber das ist okay. Am Samstag mache ich eine Party. Kommst du auch? Schreib mir bitte eine E-Mail!\nLiebe Grüße\nElena",
+    "offTask": true,
+    "type": "personal",
+    "note": "Private letter to a friend: party invitation that only mentions the course and teacher.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Lieber Papa,\nich bin jetzt zwei Monate in Hamburg. Ich gehe jeden Tag in den Deutschkurs. Meine Lehrerin heißt Frau Berg. Morgen schreiben wir einen Test, heute lerne ich viel. Bitte schick mir ein Foto von Mama per E-Mail.\nDein Ravi",
+    "offTask": true,
+    "type": "personal",
+    "note": "Letter to father about life in Hamburg; no absence, addressed to family.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Sehr geehrte Frau Berg,\nich kann heute und morgen leider nicht in den Deutschkurs kommen. Am Freitag bin ich wieder da. Können Sie mir bitte die Hausaufgaben per E-Mail schicken? Dann kann ich zu Hause lernen. Vielen Dank!\nMit freundlichen Grüßen\nGiorgos Papadopoulos",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Absence notice with duration and homework request; only the illness reason is missing.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Frau Berg,\ndiese Woche fehle ich am Dienstag und am Mittwoch im Kurs. Am Donnerstag komme ich wieder. Bitte schicken Sie mir die Hausaufgaben und die Übungen per E-Mail. Meine Adresse ist hanna.k@mail.de. Danke schön!\nViele Grüße\nHanna Kowalski",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Reports two days of absence and asks for homework; never says why (no illness).",
+    "examiner2": {
+      "offTask": false,
+      "doubt": "absence not explained as illness"
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Frau Berg,\nbin krank. Heute und morgen kein Kurs für mich. Bitte Hausaufgaben per E-Mail schicken. Danke!\nGruß\nTomasz",
+    "offTask": false,
+    "type": "short",
+    "note": "Very short but covers illness, duration and homework request.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Hallo Frau Berg,\nich krank, Fieber. Heute nicht kommen, morgen auch nicht. Montag wieder da. Hausaufgaben bitte per Mail. Vielen Dank.\nMit freundlichen Grüßen\nAbdullah Rahimi",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic style, but all three points present.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Libe Frau Berg,\nich binn krank, ich habe Fiber und Kopfschmertzen. Heute und morgen ich kann nicht komen zu Deutschkurs. Vielleicht ich komme Montag wieder. Können Sie schiken mir die Hausaufgabe mit E-Mail bitte? Danke schön.\nViele Grüse\nYusuf Demir",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Many spelling and word-order errors, but a complete sick note with homework request.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s5-q6",
+    "text": "Liebe Frau Berg,\nich liege seit gestern mit Grippe im Bett. Der Arzt sagt: zwei Tage zu Hause bleiben. Am Freitag bin ich wieder in der Klasse. Die Hausaufgaben vielleicht per E-Mail? Das wäre sehr nett.\nViele Grüße\nIngrid Larsen",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Absence only implied via illness and return day; homework request as a fragment.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe ein Doppelzimmer vom 3. bis 10. August reserviert. Leider ist mein Mann krank, wir können nicht kommen. Bitte stornieren Sie die Reservierung. Bekomme ich mein Geld zurück? Frühstück und Parkplatz habe ich schon bezahlt.\nMit freundlichen Grüßen\nAnnette Vogel",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Cancels an existing booking and asks for a refund instead of booking.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich war letztes Jahr im August eine Woche in Ihrem Hotel. Das Zimmer war schmutzig und das Frühstück war kalt. Der Parkplatz hat 15 Euro pro Tag gekostet. Das ist zu teuer. Ich möchte bitte 100 Euro zurück.\nMit freundlichen Grüßen\nMichael Brandt",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Complaint about a past stay with a refund demand; no new reservation.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe Ihre Anzeige gesehen und möchte im August im Hotel Alpenblick arbeiten. Ich bin Koch und kann gut Frühstück machen. Ich habe ein Auto. Gibt es einen Parkplatz für Mitarbeiter? Ich kann vom 1. August bis Ende September bleiben.\nMit freundlichen Grüßen\nCarlos Mendes",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Job application as a cook; dates and breakfast/parking refer to work, not a stay.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrter Herr Okafor,\nvielen Dank für Ihre Reservierung. Ihr Einzelzimmer ist vom 12. bis 19. August frei. Das Frühstück ist inklusive. Ein Parkplatz kostet 8 Euro pro Tag. Wir freuen uns auf Ihren Besuch in Garmisch.\nMit freundlichen Grüßen\nIhr Hotel Alpenblick",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as the hotel confirming a guest's booking; writer is not the guest.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich habe eine Bäckerei in Garmisch. Ich möchte Ihrem Hotel im August jeden Morgen frische Brötchen für das Frühstück bringen. Ich komme mit dem Auto. Wo kann ich parken? Haben Sie diese Woche Zeit für ein Gespräch?\nMit freundlichen Grüßen\nFatma Arslan",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Local baker offering supplies to the hotel; no room for a holiday.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich war vom 2. bis 9. August in Ihrem Hotel, Zimmer 14. Ich habe meine blaue Jacke im Zimmer vergessen. Haben Sie die Jacke gefunden? Können Sie sie bitte nach Hause schicken? Ich bezahle das Porto gern.\nMit freundlichen Grüßen\nSvetlana Ivanova",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Lost-property request after a past stay; no booking.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich wohne in Garmisch. Am 15. August hat meine Mutter Geburtstag. Ich möchte im Restaurant vom Hotel Alpenblick einen Tisch für acht Personen um 19 Uhr reservieren. Gibt es auch einen Parkplatz für unsere Autos?\nViele Grüße\nPriya Sharma",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Reserves a restaurant table for a dinner, not a room for a holiday.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Liebe Julia,\nim August mache ich Urlaub in den Bergen! Ich fahre mit meinem Auto nach Garmisch. Das Hotel Alpenblick ist sehr schön, das Frühstück dort ist super. Ich bleibe zwei Wochen. Kommst du auch mit? Schreib mir bald!\nLiebe Grüße\nMarco",
+    "offTask": true,
+    "type": "personal",
+    "note": "Letter to a friend about holiday plans; nothing is booked or asked of the hotel.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Liebe Aylin,\nwie geht's? Ich bin jetzt im Hotel Alpenblick in Garmisch. Mein Zimmer ist klein, aber schön. Jeden Morgen gibt es ein großes Frühstück. Das Wetter im August ist warm. Morgen wandern wir in den Bergen. Bis bald!\nDeine Zeynep",
+    "offTask": true,
+    "type": "personal",
+    "note": "Holiday greeting to a sister written from the hotel; no reservation.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Liebe Oma, lieber Opa,\nim August habe ich drei Wochen Urlaub. Ich möchte euch in Garmisch besuchen. Kann ich bei euch schlafen? Ein Hotel ist zu teuer für mich. Ich komme mit dem Auto. Gibt es bei euch einen Parkplatz?\nViele Grüße\nEuer Jonas",
+    "offTask": true,
+    "type": "personal",
+    "note": "Asks grandparents for a place to stay; explicitly rejects a hotel.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nwir sind zwei Personen und kommen am 4. August an. Wir bleiben eine Woche, bis zum 11. August. Ist das Frühstück im Preis inklusive? Und gibt es einen Parkplatz für unser Auto? Was kostet das?\nMit freundlichen Grüßen\nRobert und Anna Klein",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Booking inquiry with dates, breakfast and parking; the wish to reserve is never stated.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Guten Tag,\nich bin Lehrerin und habe im August Ferien. Ich komme am 15. August und bleibe sieben Tage. Gibt es Frühstück in Ihrem Hotel? Und kann ich mein Auto bei Ihnen parken? Bitte schreiben Sie mir auch den Preis.\nFreundliche Grüße\nHelga Schulze",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Covers stay dates, breakfast and parking; no explicit 'I want to book a room'.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Hallo,\nZimmer für 2 Personen, 10. bis 17. August. Mit Frühstück? Parkplatz? Danke.\nGruß\nPiotr Zieliński",
+    "offTask": false,
+    "type": "short",
+    "note": "Very short but asks for a room with dates, breakfast and parking.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nich möchte ein Einzelzimmer reservieren. August, eine Woche, 1. bis 8. Frühstück ja. Parkplatz auch, komme mit Auto. Was kostet das?\nMfG\nSamir Haddad",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic booking request covering all three points.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehte Damen und Heren,\nich mochte ein Zimer reserviren für Urlaub in Bergen. Ich komme in August, vom zehnte bis siebsehnte, sieben Tag. Ist Frühstuck dabei? Ich habe ein Auto, gibt es Parkplats bei Hotel? Danke für Antwort.\nMit freundliche Grüsse\nAdebayo Okafor",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Heavy spelling and case errors, but a full room reservation request.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s6-q6",
+    "text": "Sehr geehrte Damen und Herren,\nmeine Frau und ich möchten im August die Berge sehen. Am 8. August kommen wir in Garmisch an und fahren am 15. wieder nach Hause. Haben Sie Platz für uns? Wir essen morgens gern im Hotel und kommen mit dem Auto. Geht das?\nViele Grüße\nGerhard Wolf",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Booking only implied ('Platz für uns'); breakfast and parking paraphrased.",
+    "examiner2": {
+      "offTask": false,
+      "doubt": "no explicit booking request, implied"
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige für die 2-Zimmer-Wohnung in Köln gesehen. Wir haben am Samstag einen Termin für die Besichtigung. Leider habe ich jetzt eine andere Wohnung gefunden. Ich komme nicht. Vielen Dank für Ihre Zeit.\nMit freundlichen Grüßen\nLena Hoffmann",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Cancels the viewing because another flat was found; no longer interested.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich wohne seit drei Jahren in Ihrer 2-Zimmer-Wohnung in Köln. Ich habe eine neue Arbeit in München und ziehe mit meiner Frau und meinem Kind um. Ich kündige die Wohnung zum 31. Mai. Wann kann ich Ihnen die Schlüssel geben?\nMit freundlichen Grüßen\nStefan Becker",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Current tenant giving notice; the opposite of wanting to rent.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich bin im März aus Ihrer Wohnung ausgezogen. Die Wohnung war sauber. Aber ich habe meine Kaution noch nicht zurück. Das sind 1200 Euro. Ich arbeite als Krankenschwester und brauche das Geld. Bitte überweisen Sie es bald.\nMit freundlichen Grüßen\nMaria Santos",
+    "offTask": true,
+    "type": "flippedAct",
+    "note": "Former tenant asking for the deposit back; job mention is incidental.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Liebe Interessenten,\nich vermiete eine schöne 2-Zimmer-Wohnung in Köln. Sie hat 55 Quadratmeter und einen Balkon. Die Miete ist 750 Euro. Die Besichtigung ist am Samstag um 11 Uhr. Bitte schreiben Sie mir: Wie viele Personen sind Sie und was ist Ihr Beruf?\nViele Grüße\nGabriele Neumann",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Written as the landlady advertising the flat (vermieten), not as a flat seeker.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich habe Ihre Anzeige gesehen. Ich bin Maler von Beruf und arbeite seit zehn Jahren in Köln. Ich kann die Wohnung vor dem Einzug renovieren. Wann kann ich die Wohnung sehen? Dann schreibe ich Ihnen einen Preis.\nMit freundlichen Grüßen\nIvan Horvat",
+    "offTask": true,
+    "type": "misreadRole",
+    "note": "Painter offering renovation work; wants to see the flat to quote, not to rent it.",
+    "examiner2": {
+      "offTask": true,
+      "doubt": "wants viewing but as painter offering renovation, not tenant"
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nin Ihrer Anzeige steht auch eine Garage. Ich wohne schon hier in der Nähe und brauche nur die Garage für mein Auto. Was kostet sie im Monat? Ab wann ist sie frei? Ich arbeite als Taxifahrer und fahre jeden Tag.\nMit freundlichen Grüßen\nHassan Ali",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Wants to rent only the garage; explicitly not the flat.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich wohne in Ihrer 2-Zimmer-Wohnung im zweiten Stock. Die Heizung in der Küche ist kaputt und es ist sehr kalt. Mein Mann und meine Kinder sind krank. Wann kann ein Handwerker kommen? Bitte rufen Sie mich an.\nViele Grüße\nAnastasia Popescu",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Existing tenant reporting a broken heater; repair request, not a rental inquiry.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich bin am 1. Oktober in Ihre Wohnung in Köln eingezogen. Für das Bürgeramt brauche ich eine Wohnungsgeberbestätigung. Können Sie mir das Formular bitte bis Freitag schicken? Ich habe am Montag einen Termin beim Amt.\nMit freundlichen Grüßen\nWei Zhang",
+    "offTask": true,
+    "type": "otherService",
+    "note": "Already moved in; asks for a registration form, the 'Termin' is at the office.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Lieber Paul,\nich suche eine Wohnung in Köln. Gestern habe ich eine Anzeige gesehen: zwei Zimmer, Balkon, nicht so teuer. Die Vermieterin heißt Frau Neumann. Hast du am Samstag Zeit? Kannst du mit mir die Wohnung ansehen? Mein Deutsch ist nicht so gut.\nViele Grüße\nAndrés",
+    "offTask": true,
+    "type": "personal",
+    "note": "Asks a friend to come along; the landlady is never addressed.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Liebe Mama,\nich habe jetzt eine neue Arbeit als Krankenpfleger in Köln. Die Arbeit ist gut, aber ich wohne noch im Hotel. Eine Wohnung in Köln ist sehr teuer. Am Samstag sehe ich eine 2-Zimmer-Wohnung. Wie geht es Papa? Ich vermisse euch.\nDein Emre",
+    "offTask": true,
+    "type": "personal",
+    "note": "Family news to mother that only mentions the flat search.",
+    "examiner2": {
+      "offTask": true
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nwir sind zwei Personen, mein Mann und ich. Ich bin Friseurin und mein Mann arbeitet als Busfahrer. Wir haben keine Kinder und keine Tiere. Können wir die Wohnung am Samstag oder am Montag nach 17 Uhr besichtigen?\nMit freundlichen Grüßen\nClaudia Rossi",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Gives persons, jobs and asks for a viewing; interest/ad never stated explicitly.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Guten Tag Frau Neumann,\nich heiße Olumide Adeyemi und bin Student an der Uni Köln. Ich arbeite auch in einem Café. Ich wohne allein. Haben Sie diese Woche einen Termin für eine Besichtigung? Ich kann jeden Tag ab 15 Uhr.\nViele Grüße\nOlumide Adeyemi",
+    "offTask": false,
+    "type": "noReason",
+    "note": "Persons, job and viewing request present; no stated reason (ad/interest).",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Hallo Frau Neumann,\nWohnung noch frei? Ich: eine Person, Koch von Beruf. Besichtigung am Samstag möglich?\nDanke, Gruß\nBartosz Nowicki",
+    "offTask": false,
+    "type": "short",
+    "note": "Very short but asks about the flat, gives person/job and requests a viewing.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geehrte Frau Neumann,\nich interessiere mich für die Wohnung. Wir sind drei: ich, meine Frau, ein Kind. Ich bin Elektriker. Termin für Besichtigung: Freitag 18 Uhr gut?\nMfG\nRami Khalil",
+    "offTask": false,
+    "type": "short",
+    "note": "Telegraphic but covers interest, persons/job and viewing date.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Sehr geerte Frau Neuman,\nich habe Ihre Anzeiege gesehn. Ich will die Wohnung mieten. Ich und mein Frau und zwei Kind, wir sind vier Personen. Ich arbeiten als Fahrer bei DHL. Wann ich kann die Wohnung sehen? Samstag ist gut für mich.\nMit freundlishe Grüße\nAbebe Tesfaye",
+    "offTask": false,
+    "type": "heavyErrors",
+    "note": "Heavy errors but clearly wants to rent, gives family/job and asks for viewing.",
+    "examiner2": {
+      "offTask": false
+    }
+  },
+  {
+    "task": "s7-q6",
+    "text": "Liebe Frau Neumann,\nIhre 2-Zimmer-Wohnung in Köln ist genau richtig für uns. Ich komme mit meiner Frau, sie ist Ärztin, ich bin Ingenieur. Am Samstag haben wir Zeit, die Wohnung anzusehen. Geht das bei Ihnen?\nViele Grüße\nJean-Pierre Dubois",
+    "offTask": false,
+    "type": "implicit",
+    "note": "Interest and persons only implied ('richtig für uns', 'komme mit meiner Frau').",
+    "examiner2": {
+      "offTask": false
+    }
+  }
+]
