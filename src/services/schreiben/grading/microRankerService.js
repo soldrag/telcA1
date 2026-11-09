@@ -8,8 +8,7 @@
  */
 
 import {
-  splitCompoundCriterion,
-  isCompoundCriterion,
+  criterionAspectLabels,
 } from './compoundCriterionDecomposer.js';
 import { splitGermanSentences } from '../linguistic/sentenceTokenizer.js';
 import { parseSentencePropositions } from '../linguistic/clauseStructureParser.js';
@@ -172,7 +171,7 @@ export async function classifyCriterionCoverage(criterion, candidateSentences, o
   const rivalQueries = (options.rivalCriteria || []).map((c) => formatCriterionQuery(c.label || c.id, c.keywords));
   const rivalExamples = (options.rivalCriteria || []).flatMap(fulfillingExamples);
 
-  const aspectLabels = isCompoundCriterion(critLabel) ? splitCompoundCriterion(critLabel) : [critLabel];
+  const aspectLabels = criterionAspectLabels(critObj);
   const keywordsByAspect = await partitionAspectKeywords(critObj, aspectLabels, { embedder, policy });
 
   if (aspectLabels.length === 1) {

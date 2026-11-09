@@ -8,14 +8,10 @@
 
 import { stemByLemma } from '../linguistic/lemmaStem.js';
 import { resolveAspectEvidence } from '../linguistic/criterionIntents.js';
-import { isCompoundCriterion, splitCompoundCriterion } from './compoundCriterionDecomposer.js';
+import { criterionAspectLabels } from './compoundCriterionDecomposer.js';
 import { scoreAspectConceptOverlap } from './conceptDomainScorer.js';
 import { requireLevelPort } from './levelPorts.js';
 
-function criterionAspects(criterion) {
-  const label = criterion.label || criterion.id || '';
-  return isCompoundCriterion(label) ? splitCompoundCriterion(label) : [label];
-}
 
 /**
  * @param {object} criterion - rubric Leitpunkt (label, aspects, evidence)
@@ -27,7 +23,7 @@ export function hasAspectConceptEvidence(criterion = {}, sentence = '', { policy
   const rawSentence = String(sentence || '').toLowerCase();
   if (!rawSentence.trim()) return false;
   const sentenceStems = rawSentence.replace(/[.,!?;:]+/g, ' ').split(/\s+/).filter(Boolean).map((w) => stemByLemma(w, policy.lexicon));
-  return criterionAspects(criterion).some((aspect) => {
+  return criterionAspectLabels(criterion).some((aspect) => {
     const evidence = resolveAspectEvidence(criterion, aspect);
     const score = scoreAspectConceptOverlap({ label: aspect.toLowerCase(), evidence },
       { sentenceStems, rawSentence, domains: policy.conceptDomains, lexicon: policy.lexicon });

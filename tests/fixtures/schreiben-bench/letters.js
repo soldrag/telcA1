@@ -69,7 +69,7 @@ export const BENCHMARK_TASKS = [
       options_json: {
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Dank und Zusage', intent: 'GENERAL', keywords: ['dank', 'danke', 'einladung', 'komme', 'gern'], requiredMatches: 1 },
+            { id: 'lp1', label: 'Dank und Zusage', intent: 'GENERAL', aspects: [{ label: 'Dank', keywords: ['dank', 'danke', 'einladung'] }, { label: 'Zusage', keywords: ['komme', 'gern'] }], keywords: ['dank', 'danke', 'einladung', 'komme', 'gern'], requiredMatches: 1 },
             { id: 'lp2', label: 'Begleitperson', intent: 'GENERAL', evidence: 'personCount', keywords: ['mann', 'freund', 'schwester', 'kind', 'mit'], requiredMatches: 1 },
             { id: 'lp3', label: 'Mitbringen oder Hilfe', intent: 'ACTION_REQUEST', keywords: ['mitbringen', 'kuchen', 'salat', 'getränk', 'wein', 'hilfe'], requiredMatches: 1 },
           ],

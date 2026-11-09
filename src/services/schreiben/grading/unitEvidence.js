@@ -8,7 +8,7 @@
 import { computeEvidenceFeatures, applyLogisticHead } from './evidenceFeatures.js';
 import { cosineSimilarity } from './vectorMath.js';
 import { computeFallbackEvidence, partitionAspectKeywordsSync } from './rankerFallbackScorer.js';
-import { splitCompoundCriterion, isCompoundCriterion } from './compoundCriterionDecomposer.js';
+import { splitCriterionLabel } from './compoundCriterionDecomposer.js';
 import { detectSemanticInversion } from '../linguistic/semanticPolarityValidator.js';
 import { parseSentencePropositions } from '../linguistic/clauseStructureParser.js';
 
@@ -18,8 +18,8 @@ const NEAR_COPY = 0.9;
 
 /** Unit keys of the task's criteria: "lp1", or "lp2:Personen" for each aspect of a compound Leitpunkt. */
 export function unitKeysOf(criterion) {
-  return isCompoundCriterion(criterion.label)
-    ? splitCompoundCriterion(criterion.label).map((aspect) => `${criterion.id}${UNIT_SEPARATOR}${aspect}`)
+  return splitCriterionLabel(criterion.label).length > 1
+    ? splitCriterionLabel(criterion.label).map((aspect) => `${criterion.id}${UNIT_SEPARATOR}${aspect}`)
     : [criterion.id];
 }
 
@@ -40,7 +40,7 @@ function rivalFulfils(taskBank, unitKey) {
 function deterministicEvidence(criterion, aspectLabel, text, policy) {
   const label = aspectLabel || criterion.label;
   const keywords = aspectLabel
-    ? partitionAspectKeywordsSync(criterion, splitCompoundCriterion(criterion.label), { policy })[aspectLabel] || []
+    ? partitionAspectKeywordsSync(criterion, splitCriterionLabel(criterion.label), { policy })[aspectLabel] || []
     : criterion.keywords || [];
   const evidence = (criterion.aspects || []).find((a) => a.label === aspectLabel)?.evidence || criterion.evidence || null;
   const { lexical, structured } = computeFallbackEvidence({ label, keywords, evidence }, text, { policy });

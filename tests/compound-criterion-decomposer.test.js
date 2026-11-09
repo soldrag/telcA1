@@ -1,26 +1,30 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  splitCompoundCriterion,
+  criterionAspectLabels,
   isCompoundCriterion,
+  splitCriterionLabel,
   aggregateCompoundResults,
 } from '../src/services/schreiben/grading/compoundCriterionDecomposer.js';
 import { defaultA1RankerPolicy as policy } from '../src/services/schreiben/grading/policies/a1RankerPolicy.js';
 
 describe('Compound Criterion Decomposer & Aggregator Tests', () => {
-  it('correctly splits criteria on German conjunctions und, sowie, and slash', () => {
-    assert.deepEqual(splitCompoundCriterion('Personen und Zeitraum'), ['Personen', 'Zeitraum']);
-    assert.deepEqual(splitCompoundCriterion('Preis sowie Kaution'), ['Preis', 'Kaution']);
-    assert.deepEqual(splitCompoundCriterion('Termin / Ort'), ['Termin', 'Ort']);
-    assert.deepEqual(splitCompoundCriterion('Grund für Ihr Schreiben'), ['Grund für Ihr Schreiben']);
-    assert.deepEqual(splitCompoundCriterion(''), []);
+  it('scores a criterion in the aspects its rubric declares', () => {
+    const criterion = { label: 'Personen und Zeitraum', aspects: [{ label: 'Personen' }, { label: 'Zeitraum' }] };
+    assert.deepEqual(criterionAspectLabels(criterion), ['Personen', 'Zeitraum']);
+    assert.equal(isCompoundCriterion(criterion), true);
   });
 
-  it('isCompoundCriterion accurately identifies composite vs atomic criteria', () => {
-    assert.equal(isCompoundCriterion('Personen und Zeitraum'), true);
-    assert.equal(isCompoundCriterion('Preis und Haustiere'), true);
-    assert.equal(isCompoundCriterion('Grund für Ihr Schreiben'), false);
-    assert.equal(isCompoundCriterion('Treffpunkt'), false);
+  it('never guesses parts from the label wording', () => {
+    assert.deepEqual(criterionAspectLabels({ label: 'Handwerker / Reparaturtermin' }), ['Handwerker / Reparaturtermin']);
+    assert.equal(isCompoundCriterion({ label: 'Personen und Zeitraum' }), false);
+    assert.equal(isCompoundCriterion({ label: 'Grund', aspects: [{ label: 'Grund' }] }), false);
+  });
+
+  it('splits a label into parts only for the purpose review units', () => {
+    assert.deepEqual(splitCriterionLabel('Personen und Zeitraum'), ['Personen', 'Zeitraum']);
+    assert.deepEqual(splitCriterionLabel('Termin / Ort'), ['Termin', 'Ort']);
+    assert.deepEqual(splitCriterionLabel(''), []);
   });
 
   it('aggregates full coverage only when all aspects pass threshold', () => {

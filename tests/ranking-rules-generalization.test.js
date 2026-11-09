@@ -39,7 +39,7 @@ describe('Ranking Rules Generalization Tests (Zero Task Overfitting)', () => {
   });
 
   it('generalizes to Arzttermin task (Compound: Grund und Termin)', async () => {
-    const criterion = 'Grund und Termin';
+    const criterion = { label: 'Grund und Termin', aspects: [{ label: 'Grund' }, { label: 'Termin' }] };
 
     // Both Grund (Bauchschmerzen/krank) and Termin (Montag 14 Uhr)
     const resFull = await classifyCriterionCoverage(
@@ -61,23 +61,21 @@ describe('Ranking Rules Generalization Tests (Zero Task Overfitting)', () => {
     assert.ok(resGrundOnly.missingAspects.includes('Termin'));
   });
 
-  it('handles varied conjunctions (sowie, /) domain-agnostically', async () => {
-    // With 'sowie'
-    const critSowie = 'Anreise sowie Übernachtung';
-    const resSowie = await classifyCriterionCoverage(
-      critSowie,
+  it('takes the parts from the rubric, never from a conjunction in the label (sowie, /)', async () => {
+    const declared = { label: 'Anreise sowie Übernachtung', aspects: [{ label: 'Anreise' }, { label: 'Übernachtung' }] };
+    const resDeclared = await classifyCriterionCoverage(
+      declared,
       ['Ich komme mit dem Zug an und brauche ein Zimmer im Hotel.'],
       { policy: defaultA1RankerPolicy }
     );
-    assert.equal(resSowie.isCompound, true);
+    assert.equal(resDeclared.isCompound, true);
 
-    // With '/'
-    const critSlash = 'Preis / Bezahlung';
+    // "/" names alternatives here, not two required parts: without declared aspects the point is one.
     const resSlash = await classifyCriterionCoverage(
-      critSlash,
+      'Preis / Bezahlung',
       ['Wie viel kostet das und kann ich mit Karte bezahlen?'],
       { policy: defaultA1RankerPolicy }
     );
-    assert.equal(resSlash.isCompound, true);
+    assert.ok(!resSlash.isCompound);
   });
 });

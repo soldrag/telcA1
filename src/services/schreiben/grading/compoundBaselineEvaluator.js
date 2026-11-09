@@ -7,7 +7,7 @@
 
 import {
   isCompoundCriterion,
-  splitCompoundCriterion,
+  criterionAspectLabels,
   aggregateCompoundResults,
 } from './compoundCriterionDecomposer.js';
 import {
@@ -26,7 +26,7 @@ import { requireLevelPort } from './levelPorts.js';
 export function hasDeclaredEvidenceSupport(criterion = {}, evalText = '', { policy } = {}) {
   requireLevelPort(policy, 'hasDeclaredEvidenceSupport: policy');
   const label = criterion.label || criterion.id || '';
-  if (!criterion.evidence || isCompoundCriterion(label)) return null;
+  if (!criterion.evidence || isCompoundCriterion(criterion)) return null;
   const aspect = { label, keywords: criterion.keywords || [], evidence: criterion.evidence };
   return policy.classifyScore(computeDeterministicFallbackScore(aspect, evalText, { policy })) !== 'no';
 }
@@ -35,9 +35,9 @@ export function hasDeclaredEvidenceSupport(criterion = {}, evalText = '', { poli
 export function evaluateCompoundCriterionBaseline(criterion = {}, evalText = '', { policy } = {}) {
   requireLevelPort(policy, 'evaluateCompoundCriterionBaseline: policy');
   const label = criterion.label || criterion.id || '';
-  if (!isCompoundCriterion(label)) return null;
+  if (!isCompoundCriterion(criterion)) return null;
 
-  const aspectLabels = splitCompoundCriterion(label);
+  const aspectLabels = criterionAspectLabels(criterion);
   const keywordsByAspect = partitionAspectKeywordsSync(criterion, aspectLabels, { policy });
 
   const aspectResults = aspectLabels.map((aspect) => {

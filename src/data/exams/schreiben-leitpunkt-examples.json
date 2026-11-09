@@ -183,42 +183,32 @@
       ]
     },
     "lp3": {
-      "aspects": {
-        "Handwerker": {
-          "fulfils": [
-            "Bitte schicken Sie einen Handwerker.",
-            "Kann ein Handwerker kommen?",
-            "Bitte rufen Sie einen Monteur an.",
-            "Bitte schicken Sie schnell jemand für die Reparatur.",
-            "Ein Fachmann muss die Heizung reparieren, bitte organisieren Sie das.",
-            "Bitte Sie schicken ein Handwerker."
-          ],
-          "misses": [
-            "Ich brauche keinen Handwerker.",
-            "Ich bin selbst Handwerker und repariere die Heizung.",
-            "Mein Nachbar sucht einen Handwerker für seine Küche.",
-            "Handwerker sind sehr teuer.",
-            "Der Handwerker war gestern schon da."
-          ]
-        },
-        "Reparaturtermin": {
-          "fulfils": [
-            "Wann kann die Heizung repariert werden?",
-            "Bitte reparieren Sie die Heizung bis Freitag.",
-            "Der Handwerker kann morgen ab 8 Uhr kommen, ich bin zu Hause.",
-            "Ich bin jeden Tag ab 16 Uhr zu Hause, dann kann jemand kommen.",
-            "Wann kommt jemand? Bitte schnell, am besten heute noch.",
-            "Kann die Handwerker am Montag in Nachmittag komme?"
-          ],
-          "misses": [
-            "Ich habe diese Woche keine Zeit für eine Reparatur.",
-            "Bitte sagen Sie die Reparatur am Montag ab.",
-            "Mein Auto wird am Montag repariert.",
-            "Reparaturen dauern immer lange.",
-            "Im Oktober hat ein Handwerker die Heizung schon repariert."
-          ]
-        }
-      }
+      "fulfils": [
+        "Bitte schicken Sie einen Handwerker.",
+        "Kann ein Handwerker kommen?",
+        "Bitte rufen Sie einen Monteur an.",
+        "Bitte schicken Sie schnell jemand für die Reparatur.",
+        "Ein Fachmann muss die Heizung reparieren, bitte organisieren Sie das.",
+        "Bitte Sie schicken ein Handwerker.",
+        "Wann kann die Heizung repariert werden?",
+        "Bitte reparieren Sie die Heizung bis Freitag.",
+        "Der Handwerker kann morgen ab 8 Uhr kommen, ich bin zu Hause.",
+        "Ich bin jeden Tag ab 16 Uhr zu Hause, dann kann jemand kommen.",
+        "Wann kommt jemand? Bitte schnell, am besten heute noch.",
+        "Kann die Handwerker am Montag in Nachmittag komme?"
+      ],
+      "misses": [
+        "Ich brauche keinen Handwerker.",
+        "Ich bin selbst Handwerker und repariere die Heizung.",
+        "Mein Nachbar sucht einen Handwerker für seine Küche.",
+        "Handwerker sind sehr teuer.",
+        "Der Handwerker war gestern schon da.",
+        "Ich habe diese Woche keine Zeit für eine Reparatur.",
+        "Bitte sagen Sie die Reparatur am Montag ab.",
+        "Mein Auto wird am Montag repariert.",
+        "Reparaturen dauern immer lange.",
+        "Im Oktober hat ein Handwerker die Heizung schon repariert."
+      ]
     }
   },
   "s4-q6": {

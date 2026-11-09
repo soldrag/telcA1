@@ -1,7 +1,7 @@
 /**
  * Compound Criterion Decomposer.
- * Decomposes multi-faceted examination criteria (e.g. "Personen und Zeitraum")
- * into atomic sub-aspects and aggregates them: full only when every aspect is full, otherwise partial or no.
+ * A criterion is scored in the parts its rubric declares (`aspects`, e.g. "Personen" and "Zeitraum"), never in parts
+ * guessed from the label wording; the parts are aggregated: full only when every aspect is full, otherwise partial or no.
  * Aggregation is the level policy's rule (IRankerPolicy.aggregateCompound), injected by the caller.
  * Strictly complies with McConnell limits (<= 110 lines, <= 25 lines per function).
  */
@@ -10,19 +10,25 @@ import { requireLevelPort } from './levelPorts.js';
 
 const CONJUNCTION_SPLIT_REGEX = /\s+(?:und|sowie|\/)\s+/i;
 
-export function splitCompoundCriterion(criterion) {
-  const label = typeof criterion === 'string'
-    ? criterion
-    : (criterion?.label || criterion?.id || '');
-  const trimmed = String(label || '').trim();
-  if (!trimmed) return [];
-
-  const parts = trimmed.split(CONJUNCTION_SPLIT_REGEX).map((p) => p.trim()).filter(Boolean);
-  return parts.length > 0 ? parts : [trimmed];
+/** The parts a criterion is scored in: its declared aspects, or the criterion itself. */
+export function criterionAspectLabels(criterion = {}) {
+  const declared = (criterion?.aspects || []).map((a) => a?.label).filter(Boolean);
+  return declared.length > 1 ? declared : [criterion?.label || criterion?.id || ''];
 }
 
 export function isCompoundCriterion(criterion) {
-  return splitCompoundCriterion(criterion).length > 1;
+  return criterionAspectLabels(criterion).length > 1;
+}
+
+/**
+ * Parts of a label ("Personen und Zeitraum"). Only the another-purpose review reads them: its trained units are
+ * keyed by them (unitEvidence.js), and they go with it.
+ */
+export function splitCriterionLabel(label = '') {
+  const trimmed = String(label || '').trim();
+  if (!trimmed) return [];
+  const parts = trimmed.split(CONJUNCTION_SPLIT_REGEX).map((p) => p.trim()).filter(Boolean);
+  return parts.length > 0 ? parts : [trimmed];
 }
 
 /**

@@ -163,7 +163,6 @@ export const questions = [
             id: 'lp3',
             label: 'Handwerker / Reparaturtermin',
             intent: 'ACTION_REQUEST',
-            aspects: [{ label: 'Handwerker' }, { label: 'Reparaturtermin', evidence: 'temporal' }],
             keywords: ['handwerker', 'techniker', 'reparieren', 'reparatur', 'kommen', 'wann', 'termin'],
             requiredMatches: 2
           }
