@@ -5,6 +5,8 @@
  * words only, no general words ("geht", "wann"), and a point is compound only where `aspects` says so.
  */
 
+import { merlinEvidenceBanks } from './evidenceBanks.js';
+
 const INSTRUCTION = 'Schreiben Sie zu jedem Punkt ein bis zwei Sätze (circa 30 Wörter). Vergessen Sie nicht den passenden Anfang und den Gruß am Schluss.';
 
 function task({ id, title, situation, leitpunkte, criteria, sampleSolution }) {
@@ -21,6 +23,8 @@ function task({ id, title, situation, leitpunkte, criteria, sampleSolution }) {
       min_words: 30,
       leitpunkte,
       rubric: { addresseeRegister: 'informal', leitpunkte_criteria: criteria },
+      // The keyword-free head reads these phrases (embedded at grading time); the criteria's own example phrases join them.
+      evidenceBank: { ...merlinEvidenceBanks[id], examples: Object.fromEntries(criteria.map((c) => [c.id, c.examples])) },
       sample_solution: sampleSolution,
     },
   };
