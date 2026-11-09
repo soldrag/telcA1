@@ -1,0 +1,161 @@
+@alias G=lp1 P=lp2:Personen B=lp2:Beruf T=lp3
+G=F :: Ich habe Ihre Anzeige gelesen und möchte die Wohnung mieten.
+G=F :: Ist die 2-Zimmer-Wohnung in Köln noch frei?
+G=F :: Ich interessiere mich für Ihre Wohnung.
+G=F :: Wir suchen eine Wohnung und Ihre Wohnung gefällt uns.
+G=F :: ich mochte ihre wonung mieten
+G=F :: wohnung noch frei?
+G=F :: Ich suche schon lange eine Wohnung in Köln.
+G=F :: Ich habe die anzeige gesehn, die wohnung ist super fur mich.
+G=F :: Wir brauchen eine größere Wohnung, Ihre ist perfekt.
+G=F :: Ich möchte in Ihre Wohnung einziehen.
+G=F :: suche wohnung, 2 zimmer, ihre anzeige
+G=F :: Ich möchte gern Ihr Mieter sein.
+G=P :: Ich möchte meine Wohnung an Sie vermieten.
+G=P :: Ich möchte Ihre Anzeige kaufen.
+G=C :: Ich möchte die Wohnung doch nicht mieten.
+G=C :: Wir haben schon eine Wohnung gefunden, wir brauchen Ihre nicht.
+P=F :: Wir sind zwei Personen.
+P=F :: Ich wohne mit meinem Mann zusammen.
+P=F :: Ich komme allein, ich habe keine Familie hier.
+P=F :: Wir sind ein Paar ohne Kinder.
+P=F :: ich und mein freundin
+P=F :: wir sind 3, mein frau, ich und baby
+P=F :: Meine Tochter wohnt auch mit mir.
+P=F :: zwei person
+P=F :: Ich ziehe mit meiner Schwester ein.
+P=F :: Wir haben ein Kind, sie ist zwei Jahre alt.
+P=F :: Nur ich, keine Haustiere.
+P=F B=F :: Wir sind zwei Studenten.
+P=P :: Vielleicht kommen ein paar Leute.
+P=P :: Meine Familie ist groß.
+P=C :: Wie viele Personen einziehen, sage ich nicht.
+P=C :: Wer mit mir wohnt, ist privat.
+B=F :: Ich arbeite als Krankenschwester.
+B=F :: Ich bin Lehrerin an einer Schule in Köln.
+B=F :: Mein Mann ist Ingenieur und ich bin Verkäuferin.
+B=F :: Ich studiere an der Universität.
+B=F :: ich bin koch in restaurant
+B=F :: arbeite bei ford, mechaniker
+B=F :: Ich habe eine feste Stelle in einer Bank.
+B=F :: ich arbeit in krankenhaus als arzt
+B=F :: Ich bin Programmierer und arbeite viel zu Hause.
+B=F :: Ich mache eine Ausbildung als Friseurin.
+B=F :: Ich bin Rentner.
+B=F :: Im Moment suche ich Arbeit, ich bin Elektriker.
+B=P :: Ich arbeite.
+B=P :: Ich mache etwas mit Computern, glaube ich.
+B=C :: Meinen Beruf möchte ich nicht sagen.
+B=C :: Was ich arbeite, geht Sie nichts an.
+T=F :: Kann ich die Wohnung am Samstag ansehen?
+T=F :: Wann kann ich die Wohnung besichtigen?
+T=F :: Haben Sie am Mittwochabend Zeit für eine Besichtigung?
+T=F :: Ich möchte die Wohnung gern sehen.
+T=F :: besichtigung samstag?
+T=F :: kann ich die wonung sehen am wochenende
+T=F :: Ich habe nach 17 Uhr Zeit, dann kann ich kommen.
+T=F :: Wann darf ich vorbeikommen und mir alles anschauen?
+T=F :: Geht es am Freitag um 18 Uhr?
+T=F :: ich kan jeden tag ab 16 uhr komen und schauen
+T=F :: Können wir einen Termin machen? Ich möchte die Zimmer sehen.
+T=F :: Bitte sagen Sie mir einen Termin zum Anschauen.
+T=P :: Ich komme irgendwann vorbei.
+T=P :: Können Sie mir Fotos schicken?
+T=C :: Ich muss die Wohnung nicht sehen.
+T=C :: Eine Besichtigung brauche ich nicht.
+- :: Wie hoch ist die Miete?
+- :: Gibt es einen Balkon?
+- :: Ich wohne jetzt in Bonn.
+- :: Letztes Jahr habe ich in Köln gewohnt.
+- :: Ich habe in der Wohnung meinen Schlüssel vergessen.
+- :: Ich möchte meine Wohnung kündigen.
+- :: Ist die Wohnung in der Nähe vom Bahnhof?
+- :: Die Heizung in meiner Wohnung ist kaputt.
+- :: Ich suche ein Zimmer im Hotel für eine Nacht.
+- :: Mein Nachbar ist sehr laut.
+- :: Köln ist eine schöne Stadt.
+- :: Ich möchte meine Kaution zurück.
+- :: Mein Name ist Hamid Rezai.
+- :: Meine Telefonnummer ist 0176 123456.
+- :: Ich warte auf Ihre Antwort.
+@letter on 2 2 2
+| Sehr geehrte Frau Neumann,
+G=F :: ich habe Ihre Anzeige gesehen und möchte die Wohnung mieten.
+P=F B=F :: Wir sind zwei Personen, ich bin Lehrerin und mein Mann ist Koch.
+T=F :: Kann ich die Wohnung am Samstag ansehen?
+| Mit freundlichen Grüßen
+| Elena Popescu
+@end
+@letter on 2 1 2
+| Sehr geehrte Frau Neumann,
+G=F :: ich interessiere mich für die 2-Zimmer-Wohnung.
+P=F :: Ich wohne allein.
+T=F :: Wann kann ich die Wohnung besichtigen?
+| Mit freundlichen Grüßen
+| Ravi
+@end
+@letter on 2 2 1
+| Hallo Frau Neumann,
+G=F :: wonung frei?
+P=F B=F :: ich und frau, ich arbeite in fabrik.
+T=P :: ich komme irgendwann.
+| Gruß
+| Bogdan
+@end
+@letter on 2 1 0
+| Sehr geehrte Frau Neumann,
+G=F :: ich möchte gern Ihre Wohnung in Köln mieten.
+B=F :: Ich bin Verkäuferin in einem Supermarkt.
+- :: Wie hoch ist die Miete?
+| Mit freundlichen Grüßen
+| Jana
+@end
+@letter on 2 2 2
+| Liebe Frau Neumann,
+G=F :: Ihre Wohnung ist genau richtig für uns.
+P=F :: Mein Freund und ich suchen zusammen.
+B=F :: Er ist Student und ich arbeite im Krankenhaus.
+T=F :: Haben Sie am Wochenende Zeit? Wir möchten die Wohnung gern sehen.
+| Viele Grüße
+| Sofia
+@end
+@letter on 1 2 2
+| Sehr geehrte Frau Neumann,
+G=P :: ich möchte meine Wohnung an Sie vermieten.
+P=F B=F :: Wir sind zwei und ich bin Ingenieur.
+T=F :: Kann ich am Samstag kommen und die Wohnung ansehen?
+| Mit freundlichen Grüßen
+| Oleg
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Neumann,
+- :: ich wohne seit zwei Jahren in Ihrer Wohnung in Köln.
+- :: Ich habe eine neue Arbeit in München und möchte die Wohnung kündigen.
+- :: Bitte geben Sie mir die Kaution zurück.
+| Mit freundlichen Grüßen
+| Ines
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Neumann,
+- :: ich habe auch eine 2-Zimmer-Wohnung in Köln.
+- :: Ich ziehe aus und suche einen Nachmieter.
+- :: Kennen Sie vielleicht jemanden?
+| Mit freundlichen Grüßen
+| Felix
+@end
+@letter off 0 0 0
+| Hallo Frau Neumann,
+- :: vielen Dank, ich war gestern bei der Besichtigung.
+- :: Die Wohnung war schön, aber zu klein für uns.
+- :: Wir haben eine andere Wohnung gefunden.
+| Viele Grüße
+| Aylin
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Neumann,
+- :: in meiner Wohnung im ersten Stock ist das Fenster kaputt.
+- :: Es ist sehr kalt und es regnet rein.
+- :: Bitte schicken Sie einen Handwerker.
+| Mit freundlichen Grüßen
+| Viktor
+@end

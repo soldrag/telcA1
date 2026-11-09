@@ -158,7 +158,11 @@ export const questions = [
             intent: 'GENERAL',
             evidence: 'temporal',
             keywords: ['august', 'woche', 'tage', 'vom', 'bis', 'anreise', 'bleiben', 'zeit'],
-            requiredMatches: 2
+            requiredMatches: 2,
+            aspects: [
+              { label: 'Wann', keywords: ['august', 'anreise', 'vom'] },
+              { label: 'wie lange', keywords: ['woche', 'tage', 'bis', 'bleiben'] }
+            ]
           },
           {
             id: 'lp3',

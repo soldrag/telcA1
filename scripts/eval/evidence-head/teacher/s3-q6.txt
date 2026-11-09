@@ -1,0 +1,160 @@
+@alias G=lp1 P=lp2 H=lp3:Handwerker R=lp3:Reparaturtermin
+G=F :: In meiner Wohnung funktioniert die Heizung nicht.
+G=F :: Die Heizung ist seit gestern kaputt.
+G=F :: Ich schreibe Ihnen wegen der Heizung, sie geht nicht.
+G=F :: Die Heizkörper bleiben kalt.
+G=F :: heizung kaputt
+G=F :: Meine heitzung ist kaput.
+G=F :: Ich habe ein Problem mit der Heizung in der Wohnung.
+G=F :: die heizung in wohnzimmer macht nicht warm
+G=F :: Seit Montag gibt es kein warmes Wasser und keine Wärme.
+G=F :: Die Heizung ist nicht mehr warm.
+G=F :: Ich glaube, die Heizung ist defekt.
+G=F :: heizung geht nicht, bitte hilfe
+G=P :: Ihre Heizung in meinem Haus hat mich kaputt gemacht.
+G=P :: Die Wohnung ist kaputt.
+G=C :: Die Heizung funktioniert super, alles ist gut.
+G=C :: Mit der Heizung ist alles in Ordnung, ich schreibe nur so.
+P=F :: Es ist sehr kalt in der Wohnung.
+P=F :: Wir frieren und mein Baby ist schon krank.
+P=F :: In der Wohnung sind nur 14 Grad.
+P=F :: Wir müssen mit Jacke im Wohnzimmer sitzen.
+P=F :: Ich habe zwei kleine Kinder und es ist zu kalt für sie.
+P=F :: es ist so kalt, ich kann nicht schlafen
+P=F :: sehr kalt in der wohnung, kinder krank
+P=F :: Es ist kalt und mein Kind hustet.
+P=F :: Wir haben auch kein warmes Wasser zum Duschen.
+P=F :: Nachts ist es besonders kalt.
+P=F :: kalt kalt kalt, wir haben drei decken
+P=F G=F :: Die Heizung ist kaputt und es ist sehr kalt.
+P=P :: Es ist nicht so gut in der Wohnung.
+P=P :: Das Wetter ist kalt.
+P=C :: Ein Problem gibt es eigentlich nicht.
+P=C :: Was genau los ist, schreibe ich nicht.
+H=F :: Bitte schicken Sie einen Handwerker.
+H=F :: Kann ein Monteur kommen?
+H=F :: Bitte rufen Sie eine Firma für die Reparatur.
+H=F :: Jemand muss die Heizung reparieren.
+H=F :: schicken sie bitte ein handwerker
+H=F :: Brauche einen Mann für Heizung.
+H=F :: Können Sie die Heizung reparieren lassen?
+H=F :: bitte reparatur machen
+H=F :: Ich brauche schnell Hilfe von einem Fachmann.
+H=F :: Ist ein Techniker frei?
+H=F :: Kommen Sie bitte selbst und schauen Sie die Heizung an.
+H=F :: Die Heizung muss repariert werden.
+H=P :: Ein Elektriker für das Licht wäre gut.
+H=P :: Ich repariere Ihre Heizung gern.
+H=C :: Schicken Sie bitte keinen Handwerker, ich mache das selbst.
+H=C :: Eine Reparatur brauche ich nicht.
+R=F :: Wann kann der Handwerker kommen?
+R=F :: Ich bin morgen ab 15 Uhr zu Hause.
+R=F :: Bitte sagen Sie mir einen Termin für die Reparatur.
+R=F :: Geht es am Dienstag vormittags?
+R=F :: wann kommt jemand?
+R=F :: ich bin jeden tag nach 17 uhr da
+R=F :: Am Wochenende bin ich zu Hause, dann ist es gut.
+R=F :: Bitte schnell, am besten heute oder morgen.
+R=F :: Wann reparieren Sie die Heizung?
+R=F :: termin bitte, morgen?
+R=F H=F :: Wann kann ein Handwerker kommen und die Heizung reparieren?
+R=F H=F :: Bitte schicken Sie am Freitag einen Monteur, ich bin den ganzen Tag da.
+R=P :: Irgendwann ist gut.
+R=P :: Ich habe manchmal Zeit.
+R=C :: Einen Termin möchte ich nicht ausmachen.
+R=C :: Wann der Handwerker kommt, ist mir egal, ich bin nie da.
+- :: Letzten Winter war die Heizung auch kaputt.
+- :: Die Miete für Dezember habe ich schon bezahlt.
+- :: Ich möchte die Wohnung kündigen.
+- :: In der Küche ist das Fenster kaputt.
+- :: Der Nachbar ist sehr laut in der Nacht.
+- :: Danke, der Handwerker war gestern da und die Heizung geht wieder.
+- :: Ich suche eine neue Wohnung mit Balkon.
+- :: Im Sommer ist es in der Wohnung sehr heiß.
+- :: Mein Fahrrad ist kaputt, kennen Sie eine Werkstatt?
+- :: Die Waschmaschine im Keller ist kaputt.
+- :: Ich möchte eine Katze haben, darf ich das?
+- :: Bitte geben Sie mir einen zweiten Schlüssel.
+- :: Ich wohne in der Wohnung im zweiten Stock.
+- :: Mein Name ist Fatima Yilmaz.
+- :: Vielen Dank für Ihre Hilfe.
+@letter on 2 2 2
+| Sehr geehrter Herr Meier,
+G=F :: in meiner Wohnung geht die Heizung nicht.
+P=F :: Es ist sehr kalt und meine Tochter ist krank.
+H=F R=F :: Bitte schicken Sie einen Handwerker, ich bin morgen ab 14 Uhr zu Hause.
+| Mit freundlichen Grüßen
+| Lena Klein
+@end
+@letter on 2 2 1
+| Hallo Herr Meier,
+G=F :: heizung kaput.
+P=F :: sehr kalt, kind krank.
+H=F :: bitte handwerker schicken.
+| Gruß
+| Ahmad
+@end
+@letter on 2 2 1
+| Sehr geehrter Herr Meier,
+G=F P=F :: die Heizung ist kaputt und wir frieren seit drei Tagen.
+R=F :: Wann kann jemand kommen?
+- :: Ich warte auf Ihre Antwort.
+| Mit freundlichen Grüßen
+| Svetlana
+@end
+@letter on 2 0 2
+| Sehr geehrter Herr Meier,
+G=F :: ich habe ein Problem mit der Heizung, sie ist kaputt.
+H=F R=F :: Können Sie bitte am Montag einen Handwerker schicken?
+- :: Vielen Dank.
+| Mit freundlichen Grüßen
+| Paul Simon
+@end
+@letter on 2 2 0
+| Sehr geehrter Herr Meier,
+G=F :: die Heizung funktioniert nicht.
+P=F :: Es ist kalt in allen Zimmern.
+H=C :: Bitte keinen Handwerker schicken, mein Bruder repariert das.
+| Mit freundlichen Grüßen
+| Ali Kaya
+@end
+@letter on 2 2 2
+| Lieber Herr Meier,
+P=F :: wir sitzen mit Mantel in der Wohnung, so kalt ist es.
+G=F :: Die Heizkörper sind seit Sonntag kalt.
+R=F H=F :: Wann kann eine Firma kommen und das reparieren?
+| Viele Grüße
+| Maria
+@end
+@letter off 0 0 0
+| Sehr geehrter Herr Meier,
+- :: der Handwerker war gestern da.
+- :: Jetzt ist es wieder warm in der Wohnung.
+- :: Vielen Dank für Ihre schnelle Hilfe!
+| Mit freundlichen Grüßen
+| Ewa Nowak
+@end
+@letter off 0 0 0
+| Sehr geehrter Herr Meier,
+- :: ich möchte die Wohnung zum 31. März kündigen.
+- :: Ich habe eine Arbeit in Hamburg gefunden.
+- :: Wann kann ich Ihnen die Schlüssel geben?
+| Mit freundlichen Grüßen
+| Tomasz
+@end
+@letter off 0 0 0
+| Hallo Herr Meier,
+- :: die Heizung war im Winter immer gut, danke.
+- :: Jetzt im Sommer möchte ich den Balkon streichen.
+- :: Ist das erlaubt?
+| Viele Grüße
+| Nadia
+@end
+@letter off 0 0 0
+| Sehr geehrter Herr Meier,
+- :: in der Wohnung über mir ist es jede Nacht sehr laut.
+- :: Ich kann nicht schlafen und mein Kind auch nicht.
+- :: Bitte sprechen Sie mit dem Nachbarn.
+| Mit freundlichen Grüßen
+| Chen Wei
+@end

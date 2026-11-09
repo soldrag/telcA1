@@ -1,0 +1,178 @@
+@alias G=lp1 W=lp2:Wann D=lp2:wie lange K=lp3:Frage nach den Kurskosten A=lp3:Anmeldung
+G=F :: Ich möchte bei Ihnen Deutsch lernen.
+G=F :: Ich suche einen Deutschkurs in München und habe Ihre Schule gefunden.
+G=F :: Ich interessiere mich für Ihren Kurs Deutsch A1.
+G=F :: Ich will mein Deutsch besser machen und brauche einen Kurs.
+G=F :: Ich bin neu in München und muss Deutsch lernen.
+G=F :: ich mochte ein deutschkurs machen bei ihre schule
+G=F :: Ich will deutsh lerne in Ihre sprachschule.
+G=F :: Deutschkurs bei Ihnen – bitte Information.
+G=F :: brauche kurs deutsch, anfanger
+G=F :: Haben Sie noch einen Platz im Kurs für mich?
+G=F :: Ich spreche noch nicht gut Deutsch, darum schreibe ich Ihnen.
+G=F W=F :: Ich möchte im August einen Kurs bei der Sprachschule Aktiv besuchen.
+G=P :: Ich möchte an Ihrer Schule Deutsch unterrichten.
+G=P :: Ich möchte einen Kurs in der Sprachschule geben.
+G=C :: Ich möchte keinen Deutschkurs machen.
+G=C :: Ich brauche Ihren Kurs nicht mehr, ich lerne allein.
+W=F :: Ich habe im August Zeit.
+W=F :: Ich kann ab dem 1. August anfangen.
+W=F :: Ich möchte am liebsten vormittags lernen.
+W=F :: Beginnt der Kurs Anfang August?
+W=F :: Wann startet der Kurs im August?
+W=F :: im august bin ich frei
+W=F :: Ich kan nur am abend, am tag arbeite ich.
+W=F :: August, morgens.
+W=F :: Ich mochte kurs im agust, vormitag.
+W=F :: Ich bin nur im Sommer in München, also im August.
+W=F :: Am Nachmittag habe ich keine Zeit, nur am Morgen.
+W=P :: Ich komme irgendwann im Sommer.
+W=P :: Ich möchte bald anfangen.
+W=C :: Wann ich komme, weiß ich nicht und sage ich nicht.
+W=C :: Einen Termin kann ich Ihnen nicht nennen.
+D=F :: Ich möchte vier Wochen lernen.
+D=F :: Ich habe einen Monat Zeit.
+D=F :: Der Kurs soll zwei Wochen dauern.
+D=F :: Wie lange dauert der Kurs?
+D=F :: Gibt es auch einen Kurs für nur drei Wochen?
+D=F :: ich bleibe 4 woche in münchen
+D=F :: Ich kann nur zwei woch, dann muss ich zuruck nach Hause.
+D=F :: vier wochen, nicht mehr
+D=F :: Ich mochte lernen bis ende august.
+D=F :: Ich habe nur kurze Zeit, nicht länger als einen Monat.
+D=F W=F :: Ich möchte vom 3. bis 28. August lernen.
+D=F W=F :: Im August habe ich drei Wochen Urlaub, da will ich den Kurs machen.
+D=P :: Ich möchte nicht so lange lernen.
+D=P :: Der Kurs soll ein bisschen dauern.
+D=C :: Wie lange ich bleibe, ist egal, das schreibe ich nicht.
+D=C :: Die Dauer ist mir nicht wichtig, das sage ich nicht.
+K=F :: Wie viel kostet der Kurs?
+K=F :: Was muss ich für vier Wochen bezahlen?
+K=F :: Ist der Kurs teuer?
+K=F :: Bitte schicken Sie mir die Preise.
+K=F :: wie viel kost das?
+K=F :: Was kostet ein Kurs bei ihnen pro monat?
+K=F :: Preis bitte?
+K=F :: wieviel geld fur den kurs
+K=F :: Ich habe nicht viel Geld. Gibt es einen günstigen Kurs?
+K=F :: Muss ich alles am Anfang zahlen?
+K=F A=F :: Was kostet der Kurs und wie melde ich mich an?
+K=F A=F :: Bitte schreiben Sie mir den Preis und wie die Anmeldung geht.
+K=P :: Kostet der Lehrer viel?
+K=P :: Wie viel kostet die Schule?
+K=C :: Der Preis ist mir egal, das will ich nicht wissen.
+K=C :: Über Geld möchte ich nicht sprechen.
+A=F :: Wie kann ich mich anmelden?
+A=F :: Ich möchte mich für den Kurs anmelden.
+A=F :: Bitte schicken Sie mir ein Formular.
+A=F :: Kann ich mich online registrieren?
+A=F :: wo kann ich mich anmelde?
+A=F :: Ich will mich einschreiben, was muss ich machen?
+A=F :: anmeldung wie?
+A=F :: Muss ich zu Ihnen kommen oder geht das per E-Mail?
+A=F :: Bitte reservieren Sie einen Platz für mich.
+A=F :: ich mochte mich anmelden fur kurs in August bitte
+A=P :: Kann ich mich irgendwo eintragen lassen?
+A=P :: Wie komme ich in die Schule rein?
+A=C :: Anmelden möchte ich mich nicht.
+A=C :: Ich will mich nicht anmelden, ich komme nur einmal schauen.
+- :: Letztes Jahr habe ich in Berlin einen Kurs gemacht.
+- :: Ich war schon einmal in Ihrer Schule, das war schön.
+- :: Wo ist Ihre Schule? Ich finde die Adresse nicht.
+- :: Haben Sie auch einen Englischkurs?
+- :: Ich habe meine Tasche im Kursraum vergessen.
+- :: Mein Lehrer im Kurs war sehr nett.
+- :: Ich möchte mich vom Kurs abmelden.
+- :: Ich suche eine Wohnung in München.
+- :: Gibt es in München ein gutes Restaurant?
+- :: Der Kurs im Juli war zu teuer, ich möchte mein Geld zurück.
+- :: Im August fahre ich nach Italien in den Urlaub.
+- :: Meine Freundin hat einen Kurs bei Ihnen gemacht.
+- :: Ich heiße Maria und komme aus Spanien.
+- :: Ich bin 25 Jahre alt.
+- :: Vielen Dank für Ihre Antwort.
+@letter on 2 2 2
+| Sehr geehrte Damen und Herren,
+G=F :: ich will bei Ihre Schule Deutsch lernen.
+W=F D=F :: Ich habe im August vier Wochen frei.
+K=F :: Was kostet der Kurs?
+A=F :: Und wie kann ich mich anmelden?
+| Mit freundlichen Grüßen
+| Ali Demir
+@end
+@letter on 2 2 2
+| Hallo,
+G=F :: ich bin neu in München und brauche Deutsch für meine Arbeit.
+W=F :: Haben Sie im August einen Kurs am Abend?
+D=F :: Ich kann drei Wochen kommen.
+K=F A=F :: Bitte schreiben Sie mir den Preis und das Formular.
+| Viele Grüße
+| Olga
+@end
+@letter on 2 2 2
+| Sehr geehrte Damen und Herren,
+G=F :: ich mochte deutschkurs machen.
+W=F D=F :: august, 2 wochen.
+K=F :: wie viel kostet?
+| Grüße
+| Tran
+@end
+@letter on 2 0 2
+| Sehr geehrte Damen und Herren,
+G=F :: ich möchte einen Deutschkurs bei Ihnen machen.
+- :: Ich wohne seit einem Jahr in München und arbeite in einem Hotel.
+K=F :: Wie teuer ist der Kurs?
+A=F :: Wie melde ich mich an?
+| Mit freundlichen Grüßen
+| Sara Ahmadi
+@end
+@letter on 2 2 0
+| Liebe Damen und Herren,
+G=F :: Ihre Schule ist gut, sagt meine Freundin, ich will auch dort lernen.
+W=F :: Ich kann ab Anfang August kommen,
+D=F :: für einen Monat.
+- :: Ich freue mich auf den Kurs.
+| Viele Grüße
+| Pedro
+@end
+@letter on 1 2 2
+| Sehr geehrte Damen und Herren,
+G=P :: ich möchte in Ihrer Schule im August Deutsch lehren.
+W=F D=F :: Ich habe vom 1. bis 21. August Zeit.
+K=F A=F :: Wie viel muss ich bezahlen und wo kann ich mich anmelden?
+| Mit freundlichen Grüßen
+| Kim Lee
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: im Juli habe ich bei Ihnen einen Deutschkurs gemacht.
+- :: Der Kurs war sehr gut, aber der Raum war zu klein und zu warm.
+- :: Ich habe meine Jacke im Raum 3 vergessen.
+- :: Kann ich die Jacke am Montag abholen?
+| Mit freundlichen Grüßen
+| Anna Nowak
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: ich habe mich für den Deutschkurs im August angemeldet.
+- :: Leider bin ich krank und muss den Kurs absagen.
+- :: Bitte geben Sie mir das Geld für den Kurs zurück.
+| Mit freundlichen Grüßen
+| Jan Novak
+@end
+@letter off 0 0 0
+| Hallo,
+- :: ich suche eine Arbeit als Lehrer und habe Ihre Anzeige gesehen.
+- :: Ich spreche Deutsch und Englisch und habe fünf Jahre Erfahrung.
+- :: Ich kann im August anfangen.
+| Viele Grüße
+| Mark
+@end
+@letter off 0 0 0
+| Liebe Frau Weber,
+- :: vielen Dank für den schönen Deutschkurs im Juni.
+- :: Ich habe viel gelernt und jetzt spreche ich besser.
+- :: Im August fahre ich nach Hause in die Türkei.
+| Viele Grüße
+| Ayse
+@end

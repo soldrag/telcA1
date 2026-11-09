@@ -158,14 +158,22 @@ export const questions = [
             intent: 'GENERAL',
             evidence: 'temporal',
             keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin', 'lernen'],
-            requiredMatches: 2
+            requiredMatches: 2,
+            aspects: [
+              { label: 'Wann', keywords: ['vormittags', 'vormittag', 'termin', 'zeit'] },
+              { label: 'wie lange', keywords: ['wochen', 'woche'] }
+            ]
           },
           {
             id: 'lp3',
             label: 'Frage nach den Kurskosten und Anmeldung',
             intent: 'INFORMATION_REQUEST',
             keywords: ['kosten', 'kostet', 'gebühr', 'gebühren', 'preis', 'anmelden', 'anmeldung', 'wie viel'],
-            requiredMatches: 2
+            requiredMatches: 2,
+            aspects: [
+              { label: 'Frage nach den Kurskosten', keywords: ['kosten', 'kostet', 'gebühr', 'gebühren', 'preis', 'wie viel'] },
+              { label: 'Anmeldung', keywords: ['anmelden', 'anmeldung'] }
+            ]
           }
         ]
       },

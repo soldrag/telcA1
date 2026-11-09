@@ -166,6 +166,10 @@ Capability is detected at run time, never by user agent: the embedder picks WebG
 
 The primary provider is set in `src/config/aiConfig.js` (`PRIMARY_PROVIDER`); a developer override via `localStorage` (`telc_ai_provider_override`, e.g. `none`) forces a registered provider.
 
+## Keyword-free evidence head (in preparation)
+
+A candidate replacement for the keyword stage and the arbitration, not used by the app yet (plan in `todo.md`). One softmax head (F / C / I) reads nine cosine features of a letter span against a unit's reference phrases — its fulfilling phrases, near misses, the other Leitpunkte's phrases, other purposes and neutral phrases, and a description from the task text (`grading/evidenceHead/`). A unit is a Leitpunkt or a declared `aspects` entry, never a label part. A unit's level comes from its best support over sentences, clauses and adjacent pairs; thresholds and weights are level data. Training (`scripts/eval/evidence-head/train.mjs`) uses the model-written teacher sentences (`teacher/`) and the calibration sentences, never evaluation letters; `--loto` measures it with each task held out, as a new task would be graded.
+
 ## Known limits
 
 Recorded instead of fitting (CLAUDE.md §8.1):

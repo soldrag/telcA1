@@ -1,0 +1,178 @@
+@alias G=lp1 P=lp2:Personen Z=lp2:Zeitraum K=lp3:Preis H=lp3:Haustiere
+G=F :: Wir möchten Ihre Ferienwohnung im Sommer mieten.
+G=F :: Ich suche eine Wohnung für unseren Urlaub an der Ostsee.
+G=F :: Ist die Ferienwohnung im Juli noch frei?
+G=F :: Wir wollen Urlaub am Meer machen und brauchen eine Wohnung.
+G=F :: ich mochte ihre ferienwonung buchen
+G=F :: wir suche wohnung fur urlaub
+G=F :: Ihre Wohnung „Meeresbrise“ gefällt mir sehr, ich möchte sie reservieren.
+G=F :: Ferienwohnung frei im Sommer?
+G=F :: Ich habe Ihre Anzeige gesehen und interessiere mich für die Wohnung.
+G=F :: Wir möchten bei Ihnen Ferien machen.
+G=F :: Ich mochte reservieren ein wohnung am see.
+G=F :: Haben Sie im August Platz für uns?
+G=P :: Ich möchte meine Ferienwohnung an Sie vermieten.
+G=P :: Wir möchten Ihre Wohnung kaufen.
+G=C :: Wir möchten die Wohnung doch nicht mieten.
+G=C :: Ich will meine Buchung stornieren, wir kommen nicht.
+P=F :: Wir sind zwei Erwachsene und zwei Kinder.
+P=F :: Ich komme mit meinem Mann und unserer Tochter.
+P=F :: Wir sind vier Personen.
+P=F :: Meine Eltern kommen auch mit, also sind wir sechs.
+P=F :: wir sind 3 personen
+P=F :: Ich, meine frau und 2 kinder.
+P=F :: famillie mit drei kinder
+P=F :: Wir sind eine Familie: Mama, Papa und Baby.
+P=F :: Nur mein Mann und ich kommen.
+P=F :: Ich reise allein.
+P=F :: Unsere Kinder sind 5 und 8 Jahre alt.
+P=F Z=F :: Wir sind zu viert und möchten zwei Wochen im Juli bleiben.
+P=P :: Wir sind viele.
+P=P :: Die ganze Familie vielleicht.
+P=C :: Wie viele Leute wir sind, sage ich nicht.
+P=C :: Die Personenzahl ist privat.
+Z=F :: Wir möchten vom 10. bis 24. Juli kommen.
+Z=F :: Wir bleiben zwei Wochen im August.
+Z=F :: Wir kommen am 1. Juli und fahren am 8. Juli nach Hause.
+Z=F :: Ist die Wohnung in der ersten Augustwoche frei?
+Z=F :: eine woche im juli
+Z=F :: 15.7. – 22.7.
+Z=F :: wir komen in august fur 10 tage
+Z=F :: Wir haben in den Sommerferien drei Wochen Zeit.
+Z=F :: Wir möchten sieben Nächte bleiben, Anfang Juli.
+Z=F :: Wann ist die Wohnung im Sommer frei? Wir können im Juli oder August.
+Z=F :: Unser Urlaub beginnt am 3. August.
+Z=F :: von samstag bis samstag, ende juli
+Z=P :: Wir kommen irgendwann im Sommer.
+Z=P :: Nicht so lange.
+Z=C :: Wann wir kommen, wissen wir nicht und sagen wir nicht.
+Z=C :: Ein Datum kann ich Ihnen nicht geben.
+K=F :: Wie viel kostet die Wohnung pro Nacht?
+K=F :: Was kostet eine Woche?
+K=F :: Ist die Wohnung teuer?
+K=F :: Bitte schreiben Sie mir den Preis.
+K=F :: was kost das?
+K=F :: preis fur eine woche bitte
+K=F :: Wieviel geld mussen wir bezahlen?
+K=F :: Was müssen wir für zwei Wochen zahlen?
+K=F :: Gibt es einen Rabatt für Familien?
+K=F :: Kostet das Kind auch extra?
+K=F :: Unser Budget ist klein, wie viel ist die Miete?
+K=F H=F :: Was kostet die Wohnung und dürfen wir unseren Hund mitbringen?
+K=P :: Was kostet der Hund?
+K=P :: Wie viel kostet die Ostsee?
+K=C :: Der Preis ist egal, das muss ich nicht wissen.
+K=C :: Nach dem Geld frage ich nicht.
+H=F :: Dürfen wir unseren Hund mitbringen?
+H=F :: Sind Haustiere erlaubt?
+H=F :: Wir haben eine Katze. Darf sie mitkommen?
+H=F :: Wir haben keine Haustiere.
+H=F :: hund ok?
+H=F :: Wir haben ein klein hund, ist das problem?
+H=F :: darf katze mit
+H=F :: Wir bringen unseren Hund mit, er ist sehr ruhig.
+H=F :: Unser Hund ist alt und lieb, kann er in der Wohnung schlafen?
+H=F :: Tiere haben wir nicht.
+H=F :: Ist ein Hund in Ihrer Wohnung erlaubt?
+H=F :: Wir kommen ohne Tiere.
+H=P :: Ist das Zimmer erlaubt?
+H=P :: Darf die Wohnung einen Hund haben?
+H=C :: Ob Tiere erlaubt sind, interessiert mich nicht.
+H=C :: Über Haustiere möchte ich nichts sagen.
+- :: Letzten Sommer waren wir in Italien.
+- :: Wir hatten früher einen Hund, aber er ist gestorben.
+- :: Ich habe meine Jacke in Ihrer Ferienwohnung vergessen.
+- :: Vielen Dank für den schönen Urlaub an der Ostsee.
+- :: Ist das Wasser im Juli warm?
+- :: Gibt es in der Nähe einen Supermarkt?
+- :: Wir kommen am Samstag erst sehr spät an.
+- :: In der Wohnung war die Dusche kaputt.
+- :: Ich suche eine Wohnung zum Wohnen in Kiel, nicht für den Urlaub.
+- :: Darf man am Strand einen Hund mitnehmen?
+- :: Was kostet ein Fahrrad im Fahrradverleih?
+- :: Die Kinder spielen gern am Strand.
+- :: Mein Name ist Sofia Rossi.
+- :: Ich wohne in Frankfurt.
+- :: Ich freue mich auf Ihre Antwort.
+@letter on 2 2 2
+| Sehr geehrte Frau Hansen,
+G=F :: wir möchten im Juli Ihre Ferienwohnung mieten.
+P=F Z=F :: Wir sind zwei Erwachsene und ein Kind und bleiben vom 5. bis 12. Juli.
+K=F H=F :: Was kostet die Wohnung und dürfen wir unsere Katze mitbringen?
+| Mit freundlichen Grüßen
+| Daniel Costa
+@end
+@letter on 2 1 2
+| Sehr geehrte Frau Hansen,
+G=F :: wir suchen eine Ferienwohnung an der Ostsee.
+P=F :: Wir sind vier Personen.
+K=F :: Wie viel kostet eine Woche?
+H=F :: Wir haben keinen Hund und keine Katze.
+| Mit freundlichen Grüßen
+| Irina
+@end
+@letter on 2 2 1
+| Hallo Frau Hansen,
+G=F :: ferienwonung frei im august?
+P=F Z=F :: wir 2 person, 1 woche.
+K=F :: preis?
+| Gruß
+| Rui
+@end
+@letter on 2 2 1
+| Sehr geehrte Frau Hansen,
+G=F :: ich möchte mit meiner Familie Urlaub bei Ihnen machen.
+P=F :: Wir sind mein Mann, ich und unsere zwei Söhne.
+Z=F :: Wir möchten vom 20. Juli bis 3. August kommen.
+H=P :: Ist das Zimmer bei Ihnen erlaubt?
+| Mit freundlichen Grüßen
+| Agnieszka
+@end
+@letter on 2 2 0
+| Liebe Frau Hansen,
+G=F :: Ihre Wohnung sieht schön aus, wir möchten sie im Sommer mieten.
+P=F Z=F :: Wir sind fünf Leute und möchten zehn Tage bleiben, ab dem 1. August.
+- :: Wir freuen uns sehr auf das Meer.
+| Viele Grüße
+| Familie Ozturk
+@end
+@letter on 1 2 2
+| Sehr geehrte Frau Hansen,
+G=P :: ich möchte meine Ferienwohnung im Juli vermieten.
+P=F Z=F :: Wir sind drei Personen und kommen zwei Wochen.
+K=F H=F :: Wie teuer ist es und ist ein Hund okay?
+| Mit freundlichen Grüßen
+| Ivan
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Hansen,
+- :: wir waren im Juli zwei Wochen in Ihrer Ferienwohnung.
+- :: Leider war die Dusche kaputt und der Hund vom Nachbarn war sehr laut.
+- :: Bitte geben Sie uns einen Teil vom Geld zurück.
+| Mit freundlichen Grüßen
+| Familie Weber
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Hansen,
+- :: ich habe die Ferienwohnung für Juli gebucht.
+- :: Leider ist meine Mutter krank und wir können nicht kommen.
+- :: Ich möchte die Buchung stornieren.
+| Mit freundlichen Grüßen
+| Laura Bianchi
+@end
+@letter off 0 0 0
+| Hallo Frau Hansen,
+- :: vielen Dank für die schöne Woche an der Ostsee.
+- :: Die Kinder und unser Hund waren jeden Tag am Strand.
+- :: Wir kommen nächstes Jahr bestimmt wieder.
+| Viele Grüße
+| Familie Novak
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Hansen,
+- :: ich habe in Ihrer Ferienwohnung meine Sonnenbrille vergessen.
+- :: Sie liegt vielleicht im Schlafzimmer.
+- :: Können Sie sie mir bitte schicken?
+| Mit freundlichen Grüßen
+| Marta Silva
+@end
