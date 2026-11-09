@@ -4,7 +4,9 @@
  * and Kommunikative Gestaltung 0 / 0.5 / 1.
  */
 
-export const TASK_IDS = Object.freeze(['s1-q6', 's2-q6', 's3-q6', 's4-q6', 's5-q6', 's6-q6', 's7-q6']);
+import { MERLIN_TASK_IDS } from './merlin/tasks.js';
+
+export const TASK_IDS = Object.freeze(['s1-q6', 's2-q6', 's3-q6', 's4-q6', 's5-q6', 's6-q6', 's7-q6', ...MERLIN_TASK_IDS]);
 
 export const CATEGORIES = Object.freeze([
   'complete',
