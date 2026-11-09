@@ -8,9 +8,6 @@ export const timerContract = {
   requiredMethods: [
     'resetTimer',
     'togglePause',
-    'pauseTimer',
-    'resumeTimer',
-    'startTimer',
     'registerTimeUpHandler',
   ],
   requiredProperties: [

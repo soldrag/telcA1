@@ -42,68 +42,64 @@ function applyResolvedTheme(resolved) {
   applyStatusBarMeta(resolved);
 }
 
+const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
+const NEXT_THEME = { light: 'dark', dark: 'system', system: 'light' };
+
+function resolveTheme(mode) {
+  if (mode !== 'system') return mode;
+  return window.matchMedia(DARK_SCHEME_QUERY).matches ? 'dark' : 'light';
+}
+
+function readStoredTheme() {
+  try {
+    return sanitizeTheme(localStorage.getItem(STORAGE_KEY));
+  } catch {
+    return 'system';
+  }
+}
+
+function storeTheme(theme) {
+  try {
+    localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    // Private mode or blocked storage: the theme still applies for this visit.
+  }
+}
+
 export function useTheme() {
-  const [theme, setThemeState] = useState(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      return sanitizeTheme(stored);
-    } catch {
-      return 'system';
-    }
-  });
+  const [theme, setThemeState] = useState(readStoredTheme);
+  const [resolvedTheme, setResolvedTheme] = useState(() => resolveTheme(theme));
 
-  const getResolvedTheme = useCallback((mode) => {
-    const validMode = sanitizeTheme(mode);
-    if (validMode === 'dark') return 'dark';
-    if (validMode === 'light') return 'light';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }, []);
-
-  const [resolvedTheme, setResolvedTheme] = useState(() => getResolvedTheme(theme));
-
+  // Applies the theme now and, for "system", again whenever the OS scheme changes.
   useEffect(() => {
-    const resolved = getResolvedTheme(theme);
-    setResolvedTheme(resolved);
-    applyResolvedTheme(resolved);
-  }, [theme, getResolvedTheme]);
-
-  useEffect(() => {
-    if (theme !== 'system') return;
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      const resolved = mediaQuery.matches ? 'dark' : 'light';
+    const applyCurrentTheme = () => {
+      const resolved = resolveTheme(theme);
       setResolvedTheme(resolved);
       applyResolvedTheme(resolved);
     };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    applyCurrentTheme();
+    if (theme !== 'system') return undefined;
+    const mediaQuery = window.matchMedia(DARK_SCHEME_QUERY);
+    mediaQuery.addEventListener('change', applyCurrentTheme);
+    return () => mediaQuery.removeEventListener('change', applyCurrentTheme);
   }, [theme]);
 
   const setTheme = useCallback((newTheme) => {
-    setThemeState((prevTheme) => {
-      const rawTheme = typeof newTheme === 'function' ? newTheme(prevTheme) : newTheme;
-      const validTheme = sanitizeTheme(rawTheme);
-      try {
-        localStorage.setItem(STORAGE_KEY, validTheme);
-      } catch {
-        // ignore storage errors
-      }
-      return validTheme;
-    });
+    const validTheme = sanitizeTheme(newTheme);
+    storeTheme(validTheme);
+    setThemeState(validTheme);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      if (prev === 'light') return 'dark';
-      if (prev === 'dark') return 'system';
-      return 'light';
+    setThemeState((previousTheme) => {
+      const nextTheme = NEXT_THEME[previousTheme];
+      storeTheme(nextTheme);
+      return nextTheme;
     });
-  }, [setTheme]);
+  }, []);
 
   return {
-    theme: sanitizeTheme(theme),
+    theme,
     setTheme,
     toggleTheme,
     isDark: resolvedTheme === 'dark',

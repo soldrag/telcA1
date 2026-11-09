@@ -2,28 +2,30 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 
 const DEFAULT_TIME_LIMIT_SECONDS = 25 * 60;
 
-export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
-  const configuration = typeof options === 'number' ? { initialSeconds: options } : (options || {});
-  const {
-    initialSeconds = DEFAULT_TIME_LIMIT_SECONDS,
-    onTimeUp = null,
-    isSubmitted = false,
-    isRunning = true,
-  } = configuration;
+// Ticks once a second and resyncs when the tab becomes visible again (background tabs throttle intervals).
+function subscribeWallClockTick(sync) {
+  const intervalId = setInterval(sync, 1000);
+  const hasDocument = typeof document !== 'undefined';
+  const handleVisibility = () => {
+    if (document.visibilityState === 'visible') sync();
+  };
+  if (hasDocument) document.addEventListener('visibilitychange', handleVisibility);
+  return () => {
+    clearInterval(intervalId);
+    if (hasDocument) document.removeEventListener('visibilitychange', handleVisibility);
+  };
+}
 
+export function useExamTimer({ initialSeconds = DEFAULT_TIME_LIMIT_SECONDS, isSubmitted = false, isRunning = true } = {}) {
   const [isTimed, setIsTimed] = useState(true);
   const [totalSeconds, setTotalSeconds] = useState(initialSeconds);
   const [secondsLeft, setSecondsLeft] = useState(initialSeconds);
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  const timeUpHandlerRef = useRef(onTimeUp);
-  const endTimeRef = useRef(null);
-  const startElapsedRef = useRef(null);
-
-  useEffect(() => {
-    timeUpHandlerRef.current = onTimeUp;
-  }, [onTimeUp]);
+  const timeUpHandlerRef = useRef(null);
+  const endsAtRef = useRef(null);
+  const startedAtRef = useRef(null);
 
   const registerTimeUpHandler = useCallback((handler) => {
     timeUpHandlerRef.current = handler;
@@ -31,90 +33,36 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
 
   const resetTimer = useCallback((timed = true, newDurationSeconds, initialSecondsLeft) => {
     const targetSeconds = newDurationSeconds ?? DEFAULT_TIME_LIMIT_SECONDS;
+    const effectiveSecondsLeft = initialSecondsLeft ?? targetSeconds;
     setTotalSeconds(targetSeconds);
     setIsTimed(Boolean(timed));
-    const effectiveSecondsLeft = initialSecondsLeft !== undefined ? initialSecondsLeft : targetSeconds;
     setSecondsLeft(effectiveSecondsLeft);
-    const elapsed = Math.max(0, targetSeconds - effectiveSecondsLeft);
-    setSecondsElapsed(elapsed);
+    setSecondsElapsed(Math.max(0, targetSeconds - effectiveSecondsLeft));
     setIsPaused(false);
-    endTimeRef.current = Date.now() + effectiveSecondsLeft * 1000;
-    startElapsedRef.current = Date.now() - elapsed * 1000;
+    endsAtRef.current = Date.now() + effectiveSecondsLeft * 1000;
+    startedAtRef.current = Date.now() - (targetSeconds - effectiveSecondsLeft) * 1000;
   }, []);
 
   const togglePause = useCallback(() => {
     setIsPaused((previousState) => !previousState);
   }, []);
 
-  const pauseTimer = useCallback(() => {
-    setIsPaused(true);
-  }, []);
-
-  const resumeTimer = useCallback(() => {
-    setIsPaused(false);
-  }, []);
-
-  const startTimer = useCallback(() => {
-    setIsPaused(false);
-  }, []);
-
   useEffect(() => {
-    if (!isRunning || isSubmitted || isPaused) {
-      endTimeRef.current = null;
-      startElapsedRef.current = null;
-      return;
-    }
+    if (!isRunning || isSubmitted || isPaused) return undefined;
 
     if (!isTimed) {
-      startElapsedRef.current = Date.now() - secondsElapsed * 1000;
-      const syncElapsed = () => {
-        const elapsed = Math.max(0, Math.floor((Date.now() - startElapsedRef.current) / 1000));
-        setSecondsElapsed(elapsed);
-      };
-
-      const intervalId = setInterval(syncElapsed, 1000);
-      const handleVisibility = () => {
-        if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
-          syncElapsed();
-        }
-      };
-      if (typeof document !== 'undefined') {
-        document.addEventListener('visibilitychange', handleVisibility);
-      }
-      return () => {
-        clearInterval(intervalId);
-        if (typeof document !== 'undefined') {
-          document.removeEventListener('visibilitychange', handleVisibility);
-        }
-      };
+      startedAtRef.current = Date.now() - secondsElapsed * 1000;
+      return subscribeWallClockTick(() => {
+        setSecondsElapsed(Math.max(0, Math.floor((Date.now() - startedAtRef.current) / 1000)));
+      });
     }
 
-    endTimeRef.current = Date.now() + secondsLeft * 1000;
-    const syncRemaining = () => {
-      const left = Math.max(0, Math.ceil((endTimeRef.current - Date.now()) / 1000));
-      if (left <= 0) {
-        setSecondsLeft(0);
-        timeUpHandlerRef.current?.();
-      } else {
-        setSecondsLeft(left);
-      }
-    };
-
-    const intervalId = setInterval(syncRemaining, 1000);
-    const handleVisibility = () => {
-      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
-        syncRemaining();
-      }
-    };
-    if (typeof document !== 'undefined') {
-      document.addEventListener('visibilitychange', handleVisibility);
-    }
-    return () => {
-      clearInterval(intervalId);
-      if (typeof document !== 'undefined') {
-        document.removeEventListener('visibilitychange', handleVisibility);
-      }
-    };
+    endsAtRef.current = Date.now() + secondsLeft * 1000;
+    return subscribeWallClockTick(() => {
+      const left = Math.max(0, Math.ceil((endsAtRef.current - Date.now()) / 1000));
+      setSecondsLeft(left);
+      if (left === 0) timeUpHandlerRef.current?.();
+    });
   }, [isRunning, isTimed, isPaused, isSubmitted]);
 
   return {
@@ -124,9 +72,6 @@ export function useExamTimer(options = DEFAULT_TIME_LIMIT_SECONDS) {
     secondsElapsed,
     isPaused,
     togglePause,
-    pauseTimer,
-    resumeTimer,
-    startTimer,
     resetTimer,
     registerTimeUpHandler,
   };

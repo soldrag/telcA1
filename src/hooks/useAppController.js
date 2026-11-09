@@ -27,7 +27,7 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     isRunning: isTimerRunning,
     isSubmitted: session.isSubmitted,
   });
-  const history = useAttemptHistory(loader.activeTestType, storage);
+  const history = useAttemptHistory({ activeTestType: loader.activeTestType, storage, onError: showError });
 
   const navigateTo = useCallback((targetScreen) => {
     setScreen(targetScreen);
@@ -82,13 +82,11 @@ export function useAppController({ storage = defaultAttemptStorage, api } = {}) 
     exams: loader.exams,
     testTypes: loader.testTypes,
     activeTestType: loader.activeTestType,
-    changeTestType: loader.changeTestType,
     chooseTestType: loader.chooseTestType,
     currentExamId: loader.currentExamId,
     selectExam: loader.selectExam,
     examData: loader.examData,
     isLoadingExam: loader.isLoadingExam,
-    loader,
     modals,
     session,
     timer,

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import {
   parseAssignmentTokenFromUrl,
   decodeAssignmentToken,
@@ -12,30 +12,17 @@ import {
 import { saveReceivedAssignment, recordReceivedAssignmentResult } from '../services/storage/receivedAssignmentsStorage.js';
 import { calculateAssignmentTimerState } from '../services/assignment/assignmentTimerService.js';
 import { buildShareUrl } from '../services/shareTokenService.js';
+import { useLatestRef, useUrlToken, openLinkedExam } from './useUrlToken.js';
 
 export function useAssignmentMode({ loader, session, timer, navigateTo, showError } = {}) {
   const [assignmentData, setAssignmentData] = useState(null);
   const [lockoutState, setLockoutState] = useState(null);
-  const processedTokenRef = useRef(null);
+  const deps = useLatestRef({ loader, session, timer, navigateTo, showError });
 
-  const loaderRef = useRef(loader);
-  loaderRef.current = loader;
-  const sessionRef = useRef(session);
-  sessionRef.current = session;
-  const timerRef = useRef(timer);
-  timerRef.current = timer;
-  const navigateToRef = useRef(navigateTo);
-  navigateToRef.current = navigateTo;
-  const showErrorRef = useRef(showError);
-  showErrorRef.current = showError;
-
-  const processToken = useCallback(async (token) => {
-    if (!token || processedTokenRef.current === token) return;
-    processedTokenRef.current = token;
-
+  const handleAssignmentToken = useCallback(async (token) => {
     const decoded = await decodeAssignmentToken(token);
     if (!decoded?.examId) {
-      showErrorRef.current?.('errors.invalidAssignmentLink');
+      deps.current.showError?.('errors.invalidAssignmentLink');
       clearAssignmentTokenFromUrl();
       return;
     }
@@ -44,20 +31,17 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
     saveReceivedAssignment(decoded, token);
     const existingState = getAssignmentState(decoded.assignmentId);
     setLockoutState(existingState);
+    await openLinkedExam(deps.current.loader, decoded);
+  }, [deps]);
 
-    if (decoded.testType && loaderRef.current?.changeTestType) {
-      loaderRef.current.changeTestType(decoded.testType);
-    }
-    await loaderRef.current?.loadExamById(decoded.examId);
-    loaderRef.current?.selectExam(decoded.examId);
-  }, []);
+  const { openToken: processToken, forgetToken } = useUrlToken(parseAssignmentTokenFromUrl, handleAssignmentToken);
 
   const ensureExamLoaded = useCallback(async (examId) => {
-    const currentData = loaderRef.current?.examData;
-    if (currentData?.exam?.id !== examId) {
-      await loaderRef.current?.loadExamById(examId);
+    const { loader } = deps.current;
+    if (loader?.examData?.exam?.id !== examId) {
+      await loader?.loadExamById(examId);
     }
-  }, []);
+  }, [deps]);
 
   const startAssignment = useCallback(async () => {
     if (!assignmentData || lockoutState?.status === 'submitted') return;
@@ -74,15 +58,15 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
       startedAt: started?.startedAt,
     });
 
-    sessionRef.current?.resetSession();
-    timerRef.current?.resetTimer(
+    deps.current.session?.resetSession();
+    deps.current.timer?.resetTimer(
       timerState.isTimed,
       timerState.totalSeconds,
       timerState.remainingSeconds
     );
 
-    navigateToRef.current?.('exam');
-  }, [assignmentData, lockoutState, ensureExamLoaded]);
+    deps.current.navigateTo?.('exam');
+  }, [assignmentData, lockoutState, ensureExamLoaded, deps]);
 
   const finalizeAssignment = useCallback(async (attempt) => {
     if (!assignmentData) return null;
@@ -108,27 +92,13 @@ export function useAssignmentMode({ loader, session, timer, navigateTo, showErro
   }, [assignmentData]);
 
   const exitAssignment = useCallback(() => {
-    processedTokenRef.current = null;
+    forgetToken();
     clearAssignmentTokenFromUrl();
     setAssignmentData(null);
     setLockoutState(null);
-    sessionRef.current?.resetSession();
-    navigateToRef.current?.('welcome');
-  }, []);
-
-  useEffect(() => {
-    const handleUrl = () => {
-      const token = parseAssignmentTokenFromUrl();
-      if (token && processedTokenRef.current !== token) {
-        processToken(token);
-      }
-    };
-    handleUrl();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('hashchange', handleUrl);
-      return () => window.removeEventListener('hashchange', handleUrl);
-    }
-  }, [processToken]);
+    deps.current.session?.resetSession();
+    deps.current.navigateTo?.('welcome');
+  }, [deps, forgetToken]);
 
   return {
     isAssignmentMode: Boolean(assignmentData),

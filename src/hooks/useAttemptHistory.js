@@ -1,63 +1,42 @@
 import { useState, useCallback, useEffect } from 'react';
-import { attemptStorage as defaultAttemptStorage } from '../services/storage/index.js';
 
-export function resolveAttemptStorage(optionsOrStorage) {
-  if (!optionsOrStorage) return defaultAttemptStorage;
-  if (typeof optionsOrStorage === 'object' && optionsOrStorage.storage) {
-    return optionsOrStorage.storage;
-  }
-  return optionsOrStorage;
-}
-
-export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrStorage = defaultAttemptStorage) {
-  let activeTestType = 'lesen';
-  let storage = defaultAttemptStorage;
-
-  if (activeTestTypeOrOptions && typeof activeTestTypeOrOptions === 'object' && !('getAttempts' in activeTestTypeOrOptions)) {
-    activeTestType = activeTestTypeOrOptions.activeTestType || activeTestTypeOrOptions.testType || 'lesen';
-    storage = resolveAttemptStorage(activeTestTypeOrOptions.storage);
-  } else {
-    activeTestType = activeTestTypeOrOptions || 'lesen';
-    storage = resolveAttemptStorage(optionsOrStorage);
-  }
-
+/**
+ * Recent attempts of the active module and the full history, read from the attempt storage port.
+ * Load failures go to `onError` as translation keys (the app's error banner).
+ */
+export function useAttemptHistory({ activeTestType, storage, onError }) {
   const [recentAttempts, setRecentAttempts] = useState([]);
   const [historyAttempts, setHistoryAttempts] = useState([]);
   const [historyLoading, setHistoryLoading] = useState(false);
-  const [historyError, setHistoryError] = useState(null);
 
   const refreshAttempts = useCallback(async () => {
     try {
-      setHistoryError(null);
-      const attemptsList = await storage.getAttempts({ testType: activeTestType, limit: 5 });
-      setRecentAttempts(attemptsList);
-    } catch (error) {
-      setHistoryError('errors.loadRecentAttempts');
+      setRecentAttempts(await storage.getAttempts({ testType: activeTestType, limit: 5 }));
+    } catch {
+      onError('errors.loadRecentAttempts');
     }
-  }, [activeTestType, storage]);
+  }, [activeTestType, storage, onError]);
 
   const refreshHistory = useCallback(async () => {
     setHistoryLoading(true);
-    setHistoryError(null);
     try {
-      const attemptsList = await storage.getAttempts();
-      setHistoryAttempts(attemptsList);
-    } catch (error) {
-      setHistoryError('errors.loadHistory');
+      setHistoryAttempts(await storage.getAttempts());
+    } catch {
+      onError('errors.loadHistory');
     } finally {
       setHistoryLoading(false);
     }
-  }, [storage]);
+  }, [storage, onError]);
 
   const clearHistory = useCallback(async () => {
     try {
       await storage.clearAttempts();
-      await refreshAttempts();
-      await refreshHistory();
-    } catch (error) {
-      setHistoryError('errors.clearHistory');
+    } catch {
+      onError('errors.clearHistory');
     }
-  }, [storage, refreshAttempts, refreshHistory]);
+    await refreshAttempts();
+    await refreshHistory();
+  }, [storage, onError, refreshAttempts, refreshHistory]);
 
   useEffect(() => {
     refreshAttempts();
@@ -68,7 +47,6 @@ export function useAttemptHistory(activeTestTypeOrOptions = 'lesen', optionsOrSt
     recentAttempts,
     historyAttempts,
     historyLoading,
-    historyError,
     refreshAttempts,
     refreshHistory,
     clearHistory,

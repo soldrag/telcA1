@@ -37,8 +37,6 @@ describe('Assignment Button Actions & Contract Invariants', () => {
       resetTimer: (timed, dur, left) => {
         timerResetArgs = { timed, dur, left };
       },
-      startTimer: () => {},
-      pauseTimer: () => {},
     };
 
     const assignmentData = {

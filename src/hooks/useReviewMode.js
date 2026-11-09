@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import {
   parseReviewTokenFromUrl,
   decodeAttemptToken,
@@ -11,6 +11,7 @@ import {
   setTeacherKey,
 } from '../services/security/teacherSecurityService.js';
 import { recordIssuedSubmission } from '../services/storage/issuedAssignmentsStorage.js';
+import { useLatestRef, useUrlToken, openLinkedExam } from './useUrlToken.js';
 
 async function prepareReviewResults(decoded) {
   const resultData = await submitLocalExamAnswers(decoded.examId, {
@@ -57,46 +58,22 @@ async function evaluateSignature(decoded, teacherKey) {
 export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
   const [reviewInfo, setReviewInfo] = useState(null);
   const [decodedAttempt, setDecodedAttempt] = useState(null);
-  const processedTokenRef = useRef(null);
+  const deps = useLatestRef({ loader, session, navigateTo, showError });
 
-  const loaderRef = useRef(loader);
-  loaderRef.current = loader;
-  const sessionRef = useRef(session);
-  sessionRef.current = session;
-  const navigateToRef = useRef(navigateTo);
-  navigateToRef.current = navigateTo;
-  const showErrorRef = useRef(showError);
-  showErrorRef.current = showError;
-
-  const exitReview = useCallback(() => {
-    processedTokenRef.current = null;
-    clearReviewTokenFromUrl();
-    setReviewInfo(null);
-    setDecodedAttempt(null);
-    sessionRef.current?.resetSession();
-    navigateToRef.current?.('welcome');
-  }, []);
-
-  const processReviewToken = useCallback(async (token) => {
-    if (!token || processedTokenRef.current === token) return;
-    processedTokenRef.current = token;
-
+  const handleReviewToken = useCallback(async (token) => {
+    const { loader, session, navigateTo, showError } = deps.current;
     const decoded = await decodeAttemptToken(token);
     if (!decoded?.examId) {
-      showErrorRef.current?.('errors.invalidReviewLink');
+      showError?.('errors.invalidReviewLink');
       clearReviewTokenFromUrl();
       return;
     }
 
     try {
-      if (decoded.testType && loaderRef.current?.changeTestType) {
-        loaderRef.current.changeTestType(decoded.testType);
-      }
-      await loaderRef.current?.loadExamById(decoded.examId);
-      loaderRef.current?.selectExam(decoded.examId);
+      await openLinkedExam(loader, decoded);
 
       const reviewPayload = await prepareReviewResults(decoded);
-      sessionRef.current?.loadPastAttempt(reviewPayload);
+      session?.loadPastAttempt(reviewPayload);
       recordSubmission(decoded, reviewPayload.results, token);
 
       setDecodedAttempt(decoded);
@@ -110,13 +87,24 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
         verificationStatus,
       });
 
-      navigateToRef.current?.('results');
+      navigateTo?.('results');
     } catch (error) {
       console.warn('[useReviewMode] Failed to process review token:', error);
-      showErrorRef.current?.('errors.invalidReviewLink');
+      showError?.('errors.invalidReviewLink');
       clearReviewTokenFromUrl();
     }
-  }, []);
+  }, [deps]);
+
+  const { openToken: processReviewToken, forgetToken } = useUrlToken(parseReviewTokenFromUrl, handleReviewToken);
+
+  const exitReview = useCallback(() => {
+    forgetToken();
+    clearReviewTokenFromUrl();
+    setReviewInfo(null);
+    setDecodedAttempt(null);
+    deps.current.session?.resetSession();
+    deps.current.navigateTo?.('welcome');
+  }, [deps, forgetToken]);
 
   const verifyWithCustomKey = useCallback(async (customKey) => {
     if (!decodedAttempt) return false;
@@ -125,21 +113,6 @@ export function useReviewMode({ loader, session, navigateTo, showError } = {}) {
     setReviewInfo((prev) => (prev ? { ...prev, verificationStatus } : prev));
     return verificationStatus === 'valid';
   }, [decodedAttempt]);
-
-  useEffect(() => {
-    const handleUrlToken = () => {
-      const token = parseReviewTokenFromUrl();
-      if (token && processedTokenRef.current !== token) {
-        processReviewToken(token);
-      }
-    };
-
-    handleUrlToken();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('hashchange', handleUrlToken);
-      return () => window.removeEventListener('hashchange', handleUrlToken);
-    }
-  }, [processReviewToken]);
 
   return {
     isTeacherReview: Boolean(reviewInfo),

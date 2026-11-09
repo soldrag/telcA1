@@ -17,7 +17,7 @@ function setupReactDispatcher() {
 describe('Exam & Results Button Actions', () => {
   setupReactDispatcher();
 
-  test('timer button actions: togglePause, pauseTimer, resumeTimer, startTimer', () => {
+  test('timer button action: togglePause flips the pause state', () => {
     let isPausedState = false;
 
     React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentDispatcher.current = {
@@ -32,21 +32,13 @@ describe('Exam & Results Button Actions', () => {
       useRef: (val) => ({ current: val }),
     };
 
-    const timer = useExamTimer(1500);
+    const timer = useExamTimer({ initialSeconds: 1500 });
 
-    assert.equal(typeof timer.togglePause, 'function');
-    assert.equal(typeof timer.pauseTimer, 'function');
-    assert.equal(typeof timer.resumeTimer, 'function');
-    assert.equal(typeof timer.startTimer, 'function');
+    timer.togglePause();
+    assert.equal(isPausedState, true, 'togglePause must pause a running timer');
 
-    timer.pauseTimer();
-    assert.equal(isPausedState, true, 'pauseTimer must pause');
-
-    timer.resumeTimer();
-    assert.equal(isPausedState, false, 'resumeTimer must resume');
-
-    timer.startTimer();
-    assert.equal(isPausedState, false, 'startTimer must ensure unpaused');
+    timer.togglePause();
+    assert.equal(isPausedState, false, 'togglePause must resume a paused timer');
   });
 
   test('exam session button actions: selectAnswer, selectTeil, nextTeil, previousTeil', () => {

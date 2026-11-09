@@ -12,9 +12,6 @@ describe('Architectural Contract Specifications', () => {
   test('timerContract specifies all required methods and properties', () => {
     assert.ok(timerContract.requiredMethods.includes('resetTimer'));
     assert.ok(timerContract.requiredMethods.includes('togglePause'));
-    assert.ok(timerContract.requiredMethods.includes('pauseTimer'));
-    assert.ok(timerContract.requiredMethods.includes('resumeTimer'));
-    assert.ok(timerContract.requiredMethods.includes('startTimer'));
     assert.ok(timerContract.requiredProperties.includes('isTimed'));
     assert.ok(timerContract.requiredProperties.includes('secondsLeft'));
     assert.ok(timerContract.requiredProperties.includes('isPaused'));
