@@ -1,6 +1,6 @@
 name: Schreiben evaluation
 
-# Grades the open and the hidden letter sets in both modes. The hidden set is decrypted with the
+# Grades the open, the hidden and the MERLIN letter sets in both modes. The hidden set is decrypted with the
 # TELC_HIDDEN_PRIVATE_KEY secret and prints aggregate numbers only (scripts/eval/eval-schreiben.mjs).
 on:
   push:
@@ -12,6 +12,7 @@ on:
       - 'scripts/eval/**'
       - 'tests/fixtures/schreiben-open/**'
       - 'tests/fixtures/schreiben-hidden/**'
+      - 'tests/fixtures/schreiben-merlin/**'
       - '.github/workflows/schreiben-eval.yml'
   workflow_dispatch:
 
@@ -83,6 +84,25 @@ jobs:
           TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
         run: |
           status=0; npm run -s eval:hidden -- --shadow > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      # Real telc A1 exam letters (MERLIN corpus, tasks the grader was not built on), sealed like the hidden set.
+      - name: MERLIN set · limited mode
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:merlin > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: MERLIN set · Micro-Ranker, keyword stage without and with the purpose review
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:merlin -- --shadow > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status

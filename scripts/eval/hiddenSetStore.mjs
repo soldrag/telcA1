@@ -12,7 +12,19 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-export const HIDDEN_DIR = new URL('../../tests/fixtures/schreiben-hidden/', import.meta.url);
+// Sealed sets: `hidden` — persona-written letters for the project's tasks; `merlin` — real telc A1 exam letters
+// from the MERLIN corpus (scripts/eval/merlin/), labelled blind; kept apart so each set's numbers stay comparable.
+const SET_DIRS = Object.freeze({
+  hidden: new URL('../../tests/fixtures/schreiben-hidden/', import.meta.url),
+  merlin: new URL('../../tests/fixtures/schreiben-merlin/', import.meta.url),
+});
+export const HIDDEN_SETS = Object.freeze(Object.keys(SET_DIRS));
+
+/** @param {'hidden'|'merlin'} set */
+export function hiddenSetDir(set = 'hidden') {
+  if (!SET_DIRS[set]) throw new RangeError(`Unknown sealed set "${set}"; known: ${HIDDEN_SETS.join(', ')}`);
+  return SET_DIRS[set];
+}
 export const STAGING_DIR = path.join(os.homedir(), '.cache', 'telc-a1', 'hidden-staging');
 const PUBLIC_KEY_FILE = new URL('./hidden-set-public.pem', import.meta.url);
 const PRIVATE_KEY_FILE = path.join(os.homedir(), '.config', 'telc-a1', 'hidden-eval.pem');
@@ -52,10 +64,10 @@ function openBatch(sealed, privateKey) {
   return JSON.parse(Buffer.concat([decipher.update(Buffer.from(data, 'base64')), decipher.final()]).toString('utf8'));
 }
 
-/** All sealed batches, decrypted in memory only. */
-export function loadHiddenLetters() {
+/** All sealed batches of a set, decrypted in memory only. */
+export function loadHiddenLetters(set = 'hidden') {
   const privateKey = readPrivateKey();
-  const dir = HIDDEN_DIR.pathname;
+  const dir = hiddenSetDir(set).pathname;
   return fs.readdirSync(dir)
     .filter((f) => f.endsWith('.enc'))
     .sort()

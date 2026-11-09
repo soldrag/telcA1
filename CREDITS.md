@@ -18,6 +18,16 @@ Each source is listed with its author, license and link; new sources are added i
 `scripts/lexicon/buildGermanVerbs.mjs` (selected columns, cleaned variants). As adaptations of CC BY-SA
 data, these files are themselves licensed under **CC BY-SA 4.0**. The rest of the project is MIT-licensed (see `LICENSE`).
 
+## Evaluation data
+
+| Source | Author | License | Used for |
+|---|---|---|---|
+| [MERLIN Written Learner Corpus for Czech, German, Italian 1.2](https://hdl.handle.net/20.500.12124/59) (texts and tasks) | Boyd, Hana, Nicolas, Meurers, Wisniewski, Abel, Schöne, Štindlová, Vettori ([LREC 2014](http://www.lrec-conf.org/proceedings/lrec2014/pdf/606_Paper.pdf)); Eurac Research | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Real telc A1 Schreiben Teil 2 letters for grader evaluation; never shipped in the app |
+
+`scripts/eval/merlin/tasks.js` quotes three MERLIN telc A1 task prompts, and `tests/fixtures/schreiben-merlin/*.enc` holds
+the corpus's German A1 letters for those tasks with per-Leitpunkt labels added by the project (encrypted, see
+`scripts/eval/hiddenSetStore.mjs`). As adaptations of CC BY-SA data, these files are licensed under **CC BY-SA 4.0**.
+
 ## Models
 
 | Model | Author | License | Used for |

@@ -1,6 +1,6 @@
 {
   "name": "telc-a1-deutsch-lesen",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "license": "MIT",
   "type": "module",
   "description": "Browser-first telc Deutsch A1 exam simulator: Lesen and Schreiben with realistic tasks, timer and in-browser grading",
@@ -18,7 +18,8 @@
     "build": "vite build",
     "build:lexicon": "node scripts/lexicon/buildGermanNouns.mjs && node scripts/lexicon/buildGermanVerbs.mjs",
     "eval:open": "node --import ./tests/support/loadLexiconData.js scripts/eval/eval-schreiben.mjs",
-    "eval:hidden": "node --import ./tests/support/loadLexiconData.js scripts/eval/eval-schreiben.mjs --hidden"
+    "eval:hidden": "node --import ./tests/support/loadLexiconData.js scripts/eval/eval-schreiben.mjs --hidden",
+    "eval:merlin": "node --import ./tests/support/loadLexiconData.js scripts/eval/eval-schreiben.mjs --merlin"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

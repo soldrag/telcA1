@@ -2,6 +2,7 @@
  * Schreiben Teil 2 evaluation against examiner verdicts.
  *   npm run eval:open   [-- --ranker]   open set: per-letter table, for debugging cases
  *   npm run eval:hidden [-- --ranker]   hidden set: aggregate numbers only, for measuring
+ *   npm run eval:merlin [-- --ranker]   real telc A1 exam letters (MERLIN, sealed like the hidden set): aggregates only
  * Default mode is the limited mode (no model). --ranker grades with the Micro-Ranker on EmbeddingGemma,
  * as the browser does (downloads the model on first use).
  * --review adds the trained another-purpose review to the keyword stage (implies --ranker); --shadow grades every
@@ -17,11 +18,13 @@ import { gradeSchreibenSubmission } from '../../src/services/schreiben/gradingPi
 import { expectedTotal, validateLetters } from './letterSchema.mjs';
 import { canReviewPurpose } from '../../src/services/schreiben/grading/purposeReview.js';
 import { resolveLevelContext } from '../../src/services/schreiben/levelContext.js';
+import { merlinTasks } from './merlin/tasks.js';
 
 const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url);
-const set = process.argv.includes('--hidden') ? 'hidden' : (process.argv.includes('--calibration') ? 'calibration' : 'open');
-// Sets whose letters may be printed: tuning and ablation work on these, never on the hidden one.
-const isReadable = set !== 'hidden';
+const SEALED_SETS = ['hidden', 'merlin'];
+const set = ['hidden', 'merlin', 'calibration'].find((name) => process.argv.includes(`--${name}`)) || 'open';
+// Sets whose letters may be printed: tuning and ablation work on these, never on the sealed ones.
+const isReadable = !SEALED_SETS.includes(set);
 const shadow = process.argv.includes('--shadow');
 const withReview = process.argv.includes('--review');
 const useRanker = process.argv.includes('--ranker') || withReview || shadow;
@@ -31,7 +34,7 @@ const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1
 const CALIBRATION_DIR = new URL('calibration/', import.meta.url);
 
 async function loadSet() {
-  if (set === 'hidden') return (await import('./hiddenSetStore.mjs')).loadHiddenLetters();
+  if (SEALED_SETS.includes(set)) return (await import('./hiddenSetStore.mjs')).loadHiddenLetters(set);
   // Calibration letters train the purpose review: grade them to measure the keyword stage, not the review.
   if (set === 'calibration') {
     return fs.readdirSync(CALIBRATION_DIR).filter((f) => /^letters-levels-.*\.json$/.test(f)).sort().flatMap((f) => (
@@ -48,6 +51,8 @@ async function loadSet() {
 
 const questionCache = new Map();
 async function findQuestion(seedQuestionId) {
+  const merlinTask = merlinTasks.find((t) => t.id === seedQuestionId);
+  if (merlinTask) return merlinTask;
   if (!questionCache.has(seedQuestionId)) {
     const n = seedQuestionId.match(/^s(\d+)-/)[1];
     const { questions } = await import(`../../src/data/exams/seeds/schreiben-modellsatz-${n}.js`);
