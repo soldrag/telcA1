@@ -7,6 +7,7 @@
 
 import { ILeitpunktAssessor } from './leitpunktAssessorInterface.js';
 import { ReferenceAlignmentAssessor } from './referenceAlignmentAssessor.js';
+import { KeywordRankerAssessor } from './keywordRankerAssessor.js';
 import { letterSpans, readLetterGroups } from '../evidenceHead/letterReading.js';
 import { loadTaskReferences } from '../evidenceHead/taskReferences.js';
 import { resolveLpDiagnosticCode } from '../../feedback/feedbackContracts.js';
@@ -16,6 +17,12 @@ import { describeError } from '../../../../utils/describeError.js';
 import { PROVIDER_IDS } from '../../../ai/types.js';
 
 const closest = (v, refs) => Math.max(...refs.map((r) => r.reduce((s, x, i) => s + x * v[i], 0)));
+
+/** null when the task has no prototype letters on one side: no reading rather than a guess. */
+function readPurpose(letter, purpose) {
+  if (!purpose.onTask.length || !purpose.offTask.length) return null;
+  return closest(letter, purpose.onTask) >= closest(letter, purpose.offTask);
+}
 
 function toVerdict(criterion, group) {
   return {
@@ -42,9 +49,15 @@ async function resolveExtractor({ provider, evidenceExtractor, customExtractor, 
 }
 
 export class EvidenceHeadAssessor extends ILeitpunktAssessor {
-  constructor(fallback = new ReferenceAlignmentAssessor()) {
+  /**
+   * @param {ILeitpunktAssessor} [fallback] - keyword-free reading without the model
+   * @param {ILeitpunktAssessor} [lastResort] - while the keyword stage exists: grades when the fallback cannot either
+   *   (its task phrases are not loadable, e.g. offline before the task's chunk was fetched), so a grading never fails
+   */
+  constructor(fallback = new ReferenceAlignmentAssessor(), lastResort = new KeywordRankerAssessor()) {
     super();
     this._fallback = fallback;
+    this._lastResort = lastResort;
   }
 
   get id() {
@@ -58,13 +71,23 @@ export class EvidenceHeadAssessor extends ILeitpunktAssessor {
     try {
       extractor = model ? await resolveExtractor(input) : null;
     } catch (err) {
-      return { ...(await this._fallback.assess(input)), modelFailureDetail: describeError(err) };
+      return this._readWithoutModel(input, describeError(err));
     }
-    if (!extractor) return this._fallback.assess(input);
+    if (!extractor) return this._readWithoutModel(input, null);
     try {
       return await this._read({ question, criteria, bodySentences, letterText, policy, model, extractor });
     } catch (err) {
-      return { ...(await this._fallback.assess(input)), modelUsed: false, modelFailureDetail: describeError(err) };
+      return this._readWithoutModel(input, describeError(err));
+    }
+  }
+
+  async _readWithoutModel(input, failure) {
+    try {
+      const result = await this._fallback.assess(input);
+      return failure ? { ...result, modelUsed: false, modelFailureDetail: failure } : result;
+    } catch (err) {
+      const result = await this._lastResort.assess({ ...input, customExtractor: false });
+      return { ...result, modelUsed: false, modelFailureDetail: failure || describeError(err) };
     }
   }
 
@@ -77,12 +100,13 @@ export class EvidenceHeadAssessor extends ILeitpunktAssessor {
     const spans = await Promise.all(texts.map(async (text) => ({ text, vector: await embed(text), whole: whole.has(text) })));
     const groups = readLetterGroups({ head: model.head, thresholds: model.thresholds, groups: refs.groups, spans });
     const letter = await embed(letterText);
+    if (letter.length !== refs.dimension) throw new Error(`Letter vectors have ${letter.length} dimensions, references ${refs.dimension}`);
     return {
       items: criteria.map((c, i) => toVerdict(c, groups[i])),
       semanticErrors: [],
       modelUsed: true,
       modelFailureDetail: null,
-      servesTaskPurpose: closest(letter, refs.purpose.onTask) >= closest(letter, refs.purpose.offTask),
+      servesTaskPurpose: readPurpose(letter, refs.purpose),
     };
   }
 }

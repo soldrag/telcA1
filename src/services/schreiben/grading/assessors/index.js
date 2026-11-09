@@ -7,12 +7,9 @@ import { ILeitpunktAssessor } from './leitpunktAssessorInterface.js';
 import { KeywordRankerAssessor } from './keywordRankerAssessor.js';
 import { EvidenceHeadAssessor } from './evidenceHeadAssessor.js';
 import { ReferenceAlignmentAssessor } from './referenceAlignmentAssessor.js';
+import { LEITPUNKT_ENGINES } from './leitpunktEngines.js';
 
-export const LEITPUNKT_ENGINES = Object.freeze({
-  KEYWORD_RANKER: 'keyword-ranker',
-  EVIDENCE_HEAD: 'evidence-head',
-  REFERENCE_ALIGNMENT: 'reference-alignment',
-});
+export { LEITPUNKT_ENGINES };
 
 const REGISTRY = new Map([
   [LEITPUNKT_ENGINES.KEYWORD_RANKER, new KeywordRankerAssessor()],

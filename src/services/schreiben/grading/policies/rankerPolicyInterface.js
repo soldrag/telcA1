@@ -65,7 +65,7 @@ export class IRankerPolicy {
 
   /**
    * The keyword-free evidence head (grading/assessors/evidenceHeadAssessor.js): softmax head weights and letter
-   * thresholds, or null when the level has none (the assessor then hands the letter to the keyword-ranker one).
+   * thresholds, or null when the level has none (the assessor then reads the letter by reference alignment).
    * @returns {{ head: object, thresholds: { full: number, partial: number, contradiction: number } }|null}
    */
   get evidenceHead() {

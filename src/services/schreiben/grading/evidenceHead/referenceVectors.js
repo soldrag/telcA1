@@ -52,6 +52,7 @@ export function decodeTaskReferences(stored) {
 export function resolveTaskReferences(stored, vectors) {
   const pick = (indices) => indices.map((i) => vectors[i]);
   return {
+    dimension: vectors[0]?.length ?? 0,
     groups: stored.groups.map((g) => ({
       lp: g.lp,
       units: g.units.map((u) => ({ key: u.key, fulfils: pick(u.fulfils), misses: pick(u.misses), rivals: pick(u.rivals), irr: pick(u.irr), desc: vectors[u.desc] })),

@@ -1,7 +1,7 @@
 /**
  * A task's units read by reference alignment (experiment 1, run A): a span supports a unit when its best fulfilling
- * phrase aligns at least as well as the unit's near misses and the irrelevant phrases; a span contradicts it when a
- * near miss aligns better and at least as well as the full threshold. Thresholds and the IDF table are level data.
+ * phrase aligns at least as well as the unit's near misses and the irrelevant phrases (a span closer to a near miss
+ * supports nothing; it does not void support found elsewhere). Thresholds and the IDF table are level data.
  */
 
 import { parseSentencePropositions } from '../../linguistic/clauseStructureParser.js';
@@ -22,19 +22,14 @@ export function alignmentSpans(sentences, lexicon) {
 function readUnit(unit, spans, { thresholds, context }) {
   let best = 0;
   let evidence = '';
-  let contradicted = false;
   for (const span of spans) {
     const P = bestAlignment(unit.fulfils, span.tokens, context);
     const M = bestAlignment(unit.misses, span.tokens, context);
     const O = bestAlignment(unit.irr, span.tokens, context);
-    if (P >= M && P >= O) {
-      if (P > best) { best = P; evidence = span.text; }
-    } else if (M > P && M >= thresholds.full) {
-      contradicted = true;
-    }
+    if (P >= M && P >= O && P > best) { best = P; evidence = span.text; }
   }
   const level = best >= thresholds.full ? 2 : best >= thresholds.partial ? 1 : 0;
-  return { key: unit.key, support: best, contradicted, level, span: evidence };
+  return { key: unit.key, support: best, level, span: evidence };
 }
 
 function combine(readings) {

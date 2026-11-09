@@ -27,10 +27,12 @@
  * @property {object} question - the task
  * @property {object[]} criteria - resolveLeitpunktCriteria(question)
  * @property {string[]} bodySentences - stage 0 body sentences
+ * @property {string} [letterText] - the whole body as one text (the letter's purpose is read on it)
  * @property {object} provider - the AI provider the registry chose
  * @property {object} policy - the level's ranker policy
  * @property {object} [userSegments]
  * @property {Function|false} [customExtractor]
+ * @property {Function} [evidenceExtractor] - a sentence-embedding extractor to use instead of loading the model
  * @property {Function} [onModelDownload]
  */
 

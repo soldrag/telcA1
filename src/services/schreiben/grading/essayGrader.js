@@ -6,7 +6,7 @@
 import { aiProviderRegistry } from '../../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { gradeSchreibenWithWorker } from './gradingWorkerClient.js';
-import { LEITPUNKT_ENGINES } from './assessors/index.js';
+import { LEITPUNKT_ENGINES } from './assessors/leitpunktEngines.js';
 
 // Developer switch for the Leitpunkt engine while the keyword-free head is checked against its gate.
 const ENGINE_OVERRIDE_KEY = 'telc_leitpunkt_engine';

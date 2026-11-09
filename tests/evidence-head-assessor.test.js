@@ -79,4 +79,29 @@ describe('EvidenceHeadAssessor', () => {
     assert.equal(result.items[0].rankerDetails.engine, 'reference-alignment');
     assert.equal(result.items[0].score, 2, 'the letter repeats a fulfilling phrase of LP1');
   });
+
+  it('still grades, naming the failure, when the task has no phrases to read against', async () => {
+    const policy = resolveLevelContext('A1').policy;
+    await policy.lexicon.load();
+    const result = await new EvidenceHeadAssessor().assess({
+      question: { id: 'task-without-phrases', situation: question.situation, options_json: {} },
+      criteria: criteria.map((c) => ({ ...c, intent: 'GENERAL', keywords: ['zimmer'], requiredMatches: 1 })), policy,
+      bodySentences: ['Ich möchte ein Zimmer buchen.'], provider: aiProviderRegistry.getProvider(PROVIDER_IDS.NONE),
+    });
+    assert.deepEqual(result.items.map((it) => it.id), ['lp1', 'lp2']);
+    assert.equal(result.modelUsed, false);
+    assert.match(result.modelFailureDetail, /task-without-phrases/);
+  });
+
+  it('does not read the letter against references of another dimension', async () => {
+    const policy = resolveLevelContext('A1').policy;
+    const shortVectors = (prompt) => fakeExtractor(prompt).then(({ data }) => ({ data: data.slice(0, 8) }));
+    const result = await new EvidenceHeadAssessor().assess({
+      question: { ...question, id: 'evidence-head-test-dims' }, criteria, policy, bodySentences: ['Ich möchte ein Zimmer buchen.'],
+      letterText: 'Ganzer Brief', provider: aiProviderRegistry.getProvider(PROVIDER_IDS.MICRO_RANKER),
+      evidenceExtractor: (prompt) => (prompt.includes('Ganzer Brief') ? shortVectors(prompt) : fakeExtractor(prompt)),
+    });
+    assert.equal(result.modelUsed, false);
+    assert.equal(result.servesTaskPurpose, null);
+  });
 });

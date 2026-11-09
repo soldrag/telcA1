@@ -41,7 +41,7 @@ export async function loadTaskPhrases({ question, criteria }) {
  * @returns {Promise<object|null>} decoded references, null when the task has none
  */
 export async function loadTaskReferences({ question, criteria, embed }) {
-  if (cache.has(question.id)) return cache.get(question.id);
+  if (cache.has(question.id)) return guardRubric(cache.get(question.id), criteria, question.id);
   const bank = readTaskOptions(question).evidenceBank;
   let refs = null;
   if (bank) {
@@ -51,7 +51,11 @@ export async function loadTaskReferences({ question, criteria, embed }) {
     const stored = await loadStoredTaskReferences(question.id);
     refs = stored ? decodeTaskReferences(stored) : null;
   }
-  if (refs) assertMatchesRubric(refs, criteria, question.id);
   cache.set(question.id, refs);
+  return guardRubric(refs, criteria, question.id);
+}
+
+function guardRubric(refs, criteria, taskId) {
+  if (refs) assertMatchesRubric(refs, criteria, taskId);
   return refs;
 }
