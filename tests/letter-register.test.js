@@ -44,6 +44,22 @@ describe('addressee register (rubric data)', () => {
     assert.equal(result.breakdown.kommunikative_gestaltung.points, 0.5);
   });
 
+  it('rates formal formulas to a friend as atypical, with their own hint', async () => {
+    const formalToFriend = 'Sehr geehrter Paul,\nwir treffen uns am Samstag um 15 Uhr im Park. Bring bitte einen Kuchen mit.\nMit freundlichen Grüßen\nMara';
+    const result = await gradeLetter(formalToFriend, taskFor('informal'));
+    assert.equal(result.breakdown.kommunikative_gestaltung.points, 0.5);
+    assert.equal(result.criteria_breakdown.diagnostic.anrede.diagnosticCode, 'ANREDE_TOO_FORMAL');
+    assert.equal(result.criteria_breakdown.diagnostic.gruss.diagnosticCode, 'GRUSS_TOO_FORMAL');
+  });
+
+  it('accepts neutral formulas for any addressee', async () => {
+    const neutral = 'Hallo Paul,\nwir treffen uns am Samstag um 15 Uhr im Park. Bring bitte einen Kuchen mit.\nViele Grüße\nMara';
+    for (const register of ['informal', 'formal']) {
+      const result = await gradeLetter(neutral, taskFor(register));
+      assert.equal(result.breakdown.kommunikative_gestaltung.points, 1, register);
+    }
+  });
+
   it('keeps formal formulas appropriate in a formal task', async () => {
     const result = await gradeLetter(toOffice, taskFor('formal'));
     assert.equal(result.breakdown.kommunikative_gestaltung.points, 1);

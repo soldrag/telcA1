@@ -1,9 +1,10 @@
 import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 import { DIAGNOSTIC_CODES } from './feedback/feedbackContracts.js';
 
-function resolveClosingDiagnostic(score, hasName) {
+function resolveClosingDiagnostic({ score, hasName, register }) {
   if (score >= 2) return hasName ? DIAGNOSTIC_CODES.GRUSS_PERFECT : DIAGNOSTIC_CODES.GRUSS_NO_SENDER_NAME;
-  return score === 1 ? DIAGNOSTIC_CODES.GRUSS_INCOMPLETE : DIAGNOSTIC_CODES.GRUSS_MISSING;
+  if (score !== 1) return DIAGNOSTIC_CODES.GRUSS_MISSING;
+  return register === 'formal' ? DIAGNOSTIC_CODES.GRUSS_TOO_FORMAL : DIAGNOSTIC_CODES.GRUSS_INCOMPLETE;
 }
 
 /** Grammar and spelling inside the closing formula are grammar hints (closingFormula letter rule), not part of this rating. */
@@ -18,6 +19,6 @@ export function analyzeClosing(text = '', options = {}) {
     text: closing.text,
     senderName: closing.senderName,
     hasName: closing.hasName,
-    diagnosticCode: resolveClosingDiagnostic(closing.score, closing.hasName),
+    diagnosticCode: resolveClosingDiagnostic(closing),
   };
 }
