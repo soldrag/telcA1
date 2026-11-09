@@ -143,6 +143,7 @@ export const questions = [
         'Termin für eine Besichtigung'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',

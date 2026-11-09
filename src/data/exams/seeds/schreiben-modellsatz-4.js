@@ -143,6 +143,7 @@ export const questions = [
         'Preis und Haustiere'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',

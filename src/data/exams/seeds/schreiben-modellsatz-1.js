@@ -143,6 +143,7 @@ export const questions = [
         'Frage nach den Kurskosten und Anmeldung'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',

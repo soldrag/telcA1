@@ -143,6 +143,7 @@ export const questions = [
         'Handwerker / Reparaturtermin'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',

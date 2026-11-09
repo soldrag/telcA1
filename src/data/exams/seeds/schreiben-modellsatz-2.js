@@ -143,6 +143,7 @@ export const questions = [
         'Neuer Terminvorschlag'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',

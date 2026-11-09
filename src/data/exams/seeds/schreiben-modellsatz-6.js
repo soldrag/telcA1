@@ -143,6 +143,7 @@ export const questions = [
         'Frühstück und Parkplatz'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',
