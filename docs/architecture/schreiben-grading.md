@@ -180,5 +180,6 @@ Recorded instead of fitting (CLAUDE.md §8.1):
 - "Ich frage nicht nach Kosten" is not a refusal until prepositional verb valency is data for all A1 verbs;
 - verb forms outside the lexicon are not folded to one concept ("meldet" ≠ "melden");
 - a month alone ("im August") counts as a Zeitraum until a regulation source says otherwise.
+- s3 "Handwerker / Reparaturtermin" as one point: without a declared temporal aspect neither the keyword stage nor the Micro-Ranker's example phrases tell "the heating is broken" from "please send someone", so a letter that only describes the problem can earn the point (calibration l2-10, l2-11); the keyword-free head is the planned fix, no phrase is added for these letters.
 
 Grammar limits: see [linguistic engine](linguistic-engine.md#known-limits).
