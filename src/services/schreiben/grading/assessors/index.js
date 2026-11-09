@@ -1,14 +1,18 @@
 /**
- * Registry of Leitpunkt assessors (ILeitpunktAssessor). `keyword-ranker` is the default; an unknown engine id is an
- * error, never a silent fallback.
+ * Registry of Leitpunkt assessors (ILeitpunktAssessor). `keyword-ranker` is the default; `evidence-head` is the
+ * keyword-free head, behind the switch until it passes its gate. An unknown engine id is an error, never a fallback.
  */
 
 import { ILeitpunktAssessor } from './leitpunktAssessorInterface.js';
 import { KeywordRankerAssessor } from './keywordRankerAssessor.js';
+import { EvidenceHeadAssessor } from './evidenceHeadAssessor.js';
 
-export const LEITPUNKT_ENGINES = Object.freeze({ KEYWORD_RANKER: 'keyword-ranker' });
+export const LEITPUNKT_ENGINES = Object.freeze({ KEYWORD_RANKER: 'keyword-ranker', EVIDENCE_HEAD: 'evidence-head' });
 
-const REGISTRY = new Map([[LEITPUNKT_ENGINES.KEYWORD_RANKER, new KeywordRankerAssessor()]]);
+const REGISTRY = new Map([
+  [LEITPUNKT_ENGINES.KEYWORD_RANKER, new KeywordRankerAssessor()],
+  [LEITPUNKT_ENGINES.EVIDENCE_HEAD, new EvidenceHeadAssessor()],
+]);
 
 /** @param {string} id @param {ILeitpunktAssessor} assessor */
 export function registerLeitpunktAssessor(id, assessor) {

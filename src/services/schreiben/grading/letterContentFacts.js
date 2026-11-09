@@ -12,9 +12,9 @@ import { findCompoundModifierMatches } from '../linguistic/compoundModifierMatch
  * @typedef {Object} LetterContentFacts
  * @property {boolean} hasPredication - some body clause states something: a finite verb, a subject
  *   pronoun or a question. A list of bare nouns ("Ferienwohnung. Personen. Preis.") does not.
- * @property {boolean} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt
+ * @property {boolean|null} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt
  *   (or the modifier of a compound one: "Deutsch" for "Deutschkurs"), so the letter is about this task
- *   and not another one.
+ *   and not another one; null when not measured (an assessor that reads the purpose itself uses no keywords).
  * @property {boolean|null} servesTaskPurpose - the trained another-purpose review's reading (purposeReview.js): false
  *   when the letter is written for another purpose; null when the review did not run (no model, limited mode).
  */
@@ -65,15 +65,15 @@ function hasTaskAnchor(words, criteria, lexicon) {
 
 /**
  * @param {{ bodySentences: string[], criteria: object[], lexicon: { lookup: Function, tag: Function },
- *   servesTaskPurpose?: boolean|null }} input
+ *   servesTaskPurpose?: boolean|null, measureTaskAnchor?: boolean }} input
  * @returns {LetterContentFacts}
  */
-export function detectLetterContentFacts({ bodySentences = [], criteria = [], lexicon, servesTaskPurpose = null }) {
+export function detectLetterContentFacts({ bodySentences = [], criteria = [], lexicon, servesTaskPurpose = null, measureTaskAnchor = true }) {
   if (!lexicon) throw new TypeError('detectLetterContentFacts needs a lexicon port');
   const words = bodySentences.join(' ').split(/\s+/).filter(Boolean);
   return {
     hasPredication: bodySentences.some((s) => sentenceHasPredication(s, lexicon)),
-    hasTaskAnchor: hasTaskAnchor(words, criteria, lexicon),
+    hasTaskAnchor: measureTaskAnchor ? hasTaskAnchor(words, criteria, lexicon) : null,
     servesTaskPurpose,
   };
 }

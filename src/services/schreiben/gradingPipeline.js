@@ -170,13 +170,17 @@ export async function gradeSchreibenSubmission({
     question,
     criteria,
     bodySentences: stage0.bodySentences,
+    letterText: stage0.rawText,
     provider: activeProvider,
     customExtractor,
+    evidenceExtractor: options.evidenceExtractor,
     userSegments,
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
-  const review = await runPurposeReview({ keywordStage: stage2, criteria, stage0, question, activeProvider, levelPolicy, options });
+  // The evidence head reads the letter's purpose itself; the trained review runs over the keyword stage only.
+  const readsOwnPurpose = typeof stage2.servesTaskPurpose === 'boolean';
+  const review = readsOwnPurpose ? null : await runPurposeReview({ keywordStage: stage2, criteria, stage0, question, activeProvider, levelPolicy, options });
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
@@ -198,7 +202,8 @@ export async function gradeSchreibenSubmission({
       bodySentences: stage0.bodySentences,
       criteria,
       lexicon: levelContext.lexicon,
-      servesTaskPurpose: review ? !review.anotherPurpose : null,
+      servesTaskPurpose: readsOwnPurpose ? stage2.servesTaskPurpose : (review ? !review.anotherPurpose : null),
+      measureTaskAnchor: !readsOwnPurpose,
     }),
     level: question.level,
   });

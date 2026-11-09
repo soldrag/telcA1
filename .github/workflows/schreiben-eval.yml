@@ -8,6 +8,8 @@ on:
       - 'src/services/schreiben/**'
       - 'src/services/ai/**'
       - 'src/services/embeddings/**'
+      - 'src/data/exams/evidence-head/**'
+      - 'src/data/exams/example-bank/**'
       - 'src/data/exams/seeds/schreiben-*'
       - 'scripts/eval/**'
       - 'tests/fixtures/schreiben-open/**'
@@ -103,6 +105,25 @@ jobs:
           TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
         run: |
           status=0; npm run -s eval:merlin -- --shadow > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      # The keyword-free evidence head behind its switch: the gate numbers (hidden and MERLIN are not trained on).
+      - name: Hidden set · evidence head
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:hidden -- --engine evidence-head > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: MERLIN set · evidence head
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; npm run -s eval:merlin -- --engine evidence-head > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status

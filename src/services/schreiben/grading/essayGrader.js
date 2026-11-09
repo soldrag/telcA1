@@ -6,6 +6,19 @@
 import { aiProviderRegistry } from '../../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../../ai/types.js';
 import { gradeSchreibenWithWorker } from './gradingWorkerClient.js';
+import { LEITPUNKT_ENGINES } from './assessors/index.js';
+
+// Developer switch for the Leitpunkt engine while the keyword-free head is checked against its gate.
+const ENGINE_OVERRIDE_KEY = 'telc_leitpunkt_engine';
+
+function readEngineOverride() {
+  try {
+    const value = globalThis.localStorage?.getItem(ENGINE_OVERRIDE_KEY);
+    return Object.values(LEITPUNKT_ENGINES).includes(value) ? value : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 /** @returns {Promise<object>} the pipeline result (gradeSchreibenSubmission), `provider_id` included */
 export async function gradeEssayWithActiveProvider({ userText = '', question = {}, onProgress = null } = {}) {
@@ -13,7 +26,7 @@ export async function gradeEssayWithActiveProvider({ userText = '', question = {
   return gradeSchreibenWithWorker({
     userText,
     question,
-    options: { forceLimitedMode: provider.id === PROVIDER_IDS.NONE },
+    options: { forceLimitedMode: provider.id === PROVIDER_IDS.NONE, leitpunktEngine: readEngineOverride() },
     onProgress,
   });
 }

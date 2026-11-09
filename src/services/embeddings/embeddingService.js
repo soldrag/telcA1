@@ -80,6 +80,12 @@ export async function computeDocumentVector(text, extractor) {
   return prepareEmbeddingVector(output?.data || output, EMBEDDING_DIMENSION);
 }
 
+/** The full-length sentence vector of a letter span, for the keyword-free evidence head (trained on all dimensions). */
+export async function computeFullDocumentVector(text, extractor) {
+  const output = await extractor(`${DOCUMENT_PROMPT}${String(text || '').trim()}`);
+  return prepareEmbeddingVector(output?.data || output, Infinity);
+}
+
 async function initEmbeddingService(onProgress = null) {
   if (extractorInstance) return extractorInstance;
   if (isInitializing) {

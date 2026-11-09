@@ -13,6 +13,7 @@ import { EVIDENCE_KINDS } from '../../linguistic/criterionIntents.js';
 import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
 import A1_EVIDENCE_MODEL from './a1EvidenceModel.json' with { type: 'json' };
 import A1_PURPOSE_REVIEW from './a1PurposeReviewModel.json' with { type: 'json' };
+import A1_EVIDENCE_HEAD from './a1EvidenceHead.json' with { type: 'json' };
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -54,6 +55,12 @@ export class A1RankerPolicy extends IRankerPolicy {
   get evidenceModel() {
     return this._evidenceModel ??= Object.freeze({ ...A1_EVIDENCE_MODEL, purposeReview: A1_PURPOSE_REVIEW });
   }
+
+  /** The keyword-free evidence head trained by scripts/eval/evidence-head/train.mjs. */
+  get evidenceHead() {
+    return A1_EVIDENCE_HEAD;
+  }
+
 
   capUnprovenLexical(evidenceKind, lexical) {
     return this._specificEvidenceKinds.has(evidenceKind) ? Math.min(lexical, this._thresholds.partial) : lexical;

@@ -57,7 +57,7 @@ flowchart TB
 |---|---|
 | [Frontend](docs/architecture/frontend.md) | screens, hooks, page grid and type scale, dialogs, theme, performance rules |
 | [Data and storage](docs/architecture/data-and-storage.md) | seeds, `examService`, module rules, `localStorage` keys, PWA, deployment |
-| [Schreiben grading](docs/architecture/schreiben-grading.md) | pipeline stages, Leitpunkt evidence, Micro-Ranker, arbitration, `IRankerPolicy`, `ISchreibenRegulation`, feedback |
+| [Schreiben grading](docs/architecture/schreiben-grading.md) | pipeline stages, Leitpunkt assessors (`ILeitpunktAssessor`: keyword-ranker, keyword-free evidence head behind a switch), Micro-Ranker, arbitration, `IRankerPolicy`, `ISchreibenRegulation`, feedback |
 | [Linguistic engine](docs/architecture/linguistic-engine.md) | lexicon port and dictionaries, grammar and letter rules, word order, level profile, precision |
 | [Teacher assignments](docs/architecture/teacher-assignments.md) | `#task=` / `#review=` links, HMAC signing, lockout |
 | [Quality gates](docs/architecture/quality-gates.md) | contracts, tests, UI suites, benchmarks, all commands |
@@ -70,7 +70,7 @@ flowchart TB
 |---|---|
 | New exam variant | [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) |
 | Points or pass rules of Schreiben, accepted Teil 1 answers | `regulations/telcA1Regulation.js` + `reglament/telc-a1.md` |
-| How coverage is classified (thresholds, compound points) | `grading/policies/a1RankerPolicy.js` |
+| How coverage is classified (thresholds, compound points) | `grading/policies/a1RankerPolicy.js`; the evidence head's weights and thresholds `grading/policies/a1EvidenceHead.json` (retrain with `scripts/eval/evidence-head/train.mjs`) |
 | A grammar hint | `linguistic/grammarRules/` or `letterRules/`, enabled in `profiles/a1GrammarProfile.js` |
 | New CEFR level | new regulation + ranker policy + grammar profile + reglament; no engine edits |
 | Module time or points | `shared/testTypes.js` |

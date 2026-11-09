@@ -63,6 +63,15 @@ export class IRankerPolicy {
     return null;
   }
 
+  /**
+   * The keyword-free evidence head (grading/assessors/evidenceHeadAssessor.js): softmax head weights and letter
+   * thresholds, or null when the level has none (the assessor then hands the letter to the keyword-ranker one).
+   * @returns {{ head: object, thresholds: { full: number, partial: number, contradiction: number } }|null}
+   */
+  get evidenceHead() {
+    return null;
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }
