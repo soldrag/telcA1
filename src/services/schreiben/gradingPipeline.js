@@ -15,7 +15,8 @@ import { isGibberishText } from './gibberishDetector.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES, GRADING_FALLBACK_REASONS } from '../ai/types.js';
-import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
+import { collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
+import { resolveLeitpunktAssessor } from './grading/assessors/index.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
 import { canReviewPurpose, reviewLetterPurpose } from './grading/purposeReview.js';
@@ -164,7 +165,9 @@ export async function gradeSchreibenSubmission({
 
   reportStage(onProgress, GRADING_STAGES.LEITPUNKTE, 0.4);
   const customExtractor = options.forceLimitedMode ? false : options.customExtractor;
-  const stage2 = await scorePipelineLeitpunkte({
+  const assessor = resolveLeitpunktAssessor(options.leitpunktEngine);
+  const stage2 = await assessor.assess({
+    question,
     criteria,
     bodySentences: stage0.bodySentences,
     provider: activeProvider,
