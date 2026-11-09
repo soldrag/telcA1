@@ -35,13 +35,20 @@ function normalizeLines(rawText = '') {
     .filter(Boolean);
 }
 
+// A formula fits the task's register, or is semi-formal ("Hallo", "Viele Grüße"), which suits any addressee; a
+// formal formula to a friend is as atypical as an informal one to a stranger (reglament §6).
+function fitsRegister(register, isFormalRequired) {
+  if (register === 'semiFormal') return true;
+  return isFormalRequired ? register !== 'informal' : register !== 'formal';
+}
+
 function parseSalutation(line = '', isFormalRequired = true) {
   const formula = matchSalutation(line);
   if (!formula) return { recognized: false, score: 0, text: '', register: 'none' };
   const punctMatch = line.match(/([,!.])$/);
   return {
     recognized: true,
-    score: formula.register !== 'informal' || !isFormalRequired ? 2 : 1,
+    score: fitsRegister(formula.register, isFormalRequired) ? 2 : 1,
     text: line,
     register: formula.register,
     punctuation: punctMatch ? punctMatch[1] : '',
@@ -50,7 +57,7 @@ function parseSalutation(line = '', isFormalRequired = true) {
 
 // The sender's name is no criterion of the Kommunikative Gestaltung: only the formula and its register are rated.
 function rateClosing({ register, isFormalRequired }) {
-  return !isFormalRequired || register !== 'informal' ? 2 : 1;
+  return fitsRegister(register, isFormalRequired) ? 2 : 1;
 }
 
 function readSenderName(lines, index, formula) {
@@ -76,6 +83,7 @@ function parseClosingAndSignature(lines = [], startFrom = 1, isFormalRequired = 
     closingIdx: found.index,
     recognized: true,
     score: rateClosing({ register: found.formula.register, isFormalRequired }),
+    register: found.formula.register,
     text: lines[found.index],
     senderName,
     hasName: Boolean(senderName),

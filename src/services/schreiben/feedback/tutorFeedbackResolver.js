@@ -17,15 +17,17 @@ const TUTOR_MESSAGES = {
     LP_PARTIAL: 'Пункт раскрыт частично: тема упомянута, но не хватает деталей.',
     LP_FULFILLED: 'Пункт раскрыт полностью: смысл передан верно и понятно.',
 
-    ANREDE_PERFECT: 'Обращение подобрано верно и соответствует официальному стилю.',
+    ANREDE_PERFECT: 'Обращение подобрано верно и подходит адресату.',
     ANREDE_MINOR_FLAW: 'Обращение есть, но содержит неточность в падеже, стиле или пунктуации.',
     ANREDE_REGISTER_MISMATCH: 'Обращение слишком неформальное для официального письма.',
+    ANREDE_TOO_FORMAL: 'Обращение слишком официальное для письма другу.',
     ANREDE_DECLENSION_FLAW: 'В обращении допущена ошибка в окончании или падеже.',
     ANREDE_PUNCTUATION_FLAW: 'В обращении пропущена запятая в конце строки.',
     ANREDE_MISSING: 'В начале письма отсутствует подходящее обращение.',
 
     GRUSS_PERFECT: 'Прощальная формула подходит к письму.',
     GRUSS_INCOMPLETE: 'Прощание слишком неформальное для официального письма.',
+    GRUSS_TOO_FORMAL: 'Прощание слишком официальное для письма другу.',
     GRUSS_NO_SENDER_NAME: 'Прощальная формула верная; подпишитесь своим именем — баллы не снижаются.',
     GRUSS_MISSING: 'В конце письма нет прощальной формулы.',
   },
@@ -39,15 +41,17 @@ const TUTOR_MESSAGES = {
     LP_PARTIAL: 'Point partially addressed: topic mentioned, but key details are missing.',
     LP_FULFILLED: 'Point fully addressed: clearly conveyed and matches the requirement.',
 
-    ANREDE_PERFECT: 'Salutation is appropriate and formally correct.',
+    ANREDE_PERFECT: 'Salutation is appropriate for the addressee.',
     ANREDE_MINOR_FLAW: 'Salutation is present, but has minor case, register, or punctuation flaws.',
     ANREDE_REGISTER_MISMATCH: 'Salutation is too informal for an official email.',
+    ANREDE_TOO_FORMAL: 'Salutation is too formal for a letter to a friend.',
     ANREDE_DECLENSION_FLAW: 'Grammatical ending or case error in salutation.',
     ANREDE_PUNCTUATION_FLAW: 'Missing comma at the end of the salutation.',
     ANREDE_MISSING: 'Missing appropriate salutation at the start of the letter.',
 
     GRUSS_PERFECT: 'The closing formula is appropriate.',
     GRUSS_INCOMPLETE: 'Closing is too informal for an official email.',
+    GRUSS_TOO_FORMAL: 'Closing is too formal for a letter to a friend.',
     GRUSS_NO_SENDER_NAME: 'The closing formula is correct; sign with your name (no points are lost).',
     GRUSS_MISSING: 'The letter has no closing formula.',
   },
@@ -61,15 +65,17 @@ const TUTOR_MESSAGES = {
     LP_PARTIAL: 'Inhaltspunkt teilweise bearbeitet: Das Thema wird erwähnt, es fehlen jedoch Einzelheiten.',
     LP_FULFILLED: 'Inhaltspunkt vollständig erfüllt: Verständlich und themengerecht bearbeitet.',
 
-    ANREDE_PERFECT: 'Die Anrede ist passend und formal korrekt gewählt.',
+    ANREDE_PERFECT: 'Die Anrede passt zum Empfänger.',
     ANREDE_MINOR_FLAW: 'Die Anrede ist vorhanden, weist jedoch kleinere Formfehler auf.',
     ANREDE_REGISTER_MISMATCH: 'Die Anrede ist für einen formellen Brief zu informell.',
+    ANREDE_TOO_FORMAL: 'Die Anrede ist für einen Brief an einen Freund zu formell.',
     ANREDE_DECLENSION_FLAW: 'Die Anrede enthält einen Deklinations- oder Endungsfehler.',
     ANREDE_PUNCTUATION_FLAW: 'Nach der Anrede fehlt ein Komma.',
     ANREDE_MISSING: 'Es fehlt eine passende Anrede zu Beginn des Briefes.',
 
     GRUSS_PERFECT: 'Die Grußformel ist passend.',
     GRUSS_INCOMPLETE: 'Der Gruß ist für einen formellen Brief zu informell.',
+    GRUSS_TOO_FORMAL: 'Der Gruß ist für einen Brief an einen Freund zu formell.',
     GRUSS_NO_SENDER_NAME: 'Die Grußformel ist richtig; unterschreiben Sie mit Ihrem Namen (kein Punktabzug).',
     GRUSS_MISSING: 'Am Ende des Briefes fehlt eine Grußformel.',
   }
@@ -85,9 +91,11 @@ function isCodeCompatibleWithScore(code, score) {
       'LP_PARTIAL',
       'ANREDE_MINOR_FLAW',
       'ANREDE_REGISTER_MISMATCH',
+      'ANREDE_TOO_FORMAL',
       'ANREDE_DECLENSION_FLAW',
       'ANREDE_PUNCTUATION_FLAW',
       'GRUSS_INCOMPLETE',
+      'GRUSS_TOO_FORMAL',
       'LP_FRAME_VIOLATION'
     ].includes(code);
   }

@@ -131,6 +131,7 @@ telc A1 Teil 1: an answer that names a choice ("Montag oder Donnerstag", markers
 
 telc A1 Teil 2:
 - each Leitpunkt 3 / 1.5 / 0; Kommunikative Gestaltung (Anrede + Gruß) 1 / 0.5 / 0; max 10;
+- the formulas are rated against the register the task declares, `rubric.addresseeRegister` (`formal` | `informal`, `letterRegister.js`, required by `rubricContract`; a task without a rubric is formal): "Lieber Ingo … Viele Grüße" fits a letter to a friend, not one to an office;
 - no predication or no task anchor → every Leitpunkt 0 (`leitpunkteVoidReason`: `NO_PREDICATION`, `OFF_TOPIC`); gibberish/empty → 0;
 - grammar, spelling and length are **not** criteria; a declension slip in a correct formula ("Sehr geehrte Herr") keeps the point and becomes a hint.
 

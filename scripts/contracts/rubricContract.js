@@ -1,7 +1,8 @@
 /**
  * Rubric contract: every Schreiben Leitpunkt declares its speech act (`intent`) and, where a detector
  * proves it, its evidence kind (`evidence` on the criterion or its aspects) — nothing is guessed from labels.
- * Every graded task names its CEFR `level`, and that level has a ranker policy, a grammar profile and a regulation.
+ * Every graded task names its CEFR `level`, and that level has a ranker policy, a grammar profile and a regulation,
+ * and the register its letter is written in (`addresseeRegister`), which decides the fitting formulas.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -10,6 +11,7 @@ import { INTENT_TYPES, EVIDENCE_KINDS } from '../../src/services/schreiben/lingu
 import { getRankerPolicy } from '../../src/services/schreiben/grading/policies/index.js';
 import { getGrammarProfile } from '../../src/services/schreiben/profiles/index.js';
 import { getSchreibenRegulation } from '../../src/services/schreiben/regulations/index.js';
+import { ADDRESSEE_REGISTERS } from '../../src/services/schreiben/letterRegister.js';
 
 const EVIDENCE = Object.values(EVIDENCE_KINDS);
 
@@ -26,7 +28,7 @@ async function collectRubrics(seedsDir) {
   const modules = await Promise.all(files.map((f) => import(pathToFileURL(path.join(seedsDir, f)).href)));
   return modules.flatMap((m) => m.questions || [])
     .filter((q) => q.options_json?.rubric?.leitpunkte_criteria)
-    .map((q) => ({ id: q.id, level: q.level, criteria: q.options_json.rubric.leitpunkte_criteria }));
+    .map((q) => ({ id: q.id, level: q.level, register: q.options_json.rubric.addresseeRegister, criteria: q.options_json.rubric.leitpunkte_criteria }));
 }
 
 const LEVEL_REGISTRIES = { policy: getRankerPolicy, profile: getGrammarProfile, regulation: getSchreibenRegulation };
@@ -38,9 +40,12 @@ function validateLevel(id, level, errors) {
   }
 }
 
+const REGISTERS = Object.values(ADDRESSEE_REGISTERS);
+
 export async function validateRubrics(seedsDir, errors) {
-  for (const { id, level, criteria } of await collectRubrics(seedsDir)) {
+  for (const { id, level, register, criteria } of await collectRubrics(seedsDir)) {
     validateLevel(id, level, errors);
+    if (!REGISTERS.includes(register)) errors.push(`rubric ${id}: addresseeRegister "${register}" is not one of ${REGISTERS.join('/')}`);
     criteria.forEach((c) => validateCriterion(`rubric ${id}/${c.id}`, c, errors));
   }
 }

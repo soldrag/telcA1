@@ -143,6 +143,7 @@ export const questions = [
         'Bitte um Hausaufgaben per E-Mail'
       ],
       rubric: {
+        addresseeRegister: 'formal',
         leitpunkte_criteria: [
           {
             id: 'lp1',

@@ -20,7 +20,7 @@ function task({ id, title, situation, leitpunkte, criteria, sampleSolution }) {
       type: 'essay',
       min_words: 30,
       leitpunkte,
-      rubric: { leitpunkte_criteria: criteria },
+      rubric: { addresseeRegister: 'informal', leitpunkte_criteria: criteria },
       sample_solution: sampleSolution,
     },
   };

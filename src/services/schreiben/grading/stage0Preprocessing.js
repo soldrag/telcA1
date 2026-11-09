@@ -34,13 +34,17 @@ function extractBodyText(fullText = '', salutationText = '', closingText = '', s
   return body.trim();
 }
 
-/** @param {{ grammar: object }} levelContext - the level's grammar checker (resolveLevelContext) */
-export function runStage0Preprocessing(rawText = '', { grammar } = {}) {
+/**
+ * @param {{ grammar: object }} levelContext - the level's grammar checker (resolveLevelContext)
+ * @param {{ addresseeRegister?: 'formal'|'informal' }} [task] - the register the task expects (letterRegister.js)
+ */
+export function runStage0Preprocessing(rawText = '', { grammar } = {}, { addresseeRegister = 'formal' } = {}) {
   const normalized = normalizeRawText(rawText);
   const wordCount = countWords(normalized);
 
-  const salutation = analyzeSalutation(normalized, { isFormal: true, grammar });
-  const closing = analyzeClosing(normalized, { isFormal: true });
+  const isFormal = addresseeRegister !== 'informal';
+  const salutation = analyzeSalutation(normalized, { isFormal, grammar });
+  const closing = analyzeClosing(normalized, { isFormal });
 
   const bodyText = extractBodyText(
     normalized,

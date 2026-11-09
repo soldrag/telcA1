@@ -9,6 +9,7 @@ import { runStage1Scoring } from './grading/stage1SalutationClosing.js';
 import { composeExaminerFeedback } from './grading/pipelineFeedback.js';
 import { resolveLevelContext } from './levelContext.js';
 import { resolveLeitpunktCriteria } from './leitpunktCriteria.js';
+import { resolveAddresseeRegister } from './letterRegister.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { isGibberishText } from './gibberishDetector.js';
 import { segmentUserEssay } from './schreibenTextSegmenter.js';
@@ -142,7 +143,7 @@ export async function gradeSchreibenSubmission({
 }) {
   const levelContext = resolveLevelContext(question.level);
   await levelContext.lexicon.load();
-  const stage0 = runStage0Preprocessing(userText, levelContext);
+  const stage0 = runStage0Preprocessing(userText, levelContext, { addresseeRegister: resolveAddresseeRegister(question) });
   const raw = stage0.rawText;
   const criteria = resolveLeitpunktCriteria(question);
   const activeProvider = provider || (options.forceLimitedMode

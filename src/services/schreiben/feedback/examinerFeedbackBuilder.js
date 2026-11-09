@@ -24,19 +24,24 @@ const FRAMING_STATUS_BY_CODE = Object.freeze({
   [DIAGNOSTIC_CODES.ANREDE_PERFECT]: 'positive',
   [DIAGNOSTIC_CODES.ANREDE_MINOR_FLAW]: 'warning',
   [DIAGNOSTIC_CODES.ANREDE_REGISTER_MISMATCH]: 'warning',
+  [DIAGNOSTIC_CODES.ANREDE_TOO_FORMAL]: 'warning',
   [DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW]: 'warning',
   [DIAGNOSTIC_CODES.ANREDE_PUNCTUATION_FLAW]: 'warning',
   [DIAGNOSTIC_CODES.GRUSS_PERFECT]: 'positive',
   [DIAGNOSTIC_CODES.GRUSS_INCOMPLETE]: 'warning',
+  [DIAGNOSTIC_CODES.GRUSS_TOO_FORMAL]: 'warning',
   [DIAGNOSTIC_CODES.GRUSS_NO_SENDER_NAME]: 'warning',
 });
 
 const ANREDE_FLAW_CODES = new Set([
   DIAGNOSTIC_CODES.ANREDE_MINOR_FLAW,
   DIAGNOSTIC_CODES.ANREDE_REGISTER_MISMATCH,
+  DIAGNOSTIC_CODES.ANREDE_TOO_FORMAL,
   DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW,
   DIAGNOSTIC_CODES.ANREDE_PUNCTUATION_FLAW,
 ]);
+
+const GRUSS_FLAW_CODES = new Set([DIAGNOSTIC_CODES.GRUSS_INCOMPLETE, DIAGNOSTIC_CODES.GRUSS_TOO_FORMAL]);
 
 const isInverted = (item) => String(item.diagnosticCode || '').startsWith('LP_INVERTED');
 const entry = (code, params = {}) => ({ code, params });
@@ -93,7 +98,7 @@ function summarizeFraming({ anrede = {}, gruss = {} }) {
   if (noAnrede && noGruss) return entry(EXAMINER_CODES.SUMMARY_FRAMING_BOTH);
   if (noAnrede) return entry(EXAMINER_CODES.SUMMARY_FRAMING_ANREDE);
   if (noGruss) return entry(EXAMINER_CODES.SUMMARY_FRAMING_GRUSS);
-  const flawed = ANREDE_FLAW_CODES.has(anrede.code) || gruss.code === DIAGNOSTIC_CODES.GRUSS_INCOMPLETE;
+  const flawed = ANREDE_FLAW_CODES.has(anrede.code) || GRUSS_FLAW_CODES.has(gruss.code);
   return flawed ? entry(EXAMINER_CODES.SUMMARY_FRAMING_FLAWED) : null;
 }
 
