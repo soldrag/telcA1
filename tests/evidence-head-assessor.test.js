@@ -68,13 +68,15 @@ describe('EvidenceHeadAssessor', () => {
     }
   });
 
-  it('hands the letter to the keyword-ranker assessor in the limited mode', async () => {
+  it('hands the letter to reference alignment, also keyword-free, in the limited mode', async () => {
     const policy = resolveLevelContext('A1').policy;
     const result = await new EvidenceHeadAssessor().assess({
       question, criteria: criteria.map((c) => ({ ...c, intent: 'GENERAL', keywords: ['zimmer'] })), policy,
       bodySentences: ['Ich möchte ein Zimmer buchen.'], provider: aiProviderRegistry.getProvider(PROVIDER_IDS.NONE),
     });
-    assert.equal(result.servesTaskPurpose, undefined);
-    assert.equal(result.items[0].rankerDetails?.engine, undefined);
+    assert.equal(result.servesTaskPurpose, null);
+    assert.equal(result.modelUsed, false);
+    assert.equal(result.items[0].rankerDetails.engine, 'reference-alignment');
+    assert.equal(result.items[0].score, 2, 'the letter repeats a fulfilling phrase of LP1');
   });
 });

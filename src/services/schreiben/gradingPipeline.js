@@ -178,8 +178,9 @@ export async function gradeSchreibenSubmission({
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
-  // The evidence head reads the letter's purpose itself; the trained review runs over the keyword stage only.
-  const readsOwnPurpose = typeof stage2.servesTaskPurpose === 'boolean';
+  // A keyword-free assessor states the letter's purpose itself (null when it cannot read it): the trained review and
+  // the keyword anchor belong to the keyword stage only.
+  const readsOwnPurpose = 'servesTaskPurpose' in stage2;
   const review = readsOwnPurpose ? null : await runPurposeReview({ keywordStage: stage2, criteria, stage0, question, activeProvider, levelPolicy, options });
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);

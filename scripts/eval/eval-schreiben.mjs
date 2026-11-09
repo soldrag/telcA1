@@ -5,7 +5,7 @@
  *   npm run eval:merlin [-- --ranker]   real telc A1 exam letters (MERLIN, sealed like the hidden set): aggregates only
  * Default mode is the limited mode (no model). --ranker grades with the Micro-Ranker on EmbeddingGemma,
  * as the browser does (downloads the model on first use).
- * --engine evidence-head grades the Leitpunkte with the keyword-free evidence head (implies --ranker; the head is
+ * --engine evidence-head [--limited] grades the Leitpunkte (--limited: without the model, i.e. its reference alignment) with the keyword-free evidence head (implies --ranker; the head is
  * trained on the open and calibration sentences' tasks, so its numbers there are in-sample; hidden and MERLIN are not).
  * --review adds the trained another-purpose review to the keyword stage (implies --ranker); --shadow grades every
  * letter without and with it and compares them pair by pair (aggregates only on the hidden set).
@@ -29,7 +29,7 @@ const set = ['hidden', 'merlin', 'calibration'].find((name) => process.argv.incl
 const isReadable = !SEALED_SETS.includes(set);
 const shadow = process.argv.includes('--shadow');
 const withReview = process.argv.includes('--review');
-const useRanker = process.argv.includes('--ranker') || withReview || shadow || process.argv.includes('--engine');
+const useRanker = !process.argv.includes('--limited') && (process.argv.includes('--ranker') || withReview || shadow || process.argv.includes('--engine'));
 const MIN_GROUP = 8;
 const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
 const engine = argValue('--engine');
@@ -67,7 +67,8 @@ async function findQuestion(seedQuestionId) {
 let extractors = null;
 async function createGrader(review) {
   if (!useRanker) {
-    return (userText, question) => gradeSchreibenSubmission({ userText, question, options: { forceLimitedMode: true } });
+    const engineOption = engine ? { leitpunktEngine: engine } : {};
+    return (userText, question) => gradeSchreibenSubmission({ userText, question, options: { forceLimitedMode: true, ...engineOption } });
   }
   const { MicroRankerProvider } = await import('../../src/services/ai/providers/MicroRankerProvider.js');
   const { clearEmbeddingCache, createEmbeddingExtractors } = await import('../../src/services/embeddings/embeddingService.js');

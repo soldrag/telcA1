@@ -14,6 +14,7 @@ import { A1_CONCEPT_DOMAINS } from './a1ConceptDomains.js';
 import A1_EVIDENCE_MODEL from './a1EvidenceModel.json' with { type: 'json' };
 import A1_PURPOSE_REVIEW from './a1PurposeReviewModel.json' with { type: 'json' };
 import A1_EVIDENCE_HEAD from './a1EvidenceHead.json' with { type: 'json' };
+import A1_REFERENCE_ALIGNMENT from './a1ReferenceAlignment.json' with { type: 'json' };
 
 export class A1RankerPolicy extends IRankerPolicy {
   constructor() {
@@ -59,6 +60,11 @@ export class A1RankerPolicy extends IRankerPolicy {
   /** The keyword-free evidence head trained by scripts/eval/evidence-head/train.mjs. */
   get evidenceHead() {
     return A1_EVIDENCE_HEAD;
+  }
+
+  /** Reference alignment thresholds and IDF (scripts/eval/evidence-head/calibrateAlignment.mjs, reference phrases only). */
+  get referenceAlignment() {
+    return A1_REFERENCE_ALIGNMENT;
   }
 
 

@@ -25,7 +25,20 @@ describe('ILeitpunktAssessor contract', () => {
       const policy = resolveLevelContext('A1').policy;
       await policy.lexicon.load();
       const result = await assessor.assess({
-        question: { id: 'contract', situation: 'Sie möchten ein Zimmer buchen.' },
+        question: {
+          id: 'contract',
+          situation: 'Sie möchten ein Zimmer buchen.',
+          options_json: {
+            evidenceBank: {
+              units: {
+                lp1: { fulfils: ['Ich möchte ein Zimmer buchen.'], misses: ['Ich möchte kein Zimmer.'] },
+                lp2: { fulfils: ['Ich komme am Montag.'], misses: ['Ich komme nicht.'] },
+              },
+              otherPurpose: ['Das Essen war kalt.'],
+              purposeLetters: { onTask: ['Ich möchte ein Zimmer buchen.'], offTask: ['Das Essen war kalt.'] },
+            },
+          },
+        },
         criteria, bodySentences, policy, customExtractor: false,
         provider: aiProviderRegistry.getProvider(PROVIDER_IDS.NONE),
       });

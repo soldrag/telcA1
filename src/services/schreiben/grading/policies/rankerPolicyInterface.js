@@ -72,6 +72,15 @@ export class IRankerPolicy {
     return null;
   }
 
+  /**
+   * Reference alignment without a model (grading/referenceAlignment/): thresholds and the IDF table over the
+   * level's reference phrases, or null when the level has none.
+   * @returns {{ thresholds: { full: number, partial: number }, idf: { N: number, df: Record<string, number> } }|null}
+   */
+  get referenceAlignment() {
+    return null;
+  }
+
   classifyScore(rawScore) {
     throw new Error('IRankerPolicy.classifyScore must be implemented');
   }

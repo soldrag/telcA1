@@ -6,12 +6,18 @@
 import { ILeitpunktAssessor } from './leitpunktAssessorInterface.js';
 import { KeywordRankerAssessor } from './keywordRankerAssessor.js';
 import { EvidenceHeadAssessor } from './evidenceHeadAssessor.js';
+import { ReferenceAlignmentAssessor } from './referenceAlignmentAssessor.js';
 
-export const LEITPUNKT_ENGINES = Object.freeze({ KEYWORD_RANKER: 'keyword-ranker', EVIDENCE_HEAD: 'evidence-head' });
+export const LEITPUNKT_ENGINES = Object.freeze({
+  KEYWORD_RANKER: 'keyword-ranker',
+  EVIDENCE_HEAD: 'evidence-head',
+  REFERENCE_ALIGNMENT: 'reference-alignment',
+});
 
 const REGISTRY = new Map([
   [LEITPUNKT_ENGINES.KEYWORD_RANKER, new KeywordRankerAssessor()],
   [LEITPUNKT_ENGINES.EVIDENCE_HEAD, new EvidenceHeadAssessor()],
+  [LEITPUNKT_ENGINES.REFERENCE_ALIGNMENT, new ReferenceAlignmentAssessor()],
 ]);
 
 /** @param {string} id @param {ILeitpunktAssessor} assessor */

@@ -2,11 +2,11 @@
  * The keyword-free Leitpunkt assessor: one trained head (level data, IRankerPolicy.evidenceHead) reads every span of
  * the letter body against the task's reference phrases (grading/evidenceHead/). No rubric keywords, no concept
  * domains, no arbitration. It also reads the letter's purpose against the task's prototype letters. Without the
- * embedding model (limited mode, model failure) it hands the letter to the keyword-ranker assessor.
+ * embedding model (limited mode, model failure) it hands the letter to reference alignment, also keyword-free.
  */
 
 import { ILeitpunktAssessor } from './leitpunktAssessorInterface.js';
-import { KeywordRankerAssessor } from './keywordRankerAssessor.js';
+import { ReferenceAlignmentAssessor } from './referenceAlignmentAssessor.js';
 import { letterSpans, readLetterGroups } from '../evidenceHead/letterReading.js';
 import { loadTaskReferences } from '../evidenceHead/taskReferences.js';
 import { resolveLpDiagnosticCode } from '../../feedback/feedbackContracts.js';
@@ -42,7 +42,7 @@ async function resolveExtractor({ provider, evidenceExtractor, customExtractor, 
 }
 
 export class EvidenceHeadAssessor extends ILeitpunktAssessor {
-  constructor(fallback = new KeywordRankerAssessor()) {
+  constructor(fallback = new ReferenceAlignmentAssessor()) {
     super();
     this._fallback = fallback;
   }

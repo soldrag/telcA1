@@ -25,6 +25,18 @@ function assertMatchesRubric(refs, criteria, taskId) {
 }
 
 /**
+ * The phrase texts of a task's units without their vectors (indexTaskReferences shape: texts + indices), for an
+ * assessor that needs no model. @returns {Promise<object|null>}
+ */
+export async function loadTaskPhrases({ question, criteria }) {
+  const bank = readTaskOptions(question).evidenceBank;
+  if (bank) return indexTaskPhrases({ task: { situation: question.situation, criteria }, bank, examples: bank.examples });
+  const stored = await loadStoredTaskReferences(question.id);
+  if (stored) assertMatchesRubric(stored, criteria, question.id);
+  return stored;
+}
+
+/**
  * @param {{ question: object, criteria: object[], embed: (text: string) => Promise<Float32Array> }} input
  * @returns {Promise<object|null>} decoded references, null when the task has none
  */

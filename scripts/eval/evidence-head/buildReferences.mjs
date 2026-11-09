@@ -20,7 +20,7 @@ for (const id of TASK_IDS) {
   const task = tasks[id];
   const indexed = indexTaskPhrases({ task, bank: task.bank, examples: task.examples });
   const vectors = await store.embed(indexed.texts);
-  const stored = { version: 1, task: id, phrases: hashPhrases(indexed.texts), vectors: vectors.map(encodeReferenceVector), groups: indexed.groups, purpose: indexed.purpose };
+  const stored = { version: 1, task: id, phrases: hashPhrases(indexed.texts), texts: indexed.texts, vectors: vectors.map(encodeReferenceVector), groups: indexed.groups, purpose: indexed.purpose };
   fs.writeFileSync(new URL(`${id}.json`, OUT), `${JSON.stringify(stored)}\n`);
   console.log(id, indexed.texts.length, 'phrases');
 }
