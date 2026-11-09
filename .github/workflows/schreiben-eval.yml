@@ -87,6 +87,16 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
+      # Experiment 3 (branch only): keyword-free head H2, frozen before this run; aggregates only.
+      - name: Hidden set · H2
+        env:
+          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
+        run: |
+          status=0; node --import ./tests/support/loadLexiconData.js scripts/eval/experiments/h2/h2-grade.mjs hidden > eval.log 2>&1 || status=$?
+          cat eval.log
+          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
       # The same review in a real browser: the app loads EmbeddingGemma once and the review voids an off-topic letter.
       - name: Browser · purpose review in the built app
         run: |
