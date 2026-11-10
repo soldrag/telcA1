@@ -6,11 +6,17 @@
 
 import { parseSentenceTopology } from './topologicalFieldParser.js';
 import wordClasses from './data/clauseWordClasses.json' with { type: 'json' };
+import { readPrepositionalObjects } from './verbPrepositionalObjects.js';
 
 const WEEKDAYS = new Set(wordClasses.weekdays);
 const TIME_NOUNS = new Set(wordClasses.timeNouns);
 const POSITIVE_STATES = new Set(wordClasses.positiveStates);
 const DEFECT_STATES = new Set(wordClasses.defectStates);
+const ADDITIVE_AFTER_NICHT = new Set(wordClasses.additiveAfterNicht);
+
+// "nicht nur / nicht bloß … (sondern auch)" adds; it negates nothing.
+const negates = (t, next) => (t.pos === 'PART_NEG' || t.lower === 'nicht' || t.lower === 'nie')
+  && !(t.lower === 'nicht' && ADDITIVE_AFTER_NICHT.has(next?.lower));
 
 function extractPredicateCore(clause) {
   const allTokens = clause.tokens || [...(clause.vorfeld || []), clause.finVerb, ...(clause.mittelfeld || [])].filter(Boolean);
@@ -31,7 +37,7 @@ function extractPredicateCore(clause) {
 }
 
 function extractPolarity(tokens = [], predicateCore = {}) {
-  const isSentenceNegated = tokens.some(t => t.pos === 'PART_NEG' || t.lower === 'nicht' || t.lower === 'nie');
+  const isSentenceNegated = tokens.some((t, i) => negates(t, tokens[i + 1]));
   const negatedNouns = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -52,7 +58,7 @@ function extractPolarity(tokens = [], predicateCore = {}) {
   return { isSentenceNegated, negatedNouns, negatedActions };
 }
 
-function extractClauseArguments(tokens = []) {
+function extractClauseArguments(tokens = [], predicateCore = {}) {
   const objects = [];
   const temporalMarkers = [];
   const stateMarkers = [];
@@ -71,7 +77,14 @@ function extractClauseArguments(tokens = []) {
   }
 
   const subjectToken = tokens.find(t => t.pos === 'PRON_SUBJ') || tokens.find(t => t.pos === 'NOUN') || null;
-  return { subject: subjectToken?.lower || null, objects, directObjects: extractDirectObjects(tokens, subjectToken), temporalMarkers, stateMarkers };
+  return {
+    subject: subjectToken?.lower || null,
+    objects,
+    directObjects: extractDirectObjects(tokens, subjectToken),
+    prepositionalObjects: readPrepositionalObjects(tokens, predicateCore),
+    temporalMarkers,
+    stateMarkers,
+  };
 }
 
 // Nouns outside a prepositional phrase that are not the subject: "einen neuen Termin" is a complement
@@ -92,7 +105,7 @@ function parseClauseStructure(clause) {
   const allTokens = clause.tokens || [...(clause.vorfeld || []), clause.finVerb, ...(clause.mittelfeld || [])].filter(Boolean);
   const predicateCore = extractPredicateCore(clause);
   const polarity = extractPolarity(allTokens, predicateCore);
-  const args = extractClauseArguments(allTokens);
+  const args = extractClauseArguments(allTokens, predicateCore);
 
   return {
     type: clause.type,

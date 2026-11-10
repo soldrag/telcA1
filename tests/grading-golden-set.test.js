@@ -44,8 +44,12 @@ describe('Grading golden set (gold.json, limited mode)', () => {
       assert.deepEqual(strict.map((m) => m.text), []);
     });
     if (!entry.knownLimit) continue;
-    it(`${entry.id}: known limit — ${Object.values(entry.knownLimit)[0]}`, { todo: 'limited mode (todo.md, P1)' }, async () => {
+    it(`${entry.id}: known limit of the keyword stage — ${Object.values(entry.knownLimit)[0]}`, { todo: 'keyword stage in the limited mode; closed by the keyword-free engine' }, async () => {
       const res = await gradeLimited(entry.text, await findSeedQuestion(entry.seedQuestionId));
+      assert.deepEqual(collectMismatches(entry, res).filter(isLimited(entry)).map((m) => m.text), []);
+    });
+    it(`${entry.id}: the keyword-free engine meets what the keyword stage cannot`, async () => {
+      const res = await gradeSchreibenSubmission({ userText: entry.text, question: await findSeedQuestion(entry.seedQuestionId), options: { ...options, leitpunktEngine: 'evidence-head' } });
       assert.deepEqual(collectMismatches(entry, res).filter(isLimited(entry)).map((m) => m.text), []);
     });
   }

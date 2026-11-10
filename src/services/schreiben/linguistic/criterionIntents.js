@@ -10,6 +10,8 @@ export const INTENT_TYPES = Object.freeze({
   APPOINTMENT_PROPOSAL: 'APPOINTMENT_PROPOSAL',
   INFORMATION_REQUEST: 'INFORMATION_REQUEST',
   REASON_EXPLANATION: 'REASON_EXPLANATION',
+  // The writer states what they want (a course, a room, a flat): a negated wish refuses the point.
+  WISH_STATEMENT: 'WISH_STATEMENT',
   GENERAL: 'GENERAL'
 });
 

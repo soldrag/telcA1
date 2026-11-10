@@ -12,12 +12,14 @@ import { detectTargetRefusal } from './criterionRefusalDetector.js';
 
 // Negations that express a speech act instead of refusing it. A defect is reported by negating
 // the function ("funktioniert nicht"), never by negating the problem ("kein Problem"); a cancellation
-// or a reason is carried by any negation ("kann nicht kommen", "habe keine Zeit").
+// or a reason for not coming is carried by any negation ("kann nicht kommen", "habe keine Zeit"); a wish is
+// refused by one ("Ich möchte keinen Deutschkurs besuchen").
 const ANY_NEGATION = Object.freeze(['negated_entity', 'negated_action', 'negated_participant', 'negated_object']);
 const INTENT_POLARITY = Object.freeze({
   [INTENT_TYPES.DEFECT_REPORT]: { contentNegations: ['negated_action', 'negated_participant'] },
   [INTENT_TYPES.APPOINTMENT_CANCEL]: { contentNegations: ANY_NEGATION },
   [INTENT_TYPES.REASON_EXPLANATION]: { contentNegations: ANY_NEGATION },
+  [INTENT_TYPES.WISH_STATEMENT]: { contentNegations: [] },
   [INTENT_TYPES.ACTION_REQUEST]: { contentNegations: [] },
   [INTENT_TYPES.APPOINTMENT_PROPOSAL]: { contentNegations: [] },
   [INTENT_TYPES.INFORMATION_REQUEST]: { contentNegations: [] },

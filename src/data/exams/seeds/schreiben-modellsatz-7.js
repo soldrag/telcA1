@@ -148,7 +148,7 @@ export const questions = [
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
+            intent: 'WISH_STATEMENT',
             keywords: ['wohnung', 'anzeige', 'mieten', 'interessieren', 'interesse', 'gesehen'],
             requiredMatches: 2,
             conversive_rules: [

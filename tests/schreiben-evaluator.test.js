@@ -4,6 +4,7 @@ import { normalizeGermanText } from '../src/services/schreiben/schreibenFormAnsw
 import { evaluateTeil1Answer } from '../src/services/schreiben/schreibenTeil1Evaluator.js';
 import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
 import { gradeLetter, gradeEssayLimited } from './helpers/gradeLetter.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 
 const submit = (questions, answers) => evaluateExamSubmission(questions, answers, { gradeEssay: gradeEssayLimited });
 import { questions as modellsatz1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
@@ -80,9 +81,18 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.ok(medResult.points_earned >= 2 && medResult.points_earned <= 3.5, `got ${medResult.points_earned}`);
   });
 
-  // Known limit (todo.md, P1): a negation is content for the reason point (INTENT_POLARITY of REASON_EXPLANATION)
-  it('a refused reason for writing does not fulfil Leitpunkt 1', { todo: 'negation of the reason counts as content' }, async () => {
-    const res = await gradeLetter('Sehr geehrte Damen und Herren,\nich möchte keinen Deutschkurs im Herbst besuchen. Ich habe drei Wochen Zeit, am Nachmittag. Was kostet der Kurs und wie melde ich mich an?\nMit freundlichen Grüßen\nPaul Wagner', seedTeil2);
+  // s1 LP1 is a wish (intent WISH_STATEMENT): negating it refuses the point, unlike a reason for not coming.
+  const refusedWish = 'Sehr geehrte Damen und Herren,\nich möchte keinen Deutschkurs im Herbst besuchen. Ich habe drei Wochen Zeit, am Nachmittag. Was kostet der Kurs und wie melde ich mich an?\nMit freundlichen Grüßen\nPaul Wagner';
+
+  it('a refused reason for writing does not fulfil Leitpunkt 1 (keyword-free engine)', async () => {
+    const res = await gradeSchreibenSubmission({ userText: refusedWish, question: seedTeil2, options: { forceLimitedMode: true, leitpunktEngine: 'evidence-head' } });
+    assert.equal(res.breakdown.items[0].score, 0);
+  });
+
+  // The keyword stage sees the refusal (2 → 1) but takes "der Kurs" in the price question as affirming the wish; a rule
+  // that tells such a mention from a wish put as a question ("Kann ich im August einen Kurs besuchen?") was not found.
+  it('a refused reason for writing does not fulfil Leitpunkt 1 (keyword stage)', { todo: 'a keyword in another point\'s question counts as affirming; closed by the keyword-free engine' }, async () => {
+    const res = await gradeLetter(refusedWish, seedTeil2);
     assert.equal(res.breakdown.items[0].score, 0);
   });
 

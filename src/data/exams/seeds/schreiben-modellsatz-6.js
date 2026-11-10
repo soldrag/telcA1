@@ -148,7 +148,7 @@ export const questions = [
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
+            intent: 'WISH_STATEMENT',
             keywords: ['zimmer', 'reservieren', 'buchen', 'urlaub', 'hotel', 'übernachten', 'uebernachten', 'einzelzimmer', 'doppelzimmer'],
             requiredMatches: 2
           },

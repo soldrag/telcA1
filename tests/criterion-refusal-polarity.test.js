@@ -60,12 +60,24 @@ describe('Refusal of a rubric target, independent of the Leitpunkt intent', () =
   }
 });
 
-describe('Known limit: a negated question verb with a prepositional object', () => {
-  it('"Ich frage nicht nach Kosten" refuses the cost question', {
-    todo: 'needs prepositional-object valency for A1 verbs as data (fragen nach, warten auf, bitten um …); a one-verb entry was dropped as fitting (v0.7.82)',
-  }, () => {
+// Valency is general German data (linguistic/data/verbPrepositionalObjects.json), not a word of the rubric.
+describe('A negated verb that asks for its prepositional object refuses it', () => {
+  it('"Ich frage nicht nach Kosten" refuses the cost question', () => {
     assert.equal(detectSemanticInversion('Ich frage nicht nach Kosten.', courseCosts, A1_GRAMMAR_PROFILE).isInverted, true);
   });
+
+  const noRefusal = [
+    [courseCosts, 'Ich frage nicht nur nach den Kosten, sondern auch nach dem Termin.', '"nicht nur" adds'],
+    [newAppointment, 'Ich brauche nicht nur einen neuen Termin.', '"nicht nur" adds'],
+    [newAppointment, 'Ich warte nicht gern auf den Termin.', 'warten does not ask for its object'],
+    [courseCosts, 'Am Montag kann ich nicht, ich frage nach den Kosten.', 'the negation is in another clause'],
+    [newAppointment, 'Ich kann nicht mit dem Termin am Montag.', 'mit is not governed by können'],
+  ];
+  for (const [criterion, sentence, why] of noRefusal) {
+    it(`"${sentence}" does not refuse "${criterion.label}" (${why})`, () => {
+      assert.equal(detectSemanticInversion(sentence, criterion, A1_GRAMMAR_PROFILE).isInverted, false);
+    });
+  }
 });
 
 describe('Refusal weighed the same across a comma and a full stop', () => {
