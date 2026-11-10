@@ -46,8 +46,8 @@ function combineAspects(levels) {
  */
 export function readLetterGroups({ head, thresholds, groups, spans }) {
   return groups.map((group) => {
-    const readings = group.units.map((unit) => readUnit({ head, unit, spans }));
+    const readings = group.units.map((unit) => readUnit({ head, unit, spans })).map((r) => ({ ...r, level: unitLevel(r, thresholds) }));
     const best = readings.reduce((a, b) => (b.support > a.support ? b : a), readings[0]);
-    return { lp: group.lp, level: combineAspects(readings.map((r) => unitLevel(r, thresholds))), readings, span: best?.span || '' };
+    return { lp: group.lp, level: combineAspects(readings.map((r) => r.level)), readings, span: best?.span || '' };
   });
 }

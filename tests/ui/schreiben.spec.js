@@ -76,15 +76,14 @@ test('a later Schreiben submission does not report the cached model as a downloa
   }
 });
 
-// The trained another-purpose review runs in the browser on the model the keyword stage loaded. A complaint about a
-// course already taken reuses the task's words (Deutschkurs, August) but asks for nothing the task asks for: the
-// keyword stage alone credits it, the review voids its Leitpunkte.
+// The evidence head reads the letter's purpose in the browser. A complaint about a course already taken reuses the
+// task's words (Deutschkurs, August) but asks for nothing the task asks for: its Leitpunkte are voided.
 const COMPLAINT = `Sehr geehrte Damen und Herren,
 ich habe im Juli einen Deutschkurs bei Ihnen gemacht. Der Kurs war leider sehr schlecht. Der Lehrer war oft krank und der Raum war zu klein. Ich möchte mein Geld zurück.
 Mit freundlichen Grüßen
 Paul Weber`;
 
-test('the another-purpose review voids a letter written for another purpose', async ({ page }) => {
+test('the evidence head voids a letter written for another purpose', async ({ page }) => {
   test.setTimeout(240_000);
   const variant = listVariants('schreiben').find((v) => v.id === 'schreiben-modellsatz-1');
   await openHome(page, { module: 'schreiben' });

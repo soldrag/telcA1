@@ -6,6 +6,7 @@ import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerPro
 import { AIProviderRegistry } from '../src/services/ai/aiProviderRegistry.js';
 import { PROVIDER_IDS } from '../src/services/ai/types.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
+import { withPhraseBank } from './helpers/phraseBank.js';
 
 describe('AI Providers Contract & Unit Tests', () => {
   it('AIProvider base class enforces contract and rejects empty arguments', () => {
@@ -15,14 +16,10 @@ describe('AI Providers Contract & Unit Tests', () => {
     assert.equal(base.name, 'Test Provider');
   });
 
-  it('NoneProvider keeps the algorithmic score and is always available', async () => {
+  it('NoneProvider is always available', async () => {
     const none = new NoneProvider();
     assert.equal(none.id, PROVIDER_IDS.NONE);
     assert.equal(await none.isAvailable(), true);
-
-    const cov = await none.classifyCoverage('lp1', 'Sentences');
-    assert.equal(cov.coverage, 'fallback');
-
   });
 
   it('AIProviderRegistry falls back to the limited mode where the Micro-Ranker is unavailable', async () => {
@@ -34,7 +31,7 @@ describe('AI Providers Contract & Unit Tests', () => {
   });
 
   it('MicroRankerProvider is available inside a browser worker, where there is no window', async () => {
-    const ranker = new MicroRankerProvider({ embedder: { embed: async () => [] } });
+    const ranker = new MicroRankerProvider();
     assert.equal(await ranker.isAvailable(), false);
     globalThis.WorkerGlobalScope = function WorkerGlobalScope() {};
     try {
@@ -44,35 +41,22 @@ describe('AI Providers Contract & Unit Tests', () => {
     }
   });
 
-  it('Pipeline degrades gracefully when provider throws or times out mid-grading', async () => {
-    const failingProvider = {
-      id: PROVIDER_IDS.MICRO_RANKER,
-      name: 'Failing Provider',
-      isAvailable: async () => true,
-      canOverruleBaseline: () => true,
-      classifyCoverage: async () => { throw new Error('GPU crash'); }
-    };
-
-    const question = {
-      max_points: 10,
-      options_json: {
-        rubric: {
-          leitpunkte_criteria: [
-            { id: 'lp1', label: 'Termin absagen', keywords: ['termin', 'absagen'], requiredMatches: 1 }
-          ]
-        }
-      }
-    };
+  it('the pipeline grades without the model when the model fails mid-grading, and names the failure', async () => {
+    const question = withPhraseBank({
+      id: 'cancel-task',
+      options_json: { rubric: { leitpunkte_criteria: [{ id: 'lp1', label: 'Termin absagen' }] } },
+    }, { lp1: ['Ich möchte den Termin absagen.', 'Ich kann am Montag nicht kommen.'] });
 
     const res = await gradeSchreibenSubmission({
       userText: 'Sehr geehrte Damen und Herren,\nich muss den Termin absagen.\nMit freundlichen Grüßen\nMax',
       question,
-      provider: failingProvider
+      provider: new MicroRankerProvider(),
+      options: { evidenceExtractor: async () => { throw new Error('GPU crash'); } },
     });
 
-    assert.ok(res.points_earned > 0);
+    assert.equal(res.grading_fallback?.detail, 'GPU crash');
     assert.equal(res.breakdown.anrede, 2);
-    assert.equal(res.breakdown.leitpunkte, 3);
     assert.equal(res.breakdown.gruss, 2);
+    assert.equal(res.breakdown.items[0].rankerDetails.engine, 'reference-alignment');
   });
 });

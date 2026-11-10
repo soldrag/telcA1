@@ -27,7 +27,7 @@ flowchart TB
         Eval --> Grading["Schreiben grading (Web Worker)"]
         subgraph Grading
             Ling["Linguistic engine"]
-            Ranker["Micro-Ranker + EmbeddingGemma"]
+            Ranker["Keyword-free evidence head + EmbeddingGemma"]
             Reg["Level regulation"]
         end
     end
@@ -43,7 +43,7 @@ flowchart TB
 | `src/data/exams/` | exam seeds and the `seedData.js` barrel |
 | `src/services/examService.js`, `localDataService.js`, `evaluation/` | data port and answer grading |
 | `src/services/schreiben/` | Schreiben grading: `grading/`, `linguistic/`, `feedback/`, `scoring/`, `profiles/`, `regulations/` |
-| `src/services/ai/`, `src/services/embeddings/` | AI providers (Micro-Ranker, limited mode), embedder |
+| `src/services/ai/`, `src/services/embeddings/` | grading providers (with the model, limited mode), embedder |
 | `src/services/storage/`, `security/`, `share/`, `assignment/` | local storage, teacher key and signing, token compression, assignment timer |
 | `scripts/contracts/`, `scripts/verify-contracts.js` | build-time contracts |
 | `shared/testTypes.js` | module rules (time, tasks, points) |
@@ -57,7 +57,7 @@ flowchart TB
 |---|---|
 | [Frontend](docs/architecture/frontend.md) | screens, hooks, page grid and type scale, dialogs, theme, performance rules |
 | [Data and storage](docs/architecture/data-and-storage.md) | seeds, `examService`, module rules, `localStorage` keys, PWA, deployment |
-| [Schreiben grading](docs/architecture/schreiben-grading.md) | pipeline stages, Leitpunkt assessors (`ILeitpunktAssessor`: keyword-ranker, keyword-free evidence head behind a switch, reference alignment as its no-model fallback), Micro-Ranker, arbitration, `IRankerPolicy`, `ISchreibenRegulation`, feedback |
+| [Schreiben grading](docs/architecture/schreiben-grading.md) | pipeline stages, Leitpunkt assessors (`ILeitpunktAssessor`: the keyword-free evidence head, reference alignment without the model), meaning distortion, `IRankerPolicy`, `ISchreibenRegulation`, feedback |
 | [Linguistic engine](docs/architecture/linguistic-engine.md) | lexicon port and dictionaries, grammar and letter rules, word order, level profile, precision |
 | [Teacher assignments](docs/architecture/teacher-assignments.md) | `#task=` / `#review=` links, HMAC signing, lockout |
 | [Quality gates](docs/architecture/quality-gates.md) | contracts, tests, UI suites, benchmarks, all commands |
@@ -70,8 +70,8 @@ flowchart TB
 |---|---|
 | New exam variant | [ADDING_QUESTIONS.md](ADDING_QUESTIONS.md) |
 | Points or pass rules of Schreiben, accepted Teil 1 answers | `regulations/telcA1Regulation.js` + `reglament/telc-a1.md` |
-| How coverage is classified (thresholds, compound points) | `grading/policies/a1RankerPolicy.js`; the evidence head's weights and thresholds `grading/policies/a1EvidenceHead.json` (retrain with `scripts/eval/evidence-head/train.mjs`) |
+| How coverage is read (phrases, thresholds, compound points) | a task's reference phrases `src/data/exams/example-bank/<task>.json` (rebuild vectors with `scripts/eval/evidence-head/buildReferences.mjs`); the evidence head `grading/policies/a1EvidenceHead.json` (retrain with `scripts/eval/evidence-head/train.mjs`) |
 | A grammar hint | `linguistic/grammarRules/` or `letterRules/`, enabled in `profiles/a1GrammarProfile.js` |
-| New CEFR level | new regulation + ranker policy + grammar profile + reglament; no engine edits |
+| New CEFR level | new regulation + grading policy + grammar profile + reglament; no engine edits |
 | Module time or points | `shared/testTypes.js` |
 | A screen | its folder in `src/components/` and its controller hook |

@@ -1,14 +1,11 @@
 /**
  * Schreiben Teil 2 evaluation against examiner verdicts.
- *   npm run eval:open   [-- --ranker]   open set: per-letter table, for debugging cases
- *   npm run eval:hidden [-- --ranker]   hidden set: aggregate numbers only, for measuring
- *   npm run eval:merlin [-- --ranker]   real telc A1 exam letters (MERLIN, sealed like the hidden set): aggregates only
- * Default mode is the limited mode (no model). --ranker grades with the Micro-Ranker on EmbeddingGemma,
- * as the browser does (downloads the model on first use).
- * --engine evidence-head [--limited] grades the Leitpunkte (--limited: without the model, i.e. its reference alignment) with the keyword-free evidence head (implies --ranker; the head is
- * trained on the open and calibration sentences' tasks, so its numbers there are in-sample; hidden and MERLIN are not).
- * --review adds the trained another-purpose review to the keyword stage (implies --ranker); --shadow grades every
- * letter without and with it and compares them pair by pair (aggregates only on the hidden set).
+ *   npm run eval:open   [-- --model]   open set: per-letter table, for debugging cases
+ *   npm run eval:hidden [-- --model]   hidden set: aggregate numbers only, for measuring
+ *   npm run eval:merlin [-- --model]   real telc A1 exam letters (MERLIN, sealed like the hidden set): aggregates only
+ * Default mode is the limited mode (no model: reference alignment). --model grades with the keyword-free evidence head
+ * on EmbeddingGemma, as the browser does (downloads the model on first use). The head is trained on the open and
+ * calibration sentences' tasks, so its numbers there are in-sample; hidden and MERLIN are not.
  * --calibration grades the calibration letters (scripts/eval/calibration/letters-levels-*.json) like the open set.
  * Open and calibration sets only: --save <file> stores the per-letter verdicts, --baseline <file> compares with stored ones letter
  * by letter and Leitpunkt by Leitpunkt (a 40-letter percentage alone moves by chance; paired changes do not).
@@ -18,8 +15,6 @@
 import fs from 'node:fs';
 import { gradeSchreibenSubmission } from '../../src/services/schreiben/gradingPipeline.js';
 import { expectedTotal, validateLetters } from './letterSchema.mjs';
-import { canReviewPurpose } from '../../src/services/schreiben/grading/purposeReview.js';
-import { resolveLevelContext } from '../../src/services/schreiben/levelContext.js';
 import { merlinTasks } from './merlin/tasks.js';
 
 const OPEN_DIR = new URL('../../tests/fixtures/schreiben-open/', import.meta.url);
@@ -27,18 +22,14 @@ const SEALED_SETS = ['hidden', 'merlin'];
 const set = ['hidden', 'merlin', 'calibration'].find((name) => process.argv.includes(`--${name}`)) || 'open';
 // Sets whose letters may be printed: tuning and ablation work on these, never on the sealed ones.
 const isReadable = !SEALED_SETS.includes(set);
-const shadow = process.argv.includes('--shadow');
-const withReview = process.argv.includes('--review');
-const useRanker = !process.argv.includes('--limited') && (process.argv.includes('--ranker') || withReview || shadow || process.argv.includes('--engine'));
+const useModel = process.argv.includes('--model');
 const MIN_GROUP = 8;
 const argValue = (flag) => { const i = process.argv.indexOf(flag); return i > -1 ? process.argv[i + 1] : null; };
-const engine = argValue('--engine');
 
 const CALIBRATION_DIR = new URL('calibration/', import.meta.url);
 
 async function loadSet() {
   if (SEALED_SETS.includes(set)) return (await import('./hiddenSetStore.mjs')).loadHiddenLetters(set);
-  // Calibration letters train the purpose review: grade them to measure the keyword stage, not the review.
   if (set === 'calibration') {
     return fs.readdirSync(CALIBRATION_DIR).filter((f) => /^letters-levels-.*\.json$/.test(f)).sort().flatMap((f) => (
       JSON.parse(fs.readFileSync(new URL(f, CALIBRATION_DIR), 'utf8')).map((l, i) => ({ ...l, id: `${f.replace(/^letters-levels-|\.json$/g, '')}-${i}` }))
@@ -64,25 +55,15 @@ async function findQuestion(seedQuestionId) {
   return questionCache.get(seedQuestionId);
 }
 
-let extractors = null;
-async function createGrader(review) {
-  if (!useRanker) {
-    const engineOption = engine ? { leitpunktEngine: engine } : {};
-    return (userText, question) => gradeSchreibenSubmission({ userText, question, options: { forceLimitedMode: true, ...engineOption } });
-  }
+let extractor = null;
+async function createGrader() {
+  if (!useModel) return (userText, question) => gradeSchreibenSubmission({ userText, question, options: { forceLimitedMode: true } });
   const { MicroRankerProvider } = await import('../../src/services/ai/providers/MicroRankerProvider.js');
-  const { clearEmbeddingCache, createEmbeddingExtractors } = await import('../../src/services/embeddings/embeddingService.js');
-  // One model session, as in the app: the keyword stage reads the pooled vectors, the review the sentence ones.
-  extractors ??= await createEmbeddingExtractors();
-  const extractor = extractors.pooled;
-  const evidenceExtractor = review || engine ? extractors.sentence : null;
-  return async (userText, question) => {
-    clearEmbeddingCache();
-    return gradeSchreibenSubmission({
-      userText, question, provider: new MicroRankerProvider(),
-      options: { customExtractor: extractor, evidenceExtractor, ...(engine ? { leitpunktEngine: engine } : {}) },
-    });
-  };
+  const { createSentenceEmbedder } = await import('../../src/services/embeddings/embeddingService.js');
+  extractor ??= await createSentenceEmbedder();
+  return (userText, question) => gradeSchreibenSubmission({
+    userText, question, provider: new MicroRankerProvider(), options: { evidenceExtractor: extractor },
+  });
 }
 
 function compare(letter, result) {
@@ -136,8 +117,8 @@ function printLetters(rows) {
 }
 
 const letters = await loadSet();
-async function gradeAll(review) {
-  const grade = await createGrader(review);
+async function gradeAll() {
+  const grade = await createGrader();
   const rows = [];
   for (const letter of letters) rows.push(compare(letter, await grade(letter.text, await findQuestion(letter.seedQuestionId))));
   return rows;
@@ -169,67 +150,14 @@ function printPairedChanges(rows, baseline) {
   changed.forEach((line) => console.log(line));
 }
 
-// Pair by pair, with the review against without it: Leitpunkt decisions fixed / broken, letters closer / further,
-// 2↔0 errors, voids of letters the examiner credited, and the voids the review adds: catches where the examiner gave
-// every Leitpunkt 0 (invisible in fixed / broken when the keyword levels were 0 already), false voids otherwise.
-const reviewable = (rows) => rows.filter((r) => canReviewPurpose(r.letter.seedQuestionId, resolveLevelContext('A1').policy)).length;
-
-function printShadowComparison(before, after) {
-  const t = { fixed: 0, broken: 0, closer: 0, further: 0, twoZero: [0, 0], falseVoids: [0, 0], addedCatches: 0, addedFalse: 0 };
-  before.forEach((b, i) => {
-    const a = after[i];
-    const want = a.letter.expected.lp;
-    a.gotLp.forEach((level, k) => {
-      const was = b.gotLp[k] === want[k];
-      if (level === want[k] && !was) t.fixed += 1;
-      if (level !== want[k] && was) t.broken += 1;
-    });
-    const delta = Math.abs(b.diff) - Math.abs(a.diff);
-    if (delta > 0) t.closer += 1;
-    if (delta < 0) t.further += 1;
-    if (a.voided && !b.voided) {
-      if (want.every((l) => l === 0)) t.addedCatches += 1;
-      else t.addedFalse += 1;
-    }
-    [b, a].forEach((r, j) => {
-      r.gotLp.forEach((level, k) => { if (Math.abs(level - want[k]) === 2) t.twoZero[j] += 1; });
-      if (r.voided && want.some((l) => l > 0)) t.falseVoids[j] += 1;
-    });
-  });
-  const decisions = before.length * 3;
-  console.log(`\nShadow · purpose review vs keyword stage over ${decisions} Leitpunkt decisions: ${t.fixed} fixed, ${t.broken} broken (net ${(((t.fixed - t.broken) / decisions) * 100).toFixed(1)}%)`);
-  console.log(`  letters closer to the examiner ${t.closer}, further ${t.further}`);
-  console.log(`  2↔0 errors: keyword ${t.twoZero[0]}, review ${t.twoZero[1]} · letters void although the examiner credited a Leitpunkt: keyword ${t.falseVoids[0]}, review ${t.falseVoids[1]}`);
-  console.log(`  voids the review adds: ${t.addedCatches} where the examiner gave every Leitpunkt 0, ${t.addedFalse} where the examiner credited some`);
-  console.log(`  letters the review could read (trained head, example bank): ${reviewable(before)} of ${before.length}`);
-}
-
 function printEngine(label, rows) {
   console.log(`\nSchreiben eval · ${set} set · ${label}`);
-  if (isReadable && !shadow) printLetters(rows);
+  if (isReadable) printLetters(rows);
   console.table(summarize(rows));
   printGroups(rows);
 }
 
-if (shadow) {
-  const keywordRows = await gradeAll(false);
-  const evidenceRows = await gradeAll(true);
-  printEngine('Micro-Ranker · keyword stage', keywordRows);
-  printEngine('Micro-Ranker · keyword stage + purpose review', evidenceRows);
-  printShadowComparison(keywordRows, evidenceRows);
-  if (isReadable) {
-    console.log(`\nChanged letters (${set} set):`);
-    evidenceRows.forEach((a, i) => {
-      const b = keywordRows[i];
-      if (b.gotLp.join('') !== a.gotLp.join('') || b.got !== a.got) {
-        console.log(`  ${a.letter.id.padEnd(22)} ${a.letter.category.padEnd(13)} lp ${b.gotLp.join('')} -> ${a.gotLp.join('')} exp=${a.letter.expected.lp.join('')} total ${b.got} -> ${a.got} / ${a.want}`);
-      }
-    });
-  }
-} else {
-  const rows = await gradeAll(withReview);
-  const label = engine ? `engine ${engine}` : (useRanker ? `Micro-Ranker · keyword stage${withReview ? ' + purpose review' : ''}` : 'limited mode');
-  printEngine(label, rows);
-  if (isReadable && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
-  if (isReadable && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');
-}
+const rows = await gradeAll();
+printEngine(useModel ? 'evidence head (EmbeddingGemma)' : 'limited mode (reference alignment)', rows);
+if (isReadable && argValue('--baseline')) printPairedChanges(rows, JSON.parse(fs.readFileSync(argValue('--baseline'), 'utf8')));
+if (isReadable && argValue('--save')) fs.writeFileSync(argValue('--save'), JSON.stringify(toVerdicts(rows), null, 2) + '\n');

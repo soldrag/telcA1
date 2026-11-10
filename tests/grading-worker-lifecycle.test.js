@@ -2,9 +2,10 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { isWorkerSupported, gradeSchreibenWithWorker, gradeInWorker } from '../src/services/schreiben/grading/gradingWorkerClient.js';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
+import { withPhraseBank } from './helpers/phraseBank.js';
 
 describe('Grading Worker Client & Lifecycle Tests', () => {
-  const sampleQuestion = {
+  const sampleQuestion = withPhraseBank({
     max_points: 10,
     options_json: {
       rubric: {
@@ -15,7 +16,7 @@ describe('Grading Worker Client & Lifecycle Tests', () => {
         ]
       }
     }
-  };
+  }, { lp1: ['Ich möchte im August einen Deutschkurs machen.'], lp2: ['Ich habe vier Wochen Zeit, am Vormittag.'], lp3: ['Was kostet der Kurs und wie kann ich mich anmelden?'] });
 
   it('isWorkerSupported() correctly detects environment without window.Worker in Node.js', () => {
     assert.equal(isWorkerSupported(), false);

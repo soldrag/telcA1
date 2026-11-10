@@ -48,19 +48,16 @@ jobs:
           path: node_modules/@huggingface/transformers/.cache
           key: embeddinggemma-300m-q4-v1
 
-      - name: Keyword-stage vectors · single model session equals the feature-extraction pipeline
-        run: node scripts/eval/check-embedding-parity.mjs
-
-      - name: Open set · limited mode
+      - name: Open set · limited mode (reference alignment)
         run: |
           status=0; npm run -s eval:open > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: Open set · Micro-Ranker, keyword stage without and with the purpose review
+      - name: Open set · evidence head
         run: |
-          status=0; npm run -s eval:open -- --shadow > eval.log 2>&1 || status=$?
+          status=0; npm run -s eval:open -- --model > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
@@ -81,11 +78,11 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: Hidden set · Micro-Ranker, keyword stage without and with the purpose review
+      - name: Hidden set · evidence head
         env:
           TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
         run: |
-          status=0; npm run -s eval:hidden -- --shadow > eval.log 2>&1 || status=$?
+          status=0; npm run -s eval:hidden -- --model > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
@@ -100,36 +97,17 @@ jobs:
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      - name: MERLIN set · Micro-Ranker, keyword stage without and with the purpose review
-        env:
-          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
-        run: |
-          status=0; npm run -s eval:merlin -- --shadow > eval.log 2>&1 || status=$?
-          cat eval.log
-          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-          exit $status
-
-      # The keyword-free evidence head behind its switch: the gate numbers (hidden and MERLIN are not trained on).
-      - name: Hidden set · evidence head
-        env:
-          TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
-        run: |
-          status=0; npm run -s eval:hidden -- --engine evidence-head > eval.log 2>&1 || status=$?
-          cat eval.log
-          { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-          exit $status
-
       - name: MERLIN set · evidence head
         env:
           TELC_HIDDEN_PRIVATE_KEY: ${{ secrets.TELC_HIDDEN_PRIVATE_KEY }}
         run: |
-          status=0; npm run -s eval:merlin -- --engine evidence-head > eval.log 2>&1 || status=$?
+          status=0; npm run -s eval:merlin -- --model > eval.log 2>&1 || status=$?
           cat eval.log
           { echo '```'; cat eval.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           exit $status
 
-      # The same review in a real browser: the app loads EmbeddingGemma once and the review voids an off-topic letter.
-      - name: Browser · purpose review in the built app
+      # The same reading in a real browser: the app loads EmbeddingGemma once and the evidence head voids an off-topic letter.
+      - name: Browser · purpose reading in the built app
         run: |
           npx playwright install --with-deps chromium
-          npx playwright test tests/ui/schreiben.spec.js --project=desktop -g "another-purpose review"
+          npx playwright test tests/ui/schreiben.spec.js --project=desktop -g "letter written for another purpose"

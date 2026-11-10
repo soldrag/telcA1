@@ -7,7 +7,6 @@
 
 import { ILeitpunktAssessor } from './leitpunktAssessorInterface.js';
 import { ReferenceAlignmentAssessor } from './referenceAlignmentAssessor.js';
-import { KeywordRankerAssessor } from './keywordRankerAssessor.js';
 import { letterSpans, readLetterGroups } from '../evidenceHead/letterReading.js';
 import { loadTaskReferences } from '../evidenceHead/taskReferences.js';
 import { resolveLpDiagnosticCode } from '../../feedback/feedbackContracts.js';
@@ -48,16 +47,14 @@ async function resolveExtractor({ provider, evidenceExtractor, customExtractor, 
   return getSentenceExtractor();
 }
 
+// A task without Leitpunkte has nothing to read (the regulation scores the frame alone).
+const NO_LEITPUNKTE = Object.freeze({ items: [], semanticErrors: [], modelUsed: false, modelFailureDetail: null, servesTaskPurpose: null });
+
 export class EvidenceHeadAssessor extends ILeitpunktAssessor {
-  /**
-   * @param {ILeitpunktAssessor} [fallback] - keyword-free reading without the model
-   * @param {ILeitpunktAssessor} [lastResort] - while the keyword stage exists: grades when the fallback cannot either
-   *   (its task phrases are not loadable, e.g. offline before the task's chunk was fetched), so a grading never fails
-   */
-  constructor(fallback = new ReferenceAlignmentAssessor(), lastResort = new KeywordRankerAssessor()) {
+  /** @param {ILeitpunktAssessor} [fallback] - keyword-free reading without the model */
+  constructor(fallback = new ReferenceAlignmentAssessor()) {
     super();
     this._fallback = fallback;
-    this._lastResort = lastResort;
   }
 
   get id() {
@@ -66,6 +63,7 @@ export class EvidenceHeadAssessor extends ILeitpunktAssessor {
 
   async assess(input) {
     const { question, criteria, bodySentences, letterText = bodySentences.join(' '), policy } = input;
+    if (criteria.length === 0) return NO_LEITPUNKTE;
     const model = requireLevelPort(policy, 'EvidenceHeadAssessor: policy').evidenceHead;
     let extractor = null;
     try {
@@ -82,13 +80,8 @@ export class EvidenceHeadAssessor extends ILeitpunktAssessor {
   }
 
   async _readWithoutModel(input, failure) {
-    try {
-      const result = await this._fallback.assess(input);
-      return failure ? { ...result, modelUsed: false, modelFailureDetail: failure } : result;
-    } catch (err) {
-      const result = await this._lastResort.assess({ ...input, customExtractor: false });
-      return { ...result, modelUsed: false, modelFailureDetail: failure || describeError(err) };
-    }
+    const result = await this._fallback.assess(input);
+    return failure ? { ...result, modelUsed: false, modelFailureDetail: failure } : result;
   }
 
   async _read({ question, criteria, bodySentences, letterText, policy, model, extractor }) {

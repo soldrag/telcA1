@@ -16,9 +16,6 @@ export function applyAiGradingResult({ aiResult, onApplyScores, onApplyErrors, s
   if (!aiResult?.criteria_breakdown) return;
   onApplyScores?.(readCriterionScores(aiResult.criteria_breakdown));
   if (Array.isArray(aiResult.grammar_errors)) onApplyErrors?.(aiResult.grammar_errors);
-  if (Array.isArray(aiResult.diff_summary) && aiResult.diff_summary.length > 0) {
-    setters.setAiDiffSummary(aiResult.diff_summary);
-  }
   setters.setExaminerFeedback(aiResult.examiner_feedback || null);
   setters.setLiveCriteriaBreakdown(aiResult.criteria_breakdown);
   setters.setGradingMode(aiResult.grading_mode || null);

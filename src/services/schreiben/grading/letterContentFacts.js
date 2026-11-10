@@ -5,18 +5,13 @@
  */
 
 import { parseSentenceTopology } from '../linguistic/topologicalFieldParser.js';
-import { countMatchedConcepts } from '../linguistic/keywordConcepts.js';
-import { findCompoundModifierMatches } from '../linguistic/compoundModifierMatcher.js';
 
 /**
  * @typedef {Object} LetterContentFacts
  * @property {boolean} hasPredication - some body clause states something: a finite verb, a subject
  *   pronoun or a question. A list of bare nouns ("Ferienwohnung. Personen. Preis.") does not.
- * @property {boolean|null} hasTaskAnchor - the body names a task-specific rubric keyword of some Leitpunkt
- *   (or the modifier of a compound one: "Deutsch" for "Deutschkurs"), so the letter is about this task
- *   and not another one; null when not measured (an assessor that reads the purpose itself uses no keywords).
- * @property {boolean|null} servesTaskPurpose - the trained another-purpose review's reading (purposeReview.js): false
- *   when the letter is written for another purpose; null when the review did not run (no model, limited mode).
+ * @property {boolean|null} servesTaskPurpose - the Leitpunkt assessor's reading of the letter's purpose: false when
+ *   the letter is written for another purpose; null when it could not read it (no model).
  */
 
 const VERBLESS_CLAUSE_TYPES = new Set(['FRAGMENT', 'COORDINATED_PHRASE']);
@@ -43,37 +38,14 @@ function sentenceHasPredication(sentence, lexicon) {
   return parseSentenceTopology(sentence, { lexicon }).clauses.some(isPredicatingClause);
 }
 
-// Keywords of a criterion or aspect that declares an evidence kind (a time, a number of persons, an
-// occupation) name a dimension every letter can have: they support a Leitpunkt but do not tie the
-// letter to this task. "am Samstag um 18 Uhr" is a time in any invitation.
-function taskSpecificKeywords(criterion = {}) {
-  if (criterion.evidence) return [];
-  const aspects = Array.isArray(criterion.aspects) ? criterion.aspects : [];
-  const generic = new Set(aspects.filter((a) => a.evidence).flatMap((a) => a.keywords || []));
-  const specific = aspects.filter((a) => !a.evidence).flatMap((a) => a.keywords || []);
-  const own = (criterion.keywords || []).filter((k) => !generic.has(k));
-  return [...new Set([...own, ...specific])];
-}
-
-function hasTaskAnchor(words, criteria, lexicon) {
-  return criteria.some((criterion) => {
-    const keywords = taskSpecificKeywords(criterion);
-    return countMatchedConcepts(keywords, words, lexicon) > 0
-      || findCompoundModifierMatches(keywords, words, lexicon).length > 0;
-  });
-}
-
 /**
- * @param {{ bodySentences: string[], criteria: object[], lexicon: { lookup: Function, tag: Function },
- *   servesTaskPurpose?: boolean|null, measureTaskAnchor?: boolean }} input
+ * @param {{ bodySentences: string[], lexicon: { lookup: Function, tag: Function }, servesTaskPurpose?: boolean|null }} input
  * @returns {LetterContentFacts}
  */
-export function detectLetterContentFacts({ bodySentences = [], criteria = [], lexicon, servesTaskPurpose = null, measureTaskAnchor = true }) {
+export function detectLetterContentFacts({ bodySentences = [], lexicon, servesTaskPurpose = null }) {
   if (!lexicon) throw new TypeError('detectLetterContentFacts needs a lexicon port');
-  const words = bodySentences.join(' ').split(/\s+/).filter(Boolean);
   return {
     hasPredication: bodySentences.some((s) => sentenceHasPredication(s, lexicon)),
-    hasTaskAnchor: measureTaskAnchor ? hasTaskAnchor(words, criteria, lexicon) : null,
     servesTaskPurpose,
   };
 }

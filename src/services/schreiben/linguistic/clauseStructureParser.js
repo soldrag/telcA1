@@ -6,7 +6,6 @@
 
 import { parseSentenceTopology } from './topologicalFieldParser.js';
 import wordClasses from './data/clauseWordClasses.json' with { type: 'json' };
-import { readPrepositionalObjects } from './verbPrepositionalObjects.js';
 
 const WEEKDAYS = new Set(wordClasses.weekdays);
 const TIME_NOUNS = new Set(wordClasses.timeNouns);
@@ -58,7 +57,7 @@ function extractPolarity(tokens = [], predicateCore = {}) {
   return { isSentenceNegated, negatedNouns, negatedActions };
 }
 
-function extractClauseArguments(tokens = [], predicateCore = {}) {
+function extractClauseArguments(tokens = []) {
   const objects = [];
   const temporalMarkers = [];
   const stateMarkers = [];
@@ -81,7 +80,6 @@ function extractClauseArguments(tokens = [], predicateCore = {}) {
     subject: subjectToken?.lower || null,
     objects,
     directObjects: extractDirectObjects(tokens, subjectToken),
-    prepositionalObjects: readPrepositionalObjects(tokens, predicateCore),
     temporalMarkers,
     stateMarkers,
   };
@@ -105,7 +103,7 @@ function parseClauseStructure(clause) {
   const allTokens = clause.tokens || [...(clause.vorfeld || []), clause.finVerb, ...(clause.mittelfeld || [])].filter(Boolean);
   const predicateCore = extractPredicateCore(clause);
   const polarity = extractPolarity(allTokens, predicateCore);
-  const args = extractClauseArguments(allTokens, predicateCore);
+  const args = extractClauseArguments(allTokens);
 
   return {
     type: clause.type,

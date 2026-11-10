@@ -6,7 +6,8 @@ import { indexTaskPhrases } from '../src/services/schreiben/grading/evidenceHead
 import { hashPhrases } from '../src/services/schreiben/grading/evidenceHead/referenceVectors.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 import { aiProviderRegistry } from '../src/services/ai/aiProviderRegistry.js';
-import { PROVIDER_IDS } from '../src/services/ai/types.js';
+import { PROVIDER_IDS, GRADING_FALLBACK_REASONS } from '../src/services/ai/types.js';
+import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 
 const readJson = (p) => JSON.parse(fs.readFileSync(new URL(p, import.meta.url), 'utf8'));
 
@@ -80,17 +81,24 @@ describe('EvidenceHeadAssessor', () => {
     assert.equal(result.items[0].score, 2, 'the letter repeats a fulfilling phrase of LP1');
   });
 
-  it('still grades, naming the failure, when the task has no phrases to read against', async () => {
+  it('a task without reference phrases is an error of the assessor, and the pipeline still returns a grading that names it', async () => {
     const policy = resolveLevelContext('A1').policy;
     await policy.lexicon.load();
-    const result = await new EvidenceHeadAssessor().assess({
-      question: { id: 'task-without-phrases', situation: question.situation, options_json: {} },
-      criteria: criteria.map((c) => ({ ...c, intent: 'GENERAL', keywords: ['zimmer'], requiredMatches: 1 })), policy,
-      bodySentences: ['Ich möchte ein Zimmer buchen.'], provider: aiProviderRegistry.getProvider(PROVIDER_IDS.NONE),
+    const task = { id: 'task-without-phrases', level: 'A1', situation: question.situation, options_json: { rubric: { leitpunkte_criteria: criteria } } };
+    await assert.rejects(new EvidenceHeadAssessor().assess({
+      question: task, criteria, policy, bodySentences: ['Ich möchte ein Zimmer buchen.'],
+      provider: aiProviderRegistry.getProvider(PROVIDER_IDS.NONE),
+    }), /task-without-phrases/);
+
+    const res = await gradeSchreibenSubmission({
+      userText: 'Sehr geehrte Damen und Herren,\nich möchte ein Zimmer buchen.\nMit freundlichen Grüßen\nAnna', question: task,
+      options: { forceLimitedMode: true },
     });
-    assert.deepEqual(result.items.map((it) => it.id), ['lp1', 'lp2']);
-    assert.equal(result.modelUsed, false);
-    assert.match(result.modelFailureDetail, /task-without-phrases/);
+    assert.equal(res.grading_fallback.reason, GRADING_FALLBACK_REASONS.LEITPUNKTE_UNREADABLE);
+    assert.match(res.grading_fallback.detail, /task-without-phrases/);
+    assert.equal(res.provider_id, null, 'the results screen grades the letter again');
+    assert.deepEqual(res.breakdown.items.map((it) => it.points), [0, 0]);
+    assert.equal(res.breakdown.anrede, 2);
   });
 
   it('does not read the letter against references of another dimension', async () => {

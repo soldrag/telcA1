@@ -4,6 +4,7 @@ import { GRADING_MODES, GRADING_FALLBACK_REASONS } from '../../services/ai/types
 
 const MESSAGE_KEY_BY_REASON = {
   [GRADING_FALLBACK_REASONS.WORKER_FAILED]: 'results.gradingFallbackWorkerFailed',
+  [GRADING_FALLBACK_REASONS.LEITPUNKTE_UNREADABLE]: 'results.gradingFallbackLeitpunkteUnreadable',
 };
 
 /**

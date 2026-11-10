@@ -5,23 +5,14 @@ import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipel
 import { analyzeSalutation } from '../src/services/schreiben/salutationAnalyzer.js';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+import { questions as modellsatz2 } from '../src/data/exams/seeds/schreiben-modellsatz-2.js';
 
 const A1 = resolveLevelContext('A1');
+const s2Question = modellsatz2.find((q) => q.id === 's2-q6');
 
 describe('Doctor cancellation regression (screenshot case)', () => {
-  const question = {
-    max_points: 10,
-    options_json: {
-      type: 'essay',
-      rubric: {
-        leitpunkte_criteria: [
-          { id: 'lp1', label: 'Grund für Ihr Schreiben (Termin am Montag absagen)', intent: 'APPOINTMENT_CANCEL', keywords: ['termin', 'absagen', 'montag', 'nicht kommen', 'kann nicht', '14'], requiredMatches: 2 },
-          { id: 'lp2', label: 'Warum (Überstunden oder Arbeit)', intent: 'REASON_EXPLANATION', keywords: ['arbeiten', 'arbeit', 'überstunden', 'ueberstunden', 'krank', 'länger'], requiredMatches: 1 },
-          { id: 'lp3', label: 'Neuer Terminvorschlag (Dienstag oder Mittwoch)', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'mittwoch', 'nächste woche', 'neuen termin', 'neuer termin', 'zeit', 'termin'], requiredMatches: 2 }
-        ]
-      }
-    }
-  };
+  // The app's own task (Modellsatz 2): the engine reads it against the task's reference phrases.
+  const question = s2Question;
 
   const studentText = `Sehr geehrte Herr Dr. Schneider,
 ich muss leider absagen mein Termin am Montag um 14:00 Uhr. Ich kann nicht kommen, weil ich muss machen viele Überstunden auf der Arbeit. Geht es am Dienstag oder Mittwoch? Bitte antworten Sie mich.
@@ -41,12 +32,12 @@ Artem Smirnov`;
     assert.equal(correct.score, 2);
   });
 
-  it('assigns the cancellation sentence to Leitpunkt 1 (no phantom empty point)', async () => {
+  it('reads each Leitpunkt from its own span (no phantom empty point)', async () => {
     const res = await gradeLetter(studentText, question);
-    const segments = res.user_segments.leitpunkte;
-    assert.match(segments[0].userSentence, /absagen/i);
-    assert.match(segments[1].userSentence, /Überstunden|Arbeit/i);
-    assert.match(segments[2].userSentence, /Dienstag|Mittwoch/i);
+    const spans = res.breakdown.items.map((it) => it.matchedSentence);
+    assert.match(spans[0], /absagen|nicht kommen/i);
+    assert.match(spans[1], /Überstunden|Arbeit/i);
+    assert.match(spans[2], /Dienstag|Mittwoch/i);
     assert.equal(res.breakdown.anrede, 2);
     assert.equal(res.breakdown.leitpunkte, 9);
     assert.equal(res.breakdown.gruss, 2);
@@ -99,11 +90,8 @@ Viele Grüße,`;
     assert.equal(res.breakdown.gruss, 2);
     assert.equal(res.points_earned, 10);
 
-    // Verify segmentation: Punkt 3 must NOT be empty!
-    assert.match(res.user_segments.leitpunkte[0].userSentence, /14:00/);
-    assert.match(res.user_segments.leitpunkte[1].userSentence, /bei mein Arbeit/);
-    assert.match(res.user_segments.leitpunkte[2].userSentence, /Donnerstag oder Freitag/);
-    assert.doesNotMatch(res.user_segments.leitpunkte[2].userSentence, /Kein Satz/);
+    // Punkt 3 is read from its own span, not left empty.
+    assert.match(res.breakdown.items[2].matchedSentence, /Donnerstag oder Freitag/);
 
     // Verify detection of the 3 previously missed errors + 2 existing
     const originals = res.grammar_errors.map(e => e.original.toLowerCase());

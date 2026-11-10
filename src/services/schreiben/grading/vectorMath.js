@@ -1,9 +1,6 @@
 /**
- * Vector operations for EmbeddingGemma embeddings:
- * Matryoshka dimension truncation (256 dims), L2 normalization, and cosine similarity.
+ * L2 normalisation of an EmbeddingGemma vector (all dimensions: the evidence head is trained on the full length).
  */
-
-import { EMBEDDING_DIMENSION } from './types.js';
 
 function computeSumOfSquares(vector, length) {
   let sumSq = 0;
@@ -14,22 +11,13 @@ function computeSumOfSquares(vector, length) {
   return sumSq;
 }
 
-export function cosineSimilarity(vecA = [], vecB = []) {
-  if (!vecA || !vecB || vecA.length === 0 || vecA.length !== vecB.length) return 0;
-  let dotProduct = 0;
-  for (let i = 0; i < vecA.length; i++) {
-    dotProduct += vecA[i] * vecB[i];
-  }
-  return Math.max(-1, Math.min(1, dotProduct));
-}
-
 /**
- * Truncates raw embedding to Matryoshka dimensions and normalizes with a single Float32Array allocation.
+ * Normalises a raw embedding with a single Float32Array allocation, optionally truncated to `dim` dimensions.
  * @param {number[]|ArrayBufferView} rawVector
- * @param {number} [dim=EMBEDDING_DIMENSION]
+ * @param {number} [dim=Infinity]
  * @returns {Float32Array}
  */
-export function prepareEmbeddingVector(rawVector = [], dim = EMBEDDING_DIMENSION) {
+export function prepareEmbeddingVector(rawVector = [], dim = Infinity) {
   if (!Array.isArray(rawVector) && !ArrayBuffer.isView(rawVector)) return new Float32Array(0);
   const targetLength = Math.min(rawVector.length, dim);
   if (targetLength === 0) return new Float32Array(0);

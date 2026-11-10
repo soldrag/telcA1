@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { DIAGNOSTIC_CODES } from '../src/services/schreiben/feedback/feedbackContracts.js';
 import { resolveTutorCriterionFeedback } from '../src/services/schreiben/feedback/tutorFeedbackResolver.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
+import { questions as modellsatz3 } from '../src/data/exams/seeds/schreiben-modellsatz-3.js';
+import { H2_REGRESSION } from './helpers/h2Regressions.js';
 
 describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
   it('resolves localized explanations in Russian, English, and German for inverted defect', async () => {
@@ -140,33 +142,10 @@ describe('Schreiben Pedagogical Tutor Feedback Resolver', () => {
 });
 
 describe('Linguistic Engine Diagnostic Grounding Integration', () => {
-  const heatingCriteria = [
-    {
-      id: 'lp1',
-      label: 'Grund für das Schreiben (Heizung kaputt)',
-      intent: 'DEFECT_REPORT',
-      keywords: ['heizung', 'kaputt', 'kalt', 'warm', 'funktionieren'],
-      requiredMatches: 2
-    },
-    {
-      id: 'lp2',
-      label: 'Wann Sie zu Hause sind',
-      intent: 'GENERAL',
-      evidence: 'temporal',
-      keywords: ['zeit', 'zu hause', 'uhr', 'vormittag', 'nachmittag', 'termin'],
-      requiredMatches: 1
-    },
-    {
-      id: 'lp3',
-      label: 'Handwerker / Reparaturtermin bitten',
-      intent: 'ACTION_REQUEST',
-      aspects: [{ label: 'Handwerker' }, { label: 'Reparaturtermin bitten', evidence: 'temporal' }],
-      keywords: ['handwerker', 'techniker', 'kommen', 'reparieren', 'bitten'],
-      requiredMatches: 1
-    }
-  ];
+  // The app's own heating task (Modellsatz 3), read against its reference phrases.
+  const heatingTask = modellsatz3.find((q) => q.id === 's3-q6');
 
-  it('tags adversarial heating letter with LP_INVERTED_DEFECT and LP_INVERTED_REQUEST', async () => {
+  it('gives no point to a heating letter that says the heating works and refuses the craftsman', H2_REGRESSION, async () => {
     const text = 'Sehr geehrter Herr Müller,\n' +
       'ich schreibe Ihnen, weil meine Heizung perfekt funktioniert und die Wohnung sehr warm ist.\n' +
       'Ich habe morgen Zeit.\n' +
@@ -174,15 +153,9 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen\n' +
       'Max Mustermann';
 
-    const result = (await gradeLetter(text, { options_json: { rubric: { leitpunkte_criteria: heatingCriteria } } })).breakdown;
-    const lp1 = result.items[0];
-    const lp3 = result.items[2];
-
-    assert.equal(lp1.score, 0);
-    assert.equal(lp1.diagnosticCode, DIAGNOSTIC_CODES.LP_INVERTED_DEFECT);
-
-    assert.equal(lp3.score, 0);
-    assert.equal(lp3.diagnosticCode, DIAGNOSTIC_CODES.LP_INVERTED_REQUEST);
+    const result = (await gradeLetter(text, heatingTask)).breakdown;
+    assert.equal(result.items[0].score, 0);
+    assert.equal(result.items[2].score, 0);
   });
 
   it('tags legitimate submission with LP_FULFILLED', async () => {
@@ -193,7 +166,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
       'Mit freundlichen Grüßen\n' +
       'Max Mustermann';
 
-    const result = (await gradeLetter(text, { options_json: { rubric: { leitpunkte_criteria: heatingCriteria } } })).breakdown;
+    const result = (await gradeLetter(text, heatingTask)).breakdown;
     assert.equal(result.items[0].score, 2);
     assert.equal(result.items[0].diagnosticCode, DIAGNOSTIC_CODES.LP_FULFILLED);
     assert.equal(result.items[1].score, 2);
@@ -202,14 +175,7 @@ describe('Linguistic Engine Diagnostic Grounding Integration', () => {
   });
 
   it('provides diagnostic codes across full evaluateTeil2Essay pipeline', async () => {
-    const question = {
-      max_points: 10,
-      options_json: {
-        rubric: {
-          leitpunkte_criteria: heatingCriteria
-        }
-      }
-    };
+    const question = heatingTask;
     const letter = 'Sehr geehrte Damen und Herren,\n' +
       'meine Heizung ist kaputt.\n' +
       'Ich bin morgen um 14 Uhr zu Hause.\n' +

@@ -1,27 +1,12 @@
 import React from 'react';
-import { Search, ChevronDown, CheckCircle2, AlertTriangle, XCircle, Cpu } from 'lucide-react';
-import { RANKER_DETAILS_TEXTS, formatCoverageLabel, formatLevelVerdict } from './schreibenRankerDetailsTexts.js';
+import { Search, ChevronDown, Cpu } from 'lucide-react';
+import { RANKER_DETAILS_TEXTS } from './schreibenRankerDetailsTexts.js';
 import { scoreCriteriaLevels } from '../../services/schreiben/regulations/index.js';
 import { formatPoints } from '../../utils/formatPoints.js';
 
 function resolveItemPoints(item) {
   if (typeof item.points === 'number') return { points: item.points, maxPoints: item.maxPoints };
   return scoreCriteriaLevels({ lp1: item.score }).leitpunkte[0];
-}
-
-// A partial compound verdict carries a clamped placeholder score, not a similarity: show the verdict only.
-function formatRankerVerdict(ranker, texts) {
-  const label = formatCoverageLabel(ranker.coverage, texts);
-  const hasMeaningfulScore = !ranker.isCompound || ranker.coverage === 'full';
-  return hasMeaningfulScore ? `${Math.round(ranker.score * 100)}% ${label}` : label;
-}
-
-function renderProtectionNote(item, texts, language) {
-  if (!item.isProtected) return null;
-  const note = texts.protectedTag
-    .replace('{verdict}', formatLevelVerdict(item.rankerScore, texts))
-    .replace('{points}', formatPoints(resolveItemPoints(item).points, language));
-  return <div className="text-[0.625rem] font-semibold text-content-secondary">{note}</div>;
 }
 
 function renderUnassigned(sentences, texts) {
@@ -34,28 +19,17 @@ function renderUnassigned(sentences, texts) {
   );
 }
 
-function renderAspectRow(asp, idx) {
-  const isOk = asp.coverage === 'full';
-  const isPart = asp.coverage === 'partial';
-  const pct = Math.round((asp.score || 0) * 100);
-  const badgeCls = isOk
-    ? 'bg-state-success-subtle text-state-success-text border-state-success-border'
-    : (isPart ? 'bg-state-warning-subtle text-state-warning-text border-state-warning-border' : 'bg-surface-raised text-content-muted border-border-default');
-
+// One reading of a Leitpunkt unit (the point or a declared aspect): its best support and the span it came from.
+function renderUnitRow(unit, idx) {
+  const pct = Math.round((unit.support || 0) * 100);
+  const name = String(unit.key || '').split(':').slice(1).join(':') || unit.key;
   return (
     <div key={idx} className="flex items-center justify-between text-[0.6875rem] gap-2 py-0.5">
       <div className="flex items-center space-x-1.5 truncate">
-        {isOk ? <CheckCircle2 className="w-3 h-3 text-state-success flex-shrink-0" /> :
-         isPart ? <AlertTriangle className="w-3 h-3 text-state-warning flex-shrink-0" /> :
-         <XCircle className="w-3 h-3 text-content-muted flex-shrink-0" />}
-        <span className="font-semibold text-content-primary truncate">{asp.aspect}</span>
-        {asp.matchedSentence && (
-          <span className="italic text-content-secondary truncate text-[0.625rem]">
-            «{asp.matchedSentence}»
-          </span>
-        )}
+        <span className="font-semibold text-content-primary truncate">{name}</span>
+        {unit.span && <span className="italic text-content-secondary truncate text-[0.625rem]">«{unit.span}»</span>}
       </div>
-      <span className={`font-mono text-[0.625rem] font-bold px-1.5 py-0.2 rounded border flex-shrink-0 ${badgeCls}`}>
+      <span className="font-mono text-[0.625rem] font-bold px-1.5 py-0.2 rounded border flex-shrink-0 bg-surface-raised text-content-secondary border-border-default">
         {pct}%
       </span>
     </div>
@@ -67,6 +41,8 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
   const items = diagnosticData?.diagnostic?.items || diagnosticData?.items || [];
   const unassigned = diagnosticData?.diagnostic?.unassignedSentences;
   if (!items || items.length === 0) return null;
+  const engine = items[0]?.rankerDetails?.engine;
+  const engineTag = texts.engineTags[engine];
 
   return (
     <details className="mt-3 group rounded-xl border border-border-default bg-surface-card overflow-hidden">
@@ -76,10 +52,12 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
           <span className="text-xs font-bold text-content-primary">{texts.title}</span>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="text-[0.625rem] font-mono font-bold px-2 py-0.5 rounded bg-action-primary-subtle/50 text-action-primary flex items-center space-x-1">
-            <Cpu className="w-3 h-3" />
-            <span>{texts.modelTag}</span>
-          </span>
+          {engineTag && (
+            <span className="text-[0.625rem] font-mono font-bold px-2 py-0.5 rounded bg-action-primary-subtle/50 text-action-primary flex items-center space-x-1">
+              <Cpu className="w-3 h-3" />
+              <span>{engineTag}</span>
+            </span>
+          )}
           <ChevronDown className="w-4 h-4 text-content-muted transition-transform group-open:rotate-180" />
         </div>
       </summary>
@@ -93,8 +71,8 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
           {items.map((item, idx) => {
             const sc = item.score ?? 0;
             const { points, maxPoints } = resolveItemPoints(item);
-            const ranker = item.rankerDetails;
-            const matched = ranker?.matchedSentence || item.matchedSentence;
+            const units = item.rankerDetails?.units || [];
+            const matched = item.matchedSentence;
             const scoreColor = sc === 2
               ? 'bg-state-success text-white'
               : (sc === 1 ? 'bg-state-warning text-white' : 'bg-surface-raised text-content-muted');
@@ -106,11 +84,6 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                     <span className="text-xs font-bold text-content-primary">
                       Punkt {idx + 1}: {item.label || item.id}
                     </span>
-                    {item.arbitrated && (
-                      <span className="text-[0.625rem] font-bold text-action-primary px-1.5 py-0.2 rounded bg-action-primary-subtle">
-                        {texts.arbitratedTag}
-                      </span>
-                    )}
                   </div>
                   <span className={`text-[0.6875rem] font-mono font-bold px-2 py-0.5 rounded ${scoreColor}`}>
                     {formatPoints(points, language)} / {formatPoints(maxPoints, language)} Pkt
@@ -121,11 +94,6 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                   <div className="text-xs text-content-primary bg-surface-card p-2 rounded border border-border-subtle leading-relaxed">
                     <span className="font-semibold text-action-primary mr-1">{texts.matchedLabel}</span>
                     <span className="italic">«{matched}»</span>
-                    {ranker?.score !== undefined && (
-                      <span className="ml-2 font-mono text-[0.625rem] text-content-muted font-bold">
-                        ({formatRankerVerdict(ranker, texts)})
-                      </span>
-                    )}
                   </div>
                 ) : (
                   <div className="text-xs italic text-content-muted">
@@ -133,14 +101,12 @@ export default function SchreibenRankerDetailsCard({ diagnosticData, language = 
                   </div>
                 )}
 
-                {renderProtectionNote(item, texts, language)}
-
-                {ranker?.isCompound && Array.isArray(ranker.aspects) && ranker.aspects.length > 1 && (
+                {units.length > 1 && (
                   <div className="mt-1.5 pt-1.5 border-t border-border-subtle/50 pl-2 border-l-2 border-action-primary/30 space-y-1">
                     <div className="text-[0.625rem] font-extrabold uppercase tracking-wider text-content-secondary">
-                      {texts.subAspectsTitle}
+                      {texts.unitsTitle}
                     </div>
-                    {ranker.aspects.map((asp, aIdx) => renderAspectRow(asp, aIdx))}
+                    {units.map(renderUnitRow)}
                   </div>
                 )}
               </div>

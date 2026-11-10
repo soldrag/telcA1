@@ -52,9 +52,6 @@ function offlinePrecachePlugin() {
     filename: 'sw.js',
     workbox: {
       globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2,webmanifest,tsv}'],
-      // The keyword-free evidence head is behind a developer switch: its reference vectors (~4 MB) stay out of the
-      // install until it becomes the default engine (then drop this line, so it grades offline).
-      globIgnores: ['**/evidence-s*-q*-*.js'],
       maximumFileSizeToCacheInBytes: PRECACHE_FILE_LIMIT_BYTES,
       navigateFallback: 'index.html',
       cleanupOutdatedCaches: true,

@@ -1,66 +1,19 @@
 /**
- * Abstract Interface Contract for CEFR Ranker Policies (DIP).
- * All CEFR level-specific regulations (A1, A2, B1) implement this contract.
- * Strictly adheres to McConnell limits (<= 90 lines, <= 15 lines per function).
+ * Contract of a CEFR level's grading policy (DIP): the level data the engine is given — the lexicon port, the
+ * keyword-free evidence head and its reading without a model — and the examiner feedback selection. Points are
+ * decided by the level's exam regulation (regulations/), never here.
  */
 
 import { buildExaminerFeedbackDescriptor } from '../../feedback/examinerFeedbackBuilder.js';
-
-/**
- * @typedef {Object} CoverageThresholds
- * @property {number} full - Minimum score for 'full' coverage
- * @property {number} partial - Minimum score for 'partial' coverage
- */
-
-/**
- * @typedef {Object} AspectEvaluationResult
- * @property {string} aspect
- * @property {'full'|'partial'|'no'} coverage
- * @property {number} score
- * @property {string} [matchedSentence]
- */
-
-/**
- * @typedef {Object} CompoundAggregationResult
- * @property {'full'|'partial'|'no'} coverage
- * @property {number} score
- * @property {string} matchedSentence
- * @property {boolean} isCompound
- * @property {AspectEvaluationResult[]} aspects
- * @property {string[]} missingAspects
- * @property {string[]} fulfilledAspects
- */
 
 export class IRankerPolicy {
   get level() {
     throw new Error('IRankerPolicy.level getter must be implemented');
   }
 
-  get thresholds() {
-    throw new Error('IRankerPolicy.thresholds getter must be implemented');
-  }
-
-  /** Lexicon port of the level ({ lookup, findForms, tag }) for clause parsing. */
+  /** Lexicon port of the level ({ lookup, findForms, tag }) for clause parsing and lemmas. */
   get lexicon() {
     throw new Error('IRankerPolicy.lexicon getter must be implemented');
-  }
-
-  /**
-   * Concept domains of the level vocabulary (domain -> stems) for recognising aspect labels.
-   * None by default: aspects are then matched by keywords and label overlap only.
-   * @returns {Record<string, string[]>}
-   */
-  get conceptDomains() {
-    return {};
-  }
-
-  /**
-   * Trained evidence heads of the level with their thresholds, or null: sentence heads (support / contradiction) and
-   * the another-purpose letter head over the keyword stage (purposeReview). A level without them grades Leitpunkte
-   * by keywords and the label query alone.
-   */
-  get evidenceModel() {
-    return null;
   }
 
   /**
@@ -79,75 +32,6 @@ export class IRankerPolicy {
    */
   get referenceAlignment() {
     return null;
-  }
-
-  classifyScore(rawScore) {
-    throw new Error('IRankerPolicy.classifyScore must be implemented');
-  }
-
-  aggregateCompound(aspectResults) {
-    throw new Error('IRankerPolicy.aggregateCompound must be implemented');
-  }
-
-  /**
-   * Maps a raw embedding cosine onto the policy score scale used by classifyScore.
-   * Identity by default so policies without neural calibration keep working.
-   * @param {number} similarity
-   * @returns {number}
-   */
-  calibrateNeuralScore(similarity) {
-    return similarity;
-  }
-
-  /**
-   * Maps the cosine between a sentence and its closest fulfilling rubric example onto the policy score scale.
-   * Sentence-to-sentence cosines run higher than query-to-sentence ones, so levels calibrate them separately.
-   * @param {number} similarity
-   * @returns {number}
-   */
-  calibrateExampleScore(similarity) {
-    return this.calibrateNeuralScore(similarity);
-  }
-
-  /**
-   * Merges neural and deterministic evidence into one policy-scale score.
-   * Default keeps the strongest signal; level policies may bound lexical hints when a neural verdict exists.
-   * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean, contradicted?: boolean }} evidence
-   *   contradicted: the sentence resembles a near miss of the aspect more than any phrase that fulfils it
-   * @returns {number}
-   */
-  combineEvidence({ neural = 0, lexical = 0, structured = 0 } = {}) {
-    return Math.max(neural, lexical, structured);
-  }
-
-  /**
-   * True when the neural verdict rejected a sentence that only keyword overlap supported.
-   * @param {{ neural: number, lexical: number, structured: number, hasNeural: boolean }} evidence
-   * @returns {boolean}
-   */
-  isLexicalVeto() {
-    return false;
-  }
-
-  /**
-   * Upper bound for lexical hints on an aspect whose declared evidence kind (e.g. 'personCount')
-   * the detector did not prove. Identity by default: levels decide whether such an aspect can be full.
-   * @param {string|null} evidenceKind
-   * @param {number} lexical
-   * @returns {number}
-   */
-  capUnprovenLexical(evidenceKind, lexical) {
-    return lexical;
-  }
-
-  /**
-   * Whether the neural verdict on these sentences is trustworthy enough to lower a keyword baseline.
-   * Levels define what "readable" means (e.g. share of words outside the level lexicon).
-   * @param {string[]} sentences
-   * @returns {boolean}
-   */
-  isVerdictReliable() {
-    return true;
   }
 
   /**

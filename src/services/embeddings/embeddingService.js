@@ -1,6 +1,6 @@
 /**
- * Client-side EmbeddingGemma service using @huggingface/transformers.
- * Computes 256-dim Matryoshka embeddings in the browser with WebGPU -> WASM fallback.
+ * Client-side EmbeddingGemma service using @huggingface/transformers: the model's trained `sentence_embedding`
+ * for the keyword-free evidence head, in the browser with WebGPU -> WASM fallback.
  */
 
 import { prepareEmbeddingVector } from '../schreiben/grading/vectorMath.js';
@@ -13,72 +13,41 @@ const EMBEDDING_MODEL_ID = 'onnx-community/embeddinggemma-300m-ONNX';
 const EMBEDDING_DTYPE = 'q4';
 // The weights are what a download is about; transformers.js names them after the dtype.
 const EMBEDDING_WEIGHT_FILES = [`onnx/model_${EMBEDDING_DTYPE}.onnx`, `onnx/model_${EMBEDDING_DTYPE}.onnx_data`];
-const EMBEDDING_DIMENSION = 256;
 
-// Task prefixes verified against EmbeddingGemma model card
-const TASK_PREFIX_QUERY = 'task: search result | query: ';
-export const TASK_PREFIX_TEXT = 'task: search result | text: ';
-
-// The app's model session (createEmbeddingExtractors) and its pooled reading, which the keyword stage calls.
-let modelSession = null;
+// The app's model session (createSentenceEmbedder).
 let extractorInstance = null;
 let isInitializing = false;
-const lpEmbeddingCache = new Map();
-
-function formatEmbeddingPrompt(text = '', isQuery = false) {
-  const prefix = isQuery ? TASK_PREFIX_QUERY : TASK_PREFIX_TEXT;
-  return `${prefix}${String(text || '').trim()}`;
-}
 
 async function getDeviceTarget() {
   return await isWebGPUAdapterAvailable() ? 'webgpu' : 'wasm';
 }
 
 /**
- * One EmbeddingGemma session with both readings of a prompt: `pooled` is the attention-masked mean of the hidden
- * states, exactly what the feature-extraction pipeline returns (the keyword stage's vectors), and `sentence` is the
- * model's trained `sentence_embedding` (mean pooling plus the dense projection the Matryoshka truncation is trained
- * on; the evidence heads' vectors). The weights load once. One factory for the app and the Node scripts.
+ * One EmbeddingGemma session reading the model's trained `sentence_embedding` (mean pooling plus the dense
+ * projection). The weights load once. One factory for the app and the Node scripts.
  * @param {object} [options] - transformers.js model options (device, dtype, progress_callback)
- * @returns {Promise<{ pooled: Function, sentence: Function, dispose: Function }>} pooled / sentence: (prompt) -> { data }
+ * @returns {Promise<Function>} extractor (prompt) -> { data }, with dispose()
  */
-export async function createEmbeddingExtractors(options = {}) {
-  const { AutoModel, AutoTokenizer, mean_pooling: meanPooling } = await import('@huggingface/transformers');
+export async function createSentenceEmbedder(options = {}) {
+  const { AutoModel, AutoTokenizer } = await import('@huggingface/transformers');
   const [tokenizer, model] = await Promise.all([
     AutoTokenizer.from_pretrained(EMBEDDING_MODEL_ID, { progress_callback: options.progress_callback }),
     AutoModel.from_pretrained(EMBEDDING_MODEL_ID, { dtype: EMBEDDING_DTYPE, ...options }),
   ]);
   // Output tensors hold native (WebGPU/WASM/ONNX) memory: copy the vector and release them on every call.
-  const run = async (prompt, read) => {
+  const sentence = async (prompt) => {
     const inputs = tokenizer([prompt], { padding: true, truncation: true });
     const outputs = await model(inputs);
-    const vector = read(outputs, inputs);
-    const data = Float32Array.from(vector.data);
-    [vector, ...Object.values(outputs), ...Object.values(inputs)].forEach((tensor) => tensor?.dispose?.());
+    const data = Float32Array.from(outputs.sentence_embedding.data);
+    [...Object.values(outputs), ...Object.values(inputs)].forEach((tensor) => tensor?.dispose?.());
     return { data };
   };
-  return {
-    pooled: (prompt) => run(prompt, (outputs, inputs) => meanPooling(outputs.last_hidden_state, inputs.attention_mask)),
-    sentence: (prompt) => run(prompt, (outputs) => outputs.sentence_embedding),
-    dispose: () => model.dispose(),
-  };
-}
-
-/** The `sentence` reading alone, for the Node scripts. @returns {Promise<Function>} extractor with dispose() */
-export async function createSentenceEmbedder(options = {}) {
-  const { sentence, dispose } = await createEmbeddingExtractors(options);
-  sentence.dispose = dispose;
+  sentence.dispose = () => model.dispose();
   return sentence;
 }
 
-// The document prompt of the EmbeddingGemma model card; the evidence heads were trained on it.
+// The document prompt of the EmbeddingGemma model card; the evidence head was trained on it.
 const DOCUMENT_PROMPT = 'title: none | text: ';
-
-/** Sentence vector of a letter span for the evidence heads, from a sentence_embedding extractor. */
-export async function computeDocumentVector(text, extractor) {
-  const output = await extractor(`${DOCUMENT_PROMPT}${String(text || '').trim()}`);
-  return prepareEmbeddingVector(output?.data || output, EMBEDDING_DIMENSION);
-}
 
 /** The full-length sentence vector of a letter span, for the keyword-free evidence head (trained on all dimensions). */
 export async function computeFullDocumentVector(text, extractor) {
@@ -105,21 +74,19 @@ async function initEmbeddingService(onProgress = null) {
     const device = await getDeviceTarget();
     await pointOrtToOwnAssets(env, device);
     const isCached = await areModelFilesCached({ env, modelId: EMBEDDING_MODEL_ID, files: EMBEDDING_WEIGHT_FILES });
-    modelSession = await createEmbeddingExtractors({
+    extractorInstance = await createSentenceEmbedder({
       device,
       progress_callback: isCached ? undefined : createDownloadReporter(onProgress),
     });
-    extractorInstance = modelSession.pooled;
     return extractorInstance;
   } finally {
     isInitializing = false;
   }
 }
 
-/** The loaded model's `sentence_embedding` reading (createEmbeddingExtractors), loading the model if needed. */
+/** The loaded model's `sentence_embedding` reading, loading the model if needed. */
 export async function getSentenceExtractor() {
-  await initEmbeddingService();
-  return modelSession.sentence;
+  return initEmbeddingService();
 }
 
 /**
@@ -130,46 +97,12 @@ export async function loadEmbeddingModel(onProgress = null) {
   await initEmbeddingService(onProgress);
 }
 
-export async function computeEmbedding(text = '', isQuery = false, customExtractor = null) {
-  const extractor = customExtractor || await initEmbeddingService();
-  const prompt = formatEmbeddingPrompt(text, isQuery);
-  const output = await extractor(prompt, { pooling: 'mean', normalize: false });
-  const rawData = output?.data || output?.[0]?.data || output;
-  return prepareEmbeddingVector(rawData, EMBEDDING_DIMENSION);
-}
-
-export async function getCachedLpEmbedding(lpId = '', lpText = '', customExtractor = null) {
-  const cacheKey = `${lpId}:::${lpText}`;
-  if (lpEmbeddingCache.has(cacheKey)) {
-    return lpEmbeddingCache.get(cacheKey);
-  }
-  const vec = await computeEmbedding(lpText, true, customExtractor);
-  lpEmbeddingCache.set(cacheKey, vec);
-  return vec;
-}
-
-/** Rubric example phrases are embedded as documents, like the letter's sentences they are compared with. */
-export async function getCachedExampleEmbedding(text = '', customExtractor = null) {
-  const cacheKey = `example:::${text}`;
-  if (lpEmbeddingCache.has(cacheKey)) {
-    return lpEmbeddingCache.get(cacheKey);
-  }
-  const vec = await computeEmbedding(text, false, customExtractor);
-  lpEmbeddingCache.set(cacheKey, vec);
-  return vec;
-}
-
-export function clearEmbeddingCache() {
-  lpEmbeddingCache.clear();
-}
-
 export async function unloadEmbeddingService() {
   try {
-    await modelSession?.dispose();
+    await extractorInstance?.dispose?.();
   } catch (err) {
     console.warn('[EmbeddingService] Dispose notice:', err);
   }
-  modelSession = null;
   extractorInstance = null;
   isInitializing = false;
 }

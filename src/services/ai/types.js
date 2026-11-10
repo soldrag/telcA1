@@ -34,10 +34,14 @@ export const GRADING_MODES = {
 /**
  * Why a grading fell back from the model, as the named fact `grading_fallback` of the result: `{ reason, detail }`.
  * MODEL_FAILED: the embedding model did not run (stage 2); WORKER_FAILED: the grading worker failed or timed out
- * and the letter was graded again on the main thread in the limited mode. `detail` is the failure's own message.
+ * and the letter was graded again on the main thread in the limited mode; LEITPUNKTE_UNREADABLE: not even the
+ * reading without the model could run (the task's reference phrases did not load), so the Leitpunkte carry no
+ * points yet and the result names no provider — the results screen grades the letter again. `detail` is the
+ * failure's own message.
  * @typedef {{ reason: string, detail: string }} GradingFallback
  */
 export const GRADING_FALLBACK_REASONS = {
   MODEL_FAILED: 'model_failed',
   WORKER_FAILED: 'worker_failed',
+  LEITPUNKTE_UNREADABLE: 'leitpunkte_unreadable',
 };

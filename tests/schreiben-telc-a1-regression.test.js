@@ -13,6 +13,7 @@ import { calculateLinguisticAccuracy } from '../src/services/schreiben/scoring/l
 import { dedupeGrammarErrors } from '../src/services/schreiben/linguistic/grammarErrorDeduper.js';
 import { countLetterBodyWords } from '../src/services/schreiben/scoring/letterBodyWordCounter.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
+import { H2_REGRESSION, regressionOf } from './helpers/h2Regressions.js';
 
 const weights = A1_GRAMMAR_PROFILE.accuracyWeights;
 
@@ -50,7 +51,7 @@ for (const suite of suites) {
         assert.ok(isWithin(kg, acceptedRange(tc, 'kg')), `KG ${kg}, accepted ${acceptedRange(tc, 'kg').join('–')}`);
       });
 
-      it(`${tc.id}: Leitpunkte and total — ${tc.title}`, () => {
+      it(`${tc.id}: Leitpunkte and total — ${tc.title}`, regressionOf(tc.id), () => {
         const res = results.get(tc.id);
         const [lp1, lp2, lp3] = res.breakdown.items.map((it) => it.points);
         const mismatches = describeMismatches(tc, { lp1, lp2, lp3, total: res.points_earned });
@@ -87,7 +88,7 @@ for (const suite of suites) {
       assert.equal(res.points_earned, 10);
     });
 
-    it('one sentence may serve two Leitpunkte (02: "wir möchten im Juli …" is reason and Zeitraum)', () => {
+    it('one sentence may serve two Leitpunkte (02: "wir möchten im Juli …" is reason and Zeitraum)', H2_REGRESSION, () => {
       const [lp1, lp2] = results.get('02_reference_missing_pets').breakdown.items;
       const shared = 'wir möchten im Juli mit der Familie an die Ostsee kommen.';
       assert.ok(lp1.keywordSentences.includes(shared) && lp2.keywordSentences.includes(shared));

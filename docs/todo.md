@@ -14,10 +14,8 @@
 - [x] Pedagogical accuracy scale missed misspellings (a letter with six misspelt words scored 9/10): `letterRules/misspellingRule.js` flags a word unknown to the lexicon that sounds like exactly one A1 word (54 flags on 362 letters, none on a correct word); that letter now scores 4/10.
 - [ ] Lexicon gap: many correct adjectives and adverbs are unknown ("kalt", "mehr", "hoch", "kurz", "morgens", "nächste", "darum"), so "unknown" is not "misspelt". Add a Wiktionary-based adjective/adverb list next to the noun and verb dictionaries (`scripts/lexicon/`), then let the misspelling rule use one-edit candidates too ("agust", "freudlich", "gesehn" are missed today) and recheck on all letters.
 - [ ] Word order after a misspelling: "Heute ich nich komen" hides the verb-second error because "komen" is no verb to the parser. Read a flagged misspelling as its correction before the syntax checks (and before Leitpunkt matching, see the next item).
-- [ ] Misspelt keywords: sound-key match only for tokens unknown to the A1 lexicon after lemma lookup, both ≥ 4 letters, against the task's own keywords, outside salutation and closing; replace the token before detection so negation and contradiction treat it as correctly spelt; keep the kurz→Kurs / Mund→Hund tests and narrow the Known limits entry; no regression on off-topic and no-predication letters.
-- [ ] Keyword stage on `sentence_embedding` and the model-card prompts: a recalibration of its own, measured on calibration letters, then open, then hidden.
-- [ ] Negation: perfect tense and split separable verbs (`PART_PAST` vs `VERB_PART`), negated reason and state points.
-- [ ] Drop generic rubric keywords (`zeit`, `machen`, `kommen`, `wann`, `können`, `geht`, `gibt`).
+- [ ] Refusals and inversions under the keyword-free engine: the evidence head's contradiction override is off by its thresholds, reference alignment hardly weighs a negation (a negated near miss outranks a fulfilling phrase). Measure a fix on a fresh set with the rule written down first; the expectations are the `todo` tests in `tests/helpers/h2Regressions.js`.
+- [ ] Off-topic letters without the model: no purpose reading (a word-alignment rule voided 7 of 141 on-topic letters and was dropped).
 
 ## Grading transparency (design + architecture)
 

@@ -1,6 +1,5 @@
 /**
- * NoneProvider: Explicit rule-based / limited mode.
- * Micro-tasks fall back to deterministic scoring without any model compute.
+ * NoneProvider: the limited mode. The letter is read without the embedding model (reference alignment).
  */
 
 import { AIProvider } from '../AIProvider.js';
@@ -13,10 +12,5 @@ export class NoneProvider extends AIProvider {
 
   async isAvailable() {
     return true;
-  }
-
-  async classifyCoverage(lp, relevantSentences) {
-    // Algorithmic threshold score is preserved
-    return { coverage: 'fallback' };
   }
 }

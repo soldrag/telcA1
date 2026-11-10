@@ -12,6 +12,7 @@ import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
+import { withPhraseBank } from './helpers/phraseBank.js';
 
 const lp = (label, score, diagnosticCode, matchedSentence = '', missingAspects = []) =>
   ({ label, score, diagnosticCode, matchedSentence, missingAspects });
@@ -198,13 +199,13 @@ describe('Examiner feedback: rendering and phrase bank contract', () => {
 describe('Examiner feedback: pipeline integration', () => {
   it('limited mode still produces a descriptor whose quotes come from the letter', async () => {
     const text = 'Sehr geehrte Damen und Herren,\nich kann morgen leider nicht kommen, weil ich bin krank. Heute ich gehe zum Arzt.\nMit freundlichen Grüßen\nAnna Müller';
-    const question = {
-      max_points: 10,
+    const question = withPhraseBank({
+      id: 'feedback-task',
       options_json: { rubric: { leitpunkte_criteria: [
-        { id: 'lp1', label: 'Termin absagen', keywords: ['termin', 'kommen', 'absagen'], requiredMatches: 1 },
-        { id: 'lp2', label: 'Grund nennen', keywords: ['krank', 'arzt', 'weil'], requiredMatches: 1 },
+        { id: 'lp1', label: 'Termin absagen' },
+        { id: 'lp2', label: 'Grund nennen' },
       ] } },
-    };
+    }, { lp1: ['Ich kann leider nicht kommen.'], lp2: ['Ich bin krank.'] });
     const res = await gradeSchreibenSubmission({ userText: text, question, provider: new NoneProvider() });
     const d = res.examiner_feedback;
     assert.equal(d.version, 1);

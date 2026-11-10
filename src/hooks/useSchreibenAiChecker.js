@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { gradeEssayWithActiveProvider } from '../services/schreiben/grading/essayGrader.js';
 import { applyAiGradingResult } from './schreibenAiResultApplier.js';
-export { formatDiffEntry } from './schreibenDiffFormatter.js';
 
 
 /**
@@ -20,19 +19,17 @@ export function useSchreibenAiChecker({ item, onApplyScores, onApplyErrors }) {
   const [aiLoading, setAiLoading] = useState(false);
   const [gradingMode, setGradingMode] = useState(() => item.grading_mode || null);
   const [gradingFallback, setGradingFallback] = useState(() => item.grading_fallback || null);
-  const [aiDiffSummary, setAiDiffSummary] = useState(() => item.diff_summary || []);
   const [examinerFeedback, setExaminerFeedback] = useState(() => item.examiner_feedback || null);
   const [liveCriteriaBreakdown, setLiveCriteriaBreakdown] = useState(() => item.criteria_breakdown || null);
 
   const runGrading = useCallback(async () => {
     setAiLoading(true);
-    setAiDiffSummary([]);
     setExaminerFeedback(null);
     try {
       const aiResult = await gradeEssayWithActiveProvider({ userText: item.user_answer, question: item });
       applyAiGradingResult({
         aiResult, onApplyScores, onApplyErrors,
-        setters: { setAiDiffSummary, setExaminerFeedback, setLiveCriteriaBreakdown, setGradingMode, setGradingFallback },
+        setters: { setExaminerFeedback, setLiveCriteriaBreakdown, setGradingMode, setGradingFallback },
       });
     } catch (err) {
       console.warn('[useSchreibenAiChecker] Grading failed:', err?.message || err);
@@ -50,5 +47,5 @@ export function useSchreibenAiChecker({ item, onApplyScores, onApplyErrors }) {
     runGrading();
   }, [item, runGrading]);
 
-  return { aiLoading, gradingMode, gradingFallback, aiDiffSummary, examinerFeedback, liveCriteriaBreakdown };
+  return { aiLoading, gradingMode, gradingFallback, examinerFeedback, liveCriteriaBreakdown };
 }

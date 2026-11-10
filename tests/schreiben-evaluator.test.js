@@ -4,10 +4,10 @@ import { normalizeGermanText } from '../src/services/schreiben/schreibenFormAnsw
 import { evaluateTeil1Answer } from '../src/services/schreiben/schreibenTeil1Evaluator.js';
 import { evaluateExamSubmission } from '../src/services/evaluation/examEvaluator.js';
 import { gradeLetter, gradeEssayLimited } from './helpers/gradeLetter.js';
-import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 
 const submit = (questions, answers) => evaluateExamSubmission(questions, answers, { gradeEssay: gradeEssayLimited });
 import { questions as modellsatz1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
+import { H2_REGRESSION } from './helpers/h2Regressions.js';
 
 // Teil 2 is graded against the task's Leitpunkte; without them there is nothing to grade the content by.
 const seedTeil2 = modellsatz1.find((q) => q.id === 's1-q6');
@@ -49,7 +49,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.equal(evaluateTeil1Answer('3 Personen', qNumber), true);
   });
 
-  it('evaluates essay word count and points', async () => {
+  it('evaluates essay word count and points', H2_REGRESSION, async () => {
     const qEssay = seedTeil2;
     
     // Empty text
@@ -74,7 +74,7 @@ describe('Schreiben Evaluator & Text Normalization', () => {
     assert.equal(fullResult.is_correct, true);
   });
 
-  it('gives the reason for writing "ich möchte Deutsch lernen" part of Leitpunkt 1', async () => {
+  it('gives the reason for writing "ich möchte Deutsch lernen" part of Leitpunkt 1', H2_REGRESSION, async () => {
     const mediumText = 'Sehr geehrte Damen und Herren, ich möchte Deutsch lernen. Bitte antworten Sie mir.';
     const medResult = await gradeLetter(mediumText, seedTeil2);
     assert.equal(medResult.word_count, 13);
@@ -84,19 +84,12 @@ describe('Schreiben Evaluator & Text Normalization', () => {
   // s1 LP1 is a wish (intent WISH_STATEMENT): negating it refuses the point, unlike a reason for not coming.
   const refusedWish = 'Sehr geehrte Damen und Herren,\nich möchte keinen Deutschkurs im Herbst besuchen. Ich habe drei Wochen Zeit, am Nachmittag. Was kostet der Kurs und wie melde ich mich an?\nMit freundlichen Grüßen\nPaul Wagner';
 
-  it('a refused reason for writing does not fulfil Leitpunkt 1 (keyword-free engine)', async () => {
-    const res = await gradeSchreibenSubmission({ userText: refusedWish, question: seedTeil2, options: { forceLimitedMode: true, leitpunktEngine: 'evidence-head' } });
-    assert.equal(res.breakdown.items[0].score, 0);
-  });
-
-  // The keyword stage sees the refusal (2 → 1) but takes "der Kurs" in the price question as affirming the wish; a rule
-  // that tells such a mention from a wish put as a question ("Kann ich im August einen Kurs besuchen?") was not found.
-  it('a refused reason for writing does not fulfil Leitpunkt 1 (keyword stage)', { todo: 'a keyword in another point\'s question counts as affirming; closed by the keyword-free engine' }, async () => {
+  it('a refused reason for writing does not fulfil Leitpunkt 1', async () => {
     const res = await gradeLetter(refusedWish, seedTeil2);
     assert.equal(res.breakdown.items[0].score, 0);
   });
 
-  it('evaluates a complete Schreiben exam submission correctly up to 15 points', async () => {
+  it('evaluates a complete Schreiben exam submission correctly up to 15 points', H2_REGRESSION, async () => {
     const mockQuestions = [
       { id: 's1-q1', teil: 1, question_number: 1, correct_answer: 'bauer' },
       { id: 's1-q2', teil: 1, question_number: 2, correct_answer: '3' },

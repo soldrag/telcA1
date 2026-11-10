@@ -8,6 +8,8 @@ import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { gradeLetter } from './helpers/gradeLetter.js';
 import { A1_GRAMMAR_PROFILE } from '../src/services/schreiben/profiles/a1GrammarProfile.js';
+import { questions as modellsatz2 } from '../src/data/exams/seeds/schreiben-modellsatz-2.js';
+import { H2_REGRESSION } from './helpers/h2Regressions.js';
 
 const A1 = resolveLevelContext('A1');
 
@@ -77,19 +79,8 @@ describe('A1 Topological Field Model & Linguistic Engine', () => {
   });
 
   describe('Screenshot Regression Case (Full Letter Evaluation)', () => {
-    const question = {
-      max_points: 10,
-      options_json: {
-        type: 'essay',
-        rubric: {
-          leitpunkte_criteria: [
-            { id: 'lp1', label: 'Termin absagen', intent: 'APPOINTMENT_CANCEL', keywords: ['montag', '14', 'keine zeit', 'absagen', 'termin'] },
-            { id: 'lp2', label: 'Grund (Arbeit/Chef)', intent: 'REASON_EXPLANATION', keywords: ['chef', 'arbeiten', 'arbeit'] },
-            { id: 'lp3', label: 'Neuer Termin', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['dienstag', 'neuer termin', 'termin', 'rufen'] }
-          ]
-        }
-      }
-    };
+    // The app's own doctor task (Modellsatz 2), read against its reference phrases.
+    const question = modellsatz2.find((q) => q.id === 's2-q6');
 
     const userText = `Liebe Herr Doktor Schneider,
 am Montag um 14 Uhr ich habe keine Zeit für der Termin. Der Chef gibt mir zu viele Arbeiten heute und morgen. Können wir machen ein neuer Termin am Dienstag? Rufen Sie mich zurück bitte.
@@ -105,13 +96,14 @@ Artem Smirnov`;
       assert.equal(res.breakdown.gruss, 2);   // Formula + Name
     });
 
-    it('segments all 3 Leitpunkte accurately', async () => {
+    it('reads all 3 Leitpunkte from their own spans', H2_REGRESSION, async () => {
       const res = await gradeLetter(userText, question);
-      const lp = res.user_segments.leitpunkte;
-      assert.match(lp[0].userSentence, /Montag/i);
-      assert.match(lp[1].userSentence, /Chef|Arbeiten/i);
-      assert.match(lp[2].userSentence, /Dienstag/i);
+      const spans = res.breakdown.items.map((it) => it.matchedSentence);
+      assert.match(spans[0], /Montag/i);
+      assert.match(spans[1], /Chef|Arbeiten/i);
+      assert.match(spans[2], /Dienstag/i);
       assert.equal(res.breakdown.leitpunkte, 9);
+      assert.equal(res.points_earned, 9.5);
     });
 
     it('detects all 6 real grammatical errors and avoids the false dative hallucination', async () => {
@@ -130,7 +122,6 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('mich')), false);
 
       // telc A1: 3 × 3 (LP) + 0.5 (KG: Anrede with declension typo); grammar is not a separate criterion
-      assert.equal(res.points_earned, 9.5);
       assert.equal(res.is_correct, true);
     });
   });

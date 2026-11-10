@@ -2,12 +2,13 @@ import { describe, it, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { AIProviderRegistry, aiProviderRegistry } from '../src/services/ai/aiProviderRegistry.js';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
-import { PROVIDER_IDS } from '../src/services/ai/types.js';
+import { PROVIDER_IDS, GRADING_MODES } from '../src/services/ai/types.js';
 import { submitLocalExamAnswers } from '../src/services/localDataService.js';
 import { needsPipelineGrading } from '../src/hooks/useSchreibenAiChecker.js';
 
-// The Micro-Ranker must grade the letter whenever it is available: at submission, in the saved attempt,
-// with no rules-only grade in between. The limited mode is only for environments without the ranker.
+// The model-backed provider must grade the letter whenever it is available: at submission, in the saved attempt,
+// with no rules-only grade in between. The limited mode is only for environments without it. The test never
+// downloads the model: without a local copy the grading falls back and says so, which is still that provider's grade.
 
 const EXAM_ID = 'schreiben-modellsatz-1';
 const ANSWERS = {
@@ -15,19 +16,9 @@ const ANSWERS = {
     + 'Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs?\nMit freundlichen Grüßen\nAnna',
 };
 
-// An available ranker that records its calls; the real one needs the browser model.
-class RecordingRanker extends MicroRankerProvider {
-  constructor() {
-    super({ embedder: null });
-    this.calls = 0;
-  }
-
+// The model-backed provider as a browser has it; Node has no window, so it reports itself available here.
+class AvailableModelProvider extends MicroRankerProvider {
   async isAvailable() { return true; }
-
-  async classifyCoverage(...args) {
-    this.calls += 1;
-    return super.classifyCoverage(...args);
-  }
 }
 
 function useRegistryProvider(provider) {
@@ -53,13 +44,14 @@ describe('the Micro-Ranker grades the letter whenever it is available', () => {
   });
 
   it('the submitted letter is graded by the ranker and saved with its provider', async () => {
-    const ranker = new RecordingRanker();
-    useRegistryProvider(ranker);
+    const { env } = await import('@huggingface/transformers');
+    env.allowRemoteModels = false;
+    useRegistryProvider(new AvailableModelProvider());
 
     const item = await submitLetter();
 
-    assert.ok(ranker.calls > 0, 'the ranker scored the Leitpunkte');
     assert.equal(item.provider_id, PROVIDER_IDS.MICRO_RANKER);
+    assert.ok([GRADING_MODES.RANKER, GRADING_MODES.RANKER_WITHOUT_MODEL].includes(item.grading_mode));
     assert.ok(item.criteria_breakdown && item.examiner_feedback);
     assert.equal(needsPipelineGrading(item), false, 'the results screen shows the saved ranker grade as is');
   });

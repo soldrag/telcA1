@@ -27,12 +27,16 @@ function toVerdict(criterion, group) {
   };
 }
 
+// A task without Leitpunkte has nothing to read (the regulation scores the frame alone).
+const NO_LEITPUNKTE = Object.freeze({ items: [], semanticErrors: [], modelUsed: false, modelFailureDetail: null, servesTaskPurpose: null });
+
 export class ReferenceAlignmentAssessor extends ILeitpunktAssessor {
   get id() {
     return 'reference-alignment';
   }
 
   async assess({ question, criteria, bodySentences, policy }) {
+    if (criteria.length === 0) return NO_LEITPUNKTE;
     const model = requireLevelPort(policy, 'ReferenceAlignmentAssessor: policy').referenceAlignment;
     if (!model) throw new Error(`Level ${policy.level} has no reference alignment data`);
     const phrases = await loadTaskPhrases({ question, criteria });

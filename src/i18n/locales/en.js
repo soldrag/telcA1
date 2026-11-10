@@ -271,6 +271,7 @@ export const en = {
     aiDisclaimer: 'AI can make mistakes. The evaluation is for guidance only and does not replace an official telc examination.',
     aiRankerEvaluated: 'Evaluated by AI ranker',
     gradingFallbackModelFailed: 'The AI model could not run, so this letter was scored by rules only. The score may differ from an AI-assisted one.',
+    gradingFallbackLeitpunkteUnreadable: 'The content points are not checked yet: the task data did not load. Open the result again when you are online and the letter will be checked again.',
     gradingFallbackWorkerFailed: 'The AI check could not complete, so this letter was scored by rules only. The score may differ from an AI-assisted one.',
     gradingFallbackDetail: 'Reason: {detail}',
     taskAssignment: 'Task Assignment',

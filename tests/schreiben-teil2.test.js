@@ -5,6 +5,7 @@ import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { isGibberishText } from '../src/services/schreiben/gibberishDetector.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+import { questions as modellsatz1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
 
 const A1 = resolveLevelContext('A1');
 
@@ -75,17 +76,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
 
   it('evaluates full sample solution with maximum points', async () => {
     const sampleText = 'Sehr geehrte Damen und Herren,\n\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\n\nMit freundlichen Grüßen\nMaria Ivanova';
-    const mockQuestion = {
-      options_json: {
-        rubric: {
-          leitpunkte_criteria: [
-            { id: 'lp1', label: 'Grund', keywords: ['deutschkurs', 'kurs', 'a1', 'august'], requiredMatches: 2 },
-            { id: 'lp2', label: 'Zeit/Dauer', keywords: ['wochen', 'zeit', 'vormittags'], requiredMatches: 2 },
-            { id: 'lp3', label: 'Kosten/Anmeldung', keywords: ['kosten', 'kostet', 'anmelden'], requiredMatches: 2 }
-          ]
-        }
-      }
-    };
+    const mockQuestion = modellsatz1.find((q) => q.id === 's1-q6');
 
     const result = await gradeLetter(sampleText, mockQuestion);
     assert.equal(result.points_earned, 10);

@@ -1,6 +1,5 @@
-/** Leitpunkt engine ids, apart from the assessors so the main thread can validate a switch without loading them. */
+/** Leitpunkt engine ids: the keyword-free evidence head (default) and its reading without a model. */
 export const LEITPUNKT_ENGINES = Object.freeze({
-  KEYWORD_RANKER: 'keyword-ranker',
   EVIDENCE_HEAD: 'evidence-head',
   REFERENCE_ALIGNMENT: 'reference-alignment',
 });
