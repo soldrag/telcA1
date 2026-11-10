@@ -26,10 +26,8 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(neutral.score, 2);
   });
 
-  it('rates a garbled formula like "Hallo Damen und Herren" as atypical', { todo: 'needs a model of well-formed salutation phrases; the register of the greeting word alone cannot see it' }, () => {
-    const hybrid = analyzeSalutation('Hallo Damen und Herren,\nich brauche Hilfe.', { isFormal: true, grammar: A1.grammar });
-    assert.equal(hybrid.score, 1);
-
+  // A garbled formula ("Hallo Damen und Herren") is a known limit, recorded once at the letter level (schreiben-user-text).
+  it('finds no salutation in a letter that starts with its content', () => {
     const missing = analyzeSalutation('Ich möchte einen Kurs machen.', { grammar: A1.grammar });
     assert.equal(missing.recognized, false);
     assert.equal(missing.score, 0);
