@@ -3933,7 +3933,8 @@
       "pos": "NOUN",
       "lemma": "Chef",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "chefin": [
@@ -3941,7 +3942,8 @@
       "pos": "NOUN",
       "lemma": "Chefin",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "arbeit": [
@@ -3984,7 +3986,8 @@
       "pos": "NOUN",
       "lemma": "Arzt",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "ärztin": [
@@ -3992,7 +3995,8 @@
       "pos": "NOUN",
       "lemma": "Ärztin",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "aerztin": [
@@ -4000,21 +4004,24 @@
       "pos": "NOUN",
       "lemma": "Aerztin",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "dr": [
     {
       "pos": "NOUN",
       "lemma": "Dr",
-      "isTitle": true
+      "isTitle": true,
+      "category": "person"
     }
   ],
   "dr.": [
     {
       "pos": "NOUN",
       "lemma": "Dr.",
-      "isTitle": true
+      "isTitle": true,
+      "category": "person"
     }
   ],
   "doktor": [
@@ -4022,7 +4029,8 @@
       "pos": "NOUN",
       "lemma": "Doktor",
       "gender": "m",
-      "isTitle": true
+      "isTitle": true,
+      "category": "person"
     }
   ],
   "herr": [
@@ -4034,7 +4042,8 @@
       "isTitle": true,
       "weakMasculine": true,
       "plural": "Herren",
-      "obliqueForm": "Herrn"
+      "obliqueForm": "Herrn",
+      "category": "person"
     }
   ],
   "herrn": [
@@ -4045,7 +4054,8 @@
       "number": "sg",
       "isTitle": true,
       "weakMasculine": true,
-      "obliqueForm": "Herrn"
+      "obliqueForm": "Herrn",
+      "category": "person"
     }
   ],
   "herren": [
@@ -4053,7 +4063,8 @@
       "pos": "NOUN",
       "lemma": "Herr",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "frau": [
@@ -4063,7 +4074,8 @@
       "gender": "f",
       "number": "sg",
       "isTitle": true,
-      "plural": "Frauen"
+      "plural": "Frauen",
+      "category": "person"
     }
   ],
   "frauen": [
@@ -4071,7 +4083,8 @@
       "pos": "NOUN",
       "lemma": "Frau",
       "gender": "f",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "damen": [
@@ -4079,7 +4092,8 @@
       "pos": "NOUN",
       "lemma": "Damen",
       "gender": "f",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "kollege": [
@@ -4090,7 +4104,8 @@
       "number": "sg",
       "weakMasculine": true,
       "plural": "Kollegen",
-      "obliqueForm": "Kollegen"
+      "obliqueForm": "Kollegen",
+      "category": "person"
     }
   ],
   "kollegen": [
@@ -4098,7 +4113,8 @@
       "pos": "NOUN",
       "lemma": "Kollege",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     },
     {
       "pos": "NOUN",
@@ -4106,7 +4122,8 @@
       "gender": "m",
       "number": "sg",
       "weakMasculine": true,
-      "obliqueForm": "Kollegen"
+      "obliqueForm": "Kollegen",
+      "category": "person"
     }
   ],
   "kollegin": [
@@ -4114,7 +4131,8 @@
       "pos": "NOUN",
       "lemma": "Kollegin",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "kolleginnen": [
@@ -4122,7 +4140,8 @@
       "pos": "NOUN",
       "lemma": "Kolleginnen",
       "gender": "f",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "team": [
@@ -4324,7 +4343,8 @@
       "lemma": "Freund",
       "gender": "m",
       "number": "sg",
-      "plural": "Freunde"
+      "plural": "Freunde",
+      "category": "person"
     }
   ],
   "freunde": [
@@ -4332,7 +4352,8 @@
       "pos": "NOUN",
       "lemma": "Freund",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "freunden": [
@@ -4340,7 +4361,8 @@
       "pos": "NOUN",
       "lemma": "Freunden",
       "gender": "m",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "vater": [
@@ -4348,7 +4370,8 @@
       "pos": "NOUN",
       "lemma": "Vater",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "bruder": [
@@ -4356,7 +4379,8 @@
       "pos": "NOUN",
       "lemma": "Bruder",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "sohn": [
@@ -4364,7 +4388,8 @@
       "pos": "NOUN",
       "lemma": "Sohn",
       "gender": "m",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "bahnhof": [
@@ -4388,7 +4413,8 @@
       "pos": "NOUN",
       "lemma": "Mutter",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "tochter": [
@@ -4396,7 +4422,8 @@
       "pos": "NOUN",
       "lemma": "Tochter",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "schwester": [
@@ -4404,7 +4431,8 @@
       "pos": "NOUN",
       "lemma": "Schwester",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "freundin": [
@@ -4412,7 +4440,8 @@
       "pos": "NOUN",
       "lemma": "Freundin",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "familie": [
@@ -4420,7 +4449,8 @@
       "pos": "NOUN",
       "lemma": "Familie",
       "gender": "f",
-      "number": "sg"
+      "number": "sg",
+      "category": "person"
     }
   ],
   "wohnung": [
@@ -4490,7 +4520,8 @@
       "lemma": "Kind",
       "gender": "n",
       "number": "sg",
-      "plural": "Kinder"
+      "plural": "Kinder",
+      "category": "person"
     }
   ],
   "kinder": [
@@ -4498,7 +4529,8 @@
       "pos": "NOUN",
       "lemma": "Kind",
       "gender": "n",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "kindern": [
@@ -4506,7 +4538,8 @@
       "pos": "NOUN",
       "lemma": "Kindern",
       "gender": "n",
-      "number": "pl"
+      "number": "pl",
+      "category": "person"
     }
   ],
   "schneider": [

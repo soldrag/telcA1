@@ -54,9 +54,18 @@ Jonas Keller`;
 
   // Known limits (todo.md, P1): recorded, not fitted
 
-  it('asking the price of a person distorts point 3 as the price of a pet does', { todo: '"Sohn" has no person category in the lexicon' }, async () => {
+  // reglament: asking what a person costs distorts the point (user decision, 2026-11-10); every person noun of the
+  // lexicon carries the category, not one word.
+  it('asking the price of a person distorts point 3 as the price of a pet does', async () => {
     const res = await gradeLetter(holidayLetter(booking, 'Wie viel kostet mein Sohn? Darf unsere Katze mitkommen?'), modellsatz4Teil2);
     assert.equal(res.breakdown.items[2].score, 1);
+  });
+
+  it('a person or a place in a prepositional phrase of the question is no distortion', async () => {
+    for (const question of ['Was kostet die Wohnung für meine Frau und mich? Darf unsere Katze mitkommen?', 'Sind Hunde in der Wohnung erlaubt? Was kostet die Wohnung?']) {
+      const res = await gradeLetter(holidayLetter(booking, question), modellsatz4Teil2);
+      assert.equal(res.breakdown.items[2].score, 2, question);
+    }
   });
 
   it('Case 3: Dative Preposition with Feminine Determiner (mit meine Familie)', async () => {

@@ -35,7 +35,8 @@ function checkSlotIncompatibilities(predicates = [], args = [], slot = {}) {
   const incompat = slot.incompatibleCategories || [];
   const errors = [];
 
-  for (const arg of args) {
+  // What is priced or allowed is the predicate's own argument, never a prepositional phrase ("für meine Frau").
+  for (const arg of args.filter((a) => !a.governor)) {
     const cat = arg.head?.category;
     if (cat && incompat.includes(cat)) {
       const phrase = arg.tokens.map(t => t.raw).join(' ');
