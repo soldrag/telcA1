@@ -68,7 +68,8 @@ Artem Smirnov`, await findSeedQuestion('s1-q6'));
     assert.match(res.user_segments.leitpunkte[2].userSentence, /Was kosten der Kurs\?.*anmeldung/);
   });
 
-  it('User Text #2: "Hallo Damen und Herren" is an atypical formula, KG 0.5', { todo: 'Hallo itself is neutral; seeing the garbled phrase needs a model of well-formed salutations' }, async () => {
+  // "Damen und Herren" belongs to the fixed formulas "Sehr geehrte …" / "Guten Tag, meine …" (letterFormulas.json addressees).
+  it('User Text #2: "Hallo Damen und Herren" is an atypical formula, KG 0.5', async () => {
     const res = await gradeLetter(`Hallo Damen und Herren,
 ich brauche Informationen über den Kurs.
 Viele Grüße

@@ -62,12 +62,25 @@ function toMatch(words, index, formula, { misspelt }) {
   return { ...formula, words: words.slice(index, end), following: words.slice(end), misspelt };
 }
 
+const MAX_WORDS_BEFORE_ADDRESSEE = 1;
+const startsAt = (words, index, pattern) => pattern.every((p, k) => words[index + k] && matchesPattern(words[index + k].word, p));
+
+/** false when the greeting is followed by an addressee of a fixed formula it does not belong to ("Hallo Damen und Herren") */
+function fitsFixedAddressee(formula, following) {
+  const greeting = formula.words.join(' ');
+  return formulas.addressees.every((addressee) => addressee.greetings.includes(greeting)
+    || !following.slice(0, MAX_WORDS_BEFORE_ADDRESSEE + 1).some((_, i) => startsAt(following, i, addressee.words)));
+}
+
 /** @returns {object|null} the salutation formula the line opens with, with its matched words */
 export function matchSalutation(line = '') {
   const words = splitLetterWords(line);
   for (const formula of formulas.salutations) {
     const match = matchAt(words, 0, formula);
-    if (match) return toMatch(words, 0, formula, match);
+    if (match) {
+      const found = toMatch(words, 0, formula, match);
+      return { ...found, fitsAddressee: fitsFixedAddressee(formula, found.following) };
+    }
   }
   return null;
 }

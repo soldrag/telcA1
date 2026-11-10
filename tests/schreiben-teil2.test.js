@@ -26,7 +26,15 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(neutral.score, 2);
   });
 
-  // A garbled formula ("Hallo Damen und Herren") is a known limit, recorded once at the letter level (schreiben-user-text).
+  it('rates a greeting with an addressee of another fixed formula as atypical, the fixed formulas themselves as typical', () => {
+    const rate = (line) => analyzeSalutation(`${line}\nich brauche Hilfe.`, { isFormal: true, grammar: A1.grammar });
+    assert.equal(rate('Hallo Damen und Herren,').score, 1);
+    assert.equal(rate('Hallo Damen und Herren,').diagnosticCode, 'ANREDE_ATYPICAL_FORMULA');
+    for (const typical of ['Sehr geehrte Damen und Herren,', 'Guten Tag, meine Damen und Herren,', 'Guten Tag Damen und Herren,', 'Hallo Frau Hansen,', 'Hallo,', 'Sehr geehrter Herr Bauer,']) {
+      assert.equal(rate(typical).score, 2, typical);
+    }
+  });
+
   it('finds no salutation in a letter that starts with its content', () => {
     const missing = analyzeSalutation('Ich möchte einen Kurs machen.', { grammar: A1.grammar });
     assert.equal(missing.recognized, false);

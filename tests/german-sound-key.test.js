@@ -23,7 +23,15 @@ describe('German sound key', () => {
     assert.ok(!sameSound('Berg', 'Back'), 'the r of a first syllable is not vocalised');
     assert.ok(!sameSound('Erbe', 'Abe'));
     assert.ok(!sameSound('Mäher', 'mehr'), 'an h between vowels is not a lengthening h');
-    assert.ok(!sameSound('Flug', 'Fluch'));
+    assert.ok(!sameSound('Flug', 'Fluch'), 'the plain key keeps real words apart');
+  });
+
+  it('the loose key also joins a final ch with a final g (Tag → Tach), for one answer against one expected word', () => {
+    const loose = (a, b) => toGermanSoundKey(a, { loose: true }) === toGermanSoundKey(b, { loose: true });
+    assert.ok(loose('Donnerstag', 'Donerstach'));
+    assert.ok(loose('König', 'Könich'));
+    assert.ok(!loose('Tag', 'Tuch'));
+    assert.ok(!loose('Buch', 'Bach'));
   });
 
   it('is empty for an empty word', () => {

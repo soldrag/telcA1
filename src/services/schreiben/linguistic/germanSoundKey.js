@@ -38,10 +38,17 @@ const collapseRepeats = (word) => [...word].filter((ch, i) => ch !== word[i - 1]
 
 const writeOutUmlauts = (word) => [...word].map((ch) => spelling.transliteration[ch] ?? ch).join('');
 
-/** @returns {string} the sound key of one word; empty for an empty word */
-export function toGermanSoundKey(word = '') {
+const LOOSE_STEPS = Object.freeze([...sounds.steps, ...sounds.looseSteps]);
+
+/**
+ * @param {string} word
+ * @param {{ loose?: boolean }} [options] - loose: also the regional pronunciations that join real words (looseSteps),
+ *   for comparing one answer with one expected word
+ * @returns {string} the sound key of one word; empty for an empty word
+ */
+export function toGermanSoundKey(word = '', { loose = false } = {}) {
   const start = writeOutUmlauts(String(word).trim().toLowerCase());
-  return sounds.steps.reduce(
+  return (loose ? LOOSE_STEPS : sounds.steps).reduce(
     (key, step) => (step.collapseRepeats ? collapseRepeats(key) : replaceInContext(key, step)),
     start,
   );
