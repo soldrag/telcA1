@@ -1,0 +1,175 @@
+@alias G=lp1 W=lp2:Wann D=lp2:wie lange F=lp3:Frühstück P=lp3:Parkplatz
+G=F :: Ich möchte ein Zimmer in Ihrem Hotel reservieren.
+G=F :: Haben Sie im August ein Doppelzimmer frei?
+G=F :: Wir wollen in den Bergen Urlaub machen und suchen ein Hotel.
+G=F :: Ich möchte bei Ihnen übernachten.
+G=F :: ich mochte ein zimmer buchen
+G=F :: zimmer fur 2 person bitte
+G=F :: Ich suche ein Einzelzimmer in Garmisch.
+G=F :: Ist bei Ihnen noch ein Zimmer frei?
+G=F :: Ich mochte wohnen in ihr hotel in urlaub.
+G=F :: Bitte reservieren Sie ein Zimmer mit Balkon für mich.
+G=F :: Ihr Hotel gefällt mir, ich möchte dort Ferien machen.
+G=F W=F :: Ich brauche im August ein Zimmer.
+G=P :: Ich möchte in Ihrem Hotel ein Zimmer vermieten.
+G=P :: Ich möchte Ihr Hotel kaufen.
+G=C :: Ich brauche kein Zimmer mehr, wir bleiben zu Hause.
+G=C :: Bitte stornieren Sie meine Reservierung.
+W=F :: Ich komme am 14. August.
+W=F :: Wir möchten Anfang August anreisen.
+W=F :: Wir kommen am Samstag, den 9. August.
+W=F :: ich komme in august
+W=F :: anreise 3.8.
+W=F :: Ist das Zimmer ab dem 20. August frei?
+W=F :: Wir kommen nach dem 15. August.
+W=F :: Ich bin nur Mitte August frei.
+W=F :: wir komen am ende von august
+W=F :: In den Sommerferien, im August, haben wir Zeit.
+W=F :: Ich kann erst am Abend ankommen, am 12. August.
+W=P :: Ich komme irgendwann.
+W=P :: Später im Jahr vielleicht.
+W=C :: Wann ich komme, schreibe ich Ihnen nicht.
+W=C :: Ein Datum gebe ich nicht an.
+D=F :: Ich möchte eine Woche bleiben.
+D=F :: Wir bleiben fünf Nächte.
+D=F :: Ich brauche das Zimmer für zehn Tage.
+D=F :: zwei woche
+D=F :: ich bleibe 3 nacht
+D=F :: Wir möchten nur ein Wochenende bleiben.
+D=F :: Wie lange? Sieben Tage.
+D=F :: Wir bleiben bis zum Ende des Monats.
+D=F :: Ich fahre nach vier Tagen weiter nach Österreich.
+D=F :: Wir bleiben nur kurz, zwei Nächte.
+D=F W=F :: Wir kommen vom 14. bis 21. August.
+D=F W=F :: Im August, eine Woche.
+D=P :: Nicht lange.
+D=P :: Wir bleiben ein paar Tage oder mehr.
+D=C :: Wie lange ich bleibe, weiß ich nicht, das sage ich auch nicht.
+D=C :: Die Dauer möchte ich nicht nennen.
+F=F :: Gibt es bei Ihnen Frühstück?
+F=F :: Ist das Frühstück im Preis inklusive?
+F=F :: Wir möchten gern mit Frühstück buchen.
+F=F :: Kann man morgens im Hotel essen?
+F=F :: fruhstuck auch?
+F=F :: Gibt es fruhstuck mit kaffe?
+F=F :: Wir brauchen kein Frühstück, wir essen in der Stadt.
+F=F :: Haben Sie ein Buffet am Morgen?
+F=F :: frustuck bitte
+F=F :: Was kostet das Frühstück?
+F=F :: Ab wann gibt es morgens Essen?
+F=F :: Ich esse vegetarisch, gibt es beim Frühstück auch etwas für mich?
+F=P :: Gibt es Abendessen?
+F=P :: Ist das Essen gut?
+F=C :: Über Frühstück will ich nichts wissen.
+F=C :: Ob es Frühstück gibt, ist egal, das frage ich nicht.
+P=F :: Haben Sie einen Parkplatz für mein Auto?
+P=F :: Kann ich mein Auto beim Hotel parken?
+P=F :: Gibt es eine Garage?
+P=F :: Wir kommen mit dem Auto. Wo können wir parken?
+P=F :: parkplatz?
+P=F :: Ich habe ein auto, gibt es platz?
+P=F :: wo parke ich auto
+P=F :: Ist das Parken kostenlos?
+P=F :: Wir kommen mit dem Zug, wir brauchen keinen Parkplatz.
+P=F :: Mein Auto ist groß, gibt es dafür Platz?
+P=F :: Kostet der Parkplatz extra?
+P=F F=F :: Gibt es Frühstück und einen Parkplatz?
+P=P :: Haben Sie einen Platz für mein Fahrrad?
+P=P :: Wo ist der Bahnhof?
+P=C :: Ein Parkplatz interessiert mich nicht.
+P=C :: Wo ich parke, frage ich nicht.
+- :: Letztes Jahr war ich auch in Ihrem Hotel.
+- :: Ich habe in meinem Zimmer meine Uhr vergessen.
+- :: Vielen Dank für den schönen Urlaub.
+- :: Gibt es in Garmisch schöne Wanderwege?
+- :: Das Frühstück letztes Jahr war sehr gut.
+- :: Unser Auto war im Juli in der Werkstatt.
+- :: Ich möchte in Ihrem Hotel als Koch arbeiten.
+- :: Wie ist das Wetter im August in den Bergen?
+- :: Gibt es im Hotel ein Schwimmbad?
+- :: Wir kommen 30 Minuten später, unser Zug hat Verspätung.
+- :: Ich suche eine Wohnung in Garmisch.
+- :: Die Rechnung vom letzten Besuch war zu hoch.
+- :: Ich heiße Jonas Berg.
+- :: Ich komme aus Polen.
+- :: Ich freue mich auf Ihre Antwort.
+@letter on 2 2 2
+| Sehr geehrte Damen und Herren,
+G=F :: ich möchte ein Einzelzimmer in Ihrem Hotel reservieren.
+W=F D=F :: Ich komme am 10. August und bleibe fünf Nächte.
+F=F P=F :: Gibt es Frühstück und haben Sie einen Parkplatz?
+| Mit freundlichen Grüßen
+| Ana Lopes
+@end
+@letter on 2 2 1
+| Sehr geehrte Damen und Herren,
+G=F :: zimmer fur 2 person.
+W=F D=F :: august, 1 woche.
+F=F :: fruhstuck?
+| Grüße
+| Karim
+@end
+@letter on 2 0 2
+| Sehr geehrte Damen und Herren,
+G=F :: wir möchten in den Bergen wandern und suchen ein Zimmer bei Ihnen.
+F=F :: Ist das Frühstück inklusive?
+P=F :: Wir kommen mit dem Auto, gibt es einen Parkplatz?
+| Mit freundlichen Grüßen
+| Familie Horvat
+@end
+@letter on 2 2 0
+| Hallo,
+G=F :: ich brauche ein Doppelzimmer.
+W=F D=F :: Wir kommen vom 2. bis 9. August.
+- :: Wir freuen uns auf die Berge.
+| Viele Grüße
+| Miguel
+@end
+@letter on 2 2 1
+| Sehr geehrte Damen und Herren,
+G=F W=F :: im August möchte ich bei Ihnen ein Zimmer buchen.
+D=F :: Ich bleibe drei Nächte.
+P=F :: Kann ich mein Auto beim Hotel parken?
+| Mit freundlichen Grüßen
+| Yuki Tanaka
+@end
+@letter on 1 2 2
+| Sehr geehrte Damen und Herren,
+G=P :: ich möchte im August ein Zimmer in Ihrem Hotel vermieten.
+W=F D=F :: Ich komme am 14. August für eine Woche.
+F=F P=F :: Gibt es Frühstück und Parkplatz?
+| Mit freundlichen Grüßen
+| Piotr
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: ich war im August eine Woche in Ihrem Hotel.
+- :: Das Frühstück war kalt und der Parkplatz war immer voll.
+- :: Ich bin nicht zufrieden.
+| Mit freundlichen Grüßen
+| Helga Schmidt
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: ich habe für August ein Zimmer reserviert.
+- :: Leider kann ich nicht kommen, ich habe kein Urlaub bekommen.
+- :: Bitte stornieren Sie das Zimmer.
+| Mit freundlichen Grüßen
+| Marco Rossi
+@end
+@letter off 0 0 0
+| Hallo,
+- :: ich habe Ihre Anzeige gelesen: Sie suchen eine Hilfe in der Küche.
+- :: Ich habe in einem Hotel in Polen gearbeitet und kann Frühstück machen.
+- :: Ich habe Zeit ab August.
+| Viele Grüße
+| Basia
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: vielen Dank für die schöne Woche im Hotel Alpenblick.
+- :: Ich habe leider meine Kamera im Zimmer 12 vergessen.
+- :: Bitte schicken Sie sie mir nach Hause.
+| Mit freundlichen Grüßen
+| Lars Jensen
+@end

@@ -29,6 +29,11 @@ function getVendorChunk(id) {
   if (id.includes('node_modules/@huggingface/transformers/') || id.includes('node_modules/onnxruntime-')) {
     return 'vendor-ai-runtime';
   }
+  // The evidence head's reference vectors (~0.4 MB per task) load on a task's first grading: one lazy chunk each.
+  const evidence = id.match(/\/src\/data\/exams\/evidence-head\/(s\d+-q\d+)\.json$/);
+  if (evidence) {
+    return `evidence-${evidence[1]}`;
+  }
   if (id.includes('/src/data/exams/')) {
     return 'exam-seeds';
   }

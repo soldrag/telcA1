@@ -1,6 +1,6 @@
 /**
- * Abstract base class defining the AIProvider contract.
- * AIProviders execute one narrow micro-task (Leitpunkt coverage); they never compute final scores.
+ * Abstract base class of a grading provider: it names how a letter can be read here — with the embedding model or
+ * without it (limited mode). Providers compute no scores; the Leitpunkt assessor reads, the regulation scores.
  */
 
 export class AIProvider {
@@ -24,13 +24,6 @@ export class AIProvider {
     return false;
   }
 
-  /**
-   * Micro-task 1: Classify Leitpunkt coverage.
-   * @param {string|object} lp - Leitpunkt definition
-   * @param {string} relevantSentences - Matched candidate sentences
-   * @returns {Promise<{coverage: 'full'|'partial'|'no'}>}
-   */
-  async classifyCoverage(lp, relevantSentences) {
-    throw new Error(`classifyCoverage not implemented for ${this.id}`);
-  }
+  /** Releases what the provider holds (model sessions, caches). */
+  async dispose() {}
 }

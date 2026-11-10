@@ -3,19 +3,24 @@
  * Pure structural analysis: zero domain keywords, strictly McConnell compliant (<= 80 lines).
  */
 
+// A noun phrase after a preposition ("für meine Frau", "in der Wohnung") keeps it as its governor: it is an
+// adjunct or a prepositional object, not the subject or the direct object of the clause's predicate.
 function extractNounPhrases(tokens = []) {
   const nps = [];
   let current = [];
+  let governor = null;
 
   for (const t of tokens) {
     if (t.pos === 'DET' || t.pos === 'ADJ' || t.pos === 'NOUN' || t.pos === 'PRON_SUBJ' || t.pos === 'PRON_OBJ') {
       current.push(t);
       if (t.pos === 'NOUN' || t.pos === 'PRON_SUBJ' || t.pos === 'PRON_OBJ') {
-        nps.push({ tokens: [...current], head: t });
+        nps.push({ tokens: [...current], head: t, governor });
         current = [];
+        governor = null;
       }
     } else {
       current = [];
+      governor = t.pos === 'PREP' ? t.lower : null;
     }
   }
   return nps;

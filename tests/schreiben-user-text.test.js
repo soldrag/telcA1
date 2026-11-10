@@ -4,16 +4,20 @@ import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
-import { segmentLetter } from './helpers/segmentLetter.js';
 import { readFileSync } from 'node:fs';
 import { findSeedQuestion } from './helpers/regressionFixtures.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
+import { H2_REGRESSION } from './helpers/h2Regressions.js';
 
 const A1 = resolveLevelContext('A1');
 // Learner letters G2 and G11 are gold letters: their scores are checked in grading-golden-set, here only grammar and segmentation.
 const gold = JSON.parse(readFileSync(new URL('./fixtures/schreiben-bench/gold.json', import.meta.url), 'utf8'));
 const goldText = (id) => gold.find((g) => g.id === id).text;
-const courseCriteria = (await findSeedQuestion('s1-q6')).options_json.rubric.leitpunkte_criteria;
+const courseTask = await findSeedQuestion('s1-q6');
+// The spans each Leitpunkt was read from (its own and its declared aspects'), in rubric order.
+const spansOf = (res) => res.breakdown.items.map((it) => [it.matchedSentence, ...(it.rankerDetails?.units || []).map((u) => u.span)]
+  .filter(Boolean).join(' '));
+const readSpans = async (text) => spansOf(await gradeLetter(text, courseTask));
 
 describe('Learner letters: grammar and segmentation (gold G2, G11 and User Text #3)', () => {
   const userText = goldText('G2');
@@ -41,20 +45,20 @@ describe('Learner letters: grammar and segmentation (gold G2, G11 and User Text 
     assert.equal(originals.some(o => o.includes('mit freundlichen gruß')), true);
   });
 
-  it('segments the letter body into the 3 Leitpunkte', async () => {
-    const segments = segmentLetter(userText, courseCriteria, A1);
+  it('reads each of the 3 Leitpunkte from its own span', H2_REGRESSION, async () => {
+    const spans = await readSpans(userText);
 
-    assert.match(segments.leitpunkte[0].userSentence, /deutschkurs/i);
-    assert.match(segments.leitpunkte[1].userSentence, /wochen/i);
+    assert.match(spans[0], /deutschkurs/i);
+    assert.match(spans[1], /wochen/i);
     // Both questions in Punkt 3 are preserved together!
-    assert.match(segments.leitpunkte[2].userSentence, /kostet/i);
-    assert.match(segments.leitpunkte[2].userSentence, /anmelden/i);
+    assert.match(spans[2], /kostet/i);
+    assert.match(spans[2], /anmelden/i);
   });
 
-  it('keeps both questions of Punkt 3 together when the second one is on its own line', () => {
+  it('reads both questions of Punkt 3 when the second one is on its own line', async () => {
     const split = userText.replace('Kurs? Wie kann', 'Kurs?\nWie kann');
     assert.notEqual(split, userText);
-    const lp3 = segmentLetter(split, courseCriteria, A1).leitpunkte[2].userSentence;
+    const lp3 = (await readSpans(split))[2];
     assert.match(lp3, /kostet/i);
     assert.match(lp3, /anmelden/i);
   });
@@ -65,10 +69,12 @@ ich besuche wollen einen deutschkurs im August. Ich habe vier wochen Zeit und ic
 Viele Grüße
 Artem Smirnov`, await findSeedQuestion('s1-q6'));
     assert.deepEqual(res.breakdown.items.map((item) => item.score), [2, 2, 2]);
-    assert.match(res.user_segments.leitpunkte[2].userSentence, /Was kosten der Kurs\?.*anmeldung/);
+    assert.match(spansOf(res)[2], /Was kosten der Kurs\?/);
+    assert.match(spansOf(res)[2], /anmeldung/);
   });
 
-  it('User Text #2: "Hallo Damen und Herren" is an atypical formula, KG 0.5', { todo: 'Hallo itself is neutral; seeing the garbled phrase needs a model of well-formed salutations' }, async () => {
+  // "Damen und Herren" belongs to the fixed formulas "Sehr geehrte …" / "Guten Tag, meine …" (letterFormulas.json addressees).
+  it('User Text #2: "Hallo Damen und Herren" is an atypical formula, KG 0.5', async () => {
     const res = await gradeLetter(`Hallo Damen und Herren,
 ich brauche Informationen über den Kurs.
 Viele Grüße
@@ -122,20 +128,20 @@ Artem Smirnov`;
       assert.equal(errors.find(e => e.original.includes('Im August ich möchte'))?.correction, 'Im August möchte ich');
     });
 
-    it('segments temporal sentence "Ich möchte lernen vormittags" correctly into Punkt 2', async () => {
-      const segments = segmentLetter(text3, courseCriteria, A1);
+    it('reads the temporal sentence "Ich möchte lernen vormittags" for Punkt 2', H2_REGRESSION, async () => {
+      const spans = await readSpans(text3);
 
         // Punkt 1 has the Grund
-      assert.match(segments.leitpunkte[0].userSentence, /deutschkurs a1 machen/i);
-      assert.doesNotMatch(segments.leitpunkte[0].userSentence, /vormittags/i);
+      assert.match(spans[0], /deutschkurs a1 machen/i);
+      assert.doesNotMatch(spans[0], /vormittags/i);
 
       // Punkt 2 receives both duration AND time-of-day
-      assert.match(segments.leitpunkte[1].userSentence, /vier woche/i);
-      assert.match(segments.leitpunkte[1].userSentence, /lernen vormittags/i);
+      assert.match(spans[1], /vier woche/i);
+      assert.match(spans[1], /lernen vormittags/i);
 
       // Punkt 3 has both inquiry questions
-      assert.match(segments.leitpunkte[2].userSentence, /wie viel der kurs kostet/i);
-      assert.match(segments.leitpunkte[2].userSentence, /wie ich kann mich anmelden/i);
+      assert.match(spans[2], /wie viel der kurs kostet/i);
+      assert.match(spans[2], /wie ich kann mich anmelden/i);
     });
 
     it('provides punctuation hint for comma after closing formula', async () => {
@@ -158,12 +164,12 @@ Artem Smirnov`;
       assert.equal(originals.some(o => o.includes('mit freundliche grüßen')), true);
     });
 
-    it('segments the fronted and bracketed sentences into their Leitpunkte', async () => {
-      const segments = segmentLetter(text4, courseCriteria, A1);
-      assert.match(segments.leitpunkte[0].userSentence, /deutschkurs für august/i);
-      assert.match(segments.leitpunkte[1].userSentence, /vormittag studieren/i);
-      assert.match(segments.leitpunkte[2].userSentence, /wie viel kostet der kurs/i);
-      assert.match(segments.leitpunkte[2].userSentence, /anmelden/i);
+    it('reads the fronted and bracketed sentences for their Leitpunkte', H2_REGRESSION, async () => {
+      const spans = await readSpans(text4);
+      assert.match(spans[0], /deutschkurs für august/i);
+      assert.match(spans[1], /vormittag studieren/i);
+      assert.match(spans[2], /wie viel kostet der kurs/i);
+      assert.match(spans[2], /anmelden/i);
     });
   });
 });

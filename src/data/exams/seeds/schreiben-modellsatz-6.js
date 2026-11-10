@@ -147,33 +147,25 @@ export const questions = [
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
-            keywords: ['zimmer', 'reservieren', 'buchen', 'urlaub', 'hotel', 'übernachten', 'uebernachten', 'einzelzimmer', 'doppelzimmer'],
-            requiredMatches: 2
+            label: 'Grund für Ihr Schreiben'
           },
           {
             id: 'lp2',
             label: 'Wann und wie lange',
-            intent: 'GENERAL',
-            evidence: 'temporal',
-            keywords: ['august', 'woche', 'tage', 'vom', 'bis', 'anreise', 'bleiben', 'zeit'],
-            requiredMatches: 2
+            aspects: [
+              { label: 'Wann' },
+              { label: 'wie lange' }
+            ]
           },
           {
             id: 'lp3',
             label: 'Frühstück und Parkplatz',
-            intent: 'INFORMATION_REQUEST',
-            keywords: ['frühstück', 'fruehstueck', 'parkplatz', 'auto', 'parken', 'kosten', 'inklusive', 'gibt'],
-            requiredMatches: 2,
             aspects: [
               {
-                label: 'Frühstück',
-                keywords: ['frühstück', 'fruehstueck', 'essen', 'inklusive']
+                label: 'Frühstück'
               },
               {
-                label: 'Parkplatz',
-                keywords: ['parkplatz', 'auto', 'parken', 'garage']
+                label: 'Parkplatz'
               }
             ]
           }

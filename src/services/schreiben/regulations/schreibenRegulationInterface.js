@@ -9,6 +9,8 @@
 /**
  * @typedef {Object} Teil2Evidence
  * @property {number[]} leitpunktLevels - Coverage level per Leitpunkt: 2 full, 1 partial, 0 none
+ * @property {boolean[]} [distortedLeitpunkte] - per Leitpunkt: its statement distorts the meaning (swapped roles,
+ *   a converse verb) yet stays understandable from the task
  * @property {number} anrede - Salutation level 0/1/2
  * @property {number} gruss - Closing level 0/1/2
  * @property {Array} [grammarErrors] - Available to regulations that grade formal accuracy

@@ -5,6 +5,7 @@ import { analyzeClosing } from '../src/services/schreiben/closingAnalyzer.js';
 import { isGibberishText } from '../src/services/schreiben/gibberishDetector.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
 import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
+import { questions as modellsatz1 } from '../src/data/exams/seeds/schreiben-modellsatz-1.js';
 
 const A1 = resolveLevelContext('A1');
 
@@ -26,10 +27,16 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
     assert.equal(neutral.score, 2);
   });
 
-  it('rates a garbled formula like "Hallo Damen und Herren" as atypical', { todo: 'needs a model of well-formed salutation phrases; the register of the greeting word alone cannot see it' }, () => {
-    const hybrid = analyzeSalutation('Hallo Damen und Herren,\nich brauche Hilfe.', { isFormal: true, grammar: A1.grammar });
-    assert.equal(hybrid.score, 1);
+  it('rates a greeting with an addressee of another fixed formula as atypical, the fixed formulas themselves as typical', () => {
+    const rate = (line) => analyzeSalutation(`${line}\nich brauche Hilfe.`, { isFormal: true, grammar: A1.grammar });
+    assert.equal(rate('Hallo Damen und Herren,').score, 1);
+    assert.equal(rate('Hallo Damen und Herren,').diagnosticCode, 'ANREDE_ATYPICAL_FORMULA');
+    for (const typical of ['Sehr geehrte Damen und Herren,', 'Guten Tag, meine Damen und Herren,', 'Guten Tag Damen und Herren,', 'Hallo Frau Hansen,', 'Hallo,', 'Sehr geehrter Herr Bauer,']) {
+      assert.equal(rate(typical).score, 2, typical);
+    }
+  });
 
+  it('finds no salutation in a letter that starts with its content', () => {
     const missing = analyzeSalutation('Ich möchte einen Kurs machen.', { grammar: A1.grammar });
     assert.equal(missing.recognized, false);
     assert.equal(missing.score, 0);
@@ -69,17 +76,7 @@ describe('Schreiben Teil 2 Essay Evaluator', () => {
 
   it('evaluates full sample solution with maximum points', async () => {
     const sampleText = 'Sehr geehrte Damen und Herren,\n\nich möchte im August einen Deutschkurs A1 an Ihrer Sprachschule machen. Ich habe vier Wochen Zeit und möchte gern vormittags lernen. Wie viel kostet der Kurs und wie kann ich mich anmelden?\n\nMit freundlichen Grüßen\nMaria Ivanova';
-    const mockQuestion = {
-      options_json: {
-        rubric: {
-          leitpunkte_criteria: [
-            { id: 'lp1', label: 'Grund', keywords: ['deutschkurs', 'kurs', 'a1', 'august'], requiredMatches: 2 },
-            { id: 'lp2', label: 'Zeit/Dauer', keywords: ['wochen', 'zeit', 'vormittags'], requiredMatches: 2 },
-            { id: 'lp3', label: 'Kosten/Anmeldung', keywords: ['kosten', 'kostet', 'anmelden'], requiredMatches: 2 }
-          ]
-        }
-      }
-    };
+    const mockQuestion = modellsatz1.find((q) => q.id === 's1-q6');
 
     const result = await gradeLetter(sampleText, mockQuestion);
     assert.equal(result.points_earned, 10);

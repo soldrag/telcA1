@@ -51,10 +51,10 @@ s4-q6:09 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | Composite p
 s4-q6:10 none=222       primary=222    exp=222 tot=10/10 exp=10 | Many grammar/spelling errors, fully understandable. Must NOT be penalized.
 s4-q6:11 none=000       primary=000    exp=000 tot=1/1 exp=0.5-5.5 | Adversarial for embeddings: bare keywords, no communicative sentences.
 s4-q6:12 none=000       primary=000    exp=000 tot=0.5/0.5 exp=0.5-1 | Formally correct letter on a different task (birthday invitation). Semantic similarity to 'Grund/Zeitraum' may be non-zero.
-s4-q6:13 none=122       primary=122    exp=222 tot=8.5/8.5 exp=8.5-10 | No explicit 'ich möchte mieten' - reason only implied by the question about availability.
+s4-q6:13 none=122       primary=222    exp=222 tot=8.5/10 exp=8.5-10 | No explicit 'ich möchte mieten' - reason only implied by the question about availability.
 s4-q6:14 none=221       primary=221    exp=221 tot=8.5/8.5 exp=8.5 | Mirror of case 02: pets present, price missing.
 s4-q6:15 none=222       primary=222    exp=222 tot=10/10 exp=10 | Well over 30 words, extra off-point sentences. Length alone must not add or remove points.
-s4-q6:16 none=221       primary=221    exp=221 tot=8.5/8.5 exp=7-8.5 | Point 3 present but barely understandable.
+s4-q6:16 none=221       primary=220    exp=221 tot=8.5/7 exp=7-8.5 | Point 3 present but barely understandable.
 s4-q6:17 none=222       primary=222    exp=222 tot=10/10 exp=10 | User review: 'Hallo Frau Hansen', typical A1 grammar errors, date range 'von 15. Juli bis 25. Juli'.
 s4-q6:18 none=222       primary=222    exp=222 tot=10/10 exp=10 | Zeitraum as numeric dates 'vom 15.07. bis 25.07.' (common A1 notation).
 s4-q6:19 none=212       primary=212    exp=212 tot=8.5/8.5 exp=8.5 | 'von Hamburg bis Kiel' is a route, not a period: Zeitraum missing, Personen present.

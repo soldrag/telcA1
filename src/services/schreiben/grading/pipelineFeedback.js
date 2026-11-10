@@ -9,13 +9,20 @@ function toClosingQuote(gruss = {}) {
   return name && !text.includes(name) ? [text, name].filter(Boolean).join(' ') : text;
 }
 
+// The declared aspects of a compound point that no span showed (unit level 0): "Anmeldung" of "lp3:Anmeldung".
+function missingAspectsOf(item) {
+  const units = item.rankerDetails?.units || [];
+  if (units.length < 2) return [];
+  return units.filter((u) => u.level === 0).map((u) => String(u.key).split(':').slice(1).join(':'));
+}
+
 function toLeitpunktFact(item = {}) {
   return {
     label: item.label || item.id || '',
     score: Number(item.score) || 0,
     diagnosticCode: item.diagnosticCode || '',
     matchedSentence: item.matchedSentence || '',
-    missingAspects: item.rankerDetails?.missingAspects || [],
+    missingAspects: missingAspectsOf(item),
   };
 }
 

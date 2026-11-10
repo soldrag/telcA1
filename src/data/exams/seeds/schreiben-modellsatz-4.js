@@ -148,9 +148,6 @@ export const questions = [
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
-            keywords: ['ferienwohnung', 'wohnung', 'urlaub', 'mieten', 'buchen', 'reservieren', 'ostsee', 'sommer'],
-            requiredMatches: 2,
             conversive_rules: [
               {
                 forbiddenLemma: 'vermieten',
@@ -162,36 +159,24 @@ export const questions = [
           {
             id: 'lp2',
             label: 'Personen und Zeitraum',
-            intent: 'GENERAL',
-            keywords: ['familie', 'erwachsene', 'kind', 'kinder', 'woche', 'wochen', 'bleiben', 'juli', 'august', 'juni', 'personen', 'vom', 'bis', 'tage', 'zeitraum'],
-            requiredMatches: 2,
             aspects: [
               {
-                label: 'Personen',
-                evidence: 'personCount',
-                keywords: ['personen', 'familie', 'erwachsene', 'kind', 'kinder']
+                label: 'Personen'
               },
               {
-                label: 'Zeitraum',
-                evidence: 'temporal',
-                keywords: ['zeitraum', 'woche', 'wochen', 'tage', 'bleiben', 'juli', 'august', 'juni']
+                label: 'Zeitraum'
               }
             ]
           },
           {
             id: 'lp3',
             label: 'Preis und Haustiere',
-            intent: 'INFORMATION_REQUEST',
-            keywords: ['kosten', 'kostet', 'preis', 'hund', 'hunde', 'haustiere', 'katze', 'erlaubt'],
-            requiredMatches: 2,
             aspects: [
               {
-                label: 'Preis',
-                keywords: ['kosten', 'kostet', 'preis', 'nacht', 'euro', 'bezahlen']
+                label: 'Preis'
               },
               {
-                label: 'Haustiere',
-                keywords: ['hund', 'hunde', 'haustiere', 'erlaubt', 'katze', 'tier', 'tiere', 'mitbringen']
+                label: 'Haustiere'
               }
             ],
             semantic_slots: [

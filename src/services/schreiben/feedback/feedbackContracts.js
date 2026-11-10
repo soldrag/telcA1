@@ -3,7 +3,6 @@
  * Clean Architecture & McConnell limits: <= 80 lines, immutable frozen constants.
  */
 
-import { INTENT_TYPES } from '../linguistic/criterionIntents.js';
 
 export const DIAGNOSTIC_CODES = Object.freeze({
   LP_FULFILLED: 'LP_FULFILLED',
@@ -19,6 +18,7 @@ export const DIAGNOSTIC_CODES = Object.freeze({
   ANREDE_MINOR_FLAW: 'ANREDE_MINOR_FLAW',
   ANREDE_REGISTER_MISMATCH: 'ANREDE_REGISTER_MISMATCH',
   ANREDE_TOO_FORMAL: 'ANREDE_TOO_FORMAL',
+  ANREDE_ATYPICAL_FORMULA: 'ANREDE_ATYPICAL_FORMULA',
   ANREDE_DECLENSION_FLAW: 'ANREDE_DECLENSION_FLAW',
   ANREDE_PUNCTUATION_FLAW: 'ANREDE_PUNCTUATION_FLAW',
   ANREDE_MISSING: 'ANREDE_MISSING',
@@ -61,7 +61,6 @@ export const EXAMINER_CODES = Object.freeze({
 export function resolveLpDiagnosticCode(score = 0, inversion = {}, frameValid = true) {
   if (inversion?.isInverted) {
     if (inversion.reason === 'inverted_problem') return DIAGNOSTIC_CODES.LP_INVERTED_DEFECT;
-    if (inversion.intentType === INTENT_TYPES.ACTION_REQUEST) return DIAGNOSTIC_CODES.LP_INVERTED_REQUEST;
     return DIAGNOSTIC_CODES.LP_INVERTED_GENERAL;
   }
   if (!frameValid) return DIAGNOSTIC_CODES.LP_FRAME_VIOLATION;

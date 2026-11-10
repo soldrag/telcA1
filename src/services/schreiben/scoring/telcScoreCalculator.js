@@ -7,6 +7,7 @@ import { getSchreibenRegulation } from '../regulations/index.js';
 
 export function computeTelcFinalScore({
   leitpunktLevels = [],
+  distortedLeitpunkte = [],
   salutationScore = 0,
   closingScore = 0,
   wordCount = 0,
@@ -18,6 +19,7 @@ export function computeTelcFinalScore({
   const regulation = getSchreibenRegulation(level);
   const score = regulation.scoreTeil2({
     leitpunktLevels,
+    distortedLeitpunkte,
     anrede: salutationScore,
     gruss: closingScore,
     grammarErrors,

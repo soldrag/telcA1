@@ -1,0 +1,142 @@
+@alias G=lp1 D=lp2 H=lp3
+G=F :: Ich bin krank und kann nicht zum Kurs kommen.
+G=F :: Ich habe Fieber und Halsschmerzen.
+G=F :: Leider bin ich erkältet.
+G=F :: Ich kann nicht in den Unterricht kommen, mir geht es schlecht.
+G=F :: ich bin krank
+G=F :: Ich habe grippe, ich kan nicht komen.
+G=F :: krank, kein kurs fur mich
+G=F :: Der Arzt sagt, ich muss zu Hause bleiben.
+G=F :: Ich liege im Bett mit Kopfschmerzen.
+G=F :: Mein Bauch tut weh, ich kann nicht aus dem Haus.
+G=F :: ich habe fieber seit gestern
+G=F :: Ich fehle im Deutschkurs, weil ich krank bin.
+G=P :: Sie sind krank, deshalb komme ich nicht.
+G=P :: Ich bin nicht so gut.
+G=C :: Ich bin nicht krank und komme normal zum Kurs.
+G=C :: Warum ich fehle, möchte ich nicht sagen.
+D=F :: Ich kann heute und morgen nicht kommen.
+D=F :: Am Montag bin ich wieder da.
+D=F :: Ich bleibe zwei Tage zu Hause.
+D=F :: Ich fehle bis Freitag.
+D=F :: heute und morgen nicht
+D=F :: zwei tag ich bleibe in bett
+D=F :: ich kome wieder am donnerstag
+D=F :: Der Arzt sagt, ich bin bis Mittwoch krank.
+D=F :: Nächste Woche komme ich wieder in den Kurs.
+D=F :: Ich glaube, übermorgen geht es wieder.
+D=F :: Diese Woche kann ich nicht mehr kommen.
+D=F G=F :: Ich bin heute und morgen krank.
+D=P :: Ich weiß nicht genau, vielleicht lange.
+D=P :: Ein paar Mal komme ich nicht.
+D=C :: Wie lange ich fehle, sage ich nicht.
+D=C :: Wann ich wiederkomme, ist meine Sache.
+H=F :: Können Sie mir die Hausaufgaben per E-Mail schicken?
+H=F :: Bitte schreiben Sie mir die Hausaufgaben.
+H=F :: Was müssen wir zu Hause machen? Bitte schicken Sie es mir.
+H=F :: Ich möchte zu Hause weiterlernen, bitte senden Sie mir die Aufgaben.
+H=F :: hausaufgabe per mail bitte
+H=F :: Konnen sie mir die hausaufgabe schiken?
+H=F :: bitte mail mit aufgaben
+H=F :: Welche Seiten im Buch sollen wir machen? Schreiben Sie mir bitte.
+H=F :: Bitte schicken Sie mir die Arbeitsblätter.
+H=F :: Ich will nichts verpassen, können Sie mir die Übungen mailen?
+H=F :: Meine E-Mail ist ana@mail.de, bitte schicken Sie mir die Hausaufgaben.
+H=F :: Bitte schreiben Sie, was ich lernen muss.
+H=P :: Ich schicke Ihnen meine Hausaufgaben per E-Mail.
+H=P :: Haben Sie Hausaufgaben?
+H=C :: Hausaufgaben brauche ich nicht.
+H=C :: Bitte schicken Sie mir keine Aufgaben, ich mache Pause.
+- :: Letzte Woche war ich auch krank.
+- :: Der Kurs gestern war sehr interessant.
+- :: Ich habe mein Heft im Kursraum vergessen.
+- :: Ich möchte in den Abendkurs wechseln.
+- :: Wann ist die Prüfung?
+- :: Meine Hausaufgaben von Montag sind fertig.
+- :: Ich gehe heute zum Arzt mit meiner Tochter, sie ist krank.
+- :: Kann ich das Buch im Sekretariat kaufen?
+- :: Im Kurs ist es zu warm.
+- :: Ich möchte den Kurs abbrechen, ich habe eine Arbeit gefunden.
+- :: Herzlichen Glückwunsch zum Geburtstag, Frau Berg!
+- :: Die Hausaufgaben waren letzte Woche sehr schwer.
+- :: Ich bin Schüler in Ihrem Kurs A1.
+- :: Ich heiße Ramon.
+- :: Danke und bis bald.
+@letter on 2 2 2
+| Liebe Frau Berg,
+G=F :: ich bin krank und habe Fieber.
+D=F :: Ich kann heute und morgen nicht kommen.
+H=F :: Können Sie mir bitte die Hausaufgaben per E-Mail schicken?
+| Viele Grüße
+| Mei
+@end
+@letter on 2 2 2
+| Hallo Frau Berg,
+G=F D=F :: heute morgen krank, kein kurs.
+H=F :: hausaufgabe mail bitte.
+| Gruß
+| Juan
+@end
+@letter on 2 0 2
+| Liebe Frau Berg,
+G=F :: leider bin ich erkältet und muss im Bett bleiben.
+H=F :: Bitte schreiben Sie mir, was wir lernen.
+- :: Danke!
+| Viele Grüße
+| Hana
+@end
+@letter on 2 2 0
+| Sehr geehrte Frau Berg,
+G=F :: ich habe Grippe.
+D=F :: Am Montag komme ich wieder.
+- :: Ich freue mich auf den Kurs.
+| Mit freundlichen Grüßen
+| Dmitri
+@end
+@letter on 2 2 1
+| Liebe Frau Berg,
+G=F D=F :: ich bin krank und komme bis Freitag nicht in den Kurs.
+H=P :: Haben Sie Hausaufgaben?
+| Viele Grüße
+| Amina
+@end
+@letter on 2 2 2
+| Liebe Frau Berg,
+G=F :: mein Kopf tut sehr weh und ich habe Fieber.
+D=F :: Der Arzt sagt, zwei Tage zu Hause bleiben.
+H=F :: Schicken Sie mir bitte die Übungen? Ich will nicht zurück sein.
+| Liebe Grüße
+| Leo
+@end
+@letter off 0 0 0
+| Liebe Frau Berg,
+- :: ich war letzte Woche krank, jetzt geht es mir wieder gut.
+- :: Vielen Dank für die Hausaufgaben per E-Mail.
+- :: Bis morgen im Kurs!
+| Viele Grüße
+| Sara
+@end
+@letter off 0 0 0
+| Liebe Frau Berg,
+- :: ich möchte nächsten Monat in den Abendkurs wechseln.
+- :: Am Vormittag muss ich jetzt arbeiten.
+- :: Ist im Abendkurs noch ein Platz frei?
+| Viele Grüße
+| Kemal
+@end
+@letter off 0 0 0
+| Sehr geehrte Frau Berg,
+- :: ich habe meine Hausaufgaben im Kursraum vergessen.
+- :: Ich habe sie gestern gemacht, sie sind fertig.
+- :: Können Sie das Heft für mich aufheben?
+| Mit freundlichen Grüßen
+| Lucia
+@end
+@letter off 0 0 0
+| Liebe Frau Berg,
+- :: vielen Dank für den schönen Deutschkurs.
+- :: Morgen ist mein letzter Tag, dann fahre ich nach Hause.
+- :: Ich habe viel gelernt.
+| Viele Grüße
+| Anh
+@end

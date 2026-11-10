@@ -41,7 +41,7 @@ export const BENCHMARK_TASKS = [
       options_json: {
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Grund des Schreibens', intent: 'REASON_EXPLANATION', keywords: ['wohnung', 'anzeige', 'mieten', 'interessiere'], requiredMatches: 1 },
+            { id: 'lp1', label: 'Grund des Schreibens', intent: 'WISH_STATEMENT', keywords: ['wohnung', 'anzeige', 'mieten', 'interessiere'], requiredMatches: 1 },
             { id: 'lp2', label: 'Personen und Beruf', intent: 'GENERAL', aspects: [{ label: 'Personen', evidence: 'personCount' }, { label: 'Beruf', evidence: 'occupation' }], keywords: ['personen', 'person', 'frau', 'mann', 'beruf', 'arbeit', 'ingenieur', 'arzt'], requiredMatches: 1 },
             { id: 'lp3', label: 'Termin für die Besichtigung', intent: 'APPOINTMENT_PROPOSAL', evidence: 'temporal', keywords: ['termin', 'besichtigung', 'besichtigen', 'sehen', 'samstag'], requiredMatches: 1 },
           ],
@@ -69,7 +69,7 @@ export const BENCHMARK_TASKS = [
       options_json: {
         rubric: {
           leitpunkte_criteria: [
-            { id: 'lp1', label: 'Dank und Zusage', intent: 'GENERAL', keywords: ['dank', 'danke', 'einladung', 'komme', 'gern'], requiredMatches: 1 },
+            { id: 'lp1', label: 'Dank und Zusage', intent: 'GENERAL', aspects: [{ label: 'Dank', keywords: ['dank', 'danke', 'einladung'] }, { label: 'Zusage', keywords: ['komme', 'gern'] }], keywords: ['dank', 'danke', 'einladung', 'komme', 'gern'], requiredMatches: 1 },
             { id: 'lp2', label: 'Begleitperson', intent: 'GENERAL', evidence: 'personCount', keywords: ['mann', 'freund', 'schwester', 'kind', 'mit'], requiredMatches: 1 },
             { id: 'lp3', label: 'Mitbringen oder Hilfe', intent: 'ACTION_REQUEST', keywords: ['mitbringen', 'kuchen', 'salat', 'getränk', 'wein', 'hilfe'], requiredMatches: 1 },
           ],

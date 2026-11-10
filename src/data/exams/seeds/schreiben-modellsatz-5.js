@@ -147,25 +147,15 @@ export const questions = [
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
-            keywords: ['krank', 'fieber', 'grippe', 'bett', 'arzt', 'nicht kommen', 'fehlen'],
-            requiredMatches: 1
+            label: 'Grund für Ihr Schreiben'
           },
           {
             id: 'lp2',
-            label: 'Wie lange können Sie nicht kommen',
-            intent: 'GENERAL',
-            evidence: 'temporal',
-            keywords: ['heute', 'morgen', 'tage', 'tag', 'woche', 'montag', 'bleiben', 'wieder', 'zeit'],
-            requiredMatches: 2
+            label: 'Wie lange können Sie nicht kommen'
           },
           {
             id: 'lp3',
-            label: 'Bitte um Hausaufgaben per E-Mail',
-            intent: 'ACTION_REQUEST',
-            keywords: ['hausaufgabe', 'hausaufgaben', 'schicken', 'senden', 'mail', 'email', 'übung', 'uebungen'],
-            requiredMatches: 2
+            label: 'Bitte um Hausaufgaben per E-Mail'
           }
         ]
       },

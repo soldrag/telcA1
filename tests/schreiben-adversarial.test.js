@@ -5,6 +5,7 @@ import { resolveLevelContext } from '../src/services/schreiben/levelContext.js';
 
 const checkGermanA1Grammar = (text) => resolveLevelContext('A1').grammar.checkLetter(text);
 import { questions } from '../src/data/exams/seeds/schreiben-modellsatz-4.js';
+import { H2_REGRESSION } from './helpers/h2Regressions.js';
 
 describe('Schreiben Semantic Adversarial & Linguistic Invariant Suite', () => {
   const modellsatz4Teil2 = questions.find(q => q.id === 's4-q6');
@@ -54,9 +55,19 @@ Jonas Keller`;
 
   // Known limits (todo.md, P1): recorded, not fitted
 
-  it('asking the price of a person distorts point 3 as the price of a pet does', { todo: '"Sohn" has no person category in the lexicon' }, async () => {
+  // reglament: asking what a person costs distorts the point (user decision, 2026-11-10); every person noun of the
+  // lexicon carries the category, not one word.
+  it('asking the price of a person distorts point 3 as the price of a pet does', async () => {
     const res = await gradeLetter(holidayLetter(booking, 'Wie viel kostet mein Sohn? Darf unsere Katze mitkommen?'), modellsatz4Teil2);
     assert.equal(res.breakdown.items[2].score, 1);
+  });
+
+  it('a person or a place in a prepositional phrase of the question is no distortion', async () => {
+    for (const question of ['Was kostet die Wohnung für meine Frau und mich? Darf unsere Katze mitkommen?', 'Sind Hunde in der Wohnung erlaubt? Was kostet die Wohnung?']) {
+      const res = await gradeLetter(holidayLetter(booking, question), modellsatz4Teil2);
+      assert.deepEqual(res.breakdown.items[2].frameErrors, [], question);
+      assert.notEqual(res.breakdown.items[2].diagnosticCode, 'LP_FRAME_VIOLATION', question);
+    }
   });
 
   it('Case 3: Dative Preposition with Feminine Determiner (mit meine Familie)', async () => {
@@ -79,7 +90,7 @@ Jonas Keller`;
     assert.equal(dativeErr.correction, 'mit zwei Erwachsenen');
   });
 
-  it('Case 5: Genuine A1 Sample Solution receives full score (10/10) with zero false positives', async () => {
+  it('Case 5: Genuine A1 Sample Solution receives full score (10/10) with zero false positives', H2_REGRESSION, async () => {
     const sampleText = `Sehr geehrte Frau Hansen,
 
 ich möchte im Juli eine Ferienwohnung an der Ostsee mieten. Wir sind zwei Erwachsene und ein Kind und möchten vom 10. bis 17. Juli bleiben. Wie viel kostet die Wohnung und sind Hunde erlaubt?

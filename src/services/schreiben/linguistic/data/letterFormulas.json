@@ -1,26 +1,154 @@
 {
   "notes": "Opening and closing formulas of a German letter as word sequences. A trailing * lets the word take an inflection ending (geehrt* matches geehrte / geehrter). Longer closings come first so the most specific formula wins.",
   "salutations": [
-    { "words": ["sehr", "geehrt*"], "register": "formal", "agreesWithAddressee": true },
-    { "words": ["guten", "tag"], "register": "formal" },
-    { "words": ["guten", "morgen"], "register": "informal" },
-    { "words": ["guten", "abend"], "register": "informal" },
-    { "words": ["lieb*"], "register": "informal", "agreesWithAddressee": true },
-    { "words": ["hallo"], "register": "semiFormal" },
-    { "words": ["hi"], "register": "informal" }
+    {
+      "words": [
+        "sehr",
+        "geehrt*"
+      ],
+      "register": "formal",
+      "agreesWithAddressee": true
+    },
+    {
+      "words": [
+        "guten",
+        "tag"
+      ],
+      "register": "formal"
+    },
+    {
+      "words": [
+        "guten",
+        "morgen"
+      ],
+      "register": "informal"
+    },
+    {
+      "words": [
+        "guten",
+        "abend"
+      ],
+      "register": "informal"
+    },
+    {
+      "words": [
+        "lieb*"
+      ],
+      "register": "informal",
+      "agreesWithAddressee": true
+    },
+    {
+      "words": [
+        "hallo"
+      ],
+      "register": "semiFormal"
+    },
+    {
+      "words": [
+        "hi"
+      ],
+      "register": "informal"
+    }
   ],
   "closings": [
-    { "words": ["mit", "freundlich*", "gruß*"], "register": "formal" },
-    { "words": ["freundlich*", "gruß*"], "register": "formal" },
-    { "words": ["schön*", "gruß*"], "register": "semiFormal" },
-    { "words": ["viel*", "gruß*"], "register": "semiFormal" },
-    { "words": ["herzlich*", "gruß*"], "register": "semiFormal" },
-    { "words": ["best*", "gruß*"], "register": "semiFormal" },
-    { "words": ["lieb*", "gruß*"], "register": "informal" },
-    { "words": ["bis", "bald"], "register": "informal" },
-    { "words": ["auf", "wiedersehen"], "register": "informal" },
-    { "words": ["tschüss"], "register": "informal" },
-    { "words": ["gruß*"], "register": "informal" }
+    {
+      "words": [
+        "mit",
+        "freundlich*",
+        "gruß*"
+      ],
+      "register": "formal"
+    },
+    {
+      "words": [
+        "freundlich*",
+        "gruß*"
+      ],
+      "register": "formal"
+    },
+    {
+      "words": [
+        "schön*",
+        "gruß*"
+      ],
+      "register": "semiFormal"
+    },
+    {
+      "words": [
+        "viel*",
+        "gruß*"
+      ],
+      "register": "semiFormal"
+    },
+    {
+      "words": [
+        "herzlich*",
+        "gruß*"
+      ],
+      "register": "semiFormal"
+    },
+    {
+      "words": [
+        "best*",
+        "gruß*"
+      ],
+      "register": "semiFormal"
+    },
+    {
+      "words": [
+        "lieb*",
+        "gruß*"
+      ],
+      "register": "informal"
+    },
+    {
+      "words": [
+        "bis",
+        "bald"
+      ],
+      "register": "informal"
+    },
+    {
+      "words": [
+        "auf",
+        "wiedersehen"
+      ],
+      "register": "informal"
+    },
+    {
+      "words": [
+        "tschüss"
+      ],
+      "register": "informal"
+    },
+    {
+      "words": [
+        "gruß*"
+      ],
+      "register": "informal"
+    }
   ],
-  "politeAddressForms": ["sie", "ihnen", "ihr", "ihre", "ihrem", "ihren", "ihrer"]
+  "politeAddressForms": [
+    "sie",
+    "ihnen",
+    "ihr",
+    "ihre",
+    "ihrem",
+    "ihren",
+    "ihrer"
+  ],
+  "addresseeNotes": "Addressees that belong to fixed formulas: with another greeting the opening is an atypical formula (reglament §6 Kommunikative Gestaltung, 0.5 'untypische Formulierungen'). greetings lists the salutation formulas (their words joined by a space) the addressee forms a formula with; the addressee may follow the greeting directly or after one word (Guten Tag, meine Damen und Herren).",
+  "addressees": [
+    {
+      "words": [
+        "damen",
+        "und",
+        "herren"
+      ],
+      "greetings": [
+        "sehr geehrt*",
+        "guten tag"
+      ]
+    }
+  ]
 }

@@ -3,12 +3,14 @@ import { openHome } from './support/appState.js';
 import { clickEveryControl } from './support/buttonCrawler.js';
 import { DIALOG, LOCALES, openHistoryScreen, openLegal, openSettings, readThemeColor, switchLanguage } from './support/navigation.js';
 import { en } from './support/i18nKeys.js';
+import { PHONE_ONLY } from './support/projectTags.js';
 
 const LEGAL_TABS = ['impressum', 'datenschutz'];
 
+// From 640 px a student switches language and theme in the header: the student's settings window exists on phones only.
 for (const role of ['student', 'teacher']) {
-  test(`settings, ${role}: every control works`, async ({ page, pageProblems, isMobile }) => {
-    test.skip(role === 'student' && !isMobile, 'from 640 px a student switches language and theme in the header, there is no settings window');
+  const tag = role === 'student' ? { tag: PHONE_ONLY } : {};
+  test(`settings, ${role}: every control works`, tag, async ({ page, pageProblems }) => {
     const restore = async () => {
       await openHome(page, { role });
       await openSettings(page);
@@ -74,8 +76,7 @@ test('teacher key: change, save and copy', async ({ page }) => {
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(newKey);
 });
 
-test('phone tab bar: home, history and settings', async ({ page, isMobile }) => {
-  test.skip(!isMobile, 'the tab bar exists on phones only');
+test('phone tab bar: home, history and settings', { tag: PHONE_ONLY }, async ({ page }) => {
   await openHome(page);
   const tabBar = page.getByRole('navigation', { name: en.nav.tabBar });
   await tabBar.getByRole('button', { name: en.nav.history }).click();

@@ -2,10 +2,11 @@ import { segmentMacroStructure } from './linguistic/macroSegmenter.js';
 import { requireLevelPort } from './grading/levelPorts.js';
 import { DIAGNOSTIC_CODES } from './feedback/feedbackContracts.js';
 
-function resolveSalutationDiagnostic({ score = 0, error = null, register = 'none' }) {
+function resolveSalutationDiagnostic({ score = 0, error = null, register = 'none', atypicalFormula = false }) {
   if (score <= 0) return DIAGNOSTIC_CODES.ANREDE_MISSING;
   if (error) return DIAGNOSTIC_CODES.ANREDE_DECLENSION_FLAW;
   if (score >= 2) return DIAGNOSTIC_CODES.ANREDE_PERFECT;
+  if (atypicalFormula) return DIAGNOSTIC_CODES.ANREDE_ATYPICAL_FORMULA;
   // Only a formula that does not fit the task's register scores 1: too formal for a friend, or too informal otherwise.
   return register === 'formal' ? DIAGNOSTIC_CODES.ANREDE_TOO_FORMAL : DIAGNOSTIC_CODES.ANREDE_REGISTER_MISMATCH;
 }
@@ -29,7 +30,7 @@ export function analyzeSalutation(text = '', options = {}) {
     score: anrede.score,
     recognized: true,
     text: anrede.text,
-    diagnosticCode: resolveSalutationDiagnostic({ score: anrede.score, error, register: anrede.register }),
+    diagnosticCode: resolveSalutationDiagnostic({ score: anrede.score, error, register: anrede.register, atypicalFormula: anrede.atypicalFormula }),
     correction: error?.correction || null,
     error,
   };

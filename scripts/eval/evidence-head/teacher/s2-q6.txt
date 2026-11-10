@@ -1,0 +1,144 @@
+@alias G=lp1 B=lp2 T=lp3
+G=F :: Ich kann am Montag leider nicht zu Ihnen kommen.
+G=F :: Ich muss meinen Termin am Montag absagen.
+G=F :: Den Termin um 14 Uhr schaffe ich leider nicht.
+G=F :: Ich schreibe wegen meinem Termin am Montag, ich kann nicht.
+G=F :: Montag 14 Uhr geht bei mir nicht.
+G=F :: ich kan montag nicht komen
+G=F :: termin montag – leider nein
+G=F :: Ich mus mein termin bei dr schneider absage.
+G=F :: Bitte streichen Sie meinen Termin am Montag.
+G=F :: Am Montag bin ich nicht da, ich habe aber einen Termin bei Ihnen.
+G=F :: Ich komme am Montag nicht in die Praxis.
+G=F :: Ich möchte meinen Termin verschieben.
+G=P :: Ich möchte Dr. Schneider am Montag absagen.
+G=P :: Am Montag kann Dr. Schneider nicht zu mir kommen.
+G=C :: Ich komme am Montag um 14 Uhr, wie besprochen.
+G=C :: Ich möchte den Termin am Montag gern behalten.
+B=F :: Ich bin krank und liege im Bett.
+B=F :: Ich muss am Montag länger arbeiten.
+B=F :: Mein Kind ist krank und ich muss zu Hause bleiben.
+B=F :: Mein Auto ist kaputt.
+B=F :: Am Montag habe ich eine Prüfung im Deutschkurs.
+B=F :: Mein Chef sagt, ich muss am Montag arbeiten.
+B=F :: ich habe fiber und kopfschmerzen
+B=F :: muss arbeiten, keine zeit
+B=F :: Meine Mutter kommt am Montag, ich muss sie vom Bahnhof abholen.
+B=F :: Ich habe keinen Babysitter für meinen Sohn.
+B=F :: ich bin nicht in stadt, ich bin bei mein familie in hamburg
+B=F G=F :: Leider kann ich nicht kommen, weil ich am Montag arbeiten muss.
+B=P :: Ich habe am Montag etwas.
+B=P :: Es gibt ein Problem am Montag.
+B=C :: Warum ich nicht komme, ist privat.
+B=C :: Einen Grund möchte ich Ihnen nicht nennen.
+T=F :: Haben Sie am Mittwoch einen Termin für mich?
+T=F :: Kann ich nächste Woche kommen?
+T=F :: Geht es am Dienstag um 10 Uhr?
+T=F :: Bitte geben Sie mir einen neuen Termin.
+T=F :: Ich habe am Freitag Zeit, vielleicht am Vormittag.
+T=F :: Ist Donnerstag Nachmittag möglich?
+T=F :: neue termin bitte, dienstag?
+T=F :: Ich kan am mitwoch nach 16 uhr komen.
+T=F :: haben sie zeit am freitag morgen
+T=F :: Wann haben Sie wieder einen freien Termin?
+T=F :: Am besten nächste Woche, aber nicht am Montag.
+T=F :: Können wir den Termin auf Donnerstag legen?
+T=P :: Ich komme ein anderes Mal.
+T=P :: Vielleicht später irgendwann.
+T=C :: Ich brauche keinen neuen Termin.
+T=C :: Einen anderen Termin möchte ich nicht, ich gehe zu einem anderen Arzt.
+- :: Letzte Woche war ich bei Ihnen in der Praxis.
+- :: Ich war im März bei Dr. Schneider, er war sehr nett.
+- :: Ich möchte einen Termin bei Dr. Schneider machen, ich bin neu hier.
+- :: Wo ist Ihre Praxis? Ich finde die Straße nicht.
+- :: Haben Sie am Samstag geöffnet?
+- :: Ich brauche ein Rezept für meine Tabletten.
+- :: Ich habe meinen Regenschirm in Ihrem Wartezimmer vergessen.
+- :: Die Rechnung von Ihrer Praxis ist falsch.
+G=C :: Ich komme am Montag pünktlich um 14 Uhr zu Ihnen.
+- :: Am Montag um 14 Uhr regnet es bestimmt wieder.
+- :: Meine Krankenkarte ist neu, ich bringe sie mit.
+- :: Bitte schicken Sie mir meine Laborwerte.
+- :: Im Wartezimmer ist es sehr laut.
+- :: Ich heiße Ivan Petrov.
+- :: Ich wohne in der Gartenstraße 5.
+- :: Vielen Dank und einen schönen Tag.
+@letter on 2 2 2
+| Sehr geehrte Damen und Herren,
+G=F :: ich habe am Montag um 14 Uhr einen Termin, aber ich kann nicht kommen.
+B=F :: Mein Sohn ist krank.
+T=F :: Haben Sie am Donnerstag Zeit?
+| Mit freundlichen Grüßen
+| Lina Haddad
+@end
+@letter on 2 2 2
+| Hallo,
+G=F :: montag 14 uhr ich kann nicht.
+B=F :: muss arbeit.
+T=F :: neue termin mitwoch oder freitag?
+| Grüße
+| Marek
+@end
+@letter on 2 0 2
+| Sehr geehrte Damen und Herren,
+G=F :: ich muss leider meinen Termin am Montag absagen.
+T=F :: Kann ich nächste Woche am Dienstag kommen?
+- :: Vielen Dank.
+| Mit freundlichen Grüßen
+| Eva Kral
+@end
+@letter on 2 2 0
+| Sehr geehrte Frau Doktor,
+G=F B=F :: am Montag kann ich nicht in die Praxis kommen, weil ich eine Prüfung habe.
+- :: Es tut mir leid.
+| Mit freundlichen Grüßen
+| Ahmed Ali
+@end
+@letter on 2 2 2
+| Liebe Praxis Dr. Schneider,
+B=F :: mein Auto ist kaputt und am Montag fährt kein Bus zu Ihnen.
+G=F :: Deshalb komme ich nicht um 14 Uhr.
+T=F :: Geht vielleicht Mittwochmorgen?
+| Viele Grüße
+| Julia
+@end
+@letter on 2 1 0
+| Sehr geehrte Damen und Herren,
+G=F :: ich kann am Montag nicht kommen.
+B=P :: Ich habe ein Problem.
+T=C :: Einen neuen Termin brauche ich nicht.
+| Mit freundlichen Grüßen
+| Tom Berg
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: ich war am Montag um 14 Uhr bei Dr. Schneider.
+- :: Ich habe meine Brille im Wartezimmer vergessen.
+- :: Kann ich sie morgen abholen?
+| Mit freundlichen Grüßen
+| Nina Roth
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: ich bin neu in der Stadt und möchte Patient bei Dr. Schneider werden.
+- :: Ich habe oft Rückenschmerzen.
+- :: Nehmen Sie noch neue Patienten?
+| Mit freundlichen Grüßen
+| Omar Said
+@end
+@letter off 0 0 0
+| Hallo,
+- :: vielen Dank für den Termin am Montag.
+- :: Dr. Schneider hat mir sehr geholfen und jetzt geht es mir besser.
+- :: Die Tabletten sind gut.
+| Viele Grüße
+| Petra
+@end
+@letter off 0 0 0
+| Sehr geehrte Damen und Herren,
+- :: Ihre Rechnung für den Termin am Montag ist zu hoch.
+- :: Ich habe nur eine Untersuchung gehabt, nicht zwei.
+- :: Bitte schicken Sie mir eine neue Rechnung.
+| Mit freundlichen Grüßen
+| Karl Mayer
+@end

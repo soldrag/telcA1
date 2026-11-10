@@ -1,5 +1,5 @@
 /**
- * Grades a Schreiben letter with the provider the registry picks — the Micro-Ranker whenever it is
+ * Grades a Schreiben letter with the provider the registry picks — the model-backed one whenever it is
  * available — inside the grading worker (CLAUDE.md §11). The provider is chosen on the calling thread,
  * where the developer override in localStorage is readable; the worker gets only the resulting fact.
  */

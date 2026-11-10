@@ -1,25 +1,20 @@
 /**
- * Rubric contract: every Schreiben Leitpunkt declares its speech act (`intent`) and, where a detector
- * proves it, its evidence kind (`evidence` on the criterion or its aspects) — nothing is guessed from labels.
- * Every graded task names its CEFR `level`, and that level has a ranker policy, a grammar profile and a regulation,
- * and the register its letter is written in (`addresseeRegister`), which decides the fitting formulas.
+ * Rubric contract: every graded Schreiben task names its CEFR `level`, and that level has a grading policy, a grammar
+ * profile and a regulation, and the register its letter is written in (`addresseeRegister`), which decides the fitting
+ * formulas. Every Leitpunkt has an id and a label; a compound one declares its `aspects` (nothing is split from labels).
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { INTENT_TYPES, EVIDENCE_KINDS } from '../../src/services/schreiben/linguistic/criterionIntents.js';
 import { getRankerPolicy } from '../../src/services/schreiben/grading/policies/index.js';
 import { getGrammarProfile } from '../../src/services/schreiben/profiles/index.js';
 import { getSchreibenRegulation } from '../../src/services/schreiben/regulations/index.js';
 import { ADDRESSEE_REGISTERS } from '../../src/services/schreiben/letterRegister.js';
 
-const EVIDENCE = Object.values(EVIDENCE_KINDS);
-
 function validateCriterion(name, criterion, errors) {
-  if (!INTENT_TYPES[criterion.intent]) errors.push(`${name}: intent "${criterion.intent}" is not one of INTENT_TYPES`);
-  const declared = [criterion, ...(criterion.aspects || [])].filter((c) => c.evidence !== undefined);
-  for (const c of declared) {
-    if (!EVIDENCE.includes(c.evidence)) errors.push(`${name}: evidence "${c.evidence}" is not one of ${EVIDENCE.join('/')}`);
+  if (!criterion.id || !criterion.label) errors.push(`${name}: a Leitpunkt needs an id and a label`);
+  for (const aspect of criterion.aspects || []) {
+    if (!aspect.label) errors.push(`${name}: every declared aspect needs a label`);
   }
 }
 

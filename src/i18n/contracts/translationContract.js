@@ -273,6 +273,7 @@ export const TRANSLATION_CONTRACT = {
     aiRankerEvaluated: 'string',
     gradingFallbackModelFailed: 'string',
     gradingFallbackWorkerFailed: 'string',
+    gradingFallbackLeitpunkteUnreadable: 'string',
     gradingFallbackDetail: 'string',
     taskAssignment: 'string',
     taskSituation: 'string',

@@ -147,25 +147,23 @@ export const questions = [
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
-            keywords: ['deutschkurs', 'kurs', 'a1', 'sprachschule', 'august', 'besuchen', 'machen'],
-            requiredMatches: 2
+            label: 'Grund für Ihr Schreiben'
           },
           {
             id: 'lp2',
             label: 'Wann und wie lange',
-            intent: 'GENERAL',
-            evidence: 'temporal',
-            keywords: ['wochen', 'woche', 'zeit', 'vormittags', 'vormittag', 'termin', 'lernen'],
-            requiredMatches: 2
+            aspects: [
+              { label: 'Wann' },
+              { label: 'wie lange' }
+            ]
           },
           {
             id: 'lp3',
             label: 'Frage nach den Kurskosten und Anmeldung',
-            intent: 'INFORMATION_REQUEST',
-            keywords: ['kosten', 'kostet', 'gebühr', 'gebühren', 'preis', 'anmelden', 'anmeldung', 'wie viel'],
-            requiredMatches: 2
+            aspects: [
+              { label: 'Frage nach den Kurskosten' },
+              { label: 'Anmeldung' }
+            ]
           }
         ]
       },

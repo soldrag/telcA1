@@ -48,9 +48,10 @@ function parseSalutation(line = '', isFormalRequired = true) {
   const punctMatch = line.match(/([,!.])$/);
   return {
     recognized: true,
-    score: fitsRegister(formula.register, isFormalRequired) ? 2 : 1,
+    score: fitsRegister(formula.register, isFormalRequired) && formula.fitsAddressee ? 2 : 1,
     text: line,
     register: formula.register,
+    atypicalFormula: !formula.fitsAddressee,
     punctuation: punctMatch ? punctMatch[1] : '',
   };
 }

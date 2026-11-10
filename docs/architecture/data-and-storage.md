@@ -51,7 +51,7 @@ Nothing is sent anywhere: no telemetry, no user id, no remote attempt storage.
 ## Offline and PWA
 
 - `sw.js` is generated at build by vite-plugin-pwa (Workbox, `offlinePrecachePlugin` in `vite.config.js`): it precaches every file of the build — lazy chunks and the lexicon dictionaries included, the 13–24 MB ONNX runtime (`ort-wasm-simd-threaded*`) left out of the install: transformers.js stores it in its own Cache Storage (`transformers-cache`, beside the model files) on the first grading, so after one online grading the app opens and grades by the model offline; registered by `services/pwaRegister.js` only in a secure context.
-- EmbeddingGemma weights are downloaded at run time from Hugging Face and cached by the browser (CacheStorage/IndexedDB via Transformers.js); without them the Micro-Ranker grades by its rules (`grading_mode` `ranker_without_model`, the reason in `grading_fallback`).
+- EmbeddingGemma weights are downloaded at run time from Hugging Face and cached by the browser (CacheStorage/IndexedDB via Transformers.js); without them the letter is read by reference alignment (`grading_mode` `ranker_without_model`, the reason in `grading_fallback`). The evidence head's reference phrases (`evidence-s*-q*` chunks, about 5 MB with the main-thread copies) are precached, so the model grades offline after one online grading.
 
 ## Delivery
 

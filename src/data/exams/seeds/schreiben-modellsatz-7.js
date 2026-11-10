@@ -148,9 +148,6 @@ export const questions = [
           {
             id: 'lp1',
             label: 'Grund für Ihr Schreiben',
-            intent: 'REASON_EXPLANATION',
-            keywords: ['wohnung', 'anzeige', 'mieten', 'interessieren', 'interesse', 'gesehen'],
-            requiredMatches: 2,
             conversive_rules: [
               {
                 forbiddenLemma: 'vermieten',
@@ -162,29 +159,18 @@ export const questions = [
           {
             id: 'lp2',
             label: 'Personen und Beruf',
-            intent: 'GENERAL',
-            keywords: ['person', 'personen', 'mann', 'frau', 'kind', 'allein', 'arbeiten', 'beruf', 'lehrer', 'arbeite'],
-            requiredMatches: 2,
             aspects: [
               {
-                label: 'Personen',
-                evidence: 'personCount',
-                keywords: ['person', 'personen', 'mann', 'frau', 'kind', 'kinder', 'allein', 'ziehen']
+                label: 'Personen'
               },
               {
-                label: 'Beruf',
-                evidence: 'occupation',
-                keywords: ['beruf', 'arbeiten', 'arbeite', 'lehrer', 'lehrerin', 'arzt', 'ärztin', 'ingenieur']
+                label: 'Beruf'
               }
             ]
           },
           {
             id: 'lp3',
-            label: 'Termin für eine Besichtigung',
-            intent: 'APPOINTMENT_PROPOSAL',
-            evidence: 'temporal',
-            keywords: ['besichtigung', 'besichtigen', 'termin', 'zeit', 'samstag', 'montag', 'wann', 'können', 'sehen'],
-            requiredMatches: 2
+            label: 'Termin für eine Besichtigung'
           }
         ]
       },

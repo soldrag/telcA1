@@ -1,56 +1,29 @@
 export const RANKER_DETAILS_TEXTS = {
   ru: {
-    title: 'Детали проверки микро-ранжировщика (System 1)',
-    modelTag: 'EmbeddingGemma 300M (q4)',
-    explanation: 'Семантическое сопоставление пунктов плана с предложениями письма:',
-    matchedLabel: 'Найденное предложение:',
-    noMatch: 'Подходящее предложение в тексте не найдено',
-    subAspectsTitle: 'Аспекты пункта (полный балл — только если раскрыты все):',
-    arbitratedTag: '⚡ Решение Micro-Ranker',
-    protectedTag: '🛡 Ранкер: {verdict}; оставлено {points} по ключевым словам',
+    title: 'Детали проверки пунктов',
+    engineTags: { 'evidence-head': 'EmbeddingGemma 300M (q4)', 'reference-alignment': 'Без модели: сверка с фразами' },
+    explanation: 'Каждый пункт (и каждая его часть) читается по лучшему фрагменту письма в сравнении с эталонными фразами задания:',
+    matchedLabel: 'Фрагмент:',
+    noMatch: 'Подходящий фрагмент в тексте не найден',
+    unitsTitle: 'Части пункта (полный балл — только если раскрыты все):',
     unassignedTitle: 'Предложения, не сопоставленные ни с одним пунктом:',
-    fullCoverage: 'Полное соответствие',
-    partialCoverage: 'Частичное соответствие',
-    noCoverage: 'Не раскрыто',
   },
   de: {
-    title: 'Details der Micro-Ranker-Analyse (System 1)',
-    modelTag: 'EmbeddingGemma 300M (q4)',
-    explanation: 'Semantischer Abgleich der Leitpunkte mit den Briefsätzen:',
-    matchedLabel: 'Zugeordneter Satz:',
-    noMatch: 'Kein passender Satz im Text gefunden',
-    subAspectsTitle: 'Teilaspekte (volle Punktzahl nur, wenn alle erfüllt sind):',
-    arbitratedTag: '⚡ Micro-Ranker-Entscheidung',
-    protectedTag: '🛡 Ranker: {verdict}; {points} nach Schlüsselwörtern beibehalten',
+    title: 'Details der Leitpunkt-Prüfung',
+    engineTags: { 'evidence-head': 'EmbeddingGemma 300M (q4)', 'reference-alignment': 'Ohne Modell: Abgleich mit Referenzsätzen' },
+    explanation: 'Jeder Leitpunkt (und jeder Teil davon) wird am besten Textstück gegen die Referenzsätze der Aufgabe gelesen:',
+    matchedLabel: 'Textstück:',
+    noMatch: 'Kein passendes Textstück gefunden',
+    unitsTitle: 'Teile des Leitpunkts (volle Punktzahl nur, wenn alle erfüllt sind):',
     unassignedTitle: 'Sätze ohne Zuordnung zu einem Leitpunkt:',
-    fullCoverage: 'Vollständig erfüllt',
-    partialCoverage: 'Teilweise erfüllt',
-    noCoverage: 'Nicht erfüllt',
   },
   en: {
-    title: 'Micro-Ranker Analysis Details (System 1)',
-    modelTag: 'EmbeddingGemma 300M (q4)',
-    explanation: 'Semantic alignment of task points with letter sentences:',
-    matchedLabel: 'Matched sentence:',
-    noMatch: 'No matching sentence found in the text',
-    subAspectsTitle: 'Sub-aspects (full points only when all are addressed):',
-    arbitratedTag: '⚡ Micro-Ranker Decision',
-    protectedTag: '🛡 Ranker: {verdict}; {points} kept from keyword evidence',
+    title: 'Task point check details',
+    engineTags: { 'evidence-head': 'EmbeddingGemma 300M (q4)', 'reference-alignment': 'Without the model: phrase alignment' },
+    explanation: 'Each task point (and each part of it) is read from the best span of the letter against the task\'s reference phrases:',
+    matchedLabel: 'Span:',
+    noMatch: 'No matching span found in the text',
+    unitsTitle: 'Parts of the point (full points only when all are addressed):',
     unassignedTitle: 'Sentences not matched to any task point:',
-    fullCoverage: 'Fully addressed',
-    partialCoverage: 'Partially addressed',
-    noCoverage: 'Not addressed',
   },
 };
-
-const COVERAGE_BY_LEVEL = { 2: 'full', 1: 'partial', 0: 'no' };
-
-export function formatCoverageLabel(coverage, texts) {
-  if (coverage === 'full') return texts.fullCoverage;
-  if (coverage === 'partial') return texts.partialCoverage;
-  return texts.noCoverage;
-}
-
-export function formatLevelVerdict(level, texts) {
-  return formatCoverageLabel(COVERAGE_BY_LEVEL[level] || 'no', texts);
-}

@@ -48,7 +48,8 @@ function scoreKommunikativeGestaltung(anrede, gruss) {
 function resolveVoidReason(content) {
   if (!content) return null;
   if (!content.hasPredication) return LEITPUNKTE_VOID_REASONS.NO_PREDICATION;
-  if (!content.hasTaskAnchor || content.servesTaskPurpose === false) return LEITPUNKTE_VOID_REASONS.OFF_TOPIC;
+  // A purpose that was not read (null) voids nothing.
+  if (content.servesTaskPurpose === false) return LEITPUNKTE_VOID_REASONS.OFF_TOPIC;
   return null;
 }
 
@@ -76,10 +77,13 @@ export class TelcA1Regulation extends ISchreibenRegulation {
     return editDistance <= allowedTypos || sameSound;
   }
 
-  scoreTeil2({ leitpunktLevels = [], anrede = 0, gruss = 0, isUnratable = false, content = null } = {}) {
+  scoreTeil2({ leitpunktLevels = [], distortedLeitpunkte = [], anrede = 0, gruss = 0, isUnratable = false, content = null } = {}) {
     const leitpunkteVoidReason = isUnratable ? null : resolveVoidReason(content);
     const voided = isUnratable || Boolean(leitpunkteVoidReason);
-    const levels = voided ? leitpunktLevels.map(() => 0) : leitpunktLevels.map(normalizeLevel);
+    // reglament §6: a distorted meaning that is understandable from the task is "sprachliche Mängel", partly fulfilled.
+    const levels = voided
+      ? leitpunktLevels.map(() => 0)
+      : leitpunktLevels.map((level, i) => Math.min(normalizeLevel(level), distortedLeitpunkte[i] ? 1 : FULL_LEVEL));
     const leitpunkte = levels.map(scoreLeitpunkt);
     const kg = isUnratable
       ? scoreKommunikativeGestaltung(0, 0)

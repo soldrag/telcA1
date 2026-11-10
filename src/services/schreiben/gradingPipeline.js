@@ -1,7 +1,8 @@
 /**
  * Single source of truth for Schreiben Teil 2 grading.
- * Orchestrates Stages 0-4 deterministically; providers execute only micro-tasks.
- * Detectors produce coverage levels (0/1/2); the exam regulation turns them into points.
+ * Orchestrates the stages deterministically: stage 0 segments the letter, a Leitpunkt assessor (ILeitpunktAssessor,
+ * the keyword-free evidence head) reads coverage levels 0/1/2 and the letter's purpose, detectors add facts (meaning
+ * distortion, predication), and the exam regulation turns them into points.
  */
 
 import { runStage0Preprocessing } from './grading/stage0Preprocessing.js';
@@ -12,31 +13,15 @@ import { resolveLeitpunktCriteria } from './leitpunktCriteria.js';
 import { resolveAddresseeRegister } from './letterRegister.js';
 import { computeTelcFinalScore } from './scoring/telcScoreCalculator.js';
 import { isGibberishText } from './gibberishDetector.js';
-import { segmentUserEssay } from './schreibenTextSegmenter.js';
 import { aiProviderRegistry } from '../ai/aiProviderRegistry.js';
 import { PROVIDER_IDS, GRADING_MODES, GRADING_STAGES, GRADING_FALLBACK_REASONS } from '../ai/types.js';
-import { scorePipelineLeitpunkte, collectPipelineGrammarErrors } from './grading/pipelineStageScorers.js';
+import { collectPipelineGrammarErrors } from './grading/grammarErrors.js';
+import { resolveLeitpunktAssessor } from './grading/assessors/index.js';
 import { collectUnassignedSentences } from './grading/unassignedSentences.js';
 import { detectLetterContentFacts } from './grading/letterContentFacts.js';
-import { canReviewPurpose, reviewLetterPurpose } from './grading/purposeReview.js';
-import { computeDocumentVector, getSentenceExtractor } from '../embeddings/embeddingService.js';
-
-function classifyArbitration(it) {
-  if (it.isProtected) return 'protected';
-  return it.score > it.baselineScore ? 'rescued' : 'adjusted';
-}
-
-function buildDiffSummary(items = []) {
-  return items
-    .filter((it) => it.arbitrated && (it.isProtected || it.score !== it.baselineScore))
-    .map((it) => ({
-      id: it.id,
-      change: classifyArbitration(it),
-      from: it.baselineScore,
-      to: it.score,
-      rankerScore: it.rankerScore,
-    }));
-}
+import { findMeaningDistortions } from './grading/meaningDistortion.js';
+import { resolveLpDiagnosticCode } from './feedback/feedbackContracts.js';
+import { describeError } from '../../utils/describeError.js';
 
 // `score` is the level the regulation awarded (it may void a covered point); `detectedScore` is the coverage.
 function attachPoints(items, score) {
@@ -47,6 +32,22 @@ function attachPoints(items, score) {
     points: score.leitpunkte[i]?.points ?? 0,
     maxPoints: score.leitpunkte[i]?.maxPoints ?? 0,
   }));
+}
+
+// Every span a credited Leitpunkt was read from: a compound point reads each declared aspect from its own span.
+function creditedSpans(item) {
+  if (!(item.score > 0)) return '';
+  const spans = [item.matchedSentence, ...(item.rankerDetails?.units || []).map((u) => u.span)];
+  return [...new Set(spans.filter(Boolean).map((s) => s.trim()))].join(' ');
+}
+
+// The distortion a Leitpunkt was read with, for the feedback ("Sinnentstellung") beside the point it cost.
+function attachFrameErrors(items, distortions) {
+  return items.map((it, i) => {
+    const frameErrors = distortions[i] || [];
+    const distorted = frameErrors.length > 0 && it.score > 0;
+    return { ...it, frameErrors, diagnosticCode: distorted ? resolveLpDiagnosticCode(it.score, {}, false) : it.diagnosticCode };
+  });
 }
 
 function buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSentences }) {
@@ -76,10 +77,24 @@ function resolveGradingMode(provider, modelUsed) {
 /** @returns {import('../ai/types.js').GradingFallback|null} */
 function resolveGradingFallback(stage2) {
   if (!stage2.modelFailureDetail) return null;
-  return { reason: GRADING_FALLBACK_REASONS.MODEL_FAILED, detail: stage2.modelFailureDetail };
+  const reason = stage2.unreadable ? GRADING_FALLBACK_REASONS.LEITPUNKTE_UNREADABLE : GRADING_FALLBACK_REASONS.MODEL_FAILED;
+  return { reason, detail: stage2.modelFailureDetail };
 }
 
-function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments }) {
+// The Leitpunkte cannot be read at all (the task's reference phrases did not load): a grading still comes back, with
+// no points for them and the failure named, so a submission never fails on it (resolveGradingFallback).
+async function readLeitpunkte(assessor, input) {
+  try {
+    return await assessor.assess(input);
+  } catch (err) {
+    const items = input.criteria.map((c) => ({
+      id: c.id, label: c.label || c.id, score: 0, diagnosticCode: resolveLpDiagnosticCode(0), matchedSentence: '', rankerDetails: null,
+    }));
+    return { items, semanticErrors: [], modelUsed: false, modelFailureDetail: describeError(err), servesTaskPurpose: null, unreadable: true };
+  }
+}
+
+function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulation, activeProvider, examinerFeedback, userSegments }) {
   const { items } = stage2;
   const unassignedSentences = collectUnassignedSentences(stage0.bodySentences, stage2.items);
   const gradingMode = resolveGradingMode(activeProvider, stage2.modelUsed);
@@ -89,7 +104,7 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     max_points: score.maxPoints,
     is_correct: score.total >= regulation.trainingPassMark,
     is_limited_mode: gradingMode !== GRADING_MODES.RANKER,
-    provider_id: activeProvider.id,
+    provider_id: stage2.unreadable ? null : activeProvider.id,
     grading_mode: gradingMode,
     grading_fallback: resolveGradingFallback(stage2),
     breakdown: {
@@ -103,35 +118,8 @@ function assembleGradingResult({ stage0, stage1, stage2, errors, score, regulati
     criteria_breakdown: buildCriteriaBreakdown({ stage1, items, score, regulation, unassignedSentences }),
     grammar_errors: errors,
     examiner_feedback: examinerFeedback,
-    diff_summary: diffSummary,
     user_segments: userSegments,
   };
-}
-
-/**
- * The trained another-purpose review (grading/purposeReview.js) may add an OFF_TOPIC void, when possible: the
- * Micro-Ranker read the letter with the model, the level has a trained head and the task an example bank. It reads
- * the model's sentence_embedding: options.evidenceExtractor, or the app's loaded model when the keyword stage used it.
- * A review that fails leaves the keyword stage's verdict alone.
- */
-async function runPurposeReview({ keywordStage, criteria, stage0, question, activeProvider, levelPolicy, options }) {
-  if (!keywordStage.modelUsed || activeProvider.id !== PROVIDER_IDS.MICRO_RANKER || !canReviewPurpose(question.id, levelPolicy)) return null;
-  const evidenceExtractor = options.evidenceExtractor ?? (options.customExtractor ? null : await getSentenceExtractor());
-  if (!evidenceExtractor) return null;
-  try {
-    return await reviewLetterPurpose({
-      keywordLevels: keywordStage.items.map((it) => it.score),
-      criteria,
-      bodySentences: stage0.bodySentences,
-      letterText: stage0.rawText,
-      questionId: question.id,
-      embed: (text) => computeDocumentVector(text, evidenceExtractor),
-      policy: levelPolicy,
-    });
-  } catch (err) {
-    console.warn('[PurposeReview] skipped, the keyword verdict stands:', err);
-    return null;
-  }
 }
 
 export async function gradeSchreibenSubmission({
@@ -155,37 +143,36 @@ export async function gradeSchreibenSubmission({
   const stage1 = runStage1Scoring(stage0);
 
   const levelPolicy = levelContext.policy;
-  const userSegments = {
-    anrede: stage1.anrede.text,
-    closing: stage1.gruss.text,
-    senderName: stage1.gruss.senderName,
-    leitpunkte: segmentUserEssay(stage0.bodySentences, criteria, levelContext).leitpunkte,
-  };
+  const userSegments = { anrede: stage1.anrede.text, closing: stage1.gruss.text, senderName: stage1.gruss.senderName };
 
   reportStage(onProgress, GRADING_STAGES.LEITPUNKTE, 0.4);
   const customExtractor = options.forceLimitedMode ? false : options.customExtractor;
-  const stage2 = await scorePipelineLeitpunkte({
+  const assessor = resolveLeitpunktAssessor(options.leitpunktEngine);
+  const stage2 = await readLeitpunkte(assessor, {
+    question,
     criteria,
     bodySentences: stage0.bodySentences,
+    letterText: stage0.rawText,
     provider: activeProvider,
     customExtractor,
-    userSegments,
+    evidenceExtractor: options.evidenceExtractor,
     policy: levelPolicy,
     onModelDownload: ({ loadedBytes }) => onProgress?.({ stage: GRADING_STAGES.MODEL_DOWNLOAD, fraction: 0.4, loadedBytes }),
   });
-  const review = await runPurposeReview({ keywordStage: stage2, criteria, stage0, question, activeProvider, levelPolicy, options });
+  const distortions = findMeaningDistortions({ spans: stage2.items.map(creditedSpans), criteria, lexicon: levelContext.lexicon });
 
   reportStage(onProgress, GRADING_STAGES.GRAMMAR, 0.7);
   const baselineErrors = question.grammar_errors || options.baselineErrors || [];
   const errors = collectPipelineGrammarErrors({
     rawText: raw,
-    semanticErrors: stage2.semanticErrors || [],
+    semanticErrors: distortions.flat(),
     baselineErrors,
     grammar: levelContext.grammar,
   });
 
   const { finalPoints, score, regulation } = computeTelcFinalScore({
     leitpunktLevels: stage2.items.map((it) => it.score),
+    distortedLeitpunkte: distortions.map((errors) => errors.length > 0),
     salutationScore: stage1.anredeScore,
     closingScore: stage1.grussScore,
     wordCount: stage0.wordCount,
@@ -193,15 +180,14 @@ export async function gradeSchreibenSubmission({
     grammarErrors: errors,
     content: detectLetterContentFacts({
       bodySentences: stage0.bodySentences,
-      criteria,
       lexicon: levelContext.lexicon,
-      servesTaskPurpose: review ? !review.anotherPurpose : null,
+      servesTaskPurpose: stage2.servesTaskPurpose ?? null,
     }),
     level: question.level,
   });
 
   reportStage(onProgress, GRADING_STAGES.FEEDBACK, 0.9);
-  const scoredStage2 = { ...stage2, items: attachPoints(stage2.items, score) };
+  const scoredStage2 = { ...stage2, items: attachFrameErrors(attachPoints(stage2.items, score), distortions) };
   const examinerFeedback = composeExaminerFeedback({
     context: {
       stage0, stage1, stage2: scoredStage2, errors, userSegments, finalPoints,
@@ -210,10 +196,8 @@ export async function gradeSchreibenSubmission({
     policy: levelPolicy,
   });
 
-  const diffSummary = buildDiffSummary(stage2.items);
-
   reportStage(onProgress, GRADING_STAGES.DONE, 1);
   return assembleGradingResult({
-    stage0, stage1, stage2: scoredStage2, errors, score, regulation, activeProvider, examinerFeedback, diffSummary, userSegments,
+    stage0, stage1, stage2: scoredStage2, errors, score, regulation, activeProvider, examinerFeedback, userSegments,
   });
 }

@@ -1,29 +1,14 @@
 import React from 'react';
-import { ChevronDown, ArrowUpCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import LinguisticAccuracyPanel from './LinguisticAccuracyPanel.jsx';
 import SchreibenGrammarNotice from './SchreibenGrammarNotice.jsx';
 import SchreibenAiControlBar from './SchreibenAiControlBar.jsx';
 import SchreibenAiDisclaimer from './SchreibenAiDisclaimer.jsx';
 import SchreibenRankerDetailsCard from './SchreibenRankerDetailsCard.jsx';
 import VocabularyList from '../results/VocabularyList.jsx';
-import { formatDiffEntry } from '../../hooks/useSchreibenAiChecker.js';
 import { countLetterBodyWords } from '../../services/schreiben/scoring/letterBodyWordCounter.js';
 import { isDebugView } from '../../utils/debugFlag.js';
 import { getTestTypeById } from '../../../shared/testTypes.js';
-
-function AiDiffList({ entries, item, language }) {
-  if (entries.length === 0) return null;
-  return (
-    <ul className="space-y-1">
-      {entries.map((entry, i) => (
-        <li key={i} className="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-surface-inset">
-          <ArrowUpCircle className="w-4 h-4 text-action-primary shrink-0" aria-hidden="true" />
-          <span className="text-content-primary">{formatDiffEntry(entry, language, item)}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 function DebugPanels({ diagnosticData, language }) {
   return <SchreibenRankerDetailsCard diagnosticData={diagnosticData} language={language} />;
@@ -31,7 +16,7 @@ function DebugPanels({ diagnosticData, language }) {
 
 /**
  * Everything secondary to the exam score: grammar hints, the learning accuracy scale,
- * how the score is computed and, with ?debug, the ranker internals.
+ * how the score is computed and, with ?debug, how each task point was read.
  */
 export default function SchreibenMoreDetails({ item, selfCheck, t, language, className = '' }) {
   const { liveGrammarErrors, teil2Score, diagnosticData, ai } = selfCheck;
@@ -58,7 +43,6 @@ export default function SchreibenMoreDetails({ item, selfCheck, t, language, cla
         />
         <VocabularyList entries={item.vocabulary_notes} language={language} title={t('results.usefulWords')} />
         <SchreibenAiControlBar aiLoading={ai.aiLoading} gradingMode={ai.gradingMode} />
-        <AiDiffList entries={ai.aiDiffSummary} item={item} language={language} />
         {isDebugView() && <DebugPanels diagnosticData={diagnosticData} language={language} />}
         <SchreibenAiDisclaimer />
       </div>

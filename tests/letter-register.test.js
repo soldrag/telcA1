@@ -2,8 +2,9 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { resolveAddresseeRegister } from '../src/services/schreiben/letterRegister.js';
 import { gradeLetter } from './helpers/gradeLetter.js';
+import { withPhraseBank } from './helpers/phraseBank.js';
 
-const taskFor = (addresseeRegister) => ({
+const taskFor = (addresseeRegister) => withPhraseBank({
   id: `register-${addresseeRegister ?? 'none'}`,
   level: 'A1',
   options_json: {
@@ -11,12 +12,16 @@ const taskFor = (addresseeRegister) => ({
     rubric: {
       ...(addresseeRegister ? { addresseeRegister } : {}),
       leitpunkte_criteria: [
-        { id: 'lp1', label: 'Wann', intent: 'GENERAL', evidence: 'temporal', keywords: ['samstag', 'uhr'], requiredMatches: 1 },
-        { id: 'lp2', label: 'Wo', intent: 'GENERAL', keywords: ['park', 'café'], requiredMatches: 1 },
-        { id: 'lp3', label: 'Was mitbringen', intent: 'ACTION_REQUEST', keywords: ['mitbringen', 'kuchen'], requiredMatches: 1 },
+        { id: 'lp1', label: 'Wann' },
+        { id: 'lp2', label: 'Wo' },
+        { id: 'lp3', label: 'Was mitbringen' },
       ],
     },
   },
+}, {
+  lp1: ['Wir treffen uns am Samstag um 15 Uhr.'],
+  lp2: ['Wir treffen uns im Park.'],
+  lp3: ['Bring bitte etwas zu essen mit.'],
 });
 
 const toFriend = 'Lieber Paul,\nwir treffen uns am Samstag um 15 Uhr im Park. Bring bitte einen Kuchen mit.\nViele Grüße\nMara';

@@ -1,17 +1,18 @@
 /**
- * Schreiben Leitpunkte benchmark: benchmark letters + gold letters + regression suites, graded in two provider modes
- * (none: the limited rule-based mode; primary: the Micro-Ranker on EmbeddingGemma).
+ * Schreiben Leitpunkte benchmark: gold letters + regression suites on the app's tasks, graded in two modes
+ * (none: the limited mode, reference alignment; primary: the evidence head on EmbeddingGemma). The letters of
+ * tests/fixtures/schreiben-bench/letters.js are written for tasks of their own, without reference phrases, so the
+ * keyword-free engine cannot grade them; they stay as a grammar corpus.
  * Diagnostic only — every score change must be explained, never tuned towards expectedLp.
  * Usage: npm run bench:schreiben [-- --save]   (--save overwrites the stored baseline)
  */
 
 import fs from 'node:fs';
-import { pipeline, env } from '@huggingface/transformers';
+import { env } from '@huggingface/transformers';
 import { gradeSchreibenSubmission } from '../src/services/schreiben/gradingPipeline.js';
 import { MicroRankerProvider } from '../src/services/ai/providers/MicroRankerProvider.js';
 import { NoneProvider } from '../src/services/ai/providers/NoneProvider.js';
-import { clearEmbeddingCache } from '../src/services/embeddings/embeddingService.js';
-import { BENCHMARK_TASKS } from '../tests/fixtures/schreiben-bench/letters.js';
+import { createSentenceEmbedder } from '../src/services/embeddings/embeddingService.js';
 import { loadRegressionSuites, acceptedRange, leitpunktLevelForPoints, findSeedQuestion } from '../tests/helpers/regressionFixtures.js';
 
 const FIXTURES = new URL('../tests/fixtures/schreiben-bench/', import.meta.url);
@@ -21,10 +22,9 @@ env.allowRemoteModels = false;
 
 
 async function loadItems() {
-  const letters = BENCHMARK_TASKS.flatMap((t) => t.letters.map((l) => ({ ...l, question: t.question })));
   const gold = JSON.parse(fs.readFileSync(new URL('gold.json', FIXTURES), 'utf8'));
   const goldItems = await Promise.all(gold.map(async (g) => ({ ...g, type: g.title, question: await findSeedQuestion(g.seedQuestionId) })));
-  return [...letters, ...goldItems, ...(await loadRegressionItems())];
+  return [...goldItems, ...(await loadRegressionItems())];
 }
 
 // Regression suites hold official points; the Leitpunkt columns compare coverage levels (accept ranges included).
@@ -70,8 +70,7 @@ async function gradeItem(item, modes, extractor, tally) {
   const cells = [];
   const totals = [];
   for (const [name, provider] of Object.entries(modes)) {
-    clearEmbeddingCache();
-    const result = await gradeSchreibenSubmission({ userText: item.text, question: item.question, provider, options: { customExtractor: extractor } });
+    const result = await gradeSchreibenSubmission({ userText: item.text, question: item.question, provider, options: { evidenceExtractor: extractor } });
     const { hit, total } = countMatches(result, item);
     totals.push(result.points_earned);
     tally[name].hit += hit;
@@ -91,7 +90,7 @@ function printBaselineDiff(rows) {
 }
 
 async function runBenchmark() {
-  const extractor = await pipeline('feature-extraction', 'onnx-community/embeddinggemma-300m-ONNX', { dtype: 'q4' });
+  const extractor = await createSentenceEmbedder();
   const modes = {
     none: new NoneProvider(),
     primary: new MicroRankerProvider(),

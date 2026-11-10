@@ -117,10 +117,6 @@
       "gruss": 2,
       "kg": 1,
       "total": 10
-    },
-    "knownLimit": {
-      "lp3": "limited mode: \"Können wir den Termin verschieben?\" names no new date and earns LP3 = 1 (todo.md, P1)",
-      "total": "follows lp3"
     }
   },
   {

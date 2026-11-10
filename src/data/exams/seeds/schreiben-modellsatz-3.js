@@ -147,25 +147,15 @@ export const questions = [
         leitpunkte_criteria: [
           {
             id: 'lp1',
-            label: 'Grund für Ihr Schreiben',
-            intent: 'DEFECT_REPORT',
-            keywords: ['heizung', 'kaputt', 'funktioniert', 'geht', 'problem'],
-            requiredMatches: 2
+            label: 'Grund für Ihr Schreiben'
           },
           {
             id: 'lp2',
-            label: 'Problem beschreiben',
-            intent: 'DEFECT_REPORT',
-            keywords: ['kalt', 'kind', 'kinder', 'baby', 'wohnung', 'winter'],
-            requiredMatches: 2
+            label: 'Problem beschreiben'
           },
           {
             id: 'lp3',
-            label: 'Handwerker / Reparaturtermin',
-            intent: 'ACTION_REQUEST',
-            aspects: [{ label: 'Handwerker' }, { label: 'Reparaturtermin', evidence: 'temporal' }],
-            keywords: ['handwerker', 'techniker', 'reparieren', 'reparatur', 'kommen', 'wann', 'termin'],
-            requiredMatches: 2
+            label: 'Handwerker / Reparaturtermin'
           }
         ]
       },

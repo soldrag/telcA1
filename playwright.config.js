@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { PHONE_ONLY } from './tests/ui/support/projectTags.js';
 
 const PORT = 4173;
 // CI builds the site once in its own step; locally the UI suite builds what it tests.
@@ -22,7 +23,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
+    { name: 'desktop', grepInvert: new RegExp(PHONE_ONLY), use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
     { name: 'mobile', use: { ...devices['Pixel 7'], viewport: { width: 390, height: 844 } } },
   ],
   webServer: {

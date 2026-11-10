@@ -25,7 +25,7 @@ import wordClasses from './linguistic/data/clauseWordClasses.json' with { type: 
  * @property {boolean} singleWord - both sides are one word; a typo or sound tolerance is meant for a word, not a phrase
  * @property {number} shorterLength - characters in the shorter of the two normalised texts
  * @property {number} editDistance - Damerau-Levenshtein distance (optimal string alignment), the smaller of the plain and the umlaut-folded one
- * @property {boolean} sameSound - one German pronunciation (Donnerstag, donastag); see linguistic/germanSoundKey.js
+ * @property {boolean} sameSound - one German pronunciation, regional ones included (Donnerstag, donastag, Donerstach); see linguistic/germanSoundKey.js
  */
 
 export function normalizeGermanText(str = '') {
@@ -41,6 +41,9 @@ function normalizeUmlauts(str = '') {
   return [...str].map((ch) => spelling.transliteration[ch] ?? ch).join('');
 }
 
+// One answer is compared with one expected word: the regional pronunciations count too (germanSoundKey looseSteps).
+const LOOSE = Object.freeze({ loose: true });
+
 // Closed classes whose members are each a valid answer: word → its meaning within the class.
 const CLOSED_CLASSES = [
   calendarWords.months,
@@ -49,9 +52,9 @@ const CLOSED_CLASSES = [
 
 function isNearerToAnotherMember(word, expected, members) {
   const toExpected = calculateDamerauDistance(word, expected);
-  const soundKey = toGermanSoundKey(word);
+  const soundKey = toGermanSoundKey(word, LOOSE);
   return Object.keys(members).some((member) => members[member] !== members[expected]
-    && (toGermanSoundKey(member) === soundKey || calculateDamerauDistance(word, member) < toExpected));
+    && (toGermanSoundKey(member, LOOSE) === soundKey || calculateDamerauDistance(word, member) < toExpected));
 }
 
 function areRivalWords(answer, expected) {
@@ -104,6 +107,6 @@ export function compareFormAnswer(answer = '', expected = '') {
     singleWord: !normAnswer.includes(' ') && !normExpected.includes(' '),
     shorterLength: Math.min(normAnswer.length, normExpected.length),
     editDistance: Math.min(calculateDamerauDistance(normAnswer, normExpected), calculateDamerauDistance(foldedAnswer, foldedExpected)),
-    sameSound: toGermanSoundKey(normAnswer) === toGermanSoundKey(normExpected),
+    sameSound: toGermanSoundKey(normAnswer, LOOSE) === toGermanSoundKey(normExpected, LOOSE),
   };
 }

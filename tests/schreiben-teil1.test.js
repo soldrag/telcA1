@@ -243,9 +243,12 @@ describe('Schreiben Teil 1 Smart Form Evaluator', () => {
     assert.equal(evaluateTeil1Answer('Juny', { correct_answer: 'Juli' }), false, 'nearer to Juni');
   });
 
-  // Limit (todo.md, P1): a final "ch" for "g" is how "Tag" sounds in the north, but "ch = g at the end" also
-  // joins Flug and Fluch, Teig and Teich, so the rule is not introduced.
-  it('accepts "Donerstach" for Donnerstag', { todo: 'final ch for g joins real words (Flug/Fluch)' }, () => {
+  // reglament Teil 1: "Bei der Lösung Donnerstag sind … Donerstach oder donastag zu akzeptieren": a final g spoken [x]/[ç].
+  it('accepts a final "ch" for "g" against one expected word, not a different word', () => {
     assert.equal(evaluateTeil1Answer('Donerstach', { correct_answer: 'Donnerstag' }), true);
+    assert.equal(evaluateTeil1Answer('Könich', { correct_answer: 'König' }), true);
+    assert.equal(evaluateTeil1Answer('Samstach', { correct_answer: 'Sonntag' }), false, 'another weekday');
+    assert.equal(evaluateTeil1Answer('Dach', { correct_answer: 'Tag' }), false, 'another first sound');
+    assert.equal(evaluateTeil1Answer('Tuch', { correct_answer: 'Tag' }), false, 'another vowel');
   });
 });
